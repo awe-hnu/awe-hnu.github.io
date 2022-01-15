@@ -1,5 +1,5 @@
 ---
-title: "Administrivia — Rules of the Game"  
+title: "Administrivia"  
 
 format: 
   html:
@@ -15,13 +15,32 @@ format:
 
 [Slides](s-administrivia.html)
 
+
+## GAP Model
+
+:::: {.columns}
+
+::: {.column width="80%"}
+![GAP Modell @Leonardi](assets/images/grafik-illu.svg){width=100%}
+:::
+
+::: {.column width="20%"}
+
+::: {.incremental}
+- some explanation
+- others __here__
+:::
+
+:::
+
+::::
+
+
+
 # Getting up {background-color="aquamarine"}
 
-
-
-![](assets/images/svg.svg){fig-alt="A icon of the CVJM."}
-
-@Leonardi says he is great
+@Leonardi says he is
+__great__
 
 - Turn off alarm
   - Go ahead! 
@@ -36,11 +55,15 @@ format:
 
 ### Tab AB
 
-Tab content...
+Tab content AB ...
 
 ### Tab BA
 
-Tab content...
+Tab content BA ...
+
+. . . 
+
+GO!
 
 :::
 

@@ -22,12 +22,12 @@
   font-style: normal;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400&display=swap');
+$max-width-mobile: 800px;
 
 // fonts
 $font-family-sans-serif: 'basier_squareregular', sans-serif !default;
 $font-family-monospace: 'basier_squaremono' !default;
-$presentation-font-size-root: 24px !default;
+$presentation-font-size-root: 26px !default;
 $presentation-font-smaller: 0.7 !default;
 $presentation-line-height: 1.3 !default;
 
@@ -61,7 +61,7 @@ $presentation-heading-text-transform: none !default;
 $presentation-heading-text-shadow: none !default;
 $presentation-h1-text-shadow: none !default;
 $presentation-heading-font-weight: 400 !default;
-$presentation-h1-font-size: 3em !default;
+$presentation-h1-font-size: 2.5em !default;
 $presentation-h2-font-size: 2em !default;
 $presentation-h3-font-size: 1.5em !default;
 $presentation-h4-font-size: 1em !default;
@@ -134,7 +134,7 @@ $mainColor: $body-color !default;
 $blockMargin: $revealjs-block-margin !default;
 
 // Headings
-$headingMargin: 0 0 $blockMargin 0 !default;
+$headingMargin: 0 0 $blockMargin*2 0 !default;
 $headingFont: $revealjs-heading-font !default;
 $headingColor: $revealjs-heading-color !default;
 $headingLineHeight: $revealjs-heading-line-height !default;
@@ -369,7 +369,7 @@ $panel-sidebar-padding: 0.5em;
   }
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: $max-width-mobile) {
   $arrow-spacing: 0.2em;
   $control-arrow-spacing: 1.4em;
 
@@ -435,6 +435,7 @@ $progress-height: 5px;
 
 
 .footer {
+  font-size: 1em;
   &.custom {
     background: #fff;
     //border-top: 1px solid black;
@@ -443,20 +444,28 @@ $progress-height: 5px;
     width: 100%;
     padding: 0;
     font-family: $font-family-sans-serif;
-    font-size: #{$presentation-font-smaller}em;
+    font-size: #{$presentation-font-smaller}em !important;
     z-index: 1000;
 
     .logo {
 
       float: right;
-      margin-right: 6rem;
+      margin-right: 4.5rem;
       margin-left: .5rem;
       display: inline-block;
       padding-top: 1rem;
-
       svg {
         height: 2.5rem;
       }
+
+      @media (max-width: $max-width-mobile) {
+        float: left;
+        svg {
+          height: 2rem;
+          margin-bottom: .5rem;
+        }        
+      }       
+
     }
 
 
@@ -485,7 +494,11 @@ $progress-height: 5px;
   z-index: 10002 !important;
   text-align: center !important;
   font-family: $font-family-monospace !important;
-  font-size: #{$presentation-font-smaller}em !important;
+  font-size: #{$presentation-font-smaller}rem !important;
+  @media (max-width: $max-width-mobile) {
+    height: 3rem;
+    line-height: 3rem !important;
+  }      
 }
 
 .version,
@@ -494,10 +507,18 @@ $progress-height: 5px;
   height: 4.5rem;
   line-height: 4.5rem;
   font-family: $font-family-monospace !important;
+  @media (max-width: $max-width-mobile) {
+    display: none;
+  }    
 }
 
 .footnote {
   padding: 0 1rem;
+  
+  @media (max-width: ($max-width-mobile*1.2)) {
+    max-width: 400px;
+    overflow: hidden;
+  }   
 } 
 
 .version {
@@ -506,12 +527,20 @@ $progress-height: 5px;
 }
 
 .slides {
-  left: 6.5rem !important;
+  left: 7.5rem !important;
   top: 3rem !important;
   bottom: 6rem !important;
   right: 4.5rem !important;
   width: auto !important;
   height: auto !important;
+
+  @media (max-width: $max-width-mobile) {
+    left: 1rem !important;
+    top: 1rem !important;
+    bottom: 4rem !important;
+    right: 1rem !important;
+    transform: scale(0.7);    
+  }    
 
   #title-slide {
 
@@ -571,42 +600,47 @@ $progress-height: 5px;
     left: .5rem !important;
     bottom: 1.4rem !important;
     z-index: 10002 !important;
+
+    @media (max-width: $max-width-mobile) {
+      display: none;
+    }
+
   }
 
   ul {
     list-style-type: square;
   }
 
-  section img {
-    border: none;
-    margin: 0; }
-  
-  img, 
-  video,
-  iframe {
-    max-height: 100%;
-    height: 100%; }
-  
-  figure img {
-    box-shadow: none;
-    max-width: 100%;
-    object-fit: contain;
+  p {
+    margin: 2rem 0;
   }
-  
-  figcaption {
-    position: absolute;
-    margin: auto;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    bottom: 1em;
-    height: auto;
-    display: block;
-    background-color: white;
-    color: black;
-    font-size: small;
-    opacity: 0;
+
+  strong {
+    border-bottom: 2px solid;
+    font-weight: normal;
+  }  
+
+  .slide figure>figcaption, 
+  .slide img.stretch+p.caption,
+  .slide img.r-stretch+p.caption {
+    font-size: #{$presentation-font-smaller}rem;
+    font-family: $font-family-monospace;
+  }   
+
+  figure {
+    >p:first-child {
+      margin-right: 2rem;
+      background: #efefef;
+    }
   }
+
+  .column {
+    >:first-child {
+      margin-top: 0;
+    }
+  }
+
+
 
 }
 
