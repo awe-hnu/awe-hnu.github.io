@@ -1,12 +1,12 @@
 ---
 title: "Administrivia"  
+subtitle: "Course: Intro to Artificial Intelligence 🧠"
 
 format: 
   html:
     output-file: administrivia.html
   revealjs:
     output-file: s-administrivia.html 
-    subtitle: "Course: Intro to Artificial Intelligence 🧠"
     author: "Andy Weeger"
     institute: "University of Applied Sciences Neu-Ulm"
 ---
@@ -15,13 +15,12 @@ format:
 
 [Slides](s-administrivia.html)
 
-
 ## GAP Model
 
 :::: {.columns}
 
 ::: {.column width="80%"}
-![GAP Modell @Leonardi](assets/images/grafik-illu.svg){width=100%}
+![GAP Modell @Leonardi](images/grafik.svg){width=100%}
 :::
 
 ::: {.column width="20%"}

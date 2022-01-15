@@ -1,0 +1,16 @@
+---
+title: "Administrivia"  
+subtitle: "Course: Service Management"
+
+format: 
+  html:
+    output-file: administrivia.html
+  revealjs:
+    output-file: s-administrivia.html 
+    author: "Andy Weeger"
+    institute: "University of Applied Sciences Neu-Ulm"
+---
+
+# Slide-Deck {visibility="hidden"}
+
+[Slides](s-administrivia.html)
