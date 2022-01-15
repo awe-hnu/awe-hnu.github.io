@@ -15,7 +15,6 @@ format:
 
 [Slides](s-administrivia.html)
 
-
 ## GAP Model
 
 :::: {.columns}
