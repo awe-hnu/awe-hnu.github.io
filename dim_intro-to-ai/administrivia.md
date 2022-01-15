@@ -1,6 +1,5 @@
 ---
-title: "Administrivia — Rules of the Game"
-date: "Summer Term 2022"    
+title: "Administrivia — Rules of the Game"  
 
 format: 
   html:
