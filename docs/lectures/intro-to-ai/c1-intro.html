@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.472">
+  <meta name="generator" content="quarto-0.9.13">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>awe lectures - C1 — Intro</title>
   <style>
@@ -11,11 +11,27 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
 
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
   <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
   <link href="../../lectures/intro-to-ai/administrivia.html" rel="prev">
@@ -42,8 +58,11 @@
       "search-submit-button-title": "Submit"
     }
   }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 <meta property="og:title" content="awe lectures - C1 — Intro">
-<meta property="og:description" content="Administrivia">
+<meta property="og:description" content="Introduction &amp; Intelligent Agents">
 <meta property="og:site-name" content="awe lectures">
 </head>
 <body class="floating">
@@ -62,68 +81,83 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-  <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">awe lectures</a> 
     </div>
-  </div>
-  <div class="sidebar-menu-container"> 
-  <ul class="list-unstyled mt-1">
-      <ul class="list-unstyled sidebar-section depth1">
-    <li class="">
-        <div class="me-auto">
-            <a class="sidebar-section-item d-inline-flex text-start w-100 " data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-intro-to-ai" aria-expanded="true">
-              <div class="me-auto sidebar-section-item">Intro to AI</div>
-            <div><i class="bi bi-chevron-right ms-2"></i></div>
-            </a>
-        </div>
-      <div class="collapse  show" id="quarto-sidebar-section-intro-to-ai">
-        <ul class="list-unstyled sidebar-item-contents">
-          <li class="sidebar-item">
-  <a href="../../lectures/intro-to-ai/administrivia.html" class="">Admin</a>
-</li>
-          <li class="sidebar-item">
-  <a href="../../lectures/intro-to-ai/c1-intro.html" class="active">C1 — Intro</a>
-</li>
-        </ul>
       </div>
-    </li>
-  </ul>
-  </ul>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-intro-to-ai" aria-expanded="true">Intro to AI</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-intro-to-ai" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-intro-to-ai" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/intro-to-ai/administrivia.html" class="sidebar-item-text sidebar-link">Admin</a>
   </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lectures/intro-to-ai/c1-intro.html" class="sidebar-item-text sidebar-link active">C1 — Intro</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-      <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc">
 <h2 id="toc-title">On this page</h2>
 <ul>
-<li><a href="#top" class="nav-link active" data-scroll-target="#top">Top</a></li>
-<li><a href="#perception-of-ai" class="nav-link" data-scroll-target="#perception-of-ai">Perception of AI</a>
+<li><a href="#how-is-ai-received" class="nav-link active" data-scroll-target="#how-is-ai-received">How is AI received?</a>
 <ul class="collapse">
 <li><a href="#sci-fi" class="nav-link" data-scroll-target="#sci-fi">Sci-Fi</a></li>
 <li><a href="#reality" class="nav-link" data-scroll-target="#reality">Reality</a></li>
+</ul></li>
+<li><a href="#what-is-ai" class="nav-link" data-scroll-target="#what-is-ai">What is AI?</a>
+<ul class="collapse">
+<li><a href="#towards-a-definition-of-ai" class="nav-link" data-scroll-target="#towards-a-definition-of-ai">Towards a definition of AI</a></li>
+<li><a href="#acting-humanly" class="nav-link" data-scroll-target="#acting-humanly">Acting humanly</a></li>
+<li><a href="#thinking-humanly" class="nav-link" data-scroll-target="#thinking-humanly">Thinking humanly</a></li>
+<li><a href="#thinking-rationally" class="nav-link" data-scroll-target="#thinking-rationally">Thinking rationally</a></li>
+<li><a href="#acting-rationally" class="nav-link" data-scroll-target="#acting-rationally">Acting rationally</a></li>
 </ul></li>
 </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content">
+<main class="content" id="quarto-document-content">
 <header id="title-block-header">
 <h1 class="title d-none d-lg-block display-7">C1 — Intro</h1>
-<p class="subtitle lead">Administrivia</p>
+<p class="subtitle lead">Introduction &amp; Intelligent Agents</p>
 </header>
 
-<section id="top" class="level1 slide-link-hidden" data-visibility="hidden">
-<h1 class="slide-link-hidden" data-visibility="hidden">Top</h1>
+<section id="top" class="level1 slide-link-hidden unlisted" data-visibility="hidden">
+<h1 class="slide-link-hidden unlisted" data-visibility="hidden">Top</h1>
 <p><a href="c1-intro-slides.html">Slides</a></p>
 </section>
-<section id="perception-of-ai" class="level1" data-background-color="black">
-<h1 data-background-color="black">Perception of AI</h1>
+<section id="how-is-ai-received" class="level1" data-background-color="black">
+<h1 data-background-color="black">How is AI received?</h1>
+<section id="sci-fi" class="level2">
+<h2 class="anchored" data-anchor-id="sci-fi">Sci-Fi</h2>
 <div class="notes">
-<p>The perception of AI changed over the decades. This is well reflected in Sci-Fi Movies. However, it has not much to do with (current) realities.</p>
+<p>The perception of AI changed over the decades. This is well reflected in Sci-Fi Movies, e.g.</p>
+<ul>
+<li>R2D2 in Star Wars</li>
+<li>The Terminator</li>
+<li>Agent Smith in the Matrix</li>
+<li>Sonny in I,Robot</li>
+<li>Wall·E</li>
+<li>etc.</li>
+</ul>
 </div>
-<section id="sci-fi" class="level2 html-hidden">
-<h2 class="html-hidden anchored" data-anchor-id="sci-fi">Sci-Fi</h2>
 <div class="r-stack html-hidden">
 <p><img src="images/c1/scifi-star-wars.jpeg" class="fragment img-fluid"></p>
 <p><img src="images/c1/scifi-terminator.jpeg" class="fragment img-fluid"></p>
@@ -134,10 +168,232 @@
 </section>
 <section id="reality" class="level2">
 <h2 class="anchored" data-anchor-id="reality">Reality</h2>
-
-
+<div class="notes">
+<p>Will the fictions become reality? We will se. In any case, the intellectual frontiers of AI are wide open. The subfields span from artificial general intelligence (learning, reasoning, perception, etc.) to specific fields (e.g., translating, playing go) <span class="citation" data-cites="Russel-Norvig-2022">(<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">Russel and Norvig 2022</a>)</span>.</p>
+</div>
+<blockquote class="blockquote">
+<p>“I believe it’s going to change the world more than anything in the history of mankind — even more than electricity.” <em>—Kai-Fu Lee</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The pace of progress in artificial intelligence is incredibly fast. Unless you have direct exposure to groups like Deepmind, you have no idea how fast—it is growing at a pace close to exponential. The risk of something seriously dangerous happening is in the five-year timeframe. 10 years at most.” <em>—Elon Musk</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Forget artificial intelligence - in the brave new world of big data, it’s artificial idiocy we should be looking out for.” <em>—Tom Chatfield</em></p>
+</blockquote>
 </section>
 </section>
+<section id="what-is-ai" class="level1" data-background-color="black">
+<h1 data-background-color="black">What is AI?</h1>
+<section id="towards-a-definition-of-ai" class="level2">
+<h2 class="anchored" data-anchor-id="towards-a-definition-of-ai">Towards a definition of AI</h2>
+<p>AI is the science of making machines to</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>think</strong> <em>(though processes and reasoning)</em>
+<ul class="incremental">
+<li>like people</li>
+<li>rationally</li>
+</ul></li>
+<li>and to <strong>act</strong> <em>(behavior)</em>
+<ul class="incremental">
+<li>like people</li>
+<li>rationally <span class="citation" data-cites="Russel-Norvig-2022">(<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">Russel and Norvig 2022</a>)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+What is rational?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The term <em>rational</em> is used here in a very specific, technical way:</p>
+<ul>
+<li>Rational: maximally achieving pre-defined goals</li>
+<li>Rationality only concerns what decisions are made <em>(not the thought process behind them)</em></li>
+<li>Goals are expressed in terms of the <strong>utility</strong> of outcomes</li>
+<li>Being rational means <em>maximizing your expected utility</em></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="acting-humanly" class="level2">
+<h2 class="anchored" data-anchor-id="acting-humanly">Acting humanly</h2>
+<section id="the-turing-test-approach" class="level4">
+<h4 class="anchored" data-anchor-id="the-turing-test-approach">The Turing Test approach</h4>
+<p>The <strong>Turing Test</strong> <span class="citation" data-cites="Turing-1950">(<a href="#ref-Turing-1950" role="doc-biblioref">Turing 1950</a>)</span> tests if a computer has the ability to mimic peoples’ behavior. To pass the test, it would need following capabilities:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>natural language processing <em>(communicate)</em></li>
+<li>knowledge representation <em>(store information)</em></li>
+<li>automated reasoning <em>(answer questions, draw new conclusions)</em></li>
+<li>machine learning <em>(adapt to new circumstances)</em></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Want to do a Turing Test? <a href="https://botor.no/">Play <em>“Bot or Not”</em></a></p>
+</div>
+<div class="notes">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Turing Test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>Turing Test</strong> <span class="citation" data-cites="Turing-1950">(<a href="#ref-Turing-1950" role="doc-biblioref">Turing 1950</a>)</span> was designed as a tought experiment that would sidestep the philosophical vagueness of the question “Can a machine think?” A computer passes the test if a human interrogator, after posing some written questions, cannot tell wether the written responses come from a person or from a computer <span class="citation" data-cites="Russel-Norvig-2022">(<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">Russel and Norvig 2022</a>)</span>.<br>
+The <strong>Total Turing Test</strong> additionally requires interaction with objects and people in the real world. This also requires computer vision and robotic capabilities.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="thinking-humanly" class="level2">
+<h2 class="anchored" data-anchor-id="thinking-humanly">Thinking humanly</h2>
+<section id="the-cognitive-modelling-approach" class="level4">
+<h4 class="anchored" data-anchor-id="the-cognitive-modelling-approach">The cognitive modelling approach</h4>
+<p><strong>Cognitive science</strong> is the study of the human brain and its processes — it examines how the human brain may be functioning. Cognitive science requires analytical observation and experimentation. We can learn about human thought in three ways <span class="citation" data-cites="Russel-Norvig-2022">(<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">Russel and Norvig 2022</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>introspection <em>(trying to catch our own thoughts)</em></li>
+<li>experiments <em>(observing a person in action)</em></li>
+<li>brain imaging <em>(observing the brain in action)</em></li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Differences between cognitive computing and AI
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cognitive science is about making computers solve complex problems similar to how humans solve problems. Cognitive computing tries to replicate how humans would solve problems, while AI is not bound to human cognitive processes.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="thinking-rationally" class="level2">
+<h2 class="anchored" data-anchor-id="thinking-rationally">Thinking rationally</h2>
+<section id="the-laws-of-thought-approach" class="level4">
+<h4 class="anchored" data-anchor-id="the-laws-of-thought-approach">The laws of thought approach</h4>
+<p>The “laws of thought” refer to fundamental axiomatic rules upon which rational discorse itself is often considered to be based.</p>
+<div class="fragment">
+<blockquote class="blockquote">
+<p><em>Socrates is a man</em> and <em>all men are mortal</em>,<br>
+thus, it can be concluded that <em>Socrates is mortal</em><br>
+<em>-Aristotle</em></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>In principle, computers have been able to solve <em>any</em> solvable problem (i.e., make correct inferences), as long as</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>there are statements about <em>any</em> objects in the world,</li>
+<li>statements about the relations among them, and</li>
+<li>sufficient computing power available</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Logic, knowledge and probability
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These laws of thought were supposed to govern the operation of the mind; the studies initiated the field called logic. However, human decisions are not always mathematically perfect or logical.<br>
+Logic as conventionally understood requires knowledge of the world that is certain. As this condition is seldom achieved, the theory of probability fills this gap. Probability allows for rigorous reasoning with uncertain information. <span class="citation" data-cites="Russel-Norvig-2022">(<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">Russel and Norvig 2022</a>)</span></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="acting-rationally" class="level2">
+<h2 class="anchored" data-anchor-id="acting-rationally">Acting rationally</h2>
+<section id="the-rational-agent-approach" class="level4">
+<h4 class="anchored" data-anchor-id="the-rational-agent-approach">The rational agent approach</h4>
+<p>An <em>agent</em> is something that acts, an <em>rational agent</em> is one that acts so as to achieve the best coutcome (i.e., does the right thing), or, when there is uncertainty, the best expected outcome (i.e., does the appropriate thing).</p>
+<div class="fragment">
+<p>What counts as the best thing is defined by the objective that we provide to the agent <span class="citation" data-cites="Russel-Norvig-2022">(<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">Russel and Norvig 2022</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>The approach goes beyond the “laws of thought” approach as it involves actions based on</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>inference (deducing that a given action is the best and then to act on this conclusion) <strong>and</strong></li>
+<li>on other mechanisms such as reflex (when speed is more sucessful than careful deliberation that takes some time)</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Standard model in AI
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="Russel-Norvig-2022">Russel and Norvig (<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">2022</a>)</span> call the approach where the primary definition of success is getting better and better at achieving rigid human-specified goals the <strong>standard model of AI research</strong>. This standard model prevails not only in AI, “but also in control theory, where a controller minimizes a cost funciton; in operations research, where a policy maximizes a sum of rewards; in statistics, where a decision rule minimizes a loss funciton; and in economics, where a decision maker maximizes utility or some measure of social welfare” (p.&nbsp;22).<br>
+They also criticize the standard model because it is increasingly difficult to specify the goal completely and correctly (e.g., autonomous driving involves multiple goals such as reaching the goal safely, where a strict definition of safety requires staying in the garage because driving on the road has a risk of injury due to myriad factors; how should the trade-off between reaching the goal and taking a risk of injury be made? There are so many questions that are difficult to answer a priori). Mis-specified goals most likely do not reflect what human designers intend, e.g., by not taking into account human values that are not included in the goals.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="any-issues-with-that-concept" class="level1 html-hidden unlisted" data-background-color="black">
+<h1 class="html-hidden unlisted" data-background-color="black">Any issues with that concept?</h1>
+<section id="benificial-machines" class="level2">
+<h2 class="anchored" data-anchor-id="benificial-machines">Benificial machines</h2>
+<section id="machines-that-are-provably-beneficial-to-humans" class="level4">
+<h4 class="anchored" data-anchor-id="machines-that-are-provably-beneficial-to-humans">Machines that are provably beneficial to humans</h4>
+<p>According to <span class="citation" data-cites="Russel-Norvig-2022">Russel and Norvig (<a href="#ref-Russel-Norvig-2022" role="doc-biblioref">2022</a>)</span> Two refinements to the standard model of AI are needed:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>The ability of <em>any</em> agent to choose rational actions is constrained by the computational untractability of doing so</li>
+<li>An intelligent agent should not pursue a definite object, it should pursue objectives that <em>benefit humans</em>, while being uncertain as to what they are</li>
+</ul>
+</div>
+<div class="notes">
+<p>When a machine knows that it does not know the entire objective, it has an incentive to act cautiously, to ask permission, to learn more about our preferences through observation, and to submit to human control.</p>
+</div>
+</section>
+</section>
+</section>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="ref-Russel-Norvig-2022" class="csl-entry" role="doc-biblioentry">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
+<div id="ref-Turing-1950" class="csl-entry" role="doc-biblioentry">
+Turing, Alan. 1950. <span>“Computing Machinery and Intelligence.”</span> <em>Mind</em> 59: 433–60.
+</div>
+</section>
+</div>
+
+
 </main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -217,7 +473,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../lectures/intro-to-ai/administrivia.html">
+      <a href="../../lectures/intro-to-ai/administrivia.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Admin</span>
       </a>          
   </div>
