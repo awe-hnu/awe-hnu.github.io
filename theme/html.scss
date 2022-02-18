@@ -83,8 +83,19 @@ $body-color:    $black !default;
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:    "basier_squareregular", sans-serif !default;
+$font-family-sans-serif:    'basier_squareregular', sans-serif !default;
+$font-family-monospace:     'basier_squaremono', monospace !default;
 $headings-font-weight:      bold !default;
+
+$font-size-root:    16px;
+$toc-font-size:     1rem;
+$h1-font-size:      2rem;
+$h2-font-size:      1.5rem;
+$h3-font-size:      1.2rem;
+$h4-font-size:      1rem;
+$h5-font-size:      1rem;
+
+$block-margin: 0.5rem;
 
 // Navbar
 
@@ -111,6 +122,10 @@ $progress-height:               .5rem !default;
 body {
   -webkit-font-smoothing: antialiased;
 }
+
+
+
+
 
 // Indicators
 
@@ -164,3 +179,140 @@ h1.slide-link-hidden {
    .html-hidden {
         display: none;
    }
+
+
+table,
+caption,
+p    { margin: $block-margin 0; }
+h1   { margin: $block-margin*4 0 $block-margin*3 0; }
+h2   { margin: $block-margin*3 0 $block-margin*2 0; }
+h3   { margin: $block-margin*2 0 $block-margin*1 0; }
+h4   { margin: $block-margin*1 0 $block-margin*1 0; }
+
+h1.title {
+  font-size: $h1-font-size*1.5;
+}
+
+
+caption {
+     font-family: $font-family-monospace;
+     font-size: 0.8rem;
+}
+
+a {
+     text-decoration: none;
+}
+
+h2 {
+     border-bottom: 0;
+     padding: 0;
+}
+
+h3,
+h4 {
+     border-bottom: 2px solid;
+     font-weight: normal;
+     display: inline;
+}  
+
+.anchorjs-link {
+     display: none;
+}
+
+#title-block-header {
+
+     h1 {
+          margin: 0
+     }
+
+     .subtitle {
+          font-family: $font-family-monospace;
+          font-size: $font-size-root*1.5;
+     }
+
+     border-bottom: 1px solid;
+     padding-bottom: $block-margin*2;
+     margin-bottom: $block-margin*2;
+}
+
+#quarto-sidebar {
+     padding-top: 0;
+}
+
+.sidebar-item {
+
+     .sidebar-item-container {
+       justify-content: flex-start;
+
+       a {
+            font-weight: bold;
+       }
+     }
+
+     ul {
+       margin: 0.3rem 0 .5rem 0;
+       padding: 0;
+
+       .sidebar-item-container {
+          a {
+               font-weight: normal;
+          }
+       }
+
+     }
+
+}
+
+.brand,
+.sidebar-header {
+     margin: 0 -1em !important;
+     background: black;
+     text-align: center;
+     padding: $block-margin*2 !important;
+     font-family: $font-family-monospace;
+     a {
+          color: white;
+     }
+}
+
+#quarto-document-content {
+     padding-top: 4em;
+}
+
+
+em {
+     color: #999;
+     font-style: normal;
+}
+
+
+pre, code, kbd, samp {
+     font-family: $font-family-monospace;
+     color: $blue;
+}
+
+
+.page-navigation {
+     border-top: 1px solid;
+}
+
+ul {
+  list-style-type: square;
+  padding-left: 1em;
+}
+
+.callout {
+     border-radius: 0;
+     
+     &.callout-style-simple {
+          border-right: none;
+          border-top: none;
+          border-bottom: none;
+          background-color: #f9f9f9;
+
+          >div.callout-header {
+               font-size: 1em;
+          }
+
+     }
+}
