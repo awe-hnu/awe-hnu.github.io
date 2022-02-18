@@ -12,6 +12,16 @@
 
 @font-face {
      font-family: 'basier_squareregular';
+     src: url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.eot');
+     src: url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.woff2') format('woff2'),
+          url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.woff') format('woff'),
+          url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.ttf') format('truetype');
+     font-weight: normal;
+     font-style: italic;
+}
+
+@font-face {
+     font-family: 'basier_squareregular';
      src: url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.eot');
      src: url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.woff2') format('woff2'),
           url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.woff') format('woff'),
@@ -146,7 +156,15 @@ body {
      }
 }
 
+.quarto-sidebar-toggle {
+     display: none;
+}
+
 .sidebar {
+
+     &.margin-sidebar {
+          padding-top: 4em !important;
+     }
 
      &.sidebar-navigation:not(.floating):not(.rollup) {
 
@@ -185,6 +203,7 @@ table,
 caption,
 p    { margin: $block-margin 0; }
 h1   { margin: $block-margin*4 0 $block-margin*3 0; }
+h1.quarto-secondary-nav-title { margin: $block-margin*4 0; }
 h2   { margin: $block-margin*3 0 $block-margin*2 0; }
 h3   { margin: $block-margin*2 0 $block-margin*1 0; }
 h4   { margin: $block-margin*1 0 $block-margin*1 0; }
@@ -275,14 +294,20 @@ h4 {
      }
 }
 
+
+@include media-breakpoint-up(md) { 
+
 #quarto-document-content {
      padding-top: 4em;
 }
 
+}
+
+
+
 
 em {
-     color: #999;
-     font-style: normal;
+
 }
 
 
@@ -308,11 +333,26 @@ ul {
           border-right: none;
           border-top: none;
           border-bottom: none;
-          background-color: #f9f9f9;
+          background-color: #f3f3f3;
 
           >div.callout-header {
                font-size: 1em;
           }
 
      }
+}
+
+
+@include media-breakpoint-down(sm) { 
+
+
+body.floating.fullcontent .page-columns {
+     grid-template-columns: [screen-start] 1.5em [screen-start-inset page-start page-start-inset body-start-outset body-start body-content-start] minmax(0px, 1fr) [body-content-end body-end body-end-outset page-end-inset page-end screen-end-inset] 1.5em [screen-end];
+}
+
+}
+
+
+blockquote {
+     border-left: 5px solid blue;
 }

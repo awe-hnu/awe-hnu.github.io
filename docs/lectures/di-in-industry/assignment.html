@@ -45,7 +45,7 @@
 <meta property="og:description" content="Course: Digital Innovation in Industry">
 <meta property="og:site-name" content="awe.lectures">
 </head>
-<body class="floating fullcontent">
+<body class="floating">
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -92,13 +92,28 @@
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#task" class="nav-link active" data-scroll-target="#task">Task</a>
+<ul class="collapse">
+<li><a href="#paper" class="nav-link" data-scroll-target="#paper">Paper</a></li>
+<li><a href="#industries" class="nav-link" data-scroll-target="#industries">Industries</a></li>
+<li><a href="#presentations" class="nav-link" data-scroll-target="#presentations">Presentations</a></li>
+</ul></li>
+<li><a href="#evaluation-criteria" class="nav-link" data-scroll-target="#evaluation-criteria">Evaluation criteria</a></li>
+<li><a href="#formal-requirements" class="nav-link" data-scroll-target="#formal-requirements">Formal requirements</a></li>
+</ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 <header id="title-block-header">
 <h1 class="title d-none d-lg-block display-7">Assignment</h1>
 <p class="subtitle lead">Course: Digital Innovation in Industry</p>
 </header>
+
 <section id="top" class="level1 slide-link-hidden unlisted" data-visibility="hidden">
 <h1 class="slide-link-hidden unlisted" data-visibility="hidden">Top</h1>
 <p><a href="s-assignment.html">Slides</a></p>
@@ -292,6 +307,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
 </script>
 </div> <!-- /content -->
