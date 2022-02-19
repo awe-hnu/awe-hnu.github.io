@@ -49,9 +49,9 @@ $theme: "cosmo" !default;
 //
 
 $white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
+$gray-100: #f4f4f4 !default;
+$gray-200: #eeeeee !default;
+$gray-300: #dfe2e6 !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
 $gray-600: #868e96 !default;
@@ -162,10 +162,6 @@ body {
 
 .sidebar {
 
-     &.margin-sidebar {
-          padding-top: 4em !important;
-     }
-
      &.sidebar-navigation:not(.floating):not(.rollup) {
 
           border-right: none !important;
@@ -179,6 +175,9 @@ body {
           font-weight: bold;
      }
 
+     .sidebar-item:hover {
+          color: inherit !important;
+     }
 }
 
 h1.slide-link-hidden {
@@ -206,7 +205,7 @@ h1   { margin: $block-margin*4 0 $block-margin*3 0; }
 h1.quarto-secondary-nav-title { margin: $block-margin*4 0; }
 h2   { margin: $block-margin*3 0 $block-margin*2 0; }
 h3   { margin: $block-margin*2 0 $block-margin*1 0; }
-h4   { margin: $block-margin*1 0 $block-margin*1 0; }
+h4   { margin: $block-margin*1.5 0 $block-margin*1 0; }
 
 h1.title {
   font-size: $h1-font-size*1.5;
@@ -231,7 +230,7 @@ h3,
 h4 {
      border-bottom: 2px solid;
      font-weight: normal;
-     display: inline;
+     display: inline-block;
 }  
 
 .anchorjs-link {
@@ -249,7 +248,7 @@ h4 {
           font-size: $font-size-root*1.5;
      }
 
-     border-bottom: 1px solid;
+     border-bottom: 1px solid $gray-300;
      padding-bottom: $block-margin*2;
      margin-bottom: $block-margin*2;
 }
@@ -258,52 +257,50 @@ h4 {
      padding-top: 0;
 }
 
-.sidebar-item {
+.sidebar-navigation .sidebar-item {
+     font-size: 1em;
+}
 
-     .sidebar-item-container {
-       justify-content: flex-start;
 
-       a {
-            font-weight: bold;
-       }
+
+@include media-breakpoint-up(lg) { 
+
+     #quarto-document-content {
+          padding-top: 2em;
      }
 
-     ul {
-       margin: 0.3rem 0 .5rem 0;
-       padding: 0;
-
-       .sidebar-item-container {
-          a {
-               font-weight: normal;
-          }
-       }
-
+     #title-block-header {
+          height: 8em;
      }
 
 }
 
-.brand,
-.sidebar-header {
-     margin: 0 -1em !important;
-     background: black;
-     text-align: center;
-     padding: $block-margin*2 !important;
-     font-family: $font-family-monospace;
-     a {
-          color: white;
-     }
+.sidebar.margin-sidebar {
+     margin-top: 10em;
 }
 
+main {
+  margin: 0;
+}
+
+#quarto-sidebar {
+     padding: 0 1.5em;
+     background-color: $gray-100;
+}
 
 @include media-breakpoint-up(md) { 
-
-#quarto-document-content {
-     padding-top: 4em;
+     #quarto-sidebar {
+          padding: 0 2.5em;
+     }
 }
 
+@include media-breakpoint-up(lg) { 
+     #quarto-sidebar {
+          margin-top: 10em;
+          padding: 0 1em;
+          background-color: transparent !important;
+     }
 }
-
-
 
 
 em {
@@ -333,7 +330,7 @@ ul {
           border-right: none;
           border-top: none;
           border-bottom: none;
-          background-color: #f3f3f3;
+          background-color: $gray-100;
 
           >div.callout-header {
                font-size: 1em;
@@ -343,20 +340,42 @@ ul {
 }
 
 
-@include media-breakpoint-down(sm) { 
-
-
-body.floating.fullcontent .page-columns {
-     grid-template-columns: [screen-start] 1.5em [screen-start-inset page-start page-start-inset body-start-outset body-start body-content-start] minmax(0px, 1fr) [body-content-end body-end body-end-outset page-end-inset page-end screen-end-inset] 1.5em [screen-end];
-}
-
-}
-
-
 blockquote {
      border-left: 5px solid blue;
 }
 
-.nav.quarto-secondary-nav {
-     border-bottom: none;
+
+#quarto-header {
+  border-bottom: none !important;
+}
+
+
+@include media-breakpoint-up(sm) { 
+
+     #quarto-header nav {
+          padding-left: 2.5em;
+          padding-right: 2.5em;
+          background: $gray-100;
+     }
+
+}
+
+@include media-breakpoint-down(md) { 
+
+     #quarto-header nav {
+          padding-left: 1.5em;
+          padding-right: 1.5em;
+          background: $gray-100;
+     }
+
+} 
+
+
+#quarto-header nav {
+     background: $gray-100;
+     border: none;
+}
+
+.navbar-brand:hover {
+     color: $blue !important;
 }
