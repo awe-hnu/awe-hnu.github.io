@@ -361,7 +361,203 @@
 
 
 
-<div id="refs" role="doc-bibliography">
+<section>
+<section id="agents" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
+<h1>Agents</h1>
+
+</section>
+<section id="agent" class="slide level2">
+<h2>Agent</h2>
+<div id="fig-agent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/2/actor.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 1: Agents interact with environments through sensors and actuators</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>An agent is anything that can be viewed as perceiving its <strong>environment</strong> through <strong>sensors</strong> and acting upon that environment through <strong>actuators</strong>.</p>
+<ul>
+<li>The term <em>percept</em> refers to the content an agent’s sensors are perceiving</li>
+<li>An agent’s <em>percept sequence</em> is the complete history of everything the agent has ever perceived</li>
+<li>The <em>agent function</em> maps any given percept sequence to an action (an abstract mathematical description)</li>
+<li>The agent function for an AI agent will be implemented by an <em>agent program</em> (a concrete implementation, running within some physical system)</li>
+</ul>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>To illustrate these ideas <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 55</a>)</span> use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent perceives which square it is in and whether there is dirt in the square. The agent starts in square A. The available actions are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple agent function is the following: if the current square is dirty, then suck; otherwise, move to the other square.</p>
+</div>
+</div>
+</div>
+<p>According to <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 56</a>)</span>, all areas of engineering can be seen as designing artifacts that interact with the world. AI operates at the most interesting end to the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making.</p>
+</aside>
+</section>
+<section id="rational-agent" class="slide level2">
+<h2>Rational agent</h2>
+<p>A rational agent is one that does the right thing.</p>
+<div class="fragment">
+<blockquote>
+<p>For each possible percept sequence, a rational agent should select an <em>action</em> that is expected to maximize its <em>performance measure</em>, given the evidence provided by the <em>percept sequence</em> and whatever built-in <em>knowledge</em> the agent has <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 58</a>)</span>.</p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>What is rational at any given time depends on four things:</p>
+<ul>
+<li>The performance measure that defines the criterion of success</li>
+<li>The agent’s prior knowledge of the environment</li>
+<li>The actions that the agent can performance</li>
+<li>The agent’s percept sequence to date</li>
+</ul>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Under following circumstances, the vacuum cleaning agent is rational:</p>
+<ul>
+<li>The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a “lifetime” of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth)</li>
+<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The <em>Right</em> and <em>Left</em> actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is</li>
+<li>The only available action is <em>Right</em>, <em>Left</em>, and <em>Suck</em></li>
+<li>The agent correctly perceives its location and wether that location contains dirt</li>
+</ul>
+<p>(For details such as tabulated agent functions please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>)</p>
+</div>
+</div>
+</div>
+</aside>
+<div class="fragment">
+<p>It can be quite hard to formulate a performance measure correctly, however:</p>
+<blockquote>
+<p>If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire <span class="citation" data-cites="Wiener1960Some">(<a href="#/ref-Wiener1960Some" role="doc-biblioref" onclick="return false;">Wiener 1960, 1358</a>)</span></p>
+</blockquote>
+</div>
+</section>
+<section id="rationality" class="slide level2">
+<h2>Rationality</h2>
+<p>Rationality is not the same as perfection.</p>
+<div>
+<ul>
+<li class="fragment">Rationality maximizes <em>expected</em> performance</li>
+<li class="fragment">Perfection maximizes <em>actual</em> performance</li>
+<li class="fragment">Perfection requires omniscience</li>
+<li class="fragment">Rational choice depends only on the percept sequence <em>to date</em></li>
+</ul>
+</div>
+<aside class="notes">
+<p>As the environment is usually not completely known <em>a priori</em> and completely predictable (or stable), information gathering and learning are important parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 59</a>)</span>.</p>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>The vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.</p>
+</div>
+</div>
+</div>
+</aside>
+</section></section>
+<section>
+<section id="environments" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
+<h1>Environments</h1>
+
+</section>
+<section id="components" class="slide level2">
+<h2>Components</h2>
+<p>Before designing an agent (<em>the solution</em>), the task environment (<em>the problem</em>) must be specified as fully as possible, including</p>
+<div>
+<ul>
+<li class="fragment">the performance measure (P),</li>
+<li class="fragment">the environment (E),</li>
+<li class="fragment">the actuators (A), and</li>
+<li class="fragment">the sensors (S)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span> call the task environment PEAS.</p>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example of an PEAS description</strong></p>
+</div>
+<div class="callout-content">
+<p>Task environment of a taxi driver agent</p>
+<ul>
+<li><strong>P</strong>: Safe, fast, legal, comfortable, maximize profits, minimize impact on other road users</li>
+<li><strong>E</strong>: Roads, other road users, police, pedestrians, customers, weather</li>
+<li><strong>A</strong>: Steering, accelerator, brake, signal horn, display, speech</li>
+<li><strong>S</strong>: Cameras, radar, speedometer, GPS, engine, sensors, accelerometer, microphones, touchscreen</li>
+</ul>
+<p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 61</a>)</span></p>
+</div>
+</div>
+</div>
+</aside>
+</section>
+<section id="properties" class="slide level2">
+<h2>Properties</h2>
+<p>Task environments can be categorized along following dimensions <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 62–64</a>)</span>:</p>
+<div>
+<ul>
+<li class="fragment">Fully observable <em>vs.</em> partially observable</li>
+<li class="fragment">Single agent <em>vs.</em> multiagent</li>
+<li class="fragment">Deterministic <em>vs.</em> nondeterministic</li>
+<li class="fragment">Episodic <em>vs.</em> sequential</li>
+<li class="fragment">Static <em>vs.</em> dynamic</li>
+<li class="fragment">Discrete <em>vs.</em> continuous</li>
+</ul>
+</div>
+<aside class="notes">
+<p>If an agent’s sensors give it access to the complete state of the environment at each point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</p>
+<p>If multiple agents intend to maximize a performance measure that depend on other agents’ behavior, we speak of <em>multiagent environments</em> (e.g., chess).</p>
+<p>If the environment is completely determined by the current state and the action executed by the agent(s), then we say the environment is <em>deterministic</em> (e.g., crossword puzzle). If a model of the environment explicitely deals with probabilities, we speak of <em>stochastic</em> environments (e.g., poker).</p>
+<p>If an agent’s experience is divided into atomic episodes where the agent receives a percept and then performs a single action and where the next episode does not depend on the actions taken in previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</p>
+<p>If the environment changes while an agent is deliberating, then we say the environment is <em>dynamic</em> (e.g., taxi driving).</p>
+<p>If the environment has a finite number of distinct states, then we speek of <em>discrete</em> environments (e.g., chess).</p>
+<p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>, p.62-64</p>
+</aside>
+<div class="fragment">
+<p>The hardest case is <em>partially observable, multiagent, nondeterministic, sequential, dynamic, and continuous.</em></p>
+</div>
+</section></section>
+<section>
+<section id="exercises" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
+<h1>✏️ Exercises</h1>
+
+</section>
+<section id="i2ai_2-e1" class="slide level2">
+<h2>I2AI_2 E1</h2>
+<p>Characterize the environment (PEAS and task environment properties) for following agent types:</p>
+<ul>
+<li>Medical diagnosis system</li>
+<li>Part-picking robot</li>
+<li>Interactive English tutor</li>
+</ul>
+</section></section>
+<section id="the-structure-of-agents" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
+<h1>The structure of agents</h1>
+
+</section>
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 
 
 </div>

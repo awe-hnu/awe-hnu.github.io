@@ -32,6 +32,17 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'basier_squaremono';
+  src: url('../../../bootstrap/lib/fonts/basier_squaremono/basiersquaremono-regularitalic-webfont.eot');
+  src: url('../../../bootstrap/lib/fonts/basier_squaremono/basiersquaremono-regularitalic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../../../bootstrap/lib/fonts/basier_squaremono/basiersquaremono-regularitalic-webfont.woff2') format('woff2'),
+       url('../../../bootstrap/lib/fonts/basier_squaremono/basiersquaremono-regularitalic-webfont.woff') format('woff'),
+       url('../../../bootstrap/lib/fonts/basier_squaremono/basiersquaremono-regularitalic-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
 $max-width-mobile: 800px;
 
 // fonts
@@ -376,6 +387,7 @@ $panel-sidebar-padding: 0.5em;
   img.stretch + p.caption,
   img.r-stretch + p.caption {
     font-size: #{$presentation-font-smaller}em;
+    margin-top: $blockMargin/2;
   }
 }
 
@@ -696,13 +708,20 @@ $progress-height: 5px;
   
   img {
     margin: 0 0 $blockMargin 0;
+    max-height: 75%;
   }
 
   figure {
+
     >p:first-child {
-      margin-right: 2rem;
-      background: #efefef;
+      margin: 0;
+      background-color: #f4f4f4;
     }
+
+    .figure-img {
+      margin-bottom: 0 !important;
+    }      
+
   }
 
   .column {
@@ -710,7 +729,6 @@ $progress-height: 5px;
       margin-top: 0;
     }
   }
-
 
 
 }
@@ -748,4 +766,15 @@ $progress-height: 5px;
   top: 40%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+.reveal.overview .slides .vertical-center {
+  position: relative;
+  top: auto;
+  transform: none;
+}
+
+.reveal.overview .slides .slide {
+  overflow: hidden;
+  height: 750px;
 }
