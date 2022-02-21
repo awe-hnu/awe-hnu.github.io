@@ -268,79 +268,121 @@
   {
     "objectID": "lectures/I2AI/I2AI_2.html#agent",
     "href": "lectures/I2AI/I2AI_2.html#agent",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Agent",
     "text": "Agent\n\n\n\nFigure 1: Agents interact with environments through sensors and actuators\n\n\n\nAn agent is anything that can be viewed as perceiving its environment through sensors and acting upon that environment through actuators.\n\nThe term percept refers to the content an agent’s sensors are perceiving\nAn agent’s percept sequence is the complete history of everything the agent has ever perceived\nThe agent function maps any given percept sequence to an action (an abstract mathematical description)\nThe agent function for an AI agent will be implemented by an agent program (a concrete implementation, running within some physical system)\n\n\n\n\n\n\n\nExample\n\n\n\nTo illustrate these ideas Russel and Norvig (2022, 55) use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent perceives which square it is in and whether there is dirt in the square. The agent starts in square A. The available actions are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple agent function is the following: if the current square is dirty, then suck; otherwise, move to the other square.\n\n\nAccording to Russel and Norvig (2022, 56), all areas of engineering can be seen as designing artifacts that interact with the world. AI operates at the most interesting end to the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#rational-agent",
     "href": "lectures/I2AI/I2AI_2.html#rational-agent",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Rational agent",
     "text": "Rational agent\nA rational agent is one that does the right thing.\n\n\nFor each possible percept sequence, a rational agent should select an action that is expected to maximize its performance measure, given the evidence provided by the percept sequence and whatever built-in knowledge the agent has (Russel and Norvig 2022, 58).\n\n\n\nWhat is rational at any given time depends on four things:\n\nThe performance measure that defines the criterion of success\nThe agent’s prior knowledge of the environment\nThe actions that the agent can performance\nThe agent’s percept sequence to date\n\n\n\n\n\n\n\nExample\n\n\n\nUnder following circumstances, the vacuum cleaning agent is rational:\n\nThe performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a “lifetime” of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth)\nThe “geography” of the environment is known a priori but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The Right and Left actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is\nThe only available action is Right, Left, and Suck\nThe agent correctly perceives its location and wether that location contains dirt\n\n(For details such as tabulated agent functions please see Russel and Norvig (2022))\n\n\n\n\nIt can be quite hard to formulate a performance measure correctly, however:\n\nIf we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire (Wiener 1960, 1358)"
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#rationality",
     "href": "lectures/I2AI/I2AI_2.html#rationality",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Rationality",
     "text": "Rationality\nRationality is not the same as perfection.\n\n\nRationality maximizes expected performance\nPerfection maximizes actual performance\nPerfection requires omniscience\nRational choice depends only on the percept sequence to date\n\n\n\nAs the environment is usually not completely known a priori and completely predictable (or stable), information gathering and learning are important parts of rationality (Russel and Norvig 2022, 59).\n\n\n\n\n\n\nExample\n\n\n\nThe vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#components",
     "href": "lectures/I2AI/I2AI_2.html#components",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Components",
     "text": "Components\nBefore designing an agent (the solution), the task environment (the problem) must be specified as fully as possible, including\n\n\nthe performance measure (P),\nthe environment (E),\nthe actuators (A), and\nthe sensors (S)\n\n\n\nRussel and Norvig (2022) call the task environment PEAS.\n\n\n\n\n\n\n\n\nExample of an PEAS description\n\n\n\nTask environment of a taxi driver agent\n\nP: Safe, fast, legal, comfortable, maximize profits, minimize impact on other road users\nE: Roads, other road users, police, pedestrians, customers, weather\nA: Steering, accelerator, brake, signal horn, display, speech\nS: Cameras, radar, speedometer, GPS, engine, sensors, accelerometer, microphones, touchscreen\n\nSource: Russel and Norvig (2022, 61)"
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#properties",
     "href": "lectures/I2AI/I2AI_2.html#properties",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Properties",
     "text": "Properties\nTask environments can be categorized along following dimensions (Russel and Norvig 2022, 62–64):\n\n\nFully observable vs. partially observable\nSingle agent vs. multi-agent\nDeterministic vs. nondeterministic\nEpisodic vs. sequential\nStatic vs. dynamic\nDiscrete vs. continuous\n\n\n\nIf an agent’s sensors give it access to the full state of the environment at any point in time, then we say that the task environment is fully observable (e.g., image analysis).\nWhen multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is multi-agent (e.g., chess).\nWhen the environment is completely determined by the current state and the actions performed by the agent(s), it is called a deterministic environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a stochastic environment (e.g., poker).\nIf an agent’s experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is episodic (e.g., image analysis).\nIf the environment changes while an agent is deliberating, then the environment is dynamic (e.g., taxi driving).\nIf the environment has a finite number of different states, we speak of discrete environments (e.g., chess).\nSource: Russel and Norvig (2022), p.62-64\n\n\nThe hardest case is partially observable, multi-agent, nondeterministic, sequential, dynamic, and continuous."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#simple-reflex-agents",
     "href": "lectures/I2AI/I2AI_2.html#simple-reflex-agents",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Simple reflex agents",
     "text": "Simple reflex agents\n\n\n\nFigure 2: A simple reflex agent\n\n\n\n\nRectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.\n\nSimple reflex agents select actions on the basis of the current percept, ignoring the rest of the percept history. Thus, these agents work only if the correct decision can be made on the basis of just the current percept. The environment needs to be fully observable (Russel and Norvig 2022, 68)."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#model-based-reflex-agents",
     "href": "lectures/I2AI/I2AI_2.html#model-based-reflex-agents",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Model-based reflex agents",
-    "text": "Model-based reflex agents\n\n\n\nFigure 3: A model-based reflex agent\n\n\n\nModel-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). (Russel and Norvig 2022, 70).\nThe transition model reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.\nThe sensor model reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors)"
+    "text": "Model-based reflex agents\n\n\n\nFigure 3: A model-based reflex agent\n\n\n\nModel-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). (Russel and Norvig 2022, 70).\nThe transition model reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.\nThe sensor model reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors).\n\n\n\n\n\n\nTypes of representation of states and the transitions between them\n\n\n\nThe representations of states can be placed along an axis of increasing complexity and expressive power (Russel and Norvig 2022, 76–77):\n\nAtomic representation: a state is a blackbox with no internal structure (A –> B)\nFactored representation: a state consists of a vector of attribute values; values can be Boolean, real-valued, or one of a fixed set of symbols; factored states can share some attributes and not others, which makes it easier to identify transitions between states\nStructured representation: a state includes objects, each of which may have attributes of its own as well as relationships to other objects; structured representations underlie relational databases and first-order logic, first-oder probability models, and much of natural language understanding.\n\nThe more expressive language is much more concise, but makes reasoning and learning more complex."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#goal-based-agents",
     "href": "lectures/I2AI/I2AI_2.html#goal-based-agents",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Goal-based agents",
     "text": "Goal-based agents\n\n\n\nFigure 4: A model-based, goal-based agent\n\n\n\nA model-based, goal-based agent keeps track of the world state as well as a set of goals it is trying to achieve. Such an agent chooses an action that will (eventually) lead to the achievement of its goals (Russel and Norvig 2022, 72)."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#utility-based-agents",
     "href": "lectures/I2AI/I2AI_2.html#utility-based-agents",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Utility-based agents",
-    "text": "Utility-based agents\n\n\n\nFigure 5: A model-based, utility-based agent\n\n\n\nA model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome (Russel and Norvig 2022, 73).\nThe utility function is essentially an internalization of the performance measure.\nA utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism.\nIn addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:\n\nWhen there are conflicting goals, the utility function specifies the appropriate tradeoff.\nLikelihood of success (i.e., goal achievement) can be weighed against the importance of the goals\n\nMode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.\nThere are also utility-based agents that are not model-based. These agents just learn what action is best in a parcitular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning)."
+    "text": "Utility-based agents\n\n\n\nFigure 5: A model-based, utility-based agent\n\n\n\nA model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome (Russel and Norvig 2022, 73).\nThe utility function is essentially an internalization of the performance measure.\nA utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism.\nIn addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:\n\nWhen there are conflicting goals, the utility function specifies the appropriate tradeoff.\nLikelihood of success (i.e., goal achievement) can be weighed against the importance of the goals\n\nMode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.\nThere are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning)."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#learning-agents",
     "href": "lectures/I2AI/I2AI_2.html#learning-agents",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "Learning agents",
-    "text": "Learning agents\n\n\n\nFigure 6: A learning agent"
+    "text": "Learning agents\n\n\n\nFigure 6: A learning agent\n\n\n\nEach type of agent can be either hand-programmed or created as a learning agent. The behavior of learning agents is (also) determined by their own experience, while the behavior of hand-programmed agents is solely determined by their initial programming. Thus, learning agents have greater autonony.\nA learning agent consists of four conceptual components (Russel and Norvig 2022, p- 74-75), as shown in Figure 6:\n\nThe performance element is responsible for taking percepts and selecting actions (i.e., what has previously been considered the entire agent program).\nThe learning element is responsible for improvements. It uses feedback from the critic on how the agent is doing and determines how the performance element should be modified to do better in the future. It can make changes to any of the “knowledge components” shown in the agent diagrams (i.e., condition-action-rules, transition model, sensor model)\nThe performance standard is responsible to inform the agent about the meaning of percepts — are they good nor not (e.g., the meaning of receiving no tips from passengers is a negative contribution to an automated taxis’s overall performance). The standard is fixed and cannot be influenced by the agent.\nThe problem generator is responsible for suggesting actions that lead to new and informative experiences. The problem generator suggests exploratory actions that may be suboptimal in the short term, but can lead to the discovery of better actions in the long term."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e1",
     "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e1",
-    "title": "Intelligent Agents",
+    "title": "Intelligent agents",
     "section": "I2AI_2 E1",
-    "text": "I2AI_2 E1\nCharacterize the environment (PEAS and task environment properties) for following agent types:\n\nMedical diagnosis system\nPart-picking robot\nInteractive English tutor"
+    "text": "I2AI_2 E1\nDefine in your own words the following terms:\n\nAgent\nEnvironment\nSensor\nActuator\nPercept\nAgent function\nAgent program"
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e2",
+    "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e2",
+    "title": "Intelligent agents",
+    "section": "I2AI_2 E2",
+    "text": "I2AI_2 E2\nFor each of the following agents, specify the sensors, actuators, and environment:\n\nMicrowave oven\nChess program\nAutonomous supply delivery"
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e3",
+    "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e3",
+    "title": "Intelligent agents",
+    "section": "I2AI_2 E3",
+    "text": "I2AI_2 E3\nDescribe a task environments in which the performance measure is easy to specify completely and correctly, and a in which it is not."
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e4",
+    "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e4",
+    "title": "Intelligent agents",
+    "section": "I2AI_2 E4",
+    "text": "I2AI_2 E4\nFor each of the following assertions, say whether it is true or false and support your answer with examples or counterexamples where appropriate.\n\nAn agent that senses only partial information about the state cannot be perfectly rational.\nThere exist task environments in which no pure reflex agent can behave rationally.\nThere exists a task environment in which every agent is rational.\nThe input to an agent program is the same as the input to the agent function.\nEvery agent is rational in an unobservable environment.\nThere is a model-based reflex agent that can remember all of its percepts.\nSuppose agent A1 is rational and agent A2 is irrational. There exists a task environment where A2’s actual score will be greater than A1’s actual score."
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e5",
+    "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e5",
+    "title": "Intelligent agents",
+    "section": "I2AI_2 E5",
+    "text": "I2AI_2 E5\nFor each of the following activities, give a PEAS description of the task environment and characterize it in terms of the properties discussed in class.\n\nPlaying soccer.\nExploring the subsurface oceans of Titan.\nShopping for used AI books on the Internet.\nPlaying a tennis match."
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e6",
+    "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e6",
+    "title": "Intelligent agents",
+    "section": "I2AI_2 E6",
+    "text": "I2AI_2 E6\nFor each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property.\nLay out any assumptions you make to reach your conclusions.\n\nFully Observable: driving; document classification; tutoring a high-school student in calculus; skin cancer diagnosis from images\nContinuous: driving; spoken conversation; written conversation; climate engineering by stratospheric aerosol injection\nStochastic: driving; sudoku; poker; soccer\nStatic: chat room; checkers; tax planning; tennis"
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2.html#i2ai_2-e7",
+    "href": "lectures/I2AI/I2AI_2.html#i2ai_2-e7",
+    "title": "Intelligent agents",
+    "section": "I2AI_2 E7",
+    "text": "I2AI_2 E7\nDefine in your own words the following terms\n\nRationality\nAutonomy\nReflex agent,\nModel-based agent\nGoal-based agent\nUtility-based agent\nLearning agent"
   },
   {
     "objectID": "lectures/I2AI/I2AI_2_S.html#agent",
@@ -389,7 +431,7 @@
     "href": "lectures/I2AI/I2AI_2_S.html#model-based-reflex-agents",
     "title": "Intelligent Agents",
     "section": "Model-based reflex agents",
-    "text": "Model-based reflex agents\n\n\n\nFigure 3: A model-based reflex agent\n\n\n\nModel-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). (Russel and Norvig 2022, 70).\nThe transition model reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.\nThe sensor model reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors)"
+    "text": "Model-based reflex agents\n\n\n\nFigure 3: A model-based reflex agent\n\n\n\nModel-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). (Russel and Norvig 2022, 70).\nThe transition model reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.\nThe sensor model reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors).\n\n\n\n\n\n\nTypes of representation of states and the transitions between them\n\n\nThe representations of states can be placed along an axis of increasing complexity and expressive power (Russel and Norvig 2022, 76–77):\n\nAtomic representation: a state is a blackbox with no internal structure (A –> B)\nFactored representation: a state consists of a vector of attribute values; values can be Boolean, real-valued, or one of a fixed set of symbols; factored states can share some attributes and not others, which makes it easier to identify transitions between states\nStructured representation: a state includes objects, each of which may have attributes of its own as well as relationships to other objects; structured representations underlie relational databases and first-order logic, first-oder probability models, and much of natural language understanding.\n\nThe more expressive language is much more concise, but makes reasoning and learning more complex."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2_S.html#goal-based-agents",
@@ -403,21 +445,63 @@
     "href": "lectures/I2AI/I2AI_2_S.html#utility-based-agents",
     "title": "Intelligent Agents",
     "section": "Utility-based agents",
-    "text": "Utility-based agents\n\n\n\nFigure 5: A model-based, utility-based agent\n\n\n\nA model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome (Russel and Norvig 2022, 73).\nThe utility function is essentially an internalization of the performance measure.\nA utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism.\nIn addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:\n\nWhen there are conflicting goals, the utility function specifies the appropriate tradeoff.\nLikelihood of success (i.e., goal achievement) can be weighed against the importance of the goals\n\nMode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.\nThere are also utility-based agents that are not model-based. These agents just learn what action is best in a parcitular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning)."
+    "text": "Utility-based agents\n\n\n\nFigure 5: A model-based, utility-based agent\n\n\n\nA model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome (Russel and Norvig 2022, 73).\nThe utility function is essentially an internalization of the performance measure.\nA utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism.\nIn addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:\n\nWhen there are conflicting goals, the utility function specifies the appropriate tradeoff.\nLikelihood of success (i.e., goal achievement) can be weighed against the importance of the goals\n\nMode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.\nThere are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning)."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2_S.html#learning-agents",
     "href": "lectures/I2AI/I2AI_2_S.html#learning-agents",
     "title": "Intelligent Agents",
     "section": "Learning agents",
-    "text": "Learning agents\n\n\n\nFigure 6: A learning agent"
+    "text": "Learning agents\n\n\n\nFigure 6: A learning agent\n\n\n\nEach type of agent can be either hand-programmed or created as a learning agent. The behavior of learning agents is (also) determined by their own experience, while the behavior of hand-programmed agents is solely determined by their initial programming. Thus, learning agents have greater autonony.\nA learning agent consists of four conceptual components (Russel and Norvig 2022, p- 74-75), as shown in Figure 6:\n\nThe performance element is responsible for taking percepts and selecting actions (i.e., what has previously been considered the entire agent program).\nThe learning element is responsible for improvements. It uses feedback from the critic on how the agent is doing and determines how the performance element should be modified to do better in the future. It can make changes to any of the “knowledge components” shown in the agent diagrams (i.e., condition-action-rules, transition model, sensor model)\nThe performance standard is responsible to inform the agent about the meaning of percepts — are they good nor not (e.g., the meaning of receiving no tips from passengers is a negative contribution to an automated taxis’s overall performance). The standard is fixed and cannot be influenced by the agent.\nThe problem generator is responsible for suggesting actions that lead to new and informative experiences. The problem generator suggests exploratory actions that may be suboptimal in the short term, but can lead to the discovery of better actions in the long term."
   },
   {
     "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e1",
     "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e1",
     "title": "Intelligent Agents",
     "section": "I2AI_2 E1",
-    "text": "I2AI_2 E1\nCharacterize the environment (PEAS and task environment properties) for following agent types:\n\nMedical diagnosis system\nPart-picking robot\nInteractive English tutor"
+    "text": "I2AI_2 E1\nDefine in your own words the following terms:\n\nAgent\nEnvironment\nSensor\nActuator\nPercept\nAgent function\nAgent program"
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e2",
+    "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e2",
+    "title": "Intelligent Agents",
+    "section": "I2AI_2 E2",
+    "text": "I2AI_2 E2\nFor each of the following agents, specify the sensors, actuators, and environment:\n\nMicrowave oven\nChess program\nAutonomous supply delivery"
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e3",
+    "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e3",
+    "title": "Intelligent Agents",
+    "section": "I2AI_2 E3",
+    "text": "I2AI_2 E3\nDescribe a task environments in which the performance measure is easy to specify completely and correctly, and a in which it is not."
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e4",
+    "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e4",
+    "title": "Intelligent Agents",
+    "section": "I2AI_2 E4",
+    "text": "I2AI_2 E4\nFor each of the following assertions, say whether it is true or false and support your answer with examples or counterexamples where appropriate.\n\nAn agent that senses only partial information about the state cannot be perfectly rational.\nThere exist task environments in which no pure reflex agent can behave rationally.\nThere exists a task environment in which every agent is rational.\nThe input to an agent program is the same as the input to the agent function.\nEvery agent is rational in an unobservable environment.\nThere is a model-based reflex agent that can remember all of its percepts.\nSuppose agent A1 is rational and agent A2 is irrational. There exists a task environment where A2’s actual score will be greater than A1’s actual score."
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e5",
+    "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e5",
+    "title": "Intelligent Agents",
+    "section": "I2AI_2 E5",
+    "text": "I2AI_2 E5\nFor each of the following activities, give a PEAS description of the task environment and characterize it in terms of the properties discussed in class.\n\nPlaying soccer.\nExploring the subsurface oceans of Titan.\nShopping for used AI books on the Internet.\nPlaying a tennis match."
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e6",
+    "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e6",
+    "title": "Intelligent Agents",
+    "section": "I2AI_2 E6",
+    "text": "I2AI_2 E6\nFor each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property.\nLay out any assumptions you make to reach your conclusions.\n\nFully Observable: driving; document classification; tutoring a high-school student in calculus; skin cancer diagnosis from images\nContinuous: driving; spoken conversation; written conversation; climate engineering by stratospheric aerosol injection\nStochastic: driving; sudoku; poker; soccer\nStatic: chat room; checkers; tax planning; tennis"
+  },
+  {
+    "objectID": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e7",
+    "href": "lectures/I2AI/I2AI_2_S.html#i2ai_2-e7",
+    "title": "Intelligent Agents",
+    "section": "I2AI_2 E7",
+    "text": "I2AI_2 E7\nDefine in your own words the following terms\n\nRationality\nAutonomy\nReflex agent,\nModel-based agent\nGoal-based agent\nUtility-based agent\nLearning agent"
   },
   {
     "objectID": "lectures/DIiI/DIiI_0.html",
