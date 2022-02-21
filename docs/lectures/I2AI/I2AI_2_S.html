@@ -518,7 +518,7 @@
 <div>
 <ul>
 <li class="fragment">Fully observable <em>vs.</em> partially observable</li>
-<li class="fragment">Single agent <em>vs.</em> multiagent</li>
+<li class="fragment">Single agent <em>vs.</em> multi-agent</li>
 <li class="fragment">Deterministic <em>vs.</em> nondeterministic</li>
 <li class="fragment">Episodic <em>vs.</em> sequential</li>
 <li class="fragment">Static <em>vs.</em> dynamic</li>
@@ -526,17 +526,93 @@
 </ul>
 </div>
 <aside class="notes">
-<p>If an agent’s sensors give it access to the complete state of the environment at each point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</p>
-<p>If multiple agents intend to maximize a performance measure that depend on other agents’ behavior, we speak of <em>multiagent environments</em> (e.g., chess).</p>
-<p>If the environment is completely determined by the current state and the action executed by the agent(s), then we say the environment is <em>deterministic</em> (e.g., crossword puzzle). If a model of the environment explicitely deals with probabilities, we speak of <em>stochastic</em> environments (e.g., poker).</p>
-<p>If an agent’s experience is divided into atomic episodes where the agent receives a percept and then performs a single action and where the next episode does not depend on the actions taken in previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</p>
-<p>If the environment changes while an agent is deliberating, then we say the environment is <em>dynamic</em> (e.g., taxi driving).</p>
-<p>If the environment has a finite number of distinct states, then we speek of <em>discrete</em> environments (e.g., chess).</p>
+<p>If an agent’s sensors give it access to the full state of the environment at any point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</p>
+<p>When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is <em>multi-agent</em> (e.g., chess).</p>
+<p>When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a <em>deterministic</em> environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a <em>stochastic</em> environment (e.g., poker).</p>
+<p>If an agent’s experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</p>
+<p>If the environment changes while an agent is deliberating, then the environment is <em>dynamic</em> (e.g., taxi driving).</p>
+<p>If the environment has a finite number of different states, we speak of <em>discrete</em> environments (e.g., chess).</p>
 <p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>, p.62-64</p>
 </aside>
 <div class="fragment">
-<p>The hardest case is <em>partially observable, multiagent, nondeterministic, sequential, dynamic, and continuous.</em></p>
+<p>The hardest case is <em>partially observable, multi-agent, nondeterministic, sequential, dynamic, and continuous.</em></p>
 </div>
+</section></section>
+<section>
+<section id="agent-types" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
+<h1>Agent types</h1>
+
+</section>
+<section id="simple-reflex-agents" class="slide level2">
+<h2>Simple reflex agents</h2>
+<div id="fig-sr-agent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/2/simple-reflex-agent.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 2: A simple reflex agent</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<div class="small">
+<p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.</p>
+</div>
+<p>Simple reflex agents select actions on the basis of the <em>current</em> percept, ignoring the rest of the percept history. Thus, these agents work only if the correct decision can be made on the basis of just the current percept. The environment needs to be fully observable <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 68</a>)</span>.</p>
+</aside>
+</section>
+<section id="model-based-reflex-agents" class="slide level2">
+<h2>Model-based reflex agents</h2>
+<div id="fig-mr-agent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/2/model-based-reflex-agent.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 3: A model-based reflex agent</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>Model-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 70</a>)</span>.</p>
+<p>The <strong>transition model</strong> reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.</p>
+<p>The <strong>sensor model</strong> reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors)</p>
+</aside>
+</section>
+<section id="goal-based-agents" class="slide level2">
+<h2>Goal-based agents</h2>
+<div id="fig-gb-agent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/2/goal-based-agent.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 4: A model-based, goal-based agent</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>A model-based, goal-based agent keeps track of the world state as well as a set of goals it is trying to achieve. Such an agent chooses an action that will (eventually) lead to the achievement of its goals <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 72</a>)</span>.</p>
+</aside>
+</section>
+<section id="utility-based-agents" class="slide level2">
+<h2>Utility-based agents</h2>
+<div id="fig-ub-agent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/2/utility-based-agent.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 5: A model-based, utility-based agent</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>A model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 73</a>)</span>.</p>
+<p>The utility function is essentially an internalization of the performance measure.</p>
+<p>A utility-based agent has many advantages in terms of flexibility and learning.</p>
+<ul>
+<li>When there are conflicting goals, the utility function specifies the appropriate tradeoff.</li>
+<li>Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals</li>
+</ul>
+</aside>
+</section>
+<section id="learning-agents" class="slide level2">
+<h2>Learning agents</h2>
+<div id="fig-l-agent" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/2/learning-agent.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 6: A learning agent</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+
+</aside>
 </section></section>
 <section>
 <section id="exercises" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
@@ -552,11 +628,6 @@
 <li>Interactive English tutor</li>
 </ul>
 </section></section>
-<section id="the-structure-of-agents" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-circles.jpeg">
-<h1>The structure of agents</h1>
-
-</section>
-
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 
 
