@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.13">
   <meta name="author" content="Andy Weeger">
-  <title>awe.lectures - Problem solving (searching)</title>
+  <title>awe.lectures - Search</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -344,7 +344,7 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="awe.lectures - Problem solving (searching)">
+<meta property="og:title" content="awe.lectures - Search">
 <meta property="og:description" content="🧠 I2AI_3 — Introduction to AI">
 <meta property="og:site-name" content="awe.lectures">
 </head>
@@ -353,7 +353,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#0333ff" class="center">
-  <h1 class="title">Problem solving (searching)</h1>
+  <h1 class="title">Search</h1>
   <p class="subtitle">🧠 I2AI_3 — Introduction to AI</p>
   <p class="author">Andy Weeger</p>
   <p class="institute">University of Applied Sciences Neu-Ulm</p>
@@ -362,12 +362,12 @@
 
 
 <section>
-<section id="problem-solving-agents" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1>Problem-solving agents</h1>
+<section id="problem-solving" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
+<h1>Problem-solving</h1>
 
 </section>
-<section id="agent" class="slide level2">
-<h2>Agent</h2>
+<section id="agents" class="slide level2">
+<h2>Agents</h2>
 <p>Agents that plan ahead by considering a sequence of actions that form a path to a goal state are called <strong>problem-solving agents</strong> <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 81</a>)</span></p>
 <div>
 <ul>
@@ -377,15 +377,15 @@
 </ul>
 </div>
 <div class="fragment">
-<p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.<br>
-–&gt; We assume that information about the environment are given (e.g., a map).</p>
+<p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
+<p>–&gt; We assume that information about the environment are given (e.g., a map).</p>
 </div>
 <aside class="notes">
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>.</p>
 </aside>
 </section>
-<section id="problem-solving-process" class="slide level2">
-<h2>Problem-solving process</h2>
+<section id="process" class="slide level2">
+<h2>Process</h2>
 <p>In simple environments, agents can follow a four-phase-problem-solving process <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 81–82</a>)</span>:</p>
 <div>
 <ul>
@@ -395,9 +395,30 @@
 <li class="fragment"><strong>Execution</strong>: the agent executes the actions in the solution, one at a time</li>
 </ul>
 </div>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Problem formulation must follow goal formulation</strong></p>
+</div>
+<div class="callout-content">
+<p>In goal formulation, we decide which aspects of the world we are interested in, and which can be ignored or abstracted away. Then in problem formulation we decide how to manipulate the important aspects (and ignore the others). If we did problem formulation first we would not know what to include and what to leave out.</p>
+<p>It can happen that there is a cycle of iterations between goal formulation, problem formulation, and problem-solving until one arrives at a sufficiently useful and efficient solution.</p>
+</div>
+</div>
+</div>
+</aside>
+</section></section>
+<section>
+<section id="search-problem" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
+<h1>Search problem</h1>
+
 </section>
-<section id="search-problem" class="slide level2">
-<h2>Search problem</h2>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
 <p>A search problem can be defined formally as <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 83</a>)</span>:</p>
 <div>
 <ul>
@@ -405,7 +426,7 @@
 <li class="fragment">The <strong>initial state</strong>: the state that the agent starts</li>
 <li class="fragment"><strong>Goal states</strong>: a singe goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</li>
 <li class="fragment">The <strong>actions</strong> available to the agent <code>ACTIONS(s)</code> where <code>s</code> is the current state</li>
-<li class="fragment">A <strong>transition model</strong>: describes what each action does. <code>RESULT(s,a)</code>returens the state that results from doing action <code>a</code>in state <code>s</code>.</li>
+<li class="fragment">A <strong>transition model</strong>: describes what each action does. <code>RESULT(s,a)</code> returns the state that results from doing action <code>a</code> in state <code>s</code>.</li>
 <li class="fragment">An <strong>action cost function</strong>: gives the numeric cost of applying action <code>a</code> in state <code>s</code> to reach state <code>s'</code> (<code>ACTION-COST(s,a,s'</code>)</li>
 <li class="fragment">A <strong>path</strong>: a sequence of actions</li>
 <li class="fragment">A <strong>solution</strong>: a path from the initial state to the goal state</li>
@@ -435,7 +456,7 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Definition of search problems and abstraction</strong></p>
+<p><strong>Abstraction</strong></p>
 </div>
 <div class="callout-content">
 <p>The model is an abstract mathematical description, here a simple atomic state description. The model is an <strong>abstraction</strong> as it ignores many details of the reality (e.g., weather and scenery).</p>
@@ -458,15 +479,12 @@
 </aside>
 </section></section>
 <section>
-<section id="search-algorithms" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1>Search algorithms</h1>
-<p>A <strong>search algorithm</strong> takes a search problem as input and returns a solution, or an indication of failure <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 89</a>)</span>.</p>
-<aside class="notes">
-<p>Here we consider algorithms that superimpose a search tree over the state-space graph, forming various paths from the initial state, trying to find a path that reaches a goal state.</p>
-</aside>
+<section id="search-tree" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
+<h1>Search tree</h1>
+
 </section>
-<section id="search-trees" class="slide level2">
-<h2>Search trees</h2>
+<section id="structure" class="slide level2">
+<h2>Structure</h2>
 <div id="fig-search-tree" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/search-tree.svg"></p>
@@ -474,7 +492,15 @@
 </figure>
 </div>
 <aside class="notes">
-<p>In <a href="#/fig-search-tree">Figure&nbsp;2</a>, nodes that have been <em>expanded</em> are white with bold letters; nodes on the frontier that have been <em>generated</em> but not yet expanded are in white and regular letter; the set of states corresponding to these two types of nodes are said to have been <em>reached</em>. Nodes that could be generated next are shown in faint dashed lines.</p>
+<p><a href="#/fig-search-tree">Figure&nbsp;2</a> visualizes the first few steps in finding a path from Arad (initial state) to Bucharest (goal).</p>
+<ul>
+<li>The <strong>root node</strong> of the search tree is the initial state <code>s</code> <em>(Arad)</em></li>
+<li>The available <code>ACTIONS(s)</code>, using the <code>RESULTS(s,a)</code> function are considered</li>
+<li>New nodes, called <strong>child nodes</strong> or <strong>successor nodes</strong> are generated for each resulting states (i.e., the root node is <strong>expanded</strong>)</li>
+<li>Each child node has <em>Arad</em> as its <strong>parent node</strong></li>
+<li>The child node to be considered next needs to be selected (<strong>strategies</strong> see below)</li>
+</ul>
+<p>In <a href="#/fig-search-tree">Figure&nbsp;2</a>, nodes that have been expanded are white with bold letters; nodes on the <strong>frontier</strong> that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been <strong>reached</strong>. Nodes that could be generated next are shown in faint dashed lines.</p>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -490,17 +516,124 @@
 <li>children correspond to successors,</li>
 <li>nodes show states, but correspond to PLANS that achieve those states</li>
 </ul>
-<p>There are lots of repeated structure in the search tree. Thus, for most problems, the whole tree can never be actually built. In practice, both state space graphs and search trees are constructed on demand and as little as possible.</p>
+<p>There are lots of repeated structure in the search tree. Thus, for most problems, the whole tree can never be actually built. In practice, both state space graphs and search trees are constructed on demand and as little as possible <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022</a>)</span>.</p>
 </div>
 </div>
 </div>
 </aside>
+</section></section>
+<section>
+<section id="search" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
+<h1>Search</h1>
+
+</section>
+<section id="algorithms" class="slide level2">
+<h2>Algorithms</h2>
+<p><strong>Search algorithms</strong> take a search problem as input and return a solution, or an indication of failure <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 89</a>)</span>.</p>
+<div>
+<ul>
+<li class="fragment">They superimpose a search tree over the state-space graph,</li>
+<li class="fragment">form various paths from the initial state, and</li>
+<li class="fragment">try to find a path that reaches a goal state.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>They can implement</p>
+</div>
+<div>
+<ul>
+<li class="fragment"><strong>uninformed search</strong> methods, which only have access to the problem definition</li>
+<li class="fragment"><strong>informed search</strong> methods, which have access to a heuristic function that estimates the costs of a solution <em>(e.g., straight-line distance in route-finding problems)</em></li>
+</ul>
+</div>
 </section>
 <section id="uniformed-search" class="slide level2">
 <h2>Uniformed search</h2>
+<ul>
+<li><strong>Breadth-first search</strong>: expands the shallowest nodes first
+<ul>
+<li>complete, optimal for unit action costs</li>
+<li>exponential space complexity</li>
+<li>FIFO queue</li>
+</ul></li>
+<li><strong>Uniform-cost search</strong>: expands the node with the lowest path costs
+<ul>
+<li>complete, optimal for general action costs</li>
+<li>priority queue using cumulative cost</li>
+</ul></li>
+<li><strong>Depth-first search</strong>: expands the deepest unexpanded node first
+<ul>
+<li>neither complete nor optimal</li>
+<li>linear space complexity, a depth bound can be added</li>
+<li>LIFO queue</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ques used in search algorithms</strong></p>
+</div>
+<div class="callout-content">
+<p>Three types of ques are used in search algorithms <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 92</a>)</span>:</p>
+<ul>
+<li>A <strong>priority queue</strong> first pops the node with the minimum costs according to some evaluation function, <em>f</em>.</li>
+<li>A <strong>LIFO queue</strong> or first-in-first-out queue first pops the node that was added to the queue first.</li>
+<li>A <strong>LIFO queue</strong> or last-in-first-out queue (also known as a stack) pops first the most recently added node.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Measuring problem-solving performance</strong></p>
+</div>
+<div class="callout-content">
+<p>The performance of problem-solving algorithms can be evaluated in four ways <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 93</a>)</span>:</p>
+<ul>
+<li><strong>Completeness</strong>: Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?</li>
+<li><strong>Cost optimality</strong>: Does it find a solution with the lowest path cost of all solutions?</li>
+<li><strong>Time complexity</strong>: How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?</li>
+<li><strong>Space complexity</strong>: How much memory is needed to perform the search?</li>
+</ul>
+</div>
+</div>
+</div>
+</aside>
+</section></section>
+<section id="summary" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
+<h1>Summary</h1>
+<p>Search operates over models of the world</p>
+<ul>
+<li>Agents do not try all possible plans</li>
+<li>Planning is all “in simulation”</li>
+<li>Search is only as good as the models are</li>
+</ul>
 </section>
-<section id="informed-search" class="slide level2">
-<h2>Informed search</h2>
+
+<section>
+<section id="unknown-environments" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
+<h1>Unknown environments</h1>
+
+</section>
+<section id="online-search" class="slide level2">
+<h2>Online search</h2>
+<p>The agents considered so far use <strong>offline search</strong> algorithm. They compute a complete solution before taking their first action.</p>
+<p><strong>Online search</strong> agents interleaves computation and action:</p>
+<ul>
+<li>Takes action,</li>
+<li>observes the environment, and</li>
+<li>computes the next action</li>
+</ul>
+<p>These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)</p>
+<p>Online search is a good idea in dynamic or semi-dynamic environments.</p>
 </section></section>
 <section>
 <section id="exercises" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
@@ -509,10 +642,25 @@
 </section>
 <section id="i2ai_3-e1" class="slide level2">
 <h2>I2AI_3 E1</h2>
-<p>Define in your own words the following terms:</p>
+<p>Explain why problem formulation must follow goal formulation.</p>
+</section>
+<section id="i2ai_3-e2" class="slide level2">
+<h2>I2AI_3 E2</h2>
+<p>Give a complete problem formulation for each of the following problems. Choose a formulation that is precise enough to be implemented.</p>
 <ul>
-<li>…</li>
+<li>There are six glass boxes in a row, each with a lock. Each of the first five boxes holds a key unlocking the next box in line; the last box holds a banana. You have the key to the first box, and you want the banana.</li>
+<li>There is an <em>n x n</em> grid of squares, each square initially being either unpainted floor or a bottomless pit. You start standing on an unpainted floor square, and can either paint the square under you or move into an adjacent unpainted floor square. You want the whole floor painted.</li>
 </ul>
+</section>
+<section id="i2ai_3-e3" class="slide level2">
+<h2>I2AI_3 E3</h2>
+<p>Your goal is to navigate a robot out of a maze. The robot starts in the center of the maze facing north. You can turn the robot to face north, east, south, or west. You can direct the robot to move forward a certain distance, although it will stop before hitting a wall.</p>
+<ol type="a">
+<li>Formulate this problem. How large is the state space?</li>
+<li>In navigating a maze, the only place we need to turn is at the intersection of two or more corridors. Reformulate this problem using this observation. How large is the state space now?</li>
+<li>From each point in the maze, we can move in any of the four directions until we reach a turning point, and this is the only action we need to do. Reformulate the problem using these actions. Do we need to keep track of the robot’s orientation now?</li>
+<li>In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.</li>
+</ol>
 </section></section>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 

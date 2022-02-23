@@ -1,5 +1,5 @@
 ---
-title: "Problem solving (searching)"
+title: "Search"
 subtitle: "🧠 I2AI_3 — Introduction to AI"
 
 format: 
@@ -13,9 +13,9 @@ format:
 
 [Slides](slides.html){#fig-elephant}
 
-# Problem-solving agents {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Problem-solving {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
 
-## Agent
+## Agents
 
 Agents that plan ahead by considering a sequence of actions that form a path to a goal state are called __problem-solving agents__ [@RusselNorvig2022AIMA, p.81]
 
@@ -27,6 +27,7 @@ Agents that plan ahead by considering a sequence of actions that form a path to 
 
 ::: {.fragment}
 Here only __simple environments__ are considered *(episodic, single agent, fully observable, deterministic, static, discrete, and known)*.  
+
 --> We assume that information about the environment are given (e.g., a map).
 :::
 
@@ -34,7 +35,7 @@ Here only __simple environments__ are considered *(episodic, single agent, fully
 There are also search algorithms for problems in *partially observable, nondeterministic, unknown, and continuous environments* (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see @RusselNorvig2022AIMA.
 :::
 
-## Problem-solving process
+## Process
 
 In simple environments, agents can follow a four-phase-problem-solving process [@RusselNorvig2022AIMA, p.81-82]:
 
@@ -45,7 +46,18 @@ In simple environments, agents can follow a four-phase-problem-solving process [
 - __Execution__: the agent executes the actions in the solution, one at a time 
 :::
 
-## Search problem
+:::{.notes}
+:::{.callout-note}
+### Problem formulation must follow goal formulation
+In goal formulation, we decide which aspects of the world we are interested in, and which can be ignored or abstracted away. Then in problem formulation we decide how to manipulate the important aspects (and ignore the others). If we did problem formulation first we would not know what to include and what to leave out.
+
+It can happen that there is a cycle of iterations between goal formulation, problem formulation, and problem-solving until one arrives at a sufficiently useful and efficient solution.
+:::
+:::
+
+# Search problem {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"} 
+
+## Definition
 
 A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 
@@ -54,7 +66,7 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 - The __initial state__: the state that the agent starts
 - __Goal states__: a singe goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)
 - The __actions__ available to the agent `ACTIONS(s)` where `s` is the current state
-- A __transition model__: describes what each action does. `RESULT(s,a)`returens the state that results from doing action `a`in state `s`.
+- A __transition model__: describes what each action does. `RESULT(s,a)` returns the state that results from doing action `a` in state `s`.
 - An __action cost function__: gives the numeric cost of applying action `a` in state `s` to reach state `s'` (`ACTION-COST(s,a,s'`)
 - A __path__: a sequence of actions
 - A __solution__: a path from the initial state to the goal state
@@ -74,7 +86,7 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 - Action costs: numbers on the paths
 
 ::: {.callout-note}
-### Definition of search problems and abstraction
+### Abstraction
 The model is an abstract mathematical description, here a simple atomic state description. The model is an __abstraction__ as it ignores many details of the reality (e.g., weather and scenery).
 
 A good problem formulation has the right level of detail (i.e., an appropriate __level of abstraction__).
@@ -94,22 +106,25 @@ Examples for search problems are [@RusselNorvig2022AIMA, p. 87-88]:
 
 :::
 
-# Search algorithms {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Search tree {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
 
-A __search algorithm__ takes a search problem as input and returns a solution, or an indication of failure [@RusselNorvig2022AIMA, p.89].
-
-::: {.notes}
-Here we consider algorithms that superimpose a search tree over the state-space graph, forming various paths from the initial state, trying to find a path that reaches a goal state.
-:::
-
-## Search trees
+## Structure
 
 ![Example: A partial search tree for finding a route from Arad to Bucharest; based on @RusselNorvig2022AIMA [p.89]](images/search-tree.svg){#fig-search-tree}
 
 ::: {.notes}
-In @fig-search-tree, nodes that have been *expanded* are white with bold letters; nodes on the frontier that have been *generated* but not yet expanded are in white and regular letter; the set of states corresponding to these two types of nodes are said to have been *reached*. Nodes that could be generated next are shown in faint dashed lines.
+@fig-search-tree visualizes the first few steps in finding a path from Arad (initial state) to Bucharest (goal). 
+
+- The __root node__ of the search tree is the initial state `s` *(Arad)*
+- The available `ACTIONS(s)`, using the `RESULTS(s,a)` function are considered
+- New nodes, called __child nodes__ or __successor nodes__ are generated for each resulting states (i.e., the root node is __expanded__)
+- Each child node has *Arad* as its __parent node__
+- The child node to be considered next needs to be selected (__strategies__ see below)
+
+ In @fig-search-tree, nodes that have been expanded are white with bold letters; nodes on the __frontier__ that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been __reached__. Nodes that could be generated next are shown in faint dashed lines.
 
 ::: {.callout-note}
+
 ### Definition of search trees
 A search tree is a “what if” tree of plans and their outcomes.
 
@@ -117,22 +132,110 @@ A search tree is a “what if” tree of plans and their outcomes.
 - children correspond to successors, 
 - nodes show states, but correspond to PLANS that achieve those states
 
-There are lots of repeated structure in the search tree. Thus, for most problems, the whole tree can never be actually built. In practice, both state space graphs and search trees are constructed on demand and as little as possible.
+There are lots of repeated structure in the search tree. Thus, for most problems, the whole tree can never be actually built. In practice, both state space graphs and search trees are constructed on demand and as little as possible [@RusselNorvig2022AIMA].
 :::
 :::
 
+# Search {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+
+## Algorithms
+
+__Search algorithms__ take a search problem as input and return a solution, or an indication of failure [@RusselNorvig2022AIMA, p.89].
+
+::: {.incremental}
+- They superimpose a search tree over the state-space graph,
+- form various paths from the initial state, and 
+- try to find a path that reaches a goal state.
+:::
+
+:::{.fragment}
+They can implement
+:::
+
+::: {.incremental}
+- __uninformed search__ methods, which only have access to the problem definition
+- __informed search__ methods, which have access to a heuristic function that estimates the costs of a solution *(e.g., straight-line distance in route-finding problems)*
+:::
 
 ## Uniformed search
 
-## Informed search 
+- __Breadth-first search__: expands the shallowest nodes first   
+  - complete, optimal for unit action costs
+  - exponential space complexity
+  - FIFO queue
+- __Uniform-cost search__: expands the node with the lowest path costs
+  - complete, optimal for general action costs
+  - priority queue using cumulative cost
+- __Depth-first search__: expands the deepest unexpanded node first  
+  - neither complete nor optimal
+  - linear space complexity, a depth bound can be added
+  - LIFO queue
+
+:::{.notes}
+:::{.callout-note}
+### Ques used in search algorithms
+Three types of ques are used in search algorithms [@RusselNorvig2022AIMA, p.92]:
+
+- A __priority queue__ first pops the node with the minimum costs according to some evaluation function, *f*.
+- A __LIFO queue__ or first-in-first-out queue first pops the node that was added to the queue first.
+- A __LIFO queue__ or last-in-first-out queue (also known as a stack) pops first the most recently added node.
+:::
+:::{.callout-note}
+### Measuring problem-solving performance
+The performance of problem-solving algorithms can be evaluated in four ways [@RusselNorvig2022AIMA, p.93]:
+
+- __Completeness__: Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?
+- __Cost optimality__: Does it find a solution with the lowest path cost of all solutions?
+- __Time complexity__: How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?
+- __Space complexity__: How much memory is needed to perform the search?
+:::
+:::
+
+# Summary {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+
+Search operates over models of the world
+
+- Agents do not try all possible plans
+- Planning is all "in simulation"
+- Search is only as good as the models are
+
+# Unknown environments {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+
+## Online search
+
+The agents considered so far use __offline search__ algorithm. They compute a complete solution before taking their first action.
+
+__Online search__ agents interleaves computation and action:
+
+- Takes action,
+- observes the environment, and
+- computes the next action
+
+These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)
+
+Online search is a good idea in dynamic or semi-dynamic environments.
 
 # ✏️ Exercises {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
 
 ## I2AI_3 E1
 
-Define in your own words the following terms: 
+Explain why problem formulation must follow goal formulation.
 
-- ...
+## I2AI_3 E2
+
+Give a complete problem formulation for each of the following problems. Choose a formulation that is precise enough to be implemented.
+
+- There are six glass boxes in a row, each with a lock. Each of the first five boxes holds a key unlocking the next box in line; the last box holds a banana. You have the key to the first box, and you want the banana.
+- There is an *n x n* grid of squares, each square initially being either unpainted floor or a bottomless pit. You start standing on an unpainted floor square, and can either paint the square under you or move into an adjacent unpainted floor square. You want the whole floor painted.
+
+## I2AI_3 E3
+
+Your goal is to navigate a robot out of a maze. The robot starts in the center of the maze facing north. You can turn the robot to face north, east, south, or west. You can direct the robot to move forward a certain distance, although it will stop before hitting a wall. 
+
+a. Formulate this problem. How large is the state space?
+b. In navigating a maze, the only place we need to turn is at the intersection of two or more corridors. Reformulate this problem using this observation. How large is the state space now?
+c. From each point in the maze, we can move in any of the four directions until we reach a turning point, and this is the only action we need to do. Reformulate the problem using these actions. Do we need to keep track of the robot’s orientation now?
+d. In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.
 
 ::: {#refs}
 # References {visibility="hidden"}

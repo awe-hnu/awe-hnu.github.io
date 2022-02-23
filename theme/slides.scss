@@ -88,7 +88,7 @@ $presentation-h3-font-size: 1.25em !default;
 $presentation-h4-font-size: 1em !default;
 
 // margins
-$presentation-block-margin: 1.5rem !default;
+$presentation-block-margin: 1rem !default;
 
 // text alignment
 $presentation-slide-text-align: left !default;
@@ -632,15 +632,15 @@ $progress-height: 5px;
     font-style: normal !important;
     font-family: $font-family-monospace;
     font-size: $revealjs-font-size-root*.9;
-    margin: $presentation-block-margin 0;
-    padding-left: $presentation-block-margin;
+    margin: $blockMargin 0;
+    padding-left: $blockMargin;
     border-left: 5px solid $link-color;
   }
   
   img,
   p {
-      margin-top: $presentation-block-margin/2;
-      margin-bottom: $presentation-block-margin/2;
+      margin-top: $blockMargin/2;
+      margin-bottom: $blockMargin/2;
   }
 
 
@@ -663,20 +663,27 @@ $progress-height: 5px;
 
   ul {
     list-style-type: square;
-  }
-  
-  > ul {
-    list-style-type: square;
+    margin-bottom: 0 !important;
 
     li:first-child {
       margin-top: 0 !important;
-
-      ul li:first-child {
-        margin-top: .4em !important;
-      }
-
+    }
+    li:last-child {
+      margin-bottom: 0 !important;
     }
 
+    ul li:first-child {
+      margin-top: .4em !important;
+    }
+    ul li:last-child {
+      margin-bottom: .2em !important;
+    }
+
+    ul li ul {
+      margin-bottom: $blockMargin/2;
+    }
+
+  
   }
 
   p {
