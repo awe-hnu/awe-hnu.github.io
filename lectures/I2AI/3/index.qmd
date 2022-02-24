@@ -11,9 +11,33 @@ format:
 
 # Top{visibility="hidden" .slide-link-hidden .unlisted}
 
-[Slides](slides.html){#fig-elephant}
+[Slides](slides.html)
 
-# Problem-solving {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Problem-solving {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+
+## Applications
+
+::: {.r-stack .html-hidden}
+
+![](images/routing.jpeg){.fragment height="550"}
+
+![](images/vacuum.jpeg){.fragment height="400"}
+
+![](images/robot.jpeg){.fragment height="300"}
+
+![](images/puzzle.jpeg){.fragment height="350"}
+
+:::
+
+::: {.notes}
+Examples for search problems are [@RusselNorvig2022AIMA, p. 87-88]:
+
+- Route-finding problems (e.g., car navigation, airline travel-planning)
+- Touring problems (e.g., the traveling salesperson problem)
+- VLSI layout problems (positioning millions of components and connections on a chip)
+- Robot navigation (e.g., vacuum robots)
+- Automatic assembly sequencing of complex objects (e.g., protein design)
+:::
 
 ## Agents
 
@@ -22,13 +46,13 @@ Agents that plan ahead by considering a sequence of actions that form a path to 
 ::: {.incremental}
 - The computational process it undertakes is __search__
 - The representations the agents use are __atomic__ representations
-- There are search algorithms for several environments. 
+- There are search algorithms for several environments
 :::
 
 ::: {.fragment}
 Here only __simple environments__ are considered *(episodic, single agent, fully observable, deterministic, static, discrete, and known)*.  
 
---> We assume that information about the environment are given (e.g., a map).
+--> We assume that information about the environment are given (e.g., a map)
 :::
 
 :::{.notes}
@@ -55,7 +79,7 @@ It can happen that there is a cycle of iterations between goal formulation, prob
 :::
 :::
 
-# Search problem {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"} 
+# Search problem {.vertical-center background-color=blue background-image="images/bg.jpeg"} 
 
 ## Definition
 
@@ -72,7 +96,7 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 - A __solution__: a path from the initial state to the goal state
 :::
 
-## Search problems are models
+## Modelling
 
 ![Example: A simplified map of Romania, with road distances in miles; based on @RusselNorvig2022AIMA [p.82]](images/search-problem.svg){#fig-search-problem}
 
@@ -93,20 +117,9 @@ A good problem formulation has the right level of detail (i.e., an appropriate _
 
 The choice of a good abstraction involves removing as much detail as possible while retaining validity and ensuring that the abstract actions are easy to carry out. An abstraction is *valid* if any abstract solution can be elaborated into a solution in the more detailed world.
 :::
-
-## Real world problems
-
-Examples for search problems are [@RusselNorvig2022AIMA, p. 87-88]:
-
-- Route-finding problems (e.g., car navigation, airline travel-planning)
-- Touring problems (e.g., the traveling salesperson problem)
-- VLSI layout problems (positioning millions of components and connections on a chip)
-- Robot navigation (e.g., vacuum robots)
-- Automatic assembly sequencing of complex objects (e.g., protein design)
-
 :::
 
-# Search tree {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Search tree {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
 ## Structure
 
@@ -136,7 +149,7 @@ There are lots of repeated structure in the search tree. Thus, for most problems
 :::
 :::
 
-# Search {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Search {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
 ## Algorithms
 
@@ -159,6 +172,7 @@ They can implement
 
 ## Uniformed search
 
+::: {.incremental}
 - __Breadth-first search__: expands the shallowest nodes first   
   - complete, optimal for unit action costs
   - exponential space complexity
@@ -170,6 +184,7 @@ They can implement
   - neither complete nor optimal
   - linear space complexity, a depth bound can be added
   - LIFO queue
+:::
 
 :::{.notes}
 :::{.callout-note}
@@ -191,15 +206,7 @@ The performance of problem-solving algorithms can be evaluated in four ways [@Ru
 :::
 :::
 
-# Summary {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
-
-Search operates over models of the world
-
-- Agents do not try all possible plans
-- Planning is all "in simulation"
-- Search is only as good as the models are
-
-# Unknown environments {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Unknown environments {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
 ## Online search
 
@@ -215,7 +222,15 @@ These agents can discover successor only for a state that is occupied or that is
 
 Online search is a good idea in dynamic or semi-dynamic environments.
 
-# ✏️ Exercises {.vertical-center background-color=blue background-image="images/bg-squares-planes.jpeg"}
+# Summary {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+
+Search operates over models of the world (which might be observed *online*)
+
+- Agents do not try all possible plans
+- Planning is all "in simulation"
+- Search is only as good as the models are
+
+# ✏️ Exercises {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
 ## I2AI_3 E1
 

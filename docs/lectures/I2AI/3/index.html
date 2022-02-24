@@ -11,6 +11,7 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
@@ -109,6 +110,11 @@
   <a href="../../../lectures/I2AI/3/index.html" class="sidebar-item-text sidebar-link active">Search</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../lectures/I2AI/4/index.html" class="sidebar-item-text sidebar-link">Games</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -119,13 +125,14 @@
 <ul>
 <li><a href="#problem-solving" class="nav-link active" data-scroll-target="#problem-solving">Problem-solving</a>
 <ul class="collapse">
+<li><a href="#applications" class="nav-link" data-scroll-target="#applications">Applications</a></li>
 <li><a href="#agents" class="nav-link" data-scroll-target="#agents">Agents</a></li>
 <li><a href="#process" class="nav-link" data-scroll-target="#process">Process</a></li>
 </ul></li>
 <li><a href="#search-problem" class="nav-link" data-scroll-target="#search-problem">Search problem</a>
 <ul class="collapse">
 <li><a href="#definition" class="nav-link" data-scroll-target="#definition">Definition</a></li>
-<li><a href="#search-problems-are-models" class="nav-link" data-scroll-target="#search-problems-are-models">Search problems are models</a></li>
+<li><a href="#modelling" class="nav-link" data-scroll-target="#modelling">Modelling</a></li>
 </ul></li>
 <li><a href="#search-tree" class="nav-link" data-scroll-target="#search-tree">Search tree</a>
 <ul class="collapse">
@@ -136,11 +143,11 @@
 <li><a href="#algorithms" class="nav-link" data-scroll-target="#algorithms">Algorithms</a></li>
 <li><a href="#uniformed-search" class="nav-link" data-scroll-target="#uniformed-search">Uniformed search</a></li>
 </ul></li>
-<li><a href="#summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
 <li><a href="#unknown-environments" class="nav-link" data-scroll-target="#unknown-environments">Unknown environments</a>
 <ul class="collapse">
 <li><a href="#online-search" class="nav-link" data-scroll-target="#online-search">Online search</a></li>
 </ul></li>
+<li><a href="#summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
 <li><a href="#exercises" class="nav-link" data-scroll-target="#exercises">✏️ Exercises</a>
 <ul class="collapse">
 <li><a href="#i2ai_3-e1" class="nav-link" data-scroll-target="#i2ai_3-e1">I2AI_3 E1</a></li>
@@ -159,10 +166,29 @@
 
 <section id="top" class="level1 slide-link-hidden unlisted" data-visibility="hidden">
 <h1 class="slide-link-hidden unlisted" data-visibility="hidden">Top</h1>
-<p><a href="slides.html" id="fig-elephant">Slides</a></p>
+<p><a href="slides.html">Slides</a></p>
 </section>
-<section id="problem-solving" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">Problem-solving</h1>
+<section id="problem-solving" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Problem-solving</h1>
+<section id="applications" class="level2">
+<h2 data-anchor-id="applications">Applications</h2>
+<div class="r-stack html-hidden">
+<p><img src="images/routing.jpeg" class="fragment" height="550"></p>
+<p><img src="images/vacuum.jpeg" class="fragment" height="400"></p>
+<p><img src="images/robot.jpeg" class="fragment" height="300"></p>
+<p><img src="images/puzzle.jpeg" class="fragment" height="350"></p>
+</div>
+<div class="notes">
+<p>Examples for search problems are <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 87–88</a>)</span>:</p>
+<ul>
+<li>Route-finding problems (e.g., car navigation, airline travel-planning)</li>
+<li>Touring problems (e.g., the traveling salesperson problem)</li>
+<li>VLSI layout problems (positioning millions of components and connections on a chip)</li>
+<li>Robot navigation (e.g., vacuum robots)</li>
+<li>Automatic assembly sequencing of complex objects (e.g., protein design)</li>
+</ul>
+</div>
+</section>
 <section id="agents" class="level2">
 <h2 data-anchor-id="agents">Agents</h2>
 <p>Agents that plan ahead by considering a sequence of actions that form a path to a goal state are called <strong>problem-solving agents</strong> <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 81</a>)</span></p>
@@ -170,12 +196,12 @@
 <ul class="incremental">
 <li>The computational process it undertakes is <strong>search</strong></li>
 <li>The representations the agents use are <strong>atomic</strong> representations</li>
-<li>There are search algorithms for several environments.</li>
+<li>There are search algorithms for several environments</li>
 </ul>
 </div>
 <div class="fragment">
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
-<p>–&gt; We assume that information about the environment are given (e.g., a map).</p>
+<p>–&gt; We assume that information about the environment are given (e.g., a map)</p>
 </div>
 <div class="notes">
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span>.</p>
@@ -210,8 +236,8 @@ Problem formulation must follow goal formulation
 </div>
 </section>
 </section>
-<section id="search-problem" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">Search problem</h1>
+<section id="search-problem" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Search problem</h1>
 <section id="definition" class="level2">
 <h2 data-anchor-id="definition">Definition</h2>
 <p>A search problem can be defined formally as <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 83</a>)</span>:</p>
@@ -228,8 +254,8 @@ Problem formulation must follow goal formulation
 </ul>
 </div>
 </section>
-<section id="search-problems-are-models" class="level2">
-<h2 data-anchor-id="search-problems-are-models">Search problems are models</h2>
+<section id="modelling" class="level2">
+<h2 data-anchor-id="modelling">Modelling</h2>
 <div id="fig-search-problem" class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/search-problem.svg" class="img-fluid figure-img"></p>
@@ -260,22 +286,11 @@ Abstraction
 <p>The choice of a good abstraction involves removing as much detail as possible while retaining validity and ensuring that the abstract actions are easy to carry out. An abstraction is <em>valid</em> if any abstract solution can be elaborated into a solution in the more detailed world.</p>
 </div>
 </div>
-<section id="real-world-problems" class="level2">
-<h2 data-anchor-id="real-world-problems">Real world problems</h2>
-<p>Examples for search problems are <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 87–88</a>)</span>:</p>
-<ul>
-<li>Route-finding problems (e.g., car navigation, airline travel-planning)</li>
-<li>Touring problems (e.g., the traveling salesperson problem)</li>
-<li>VLSI layout problems (positioning millions of components and connections on a chip)</li>
-<li>Robot navigation (e.g., vacuum robots)</li>
-<li>Automatic assembly sequencing of complex objects (e.g., protein design)</li>
-</ul>
-</section>
 </div>
 </section>
 </section>
-<section id="search-tree" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">Search tree</h1>
+<section id="search-tree" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Search tree</h1>
 <section id="structure" class="level2">
 <h2 data-anchor-id="structure">Structure</h2>
 <div id="fig-search-tree" class="quarto-figure quarto-figure-center">
@@ -316,8 +331,8 @@ Definition of search trees
 </div>
 </section>
 </section>
-<section id="search" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">Search</h1>
+<section id="search" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Search</h1>
 <section id="algorithms" class="level2">
 <h2 data-anchor-id="algorithms">Algorithms</h2>
 <p><strong>Search algorithms</strong> take a search problem as input and return a solution, or an indication of failure <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 89</a>)</span>.</p>
@@ -340,25 +355,27 @@ Definition of search trees
 </section>
 <section id="uniformed-search" class="level2">
 <h2 data-anchor-id="uniformed-search">Uniformed search</h2>
-<ul>
+<div class="incremental">
+<ul class="incremental">
 <li><strong>Breadth-first search</strong>: expands the shallowest nodes first
-<ul>
+<ul class="incremental">
 <li>complete, optimal for unit action costs</li>
 <li>exponential space complexity</li>
 <li>FIFO queue</li>
 </ul></li>
 <li><strong>Uniform-cost search</strong>: expands the node with the lowest path costs
-<ul>
+<ul class="incremental">
 <li>complete, optimal for general action costs</li>
 <li>priority queue using cumulative cost</li>
 </ul></li>
 <li><strong>Depth-first search</strong>: expands the deepest unexpanded node first
-<ul>
+<ul class="incremental">
 <li>neither complete nor optimal</li>
 <li>linear space complexity, a depth bound can be added</li>
 <li>LIFO queue</li>
 </ul></li>
 </ul>
+</div>
 <div class="notes">
 <div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -400,17 +417,8 @@ Measuring problem-solving performance
 </div>
 </section>
 </section>
-<section id="summary" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">Summary</h1>
-<p>Search operates over models of the world</p>
-<ul>
-<li>Agents do not try all possible plans</li>
-<li>Planning is all “in simulation”</li>
-<li>Search is only as good as the models are</li>
-</ul>
-</section>
-<section id="unknown-environments" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">Unknown environments</h1>
+<section id="unknown-environments" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Unknown environments</h1>
 <section id="online-search" class="level2">
 <h2 data-anchor-id="online-search">Online search</h2>
 <p>The agents considered so far use <strong>offline search</strong> algorithm. They compute a complete solution before taking their first action.</p>
@@ -424,8 +432,17 @@ Measuring problem-solving performance
 <p>Online search is a good idea in dynamic or semi-dynamic environments.</p>
 </section>
 </section>
-<section id="exercises" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg-squares-planes.jpeg">✏️ Exercises</h1>
+<section id="summary" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Summary</h1>
+<p>Search operates over models of the world (which might be observed <em>online</em>)</p>
+<ul>
+<li>Agents do not try all possible plans</li>
+<li>Planning is all “in simulation”</li>
+<li>Search is only as good as the models are</li>
+</ul>
+</section>
+<section id="exercises" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">✏️ Exercises</h1>
 <section id="i2ai_3-e1" class="level2">
 <h2 data-anchor-id="i2ai_3-e1">I2AI_3 E1</h2>
 <p>Explain why problem formulation must follow goal formulation.</p>

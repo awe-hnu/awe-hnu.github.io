@@ -691,7 +691,7 @@ $progress-height: 5px;
   }
 
   h3 {
-    margin: 1rem 0 .5rem 0;
+    margin: 1.5rem 0 1rem 0 !important;
   }
 
   h4,
@@ -714,8 +714,14 @@ $progress-height: 5px;
   }
   
   img {
-    margin: 0 0 $blockMargin 0;
     max-height: 75%;
+
+    &.math {
+      &.inline {
+        margin: 0;
+      }
+    }
+
   }
 
   figure {
@@ -723,12 +729,27 @@ $progress-height: 5px;
     >p:first-child {
       margin: 0;
       background-color: #f4f4f4;
+      line-height: 1;
+
+      img {
+        margin: $blockMargin auto;
+        display: inline-block;
+      }
+
     }
 
     .figure-img {
       margin-bottom: 0 !important;
     }      
 
+  }
+
+  .column {
+    margin-right: 1em;
+  }
+
+  .column:last-child {
+    margin-right: -1em;
   }
 
   .column {
@@ -784,4 +805,17 @@ $progress-height: 5px;
 .reveal.overview .slides .slide {
   overflow: hidden;
   height: 750px;
+}
+
+.reveal .footnotes ol li > p:first-child {
+  display: inline !important;
+}
+
+.reveal .footnotes ol li {
+  margin-bottom: $blockMargin;
+}
+
+.reveal .footnotes ol li:before {
+  color: $link-color;
+  display: inline;  
 }
