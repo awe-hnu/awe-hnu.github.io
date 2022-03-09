@@ -115,12 +115,12 @@ $input-panel-border-radius: $border-radius !default;
 $input-panel-bg: rgba(248, 249, 250, 1) !default;
 
 // alternate colors for when the background changes
-$light-bg-text-color: #222 !default;
+$light-bg-text-color: #000 !default;
 $dark-bg-text-color: #fff !default;
-$light-bg-link-color: #2a76dd !default;
-$dark-bg-link-color: #42affa !default;
-$light-bg-code-color: #4758ab !default;
-$dark-bg-code-color: #ffa07a !default;
+$light-bg-link-color: #0333ff !default;
+$dark-bg-link-color: #03eeff !default;
+$light-bg-code-color: #0333ff !default;
+$dark-bg-code-color: #03eeff !default;
 
 // --- derive reveal versions of presentation variables for finer-grained override ---
 
@@ -474,7 +474,6 @@ $progress-height: 5px;
       float: right;
       margin-right: 4.5rem;
       margin-left: .5rem;
-      display: inline-block;
       padding-top: 1rem;
       svg {
         height: 2.5rem;
@@ -574,9 +573,6 @@ $progress-height: 5px;
       margin-bottom: 5rem;
     }
 
-    .subtitle {
-    }
-
     .author,
     .institute,
     .date {     
@@ -592,22 +588,34 @@ $progress-height: 5px;
 }
 
 .reveal {
+
+  h1,
+  h2 {
+    margin-bottom: $blockMargin*3 !important;
+  }
   
   .progress {
       height: $progress-height;
       background: #a6a6a6 !important;  
   }
+  
+  span.citation {
+    font-family: $font-family-monospace;
+    color: $link-color;
+  }
 
+  li,
+  p {
+    span.citation {
+      font-size: #{$presentation-font-smaller}em;
+    }
+  }
 
 
   blockquote,
   p,
   li {
     max-width: 40em;
-  }    
-
-  em {
-
   }
 
   table {
@@ -635,6 +643,15 @@ $progress-height: 5px;
     margin: $blockMargin 0;
     padding-left: $blockMargin;
     border-left: 5px solid $link-color;
+
+    em {
+      font-style: normal;
+      color: $link-color;
+      font-size: #{$presentation-font-smaller}em;
+      margin-top: $blockMargin;
+      display: block;
+    }
+
   }
   
   img,
@@ -694,12 +711,19 @@ $progress-height: 5px;
     margin: 1.5rem 0 1rem 0 !important;
   }
 
-  h4,
-  p strong,
-  li strong {
+  h4 {
     border-bottom: 2px solid;
     font-weight: normal;
-    display: inline;
+    display: inline-block;
+  }
+
+  p strong,
+  li strong {  
+    background: #efefef;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: normal;
+    color: $link-color;
   }
 
   table strong {
@@ -747,6 +771,14 @@ $progress-height: 5px;
   .columns {
 
     padding-right: 1em;
+
+    &.col-3 {
+
+      .column {
+        margin-right: .5em;
+      }
+
+    }
 
     .column {
       margin-right: 1em;
