@@ -148,25 +148,19 @@ Task environments can be categorized along following dimensions [@RusselNorvig20
 :::
 
 ::: {.notes}
+__Explanations__
 
-If an agent's sensors give it access to the full state of the environment at any point in time, then we say that the task environment is *fully observable* (e.g., image analysis).
-
-When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is *multi-agent* (e.g., chess).
-
-When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a *deterministic* environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a *stochastic* environment (e.g., poker).
-
-If an agent's experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is *episodic* (e.g., image analysis).
-
-If the environment changes while an agent is deliberating, then the environment is *dynamic* (e.g., taxi driving).
-
-If the environment has a finite number of different states, we speak of *discrete* environments (e.g., chess).
-
-If the outcomes (or outcome probabilities) for all actions are given, then the environment is *known* (e.g., solitaire card game).
+- If an agent's sensors give it access to the full state of the environment at any point in time, then we say that the task environment is *fully observable* (e.g., image analysis).
+- When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is *multi-agent* (e.g., chess).
+- When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a *deterministic* environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a *stochastic* environment (e.g., poker).
+- If an agent's experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is *episodic* (e.g., image analysis).
+- If the environment changes while an agent is deliberating, then the environment is *dynamic* (e.g., taxi driving).
+- If the environment has a finite number of different states, we speak of *discrete* environments (e.g., chess).
+- If the outcomes (or outcome probabilities) for all actions are given, then the environment is *known* (e.g., solitaire card game).
 
 Source: @RusselNorvig2022AIMA, p.62-64
 
 :::
-
 
 ::: {.fragment}
 The hardest case is *partially observable, multi-agent, nondeterministic, sequential, dynamic, and continuous.*
@@ -237,9 +231,20 @@ In addition, there are cases where the goals are insufficient but a utility-base
 - When there are conflicting goals, the utility function specifies the appropriate tradeoff.
 - Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals
 
-Mode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.
+Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity. 
 
 There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any "understanding" of its impact on the environment (e.g., based on reinforcement learning).
+
+### Main differences
+
+The main difference between __simple reflex agents__ and __model-based reflex agents__ is that the latter keep track of the state of the world. Model-based reflex agents generate knowledge about how the world evolves independently of the agent and how actions of the agent change the world (i.e., they have knowledge about “how the world works”). This knowledge is “stored” in the transition model of the world. A model-based reflex agents still decides on condition-action rules which action to take (i.e., the codified reflexes).
+
+The main difference between __model-based reflex agents__ and __goal-based agents__ is that it does not act on fixed condition-action rules, but on some sort of goal information that describes situations that are desirable (e.g., in the case of route-finding the destination). Based on the goal, the best possible action (based on the knowledge of the world), needs to be selected. Goal-based decision making involves consideration of the future based on the transition model (i.e., “what will happen if I do such-and-such?”) and how it helps to achieve the goal. In reflex agents designs, this information I not explicitly represented, because the built rules map directly from the percepts to actions, without considering/knowing the future state.
+
+The main difference between __goal-based agents__ and __utility-based agents__ is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).
+
+Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.
+
 :::
 
 ## Learning agents
@@ -282,7 +287,7 @@ For each of the following agents, specify the sensors, actuators, and environmen
 
 ## I2AI_2 E3
 
-Describe a task environments in which the performance measure is easy to specify completely and correctly, and a in which it is not.
+Describe a task environment in which the performance measure is easy to specify completely and correctly, and a in which it is not.
 
 ## I2AI_2 E4
 
@@ -328,6 +333,6 @@ Define in your own words the following terms
 - Utility-based agent
 - Learning agent
 
+# Literature
 ::: {#refs}
-# References {visibility="hidden"}
 :::

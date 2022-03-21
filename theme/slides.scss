@@ -279,6 +279,50 @@ section.has-dark-background {
   max-height: 500px;
 }
 
+.reveal blockquote {
+  display: block;
+  position: relative;
+  color: $border-color;
+  width: unset;
+  margin: var(--r-block-margin) auto;
+  padding: 0.625rem 1.75rem;
+  border-left: 0.25rem solid $text-muted;
+  font-style: normal;
+  background: none;
+  box-shadow: none;
+}
+.reveal blockquote p:first-child,
+.reveal blockquote p:last-child {
+  display: inline;
+}
+
+.reveal .slide aside,
+.reveal .slide div.aside {
+  display: none;
+/*  position: absolute;
+  bottom: 20px;
+  font-size: #{$presentation-font-smaller}em;
+  color: $text-muted; */
+}
+
+.reveal .slide sup {
+  font-size: #{$presentation-font-smaller}em;
+}
+
+.reveal .slide.scrollable aside,
+.reveal .slide.scrollable div.aside {
+  position: relative;
+  margin-top: 1em;
+}
+
+.reveal .slide aside .aside-footnotes {
+  margin-bottom: 0;
+}
+
+.reveal .slide aside .aside-footnotes li:first-of-type {
+  margin-top: 0;
+}
+
 $panel-sidebar-width: 270px;
 $panel-sidebar-padding: 0.5em;
 
@@ -340,7 +384,8 @@ $panel-sidebar-padding: 0.5em;
 }
 
 .reveal.smaller .slides section,
-.reveal .slides section.smaller {
+.reveal .slides section.smaller,
+.reveal .slides section .callout {
   font-size: #{$presentation-font-smaller}em;
 }
 
@@ -357,11 +402,6 @@ $panel-sidebar-padding: 0.5em;
 .reveal.smaller .slides h3,
 .reveal .slides section.smaller h3 {
   font-size: calc(#{$revealjs-h3-font-size} / #{$presentation-font-smaller});
-}
-
-.reveal.smaller .slides pre,
-.reveal .slides section.smaller pre {
-  font-size: calc(#{$code-block-font-size} / #{$presentation-font-smaller});
 }
 
 .reveal .slide-number {
@@ -387,11 +427,10 @@ $panel-sidebar-padding: 0.5em;
   img.stretch + p.caption,
   img.r-stretch + p.caption {
     font-size: #{$presentation-font-smaller}em;
-    margin-top: $blockMargin;
   }
 }
 
-@media screen and (min-width: $max-width-mobile) {
+@media screen and (min-width: 500px) {
   $arrow-spacing: 0.2em;
   $control-arrow-spacing: 1.4em;
 
@@ -417,7 +456,7 @@ $panel-sidebar-padding: 0.5em;
   color: $mainColor;
   border-radius: $border-radius;
   border: solid $border-width $border-color;
-  font-size: 0.8em;
+  font-size: 0.6em;
 }
 
 .tippy-box[data-theme~="quarto-reveal"] .tippy-arrow {
@@ -429,8 +468,38 @@ $panel-sidebar-padding: 0.5em;
   z-index: 1;
 }
 
+.reveal .callout.callout-style-simple .callout-body,
+.reveal .callout.callout-style-default .callout-body,
+.reveal .callout.callout-style-simple div.callout-caption,
+.reveal .callout.callout-style-default div.callout-caption {
+  font-size: inherit;
+}
+
+.reveal .callout.callout-style-default .callout-icon::before {
+  height: 2rem;
+  width: 2rem;
+  background-size: 2rem 2rem;
+}
+
+.reveal .callout.callout-captioned .callout-caption p {
+  margin-top: 0.5em;
+}
+
+.reveal .callout.callout-captioned .callout-icon::before {
+  margin-top: 1rem;
+}
+
+.reveal .callout.callout-captioned .callout-body > :last-child,
+.reveal .callout.callout-captioned .callout-body > div > :last-child {
+  margin-bottom: 1rem;
+}
+
 .reveal .panel-tabset [role="tab"] {
   padding: 0.25em 0.7em;
+}
+
+.reveal .slide-menu-button .fa-bars::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGB($link-color)}" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>');
 }
 
 .reveal .slide-chalkboard-buttons .fa-easel2::before {
@@ -443,12 +512,16 @@ $panel-sidebar-padding: 0.5em;
 
 // This is a sentinel value that renderers can use to determine
 // whether the theme is dark or light
-@if (color.blackness($backgroundColor) > $code-block-theme-dark-threshhold) {
+@if (
+  sass-color.blackness($backgroundColor) > $code-block-theme-dark-threshhold
+) {
   /*! dark */
+  .reveal div.callout.callout-style-default .callout-caption {
+    color: #222;
+  }
 } @else {
   /*! light */
 }
-
 
 
 // Custom CSS
@@ -869,10 +942,6 @@ $progress-height: 5px;
     max-height: 50vh;
   }    
 
-}
-
-#refs {
-  display: none;
 }
 
 .reveal .slides .level1.vertical-center {

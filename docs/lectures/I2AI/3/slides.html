@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.13">
+  <meta name="generator" content="quarto-0.9.123">
   <meta name="author" content="Andy Weeger">
   <title>awe.lectures - Search</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,9 +10,6 @@
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
   <style>
-    .reveal .sourceCode {  /* see #7635 */
-      overflow: visible;
-    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -264,12 +261,6 @@
     .reveal .slide:not(.center) {
       height: 100%;
     }
-    .reveal #title-slide.center,
-    .reveal .title-slide.center,
-    .reveal .controls .navigate-left .controls-arrow,
-    .reveal .controls .navigate-right .controls-arrow {
-      margin-top: -15px;
-    }
     .reveal .slide.scrollable {
       overflow-y: auto;
     }
@@ -346,7 +337,6 @@
     }
   </style>
 <meta property="og:title" content="awe.lectures - Search">
-<meta property="og:description" content="🧠 Introduction to AI — I2AI_3">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 <body>
@@ -375,7 +365,8 @@
 <p><img data-src="images/robot.jpeg" class="fragment" height="300"></p>
 <p><img data-src="images/puzzle.jpeg" class="fragment" height="350"></p>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>Examples for search problems are <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 87–88</a>)</span>:</p>
 <ul>
 <li>Route-finding problems (e.g., car navigation, airline travel-planning)</li>
@@ -384,8 +375,7 @@
 <li>Robot navigation (e.g., vacuum robots)</li>
 <li>Automatic assembly sequencing of complex objects (e.g., protein design)</li>
 </ul>
-</aside>
-</section>
+</div></aside></section>
 <section id="agents" class="slide level2">
 <h2>Agents</h2>
 <p>Agents that plan ahead by considering a sequence of actions that form a path to a goal state are called <strong>problem-solving agents</strong> <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 81</a>)</span></p>
@@ -400,10 +390,10 @@
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
 <p>–&gt; We assume that information about the environment are given (e.g., a map)</p>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>.</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="process" class="slide level2">
 <h2>Process</h2>
 <p>In simple environments, agents can follow a four-phase-problem-solving process <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 81–82</a>)</span>:</p>
@@ -415,7 +405,8 @@
 <li class="fragment"><strong>Execution</strong>: the agent executes the actions in the solution, one at a time</li>
 </ul>
 </div>
-<aside class="notes">
+
+<aside><div>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -430,8 +421,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="search-problem" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Search problem</h1>
@@ -461,7 +451,8 @@
 <p></p><figcaption aria-hidden="true">Figure 1: Example: A simplified map of Romania, with road distances in miles; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 82</a>)</span></figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p><a href="#/fig-search-problem">Figure&nbsp;1</a> depicts the search problem as model, the state space graph <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 82–84</a>)</span>:</p>
 <ul>
 <li>State space: cities (vertices, each state occurs only once)</li>
@@ -485,8 +476,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="search-tree" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Search tree</h1>
@@ -500,7 +490,8 @@
 <p></p><figcaption aria-hidden="true">Figure 2: Example: A partial search tree for finding a route from Arad to Bucharest; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 89</a>)</span></figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p><a href="#/fig-search-tree">Figure&nbsp;2</a> visualizes the first few steps in finding a path from Arad (initial state) to Bucharest (goal).</p>
 <ul>
 <li>The <strong>root node</strong> of the search tree is the initial state <code>s</code> <em>(Arad)</em></li>
@@ -529,8 +520,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="search" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Search</h1>
@@ -579,7 +569,8 @@
 </ul></li>
 </ul>
 </div>
-<aside class="notes">
+
+<aside><div>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -617,8 +608,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="unknown-environments" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Unknown environments</h1>
@@ -683,14 +673,18 @@
 <li>In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.</li>
 </ol>
 </section></section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-
-
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
 </div>
 
 <div class="footer footer-default">
 
 </div>
+</section>
     </div>
   </div>
 
@@ -765,7 +759,7 @@
         keyboard: true,
 
         // Enable the slide overview mode
-        overview: true,
+        overview: false,
 
         // Disables the default reveal.js slide layout (scaling and centering)
         // so that you can use custom CSS layout
@@ -808,7 +802,7 @@
         pause: true,
 
         // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
+        showNotes: true,
 
         // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,

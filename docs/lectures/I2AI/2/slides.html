@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.13">
+  <meta name="generator" content="quarto-0.9.123">
   <meta name="author" content="Andy Weeger">
   <title>awe.lectures - Intelligent agents</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,9 +10,6 @@
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
   <style>
-    .reveal .sourceCode {  /* see #7635 */
-      overflow: visible;
-    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -264,12 +261,6 @@
     .reveal .slide:not(.center) {
       height: 100%;
     }
-    .reveal #title-slide.center,
-    .reveal .title-slide.center,
-    .reveal .controls .navigate-left .controls-arrow,
-    .reveal .controls .navigate-right .controls-arrow {
-      margin-top: -15px;
-    }
     .reveal .slide.scrollable {
       overflow-y: auto;
     }
@@ -346,7 +337,6 @@
     }
   </style>
 <meta property="og:title" content="awe.lectures - Intelligent agents">
-<meta property="og:description" content="🧠 Introduction to AI — I2AI_2">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 <body>
@@ -375,7 +365,8 @@
 <p></p><figcaption aria-hidden="true">Figure 1: Agents interact with environments through sensors and actuators</figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>An agent is anything that can be viewed as perceiving its <strong>environment</strong> through <strong>sensors</strong> and acting upon that environment through <strong>actuators</strong>.</p>
 <ul>
 <li>The term <strong>percept</strong> refers to the content an agent’s sensors are perceiving</li>
@@ -397,8 +388,7 @@
 </div>
 </div>
 <p>According to <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 56</a>)</span>, all areas of engineering can be seen as designing artifacts that interact with the world. AI operates at the most interesting end to the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making.</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="rational-agent" class="slide level2">
 <h2>Rational agent</h2>
 <p>A rational agent is one that does the right thing.</p>
@@ -407,7 +397,14 @@
 <p>For each possible percept sequence, a rational agent should select an <strong>action</strong> that is expected to maximize its <strong>performance measure</strong>, given the evidence provided by the <strong>percept sequence</strong> and whatever built-in <strong>knowledge</strong> the agent has <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 58</a>)</span>.</p>
 </blockquote>
 </div>
-<aside class="notes">
+
+<div class="fragment">
+<p>It can be quite hard to formulate a performance measure correctly, however:</p>
+<blockquote>
+<p>If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire <span class="citation" data-cites="Wiener1960Some">(<a href="#/ref-Wiener1960Some" role="doc-biblioref" onclick="return false;">Wiener 1960, 1358</a>)</span></p>
+</blockquote>
+</div>
+<aside><div>
 <p>What is rational at any given time depends on four things:</p>
 <ul>
 <li>The performance measure that defines the criterion of success</li>
@@ -435,14 +432,7 @@
 </div>
 </div>
 </div>
-</aside>
-<div class="fragment">
-<p>It can be quite hard to formulate a performance measure correctly, however:</p>
-<blockquote>
-<p>If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire <span class="citation" data-cites="Wiener1960Some">(<a href="#/ref-Wiener1960Some" role="doc-biblioref" onclick="return false;">Wiener 1960, 1358</a>)</span></p>
-</blockquote>
-</div>
-</section>
+</div></aside></section>
 <section id="rationality" class="slide level2">
 <h2>Rationality</h2>
 <p>Rationality is not the same as perfection.</p>
@@ -454,7 +444,8 @@
 <li class="fragment">Rational choice depends only on the percept sequence <em>to date</em></li>
 </ul>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>As the environment is usually not completely known <em>a priori</em> and completely predictable (or stable), information gathering and learning are important parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 59</a>)</span>.</p>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
@@ -469,8 +460,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="environments" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Environments</h1>
@@ -490,7 +480,8 @@
 <div class="fragment">
 <p><span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span> call the task environment PEAS.</p>
 </div>
-<aside class="notes">
+
+<aside><div>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -511,8 +502,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section>
+</div></aside></section>
 <section id="properties" class="slide level2">
 <h2>Properties</h2>
 <p>Task environments can be categorized along following dimensions <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 62–64</a>)</span>:</p>
@@ -527,20 +517,23 @@
 <li class="fragment">Known <em>vs.</em> unknown</li>
 </ul>
 </div>
-<aside class="notes">
-<p>If an agent’s sensors give it access to the full state of the environment at any point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</p>
-<p>When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is <em>multi-agent</em> (e.g., chess).</p>
-<p>When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a <em>deterministic</em> environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a <em>stochastic</em> environment (e.g., poker).</p>
-<p>If an agent’s experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</p>
-<p>If the environment changes while an agent is deliberating, then the environment is <em>dynamic</em> (e.g., taxi driving).</p>
-<p>If the environment has a finite number of different states, we speak of <em>discrete</em> environments (e.g., chess).</p>
-<p>If the outcomes (or outcome probabilities) for all actions are given, then the environment is <em>known</em> (e.g., solitaire card game).</p>
-<p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>, p.62-64</p>
-</aside>
+
 <div class="fragment">
 <p>The hardest case is <em>partially observable, multi-agent, nondeterministic, sequential, dynamic, and continuous.</em></p>
 </div>
-</section></section>
+<aside><div>
+<p><strong>Explanations</strong></p>
+<ul>
+<li>If an agent’s sensors give it access to the full state of the environment at any point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</li>
+<li>When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is <em>multi-agent</em> (e.g., chess).</li>
+<li>When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a <em>deterministic</em> environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a <em>stochastic</em> environment (e.g., poker).</li>
+<li>If an agent’s experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</li>
+<li>If the environment changes while an agent is deliberating, then the environment is <em>dynamic</em> (e.g., taxi driving).</li>
+<li>If the environment has a finite number of different states, we speak of <em>discrete</em> environments (e.g., chess).</li>
+<li>If the outcomes (or outcome probabilities) for all actions are given, then the environment is <em>known</em> (e.g., solitaire card game).</li>
+</ul>
+<p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>, p.62-64</p>
+</div></aside></section></section>
 <section>
 <section id="agent-types" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Agent types</h1>
@@ -554,13 +547,13 @@
 <p></p><figcaption aria-hidden="true">Figure 2: A simple reflex agent</figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <div class="small">
 <p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.</p>
 </div>
 <p>Simple reflex agents select actions on the basis of the <em>current</em> percept, ignoring the rest of the percept history. Thus, these agents work only if the correct decision can be made on the basis of just the current percept. The environment needs to be fully observable <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 68</a>)</span>.</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="model-based-reflex-agents" class="slide level2">
 <h2>Model-based reflex agents</h2>
 <div id="fig-mr-agent" class="quarto-figure quarto-figure-center">
@@ -569,7 +562,8 @@
 <p></p><figcaption aria-hidden="true">Figure 3: A model-based reflex agent</figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>Model-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 70</a>)</span>.</p>
 <p>The <strong>transition model</strong> reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.</p>
 <p>The <strong>sensor model</strong> reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors).</p>
@@ -592,8 +586,7 @@
 </div>
 </div>
 </div>
-</aside>
-</section>
+</div></aside></section>
 <section id="goal-based-agents" class="slide level2">
 <h2>Goal-based agents</h2>
 <div id="fig-gb-agent" class="quarto-figure quarto-figure-center">
@@ -602,10 +595,10 @@
 <p></p><figcaption aria-hidden="true">Figure 4: A model-based, goal-based agent</figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>A model-based, goal-based agent keeps track of the world state as well as a set of goals it is trying to achieve. Such an agent chooses an action that will (eventually) lead to the achievement of its goals <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 72</a>)</span>.</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="utility-based-agents" class="slide level2">
 <h2>Utility-based agents</h2>
 <div id="fig-ub-agent" class="quarto-figure quarto-figure-center">
@@ -614,7 +607,8 @@
 <p></p><figcaption aria-hidden="true">Figure 5: A model-based, utility-based agent</figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>A model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 73</a>)</span>.</p>
 <p>The <strong>utility function</strong> is essentially an internalization of the performance measure.</p>
 <p>A utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism.</p>
@@ -623,10 +617,14 @@
 <li>When there are conflicting goals, the utility function specifies the appropriate tradeoff.</li>
 <li>Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals</li>
 </ul>
-<p>Mode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.</p>
+<p>Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.</p>
 <p>There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning).</p>
-</aside>
-</section>
+<h3 id="main-differences">Main differences</h3>
+<p>The main difference between <strong>simple reflex agents</strong> and <strong>model-based reflex agents</strong> is that the latter keep track of the state of the world. Model-based reflex agents generate knowledge about how the world evolves independently of the agent and how actions of the agent change the world (i.e., they have knowledge about “how the world works”). This knowledge is “stored” in the transition model of the world. A model-based reflex agents still decides on condition-action rules which action to take (i.e., the codified reflexes).</p>
+<p>The main difference between <strong>model-based reflex agents</strong> and <strong>goal-based agents</strong> is that it does not act on fixed condition-action rules, but on some sort of goal information that describes situations that are desirable (e.g., in the case of route-finding the destination). Based on the goal, the best possible action (based on the knowledge of the world), needs to be selected. Goal-based decision making involves consideration of the future based on the transition model (i.e., “what will happen if I do such-and-such?”) and how it helps to achieve the goal. In reflex agents designs, this information I not explicitly represented, because the built rules map directly from the percepts to actions, without considering/knowing the future state.</p>
+<p>The main difference between <strong>goal-based agents</strong> and <strong>utility-based agents</strong> is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).</p>
+<p>Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.</p>
+</div></aside></section>
 <section id="learning-agents" class="slide level2">
 <h2>Learning agents</h2>
 <div id="fig-l-agent" class="quarto-figure quarto-figure-center">
@@ -635,7 +633,8 @@
 <p></p><figcaption aria-hidden="true">Figure 6: A learning agent</figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>Each type of agent can be either hand-programmed or created as a learning agent. The behavior of learning agents is (also) determined by their own experience, while the behavior of hand-programmed agents is solely determined by their initial programming. Thus, learning agents have greater <strong>autonony</strong>.</p>
 <p>A learning agent consists of four conceptual components <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022</a>, p- 74-75)</span>, as shown in <a href="#/fig-l-agent">Figure&nbsp;6</a>:</p>
 <ul>
@@ -644,8 +643,7 @@
 <li>The <strong>performance standard</strong> is responsible to inform the agent about the meaning of percepts — are they good nor not (e.g., the meaning of receiving no tips from passengers is a negative contribution to an automated taxis’s overall performance). The standard is fixed and cannot be influenced by the agent.</li>
 <li>The <strong>problem generator</strong> is responsible for suggesting actions that lead to new and informative experiences. The problem generator suggests exploratory actions that may be suboptimal in the short term, but can lead to the discovery of better actions in the long term.</li>
 </ul>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="exercises" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>✏️ Exercises</h1>
@@ -675,7 +673,7 @@
 </section>
 <section id="i2ai_2-e3" class="slide level2">
 <h2>I2AI_2 E3</h2>
-<p>Describe a task environments in which the performance measure is easy to specify completely and correctly, and a in which it is not.</p>
+<p>Describe a task environment in which the performance measure is easy to specify completely and correctly, and a in which it is not.</p>
 </section>
 <section id="i2ai_2-e4" class="slide level2">
 <h2>I2AI_2 E4</h2>
@@ -724,14 +722,21 @@
 <li>Learning agent</li>
 </ul>
 </section></section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-
-
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
+<div id="ref-Wiener1960Some" class="csl-entry" role="doc-biblioentry">
+Wiener, Norbert. 1960. <span>“Some Moral and Technical Consequences of Automation.”</span> <em>Science</em> 131 (3410): 1355–58.
+</div>
 </div>
 
 <div class="footer footer-default">
 
 </div>
+</section>
     </div>
   </div>
 
@@ -806,7 +811,7 @@
         keyboard: true,
 
         // Enable the slide overview mode
-        overview: true,
+        overview: false,
 
         // Disables the default reveal.js slide layout (scaling and centering)
         // so that you can use custom CSS layout
@@ -849,7 +854,7 @@
         pause: true,
 
         // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
+        showNotes: true,
 
         // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.13">
+  <meta name="generator" content="quarto-0.9.123">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>awe.lectures - Intelligent agents</title>
   <style>
@@ -62,7 +62,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 <meta property="og:title" content="awe.lectures - Intelligent agents">
-<meta property="og:description" content="🧠 Introduction to AI — I2AI_2">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 <body class="floating">
@@ -157,15 +156,16 @@
 <li><a href="#i2ai_2-e6" class="nav-link" data-scroll-target="#i2ai_2-e6">I2AI_2 E6</a></li>
 <li><a href="#i2ai_2-e7" class="nav-link" data-scroll-target="#i2ai_2-e7">I2AI_2 E7</a></li>
 </ul></li>
+<li><a href="#literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
 </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<header id="title-block-header">
-<h1 class="title d-none d-lg-block display-7">Intelligent agents</h1>
-<p class="subtitle lead">🧠 Introduction to AI — I2AI_2</p>
-</header>
+<header id="title-block-header" class="quarto-title-block default">
+
+
+<div class="quarto-title"><h1 class="title d-none d-lg-block display-7">Intelligent agents</h1><p class="subtitle lead">🧠 Introduction to AI — I2AI_2</p></div></header>
 
 <section id="top" class="level1 slide-link-hidden unlisted" data-visibility="hidden">
 <h1 class="slide-link-hidden unlisted" data-visibility="hidden">Top</h1>
@@ -332,13 +332,16 @@ Example of an PEAS description
 </ul>
 </div>
 <div class="notes">
-<p>If an agent’s sensors give it access to the full state of the environment at any point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</p>
-<p>When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is <em>multi-agent</em> (e.g., chess).</p>
-<p>When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a <em>deterministic</em> environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a <em>stochastic</em> environment (e.g., poker).</p>
-<p>If an agent’s experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</p>
-<p>If the environment changes while an agent is deliberating, then the environment is <em>dynamic</em> (e.g., taxi driving).</p>
-<p>If the environment has a finite number of different states, we speak of <em>discrete</em> environments (e.g., chess).</p>
-<p>If the outcomes (or outcome probabilities) for all actions are given, then the environment is <em>known</em> (e.g., solitaire card game).</p>
+<p><strong>Explanations</strong></p>
+<ul>
+<li>If an agent’s sensors give it access to the full state of the environment at any point in time, then we say that the task environment is <em>fully observable</em> (e.g., image analysis).</li>
+<li>When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is <em>multi-agent</em> (e.g., chess).</li>
+<li>When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a <em>deterministic</em> environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a <em>stochastic</em> environment (e.g., poker).</li>
+<li>If an agent’s experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is <em>episodic</em> (e.g., image analysis).</li>
+<li>If the environment changes while an agent is deliberating, then the environment is <em>dynamic</em> (e.g., taxi driving).</li>
+<li>If the environment has a finite number of different states, we speak of <em>discrete</em> environments (e.g., chess).</li>
+<li>If the outcomes (or outcome probabilities) for all actions are given, then the environment is <em>known</em> (e.g., solitaire card game).</li>
+</ul>
 <p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span>, p.62-64</p>
 </div>
 <div class="fragment">
@@ -425,8 +428,15 @@ Types of representation of states and the transitions between them
 <li>When there are conflicting goals, the utility function specifies the appropriate tradeoff.</li>
 <li>Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals</li>
 </ul>
-<p>Mode- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.</p>
+<p>Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.</p>
 <p>There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning).</p>
+<section id="main-differences" class="level3">
+<h3 data-anchor-id="main-differences">Main differences</h3>
+<p>The main difference between <strong>simple reflex agents</strong> and <strong>model-based reflex agents</strong> is that the latter keep track of the state of the world. Model-based reflex agents generate knowledge about how the world evolves independently of the agent and how actions of the agent change the world (i.e., they have knowledge about “how the world works”). This knowledge is “stored” in the transition model of the world. A model-based reflex agents still decides on condition-action rules which action to take (i.e., the codified reflexes).</p>
+<p>The main difference between <strong>model-based reflex agents</strong> and <strong>goal-based agents</strong> is that it does not act on fixed condition-action rules, but on some sort of goal information that describes situations that are desirable (e.g., in the case of route-finding the destination). Based on the goal, the best possible action (based on the knowledge of the world), needs to be selected. Goal-based decision making involves consideration of the future based on the transition model (i.e., “what will happen if I do such-and-such?”) and how it helps to achieve the goal. In reflex agents designs, this information I not explicitly represented, because the built rules map directly from the percepts to actions, without considering/knowing the future state.</p>
+<p>The main difference between <strong>goal-based agents</strong> and <strong>utility-based agents</strong> is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).</p>
+<p>Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.</p>
+</section>
 </div>
 </section>
 <section id="learning-agents" class="level2">
@@ -475,7 +485,7 @@ Types of representation of states and the transitions between them
 </section>
 <section id="i2ai_2-e3" class="level2">
 <h2 data-anchor-id="i2ai_2-e3">I2AI_2 E3</h2>
-<p>Describe a task environments in which the performance measure is easy to specify completely and correctly, and a in which it is not.</p>
+<p>Describe a task environment in which the performance measure is easy to specify completely and correctly, and a in which it is not.</p>
 </section>
 <section id="i2ai_2-e4" class="level2">
 <h2 data-anchor-id="i2ai_2-e4">I2AI_2 E4</h2>
@@ -525,20 +535,21 @@ Types of representation of states and the transitions between them
 </ul>
 </section>
 </section>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<section id="references" class="level1" data-visibility="hidden">
-<h1 data-visibility="hidden">References</h1>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+
+
+
+
+</section>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
 Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
 </div>
 <div id="ref-Wiener1960Some" class="csl-entry" role="doc-biblioentry">
 Wiener, Norbert. 1960. <span>“Some Moral and Technical Consequences of Automation.”</span> <em>Science</em> 131 (3410): 1355–58.
 </div>
-</section>
-</div>
-
-
-</main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const clipboard = new window.ClipboardJS('.code-copy-button', {

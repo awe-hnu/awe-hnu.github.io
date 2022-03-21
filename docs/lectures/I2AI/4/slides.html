@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.13">
+  <meta name="generator" content="quarto-0.9.123">
   <meta name="author" content="Andy Weeger">
   <title>awe.lectures - Games</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,9 +10,6 @@
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
   <style>
-    .reveal .sourceCode {  /* see #7635 */
-      overflow: visible;
-    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -264,12 +261,6 @@
     .reveal .slide:not(.center) {
       height: 100%;
     }
-    .reveal #title-slide.center,
-    .reveal .title-slide.center,
-    .reveal .controls .navigate-left .controls-arrow,
-    .reveal .controls .navigate-right .controls-arrow {
-      margin-top: -15px;
-    }
     .reveal .slide.scrollable {
       overflow-y: auto;
     }
@@ -346,7 +337,6 @@
     }
   </style>
 <meta property="og:title" content="awe.lectures - Games">
-<meta property="og:description" content="🧠 Introduction to AI — I2AI_4">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 <body>
@@ -403,10 +393,10 @@
 </ul>
 </div>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>The initial state, <code>ACTIONS</code> function, and <code>RESULT</code> function define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="optimal-decisions" class="slide level2">
 <h2>Optimal decisions</h2>
 <p>Players (here <code>MIN</code> and <code>MAX</code>, alternate turns) need to have a conditional plan—a contingent strategy specifying a response to each move of the opponent.</p>
@@ -446,10 +436,10 @@
 <p></p><figcaption aria-hidden="true">Figure 1: Example: A adversarial game tree; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 195</a>)</span></figcaption><p></p>
 </figure>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>The △ nodes are “<em>MAX</em> nodes”, in which it is <em>MAX’s</em> turn to move; the ▽ nodes are “<em>MIN</em> nodes”. <em>MAX’s</em> best move at the root is α₁ (highest minimax value), <em>MIN’s</em> best move is β₁ (lowest minimax value).</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="minimax-search-algorithm" class="slide level2">
 <h2>Minimax search algorithm</h2>
 <p>The <strong>minimax algorithm</strong> performs a complete depth-first exploration of the game tree <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 196–96</a>)</span>.</p>
@@ -468,7 +458,8 @@ return the state’s utility (<code>UTILITY(s,p)</code>)</li>
 <div class="fragment">
 <p>The exponential complexity makes the miminmax algorithm impractical for complex games (even with alpha-beta pruning applied; chess game tree size &gt; atoms in the universe).</p>
 </div>
-<aside class="notes">
+
+<aside><div>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -489,8 +480,7 @@ return the state’s utility (<code>UTILITY(s,p)</code>)</li>
 </div>
 </div>
 </div>
-</aside>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="monte-carlo-tree-search" class="title-slide slide level1 center">
 <h1>Monte Carlo tree search</h1>
@@ -509,7 +499,7 @@ return the state’s utility (<code>UTILITY(s,p)</code>)</li>
 <div class="fragment">
 <p>Repeats for a set number of iterations or until a given time is over</p>
 </div>
-</section>
+<aside></aside></section>
 <section id="selection" class="slide level2">
 <h2>Selection</h2>
 <div class="columns">
@@ -533,10 +523,10 @@ return the state’s utility (<code>UTILITY(s,p)</code>)</li>
 </div>
 </div>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained.</p>
-</aside>
-</section>
+</div></aside></section>
 <section id="selection-policy-example" class="slide level2">
 <h2>Selection policy example</h2>
 <p><strong>Upper confidence bounds applied to trees</strong> (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)</p>
@@ -558,7 +548,8 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 </ul>
 </div>
 </div>
-<aside class="notes">
+
+<aside><div>
 <p>With <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20C%3D1.4" alt="C=1.4" title="C=1.4" class="math inline">, the 60/79 node in <a href="#/fig-mcts-selection">Figure&nbsp;2</a> has the highest UCB1 score, but with <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20C%3D1.5" alt="C=1.5" title="C=1.5" class="math inline">, it would be the 2/11 node.</p>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
@@ -573,8 +564,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 </div>
 </div>
 </div>
-</aside>
-</section>
+</div></aside></section>
 <section id="expansion-and-simulation" class="slide level2">
 <h2>Expansion and simulation</h2>
 <div class="columns">
@@ -601,7 +591,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 </div>
 </div>
 </div>
-</section>
+<aside></aside></section>
 <section id="back-propagation" class="slide level2">
 <h2>Back-propagation</h2>
 <div class="columns">
@@ -679,14 +669,19 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 <p>Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.</p>
 <p>Draw an example (game search tree, 3 levels depth).</p>
 </section></section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-
-
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
 </div>
 
 <div class="footer footer-default">
 
 </div>
+</section>
+
 <section class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Footnotes</h2>
 
 <ol>
@@ -772,7 +767,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
         keyboard: true,
 
         // Enable the slide overview mode
-        overview: true,
+        overview: false,
 
         // Disables the default reveal.js slide layout (scaling and centering)
         // so that you can use custom CSS layout
@@ -815,7 +810,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
         pause: true,
 
         // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
+        showNotes: true,
 
         // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
