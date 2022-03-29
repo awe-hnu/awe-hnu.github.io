@@ -1316,6 +1316,216 @@
     "text": "A4: Code is Law\nLesen Sie folgenden Artikel auf Heise.de Amazon-Zusteller: KI-Kamera im Führerhaus senkt Lohn durch falsche Strafen\n\nErläutern Sie das Konzept Code is Law anhand dieses Beispiels.\nAn welchen Werten sollten sich Programmierer, Wirtschaftsinformatiker und Informationsmanager orientieren?"
   },
   {
+    "objectID": "lectures/GWI/5/index.html",
+    "href": "lectures/GWI/5/index.html",
+    "title": "K5 Datenbanken #2",
+    "section": "",
+    "text": "Folien / Podcast"
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#definition",
+    "href": "lectures/GWI/5/index.html#definition",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell. Das logische Datenmodell ist damit systemabhängig.\n\nEs wird aus dem systemunabhängigen konzeptionellen Datenmodell abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank.\n\n\nIn der Praxis kommt dem relationalen Modell die größte Bedeutung zu. Außerdem kommen hierarchische, auf dem netzwerkartigen oder objektorientierten Datenmodell basierende Datenbanken zum Einsatz."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#vorgehensmodell",
+    "href": "lectures/GWI/5/index.html#vorgehensmodell",
+    "title": "K5 Datenbanken #2",
+    "section": "Vorgehensmodell",
+    "text": "Vorgehensmodell\n\n\n\nSchaubild 1: Vorgehensmodell zum Entwurf von Datenbanken nach Bächle, Daurer, und Kolb (2021, 78)"
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#definition-1",
+    "href": "lectures/GWI/5/index.html#definition-1",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin Datenbanksystem, das auf dem Relationenmodell basiert, nennt man relationales Datenbanksystem (Codd 1983).\n\nGrundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen (Leimeister 2021).\n\n\nEine Relation entspricht einem Entity-Typen; jede Zeile der Tabelle entspricht einer Entity; die Spalten einer Tabelle entsprechen den Attributen."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#eigenschaften",
+    "href": "lectures/GWI/5/index.html#eigenschaften",
+    "title": "K5 Datenbanken #2",
+    "section": "Eigenschaften",
+    "text": "Eigenschaften\nFür relationale Datenbanksystemen gilt:\n\nJede Relation ist eine zweidimensionale Tabelle. Diese entspricht meistens einem Entity-Typ.\nm:m-Beziehungen erfordern die Bildung einer eigenen Relation. Die Primärschlüssel der beteiligten Entity-Typen werden vererbt.\nJede Zeile der Tabelle beschreibt eine bestimmte Entität.\nDie Spalten entsprechen den Attributen.\nDie Entitäten werden durch Attributwerte, also Ausprägungen der Attribute, beschrieben.\nDie Zeilen müssen paarweise untereinander verschieden sein. Es gibt also keine zwei identischen Zeilen.\nDie Reihenfolge der Zeilen spielt keine Rolle, ebenso die der Spalten.\nAttribute sind stets atomar, also nicht in kleinere Einheiten zerlegbar"
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#relationen",
+    "href": "lectures/GWI/5/index.html#relationen",
+    "title": "K5 Datenbanken #2",
+    "section": "Relationen",
+    "text": "Relationen\nEine Relation entspricht (meistens) einem Entity-Typen.\n\n\n\nSchaubild 2: Beispiel einer Relation, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\nBeispiel: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entity-Typ ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#und-1n-beziehungen",
+    "href": "lectures/GWI/5/index.html#und-1n-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "1:1- und 1:n-Beziehungen",
+    "text": "1:1- und 1:n-Beziehungen\nBei 1:1 und 1:n-Beziehungen wird der Primärschlüssel der verbundenen Relation ergänzt.\n\n\n\nSchaubild 3: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\nBeispiel: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation Projekt um den Primärschlüssel der Relation Mitarbeiter, der Mitarbeiter-Nr.."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#nm-beziehungen",
+    "href": "lectures/GWI/5/index.html#nm-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "n:m-Beziehungen",
+    "text": "n:m-Beziehungen\nEine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte Koppeltabelle.\n\n\n\nSchaubild 4: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\nBeispiel: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation Buchungen stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel Kunden-Nr, und Trainings-Nr. wird zum Primärschlüssel der Koppeltabelle Buchungen."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#abgrenzung",
+    "href": "lectures/GWI/5/index.html#abgrenzung",
+    "title": "K5 Datenbanken #2",
+    "section": "Abgrenzung",
+    "text": "Abgrenzung\nNeben der physischen und logischen Datenstruktur werden Datensysteme auch nach Einsatzzweck unterschieden Bächle, Daurer, und Kolb (2021).\n\n\nOperative Datenbanken speichern Daten, die Momentaufnahmen des aktuellen Geschehens darstellen (Transaktionen). Diese dienen dazu, Mitarbeiter im Tagesgeschäft zu unterstützen und Aufgaben zu automatisieren\nAnalytische Datensysteme speichern aktuelle und historische Daten aus operativen Datenbanken in aggregierter Form. Diese dienen dazu, Managemententscheidungen zu unterstützen. Die Daten enthalten in der Regel immer eine Zeitkomponente."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#übersicht",
+    "href": "lectures/GWI/5/index.html#übersicht",
+    "title": "K5 Datenbanken #2",
+    "section": "Übersicht",
+    "text": "Übersicht\n\n\nTabelle 1: Operative und analytische Daten\n\n\n\n\n\n\n\n\nOperative Daten\nAnalytische Daten\n\n\n\n\nZiel\nAbwicklung von Geschäftsprozessen\nInformationen zur Entscheidungsunterstützung\n\n\nDateninhalt\nAtomisierte Istwerte (Transaktionsbasis)\nVerdichtete, transformierte und berechnete Daten\n\n\nArt\nDynamisch\nStatisch\n\n\nZugriffsfrequenz\nHoch\nNiedrig\n\n\nNutzung\nStrukturierte, wiederholte Verarbeitung\nUnstrukturierte, analytische Verarbeitung\n\n\nBeispiel\nWareneingang einer Bestellung\nAbsätze eines bestimmten Produkts im Zeitverlauf"
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#definition-2",
+    "href": "lectures/GWI/5/index.html#definition-2",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nDer Begriff Big Data meint wörtlich die „großen Daten”, also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet (Leimeister 2021, 201):\n\n\nEnorme Größe\nEine hohe Komplexität\nSchnelllebigkeit oder schnelles Aufkommen neuer Daten\nSchwach oder gar nicht strukturiert\n\n\n\nBig Data Analytics beschreibt die Fähigkeit, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) (Lemke und Brenner 2015)."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#visualisierung",
+    "href": "lectures/GWI/5/index.html#visualisierung",
+    "title": "K5 Datenbanken #2",
+    "section": "Visualisierung",
+    "text": "Visualisierung\n\n\n\nSchaubild 5: Eigenschafrten und Effekte von Big Data (4+1 Vs)"
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#a1-grundbegriffe",
+    "href": "lectures/GWI/5/index.html#a1-grundbegriffe",
+    "title": "K5 Datenbanken #2",
+    "section": "A1: Grundbegriffe",
+    "text": "A1: Grundbegriffe\nErläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.\n\nRelationenmodell\nRelation\nTupel\nOperative Daten\nAnalytische Daten\nBig Data\nVelocity"
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#a2-online-shop",
+    "href": "lectures/GWI/5/index.html#a2-online-shop",
+    "title": "K5 Datenbanken #2",
+    "section": "A2: Online-Shop",
+    "text": "A2: Online-Shop\nErstellen Sie aus dem ERM der Aufgabe A4 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#a3-auftragsverwaltung",
+    "href": "lectures/GWI/5/index.html#a3-auftragsverwaltung",
+    "title": "K5 Datenbanken #2",
+    "section": "A3: Auftragsverwaltung",
+    "text": "A3: Auftragsverwaltung\nErstellen Sie aus dem ERM der Aufgabe A5 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GWI/5/index.html#a4-big-data",
+    "href": "lectures/GWI/5/index.html#a4-big-data",
+    "title": "K5 Datenbanken #2",
+    "section": "A4: Big Data",
+    "text": "A4: Big Data\nÜberlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.\nGeben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#definition",
+    "href": "lectures/GWI/5/slides.html#definition",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell. Das logische Datenmodell ist damit systemabhängig.\n\nEs wird aus dem systemunabhängigen konzeptionellen Datenmodell abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank.\n\n\nIn der Praxis kommt dem relationalen Modell die größte Bedeutung zu. Außerdem kommen hierarchische, auf dem netzwerkartigen oder objektorientierten Datenmodell basierende Datenbanken zum Einsatz."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#vorgehensmodell",
+    "href": "lectures/GWI/5/slides.html#vorgehensmodell",
+    "title": "K5 Datenbanken #2",
+    "section": "Vorgehensmodell",
+    "text": "Vorgehensmodell\n\n\n\nSchaubild 1: Vorgehensmodell zum Entwurf von Datenbanken nach Bächle, Daurer, und Kolb (2021, 78)"
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#definition-1",
+    "href": "lectures/GWI/5/slides.html#definition-1",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin Datenbanksystem, das auf dem Relationenmodell basiert, nennt man relationales Datenbanksystem (Codd 1983).\n\nGrundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen (Leimeister 2021).\n\n\nEine Relation entspricht einem Entity-Typen; jede Zeile der Tabelle entspricht einer Entity; die Spalten einer Tabelle entsprechen den Attributen."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#relationen",
+    "href": "lectures/GWI/5/slides.html#relationen",
+    "title": "K5 Datenbanken #2",
+    "section": "Relationen",
+    "text": "Relationen\nEine Relation entspricht (meistens) einem Entity-Typen.\n\n\n\nSchaubild 2: Beispiel einer Relation, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\n\nBeispiel: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entity-Typ ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#und-1n-beziehungen",
+    "href": "lectures/GWI/5/slides.html#und-1n-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "1:1- und 1:n-Beziehungen",
+    "text": "1:1- und 1:n-Beziehungen\nBei 1:1 und 1:n-Beziehungen wird der Primärschlüssel der verbundenen Relation ergänzt.\n\n\n\nSchaubild 3: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\n\nBeispiel: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation Projekt um den Primärschlüssel der Relation Mitarbeiter, der Mitarbeiter-Nr.."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#nm-beziehungen",
+    "href": "lectures/GWI/5/slides.html#nm-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "n:m-Beziehungen",
+    "text": "n:m-Beziehungen\nEine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte Koppeltabelle.\n\n\n\nSchaubild 4: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\n\nBeispiel: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation Buchungen stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel Kunden-Nr, und Trainings-Nr. wird zum Primärschlüssel der Koppeltabelle Buchungen."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#abgrenzung",
+    "href": "lectures/GWI/5/slides.html#abgrenzung",
+    "title": "K5 Datenbanken #2",
+    "section": "Abgrenzung",
+    "text": "Abgrenzung\nNeben der physischen und logischen Datenstruktur werden Datensysteme auch nach Einsatzzweck unterschieden Bächle, Daurer, und Kolb (2021).\n\n\nOperative Datenbanken speichern Daten, die Momentaufnahmen des aktuellen Geschehens darstellen (Transaktionen). Diese dienen dazu, Mitarbeiter im Tagesgeschäft zu unterstützen und Aufgaben zu automatisieren\nAnalytische Datensysteme speichern aktuelle und historische Daten aus operativen Datenbanken in aggregierter Form. Diese dienen dazu, Managemententscheidungen zu unterstützen. Die Daten enthalten in der Regel immer eine Zeitkomponente."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#übersicht",
+    "href": "lectures/GWI/5/slides.html#übersicht",
+    "title": "K5 Datenbanken #2",
+    "section": "Übersicht",
+    "text": "Übersicht\n\n\nTabelle 1: Operative und analytische Daten\n\n\n\n\n\n\n\n\nOperative Daten\nAnalytische Daten\n\n\n\n\nZiel\nAbwicklung von Geschäftsprozessen\nInformationen zur Entscheidungsunterstützung\n\n\nDateninhalt\nAtomisierte Istwerte (Transaktionsbasis)\nVerdichtete, transformierte und berechnete Daten\n\n\nArt\nDynamisch\nStatisch\n\n\nZugriffsfrequenz\nHoch\nNiedrig\n\n\nNutzung\nStrukturierte, wiederholte Verarbeitung\nUnstrukturierte, analytische Verarbeitung\n\n\nBeispiel\nWareneingang einer Bestellung\nAbsätze eines bestimmten Produkts im Zeitverlauf"
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#definition-2",
+    "href": "lectures/GWI/5/slides.html#definition-2",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nDer Begriff Big Data meint wörtlich die „großen Daten”, also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet (Leimeister 2021, 201):\n\n\nEnorme Größe\nEine hohe Komplexität\nSchnelllebigkeit oder schnelles Aufkommen neuer Daten\nSchwach oder gar nicht strukturiert\n\n\n\nBig Data Analytics beschreibt die Fähigkeit, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) (Lemke und Brenner 2015)."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#visualisierung",
+    "href": "lectures/GWI/5/slides.html#visualisierung",
+    "title": "K5 Datenbanken #2",
+    "section": "Visualisierung",
+    "text": "Visualisierung\n\n\n\nSchaubild 5: Eigenschafrten und Effekte von Big Data (4+1 Vs)"
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#a1-grundbegriffe",
+    "href": "lectures/GWI/5/slides.html#a1-grundbegriffe",
+    "title": "K5 Datenbanken #2",
+    "section": "A1: Grundbegriffe",
+    "text": "A1: Grundbegriffe\nErläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.\n\nRelationenmodell\nRelation\nTupel\nOperative Daten\nAnalytische Daten\nBig Data\nVelocity"
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#a2-online-shop",
+    "href": "lectures/GWI/5/slides.html#a2-online-shop",
+    "title": "K5 Datenbanken #2",
+    "section": "A2: Online-Shop",
+    "text": "A2: Online-Shop\nErstellen Sie aus dem ERM der Aufgabe A4 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#a3-auftragsverwaltung",
+    "href": "lectures/GWI/5/slides.html#a3-auftragsverwaltung",
+    "title": "K5 Datenbanken #2",
+    "section": "A3: Auftragsverwaltung",
+    "text": "A3: Auftragsverwaltung\nErstellen Sie aus dem ERM der Aufgabe A5 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GWI/5/slides.html#a4-big-data",
+    "href": "lectures/GWI/5/slides.html#a4-big-data",
+    "title": "K5 Datenbanken #2",
+    "section": "A4: Big Data",
+    "text": "A4: Big Data\nÜberlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.\nGeben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt."
+  },
+  {
     "objectID": "lectures/I2AI/0/index.html",
     "href": "lectures/I2AI/0/index.html",
     "title": "Administrivia 🧐",
@@ -2678,7 +2888,7 @@
     "href": "lectures/GIM/4/index.html#datenbanksysteme",
     "title": "K4 Datenbanken #1",
     "section": "Datenbanksysteme",
-    "text": "Datenbanksysteme\nDatenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten (Laudon, Laudon, und Schoder 2016):\n\n\nDatenbank (DB): eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können\nDatenbankmanagementsystem (DBMS): System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.\n\n\n\n\n\n\n\n\n\nPhysische und logische Datenstruktur\n\n\n\nDie physische Datenstruktur beschreibt, wie Daten auf einem Datenträger organisiert sind. Änderungen an dieser Struktur soll sich möglichst nicht auf die logische Struktur der Daten auswirken. Die logische Datenstruktur beschreibt, wie die Beziehung zwischen den Daten organisiert ist. Änderungen an dieser Struktur soll keine Auswirkungen auf die Anwendungssysteme haben, die diese Daten nutzen.\n\n\n\n\n\n\n\n\nDatenintegration\n\n\n\nDatenintegration liegt vor, wenn fachlich gleiche Daten nur einmal gespeichert werden. Bestenfalls speichern Datenbanken deshalb alle Daten eines Unternehmens zentral, z. B. Kunden- und Artikeldaten. Mehrere betriebliche Funktionen können auf diese Daten z.B. durch Anwendungen zugreifen und für verschiedene Aufgaben nutzen."
+    "text": "Datenbanksysteme\nDatenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten (Laudon, Laudon, und Schoder 2016):\n\n\nDatenbank (DB): eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können\nDatenbankmanagementsystem (DBMS): System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.\n\n\n\n\n\n\n\n\n\nPhysische und logische Datenstruktur\n\n\n\nDie physische Datenstruktur beschreibt, wie Daten auf einem Datenträger organisiert sind. Änderungen an dieser Struktur soll sich möglichst nicht auf die logische Struktur der Daten auswirken. Die logische Datenstruktur beschreibt, wie die Beziehung zwischen den Daten organisiert ist. Änderungen an dieser Struktur soll keine Auswirkungen auf die Anwendungssysteme haben, die diese Daten nutzen.\n\n\n\nWichtige Anforderungen an DBMS sind nach Mertens u. a. (2016, 42)\n\nDatenunabhängigkeit: Unabhängigkeit zwischen dem konzeptuellen Schema und Anwendungsprogrammen bzw. Benutzern (logische Datenunabhängigkeit) sowie zwischen Schema und der physischen Datenorganisation (physische Datenunabhängigkeit)\nGeplante und kontrollierte Datenredundanz: Begrenzung der Redundanz auf ein kleinstmögliches bzw. zweckmäßiges Maß durch eine entsprechende Datenstruktur\nSicherung der Datenkonsistenz: Erhaltung des gleichen Änderungsstands bei mehrfach gespeicherten Datenbeständen\nDatenbankintegrität: Maßnahmen zur Erhaltung der Korrektheit und Vollständigkeit der Daten. Betrifft zum einen die semantische Integrität (Vermeiden von Fehleingaben und unzulässigen Operationen durch Festlegung und Kontrolle von erlaubten Werten und Beziehungen zwischen Datenelementen) sowie die operative Integrität (Verhindern von Fehlern, wenn mehrere Anwender auf gleiche Datenbestände zugreifen)\nDatensicherheit: Bewahrung der Daten vor Verfälschung, Vernichtung und unberechtigtem Zugriff\nDatenschutz: Verhinderung der unberechtigten Verwendung von Daten, z. B. von personenbezogenen Daten\nAusfallsicherheit: Ein DBMS soll Routinen aufweisen, um nach einem Absturz die Konsistenz der Daten wiederherzustellen, z. B. durch Rückgängigmachen von Transaktionen, die zum Zeitpunkt des Absturzes noch nicht abgeschlosse\n\n\n\n\n\n\n\nDatenintegration\n\n\n\nDatenintegration liegt vor, wenn fachlich gleiche Daten nur einmal gespeichert werden. Bestenfalls speichern Datenbanken deshalb alle Daten eines Unternehmens zentral, z. B. Kunden- und Artikeldaten. Mehrere betriebliche Funktionen können auf diese Daten z.B. durch Anwendungen zugreifen und für verschiedene Aufgaben nutzen."
   },
   {
     "objectID": "lectures/GIM/4/index.html#beispiel-1",
@@ -2839,7 +3049,7 @@
     "href": "lectures/GIM/4/slides.html#datenbanksysteme",
     "title": "K4 Datenbanken #1",
     "section": "Datenbanksysteme",
-    "text": "Datenbanksysteme\nDatenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten (Laudon, Laudon, und Schoder 2016):\n\n\nDatenbank (DB): eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können\nDatenbankmanagementsystem (DBMS): System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.\n\n\n\n\n\n\n\n\n\n\nPhysische und logische Datenstruktur\n\n\nDie physische Datenstruktur beschreibt, wie Daten auf einem Datenträger organisiert sind. Änderungen an dieser Struktur soll sich möglichst nicht auf die logische Struktur der Daten auswirken. Die logische Datenstruktur beschreibt, wie die Beziehung zwischen den Daten organisiert ist. Änderungen an dieser Struktur soll keine Auswirkungen auf die Anwendungssysteme haben, die diese Daten nutzen.\n\n\n\n\n\n\n\n\n\nDatenintegration\n\n\nDatenintegration liegt vor, wenn fachlich gleiche Daten nur einmal gespeichert werden. Bestenfalls speichern Datenbanken deshalb alle Daten eines Unternehmens zentral, z. B. Kunden- und Artikeldaten. Mehrere betriebliche Funktionen können auf diese Daten z.B. durch Anwendungen zugreifen und für verschiedene Aufgaben nutzen."
+    "text": "Datenbanksysteme\nDatenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten (Laudon, Laudon, und Schoder 2016):\n\n\nDatenbank (DB): eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können\nDatenbankmanagementsystem (DBMS): System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.\n\n\n\n\n\n\n\n\n\n\nPhysische und logische Datenstruktur\n\n\nDie physische Datenstruktur beschreibt, wie Daten auf einem Datenträger organisiert sind. Änderungen an dieser Struktur soll sich möglichst nicht auf die logische Struktur der Daten auswirken. Die logische Datenstruktur beschreibt, wie die Beziehung zwischen den Daten organisiert ist. Änderungen an dieser Struktur soll keine Auswirkungen auf die Anwendungssysteme haben, die diese Daten nutzen.\n\n\n\nWichtige Anforderungen an DBMS sind nach Mertens u. a. (2016, 42)\n\nDatenunabhängigkeit: Unabhängigkeit zwischen dem konzeptuellen Schema und Anwendungsprogrammen bzw. Benutzern (logische Datenunabhängigkeit) sowie zwischen Schema und der physischen Datenorganisation (physische Datenunabhängigkeit)\nGeplante und kontrollierte Datenredundanz: Begrenzung der Redundanz auf ein kleinstmögliches bzw. zweckmäßiges Maß durch eine entsprechende Datenstruktur\nSicherung der Datenkonsistenz: Erhaltung des gleichen Änderungsstands bei mehrfach gespeicherten Datenbeständen\nDatenbankintegrität: Maßnahmen zur Erhaltung der Korrektheit und Vollständigkeit der Daten. Betrifft zum einen die semantische Integrität (Vermeiden von Fehleingaben und unzulässigen Operationen durch Festlegung und Kontrolle von erlaubten Werten und Beziehungen zwischen Datenelementen) sowie die operative Integrität (Verhindern von Fehlern, wenn mehrere Anwender auf gleiche Datenbestände zugreifen)\nDatensicherheit: Bewahrung der Daten vor Verfälschung, Vernichtung und unberechtigtem Zugriff\nDatenschutz: Verhinderung der unberechtigten Verwendung von Daten, z. B. von personenbezogenen Daten\nAusfallsicherheit: Ein DBMS soll Routinen aufweisen, um nach einem Absturz die Konsistenz der Daten wiederherzustellen, z. B. durch Rückgängigmachen von Transaktionen, die zum Zeitpunkt des Absturzes noch nicht abgeschlosse\n\n\n\n\n\n\n\nDatenintegration\n\n\nDatenintegration liegt vor, wenn fachlich gleiche Daten nur einmal gespeichert werden. Bestenfalls speichern Datenbanken deshalb alle Daten eines Unternehmens zentral, z. B. Kunden- und Artikeldaten. Mehrere betriebliche Funktionen können auf diese Daten z.B. durch Anwendungen zugreifen und für verschiedene Aufgaben nutzen."
   },
   {
     "objectID": "lectures/GIM/4/slides.html#beispiel-1",
@@ -3507,6 +3717,216 @@
     "text": "A4: Code is Law\nLesen Sie folgenden Artikel auf Heise.de: “Amazon-Zusteller: KI-Kamera im Führerhaus senkt Lohn durch falsche Strafen”\n\nErläutern Sie das Konzept Code is Law anhand dieses Beispiels.\nAn welchen Werten sollten sich Programmierer, Wirtschaftsinformatiker und Informationsmanager orientieren?"
   },
   {
+    "objectID": "lectures/GIM/5/index.html",
+    "href": "lectures/GIM/5/index.html",
+    "title": "K5 Datenbanken #2",
+    "section": "",
+    "text": "Folien / Podcast"
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#definition",
+    "href": "lectures/GIM/5/index.html#definition",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell. Das logische Datenmodell ist damit systemabhängig.\n\nEs wird aus dem systemunabhängigen konzeptionellen Datenmodell abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank.\n\n\nIn der Praxis kommt dem relationalen Modell die größte Bedeutung zu. Außerdem kommen hierarchische, auf dem netzwerkartigen oder objektorientierten Datenmodell basierende Datenbanken zum Einsatz."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#vorgehensmodell",
+    "href": "lectures/GIM/5/index.html#vorgehensmodell",
+    "title": "K5 Datenbanken #2",
+    "section": "Vorgehensmodell",
+    "text": "Vorgehensmodell\n\n\n\nSchaubild 1: Vorgehensmodell zum Entwurf von Datenbanken nach Bächle, Daurer, und Kolb (2021, 78)"
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#definition-1",
+    "href": "lectures/GIM/5/index.html#definition-1",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin Datenbanksystem, das auf dem Relationenmodell basiert, nennt man relationales Datenbanksystem (Codd 1983).\n\nGrundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen (Leimeister 2021).\n\n\nEine Relation entspricht einem Entity-Typen; jede Zeile der Tabelle entspricht einer Entity; die Spalten einer Tabelle entsprechen den Attributen."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#eigenschaften",
+    "href": "lectures/GIM/5/index.html#eigenschaften",
+    "title": "K5 Datenbanken #2",
+    "section": "Eigenschaften",
+    "text": "Eigenschaften\nFür relationale Datenbanksystemen gilt:\n\nJede Relation ist eine zweidimensionale Tabelle. Diese entspricht meistens einem Entity-Typ.\nm:m-Beziehungen erfordern die Bildung einer eigenen Relation. Die Primärschlüssel der beteiligten Entity-Typen werden vererbt.\nJede Zeile der Tabelle beschreibt eine bestimmte Entität.\nDie Spalten entsprechen den Attributen.\nDie Entitäten werden durch Attributwerte, also Ausprägungen der Attribute, beschrieben.\nDie Zeilen müssen paarweise untereinander verschieden sein. Es gibt also keine zwei identischen Zeilen.\nDie Reihenfolge der Zeilen spielt keine Rolle, ebenso die der Spalten.\nAttribute sind stets atomar, also nicht in kleinere Einheiten zerlegbar"
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#relationen",
+    "href": "lectures/GIM/5/index.html#relationen",
+    "title": "K5 Datenbanken #2",
+    "section": "Relationen",
+    "text": "Relationen\nEine Relation entspricht (meistens) einem Entity-Typen.\n\n\n\nSchaubild 2: Beispiel einer Relation, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\nBeispiel: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entity-Typ ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#und-1n-beziehungen",
+    "href": "lectures/GIM/5/index.html#und-1n-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "1:1- und 1:n-Beziehungen",
+    "text": "1:1- und 1:n-Beziehungen\nBei 1:1 und 1:n-Beziehungen wird der Primärschlüssel der verbundenen Relation ergänzt.\n\n\n\nSchaubild 3: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\nBeispiel: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation Projekt um den Primärschlüssel der Relation Mitarbeiter, der Mitarbeiter-Nr.."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#nm-beziehungen",
+    "href": "lectures/GIM/5/index.html#nm-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "n:m-Beziehungen",
+    "text": "n:m-Beziehungen\nEine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte Koppeltabelle.\n\n\n\nSchaubild 4: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\nBeispiel: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation Buchungen stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel Kunden-Nr, und Trainings-Nr. wird zum Primärschlüssel der Koppeltabelle Buchungen."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#abgrenzung",
+    "href": "lectures/GIM/5/index.html#abgrenzung",
+    "title": "K5 Datenbanken #2",
+    "section": "Abgrenzung",
+    "text": "Abgrenzung\nNeben der physischen und logischen Datenstruktur werden Datensysteme auch nach Einsatzzweck unterschieden Bächle, Daurer, und Kolb (2021).\n\n\nOperative Datenbanken speichern Daten, die Momentaufnahmen des aktuellen Geschehens darstellen (Transaktionen). Diese dienen dazu, Mitarbeiter im Tagesgeschäft zu unterstützen und Aufgaben zu automatisieren\nAnalytische Datensysteme speichern aktuelle und historische Daten aus operativen Datenbanken in aggregierter Form. Diese dienen dazu, Managemententscheidungen zu unterstützen. Die Daten enthalten in der Regel immer eine Zeitkomponente."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#übersicht",
+    "href": "lectures/GIM/5/index.html#übersicht",
+    "title": "K5 Datenbanken #2",
+    "section": "Übersicht",
+    "text": "Übersicht\n\n\nTabelle 1: Operative und analytische Daten\n\n\n\n\n\n\n\n\nOperative Daten\nAnalytische Daten\n\n\n\n\nZiel\nAbwicklung von Geschäftsprozessen\nInformationen zur Entscheidungsunterstützung\n\n\nDateninhalt\nAtomisierte Istwerte (Transaktionsbasis)\nVerdichtete, transformierte und berechnete Daten\n\n\nArt\nDynamisch\nStatisch\n\n\nZugriffsfrequenz\nHoch\nNiedrig\n\n\nNutzung\nStrukturierte, wiederholte Verarbeitung\nUnstrukturierte, analytische Verarbeitung\n\n\nBeispiel\nWareneingang einer Bestellung\nAbsätze eines bestimmten Produkts im Zeitverlauf"
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#definition-2",
+    "href": "lectures/GIM/5/index.html#definition-2",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nDer Begriff Big Data meint wörtlich die „großen Daten”, also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet (Leimeister 2021, 201):\n\n\nEnorme Größe\nEine hohe Komplexität\nSchnelllebigkeit oder schnelles Aufkommen neuer Daten\nSchwach oder gar nicht strukturiert\n\n\n\nBig Data Analytics beschreibt die Fähigkeit, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) (Lemke und Brenner 2015)."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#visualisierung",
+    "href": "lectures/GIM/5/index.html#visualisierung",
+    "title": "K5 Datenbanken #2",
+    "section": "Visualisierung",
+    "text": "Visualisierung\n\n\n\nSchaubild 5: Eigenschafrten und Effekte von Big Data (4+1 Vs)"
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#a1-grundbegriffe",
+    "href": "lectures/GIM/5/index.html#a1-grundbegriffe",
+    "title": "K5 Datenbanken #2",
+    "section": "A1: Grundbegriffe",
+    "text": "A1: Grundbegriffe\nErläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.\n\nRelationenmodell\nRelation\nTupel\nOperative Daten\nAnalytische Daten\nBig Data\nVelocity"
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#a2-online-shop",
+    "href": "lectures/GIM/5/index.html#a2-online-shop",
+    "title": "K5 Datenbanken #2",
+    "section": "A2: Online-Shop",
+    "text": "A2: Online-Shop\nErstellen Sie aus dem ERM der Aufgabe A4 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#a3-auftragsverwaltung",
+    "href": "lectures/GIM/5/index.html#a3-auftragsverwaltung",
+    "title": "K5 Datenbanken #2",
+    "section": "A3: Auftragsverwaltung",
+    "text": "A3: Auftragsverwaltung\nErstellen Sie aus dem ERM der Aufgabe A5 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GIM/5/index.html#a4-big-data",
+    "href": "lectures/GIM/5/index.html#a4-big-data",
+    "title": "K5 Datenbanken #2",
+    "section": "A4: Big Data",
+    "text": "A4: Big Data\nÜberlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.\nGeben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#definition",
+    "href": "lectures/GIM/5/slides.html#definition",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell. Das logische Datenmodell ist damit systemabhängig.\n\nEs wird aus dem systemunabhängigen konzeptionellen Datenmodell abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank.\n\n\nIn der Praxis kommt dem relationalen Modell die größte Bedeutung zu. Außerdem kommen hierarchische, auf dem netzwerkartigen oder objektorientierten Datenmodell basierende Datenbanken zum Einsatz."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#vorgehensmodell",
+    "href": "lectures/GIM/5/slides.html#vorgehensmodell",
+    "title": "K5 Datenbanken #2",
+    "section": "Vorgehensmodell",
+    "text": "Vorgehensmodell\n\n\n\nSchaubild 1: Vorgehensmodell zum Entwurf von Datenbanken nach Bächle, Daurer, und Kolb (2021, 78)"
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#definition-1",
+    "href": "lectures/GIM/5/slides.html#definition-1",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nEin Datenbanksystem, das auf dem Relationenmodell basiert, nennt man relationales Datenbanksystem (Codd 1983).\n\nGrundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen (Leimeister 2021).\n\n\nEine Relation entspricht einem Entity-Typen; jede Zeile der Tabelle entspricht einer Entity; die Spalten einer Tabelle entsprechen den Attributen."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#relationen",
+    "href": "lectures/GIM/5/slides.html#relationen",
+    "title": "K5 Datenbanken #2",
+    "section": "Relationen",
+    "text": "Relationen\nEine Relation entspricht (meistens) einem Entity-Typen.\n\n\n\nSchaubild 2: Beispiel einer Relation, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\n\nBeispiel: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entity-Typ ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#und-1n-beziehungen",
+    "href": "lectures/GIM/5/slides.html#und-1n-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "1:1- und 1:n-Beziehungen",
+    "text": "1:1- und 1:n-Beziehungen\nBei 1:1 und 1:n-Beziehungen wird der Primärschlüssel der verbundenen Relation ergänzt.\n\n\n\nSchaubild 3: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\n\nBeispiel: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation Projekt um den Primärschlüssel der Relation Mitarbeiter, der Mitarbeiter-Nr.."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#nm-beziehungen",
+    "href": "lectures/GIM/5/slides.html#nm-beziehungen",
+    "title": "K5 Datenbanken #2",
+    "section": "n:m-Beziehungen",
+    "text": "n:m-Beziehungen\nEine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte Koppeltabelle.\n\n\n\nSchaubild 4: Beispiel einer 1:n Beziehung, vgl. Bächle, Daurer, und Kolb (2021)\n\n\n\n\nBeispiel: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation Buchungen stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel Kunden-Nr, und Trainings-Nr. wird zum Primärschlüssel der Koppeltabelle Buchungen."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#abgrenzung",
+    "href": "lectures/GIM/5/slides.html#abgrenzung",
+    "title": "K5 Datenbanken #2",
+    "section": "Abgrenzung",
+    "text": "Abgrenzung\nNeben der physischen und logischen Datenstruktur werden Datensysteme auch nach Einsatzzweck unterschieden Bächle, Daurer, und Kolb (2021).\n\n\nOperative Datenbanken speichern Daten, die Momentaufnahmen des aktuellen Geschehens darstellen (Transaktionen). Diese dienen dazu, Mitarbeiter im Tagesgeschäft zu unterstützen und Aufgaben zu automatisieren\nAnalytische Datensysteme speichern aktuelle und historische Daten aus operativen Datenbanken in aggregierter Form. Diese dienen dazu, Managemententscheidungen zu unterstützen. Die Daten enthalten in der Regel immer eine Zeitkomponente."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#übersicht",
+    "href": "lectures/GIM/5/slides.html#übersicht",
+    "title": "K5 Datenbanken #2",
+    "section": "Übersicht",
+    "text": "Übersicht\n\n\nTabelle 1: Operative und analytische Daten\n\n\n\n\n\n\n\n\nOperative Daten\nAnalytische Daten\n\n\n\n\nZiel\nAbwicklung von Geschäftsprozessen\nInformationen zur Entscheidungsunterstützung\n\n\nDateninhalt\nAtomisierte Istwerte (Transaktionsbasis)\nVerdichtete, transformierte und berechnete Daten\n\n\nArt\nDynamisch\nStatisch\n\n\nZugriffsfrequenz\nHoch\nNiedrig\n\n\nNutzung\nStrukturierte, wiederholte Verarbeitung\nUnstrukturierte, analytische Verarbeitung\n\n\nBeispiel\nWareneingang einer Bestellung\nAbsätze eines bestimmten Produkts im Zeitverlauf"
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#definition-2",
+    "href": "lectures/GIM/5/slides.html#definition-2",
+    "title": "K5 Datenbanken #2",
+    "section": "Definition",
+    "text": "Definition\nDer Begriff Big Data meint wörtlich die „großen Daten”, also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet (Leimeister 2021, 201):\n\n\nEnorme Größe\nEine hohe Komplexität\nSchnelllebigkeit oder schnelles Aufkommen neuer Daten\nSchwach oder gar nicht strukturiert\n\n\n\nBig Data Analytics beschreibt die Fähigkeit, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) (Lemke und Brenner 2015)."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#visualisierung",
+    "href": "lectures/GIM/5/slides.html#visualisierung",
+    "title": "K5 Datenbanken #2",
+    "section": "Visualisierung",
+    "text": "Visualisierung\n\n\n\nSchaubild 5: Eigenschafrten und Effekte von Big Data (4+1 Vs)"
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#a1-grundbegriffe",
+    "href": "lectures/GIM/5/slides.html#a1-grundbegriffe",
+    "title": "K5 Datenbanken #2",
+    "section": "A1: Grundbegriffe",
+    "text": "A1: Grundbegriffe\nErläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.\n\nRelationenmodell\nRelation\nTupel\nOperative Daten\nAnalytische Daten\nBig Data\nVelocity"
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#a2-online-shop",
+    "href": "lectures/GIM/5/slides.html#a2-online-shop",
+    "title": "K5 Datenbanken #2",
+    "section": "A2: Online-Shop",
+    "text": "A2: Online-Shop\nErstellen Sie aus dem ERM der Aufgabe A4 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#a3-auftragsverwaltung",
+    "href": "lectures/GIM/5/slides.html#a3-auftragsverwaltung",
+    "title": "K5 Datenbanken #2",
+    "section": "A3: Auftragsverwaltung",
+    "text": "A3: Auftragsverwaltung\nErstellen Sie aus dem ERM der Aufgabe A5 aus Kapitel 4 ein Relationen-Modell.\nZeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze."
+  },
+  {
+    "objectID": "lectures/GIM/5/slides.html#a4-big-data",
+    "href": "lectures/GIM/5/slides.html#a4-big-data",
+    "title": "K5 Datenbanken #2",
+    "section": "A4: Big Data",
+    "text": "A4: Big Data\nÜberlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.\nGeben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt."
+  },
+  {
     "objectID": "lectures/DIiI/0/index.html",
     "href": "lectures/DIiI/0/index.html",
     "title": "Administrivia 🧐",
@@ -3875,7 +4295,7 @@
     "href": "lectures/DIiI/3/index.html#definition",
     "title": "Crowdsourcing",
     "section": "Definition",
-    "text": "Definition\n\nCrowdsourcing is a type of participative online activity in which an individual, an institution, a non-profit organization, or company proposes to a group of individuals of varying knowledge, heterogeneity, and number, via a flexible open call [i.e., announcement], the voluntary undertaking of a task.\n(AROLAS and LADRÓN-DE-GUEVARA 2012, 9)\n\n\nCrowdsourcing can be applied to multiple tasks including innovation (e.g., new products and services or changes to practices and processes)\n\n\n\nWe define innovation in a crowdsourcing context as the public generation of innovative solutions to a complex problem posed by the company sponsoring the challenge call. (Majchrzak and Malhotra 2013, 258)"
+    "text": "Definition\n\nCrowdsourcing is a type of participative online activity in which an individual, an institution, a non-profit organization, or company proposes to a group of individuals of varying knowledge, heterogeneity, and number, via a flexible open call [i.e., announcement], the voluntary undertaking of a task.\n(Arolas and Ladrón-de-Guevara 2012, 9)\n\n\nCrowdsourcing can be applied to multiple tasks including innovation (e.g., new products and services or changes to practices and processes)\n\n\n\nWe define innovation in a crowdsourcing context as the public generation of innovative solutions to a complex problem posed by the company sponsoring the challenge call. (Majchrzak and Malhotra 2013, 258)"
   },
   {
     "objectID": "lectures/DIiI/3/index.html#underlying-theorem",
@@ -3945,7 +4365,7 @@
     "href": "lectures/DIiI/3/slides.html#definition",
     "title": "Crowdsourcing",
     "section": "Definition",
-    "text": "Definition\n\nCrowdsourcing is a type of participative online activity in which an individual, an institution, a non-profit organization, or company proposes to a group of individuals of varying knowledge, heterogeneity, and number, via a flexible open call [i.e., announcement], the voluntary undertaking of a task.\n(AROLAS and LADRÓN-DE-GUEVARA 2012, 9)\n\n\nCrowdsourcing can be applied to multiple tasks including innovation (e.g., new products and services or changes to practices and processes)\n\n\n\nWe define innovation in a crowdsourcing context as the public generation of innovative solutions to a complex problem posed by the company sponsoring the challenge call. (Majchrzak and Malhotra 2013, 258)"
+    "text": "Definition\n\nCrowdsourcing is a type of participative online activity in which an individual, an institution, a non-profit organization, or company proposes to a group of individuals of varying knowledge, heterogeneity, and number, via a flexible open call [i.e., announcement], the voluntary undertaking of a task.\n(Arolas and Ladrón-de-Guevara 2012, 9)\n\n\nCrowdsourcing can be applied to multiple tasks including innovation (e.g., new products and services or changes to practices and processes)\n\n\n\nWe define innovation in a crowdsourcing context as the public generation of innovative solutions to a complex problem posed by the company sponsoring the challenge call. (Majchrzak and Malhotra 2013, 258)"
   },
   {
     "objectID": "lectures/DIiI/3/slides.html#underlying-theorem",
