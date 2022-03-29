@@ -352,29 +352,26 @@
 
 
 
-<section>
 <section id="motivation" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Motivation</h1>
-
-</section>
-<section class="slide level2">
-
 <blockquote>
 <p>The world’s most valuable resource is no longer oil, but data. <em>Steve Jobs (1997)</em></p>
 </blockquote>
 <div class="fragment">
-<p>Damit Daten Wert haben, müssen diese so gespeichert werden, dass sie effizient abgerufen und verwendet werden können. Die Grundkonzepte hierzu lernen Sie in diesem und im nächsten Kapitel kennen.</p>
+<p>Damit Daten Wert haben, müssen möglichst effizient abgelegt, abgerufen, interpretiert und genutzt werden können. In diesem und im folgenden Kapitel lernen Sie die Grundkonzepte hierzu kennen.</p>
 </div>
-</section></section>
+</section>
+
 <section id="lernergebnisse" class="title-slide slide level1 center">
 <h1>Lernergebnisse</h1>
 <p>Nach dieser Einheit</p>
 <div>
 <ul>
-<li class="fragment">können Sie das Konzept der Datenintegration zur Vermeidung von Redundanzen und Inkonsistenzen erläutern und den Zusammenhang zu Datenbanksystemen (DBS) herstellen,</li>
-<li class="fragment">können Sie das Vorgehen der Datenmodellierung beschreiben,</li>
-<li class="fragment">verstehen Sie die Begriffe „Entity-Typ“, „Entity“, „Attribut“, „Schlüsselattribut“, „Relationship“ und „Kardinalität“ und können diese im Kontext der Datenmodellierung erläutern und</li>
-<li class="fragment">sind Sie in der Lage, ein einfaches Entity-Relationship-Diagramm (ERM) zu entwerfen und daraus Relationen abzuleiten.</li>
+<li class="fragment">können Sie das Konzept der <strong>Datenintegration</strong> zur <strong>Vermeidung von Redundanzen</strong> und <strong>Inkonsistenzen</strong> erläutern,</li>
+<li class="fragment">können Sie Aufgabe von <strong>Datenbanksystemen</strong> (DBS) beschreiben,</li>
+<li class="fragment">können Sie das Vorgehen der <strong>Datenmodellierung</strong> beschreiben,</li>
+<li class="fragment">verstehen Sie die Begriffe <strong>Entity-Typ</strong>, <strong>Entity</strong>, <strong>Attribut</strong>, <strong>Schlüsselattribut</strong>, <strong>Relationship</strong> und <strong>Kardinalität</strong> und können diese im Kontext der Datenmodellierung erläutern und</li>
+<li class="fragment">sind Sie in der Lage, ein einfaches <strong>Entity-Relationship-Diagramm</strong> (ERM) zu entwerfen und daraus <strong>Relationen</strong> abzuleiten.</li>
 </ul>
 </div>
 </section>
@@ -384,11 +381,317 @@
 <h1>Daten</h1>
 
 </section>
-<section id="begriffsbestimmung-wiederholung" class="slide level2">
-<h2>Begriffsbestimmung (Wiederholung)</h2>
-<p><strong>Daten</strong> sind Zeichen und Symbole, die einer bestimmten Syntax folgen. <strong>Informationen</strong> sind Daten, die in einen sachlichen Kontext gesetzt sind. <strong>Wissen</strong> entsteht, wenn Informationen interpretiert und bewertet werden.</p>
-<p>Ob aus Zeichen Daten, aus Daten Informationen und aus Informationen Wissen wird, ist abhängig vom Empfänger.</p>
-<p>Expliziertes Wissen ist codiertes Wissen (bspw. in einem Buch). Impliziertes Wissen ist an die Person gebunden.</p>
+<section id="begriffsbestimmung" class="slide level2">
+<h2>Begriffsbestimmung</h2>
+<div id="fig-informationen" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/informationen.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 1: Daten oder Information?</figcaption><p></p>
+</figure>
+</div>
+
+<aside><div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Daten - Informationen - Wissen (Wiederholung)</strong></p>
+</div>
+<div class="callout-content">
+<p>Konzepte:</p>
+<ul>
+<li><strong>Daten</strong> sind eine Menge an Zeichen, die einer bestimmten Syntax folgen, einen bestimmten Zweck haben und maschinell verarbeitet werden können.</li>
+<li><strong>Informationen</strong> sind Daten, die in einen sachlichen Kontext gesetzt sind und denen so Bedeutung zugeordnet werden kann.</li>
+<li><strong>Wissen</strong> entsteht, wenn Informationen von Menschen interpretiert und bewertet werden. Man unterscheidet zudem zwischen
+<ul>
+<li>expliziertes Wissen, also codiertem, externalisiertem Wissen (bspw. in einem Buch) und</li>
+<li>impliziertes Wissen, also Wissen, das an die Person gebunden ist.</li>
+</ul></li>
+</ul>
+<p>Ob aus Zeichen Daten, aus Daten Informationen und aus Informationen Wissen wird, ist abhängig vom <strong>Empfänger</strong>.</p>
+</div>
+</div>
+</div>
+</div></aside></section>
+<section id="zweck" class="slide level2">
+<h2>Zweck</h2>
+<p>Daten beschreiben <strong>Objekte der realen Welt</strong> durch deren <strong>Merkmale</strong> und sowie deren <strong>Beziehungen</strong> zueinander <span class="citation" data-cites="mertens2016grundzuge">(<a href="#/ref-mertens2016grundzuge" role="doc-biblioref" onclick="return false;">Mertens u.&nbsp;a. 2016</a>)</span>.</p>
+<div class="fragment">
+<p><em>Beispiel: Ein Datensatz kann ein Objekt „Artikel“ durch dessen Merkmalen (z. B. Preis, Bezeichnung etc.) und Beziehungen zu anderen Objekten (z. B. Bestellungen, Lieferung) beschreiben.</em></p>
+</div>
+</section>
+<section id="klassifizierung" class="slide level2">
+<h2>Klassifizierung</h2>
+<p>Daten können beispielsweise nach folgenden Kriterien klassifiziert werden:</p>
+<div>
+<ul>
+<li class="fragment">Zeichenart bzw. <strong>Datentyp</strong>: numerische (Ziffern), alphabetische (Buchstaben des Alphabets) und alphanumerische Daten (Ziffern, Buchstaben und Sonderzeichen)</li>
+<li class="fragment"><strong>Erscheinungsform</strong>: akustische (z. B. menschliche Laute), bildliche (z. B. Grafiken) und schriftliche Daten (z. B. Texte)</li>
+<li class="fragment"><strong>Formatierung</strong>: Formatierte (z. B. formgebundene Tabellen) und unformatierte Daten (z. B. formfreie Texte)</li>
+<li class="fragment"><strong>Verwendungszweck</strong>: selten zu verändernde Stammdaten (z. B. Personalstammdaten wie Namen und Adressen) und transaktionsorientierte Bewegungsdaten (z. B. Lagerzu- und –abgänge)</li>
+<li class="fragment">Stellung im <strong>Verarbeitungsprozess</strong>: Eingabe- und Ausgabedaten</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="datenmanagement" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Datenmanagement</h1>
+
+</section>
+<section id="relevanz" class="slide level2">
+<h2>Relevanz</h2>
+<p>Der Nutzen von Informationssystemen ergibt sich aus der <strong>sinnvollen Verarbeitung von Daten</strong>, die für bestimmte Aktivitäten bzw. fachliche Funktionen benötigt werden.</p>
+<div class="fragment">
+<p>Für die Entwicklung, den Betrieb und das Management von Informationssystemen stellen sich insbesondere folgende Fragen:</p>
+<div>
+<ul>
+<li class="fragment">Was sind die Daten eines Unternehmens, einer Organisation oder eines privaten Haushalts?</li>
+<li class="fragment">Wie können diese strukturiert und erfasst werden?</li>
+<li class="fragment">Wie können diese verarbeitet werden?</li>
+<li class="fragment">Wie erfolgt deren Speicherung und der wiederholte Abruf bzw. deren Präsentation?</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="struktur" class="slide level2">
+<h2>Struktur</h2>
+<p>Das Management von Daten erfordert eine <strong>grundlegende Struktur</strong> zur Systematisierung bzw. Hierarchisierung:</p>
+<div>
+<ul>
+<li class="fragment">Jeder <strong>Datensatz</strong> besteht aus einem oder mehreren <strong>Datenfeldern</strong>,</li>
+<li class="fragment">die Datenfelder haben für alle Datensätze das gleiche Format,</li>
+<li class="fragment">die Datenfeldern eines Datensatzes hängen in aller Regel inhaltlich zusammen,</li>
+<li class="fragment">alle zusammengehörigen Datensätze werden in einer <strong>Tabelle</strong> zusammengefasst und</li>
+<li class="fragment">die <strong>Datenbank</strong> vereint die logisch zusammengehörenden Tabellen.</li>
+</ul>
+</div>
+</section>
+<section id="problemstellung" class="slide level2">
+<h2>Problemstellung</h2>
+<p>In Unternehmen werden Daten oft an unterschiedlichen Stellen gespeichert. Das führt unter anderem zu folgenden Problemen <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#/ref-laudon2016wirtschaftsinformatik" role="doc-biblioref" onclick="return false;">Laudon, Laudon, und Schoder 2016</a>)</span>:</p>
+<div>
+<ul>
+<li class="fragment"><strong>Datenredundanzen:</strong> das mehrfache Vorkommen identischer Datenelemente in verschiedenen Tabellen und/oder Datenbanken (kurz Speicherorten, bspw. dieselben Kundendaten werden in zwei verschiedenen Systemen gespeichert)</li>
+<li class="fragment"><strong>Dateninkonsistenzen:</strong> für dasselbe Attribut sind unterschiedliche Werte in Datenelementen gespeichert, die ein reales Objekt repräsentieren (bspw. unterschiedliche Geburtsdaten eines Kunden).</li>
+</ul>
+</div>
+</section>
+<section id="beispiel" class="slide level2">
+<h2>Beispiel</h2>
+<div id="fig-redundanzen" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/redundanzen.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 2: Einsatz unterschiedlicher Anwendungssysteme mit eigenen Datenstrukturen</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="datenbanksysteme" class="slide level2">
+<h2>Datenbanksysteme</h2>
+<p>Datenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#/ref-laudon2016wirtschaftsinformatik" role="doc-biblioref" onclick="return false;">Laudon, Laudon, und Schoder 2016</a>)</span>:</p>
+<div>
+<ul>
+<li class="fragment"><strong>Datenbank (DB):</strong> eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können</li>
+<li class="fragment"><strong>Datenbankmanagementsystem (DBMS):</strong> System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.</li>
+</ul>
+</div>
+
+<aside><div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Physische und logische Datenstruktur</strong></p>
+</div>
+<div class="callout-content">
+<p>Die physische Datenstruktur beschreibt, wie Daten auf einem Datenträger organisiert sind. Änderungen an dieser Struktur soll sich möglichst nicht auf die logische Struktur der Daten auswirken. Die logische Datenstruktur beschreibt, wie die Beziehung zwischen den Daten organisiert ist. Änderungen an dieser Struktur soll keine Auswirkungen auf die Anwendungssysteme haben, die diese Daten nutzen.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Datenintegration</strong></p>
+</div>
+<div class="callout-content">
+<p>Datenintegration liegt vor, wenn fachlich gleiche Daten nur einmal gespeichert werden. Bestenfalls speichern Datenbanken deshalb alle Daten eines Unternehmens zentral, z. B. Kunden- und Artikeldaten. Mehrere betriebliche Funktionen können auf diese Daten z.B. durch Anwendungen zugreifen und für verschiedene Aufgaben nutzen.</p>
+</div>
+</div>
+</div>
+</div></aside></section>
+<section id="beispiel-1" class="slide level2">
+<h2>Beispiel</h2>
+<div id="fig-DBMS" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/DBMS.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 3: Einsatz eines zentralen Datenbanksystems</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="datenmodellierung" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Datenmodellierung</h1>
+
+</section>
+<section id="ziel" class="slide level2">
+<h2>Ziel</h2>
+<p>Ziel der Datenmodellierung ist die Beschreibung von Unternehmensdaten in einem <strong>Datenmodell</strong>.</p>
+<div class="fragment">
+<p>Ein unternehmensweites Datenmodell, bildet die relevanten Objekte aller Bereiche des Unternehmens ab (Krcmar 2015).</p>
+</div>
+<div class="fragment">
+<p>Die Datenmodellierung findet <strong>vor</strong> der Umsetzung bzw. Implementierung von Lösungen zum Management der Daten statt (bspw. Datenbanksysteme).</p>
+
+</div>
+<aside><div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Unternehmensdatenmodell</strong></p>
+</div>
+<div class="callout-content">
+<p>Modelle sind vereinfachte und formalisierte Abbildungen eines Ausschnittes der Realität. Das Unternehmensdatenmodell beschreibt die Zusammenhänge zwischen den für die fachlichen Aufgaben erforderlichen Daten. Währen der Modellierung werden für verschiedene Aufgaben gemeinsam verwendete Daten identifiziert und die Voraussetzungen die systemübergreifende Datenintegration geschaffen.</p>
+</div>
+</div>
+</div>
+</div></aside></section>
+<section id="vorgehensmodell" class="slide level2">
+<h2>Vorgehensmodell</h2>
+<div id="fig-vorgehensmodell" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/vorgehensmodell.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 4: Vorgehensmodell zum Entwurf von Datenbanken nach <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 78</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="konzeptionelles-modell" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Konzeptionelles Modell</h1>
+
+</section>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
+<p>Im konzeptionellen Datenmodell (oder auch konzeptionelles Schema) werden alle inhaltlichen Anforderungen an die Datenbank erfasst. Dies geschieht meist mittels einer grafisch orientierten, <strong>formalen Modellierungssprache</strong>.</p>
+<div class="fragment">
+<p>Die am weitesten verbreitete Modellierungssprache ist das <strong>Entity Relationship Model (ERM)</strong> nach Chen <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>Das Modell unterscheidet <strong>Entity-Typen</strong>, <strong>Attribute</strong> und <strong>Beziehungen</strong>.</p>
+</div>
+</section>
+<section id="beispiel-2" class="slide level2">
+<h2>Beispiel</h2>
+<div id="fig-konzeptionellesSchema" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/konzeptionellesSchema.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 5: Beispiel für ein konzeptionelles Datenmodell (ERM), eigene Darstellung</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="erm" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>ERM</h1>
+
+</section>
+<section id="entity-typen" class="slide level2">
+<h2>Entity-Typen</h2>
+<p><strong>Entity-Typen</strong> sind reale oder abstrakte Informationsobjekte mit einer eigenständigen Bedeutung wie Rollen (bspw. Kunde), Organisationseinheiten (bspw. Werk), oder reale Objekte (bspw. Artikel) <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Ein <strong>Entity</strong> ist eine einzelne, konkrete Ausprägung eines Entity-Typs (bspw. der Kunde <em>Hans Dampf</em>).</p>
+</div>
+<div class="fragment">
+<p>Grafisch werden Entity-Typen im Entity-Relationship-Diagramm durch Rechtecke repräsentiert.</p>
+
+</div>
+<aside><div>
+<p><strong>Beispiel:</strong> Wesentliche Aufgabe einer Anwendung zur Zeiterfassung ist es, für die Abrechnung Leistungen von Mitarbeitern zu Projektaufträgen zu erfassen. Aus dieser Aufgabenstellung heraus ergeben sich als relevante Entity-Typen “Mitarbeiter” (Rolle), “Leistung” (reales Objekt), “Auftrag”, und “Projekt” (abstrakte Informationsobjekte)</p>
+</div></aside></section>
+<section id="attribute" class="slide level2">
+<h2>Attribute</h2>
+<p>Anhand von Attributen werden <strong>Eigenschaften von Entity-Typen</strong> beschrieben.</p>
+<div class="fragment">
+<p>Ihre konkreten Ausprägungen, die <strong>Attributwerte</strong>, definieren eine einzelne Entity.</p>
+</div>
+<div class="fragment">
+<p>Attribute werden durch <strong>Ellipsen</strong>, die durch Linien mit den Rechtecken der entsprechenden Entity-Typen verbunden sind, dargestellt.</p>
+<p>Attribute, die der eindeutigen Identifikation dienen, sogenannte <strong>Schlüsselattribute</strong>, werden unterstrichen <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Beispiel:</strong> Anwendung zur Zeiterfassung</p>
+<div id="fig-entities" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/entities.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 6: Entitiy-Typen und Attributen der Zeiterfassungsanwendung</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="relationen" class="slide level2">
+<h2>Relationen</h2>
+<p>Über die Relationen (engl. Relationships) werden <strong>Beziehungen</strong> zwischen Entitiy-Typen beschrieben <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Relationen werden in Form von <strong>Rauten</strong> dargestellt und mit <strong>Prädikatsverben</strong> bezeichnet.</p>
+</div>
+<div class="fragment">
+<p>Die Bezeichnungen sollen gewählt werden, dass sie auf alle Entitys der verknüpften Entity-Typen zutreffen.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Beispiel:</strong> Anwendung zur Zeiterfassung</p>
+<div id="fig-relationen" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/relationen.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 7: Relationen der Zeiterfassungsanwendung</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="kardinalität" class="slide level2">
+<h2>Kardinalität</h2>
+<p>Die Kardinalität bzw. Komplexität der Beziehung spezifiziert die Menge der auftretenden Beziehungen <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Grundsätzlich lassen sich 1 zu 1 (1:1), 1 zu n (1:n) sowie n zu m (n:m) Beziehungen unterscheiden.</p>
+</div>
+<div class="fragment">
+<p>Je nach Notationsart wird die Kardinalität unterschiedlich dargestellt. So unterscheidet sich die Notation nach Chen wesentlich von der (min;max)-Notation.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Beispiel:</strong> Anwendung zur Zeiterfassung</p>
+<div id="fig-kardinalität" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/kardinalität.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 8: Kardinalität in der Notation nach Chen</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="minmax-notation" class="slide level2">
+<h2>(min;max)-Notation</h2>
+<p>In der (min,max)-Notation werden genaue <strong>Unter-und Obergrenzen</strong> der zulässigen Anzahl Objekte innerhalb einer Beziehung angegeben. Damit wird festgelegt, dass&nbsp;jede&nbsp;Entität dieses Typs mindestens an min und höchstens an max. Beziehungen des Beziehungstyps teilnimmt.</p>
+<div class="fragment">
+<p>In der&nbsp;(min,max)-Notation&nbsp;wird die Kardinalität im ER-Modell umgekehrt zu Chen-Notationen positioniert</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Beispiel:</strong> Anwendung zur Zeiterfassung</p>
+<div id="fig-minMax" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/minMax.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 9: Kardinalität in der (min;max)-Notation</figcaption><p></p>
+</figure>
+</div>
 </section></section>
 <section>
 <section id="aufgaben" class="title-slide slide level1 vertical-center center" data-background-color="blue">
@@ -398,11 +701,53 @@
 <section id="a1-grundbegriffe" class="slide level2">
 <h2>A1: Grundbegriffe</h2>
 <p>Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.</p>
+<ul>
+<li>Information</li>
+<li>Daten-Redundanz</li>
+<li>Daten-Inkonsistenz</li>
+<li>Datenbanksystem</li>
+<li>Konzeptionelles Datenmodell</li>
+<li>Entity-Typ</li>
+</ul>
+</section>
+<section id="a2-daten-oder-information" class="slide level2">
+<h2>A2: Daten oder Information?</h2>
+<p>Diskutieren Sie, worin sich die drei Beispiele unten unterscheiden und unter welchen Bedingungen es sich um Daten oder Informationen handelt.</p>
+<div id="fig-datenInformation" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/datenInformation.svg"></p>
+<p></p><figcaption aria-hidden="true">Schaubild 10: Daten oder Information?</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="a3-dbms-vorteile" class="slide level2">
+<h2>A3: DBMS Vorteile</h2>
+<p>Nennen Sie die Hauptvorteile eines Datenbanksystems.</p>
+</section>
+<section id="a4-online-shop" class="slide level2">
+<h2>A4: Online-Shop</h2>
+<p>Ein Online-Shop verarbeitet Bestellungen von Kunden. Jede Bestellung besteht aus Artikeln. Die Artikel werden von Lieferanten geliefert. Auf der Website können die Artikel je Kategorie angezeigt werden. Ein Artikel kann in mehreren Kategorien erscheinen.</p>
+<p>Jeder Kunde hat eine Kundennummer. Zudem werden Name, E-Mail, Bankverbindung und andere Daten gespeichert. Jeder Artikel hat eine Artikel-Nummer, eine Beschreibung, ein Bild und ein Preis. Jede Bestellung hat eine Bestellnummer. Eine Kategorie ist über eine ID und eine Bezeichnung charakterisiert. Ein Lieferant hat in unserem Shop eine Lieferantennummer und einen Namen.</p>
+<p>Zeichnen Sie das ER-Modell und prüfen Sie, ob die Beziehungen über die Schlüssel hinreichend abgedeckt sind. Zeichnen Sie sowohl die Kardinalität nach Chen als auch nach der (min;max)-Notation ein.</p>
+</section>
+<section id="a5-auftragsverwaltung" class="slide level2">
+<h2>A5: Auftragsverwaltung</h2>
+<p>Die Mitarbeiter einer Firma sollen die geleisteten Arbeitsstunden jeden Monat auftragsbezogen erfassen. Ein Auftrag ist in Unteraufträge gegliedert. Die Arbeitsstunden werden den Unteraufträgen zugeordnet. Jeder Mitarbeiter arbeitet an mehreren Unteraufträgen.</p>
+<p>Mitarbeiter sind beschrieben durch eine Personalnummer, einen Namen, und einen festgelegten Stundensatz. Jeder Auftrag hat min. die Auftragsnummer, eine Bezeichnung, einen Auftraggeber ein Auftragsdatum. Jeder Unterauftrag ist beschrieben durch eine Unterauftragsnummer, eine Bezeichnung und einen festgelegten Sollaufwand. Eine Leistung besteht min. aus der Leistungsnummer, einer Bezeichnung, dem Monat der Leistungserstellung und den Ist-Stunden.</p>
+<p>Entwerfen Sie das ER-Modell. Kennzeichnen Sie außerdem die Primärschlüssel je Entity-Typ und erläutern Sie deren Funktion.</p>
 </section></section>
 <section id="literatur" class="title-slide slide level1 smaller scrollable">
 <h1>Literatur</h1>
-<div id="refs" role="doc-bibliography">
-
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-bachle2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Bächle, Michael A, Stephan Daurer, und Arthur Kolb. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. De Gruyter Oldenbourg.
+</div>
+<div id="ref-laudon2016wirtschaftsinformatik" class="csl-entry" role="doc-biblioentry">
+Laudon, Kenneth C, Jane Price Laudon, und Detlef Schoder. 2016. <em>Wirtschaftsinformatik: Eine Einf<span>ü</span>hrung</em>. Pearson Deutschland GmbH.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="doc-biblioentry">
+Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016. <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
 </div>
 
 <div class="footer footer-default">
