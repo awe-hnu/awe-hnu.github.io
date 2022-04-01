@@ -167,13 +167,15 @@ They can implement
 :::
 
 ::: {.incremental}
-- __uninformed search__ methods, which only have access to the problem definition
-- __informed search__ methods, which have access to a heuristic function that estimates the costs of a solution *(e.g., straight-line distance in route-finding problems)*
+- __uninformed search__ methods, which only have access to the problem definition but not clue about how close a state is to the goal(s).
+- __informed search__ methods, which have access to a heuristic function that gives domain-specific hints about how close a state is to the goal(s) *(e.g., using straight-line distance in route-finding problems)*
 :::
 
 ## Uniformed search
 
-::: {.incremental}
+![Overview of uninformed search strategies](images/strategies.svg){#fig-search-strategies}
+
+:::{.notes}
 - __Breadth-first search__: expands the shallowest nodes first   
   - complete, optimal for unit action costs
   - exponential space complexity
@@ -185,9 +187,7 @@ They can implement
   - neither complete nor optimal
   - linear space complexity, a depth bound can be added
   - LIFO queue
-:::
 
-:::{.notes}
 :::{.callout-note}
 ### Ques used in search algorithms
 Three types of ques are used in search algorithms [@RusselNorvig2022AIMA, p.92]:
