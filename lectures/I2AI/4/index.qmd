@@ -67,10 +67,12 @@ The initial state, `ACTIONS` function, and `RESULT` function define the __state 
 Players (here `MIN` and `MAX`, alternate turns) need to have a conditional plan—a contingent strategy specifying a response to each move of the opponent.
 
 ::: {.incremental}
-- For games with binary outcomes (win or lose), *AND-OR* search can be used  
+- For games with binary outcomes (win or lose), *AND-OR*[^3] search tree can be used  
   [see @RusselNorvig2022AIMA, p. 143]
 - For games with multiple outcome scores, the __minimax search__ algorithm is used
 :::
+
+[^3]: The search tree consists of *AND nodes* and *OR nodes*. AND nodes reflect the environment's choice of action (which all need to be considers), OR nodes the agent's own choices in each state (where only one needs to be considered). AND and OR nodes alternate. A solution is a conditional plan that considers every nondeterministic outcome and makes a plan for each one.
 
 # Minimax search {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
@@ -136,25 +138,25 @@ Alpha-beta search updates the values of α and β as it goes along and prunes th
 
 # Monte Carlo tree search
 
-__Monte Carlo tree search__ (MCTS) does estimate the value of a state as the __average utility__[^3] over a number of simulations of complete games starting from the current state [@RusselNorvig2022AIMA, p.207-209].
+__Monte Carlo tree search__ (MCTS) does estimate the value of a state as the __average utility__[^4] over a number of simulations of complete games starting from the current state [@RusselNorvig2022AIMA, p.207-209].
 
-[^3]: guided by the __selection policy__
+[^4]: guided by the __selection policy__
 
 ::: {.fragment}
 Each iteration follows four steps:
 
 ::: {.incremental}
-- __Selection__ (choosing a move[^4], leading to a successor node, and repeat that process, moving down the tree to a leaf)
+- __Selection__ (choosing a move[^5], leading to a successor node, and repeat that process, moving down the tree to a leaf)
 - __Expansion__ (one to several new children are created for the selected node)
 - __Simulation__ (a simulation for the newly generated child node is performed)
 - __Back-propagation__ (the result of the simulation is used to update all the search tree nodes going up to the root)
 :::
 :::
 
-[^4]: For games with binary outcomes, __average utility__ equals *win percentage*
+[^5]: For games with binary outcomes, __average utility__ equals *win percentage*
 
 ::: {.fragment}
-Repeats for a set number of iterations or until a given time is over
+Repeats for a set number of iterations or until a given time is over. At the end the successor with the hightest utily is chosen.
 :::
 
 ## Selection
@@ -169,9 +171,11 @@ Repeats for a set number of iterations or until a given time is over
 @fig-mcts-selection shows a tree with the root representing a state where `P-A` has won 37/100 playouts done
 
 :::{.incremental}
-- `P-B` selects a move to a node where it has won 60/79 playouts
-- This is the best win percentage among the available moves
-- `P-A` will select a move to a node where it has won 27/35 playouts (assuming it plays optimally)
+- `P-A` has just moved to the root node
+- `P-B` selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves
+- `P-A` will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)
+- `P-B` then continues on the leeaf node marked 27/35
+- ... until a terminal state is reached
 :::
 :::
 
@@ -179,7 +183,7 @@ Repeats for a set number of iterations or until a given time is over
 :::
 
 :::{.notes}
-It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained.
+It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained. So it makes sense to use a selection policy that balances exploitation and exploration.
 :::
 
 
@@ -211,10 +215,10 @@ With $C=1.4$, the 60/79 node in @fig-mcts-selection has the highest UCB1 score, 
 :::{.callout-note}
 #### Utiliy of MCTS
 
-The conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see [@RusselNorvig2022AIMA, p. 202ff]) for games where the branching factor is very high (and thus alpha-beta can't search deep enough), or when it is difficult to define a good evaluation function [^5].
+The conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see [@RusselNorvig2022AIMA, p. 202ff]) for games where the branching factor is very high (and thus alpha-beta can't search deep enough), or when it is difficult to define a good evaluation function [^6].
 :::
 
-[^5]: A heuristic evaluation function returns an estimate of the expected utility of state `s` to player `p`.
+[^6]: A heuristic evaluation function returns an estimate of the expected utility of state `s` to player `p`.
 
 :::
 
@@ -234,13 +238,13 @@ The conventional wisdom has been that Monte Carlo search has an advantage over H
 A playout for the newly generated child node is performed *(simulation)*.
 
 :::{.incremental}
-- Moves for both players according the playout policy[^6] are chosen
+- Moves for both players according the playout policy[^7] are chosen
 - The moves are not recorded in the search tree
 - In @fig-mcts-expansion, the simulation results in a win for `P-B`
 :::
 :::
 
-[^6]: Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)
+[^7]: Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)
 
 :::
 :::

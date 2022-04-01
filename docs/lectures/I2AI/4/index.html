@@ -218,7 +218,7 @@
 <p>Players (here <code>MIN</code> and <code>MAX</code>, alternate turns) need to have a conditional plan—a contingent strategy specifying a response to each move of the opponent.</p>
 <div class="incremental">
 <ul class="incremental">
-<li>For games with binary outcomes (win or lose), <em>AND-OR</em> search can be used<br>
+<li>For games with binary outcomes (win or lose), <em>AND-OR</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> search tree can be used<br>
 <span class="citation" data-cites="RusselNorvig2022AIMA">(see <a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 143</a>)</span></li>
 <li>For games with multiple outcome scores, the <strong>minimax search</strong> algorithm is used</li>
 </ul>
@@ -298,12 +298,12 @@ Pruning to reduce computing complexity <span class="citation" data-cites="Russel
 </section>
 <section id="monte-carlo-tree-search" class="level1">
 <h1>Monte Carlo tree search</h1>
-<p><strong>Monte Carlo tree search</strong> (MCTS) does estimate the value of a state as the <strong>average utility</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> over a number of simulations of complete games starting from the current state <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 207–9</a>)</span>.</p>
+<p><strong>Monte Carlo tree search</strong> (MCTS) does estimate the value of a state as the <strong>average utility</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> over a number of simulations of complete games starting from the current state <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 207–9</a>)</span>.</p>
 <div class="fragment">
 <p>Each iteration follows four steps:</p>
 <div class="incremental">
 <ul class="incremental">
-<li><strong>Selection</strong> (choosing a move<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, leading to a successor node, and repeat that process, moving down the tree to a leaf)</li>
+<li><strong>Selection</strong> (choosing a move<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, leading to a successor node, and repeat that process, moving down the tree to a leaf)</li>
 <li><strong>Expansion</strong> (one to several new children are created for the selected node)</li>
 <li><strong>Simulation</strong> (a simulation for the newly generated child node is performed)</li>
 <li><strong>Back-propagation</strong> (the result of the simulation is used to update all the search tree nodes going up to the root)</li>
@@ -311,7 +311,7 @@ Pruning to reduce computing complexity <span class="citation" data-cites="Russel
 </div>
 </div>
 <div class="fragment">
-<p>Repeats for a set number of iterations or until a given time is over</p>
+<p>Repeats for a set number of iterations or until a given time is over. At the end the successor with the hightest utily is chosen.</p>
 </div>
 <section id="selection" class="level2">
 <h2 data-anchor-id="selection">Selection</h2>
@@ -328,16 +328,18 @@ Pruning to reduce computing complexity <span class="citation" data-cites="Russel
 <p><a href="#fig-mcts-selection">Figure&nbsp;2</a> shows a tree with the root representing a state where <code>P-A</code> has won 37/100 playouts done</p>
 <div class="incremental">
 <ul class="incremental">
-<li><code>P-B</code> selects a move to a node where it has won 60/79 playouts</li>
-<li>This is the best win percentage among the available moves</li>
-<li><code>P-A</code> will select a move to a node where it has won 27/35 playouts (assuming it plays optimally)</li>
+<li><code>P-A</code> has just moved to the root node</li>
+<li><code>P-B</code> selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves</li>
+<li><code>P-A</code> will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)</li>
+<li><code>P-B</code> then continues on the leeaf node marked 27/35</li>
+<li>… until a terminal state is reached</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 <div class="notes">
-<p>It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained.</p>
+<p>It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained. So it makes sense to use a selection policy that balances exploitation and exploration.</p>
 </div>
 </section>
 <section id="selection-policy-example" class="level2">
@@ -373,7 +375,7 @@ Utiliy of MCTS
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 202ff</a>)</span>) for games where the branching factor is very high (and thus alpha-beta can’t search deep enough), or when it is difficult to define a good evaluation function <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>The conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 202ff</a>)</span>) for games where the branching factor is very high (and thus alpha-beta can’t search deep enough), or when it is difficult to define a good evaluation function <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 </div>
 </div>
 </div>
@@ -396,7 +398,7 @@ Utiliy of MCTS
 <p>A playout for the newly generated child node is performed <em>(simulation)</em>.</p>
 <div class="incremental">
 <ul class="incremental">
-<li>Moves for both players according the playout policy<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> are chosen</li>
+<li>Moves for both players according the playout policy<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> are chosen</li>
 <li>The moves are not recorded in the search tree</li>
 <li>In <a href="#fig-mcts-expansion">Figure&nbsp;3</a>, the simulation results in a win for <code>P-B</code></li>
 </ul>
@@ -497,10 +499,11 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <ol>
 <li id="fn1" role="doc-endnote"><p>Means that what is good for one player is just as bad for the other: there is no “win-win” outcome<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>States where the game has ended are called <strong>terminal states</strong><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>guided by the <strong>selection policy</strong><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>For games with binary outcomes, <strong>average utility</strong> equals <em>win percentage</em><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>A heuristic evaluation function returns an estimate of the expected utility of state <code>s</code> to player <code>p</code>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>The search tree consists of <em>AND nodes</em> and <em>OR nodes</em>. AND nodes reflect the environment’s choice of action (which all need to be considers), OR nodes the agent’s own choices in each state (where only one needs to be considered). AND and OR nodes alternate. A solution is a conditional plan that considers every nondeterministic outcome and makes a plan for each one.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>guided by the <strong>selection policy</strong><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>For games with binary outcomes, <strong>average utility</strong> equals <em>win percentage</em><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>A heuristic evaluation function returns an estimate of the expected utility of state <code>s</code> to player <code>p</code>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script type="application/javascript">
