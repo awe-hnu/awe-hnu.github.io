@@ -87,15 +87,19 @@ It can happen that there is a cycle of iterations between goal formulation, prob
 A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 
 ::: {.incremental}
-- The __state space:__ a set of possible states the environment can be in
+- The __state space:__ a set of possible states[^1] the environment can be in[^2]
 - The __initial state:__ the state that the agent starts
-- __Goal states:__ a singe goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)
-- The __actions__ available to the agent `ACTIONS(s)` where `s` is the current state
-- A __transition model:__ describes what each action does. `RESULT(s,a)` returns the state that results from doing action `a` in state `s`.
+- The __goal state(s):__ a state that the agent is trying to reach[^3]
+- A __transition model:__ returns the state that results from doing action `a` in state `s` (`RESULT(s,a)`)
+- The __sucessor function:__ returns a set of (action, state) pairs for node `s`, where the state is the state reachable by taking the action `a` (`ACTIONS(s)`)
 - An __action cost function:__ gives the numeric cost of applying action `a` in state `s` to reach state `s'` (`ACTION-COST(s,a,s'`)
 - A __path:__ a sequence of actions
 - A __solution:__ a path from the initial state to the goal state
-:::
+:::t
+
+[^1]: A state is a situation that an agent can find itself in.
+[^2]: Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another
+[^3]: Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)
 
 ## Modelling
 
@@ -127,13 +131,13 @@ The choice of a good abstraction involves removing as much detail as possible wh
 ![Example: A partial search tree for finding a route from Arad to Bucharest; based on @RusselNorvig2022AIMA [p.89]](images/search-tree.svg){#fig-search-tree}
 
 ::: {.notes}
-@fig-search-tree visualizes the first few steps in finding a path from Arad (initial state) to Bucharest (goal). 
+@fig-search-tree visualizes a partial search tree: the first few steps in finding a path from Arad (initial state) to Bucharest (goal). 
 
 - The __root node__ of the search tree is the initial state `s` *(Arad)*
-- The available `ACTIONS(s)`, using the `RESULTS(s,a)` function are considered
-- New nodes, called __child nodes__ or __successor nodes__ are generated for each resulting states (i.e., the root node is __expanded__)
+- The available actions considerd using `ACTIONS(s)`
+- New nodes, called __child nodes__ or __successor nodes__ are generated using `RESULT(s,a)` (i.e., the root node is __expanded__)
 - Each child node has *Arad* as its __parent node__
-- The child node to be considered next needs to be selected (__strategies__ see below)
+- The child node to be considered next needs to be selected using some __evaluation function__ `f(n)` (__strategies__ see below)
 
  In @fig-search-tree, nodes that have been expanded are white with bold letters; nodes on the __frontier__ that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been __reached__. Nodes that could be generated next are shown in faint dashed lines.
 
@@ -148,7 +152,60 @@ A search tree is a “what if” tree of plans and their outcomes.
 
 There are lots of repeated structure in the search tree. Thus, for most problems, the whole tree can never be actually built. In practice, both state space graphs and search trees are constructed on demand and as little as possible [@RusselNorvig2022AIMA].
 :::
+
+Search algorithms require a data structure to keep track of the __search tree__. A node in the tree is represented by a data structure with four components [@RusselNorvig2022AIMA, p. 91]:
+
+- `node.STATE`: the state to which the node corresponds
+- `node.PARENT`: the node in the tree that generated this node
+- `node.ACTION`: the action that was applied to the parent's state to generate this node
+- `node.PATH-COST`: the total cost of the path from the initial state to generate this node
+
+Following the PARENT pointers back from a node allows to revocer the states and actions along the path to that node. Doing this from a goal node generates the solution.
+
+:::{.small}
+Example data structure in pseudo code:
+
+```{.javascript}
+var searchTree = {
+  node.STATE: "Bucharest"
+  node.PARENT: {
+    node.STATE: "Pitesti"
+    node.PARENT: {
+      node.STATE: "Rimmicu Vilcea"
+      node.PARENT: {
+        node.STATE: "Sibiu"
+        node.PARENT: {
+          node.STATE: "Arad"
+          node.PARENT: NULL
+          node.ACTION: NULL
+          node.PATH-COST: 0
+        }
+        node.ACTION: "Arad to Sibiu"
+        node.PATH-COST: 140
+      }
+      node.ACTION: "Sibiu to Rimmicu Vilcea"
+      node.PATH-COST: 220
+    }
+    node.ACTION: "Rimmicu Vilcea to Pitesti"
+    node.PATH-COST: 317
+  }
+  node.ACTION: "Pitesti to Bucharest"
+  node.PATH-COST: 418
+}
+```
+
 :::
+
+In addition, a data structure to store the __fontier__ is neded. Usually this is realized using a __queue__ with following functions  [@RusselNorvig2022AIMA, p. 91]:
+
+- `IS-EMPTY(frontier)`: returns true only if there are no nodes in the frontier
+- `POP(frontier)`: removes the top node from the frontier and returns it
+- `TOP(frontier)`: returns (but does not remove) the top node from the frontier
+- `ADD(node,frontier)`: inserts node into its proper place in the queue
+
+
+:::
+
 
 # Search {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
@@ -180,28 +237,138 @@ They can implement
   - complete, optimal for unit action costs
   - exponential space complexity
   - FIFO queue
-- __Uniform-cost search:__ expands the node with the lowest path costs
-  - complete, optimal for general action costs
-  - priority queue using cumulative cost
+  - a reached table is necessary to store the nodes already reached
 - __Depth-first search:__ expands the deepest unexpanded node first  
-  - neither complete nor optimal
+  - neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal
   - linear space complexity, a depth bound can be added
   - LIFO queue
+  - the frontier is very small
+- __Uniform-cost search:__ expands the node with the lowest path costs
+  - complete, optimal for general action costs
+  - priority queue using cumulative cost  
 
 :::{.callout-note}
-### Ques used in search algorithms
+### Queues used in search algorithms
 Three types of ques are used in search algorithms [@RusselNorvig2022AIMA, p.92]:
 
-- A __priority queue__ first pops the node with the minimum costs according to some evaluation function, *f*.
-- A __LIFO queue__ or first-in-first-out queue first pops the node that was added to the queue first.
-- A __LIFO queue__ or last-in-first-out queue (also known as a stack) pops first the most recently added node.
+- __Priority queue__ first pops the node with the minimum costs according to some evaluation function (uniform-cost search)
+- __FIFO queue__ or first-in-first-out queue first pops the node that was added to the queue first (breadth-first search)
+- __LIFO queue__ or last-in-first-out queue (also known as a stack) pops first the most recently added node (depth-first search)
 :::
+
+:::{.small}
+
+#### Process of the breadth-first search algorithm
+
+1. Add the start node to the frontier using `ADD(node,frontier)`
+2. Get the top node from the frontier using `POP(frontier)`
+3. Get all the actions avaible for the top node via `ACTIONS(s)`
+4. Get the child nodes for the retreived actions via `RESULT(s,a)`
+5. Check if one child nodes is a goal state; if yes return the search tree; if not go ahead
+6. Add the child nodes to the frontier `ADD(node,frontier)`
+7. Repeat steps 2 to 6 as long as no solution is found and `IS-EMPTY(frontier)` is not true 
+
+Example using the tree depicted in @fig-search-tree, assuming that the goal is not included:
+
+- Add *0* to the frontier
+- Get the top node from the frontier (*0*)
+- Get the actions avaiable from *0* (*to 1* and *to 2*)
+- Get the child nodes for the retrieved actions (*1* and *2*)
+- Check if *1* is a goal state (*false*)
+- Add *1* to the frontier
+- Check if *2* is a goald state (*false*)
+- Add *2* to the frontier
+- Get the top node from the frontier, here using the FIFO (*1*)
+- Get the actions avaiable from *1* (*to 3* and *to 4*)
+- Get the child nodes for the retrieved actions (*3* and *4*)
+- Check if *3* is a goal state (*false*)
+- Add *3* to the frontier
+- Check if *4* is a goal state (*false*)
+- Add *4* to the frontier
+- Get the top node from the frontier (*2*)
+- Get the actions avaiable from *2* (*to 5* and *to 6*)
+- Get the child nodes for the retrieved actions (*5* and *6*)
+- Check if *5* is a goal state (*false*)
+- Add *5* to the frontier
+- Check if *6* is a goal state (*false*)
+- Add *6* to the frontier
+- Get the top node from the frontier (*3*)
+- ...
+
+#### Process of the breadth-first search algorithm
+
+The overall process is the same, only the frontier queue returns the node that was added last.
+
+#### Process of the uniform-cost search algorithm
+
+The overall process is the same, only the frontier queue returns the node in the queue with the minimum : cost-paths.
+
+Example using the tree depicted in @fig-search-problem:
+
+- Add *Arad* to the frontier
+- Get the top node from the frontier (*Arad*)
+- Get the actions avaiable from *Arad* (*to Zerind*, *to Timisoara*, *to Sibiu*)
+- Get the child nodes for the retrieved actions (*Zerind*, *Timisoara*, *Sibiu*)
+- Add *Zerind*, *Timisoara*, and *Sibiu* to the frontier
+- Get the node from the frontier with the lowest path cost (*Zerind*)
+- Check if *Zerind* is a goal state (*false*)
+- Get the actions avaiable from *Zerind* (*to Oradea*)
+- Get the child nodes for the retrieved actions (*Oradea*)
+- Add *Oradea* to the frontier
+- Get the node from the frontier with the lowest path cost (*Timisoara*)
+- Check if *Timisoara* is a goal state (*false*)
+- Get the actions avaiable from *Timisoara* (*to Lugoj*)
+- Get the child nodes for the retrieved actions (*Lugoj*)
+- Add *Lugoj* the frontier
+- Get the node from the frontier with the lowest path cost (*Sibiu*)
+- Check if *Sibiu* is a goal state (*false*)
+- Get the actions avaiable from *Sibiu* (*to Fagaras*, *to Rimmicu Vilcea*)
+- Get the child nodes for the retrieved actions (*Fagaras*, *Rimmicu Vilcea*)
+- Add *Fagaras* and *Rimmicu Vilcea* to the frontier
+- Get the node from the frontier with the lowest path cost (*Rimmicu Vilcea*)
+- Check if *Rimmicu Vilcea* is a goal state (*false*)
+- Get the actions avaiable from *Rimmicu Vilcea* (*to Pitesti*, *to Craiova*)
+- Get the child nodes for the retrieved actions (*Pitesti*, *Craiova*)
+- Add *Pitesti* and *Craiova* to the frontier
+- Get the node from the frontier with the lowest path cost (*Lugoj*)
+- Check if *Lugoj* is a goal state (*false*)
+- Get the actions avaiable from *Lugoj* (*to Mehadia*)
+- Get the child nodes for the retrieved actions (*Mehadia*)
+- Add *Mehadia* to the frontier
+- Get the node from the frontier with the lowest path cost (*Fagaras*)
+- Check if *Fagaras* is a goal state (*false*)
+- Get the actions avaiable from *Fagaras* (*to Bucharest*)
+- Get the child nodes for the retrieved actions (*Bucharest*)
+- Add *Bucharest* to the frontier
+- Get the node from the frontier with the lowest path cost (*Mehadia*)
+- Check if *Mehadia* is a goal state (*false*)
+- Get the actions avaiable from *Mehadia* (*to Drobeta*)
+- Get the child nodes for the retrieved actions (*Drobeta*)
+- Add *Drobeta* to the frontier
+- Get the node from the frontier with the lowest path cost (*Pitesti*)
+- Check if *Pitesti* is a goal state (*false*)
+- Get the actions avaiable from *Pitesti* (*to Bucharest*, *to Craiova*)
+- Get the child nodes for the retrieved actions (*Bucharest*, *Craiova*)
+- Add *Bucharest* and *Craiova* to the frontier
+- Get the node from the frontier with the lowest path cost (*Drobeta*)
+- Check if *Drobeta* is a goal state (*false*)
+- Get the actions avaiable from *Drobeta* (*to Craiova*)
+- Get the child nodes for the retrieved actions (*Craiova*)
+- Add *Craiova* to the frontier
+- Get the node from the frontier with the lowest path cost (*Bucharest*)
+- Check if *Drobeta* is a goal state (*true*)
+- Return solution
+
+Note if we had checked for a goald upon generating a node rather than when expanding the lowest-cost node, then we would have returned a higher-cost path (the one through Fagaras)
+
+:::
+
 :::{.callout-note}
 ### Measuring problem-solving performance
 The performance of problem-solving algorithms can be evaluated in four ways [@RusselNorvig2022AIMA, p.93]:
 
 - __Completeness:__ Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?
-- __Cost optimality:__ Does it find a solution with the lowest path cost of all solutions?
+- __Cost optimality:__ Does it find a solution with the lowest : cost-path of all solutions?
 - __Time complexity:__ How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?
 - __Space complexity:__ How much memory is needed to perform the search?
 :::
@@ -263,6 +430,12 @@ a. Formulate this problem. How large is the state space?
 b. In navigating a maze, the only place we need to turn is at the intersection of two or more corridors. Reformulate this problem using this observation. How large is the state space now?
 c. From each point in the maze, we can move in any of the four directions until we reach a turning point, and this is the only action we need to do. Reformulate the problem using these actions. Do we need to keep track of the robot’s orientation now?
 d. In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.
+
+:::{.notes}
+
+![Result for I2AI_3 question b](images/maze.svg){#fig-maze}
+
+:::
 
 # Literature
 ::: {#refs}

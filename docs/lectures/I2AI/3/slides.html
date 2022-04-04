@@ -16,6 +16,69 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     div.csl-bib-body { }
     div.csl-entry {
@@ -399,10 +462,10 @@
 <p>In simple environments, agents can follow a four-phase-problem-solving process <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 81–82</a>)</span>:</p>
 <div>
 <ul>
-<li class="fragment"><strong>Goal formulation</strong>: goals organize behavior by limiting the objectives and hence the actions to be considered</li>
-<li class="fragment"><strong>Problem formulation</strong>: the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment</li>
-<li class="fragment"><strong>Search</strong>: the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)</li>
-<li class="fragment"><strong>Execution</strong>: the agent executes the actions in the solution, one at a time</li>
+<li class="fragment"><strong>Goal formulation:</strong> goals organize behavior by limiting the objectives and hence the actions to be considered</li>
+<li class="fragment"><strong>Problem formulation:</strong> the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment</li>
+<li class="fragment"><strong>Search:</strong> the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)</li>
+<li class="fragment"><strong>Execution:</strong> the agent executes the actions in the solution, one at a time</li>
 </ul>
 </div>
 
@@ -430,19 +493,8 @@
 <section id="definition" class="slide level2">
 <h2>Definition</h2>
 <p>A search problem can be defined formally as <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 83</a>)</span>:</p>
-<div>
-<ul>
-<li class="fragment">The <strong>state space</strong>: a set of possible states the environment can be in</li>
-<li class="fragment">The <strong>initial state</strong>: the state that the agent starts</li>
-<li class="fragment"><strong>Goal states</strong>: a singe goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</li>
-<li class="fragment">The <strong>actions</strong> available to the agent <code>ACTIONS(s)</code> where <code>s</code> is the current state</li>
-<li class="fragment">A <strong>transition model</strong>: describes what each action does. <code>RESULT(s,a)</code> returns the state that results from doing action <code>a</code> in state <code>s</code>.</li>
-<li class="fragment">An <strong>action cost function</strong>: gives the numeric cost of applying action <code>a</code> in state <code>s</code> to reach state <code>s'</code> (<code>ACTION-COST(s,a,s'</code>)</li>
-<li class="fragment">A <strong>path</strong>: a sequence of actions</li>
-<li class="fragment">A <strong>solution</strong>: a path from the initial state to the goal state</li>
-</ul>
-</div>
-</section>
+<p>::: {.incremental} - The <strong>state space:</strong> a set of possible states<a href="#/fn1" class="footnote-ref" id="fnref1" role="doc-noteref" onclick="return false;"><sup>1</sup></a> the environment can be in<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a> - The <strong>initial state:</strong> the state that the agent starts - The <strong>goal state(s):</strong> a state that the agent is trying to reach<a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a> - A <strong>transition model:</strong> returns the state that results from doing action <code>a</code> in state <code>s</code> (<code>RESULT(s,a)</code>) - The <strong>sucessor function:</strong> returns a set of (action, state) pairs for node <code>s</code>, where the state is the state reachable by taking the action <code>a</code> (<code>ACTIONS(s)</code>) - An <strong>action cost function:</strong> gives the numeric cost of applying action <code>a</code> in state <code>s</code> to reach state <code>s'</code> (<code>ACTION-COST(s,a,s'</code>) - A <strong>path:</strong> a sequence of actions - A <strong>solution:</strong> a path from the initial state to the goal state :::t</p>
+<aside></aside></section>
 <section id="modelling" class="slide level2">
 <h2>Modelling</h2>
 <div id="fig-search-problem" class="quarto-figure quarto-figure-center">
@@ -492,13 +544,13 @@
 </div>
 
 <aside><div>
-<p><a href="#/fig-search-tree">Figure&nbsp;2</a> visualizes the first few steps in finding a path from Arad (initial state) to Bucharest (goal).</p>
+<p><a href="#/fig-search-tree">Figure&nbsp;2</a> visualizes a partial search tree: the first few steps in finding a path from Arad (initial state) to Bucharest (goal).</p>
 <ul>
 <li>The <strong>root node</strong> of the search tree is the initial state <code>s</code> <em>(Arad)</em></li>
-<li>The available <code>ACTIONS(s)</code>, using the <code>RESULTS(s,a)</code> function are considered</li>
-<li>New nodes, called <strong>child nodes</strong> or <strong>successor nodes</strong> are generated for each resulting states (i.e., the root node is <strong>expanded</strong>)</li>
+<li>The available actions considerd using <code>ACTIONS(s)</code></li>
+<li>New nodes, called <strong>child nodes</strong> or <strong>successor nodes</strong> are generated using <code>RESULT(s,a)</code> (i.e., the root node is <strong>expanded</strong>)</li>
 <li>Each child node has <em>Arad</em> as its <strong>parent node</strong></li>
-<li>The child node to be considered next needs to be selected (<strong>strategies</strong> see below)</li>
+<li>The child node to be considered next needs to be selected using some <strong>evaluation function</strong> <code>f(n)</code> (<strong>strategies</strong> see below)</li>
 </ul>
 <p>In <a href="#/fig-search-tree">Figure&nbsp;2</a>, nodes that have been expanded are white with bold letters; nodes on the <strong>frontier</strong> that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been <strong>reached</strong>. Nodes that could be generated next are shown in faint dashed lines.</p>
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -520,6 +572,50 @@
 </div>
 </div>
 </div>
+<p>Search algorithms require a data structure to keep track of the <strong>search tree</strong>. A node in the tree is represented by a data structure with four components <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 91</a>)</span>:</p>
+<ul>
+<li><code>node.STATE</code>: the state to which the node corresponds</li>
+<li><code>node.PARENT</code>: the node in the tree that generated this node</li>
+<li><code>node.ACTION</code>: the action that was applied to the parent’s state to generate this node</li>
+<li><code>node.PATH-COST</code>: the total cost of the path from the initial state to generate this node</li>
+</ul>
+<p>Following the PARENT pointers back from a node allows to revocer the states and actions along the path to that node. Doing this from a goal node generates the solution.</p>
+<div class="small">
+<p>Example data structure in pseudo code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource javascript number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">var</span> searchTree <span class="op">=</span> {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  node<span class="op">.</span><span class="at">STATE</span><span class="op">:</span> <span class="st">"Bucharest"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  node<span class="op">.</span><span class="at">PARENT</span><span class="op">:</span> {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    node<span class="op">.</span><span class="at">STATE</span><span class="op">:</span> <span class="st">"Pitesti"</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    node<span class="op">.</span><span class="at">PARENT</span><span class="op">:</span> {</span>
+<span id="cb1-6"><a href="#cb1-6"></a>      node<span class="op">.</span><span class="at">STATE</span><span class="op">:</span> <span class="st">"Rimmicu Vilcea"</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>      node<span class="op">.</span><span class="at">PARENT</span><span class="op">:</span> {</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        node<span class="op">.</span><span class="at">STATE</span><span class="op">:</span> <span class="st">"Sibiu"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>        node<span class="op">.</span><span class="at">PARENT</span><span class="op">:</span> {</span>
+<span id="cb1-10"><a href="#cb1-10"></a>          node<span class="op">.</span><span class="at">STATE</span><span class="op">:</span> <span class="st">"Arad"</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>          node<span class="op">.</span><span class="at">PARENT</span><span class="op">:</span> NULL</span>
+<span id="cb1-12"><a href="#cb1-12"></a>          node<span class="op">.</span><span class="at">ACTION</span><span class="op">:</span> NULL</span>
+<span id="cb1-13"><a href="#cb1-13"></a>          node<span class="op">.</span><span class="at">PATH</span><span class="op">-</span><span class="dt">COST</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>        }</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        node<span class="op">.</span><span class="at">ACTION</span><span class="op">:</span> <span class="st">"Arad to Sibiu"</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>        node<span class="op">.</span><span class="at">PATH</span><span class="op">-</span><span class="dt">COST</span><span class="op">:</span> <span class="dv">140</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>      }</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      node<span class="op">.</span><span class="at">ACTION</span><span class="op">:</span> <span class="st">"Sibiu to Rimmicu Vilcea"</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>      node<span class="op">.</span><span class="at">PATH</span><span class="op">-</span><span class="dt">COST</span><span class="op">:</span> <span class="dv">220</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    }</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    node<span class="op">.</span><span class="at">ACTION</span><span class="op">:</span> <span class="st">"Rimmicu Vilcea to Pitesti"</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    node<span class="op">.</span><span class="at">PATH</span><span class="op">-</span><span class="dt">COST</span><span class="op">:</span> <span class="dv">317</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>  }</span>
+<span id="cb1-24"><a href="#cb1-24"></a>  node<span class="op">.</span><span class="at">ACTION</span><span class="op">:</span> <span class="st">"Pitesti to Bucharest"</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>  node<span class="op">.</span><span class="at">PATH</span><span class="op">-</span><span class="dt">COST</span><span class="op">:</span> <span class="dv">418</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In addition, a data structure to store the <strong>fontier</strong> is neded. Usually this is realized using a <strong>queue</strong> with following functions <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 91</a>)</span>:</p>
+<ul>
+<li><code>IS-EMPTY(frontier)</code>: returns true only if there are no nodes in the frontier</li>
+<li><code>POP(frontier)</code>: removes the top node from the frontier and returns it</li>
+<li><code>TOP(frontier)</code>: returns (but does not remove) the top node from the frontier</li>
+<li><code>ADD(node,frontier)</code>: inserts node into its proper place in the queue</li>
+</ul>
 </div></aside></section></section>
 <section>
 <section id="search" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
@@ -546,8 +642,8 @@
 </ul>
 </div>
 </section>
-<section id="uniformed-search" class="slide level2">
-<h2>Uniformed search</h2>
+<section id="uninformed-search" class="slide level2">
+<h2>Uninformed search</h2>
 <div id="fig-search-strategies" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/strategies.svg"></p>
@@ -557,22 +653,24 @@
 
 <aside><div>
 <ul>
-<li><strong>Breadth-first search</strong>: expands the shallowest nodes first
+<li><strong>Breadth-first search:</strong> expands the shallowest nodes first
 <ul>
 <li>complete, optimal for unit action costs</li>
 <li>exponential space complexity</li>
 <li>FIFO queue</li>
+<li>a reached table is necessary to store the nodes already reached</li>
 </ul></li>
-<li><strong>Uniform-cost search</strong>: expands the node with the lowest path costs
+<li><strong>Depth-first search:</strong> expands the deepest unexpanded node first
+<ul>
+<li>neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal</li>
+<li>linear space complexity, a depth bound can be added</li>
+<li>LIFO queue</li>
+<li>the frontier is very small</li>
+</ul></li>
+<li><strong>Uniform-cost search:</strong> expands the node with the lowest path costs
 <ul>
 <li>complete, optimal for general action costs</li>
 <li>priority queue using cumulative cost</li>
-</ul></li>
-<li><strong>Depth-first search</strong>: expands the deepest unexpanded node first
-<ul>
-<li>neither complete nor optimal</li>
-<li>linear space complexity, a depth bound can be added</li>
-<li>LIFO queue</li>
 </ul></li>
 </ul>
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -581,17 +679,117 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Ques used in search algorithms</strong></p>
+<p><strong>Queues used in search algorithms</strong></p>
 </div>
 <div class="callout-content">
 <p>Three types of ques are used in search algorithms <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 92</a>)</span>:</p>
 <ul>
-<li>A <strong>priority queue</strong> first pops the node with the minimum costs according to some evaluation function, <em>f</em>.</li>
-<li>A <strong>LIFO queue</strong> or first-in-first-out queue first pops the node that was added to the queue first.</li>
-<li>A <strong>LIFO queue</strong> or last-in-first-out queue (also known as a stack) pops first the most recently added node.</li>
+<li><strong>Priority queue</strong> first pops the node with the minimum costs according to some evaluation function (uniform-cost search)</li>
+<li><strong>FIFO queue</strong> or first-in-first-out queue first pops the node that was added to the queue first (breadth-first search)</li>
+<li><strong>LIFO queue</strong> or last-in-first-out queue (also known as a stack) pops first the most recently added node (depth-first search)</li>
 </ul>
 </div>
 </div>
+</div>
+<div class="small">
+<h4 id="process-of-the-breadth-first-search-algorithm">Process of the breadth-first search algorithm</h4>
+<ol type="1">
+<li>Add the start node to the frontier using <code>ADD(node,frontier)</code></li>
+<li>Get the top node from the frontier using <code>POP(frontier)</code></li>
+<li>Get all the actions avaible for the top node via <code>ACTIONS(s)</code></li>
+<li>Get the child nodes for the retreived actions via <code>RESULT(s,a)</code></li>
+<li>Check if one child nodes is a goal state; if yes return the search tree; if not go ahead</li>
+<li>Add the child nodes to the frontier <code>ADD(node,frontier)</code></li>
+<li>Repeat steps 2 to 6 as long as no solution is found and <code>IS-EMPTY(frontier)</code> is not true</li>
+</ol>
+<p>Example using the tree depicted in <a href="#/fig-search-tree">Figure&nbsp;2</a>, assuming that the goal is not included:</p>
+<ul>
+<li>Add <em>0</em> to the frontier</li>
+<li>Get the top node from the frontier (<em>0</em>)</li>
+<li>Get the actions avaiable from <em>0</em> (<em>to 1</em> and <em>to 2</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>1</em> and <em>2</em>)</li>
+<li>Check if <em>1</em> is a goal state (<em>false</em>)</li>
+<li>Add <em>1</em> to the frontier</li>
+<li>Check if <em>2</em> is a goald state (<em>false</em>)</li>
+<li>Add <em>2</em> to the frontier</li>
+<li>Get the top node from the frontier, here using the FIFO (<em>1</em>)</li>
+<li>Get the actions avaiable from <em>1</em> (<em>to 3</em> and <em>to 4</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>3</em> and <em>4</em>)</li>
+<li>Check if <em>3</em> is a goal state (<em>false</em>)</li>
+<li>Add <em>3</em> to the frontier</li>
+<li>Check if <em>4</em> is a goal state (<em>false</em>)</li>
+<li>Add <em>4</em> to the frontier</li>
+<li>Get the top node from the frontier (<em>2</em>)</li>
+<li>Get the actions avaiable from <em>2</em> (<em>to 5</em> and <em>to 6</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>5</em> and <em>6</em>)</li>
+<li>Check if <em>5</em> is a goal state (<em>false</em>)</li>
+<li>Add <em>5</em> to the frontier</li>
+<li>Check if <em>6</em> is a goal state (<em>false</em>)</li>
+<li>Add <em>6</em> to the frontier</li>
+<li>Get the top node from the frontier (<em>3</em>)</li>
+<li>…</li>
+</ul>
+<h4 id="process-of-the-breadth-first-search-algorithm-1">Process of the breadth-first search algorithm</h4>
+<p>The overall process is the same, only the frontier queue returns the node that was added last.</p>
+<h4 id="process-of-the-uniform-cost-search-algorithm">Process of the uniform-cost search algorithm</h4>
+<p>The overall process is the same, only the frontier queue returns the node in the queue with the minimum : cost-paths.</p>
+<p>Example using the tree depicted in <a href="#/fig-search-problem">Figure&nbsp;1</a>:</p>
+<ul>
+<li>Add <em>Arad</em> to the frontier</li>
+<li>Get the top node from the frontier (<em>Arad</em>)</li>
+<li>Get the actions avaiable from <em>Arad</em> (<em>to Zerind</em>, <em>to Timisoara</em>, <em>to Sibiu</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Zerind</em>, <em>Timisoara</em>, <em>Sibiu</em>)</li>
+<li>Add <em>Zerind</em>, <em>Timisoara</em>, and <em>Sibiu</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Zerind</em>)</li>
+<li>Check if <em>Zerind</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Zerind</em> (<em>to Oradea</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Oradea</em>)</li>
+<li>Add <em>Oradea</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Timisoara</em>)</li>
+<li>Check if <em>Timisoara</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Timisoara</em> (<em>to Lugoj</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Lugoj</em>)</li>
+<li>Add <em>Lugoj</em> the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Sibiu</em>)</li>
+<li>Check if <em>Sibiu</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Sibiu</em> (<em>to Fagaras</em>, <em>to Rimmicu Vilcea</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Fagaras</em>, <em>Rimmicu Vilcea</em>)</li>
+<li>Add <em>Fagaras</em> and <em>Rimmicu Vilcea</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Rimmicu Vilcea</em>)</li>
+<li>Check if <em>Rimmicu Vilcea</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Rimmicu Vilcea</em> (<em>to Pitesti</em>, <em>to Craiova</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Pitesti</em>, <em>Craiova</em>)</li>
+<li>Add <em>Pitesti</em> and <em>Craiova</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Lugoj</em>)</li>
+<li>Check if <em>Lugoj</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Lugoj</em> (<em>to Mehadia</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Mehadia</em>)</li>
+<li>Add <em>Mehadia</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Fagaras</em>)</li>
+<li>Check if <em>Fagaras</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Fagaras</em> (<em>to Bucharest</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Bucharest</em>)</li>
+<li>Add <em>Bucharest</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Mehadia</em>)</li>
+<li>Check if <em>Mehadia</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Mehadia</em> (<em>to Drobeta</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Drobeta</em>)</li>
+<li>Add <em>Drobeta</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Pitesti</em>)</li>
+<li>Check if <em>Pitesti</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Pitesti</em> (<em>to Bucharest</em>, <em>to Craiova</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Bucharest</em>, <em>Craiova</em>)</li>
+<li>Add <em>Bucharest</em> and <em>Craiova</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Drobeta</em>)</li>
+<li>Check if <em>Drobeta</em> is a goal state (<em>false</em>)</li>
+<li>Get the actions avaiable from <em>Drobeta</em> (<em>to Craiova</em>)</li>
+<li>Get the child nodes for the retrieved actions (<em>Craiova</em>)</li>
+<li>Add <em>Craiova</em> to the frontier</li>
+<li>Get the node from the frontier with the lowest path cost (<em>Bucharest</em>)</li>
+<li>Check if <em>Drobeta</em> is a goal state (<em>true</em>)</li>
+<li>Return solution</li>
+</ul>
+<p>Note if we had checked for a goald upon generating a node rather than when expanding the lowest-cost node, then we would have returned a higher-cost path (the one through Fagaras)</p>
 </div>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
@@ -604,10 +802,10 @@
 <div class="callout-content">
 <p>The performance of problem-solving algorithms can be evaluated in four ways <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 93</a>)</span>:</p>
 <ul>
-<li><strong>Completeness</strong>: Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?</li>
-<li><strong>Cost optimality</strong>: Does it find a solution with the lowest path cost of all solutions?</li>
-<li><strong>Time complexity</strong>: How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?</li>
-<li><strong>Space complexity</strong>: How much memory is needed to perform the search?</li>
+<li><strong>Completeness:</strong> Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?</li>
+<li><strong>Cost optimality:</strong> Does it find a solution with the lowest : cost-path of all solutions?</li>
+<li><strong>Time complexity:</strong> How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?</li>
+<li><strong>Space complexity:</strong> How much memory is needed to perform the search?</li>
 </ul>
 </div>
 </div>
@@ -676,7 +874,15 @@
 <li>From each point in the maze, we can move in any of the four directions until we reach a turning point, and this is the only action we need to do. Reformulate the problem using these actions. Do we need to keep track of the robot’s orientation now?</li>
 <li>In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.</li>
 </ol>
-</section></section>
+
+<aside><div>
+<div id="fig-maze" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/maze.svg"></p>
+<p></p><figcaption aria-hidden="true">Figure 4: Result for I2AI_3 question b</figcaption><p></p>
+</figure>
+</div>
+</div></aside></section></section>
 <section id="literature" class="title-slide slide level1 smaller scrollable">
 <h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
@@ -688,6 +894,15 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <div class="footer footer-default">
 
 </div>
+</section>
+
+<section class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>A state is a situation that an agent can find itself in.</p></li>
+<li id="fn2" role="doc-endnote"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another</p></li>
+<li id="fn3" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</p></li>
+</ol>
 </section>
     </div>
   </div>
