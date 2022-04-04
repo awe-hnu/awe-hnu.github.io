@@ -65,10 +65,10 @@ There are also search algorithms for problems in *partially observable, nondeter
 In simple environments, agents can follow a four-phase-problem-solving process [@RusselNorvig2022AIMA, p.81-82]:
 
 ::: {.incremental}
-- __Goal formulation__: goals organize behavior by limiting the objectives and hence the actions to be considered
-- __Problem formulation__: the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment
-- __Search__: the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)
-- __Execution__: the agent executes the actions in the solution, one at a time 
+- __Goal formulation:__ goals organize behavior by limiting the objectives and hence the actions to be considered
+- __Problem formulation:__ the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment
+- __Search:__ the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)
+- __Execution:__ the agent executes the actions in the solution, one at a time 
 :::
 
 :::{.notes}
@@ -87,14 +87,14 @@ It can happen that there is a cycle of iterations between goal formulation, prob
 A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 
 ::: {.incremental}
-- The __state space__: a set of possible states the environment can be in
-- The __initial state__: the state that the agent starts
-- __Goal states__: a singe goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)
+- The __state space:__ a set of possible states the environment can be in
+- The __initial state:__ the state that the agent starts
+- __Goal states:__ a singe goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)
 - The __actions__ available to the agent `ACTIONS(s)` where `s` is the current state
-- A __transition model__: describes what each action does. `RESULT(s,a)` returns the state that results from doing action `a` in state `s`.
-- An __action cost function__: gives the numeric cost of applying action `a` in state `s` to reach state `s'` (`ACTION-COST(s,a,s'`)
-- A __path__: a sequence of actions
-- A __solution__: a path from the initial state to the goal state
+- A __transition model:__ describes what each action does. `RESULT(s,a)` returns the state that results from doing action `a` in state `s`.
+- An __action cost function:__ gives the numeric cost of applying action `a` in state `s` to reach state `s'` (`ACTION-COST(s,a,s'`)
+- A __path:__ a sequence of actions
+- A __solution:__ a path from the initial state to the goal state
 :::
 
 ## Modelling
@@ -171,19 +171,19 @@ They can implement
 - __informed search__ methods, which have access to a heuristic function that gives domain-specific hints about how close a state is to the goal(s) *(e.g., using straight-line distance in route-finding problems)*
 :::
 
-## Uniformed search
+## Uninformed search
 
 ![Overview of uninformed search strategies](images/strategies.svg){#fig-search-strategies}
 
 :::{.notes}
-- __Breadth-first search__: expands the shallowest nodes first   
+- __Breadth-first search:__ expands the shallowest nodes first   
   - complete, optimal for unit action costs
   - exponential space complexity
   - FIFO queue
-- __Uniform-cost search__: expands the node with the lowest path costs
+- __Uniform-cost search:__ expands the node with the lowest path costs
   - complete, optimal for general action costs
   - priority queue using cumulative cost
-- __Depth-first search__: expands the deepest unexpanded node first  
+- __Depth-first search:__ expands the deepest unexpanded node first  
   - neither complete nor optimal
   - linear space complexity, a depth bound can be added
   - LIFO queue
@@ -200,10 +200,10 @@ Three types of ques are used in search algorithms [@RusselNorvig2022AIMA, p.92]:
 ### Measuring problem-solving performance
 The performance of problem-solving algorithms can be evaluated in four ways [@RusselNorvig2022AIMA, p.93]:
 
-- __Completeness__: Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?
-- __Cost optimality__: Does it find a solution with the lowest path cost of all solutions?
-- __Time complexity__: How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?
-- __Space complexity__: How much memory is needed to perform the search?
+- __Completeness:__ Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?
+- __Cost optimality:__ Does it find a solution with the lowest path cost of all solutions?
+- __Time complexity:__ How long does it take to find a solution (e.g., measured in seconds or by the number of states and actions considered)?
+- __Space complexity:__ How much memory is needed to perform the search?
 :::
 :::
 
