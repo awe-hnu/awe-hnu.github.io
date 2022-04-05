@@ -550,7 +550,7 @@
 <li>The available actions considerd using <code>ACTIONS(s)</code></li>
 <li>New nodes, called <strong>child nodes</strong> or <strong>successor nodes</strong> are generated using <code>RESULT(s,a)</code> (i.e., the root node is <strong>expanded</strong>)</li>
 <li>Each child node has <em>Arad</em> as its <strong>parent node</strong></li>
-<li>The child node to be considered next needs to be selected using some <strong>evaluation function</strong> <code>f(n)</code> (<strong>strategies</strong> see below)</li>
+<li>The child node to be considered next is selected by the minimum value of some <strong>evaluation function</strong> <code>f(n)</code> (<strong>strategies</strong> see below)</li>
 </ul>
 <p>In <a href="#/fig-search-tree">Figure&nbsp;2</a>, nodes that have been expanded are white with bold letters; nodes on the <strong>frontier</strong> that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been <strong>reached</strong>. Nodes that could be generated next are shown in faint dashed lines.</p>
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -629,17 +629,17 @@
 <ul>
 <li class="fragment">They superimpose a search tree over the state-space graph,</li>
 <li class="fragment">form various paths from the initial state, and</li>
-<li class="fragment">try to find a path that reaches a goal state.</li>
+<li class="fragment">try to find a path that reaches a goal state</li>
 </ul>
 </div>
 <div class="fragment">
 <p>They can implement</p>
-</div>
 <div>
 <ul>
 <li class="fragment"><strong>uninformed search</strong> methods, which only have access to the problem definition but not clue about how close a state is to the goal(s).</li>
 <li class="fragment"><strong>informed search</strong> methods, which have access to a heuristic function that gives domain-specific hints about how close a state is to the goal(s) <em>(e.g., using straight-line distance in route-finding problems)</em></li>
 </ul>
+</div>
 </div>
 </section>
 <section id="uninformed-search" class="slide level2">
@@ -652,47 +652,37 @@
 </div>
 
 <aside><div>
-<ul>
-<li><strong>Breadth-first search:</strong> expands the shallowest nodes first
+<h3 id="breadth-first-search">Breadth-first search</h3>
+<p>expands the shallowest nodes first;<br>
+<code>f(n)</code> is the depth of the node</p>
 <ul>
 <li>complete, optimal for unit action costs</li>
 <li>exponential space complexity</li>
-<li>FIFO queue</li>
+<li><strong>FIFO queue<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a></strong></li>
 <li>a reached table is necessary to store the nodes already reached</li>
-</ul></li>
-<li><strong>Depth-first search:</strong> expands the deepest unexpanded node first
+</ul>
+<h3 id="depth-first-search">Depth-first search</h3>
+<p>expands the deepest unexpanded node first;<br>
+<code>f(n)</code> is the negative of the depth</p>
 <ul>
 <li>neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal</li>
 <li>linear space complexity, a depth bound can be added</li>
-<li>LIFO queue</li>
+<li><strong>LIFO queue<a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a></strong></li>
 <li>the frontier is very small</li>
-</ul></li>
-<li><strong>Uniform-cost search:</strong> expands the node with the lowest path costs
+</ul>
+<h3 id="uniform-cost-search">Uniform-cost search</h3>
+<p>expands the node with the lowest path costs;<br>
+<code>f(n)</code> returns the cost of the path from the root to the current node</p>
 <ul>
 <li>complete, optimal for general action costs</li>
-<li>priority queue using cumulative cost</li>
-</ul></li>
+<li><strong>priority queue<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></strong> using cumulative cost</li>
 </ul>
-<div class="callout callout-note callout-captioned callout-style-default">
-<div class="callout-body">
-<div class="callout-caption">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Queues used in search algorithms</strong></p>
-</div>
-<div class="callout-content">
-<p>Three types of ques are used in search algorithms <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 92</a>)</span>:</p>
-<ul>
-<li><strong>Priority queue</strong> first pops the node with the minimum costs according to some evaluation function (uniform-cost search)</li>
-<li><strong>FIFO queue</strong> or first-in-first-out queue first pops the node that was added to the queue first (breadth-first search)</li>
-<li><strong>LIFO queue</strong> or last-in-first-out queue (also known as a stack) pops first the most recently added node (depth-first search)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="small">
-<h4 id="process-of-the-breadth-first-search-algorithm">Process of the breadth-first search algorithm</h4>
+<h3 id="illustration-of-strategies">Illustration of strategies</h3>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Breadth-first</a></li><li><a href="#tabset-1-2">Depth-first</a></li><li><a href="#tabset-1-3">Uniform-cost</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<h4 id="general-process">General Process</h4>
 <ol type="1">
 <li>Add the start node to the frontier using <code>ADD(node,frontier)</code></li>
 <li>Get the top node from the frontier using <code>POP(frontier)</code></li>
@@ -702,7 +692,9 @@
 <li>Add the child nodes to the frontier <code>ADD(node,frontier)</code></li>
 <li>Repeat steps 2 to 6 as long as no solution is found and <code>IS-EMPTY(frontier)</code> is not true</li>
 </ol>
+<h4 id="example">Example</h4>
 <p>Example using the tree depicted in <a href="#/fig-search-tree">Figure&nbsp;2</a>, assuming that the goal is not included:</p>
+<div class="small">
 <ul>
 <li>Add <em>0</em> to the frontier</li>
 <li>Get the top node from the frontier (<em>0</em>)</li>
@@ -729,11 +721,18 @@
 <li>Get the top node from the frontier (<em>3</em>)</li>
 <li>…</li>
 </ul>
-<h4 id="process-of-the-breadth-first-search-algorithm-1">Process of the breadth-first search algorithm</h4>
+</div>
+</div>
+<div id="tabset-1-2">
+<h4 id="general-process-1">General Process</h4>
 <p>The overall process is the same, only the frontier queue returns the node that was added last.</p>
-<h4 id="process-of-the-uniform-cost-search-algorithm">Process of the uniform-cost search algorithm</h4>
+</div>
+<div id="tabset-1-3">
+<h4 id="general-process-2">General Process</h4>
 <p>The overall process is the same, only the frontier queue returns the node in the queue with the minimum : cost-paths.</p>
+<h4 id="example-1">Example</h4>
 <p>Example using the tree depicted in <a href="#/fig-search-problem">Figure&nbsp;1</a>:</p>
+<div class="small">
 <ul>
 <li>Add <em>Arad</em> to the frontier</li>
 <li>Get the top node from the frontier (<em>Arad</em>)</li>
@@ -791,6 +790,9 @@
 </ul>
 <p>Note if we had checked for a goald upon generating a node rather than when expanding the lowest-cost node, then we would have returned a higher-cost path (the one through Fagaras)</p>
 </div>
+</div>
+</div>
+</div>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -810,7 +812,13 @@
 </div>
 </div>
 </div>
-</div></aside></section></section>
+</div></aside></section>
+<section id="informed-search" class="slide level2">
+<h2>Informed search</h2>
+<p>Informed (heuristic) search strategies use domain-specific hints about the locaiton of goals <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 93</a>)</span>.</p>
+<p>These strategies can find solutions <strong>more efficiently</strong> than uninformed strategies.</p>
+<p>The hints are generated by a <strong>heuristic function</strong> <code>h(n)</code></p>
+</section></section>
 <section>
 <section id="unknown-environments" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Unknown environments</h1>
@@ -902,6 +910,9 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <li id="fn1" role="doc-endnote"><p>A state is a situation that an agent can find itself in.</p></li>
 <li id="fn2" role="doc-endnote"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another</p></li>
 <li id="fn3" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</p></li>
+<li id="fn4" role="doc-endnote"><p>first-in-first-out queue first pops the node that was added to the queue first</p></li>
+<li id="fn5" role="doc-endnote"><p>last-in-first-out queue (also known as a stack) pops first the most recently added node</p></li>
+<li id="fn6" role="doc-endnote"><p>first pops the node with the minimum costs according to <code>f(n)</code></p></li>
 </ol>
 </section>
     </div>

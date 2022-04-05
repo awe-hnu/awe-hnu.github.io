@@ -137,7 +137,7 @@ The choice of a good abstraction involves removing as much detail as possible wh
 - The available actions considerd using `ACTIONS(s)`
 - New nodes, called __child nodes__ or __successor nodes__ are generated using `RESULT(s,a)` (i.e., the root node is __expanded__)
 - Each child node has *Arad* as its __parent node__
-- The child node to be considered next needs to be selected using some __evaluation function__ `f(n)` (__strategies__ see below)
+- The child node to be considered next is selected by the minimum value of some __evaluation function__ `f(n)` (__strategies__ see below)
 
  In @fig-search-tree, nodes that have been expanded are white with bold letters; nodes on the __frontier__ that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been __reached__. Nodes that could be generated next are shown in faint dashed lines.
 
@@ -216,12 +216,12 @@ __Search algorithms__ take a search problem as input and return a solution, or a
 ::: {.incremental}
 - They superimpose a search tree over the state-space graph,
 - form various paths from the initial state, and 
-- try to find a path that reaches a goal state.
+- try to find a path that reaches a goal state 
 :::
 
-:::{.fragment}
+. . .
+
 They can implement
-:::
 
 ::: {.incremental}
 - __uninformed search__ methods, which only have access to the problem definition but not clue about how close a state is to the goal(s).
@@ -233,32 +233,45 @@ They can implement
 ![Overview of uninformed search strategies](images/strategies.svg){#fig-search-strategies}
 
 :::{.notes}
-- __Breadth-first search:__ expands the shallowest nodes first   
+### Breadth-first search
+
+expands the shallowest nodes first;   
+`f(n)` is the depth of the node
+
   - complete, optimal for unit action costs
   - exponential space complexity
-  - FIFO queue
+  - __FIFO queue[^4]__
   - a reached table is necessary to store the nodes already reached
-- __Depth-first search:__ expands the deepest unexpanded node first  
+
+### Depth-first search
+
+expands the deepest unexpanded node first;   
+`f(n)` is the negative of the depth
+
   - neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal
   - linear space complexity, a depth bound can be added
-  - LIFO queue
+  - __LIFO queue[^5]__
   - the frontier is very small
-- __Uniform-cost search:__ expands the node with the lowest path costs
+
+### Uniform-cost search
+
+expands the node with the lowest path costs;   
+`f(n)` returns the cost of the path from the root to the current node
+
   - complete, optimal for general action costs
-  - priority queue using cumulative cost  
+  - __priority queue[^6]__ using cumulative cost  
 
-:::{.callout-note}
-### Queues used in search algorithms
-Three types of ques are used in search algorithms [@RusselNorvig2022AIMA, p.92]:
+[^6]:first pops the node with the minimum costs according to `f(n)`
+[^4]:first-in-first-out queue first pops the node that was added to the queue first 
+[^5]:last-in-first-out queue (also known as a stack) pops first the most recently added node
 
-- __Priority queue__ first pops the node with the minimum costs according to some evaluation function (uniform-cost search)
-- __FIFO queue__ or first-in-first-out queue first pops the node that was added to the queue first (breadth-first search)
-- __LIFO queue__ or last-in-first-out queue (also known as a stack) pops first the most recently added node (depth-first search)
-:::
+### Illustration of strategies
 
-:::{.small}
+:::{.panel-tabset}
 
-#### Process of the breadth-first search algorithm
+### Breadth-first
+
+#### General Process
 
 1. Add the start node to the frontier using `ADD(node,frontier)`
 2. Get the top node from the frontier using `POP(frontier)`
@@ -268,7 +281,11 @@ Three types of ques are used in search algorithms [@RusselNorvig2022AIMA, p.92]:
 6. Add the child nodes to the frontier `ADD(node,frontier)`
 7. Repeat steps 2 to 6 as long as no solution is found and `IS-EMPTY(frontier)` is not true 
 
+#### Example
+
 Example using the tree depicted in @fig-search-tree, assuming that the goal is not included:
+
+:::{.small}
 
 - Add *0* to the frontier
 - Get the top node from the frontier (*0*)
@@ -295,15 +312,25 @@ Example using the tree depicted in @fig-search-tree, assuming that the goal is n
 - Get the top node from the frontier (*3*)
 - ...
 
-#### Process of the breadth-first search algorithm
+:::
+
+### Depth-first
+
+#### General Process
 
 The overall process is the same, only the frontier queue returns the node that was added last.
 
-#### Process of the uniform-cost search algorithm
+### Uniform-cost
+
+#### General Process
 
 The overall process is the same, only the frontier queue returns the node in the queue with the minimum : cost-paths.
 
+#### Example
+
 Example using the tree depicted in @fig-search-problem:
+
+:::{.small}
 
 - Add *Arad* to the frontier
 - Get the top node from the frontier (*Arad*)
@@ -362,6 +389,7 @@ Example using the tree depicted in @fig-search-problem:
 Note if we had checked for a goald upon generating a node rather than when expanding the lowest-cost node, then we would have returned a higher-cost path (the one through Fagaras)
 
 :::
+:::
 
 :::{.callout-note}
 ### Measuring problem-solving performance
@@ -373,6 +401,14 @@ The performance of problem-solving algorithms can be evaluated in four ways [@Ru
 - __Space complexity:__ How much memory is needed to perform the search?
 :::
 :::
+
+## Informed search
+
+Informed (heuristic) search strategies use domain-specific hints about the locaiton of goals [@RusselNorvig2022AIMA, p.93].
+
+These strategies can find solutions __more efficiently__ than uninformed strategies.
+
+The hints are generated by a __heuristic function__ `h(n)`
 
 # Unknown environments {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
