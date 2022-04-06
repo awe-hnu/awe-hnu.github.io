@@ -16,7 +16,6 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
@@ -519,7 +518,7 @@
 </div>
 </section>
 <section id="moores-law" class="slide level2">
-<h2><strong>Moore’s Law</strong></h2>
+<h2>Moore’s Law</h2>
 <h4 id="die-leistung-in-der-digitalen-hardware-wächst-exponentiell">Die Leistung in der digitalen Hardware wächst exponentiell</h4>
 <div class="fragment">
 <p>Das Mooresche „Gesetz“ besagt, dass sich bei gleichem Preis die Komplexität integrierter Schaltkreise und damit die <strong>Leistungsfähigkeit</strong> der Informations- und Kommunikationstechnik (IKT) alle 18 Monate verdoppelt <span class="citation" data-cites="moore1965cramming">(<a href="#/ref-moore1965cramming" role="doc-biblioref" onclick="return false;">Moore u.&nbsp;a. 1965</a>)</span>.</p>
@@ -555,15 +554,13 @@
 </div>
 </div></aside></section>
 <section id="metcalfes-law" class="slide level2">
-<h2><strong>Metcalfe’s Law</strong></h2>
+<h2>Metcalfe’s Law</h2>
 <h4 id="ab-einer-bestimmten-größe-eines-netzwerks-übersteigt-der-nutzen-die-kosten">Ab einer bestimmten Größe eines Netzwerks übersteigt der Nutzen die Kosten</h4>
+<p>Metcalfesches Gesetz besagt, dass der <strong>Wert eines Netzwerkes</strong> in etwa im Quadrat mit der Anzahl seiner verbundenen Nutzer steigt <span class="citation" data-cites="lemke2017einfuhrung">(<a href="#/ref-lemke2017einfuhrung" role="doc-biblioref" onclick="return false;">Claudia Lemke, Brenner, und Kirchner 2017</a>)</span> <a href="#/fn1" class="footnote-ref" id="fnref1" role="doc-noteref" onclick="return false;"><sup>1</sup></a>.</p>
 <div class="fragment">
-<p>Metcalfesches Gesetz besagt, dass der <strong>Wert eines Netzwerkes</strong> im Quadrat mit der Anzahl seiner verbundenen Nutzer steigt <span class="citation" data-cites="lemke2017einfuhrung">(<a href="#/ref-lemke2017einfuhrung" role="doc-biblioref" onclick="return false;">Claudia Lemke, Brenner, und Kirchner 2017</a>)</span>.</p>
-</div>
-<div class="fragment">
-<p>Die Faustregel geht davon aus, dass der Nutzen Netzwerkes proportional zur Anzahl der möglichen Verbindungen zwischen den Teilnehmern (also zum Quadrat der Anzahl der Knoten) wächst, während die Kosten nur proportional zur Anzahl der Knoten selbst wachsen.</p>
-</div>
+<p>Die Faustregel geht davon aus, dass der Nutzen Netzwerkes proportional zur Anzahl der möglichen Verbindungen zwischen den Teilnehmern wächst, während die Kosten nur proportional zur Anzahl der Knoten selbst wachsen.</p>
 
+</div>
 <aside><div>
 <p><strong>Beispiel Soziale Netzwerke</strong> Je mehr Nutzer ein soziales Netzwerk hat, umso attraktiver wird dieses, weil so die Chancen steigen, dort die eigenen Freunde und Bekannten zu finden. Und je mehr Nutzer ein Netzwerk hat hat, desto mehr Geld verdient es (bspw. durch Werbung). Mit diesen Gewinnen kann nicht nur das Netzwerk verbessert, sondern durch den Zukauf von Unternehmen (anderen Netzwerken) neue Märkte erschließen und das Netzwerk erweitern. So kann man beispielsweise die Dominanz von Facebook erklären, aber auch die von Amazon</p>
 </div></aside></section>
@@ -725,6 +722,13 @@ Moore, Gordon E u.&nbsp;a. 1965. <span>„Cramming more components onto integrat
 
 </div>
 </section>
+
+<section class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Fussnoten</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>Exakt kann der Nutzwert <span class="math inline">\(U\)</span> des Netzwerks mit <span class="math inline">\(U = n(n - 1) = n^2 - n\)</span> beschrieben werden. In großen Netzwerken kann der Nutzwert mit <span class="math inline">\(U = n^2\)</span> angenähert werden (Faustregel).</p></li>
+</ol>
+</section>
     </div>
   </div>
 
@@ -740,6 +744,7 @@ Moore, Gordon E u.&nbsp;a. 1965. <span>„Cramming more components onto integrat
   <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
 
@@ -909,9 +914,27 @@ Moore, Gordon E u.&nbsp;a. 1965. <span>„Cramming more components onto integrat
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
+          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom

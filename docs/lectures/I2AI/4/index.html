@@ -11,7 +11,6 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
@@ -58,6 +57,7 @@
       "search-submit-button-title": "Submit"
     }
   }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -346,25 +346,23 @@ Pruning to reduce computing complexity <span class="citation" data-cites="Russel
 <h2 data-anchor-id="selection-policy-example">Selection policy example</h2>
 <p><strong>Upper confidence bounds applied to trees</strong> (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)</p>
 <div class="fragment">
-<p><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Cdisplaystyle%20%20%0AUCB1%28n%29%20%3D%20%5Cfrac%7BU%28n%29%7D%7BN%28n%29%7D%20%2B%20C%20%2A%20%5Csqrt%7B%5Cfrac%7B%5Clog%7BN%28PARENT%28n%29%29%7D%7D%7BN%28n%29%7D%7D%0A" alt=" 
+<p><span class="math display">\[
 UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
-" title=" 
-UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
-" class="math display"></p>
+\]</span></p>
 <div class="incremental">
 <ul class="incremental">
-<li><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20U%28n%29" alt="U(n)" title="U(n)" class="math inline"> is the total utility of all playouts that went through node <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20n" alt="n" title="n" class="math inline"></li>
-<li><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20N%28n%29" alt="N(n)" title="N(n)" class="math inline"> is the number of playouts through node <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20n" alt="n" title="n" class="math inline"></li>
-<li><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20PARENT%28n%29" alt="PARENT(n)" title="PARENT(n)" class="math inline"> is the parent node of <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20n" alt="n" title="n" class="math inline"> in the tree</li>
-<li><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20%5Cfrac%7BU%28n%29%7D%7BN%28n%29%7D" alt="\frac{U(n)}{N(n)}" title="\frac{U(n)}{N(n)}" class="math inline"> is the average utility of <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20n" alt="n" title="n" class="math inline"> <em>(exploitation term, “how good are the stats?”)</em></li>
-<li><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20%5Cfrac%7B%5Clog%7BN%28PARENT%28n%29%29%7D%7D%7BN%28n%29s%7D" alt="\frac{\log{N(PARENT(n))}}{N(n)s}" title="\frac{\log{N(PARENT(n))}}{N(n)s}" class="math inline"> is higher for <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20n" alt="n" title="n" class="math inline"> only explored a few times<br>
+<li><span class="math inline">\(U(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>
+<li><span class="math inline">\(N(n)\)</span> is the number of playouts through node <span class="math inline">\(n\)</span></li>
+<li><span class="math inline">\(PARENT(n)\)</span> is the parent node of <span class="math inline">\(n\)</span> in the tree</li>
+<li><span class="math inline">\(\frac{U(n)}{N(n)}\)</span> is the average utility of <span class="math inline">\(n\)</span> <em>(exploitation term, “how good are the stats?”)</em></li>
+<li><span class="math inline">\(\frac{\log{N(PARENT(n))}}{N(n)s}\)</span> is higher for <span class="math inline">\(n\)</span> only explored a few times<br>
 <em>(exploration term, “how much has the child be ‘ignored’?”)</em></li>
-<li><img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20C" alt="C" title="C" class="math inline"> is a constant that balance exploitation and exploration (theoretically <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20%5Csqrt%7B2%7D" alt="\sqrt{2}" title="\sqrt{2}" class="math inline">)</li>
+<li><span class="math inline">\(C\)</span> is a constant that balance exploitation and exploration (theoretically <span class="math inline">\(\sqrt{2}\)</span>)</li>
 </ul>
 </div>
 </div>
 <div class="notes">
-<p>With <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20C%3D1.4" alt="C=1.4" title="C=1.4" class="math inline">, the 60/79 node in <a href="#fig-mcts-selection">Figure&nbsp;2</a> has the highest UCB1 score, but with <img style="vertical-align:middle" src="https://latex.codecogs.com/svg.latex?%5Ctextstyle%20C%3D1.5" alt="C=1.5" title="C=1.5" class="math inline">, it would be the 2/11 node.</p>
+<p>With <span class="math inline">\(C=1.4\)</span>, the 60/79 node in <a href="#fig-mcts-selection">Figure&nbsp;2</a> has the highest UCB1 score, but with <span class="math inline">\(C=1.5\)</span>, it would be the 2/11 node.</p>
 <div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
