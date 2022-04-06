@@ -428,19 +428,21 @@
 </section></section>
 <section>
 <section id="the-wumpus-world" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
-<h1>The Wumpus World</h1>
+<h1>The wumpus world</h1>
 <p>The example is taken from <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span></p>
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
 <p>The <strong>wumpus world</strong> is an environment in which knowledge-based agents can show their worth.</p>
+<div>
 <ul>
-<li>A cave consisting of rooms connected by passageways</li>
-<li>Wumpus is in one room. It eats anyone who enters its room</li>
-<li>The wumpus can be shut by an agent, but the agent only has one arrow</li>
-<li>Some rooms contain bottomless pits</li>
-<li>The goal is to survive, to find a heap of gold and to leave the cave</li>
+<li class="fragment">A cave consisting of rooms connected by passageways</li>
+<li class="fragment">Wumpus is in one room, it eats anyone who enters its room</li>
+<li class="fragment">The wumpus can be shut by an agent, but the agent only has one arrow</li>
+<li class="fragment">Some rooms contain bottomless pits</li>
+<li class="fragment">The goal is to survive, to find a heap of gold and to leave the cave</li>
 </ul>
+</div>
 </section>
 <section id="peas" class="slide level2">
 <h2>PEAS</h2>
@@ -485,10 +487,11 @@
 <li>When the agent walks into a wall, it perceives a <em>bump</em></li>
 <li>When the wumpus is killed, its <em>scream</em> is heard everywhere</li>
 </ul>
-<p>Percepts are represented as a 5-tuple, e.g., <code>[Stench, Breeze, Glitter, None, None]</code></p>
+<p>Percepts are represented as a 5-tuple, e.g.,<br>
+<span class="math inline">\([Stench, Breeze, Glitter, None, None]\)</span></p>
 
 <aside><div>
-<p><code>[Stench, Breeze, Glitter, None, None]</code> means that it stinks, there is a breeze and a glitter, but no bump and no scream.</p>
+<p><span class="math inline">\([Stench, Breeze, Glitter, None, None]\)</span> means that it stinks, there is a breeze and a glitter, but no bump and no scream.</p>
 <p>The PEAS can be characterized as <em>deterministic, discrete, static, and single-agent</em></p>
 </div></aside></section>
 <section id="a-sample-configuration" class="slide level2">
@@ -502,13 +505,15 @@
 </figure>
 </div>
 </div><div class="column">
-<p>A typical wumpos world</p>
+<p>A typical wumpus world</p>
+<div>
 <ul>
-<li>The agent is in the bottom left corner <span class="math inline">\([1,1]\)</span>, facing east (rightward)</li>
-<li>There are three pits in the world (<span class="math inline">\([4,4]\)</span>,<span class="math inline">\([3,3]\)</span>, and <span class="math inline">\([3,1]\)</span>)</li>
-<li>Wumpus is in room <span class="math inline">\([1,3]\)</span></li>
-<li>The gold is in room <span class="math inline">\([2,3]\)</span></li>
+<li class="fragment">The agent is in the bottom left corner <span class="math inline">\([1,1]\)</span>, facing east (rightward)</li>
+<li class="fragment">There are three pits in the world (<span class="math inline">\([4,4]\)</span>,<span class="math inline">\([3,3]\)</span>, and <span class="math inline">\([3,1]\)</span>)</li>
+<li class="fragment">Wumpus is in room <span class="math inline">\([1,3]\)</span></li>
+<li class="fragment">The gold is in room <span class="math inline">\([2,3]\)</span></li>
 </ul>
+</div>
 </div>
 </div>
 </section>
@@ -551,14 +556,22 @@
 <section id="basic-syntax" class="slide level2">
 <h2>Basic syntax</h2>
 <p><strong>Propositions</strong> are the building blocks of propositional logic.</p>
+<div class="fragment">
 <p><strong>Atomic sentences</strong> consist of a single proposition symbol, that stands for a proposition, that can be <span class="math inline">\(true\)</span> or <span class="math inline">\(false\)</span>, e.g.,</p>
+</div>
+<div class="fragment">
 <ul>
 <li><span class="math inline">\(BlockRed\)</span> — <em>The block is red</em></li>
 <li><span class="math inline">\(W_{1,3}\)</span> — <em>The wumpus is in <span class="math inline">\([1,3]\)</span></em></li>
 </ul>
+</div>
+<div class="fragment">
 <p>The logical connectives <code>and</code> (<span class="math inline">\(\land\)</span>), <code>or</code> (<span class="math inline">\(\lor\)</span>), <code>not</code> (<span class="math inline">\(\neg\)</span>), <code>implies</code> (<span class="math inline">\(\implies\)</span>), and <code>if and only if</code> (<span class="math inline">\(\iff\)</span>) can be used to build <strong>complex sentences</strong>.</p>
+</div>
+<div class="fragment">
 <p>Operator precedence: <span class="math inline">\(\neg, \land, \lor, \implies, \iff\)</span> (use brackets when necessary)</p>
 
+</div>
 <aside><div>
 <h3 id="logical-connectives">Logical connectives</h3>
 <p>Logical connectives (also called logical operators) are symbols or words used to connect two or more sentences (of either a formal or a natural language) in a grammatically valid way, such that the value of the compound sentence produced depends only on that of the original sentences and on the meaning of the connective.</p>
@@ -581,45 +594,57 @@
 <section id="basic-semantics" class="slide level2">
 <h2>Basic semantics</h2>
 <p>Atomic propositions can be <span class="math inline">\(true\)</span> or <span class="math inline">\(false\)</span>.</p>
+<div class="fragment">
 <p>The truth of a formula follows from the truth of its atomic propositions (<strong>truth assignment</strong> or <strong>interpretation</strong>) and the connectives.</p>
+</div>
+<div class="fragment">
 <p>Examples:</p>
+<div>
 <ul>
-<li><span class="math inline">\((P \lor Q) \land R\)</span>
+<li class="fragment"><span class="math inline">\((P \lor Q) \land R\)</span>
 <ul>
-<li>If P and Q are false and R is true, the formula is false</li>
-<li>If P and R are true, the formula is true regardless of what Q is</li>
+<li class="fragment">If P and Q are false and R is true, the formula is false</li>
+<li class="fragment">If P and R are true, the formula is true regardless of what Q is</li>
 </ul></li>
-<li><span class="math inline">\(B_{1,2} \iff (P_{1,2} \lor P_{2,1})\)</span>
+<li class="fragment"><span class="math inline">\(B_{1,2} \iff (P_{1,2} \lor P_{2,1})\)</span>
 <ul>
-<li>A square is breezy if a neighboring square has a pit,<br>
+<li class="fragment">A square is breezy if a neighboring square has a pit,<br>
 and a square is breezy only if a neighboring square has a pit</li>
 </ul></li>
 </ul>
+</div>
+</div>
 </section>
 <section id="a-simple-kb" class="slide level2">
 <h2>A simple KB</h2>
 <h3 id="symbols">Symbols</h3>
 <p>If we focus on the immutable aspects of the wumpus world, we need the following symbols for each <span class="math inline">\([x,y]\)</span> location</p>
+<div>
 <ul>
-<li><span class="math inline">\(P_{x,y}\)</span> is true if there is a pit in <span class="math inline">\([x,y]\)</span></li>
-<li><span class="math inline">\(W_{x,y}\)</span> is true if there is a wumpus in <span class="math inline">\([x,y]\)</span>, dead or alive</li>
-<li><span class="math inline">\(B_{x,y}\)</span> is true if there is a breeze in <span class="math inline">\([x,y]\)</span></li>
-<li><span class="math inline">\(S_{x,y}\)</span> is true if there is a stench in <span class="math inline">\([x,y]\)</span></li>
-<li><span class="math inline">\(L_{x,y}\)</span> is true if the agent is in location <span class="math inline">\([x,y]\)</span></li>
+<li class="fragment"><span class="math inline">\(P_{x,y}\)</span> is true if there is a pit in <span class="math inline">\([x,y]\)</span></li>
+<li class="fragment"><span class="math inline">\(W_{x,y}\)</span> is true if there is a wumpus in <span class="math inline">\([x,y]\)</span>, dead or alive</li>
+<li class="fragment"><span class="math inline">\(B_{x,y}\)</span> is true if there is a breeze in <span class="math inline">\([x,y]\)</span></li>
+<li class="fragment"><span class="math inline">\(S_{x,y}\)</span> is true if there is a stench in <span class="math inline">\([x,y]\)</span></li>
+<li class="fragment"><span class="math inline">\(L_{x,y}\)</span> is true if the agent is in location <span class="math inline">\([x,y]\)</span></li>
 </ul>
+</div>
 </section>
 <section class="slide level2">
 
 <h3 id="sentences">Sentences</h3>
 <p>Following sentences<a href="#/fn1" class="footnote-ref" id="fnref1" role="doc-noteref" onclick="return false;"><sup>1</sup></a> will suffice to derive <span class="math inline">\(\neg P_{1,2}\)</span> (there is no pit in <em>[1,2])</em>:</p>
+<div>
 <ul>
-<li><span class="math inline">\(R_1: \neg P_{1,1}\)</span></li>
-<li><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,1} \lor P_{2,1})\)</span></li>
-<li><span class="math inline">\(R_2: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})\)</span></li>
-<li><span class="math inline">\(R_1: \neg B_{1,1}\)</span></li>
-<li><span class="math inline">\(R_5: B_{2,1}\)</span></li>
+<li class="fragment"><span class="math inline">\(R_1: \neg P_{1,1}\)</span></li>
+<li class="fragment"><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,1} \lor P_{2,1})\)</span></li>
+<li class="fragment"><span class="math inline">\(R_2: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})\)</span></li>
+<li class="fragment"><span class="math inline">\(R_1: \neg B_{1,1}\)</span></li>
+<li class="fragment"><span class="math inline">\(R_5: B_{2,1}\)</span></li>
 </ul>
+</div>
+<div class="fragment">
 <p>The sentences reflect the situation depicted in <a href="#/fig-ww-1">Figure&nbsp;2</a> where the agent has moved to <span class="math inline">\([2,1]\)</span> and perceiving <span class="math inline">\([None,Breeze,None,None,None]\)</span></p>
+</div>
 <aside></aside></section>
 <section id="a-simple-inference" class="slide level2">
 <h2>A simple inference</h2>
@@ -647,21 +672,27 @@ and a square is breezy only if a neighboring square has a pit</li>
 <section id="introduction-1" class="slide level2">
 <h2>Introduction</h2>
 <p>Entailment can not only be determined by <strong>model checking</strong>, it can also be done by theorem proving.</p>
+<div class="fragment">
 <p><strong>Theorem proving</strong> means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.</p>
+</div>
+<div class="fragment">
 <p>For large number of models and short length of proofs, theorem proving <strong>can be more efficient</strong> than model checking.</p>
+</div>
 </section>
 <section id="additional-concepts" class="slide level2">
 <h2>Additional concepts</h2>
 <p>Some additional concepts are needed to plug into the details:</p>
+<div>
 <ul>
-<li><strong>Logical equivalence:</strong> two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a> (<span class="math inline">\(\alpha \equiv \beta\)</span> <a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a>)</li>
-<li><strong>Validity:</strong> a sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></li>
-<li><strong>Deduction theorem:</strong> <em>for any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid.</em> <a href="#/fn7" class="footnote-ref" id="fnref7" role="doc-noteref" onclick="return false;"><sup>7</sup></a></li>
-<li><strong>Satisfiability:</strong> a sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#/fn8" class="footnote-ref" id="fnref8" role="doc-noteref" onclick="return false;"><sup>8</sup></a></li>
-<li>Validity and satisfiability are connected:<br>
+<li class="fragment"><strong>Logical equivalence:</strong> two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a> (<span class="math inline">\(\alpha \equiv \beta\)</span> <a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a>)</li>
+<li class="fragment"><strong>Validity:</strong> a sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></li>
+<li class="fragment"><strong>Deduction theorem:</strong> <em>for any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid.</em> <a href="#/fn7" class="footnote-ref" id="fnref7" role="doc-noteref" onclick="return false;"><sup>7</sup></a></li>
+<li class="fragment"><strong>Satisfiability:</strong> a sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#/fn8" class="footnote-ref" id="fnref8" role="doc-noteref" onclick="return false;"><sup>8</sup></a></li>
+<li class="fragment">Validity and satisfiability are connected:<br>
 <em><span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable</em><a href="#/fn9" class="footnote-ref" id="fnref9" role="doc-noteref" onclick="return false;"><sup>9</sup></a></li>
-<li><strong>Proof by contradiction:</strong> assuming a sentence <span class="math inline">\(\beta\)</span> to be false, which leads to a contradiction with known axioms <span class="math inline">\(\alpha\)</span> – <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable</li>
+<li class="fragment"><strong>Proof by contradiction:</strong> assuming a sentence <span class="math inline">\(\beta\)</span> to be false, which leads to a contradiction with known axioms <span class="math inline">\(\alpha\)</span> – <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable</li>
 </ul>
+</div>
 <aside></aside></section>
 <section id="standard-logical-equivalences" class="slide level2 smaller">
 <h2>Standard logical equivalences</h2>
@@ -684,52 +715,66 @@ and a square is breezy only if a neighboring square has a pit</li>
 <section id="inference-rules" class="slide level2">
 <h2>Inference rules</h2>
 <p>Following <strong>inference rules</strong><a href="#/fn10" class="footnote-ref" id="fnref10" role="doc-noteref" onclick="return false;"><sup>10</sup></a> can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:</p>
+<div>
 <ul>
-<li><strong>Modus Ponens<a href="#/fn11" class="footnote-ref" id="fnref11" role="doc-noteref" onclick="return false;"><sup>11</sup></a>:</strong> <span class="math inline">\(\frac{\alpha \implies \beta, \alpha}{\beta}\)</span><br>
+<li class="fragment"><strong>Modus Ponens<a href="#/fn11" class="footnote-ref" id="fnref11" role="doc-noteref" onclick="return false;"><sup>11</sup></a>:</strong> <span class="math inline">\(\frac{\alpha \implies \beta, \alpha}{\beta}\)</span><br>
 The sentence <span class="math inline">\(\beta\)</span> can be inferred, whenever sentences of the form <span class="math inline">\(\alpha \implies \beta\)</span> and <span class="math inline">\(\alpha\)</span> are given</li>
-<li><strong>And-Elimination</strong>: <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> From a conjunction, any of the conjuncts can be inferred</li>
+<li class="fragment"><strong>And-Elimination</strong>: <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> From a conjunction, any of the conjuncts can be inferred</li>
 </ul>
+</div>
+<div class="fragment">
 <p>All of the <strong>logical equivalences</strong> can be used as inference rules</p>
+</div>
 <aside></aside></section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
 <p>We start with the knowledge base containing <span class="math inline">\(R_1\)</span> throught <span class="math inline">\(R_5\)</span> and show to prove <span class="math inline">\(\neg P_{1,2}\)</span></p>
+<div>
 <ol type="1">
-<li>Apply biconditional elimination to <span class="math inline">\(R_2\)</span> to obtain<br>
+<li class="fragment">Apply biconditional elimination to <span class="math inline">\(R_2\)</span> to obtain<br>
 <span class="math inline">\(R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})\)</span></li>
-<li>Apply And-Elimination to <span class="math inline">\(R_6\)</span> to obtain<br>
+<li class="fragment">Apply And-Elimination to <span class="math inline">\(R_6\)</span> to obtain<br>
 <span class="math inline">\(R_7 : ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})\)</span></li>
-<li>Logical equivalence for contrapositives gives <span class="math inline">\(R_8 : (\neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1})\)</span></li>
-<li>Apply Modus Ponens with <span class="math inline">\(R_8\)</span> and the percept <span class="math inline">\(R_4\)</span> (i.e., <span class="math inline">\(\neg B_{1,1}\)</span>) to obtain<br>
+<li class="fragment">Logical equivalence for contrapositives gives <span class="math inline">\(R_8 : (\neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1})\)</span></li>
+<li class="fragment">Apply Modus Ponens with <span class="math inline">\(R_8\)</span> and the percept <span class="math inline">\(R_4\)</span> (i.e., <span class="math inline">\(\neg B_{1,1}\)</span>) to obtain<br>
 <span class="math inline">\(R_9 : \neg (P_{1,2} \lor P_{2,1})\)</span></li>
-<li>Apply De Morgan’s rule, giving the conclusion<br>
+<li class="fragment">Apply De Morgan’s rule, giving the conclusion<br>
 <span class="math inline">\(R_{10} : \neg P_{1,2} \land P_{2,1}\)</span> <em>(neither <span class="math inline">\([1,2]\)</span> nor <span class="math inline">\([2,1]\)</span> contains a pit)</em></li>
 </ol>
+</div>
 </section>
 <section id="search-algorithms" class="slide level2">
 <h2>Search algorithms</h2>
 <p>Search algorithms can be used to find a sequence of steps that constitutes a proof.</p>
+<div class="fragment">
 <p>The proof problem is defined as follows:</p>
+<div>
 <ul>
-<li><strong>Initial state:</strong> the initial knowledge database</li>
-<li><strong>Actions:</strong> all the inference rules applied to all the sentences that match the upper half of the inference rule</li>
-<li><strong>Result:</strong> add the sentence in the lower half of the inference rule to the knowledge base</li>
-<li><strong>Goal:</strong> a state that contains the sentence we are trying to prove</li>
+<li class="fragment"><strong>Initial state:</strong> the initial knowledge database</li>
+<li class="fragment"><strong>Actions:</strong> all the inference rules applied to all the sentences that match the upper half of the inference rule</li>
+<li class="fragment"><strong>Result:</strong> add the sentence in the lower half of the inference rule to the knowledge base</li>
+<li class="fragment"><strong>Goal:</strong> a state that contains the sentence we are trying to prove</li>
 </ul>
+</div>
+</div>
 </section></section>
 <section id="open-topics" class="title-slide slide level1 center">
 <h1>Open topics</h1>
+<div>
 <ul>
-<li><strong>Completeness</strong> (if the available inference rules are inadequate, the goal is not reachable)</li>
-<li>Level of <strong>complexity</strong> (though propositional logic suffices to represent the wumpus world), e.g.,
+<li class="fragment"><strong>Completeness</strong> (if the available inference rules are inadequate, the goal is not reachable)</li>
+<li class="fragment">Level of <strong>complexity</strong> (though propositional logic suffices to represent the wumpus world), e.g.,
 <ul>
-<li>Rules must be set up for <strong>each square</strong></li>
-<li>We need a <strong>time index</strong> for each proposition that refer to an aspect of the world that changes (further expansion of the rule set)</li>
+<li class="fragment">Rules must be set up for <strong>each square</strong></li>
+<li class="fragment">We need a <strong>time index</strong> for each proposition that refer to an aspect of the world that changes (further expansion of the rule set)</li>
 </ul></li>
-<li><strong>Efficiency</strong> of inference algorithms</li>
-<li>…</li>
+<li class="fragment"><strong>Efficiency</strong> of inference algorithms</li>
+<li class="fragment">…</li>
 </ul>
+</div>
+<div class="fragment">
 <p>For further information on these and other matters, please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span></p>
+</div>
 </section>
 
 <section>
@@ -765,11 +810,79 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <h1>✏️ Exercises</h1>
 
 </section>
-<section id="i2ai_5-e1" class="slide level2">
+<section id="i2ai_5-e1" class="slide level2 smaller">
 <h2>I2AI_5 E1</h2>
-<p>Explain in your own words the following terms:</p>
+<p>Suppose the agent has progressed to the point shown in <a href="#/fig-ww-2">Figure&nbsp;3</a> (left part) having perceived nothing in <span class="math inline">\([1,1]\)</span>, a breeze in <span class="math inline">\([2,1]\)</span>, and a stench in <span class="math inline">\([1,2]\)</span>, and is now concerned with the contents of <span class="math inline">\([1,3]\)</span>, <span class="math inline">\([2,2]\)</span>, and <span class="math inline">\([3,1]\)</span>. Each of these can contain a pit, and at most one can contain a wumpus. Construct the set of possible worlds (you should find 32 of them). Mark the worlds in which the KB is true and those in which each of the following sentences is true:</p>
 <ul>
-<li></li>
+<li><span class="math inline">\(\alpha_2\)</span> = “There is no pit in <span class="math inline">\([2,2]\)</span>”</li>
+<li><span class="math inline">\(\alpha_3\)</span> = “There is a wumpus in <span class="math inline">\([1,3]\)</span>”</li>
+</ul>
+<p>Hence show that <span class="math inline">\(KB \models \alpha_2\)</span>  2 and <span class="math inline">\(KB \models \alpha_3\)</span></p>
+<p>You can use a table like this:</p>
+<table style="width:51%;">
+<caption>Propositions not listed as true on a given line are assumed false</caption>
+<colgroup>
+<col style="width: 30%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th><span class="math inline">\(KB\)</span></th>
+<th><span class="math inline">\(\alpha_2\)</span></th>
+<th><span class="math inline">\(\alpha_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_{1,3}\)</span></td>
+<td></td>
+<td>true</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_{1,3}, P_{3,1}, P_{2,2}\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="i2ai_5-e2" class="slide level2">
+<h2>I2AI_5 E2</h2>
+<p>Prove, or find a counterexample to, each of the following assertions, where <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\gamma\)</span> represent any logical sentence:</p>
+<ol type="a">
+<li>If <span class="math inline">\(\alpha \models \gamma\)</span> or <span class="math inline">\(\beta \models \gamma\)</span> (or both) then <span class="math inline">\((\alpha \land \beta) \models \gamma\)</span></li>
+<li>If <span class="math inline">\((\alpha \land \beta) \models \gamma\)</span> then <span class="math inline">\(\alpha \models \gamma\)</span> or <span class="math inline">\(\beta \models \gamma\)</span> (or both)</li>
+<li>If <span class="math inline">\(\alpha \models (\beta \lor \gamma)\)</span> then <span class="math inline">\(\alpha \models \beta\)</span> or <span class="math inline">\(\alpha \models \gamma\)</span> (or both)</li>
+</ol>
+<p>Remember, <span class="math inline">\(\alpha \models \beta\)</span> means that <strong>iff</strong> in every model in which <span class="math inline">\(\alpha\)</span> is true, <span class="math inline">\(\beta\)</span> is also true.</p>
+</section>
+<section id="i2ai_5-e3" class="slide level2">
+<h2>I2AI_5 E3</h2>
+<p>For each English sentence, there is a corresponding logical sentence. Work out which English sentence corresponds to which propositional logic sentence, and hence determine the meaning (in English) of each proposition symbol.</p>
+<p><strong>English</strong></p>
+<ul>
+<li>There is a Wumpus at (0, 1)</li>
+<li>If the agent is at (0, 1) and there is a Wumpus at (0, 1), then the agent is not alive.</li>
+<li>The agent is at (0, 0) and there is no Wumpus at (0, 1)</li>
+<li>The agent is at (0, 0) or (0, 1), but not both</li>
+</ul>
+<p><strong>Propositional Logic</strong></p>
+<ul>
+<li><span class="math inline">\((C \lor B) \land (\neg C \lor \neg B)\)</span></li>
+<li><span class="math inline">\(C \land \neg D\)</span></li>
+<li><span class="math inline">\(\neg A \lor \neg(B \land D)\)</span></li>
+<li><span class="math inline">\(D\)</span></li>
 </ul>
 </section></section>
 <section id="literature" class="title-slide slide level1 smaller scrollable">
