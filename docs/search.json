@@ -1824,7 +1824,7 @@
     "href": "lectures/I2AI/99/index.html#i2ai_4-e2",
     "title": "Solution Notes",
     "section": "I2AI_4 E2",
-    "text": "I2AI_4 E2\n\nCompleteness\nExplain if the MINIMAX algorithm is complete and optimal.\nIn two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the MINIMAX algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.\nThe algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is  and there are  legal moves at each point, then the time complexity is  for an algorithm that generates all actions at once, or  for an algorithm that generates actions on at a time. The exponential complexity makes MINIMAX impractical for complex games. MINIMAX does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.\n\n\nSuboptimally play\nCan it be beaten by an opponent playing suboptimally? Why (not)?\nIf MIN does not play optimally, then MAX will do at least as well as against an optimal player, possibly better."
+    "text": "I2AI_4 E2\n\nCompleteness\nExplain if the MINIMAX algorithm is complete and optimal.\nIn two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the MINIMAX algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.\nThe algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is \\(m\\) and there are \\(b\\) legal moves at each point, then the time complexity is \\(O(b^m)\\) for an algorithm that generates all actions at once, or \\(O(m)\\) for an algorithm that generates actions on at a time. The exponential complexity makes MINIMAX impractical for complex games. MINIMAX does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.\n\n\nSuboptimally play\nCan it be beaten by an opponent playing suboptimally? Why (not)?\nIf MIN does not play optimally, then MAX will do at least as well as against an optimal player, possibly better."
   },
   {
     "objectID": "lectures/I2AI/99/index.html#i2ai_4-e3",
@@ -1928,8 +1928,8 @@
     "objectID": "lectures/I2AI/4/index.html#concluding-remarks-xkcd",
     "href": "lectures/I2AI/4/index.html#concluding-remarks-xkcd",
     "title": "Games",
-    "section": "Concluding remarks (XKCD)",
-    "text": "Concluding remarks (XKCD)\n\n\n\nFigure 5: 1263 XKCD Comic: Reassuring"
+    "section": "Concluding remarks (xkcd)",
+    "text": "Concluding remarks (xkcd)\n\n\n\nFigure 5: xkcd 1263: reassuring"
   },
   {
     "objectID": "lectures/I2AI/4/index.html#i2ai_4-e1",
@@ -2013,7 +2013,7 @@
     "href": "lectures/I2AI/4/slides.html#selection-policy-example",
     "title": "Games",
     "section": "Selection policy example",
-    "text": "Selection policy example\nUpper confidence bounds applied to trees (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)\n\n\n\n\n is the total utility of all playouts that went through node \n is the number of playouts through node \n is the parent node of  in the tree\n is the average utility of  (exploitation term, “how good are the stats?”)\n higher for  only explored a few times\n(exploration term, “how much has the child be ‘ignored’?”)\n is a constant that balance exploitation and exploration (theoretically )\n\n\n\n\n\nWith , the 60/79 node in Figure 2 has the highest UCB1 score, but with , it would be the 2/11 node.\n\n\n\n\n\n\nUtiliy of MCTS\n\n\nThe conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see (Russel and Norvig 2022, 202ff)) for games where the branching factor is very high (and thus alpha-beta can’t search deep enough), or when it is difficult to define a good evaluation function 6."
+    "text": "Selection policy example\nUpper confidence bounds applied to trees (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)\n\n\\[\nUCB1(n) = \\frac{U(n)}{N(n)} + C * \\sqrt{\\frac{\\log{N(PARENT(n))}}{N(n)}}\n\\]\n\n\n\\(U(n)\\) is the total utility of all playouts that went through node \\(n\\)\n\\(N(n)\\) is the number of playouts through node \\(n\\)\n\\(PARENT(n)\\) is the parent node of \\(n\\) in the tree\n\\(\\frac{U(n)}{N(n)}\\) is the average utility of \\(n\\) (exploitation term, “how good are the stats?”)\n\\(\\frac{\\log{N(PARENT(n))}}{N(n)s}\\) is higher for \\(n\\) only explored a few times\n(exploration term, “how much has the child be ‘ignored’?”)\n\\(C\\) is a constant that balance exploitation and exploration (theoretically \\(\\sqrt{2}\\))\n\n\n\n\n\nWith \\(C=1.4\\), the 60/79 node in Figure 2 has the highest UCB1 score, but with \\(C=1.5\\), it would be the 2/11 node.\n\n\n\n\n\n\nUtiliy of MCTS\n\n\nThe conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see (Russel and Norvig 2022, 202ff)) for games where the branching factor is very high (and thus alpha-beta can’t search deep enough), or when it is difficult to define a good evaluation function 6."
   },
   {
     "objectID": "lectures/I2AI/4/slides.html#expansion-and-simulation",
@@ -4582,14 +4582,14 @@
     "href": "lectures/I2AI/5/index.html#summary-1",
     "title": "Logical Agents",
     "section": "Summary",
-    "text": "Summary"
+    "text": "Summary\n\n\nRational agents require knowledge of their world to make rational decisions\nWith the help of a (knowledge) representation language, this knowledge is represented and stored in a knowledge base in the form of sentences\nA representation language is defined by its syntax12 and its semantics13\nInference is the process of deriving new sentences from old ones\nPropositional logic is a simple representation language consisting of propositions symbols and logical connectives\nSolutions can be found by enumerating models (model-checking) or inference and proofs using inference rules14\nPropositional logic does not scale to environments of unbounded size15"
   },
   {
     "objectID": "lectures/I2AI/5/index.html#concluding-remarks-xkcd",
     "href": "lectures/I2AI/5/index.html#concluding-remarks-xkcd",
     "title": "Logical Agents",
     "section": "Concluding remarks (XKCD)",
-    "text": "Concluding remarks (XKCD)\nAdd image here"
+    "text": "Concluding remarks (XKCD)\n\n\n\nFigure 4: xkcd 816: Applied Math (explanation see here)"
   },
   {
     "objectID": "lectures/I2AI/5/index.html#i2ai_5-e1",
@@ -4624,7 +4624,7 @@
     "href": "lectures/I2AI/5/index.html#think-rationally",
     "title": "Logical Agents",
     "section": "Think rationally",
-    "text": "Think rationally\nUntil now, the focus has been on agents that act rationally.\nOften, however, rational action requires rational (logical) thought on the agent’s part.\nTo that purpose, portions of the world must be represented in a knowledge base (KB).\n\nComposed of sentences in a language with a truth theory (logic), i.e. sentences can be interpreted as statements about the world (semantics)\nThe sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (syntax)\nInteraction with the KB through ASK and TELL operations (simplified)\n\nASK: asks the KB what action it should perform\nTELL: tells the knowledge base what it perceives"
+    "text": "Think rationally\nUntil now, the focus has been on agents that act rationally. Often, however, rational action requires rational (logical) thought on the agent’s part.\n\nTo this end, relevant aspects of the environment must be represented in a knowledge base (KB), composed of sentences in knowledge reprensentation language (e.g., logic)\n\n\nEach sentences represents some assertion about the world (semantics)\nThe sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (syntax)\nInteraction with the KB through \\(ASK\\) and \\(TELL\\) operations (simplified)\n\n\\(ASK\\): asks the KB what action it should perform\n\\(TELL\\): tells the knowledge base what it perceives\n\n\n\n\n\n\n\n\n\n\nTypes of sentences\n\n\n\n\nAxioms: a sentence is taken as being given without being derived from other sentences\nInference: a sentence is derived from old sentence\n\n\n\n\nLevels of knowledge representation\nThree levels of knowledge representation can be distinguished (Newell 1982):\n\nThe knowledge level concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information system knows that a trip from Ulm to Stuttgart costs EUR 25.\nAt the logical level knowledge is encoded in a formal language; e.g., \\(price(Ulm, Stuttgart, 25.00)\\)\nAt the implementation level the knowledge is represented as sentences; e.g.,\n\nas a string “Price(Freiburg, Basel, 18.00)”\nas a value in a matrix"
   },
   {
     "objectID": "lectures/I2AI/5/slides.html#think-rationally",
@@ -4638,7 +4638,7 @@
     "href": "lectures/I2AI/5/slides.html#summary-1",
     "title": "Logical Agents",
     "section": "Summary",
-    "text": "Summary"
+    "text": "Summary\n\n\nRational agents require knowledge of their world to make rational decisions\nWith the help of a (knowledge) representation language, this knowledge is represented and stored in a knowledge base in the form of sentences\nA representation language is defined by its syntax12 and its semantics13\nInference is the process of deriving new sentences from old ones\nPropositional logic is a simple representation language consisting of propositions symbols and logical connectives\nSolutions can be found by enumerating models (model-checking) or inference and proofs using inference rules14\nPropositional logic does not scale to environments of unbounded size15"
   },
   {
     "objectID": "lectures/I2AI/5/slides.html#concluding-remarks",
@@ -4842,5 +4842,180 @@
     "title": "Logical Agents",
     "section": "Search algorithms",
     "text": "Search algorithms\nSearch algorithms can be used to find a sequence of steps that constitutes a proof.\nThe proof problem is defined as follows:\n\nInitial state: the initial knowledge database\nActions: all the inference rules applied to all the sentences that match the upper half of the inference rule\nResult: add the sentence in the lower half of the inference rule to the knowledge base\nGoal: a state that contains the sentence we are trying to prove"
+  },
+  {
+    "objectID": "lectures/I2AI/5/slides.html#concluding-remarks-xkcd",
+    "href": "lectures/I2AI/5/slides.html#concluding-remarks-xkcd",
+    "title": "Logical Agents",
+    "section": "Concluding remarks (XKCD)",
+    "text": "Concluding remarks (XKCD)\n\n\n\nxkcd 816: Applied Math (explanation see here)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#search-limitations",
+    "href": "lectures/I2AI/5/index.html#search-limitations",
+    "title": "Logical Agents",
+    "section": "Search limitations",
+    "text": "Search limitations\nThe problem-solving agents based on search algorithms know things, but only in a very limited, inflexible sense (Russel and Norvig 2022, 226):\n\n\nThey know what actions are available (\\(ACTIONS(s)\\)) and what the result of performing a specific action from a speicifc state will be (\\(RESULT(s,a)\\)). But they don’t know general facts.\nUsing atomic represtations, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states\nThe goal can formally only be described as an explicit set of states"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#knowledge-based-agents",
+    "href": "lectures/I2AI/5/index.html#knowledge-based-agents",
+    "title": "Logical Agents",
+    "section": "Knowledge-based agents",
+    "text": "Knowledge-based agents\nA knowledge-based agent uses its knowledge base to\n\n\nrepresent its background knowledge,\nstore its observations (i.e., percepts),\nderive actions, and\nstore its executed actions."
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#introduction",
+    "href": "lectures/I2AI/5/index.html#introduction",
+    "title": "Logical Agents",
+    "section": "Introduction",
+    "text": "Introduction\nThe wumpus world is an environment in which knowledge-based agents can show their worth.\n\nA cave consisting of rooms connected by passageways\nWumpus is in one room. It eats anyone who enters its room\nThe wumpus can be shut by an agent, but the agent only has one arrow\nSome rooms contain bottomless pits\nThe goal is to survive, to find a heap of gold and to leave the cave"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#peas",
+    "href": "lectures/I2AI/5/index.html#peas",
+    "title": "Logical Agents",
+    "section": "PEAS",
+    "text": "PEAS\n\nPerformance measure\n\n+1,000 for finding the gold\n-1,000 for dying (falling into a pit or being eaten by the wumpus)\n-1 for each action taken\n-10 for using the arrow\nThe game ends either when the agents dies or finds the gold\n\n\n\n\nEnvironment\n\n4 x 4 grid with walls surrounding the grid\nThe agent alsoways starts in \\([1,1]\\)\nThe locations of gold and wumpus are chosen randomly (other than \\([1,1]\\))\nEach square other than \\([1,1]\\) can be a pit, with probability .2\nThere is a ladder to leave the cave in square \\([1,1]\\)\n\n\n\n\nActuators\n\nMove (Go forward, turn right by 90°, turn left by 90°)\nGrab (pick up an object in the same square)\nShoot (there is only one arrow)\nLeave the cave (only works in square \\([1,1]\\)).\n\n\n\n\nSensors\n\nThe agent cannot perceive its own location\nIn the square containing the wumpus and in the directly adjacent squares, the agent perceives a stench\nIn the squares adjacent to a pit, the agent perceives a breeze\nIn the square where the gold is, the agent perceives a glitter\nWhen the agent walks into a wall, it perceives a bump\nWhen the wumpus is killed, its scream is heard everywhere\n\nPercepts are represented as a 5-tuple, e.g., [Stench, Breeze, Glitter, None, None]\n\n[Stench, Breeze, Glitter, None, None] means that it stinks, there is a breeze and a glitter, but no bump and no scream.\nThe PEAS can be characterized as deterministic, discrete, static, and single-agent"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#a-sample-configuration",
+    "href": "lectures/I2AI/5/index.html#a-sample-configuration",
+    "title": "Logical Agents",
+    "section": "A sample configuration",
+    "text": "A sample configuration\n\n\n\n\n\nFigure 1: A typical wumpus world\n\n\n\nA typical wumpos world\n\nThe agent is in the bottom left corner \\([1,1]\\), facing east (rightward)\nThere are three pits in the world (\\([4,4]\\),\\([3,3]\\), and \\([3,1]\\))\nWumpus is in room \\([1,3]\\)\nThe gold is in room \\([2,3]\\)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#exploration",
+    "href": "lectures/I2AI/5/index.html#exploration",
+    "title": "Logical Agents",
+    "section": "Exploration",
+    "text": "Exploration\n\n\n\nFigure 2: Moving from [1,1] to [2,1]\n\n\n\n\nLeft: The initial situation after percept \\([None,None,None,None,None]\\)\nRight: After moving to \\([2,1]\\) and perceiving \\([None,Breeze,None,None,None]\\)\n\n\n\nThe wumpus is in [1,3].\n\n\n\nFigure 3: Moving from [1,1] to [2,1]\n\n\n\n\nLeft: After moving to \\([1,1]\\) and then \\([1,2]\\), and perceiving \\([Stench,None,None,None,None]\\)\nRight: After moving to \\([2,2]\\) and then \\([2,3]\\), and perceiving \\([Stench,Breeze,Glitter,None,None]\\)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#basic-syntax",
+    "href": "lectures/I2AI/5/index.html#basic-syntax",
+    "title": "Logical Agents",
+    "section": "Basic syntax",
+    "text": "Basic syntax\nPropositions are the building blocks of propositional logic.\nAtomic sentences consist of a single proposition symbol, that stands for a proposition, that can be \\(true\\) or \\(false\\), e.g.,\n\n\\(BlockRed\\) — The block is red\n\\(W_{1,3}\\) — The wumpus is in \\([1,3]\\)\n\nThe logical connectives and (\\(\\land\\)), or (\\(\\lor\\)), not (\\(\\neg\\)), implies (\\(\\implies\\)), and if and only if (\\(\\iff\\)) can be used to build complex sentences.\nOperator precedence: \\(\\neg, \\land, \\lor, \\implies, \\iff\\) (use brackets when necessary)\n\n\nLogical connectives\nLogical connectives (also called logical operators) are symbols or words used to connect two or more sentences (of either a formal or a natural language) in a grammatically valid way, such that the value of the compound sentence produced depends only on that of the original sentences and on the meaning of the connective.\n\nConjunction (and)\n\\(P \\land Q\\)\nSentence letters are called conjuncts; the two conjuncts can be reversed and retain the original meaning.\n\n\n\nDisjunction (or)\n\\(P \\lor Q\\)\nSentences letters are called disjuncts; the two disjuncts can be reversed and retain the original meaning. The disjunction is always understood inclusively as an or/and; that is, P might entail, Q might entail, or both P and Q might entail.\n\n\nNegation (not)\n\\(\\neg P\\)\nA negated atomic sentence is called a negative literal.\n\n\nImplication\n\\(P \\implies Q\\)\nThe first sentence letter is called antecedent and second is called consequent. The antecedent and consequent cannot be reversed and still retain its original meaning. Implications are also known as rules of if-then statements.\n\n\nBiconditional (if and only if, iff)\n\\(P \\iff Q\\)\nThe biconditional combines a conditional relation between P and Q and its reverse. Sentence letters are called “biconditions”; the two biconditions can be reversed and retain the original meaning."
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#basic-semantics",
+    "href": "lectures/I2AI/5/index.html#basic-semantics",
+    "title": "Logical Agents",
+    "section": "Basic semantics",
+    "text": "Basic semantics\nAtomic propositions can be \\(true\\) or \\(false\\).\nThe truth of a formula follows from the truth of its atomic propositions (truth assignment or interpretation) and the connectives.\nExamples:\n\n\\((P \\lor Q) \\land R\\)\n\nIf P and Q are false and R is true, the formula is false\nIf P and R are true, the formula is true regardless of what Q is\n\n\\(B_{1,2} \\iff (P_{1,2} \\lor P_{2,1})\\)\n\nA square is breezy if a neighboring square has a pit,\nand a square is breezy only if a neighboring square has a pit"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#a-simple-kb",
+    "href": "lectures/I2AI/5/index.html#a-simple-kb",
+    "title": "Logical Agents",
+    "section": "A simple KB",
+    "text": "A simple KB\n\nSymbols\nIf we focus on the immutable aspects of the wumpus world, we need the following symbols for each \\([x,y]\\) location\n\n\\(P_{x,y}\\) is true if there is a pit in \\([x,y]\\)\n\\(W_{x,y}\\) is true if there is a wumpus in \\([x,y]\\), dead or alive\n\\(B_{x,y}\\) is true if there is a breeze in \\([x,y]\\)\n\\(S_{x,y}\\) is true if there is a stench in \\([x,y]\\)\n\\(L_{x,y}\\) is true if the agent is in location \\([x,y]\\)\n\n\n\n\nSentences\nFollowing sentences1 will suffice to derive \\(\\neg P_{1,2}\\) (there is no pit in [1,2]):\n\n\\(R_1: \\neg P_{1,1}\\)\n\\(R_2: B_{1,1} \\iff (P_{1,1} \\lor P_{2,1})\\)\n\\(R_2: B_{2,1} \\iff (P_{1,1} \\lor P_{2,2} \\lor P_{3,1})\\)\n\\(R_1: \\neg B_{1,1}\\)\n\\(R_5: B_{2,1}\\)\n\nThe sentences reflect the situation depicted in Figure 2 where the agent has moved to \\([2,1]\\) and perceiving \\([None,Breeze,None,None,None]\\)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#a-simple-inference",
+    "href": "lectures/I2AI/5/index.html#a-simple-inference",
+    "title": "Logical Agents",
+    "section": "A simple inference",
+    "text": "A simple inference\nOur goal is to decide wether \\(KB \\models \\alpha\\) 2 for some sentence \\(\\alpha\\), e.g. is \\(\\neg P_{1,2}\\) entailed by our \\(KB\\) (and, thus, a safe place to move)?\n\nModel checking enumerates all possible models to check that \\(\\alpha\\) is true in every model in which \\(KB\\) is true3\n\n\nExample (the agent has just moved to \\([2,1]\\)):\n\n\nIn the current KB there are 27 = 128 possible models\nIn three of these models, \\(\\neg P_{1,2}\\) is true\nOnly two of the three models, \\(P_{2,2}\\) is true\nSo we cannot yet tell wether there is a pit in \\([2,2]\\)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#introduction-1",
+    "href": "lectures/I2AI/5/index.html#introduction-1",
+    "title": "Logical Agents",
+    "section": "Introduction",
+    "text": "Introduction\nEntailment can not only be determined by model checking, it can also be done by theorem proving.\nTheorem proving means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.\nFor large number of models and short length of proofs, theorem proving can be more efficient than model checking."
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#additional-concepts",
+    "href": "lectures/I2AI/5/index.html#additional-concepts",
+    "title": "Logical Agents",
+    "section": "Additional concepts",
+    "text": "Additional concepts\nSome additional concepts are needed to plug into the details:\n\nLogical equivalence: two sentences \\(\\alpha\\) and \\(\\beta\\) are logically equivalent if they are true in the same set of models4 (\\(\\alpha \\equiv \\beta\\) 5)\nValidity: a sentence is valid if it is true in all models (e.g., \\(P \\lor \\neg P\\))6\nDeduction theorem: for any sentences \\(\\alpha\\) and \\(\\beta\\), \\(\\alpha \\models \\beta\\) if and only if the sentence \\((\\alpha \\implies \\beta)\\) is valid. 7\nSatisfiability: a sentence is satisfiable if it is true in, or satisfied by, some model8\nValidity and satisfiability are connected:\n\\(\\alpha \\models \\beta\\) if and only if the sentence \\((\\alpha \\land \\neg \\beta)\\) is unsatisfiable9\nProof by contradiction: assuming a sentence \\(\\beta\\) to be false, which leads to a contradiction with known axioms \\(\\alpha\\) – \\((\\alpha \\land \\neg \\beta)\\) is unsatisfiable"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#standard-logical-equivalences",
+    "href": "lectures/I2AI/5/index.html#standard-logical-equivalences",
+    "title": "Logical Agents",
+    "section": "Standard logical equivalences",
+    "text": "Standard logical equivalences\nThe symbols \\(\\alpha\\), \\(\\beta\\), and \\(\\gamma\\) stand for arbitrary sentences of propositional logic\n\n\\((\\alpha \\land \\beta) \\equiv (\\beta \\land \\alpha)\\) — commutativity of \\(\\land\\)\n\\((\\alpha \\lor \\beta) \\equiv (\\beta \\lor \\alpha)\\) — commutativity of \\(\\lor\\)\n\\(((\\alpha \\land \\beta) \\land \\gamma) \\equiv (\\alpha \\land (\\beta \\land \\gamma))\\) — associativity of \\(\\land\\)\n\\(((\\alpha \\lor \\beta) \\lor \\gamma) \\equiv (\\alpha \\lor (\\beta \\lor \\gamma))\\) — associativity of \\(\\lor\\)\n\\(\\neg(\\neg\\alpha) \\equiv \\alpha\\) — double negation elimination\n\\((\\alpha \\implies \\beta) \\equiv (\\neg \\beta \\implies \\neg \\alpha)\\) — contraposition\n\\((\\alpha \\implies \\beta) \\equiv (\\neg \\alpha \\lor \\beta)\\) — implication elimination\n\\((\\alpha \\iff \\beta) \\equiv ((\\alpha \\implies \\beta) \\land (\\beta \\implies \\alpha))\\) — biconditional elimination\n\\(\\neg(\\alpha \\land \\beta) \\equiv (\\neg \\alpha \\lor \\neg \\beta)\\) — De Morgan\n\\(\\neg(\\alpha \\lor \\beta) \\equiv (\\neg \\alpha \\land \\neg \\beta)\\) — De Morgan\n\\((\\alpha \\land (\\beta \\lor \\gamma)) \\equiv ((\\alpha \\land \\beta) \\lor (\\alpha \\land \\gamma))\\) — distributivity of \\(\\land\\) over \\(\\lor\\)\n\\((\\alpha \\lor (\\beta \\land \\gamma)) \\equiv ((\\alpha \\lor \\beta) \\land (\\alpha \\lor \\gamma))\\) — distributivity of \\(\\lor\\) over \\(\\land\\)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#inference-rules",
+    "href": "lectures/I2AI/5/index.html#inference-rules",
+    "title": "Logical Agents",
+    "section": "Inference rules",
+    "text": "Inference rules\nFollowing inference rules10 can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:\n\nModus Ponens11: \\(\\frac{\\alpha \\implies \\beta, \\alpha}{\\beta}\\)\nThe sentence \\(\\beta\\) can be inferred, whenever sentences of the form \\(\\alpha \\implies \\beta\\) and \\(\\alpha\\) are given\nAnd-Elimination: \\(\\frac{\\alpha \\land \\beta}{\\beta}\\) From a conjunction, any of the conjuncts can be inferred\n\nAll of the logical equivalences can be used as inference rules"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#example",
+    "href": "lectures/I2AI/5/index.html#example",
+    "title": "Logical Agents",
+    "section": "Example",
+    "text": "Example\nWe start with the knowledge base containing \\(R_1\\) throught \\(R_5\\) and show to prove \\(\\neg P_{1,2}\\)\n\nApply biconditional elimination to \\(R_2\\) to obtain\n\\(R_6 : (B_{1,1} \\implies (P_{1,2} \\lor P_{2,1})) \\land ((P_{1,2} \\lor P_{2,1}) \\implies B_{1,1})\\)\nApply And-Elimination to \\(R_6\\) to obtain\n\\(R_7 : ((P_{1,2} \\lor P_{2,1}) \\implies B_{1,1})\\)\nLogical equivalence for contrapositives gives \\(R_8 : (\\neg (P_{1,2} \\lor P_{2,1}) \\implies \\neg B_{1,1})\\)\nApply Modus Ponens with \\(R_8\\) and the percept \\(R_4\\) (i.e., \\(\\neg B_{1,1}\\)) to obtain\n\\(R_9 : \\neg (P_{1,2} \\lor P_{2,1})\\)\nApply De Morgan’s rule, giving the conclusion\n\\(R_{10} : \\neg P_{1,2} \\land P_{2,1}\\) (neither \\([1,2]\\) nor \\([2,1]\\) contains a pit)"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#search-algorithms",
+    "href": "lectures/I2AI/5/index.html#search-algorithms",
+    "title": "Logical Agents",
+    "section": "Search algorithms",
+    "text": "Search algorithms\nSearch algorithms can be used to find a sequence of steps that constitutes a proof.\nThe proof problem is defined as follows:\n\nInitial state: the initial knowledge database\nActions: all the inference rules applied to all the sentences that match the upper half of the inference rule\nResult: add the sentence in the lower half of the inference rule to the knowledge base\nGoal: a state that contains the sentence we are trying to prove"
+  },
+  {
+    "objectID": "lectures/I2AI/4/index.html#summary",
+    "href": "lectures/I2AI/4/index.html#summary",
+    "title": "Games",
+    "section": "Summary",
+    "text": "Summary\n\n\nIn two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the minimax algorithm can select optimal moves by a depth-first search in the game tree\nEfficiency can be improved by using the alpha-beta search algorithm, which eliminates subtrees that are shown to be irrelevant.\nMonte Carlo tree search evaluates states by playing out the game all the way to the end to see who won. This playout simulation is repeated multiple times. The evaluation is an average of the results."
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#summary",
+    "href": "lectures/I2AI/5/index.html#summary",
+    "title": "Logical Agents",
+    "section": "Summary",
+    "text": "Summary\n\n\nRational agents require knowledge of their world to make rational decisions\nWith the help of a (knowledge) representation language, this knowledge is represented and stored in a knowledge base in the form of sentences\nA representation language is defined by its syntax12 and its semantics13\nInference is the process of deriving new sentences from old ones\nPropositional logic is a simple representation language consisting of propositions symbols and logical connectives\nSolutions can be found by enumerating models (model-checking) or inference and proofs using inference rules14\nPropositional logic does not scale to environments of unbounded size15"
+  },
+  {
+    "objectID": "lectures/I2AI/5/index.html#xkcd",
+    "href": "lectures/I2AI/5/index.html#xkcd",
+    "title": "Logical Agents",
+    "section": "xkcd",
+    "text": "xkcd\n\n\n\nFigure 4: xkcd 816: Applied Math (explanation see here)"
+  },
+  {
+    "objectID": "lectures/I2AI/4/index.html#xkcd",
+    "href": "lectures/I2AI/4/index.html#xkcd",
+    "title": "Games",
+    "section": "xkcd",
+    "text": "xkcd\n\n\n\nFigure 5: xkcd 1263: reassuring"
+  },
+  {
+    "objectID": "lectures/I2AI/4/slides.html#summary",
+    "href": "lectures/I2AI/4/slides.html#summary",
+    "title": "Games",
+    "section": "Summary",
+    "text": "Summary\n\n\nIn two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the minimax algorithm can select optimal moves by a depth-first search in the game tree\nEfficiency can be improved by using the alpha-beta search algorithm, which eliminates subtrees that are shown to be irrelevant.\nMonte Carlo tree search evaluates states by playing out the game all the way to the end to see who won. This playout simulation is repeated multiple times. The evaluation is an average of the results."
+  },
+  {
+    "objectID": "lectures/I2AI/4/slides.html#xkcd",
+    "href": "lectures/I2AI/4/slides.html#xkcd",
+    "title": "Games",
+    "section": "xkcd",
+    "text": "xkcd\n\n\n\nFigure 5: xkcd 1263: reassuring"
+  },
+  {
+    "objectID": "lectures/I2AI/5/slides.html#summary",
+    "href": "lectures/I2AI/5/slides.html#summary",
+    "title": "Logical Agents",
+    "section": "Summary",
+    "text": "Summary\n\n\nRational agents require knowledge of their world to make rational decisions\nWith the help of a (knowledge) representation language, this knowledge is represented and stored in a knowledge base in the form of sentences\nA representation language is defined by its syntax12 and its semantics13\nInference is the process of deriving new sentences from old ones\nPropositional logic is a simple representation language consisting of propositions symbols and logical connectives\nSolutions can be found by enumerating models (model-checking) or inference and proofs using inference rules14\nPropositional logic does not scale to environments of unbounded size15"
+  },
+  {
+    "objectID": "lectures/I2AI/5/slides.html#xkcd",
+    "href": "lectures/I2AI/5/slides.html#xkcd",
+    "title": "Logical Agents",
+    "section": "xkcd",
+    "text": "xkcd\n\n\n\nFigure 4: xkcd 816: Applied Math (explanation see here)"
   }
 ]
