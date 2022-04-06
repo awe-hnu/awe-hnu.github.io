@@ -1,10 +1,11 @@
 ---
 title: "Logical Agents"
 subtitle: "🧠 Introduction to AI — I2AI_5"
+lang: en
 
 format: 
-  html:
-    output-file: index.html
+#  html:
+#    output-file: index.html
   revealjs:
     output-file: slides.html
     include-after-body: ../assets/footer.html
@@ -14,7 +15,167 @@ format:
 
 [Slides](slides.html)
 
-# Logical {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+# Logical agents {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+
+## Search limitations
+
+The problem-solving agents based on __search algorithms__ know things, but only in a very limited, inflexible sense [@RusselNorvig2022AIMA, p. 226]:
+
+:::{.incremental}
+- They know what actions are available (`ACTIONS(s)`) and what the result of performing a specific action from a speicifc state will be (`RESULT(s,a`). But they __don't know general facts__.
+- Using __atomic represtations__, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states
+- The goal can formally only be described as an __explicit set of states__
+:::
+
+## Think rationally
+
+Until now, the focus has been on agents that act rationally. Often, however, rational action requires __rational (logical) thought__ on the agent’s part. 
+
+. . .
+
+To this end, relevant aspects of the environment must be represented in a __knowledge base__ (KB), composed of __sentences__ in knowledge reprensentation language (e.g., logic)
+
+:::{.incremental}
+- Each sentences represents some assertion about the world (__semantics__)
+- The sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (__syntax__)
+- Interaction with the KB through `ASK` and `TELL` operations (simplified)
+  - `ASK`: asks the KB what action it should perform
+  - `TELL`: tells the knowledge base what it perceives
+:::
+
+:::{.notes}
+:::{.callout-note}
+### Types of sentences
+
+- __Axioms__: a sentence is taken as being given without being derived from other sentences
+- __Inference__: a sentence is derived from old sentence 
+:::
+
+### Levels of knowledge representation
+
+Three levels of knowledge representation can be distinguished [@newell1982knowledge]:
+
+- The __knowledge level__ concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information 
+system knows that a trip from Ulm to Stuttgart costs EUR 25.
+- At the __logical level__ knowledge is encoded in a formal language; e.g., `price(Ulm, Stuttgart, 25.00)`
+- At the __implementation level__ the knowledge is represented as sentences; e.g.,
+  - as a string “Price(Freiburg, Basel, 18.00)”
+  - as a value in a matrix
+:::
+
+## Knowledge-based agents
+
+A knowledge-based agent uses its knowledge base to
+
+:::{.incremental}
+- represent its background knowledge,
+- store its observations (i.e., percepts),
+- derive actions, and 
+- store its executed actions.
+
+:::
+
+# The Wumpus World {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+
+## Introduction
+
+The __wumpus world__ is an environment in which knowledge-based agents can show their worth.
+
+- A cave consisting of rooms connected by passageways
+- Wumpus is in one room. It eats anyone who enters its room
+- The wumpus can be shut by an agent, but the agent only has one arrow
+- Some rooms contain bottomless pits
+- The goal is to survive, to find a heap of gold and to leave the cave
+
+## PEAS
+
+### Performance measure
+
+- +1,000 for finding the gold
+- -1,000 for dying (falling into a pit or being eaten by the wumpus)
+- -1 for each action taken
+- -10 for using the arrow
+- The game ends either when the agents dies or finds the gold
+
+---
+
+### Environment
+
+- 4 x 4 grid with walls surrounding the grid
+- The agent alsoways starts in *[1,1]*
+- The locations of gold and wumpus are chosen randomly (other than *[1,1]*)
+- Each square other than *[1,1]* can be a pit, with probability .2
+- There is a ladder to leave the cave in square *[1,1]* 
+
+----
+
+### Actuators
+
+- Move (*Go forward*, *turn right by 90°*, *turn left by 90°*)
+- *Grab* (pick up an object in the same square)
+- *Shoot* (there is only one arrow)
+- *Leave* the cave (only works in square [1,1]).
+
+----
+
+### Sensors
+
+- The agent cannot perceive its own location
+- In the square containing the wumpus and in the directly adjacent squares, the agent perceives a *stench*
+- In the squares adjacent to a pit, the agent perceives a *breeze*
+- In the square where the gold is, the agent perceives a *glitter*
+- When the agent walks into a wall, it perceives a *bump*
+- When the wumpus is killed, its *scream* is heard everywhere
+
+Percepts are represented as a 5-tuple, e.g.,
+`[Stench, Breeze, Glitter, None, None]`
+
+:::{.notes}
+`[Stench, Breeze, Glitter, None, None]` means that it stinks, there is a breeze and a glitter, but no bump and no scream.
+
+The PEAS can be characterized as *deterministic, discrete, static, and single-agent*
+
+::::
+
+## A sample configuration
+
+:::{.columns}
+:::{.column}
+![A typical wumpus world](images/wumpusWorld.svg){#fig-wumpusWorld}
+:::
+:::{.column}
+A typical wumpos world
+
+- The agent is in the bottom left corner `[1,1]`, facing east (rightward)
+- There are three pits in the world (`[4,4]`,`[3,3]`, and `[3,1]`)
+- Wumpus is in room `[1,3]`
+- The gold is in room `[2,3]`
+:::
+:::
+
+## Exploration
+
+![Moving from [1,1] to [2,1]](images/ww-1.svg){#fig-ww-1}
+
+:::{.notes}
+- __Left:__ The initial situation after percept `[None,None,None,None,None]`
+- __Right:__ After moving to `[2,1]` and perceiving `[None,Breeze,None,None,None]`
+:::
+
+----
+
+The wumpus is in [1,3].
+
+![Moving from [1,1] to [2,1]](images/ww-2.svg){#fig-ww-2}
+
+:::{.notes}
+- __Left:__ After moving to `[1,1]` and then `[1,2]`, and perceiving  `[Stench,None,None,None,None]`
+- __Right:__ After moving to `[2,2]` and then `[2,3]`, and perceiving  `[Stench,Breeze,Glitter,None,None]`
+:::
+
+# Logic {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+
+
 
 # Summary {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
@@ -26,7 +187,7 @@ format:
 - 
 :::
 
-## Concluding remarks (XKCD)
+## Concluding remarks
 
 Add image here
 
