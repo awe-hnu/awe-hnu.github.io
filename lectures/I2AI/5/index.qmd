@@ -22,8 +22,8 @@ format:
 The problem-solving agents based on __search algorithms__ know things, but only in a very limited, inflexible sense [@RusselNorvig2022AIMA, p. 226]:
 
 :::{.incremental}
-- They know what actions are available ($ACTIONS(s)$) and what the result of performing a specific action from a speicifc state will be ($RESULT(s,a)$). But they __don't know general facts__.
-- Using __atomic represtations__, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states
+- They know what actions are available ($ACTIONS(s)$) and what the result of performing a specific action from a speciic state will be ($RESULT(s,a)$). But they __don't know general facts__.
+- Using __atomic representations__, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states
 - The goal can formally only be described as an __explicit set of states__
 :::
 
@@ -107,7 +107,7 @@ The __wumpus world__ is an environment in which knowledge-based agents can show 
 ### Environment
 
 - 4 x 4 grid with walls surrounding the grid
-- The agent alsoways starts in $[1,1]$
+- The agent always starts in $[1,1]$
 - The locations of gold and wumpus are chosen randomly (other than $[1,1]$)
 - Each square other than $[1,1]$ can be a pit, with probability .2
 - There is a ladder to leave the cave in square $[1,1]$ 
@@ -238,6 +238,17 @@ $P \iff Q$
 
 The biconditional combines a conditional relation between P and Q and its reverse. Sentence letters are called “biconditions”; the two biconditions can be reversed and retain the original meaning.
 
+### Truth tables
+
+| $\alpha$                | $\beta$                 | $\neg \alpha$           | $\alpha \land \beta$    | $\alpha \lor \beta$     | $\alpha \implies \beta$| $\alpha \iff \beta$     |
+|:-----------------------:|:-----------------------:|:-----------------------:|:-----------------------:|:----------------------:|:-----------------------:|:-----------------------:|
+| **false**                   | **false**                   | true                    | false                   | false                  | true                    | true                    |
+| **false**    | **true**    | true          | false                | true                | true                    | false               |
+| **true**     | **false**   | false         | false                | true                | false                   | false               |
+| **true**     | **true**    | false         | true                 | true                | true                    | true                |
+
+: Truth tables for the five logical connectives {#tbl-ttConnectives}
+
 :::
 
 ## Basic semantics
@@ -283,9 +294,9 @@ Following sentences[^1] will suffice to derive $\neg P_{1,2}$ (there is no pit i
 
 :::{.incremental}
 - $R_1: \neg P_{1,1}$
-- $R_2: B_{1,1} \iff (P_{1,1} \lor P_{2,1})$
-- $R_2: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})$
-- $R_1: \neg B_{1,1}$
+- $R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})$
+- $R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})$
+- $R_4: \neg B_{1,1}$
 - $R_5: B_{2,1}$
 :::
 
@@ -376,7 +387,7 @@ The symbols $\alpha$, $\beta$, and $\gamma$ stand for arbitrary sentences of pro
 Following __inference rules__[^10] can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:
 
 :::{.incremental}
-- __Modus Ponens[^11]:__ $\frac{\alpha \implies \beta, \alpha}{\beta}$   
+- __Modus Ponens[^11]:__ $\frac{\alpha \implies \beta, \ \alpha}{\beta}$   
   The sentence $\beta$ can be inferred, whenever sentences of the form $\alpha \implies \beta$ and $\alpha$ are given
 - __And-Elimination__: $\frac{\alpha \land \beta}{\beta}$
   From a conjunction, any of the conjuncts can be inferred
@@ -394,17 +405,46 @@ All of the __logical equivalences__ can be used as inference rules
 We start with the knowledge base containing $R_1$ throught $R_5$ and show to prove $\neg P_{1,2}$
 
 :::{.incremental}
-1. Apply biconditional elimination to $R_2$ to obtain   
+1. Apply biconditional elimination to $R_2$ to obtain [^r6]  
    $R_6  :  (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})$
-2. Apply And-Elimination to $R_6$ to obtain  
-   $R_7  :  ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})$
-3. Logical equivalence for contrapositives gives
-   $R_8  :  (\neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1})$
-4. Apply Modus Ponens with $R_8$ and the percept $R_4$ (i.e., $\neg B_{1,1}$) to obtain  
+2. Apply And-Elimination to $R_6$ to obtain [^r7]  
+   $R_7  :  (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$
+3. Logical equivalence for contrapositives gives [^r8]  
+   $R_8  :  \neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1}$
+4. Apply Modus Ponens with $R_8$ and the percept $R_4$ (i.e., $\neg B_{1,1}$) to obtain [^r9]   
    $R_9  :  \neg (P_{1,2} \lor P_{2,1})$
-5. Apply De Morgan's rule, giving the conclusion   
-   $R_{10} :  \neg P_{1,2} \land P_{2,1}$ *(neither $[1,2]$ nor $[2,1]$ contains a pit)*
+5. Apply De Morgan's rule, giving the conclusion[^r10]   
+   $R_{10} :  \neg P_{1,2} \land \neg P_{2,1}$ *(neither $[1,2]$ nor $[2,1]$ contains a pit)*
 :::
+
+[^r6]: $R_6$ can be infered as follows:   
+       $R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})$  
+       $\alpha \equiv B_{1,1}$  
+       $\beta \equiv (P_{1,2} \lor P_{2,1})$  
+       As $(\alpha \iff \beta) \equiv ((\alpha \implies \beta) \land (\beta \implies \alpha))$ applies, $R_6$ can be inferred:  
+       $R_6  :  B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1}$
+[^r7]: $R_7$ can be infered from $R_6$ as follows:  
+       $\alpha \equiv B_{1,1} \implies (P_{1,2} \lor P_{2,1})$  
+       $\beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$  
+       As $\frac{\alpha \land \beta}{\beta}$ (*And-Elimination*) applies, $R_7$ can be inferred:  
+       $R_7  :  \beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$  
+[^r8]: $R_8$ can be infered from $R_7$ as follows:  
+       $\alpha \equiv (P_{1,2} \lor P_{2,1})$  
+       $\beta \equiv B_{1,1}$    
+       As $\alpha \implies \beta \equiv (\neg \beta \implies \neg \alpha)$ applies, $R_8$ can be inferred:  
+       $R_8  :  \neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1}$
+[^r9]: $R_9$ can be infered from $R_8$ and $R_4$ as follows:  
+       $\alpha \equiv \neg B_{1,1}$  
+       $\beta \equiv \neg (P_{1,2} \lor P_{2,1})$    
+       As $\frac{\alpha \implies \beta, \ \alpha}{\beta}$ applies and $R_4 : B_{1_1}$ is given, $R_8$ can be inferred:  
+       $R_8  :  \beta \equiv \neg (P_{1,2} \lor P_{2,1})$     
+[^r10]: $R_10$ can be infered from $R_9$ as follows:  
+       $\alpha \equiv P_{1,2}$  
+       $\beta \equiv P_{2,1}$    
+       As $\neg(\alpha \lor \beta) \equiv (\neg \alpha \land \neg \beta)$ applies, $R_10$ can be inferred:  
+       $R_8  :  \neg P_{1,2} \land \neg P_{2,1}$     
+
+
 
 ## Search algorithms
 
