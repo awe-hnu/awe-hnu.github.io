@@ -135,10 +135,7 @@ Percepts are represented as a 5-tuple, e.g.,
 $[Stench, Breeze, Glitter, None, None]$
 
 :::{.notes}
-$[Stench, Breeze, Glitter, None, None]$ means that it stinks, there is a breeze and a glitter, but no bump and no scream.
-
 The PEAS can be characterized as *deterministic, discrete, static, and single-agent*
-
 ::::
 
 ## A sample configuration
@@ -320,13 +317,16 @@ __Model checking__ enumerates all possible models to check that $\alpha$ is true
 Example (the agent has just moved to $[2,1]$):
 
 :::{.incremental}
-- In the current KB there are 2<sup>7</sup> = 128 possible models
-- In three of these models, $\neg P_{1,2}$ is true
+- Given current proposition symbols there are 2<sup>7</sup> = 128 possible models[^2.1]
+- In three of these models $R_1$ through $R_5$ are true
+- In all three rows, $P_{1,2} is false
+- So we can say, there is not pit in [1,2]
 - Only two of the three models, $P_{2,2}$ is true
 - So we cannot yet tell wether there is a pit in $[2,2]$
 :::
 
-[^2]:$KB \models \alpha$ menas that $KB$ does entail $\alpha$ (a sentence $\alpha$ follows logically from $KB$)
+[^2]:$KB \models \alpha$ means that $KB$ does entail $\alpha$ (a sentence $\alpha$ follows logically from $KB$)
+[^2.1]:7 symbols ($B_{1,1}, B_{2,1}, P_{1,1}, P_{1,2}, P_{2,1}, P_{2,2}, P_{3,1}), two statuses each (true, false); models are assignments of *true* or *false* to every proposition symbol
 [^3]:In mathematical notation, we write $M(KB) \subseteq M(\alpha)$
 
 # Propositional proofs {.vertical-center background-color=blue background-image="images/bg.jpeg"}
@@ -358,7 +358,7 @@ Some additional concepts are needed to plug into the details:
 :::
 
 [^4]:Note that $\equiv$ is used to make claims about sentences, while $\iff$ is used as part of a sentence
-[^5]:An alternative definition of equivalence is as follows: any two sentences $\alpha$ and $\beta are equivalent if and only if each of them entails the other: $\alpha \equiv \beta$ if and only if $\alpha \models \beta$ and $\beta \models \alpha$
+[^5]:An alternative definition of equivalence is as follows: any two sentences $\alpha$ and $\beta$ are equivalent if and only if each of them entails the other: $\alpha \equiv \beta$ if and only if $\alpha \models \beta$ and $\beta \models \alpha$
 [^6]:Valid sentences ar also known as __tautologies__, they are necessarily true
 [^7]:Thus, the theorem states that every valid implication sentence describes a legitimate inference
 [^8]:The knowledge database given earlier ($R_1 \land R_2 \land R_3 \land R_4 \land R_5$) is satisfiable because there are thrree models in which it is true.

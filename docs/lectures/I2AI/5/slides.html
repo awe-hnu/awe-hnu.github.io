@@ -496,7 +496,6 @@
 <span class="math inline">\([Stench, Breeze, Glitter, None, None]\)</span></p>
 
 <aside><div>
-<p><span class="math inline">\([Stench, Breeze, Glitter, None, None]\)</span> means that it stinks, there is a breeze and a glitter, but no bump and no scream.</p>
 <p>The PEAS can be characterized as <em>deterministic, discrete, static, and single-agent</em></p>
 </div></aside></section>
 <section id="a-sample-configuration" class="slide level2">
@@ -725,8 +724,10 @@ and a square is breezy only if a neighboring square has a pit</li>
 <p>Example (the agent has just moved to <span class="math inline">\([2,1]\)</span>):</p>
 <div>
 <ul>
-<li class="fragment">In the current KB there are 2<sup>7</sup> = 128 possible models</li>
-<li class="fragment">In three of these models, <span class="math inline">\(\neg P_{1,2}\)</span> is true</li>
+<li class="fragment">Given current proposition symbols there are 2<sup>7</sup> = 128 possible models<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a></li>
+<li class="fragment">In three of these models <span class="math inline">\(R_1\)</span> through <span class="math inline">\(R_5\)</span> are true</li>
+<li class="fragment">In all three rows, $P_{1,2} is false</li>
+<li class="fragment">So we can say, there is not pit in [1,2]</li>
 <li class="fragment">Only two of the three models, <span class="math inline">\(P_{2,2}\)</span> is true</li>
 <li class="fragment">So we cannot yet tell wether there is a pit in <span class="math inline">\([2,2]\)</span></li>
 </ul>
@@ -753,12 +754,12 @@ and a square is breezy only if a neighboring square has a pit</li>
 <p>Some additional concepts are needed to plug into the details:</p>
 <div>
 <ul>
-<li class="fragment"><strong>Logical equivalence:</strong> two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a> (<span class="math inline">\(\alpha \equiv \beta\)</span> <a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a>)</li>
-<li class="fragment"><strong>Validity:</strong> a sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></li>
-<li class="fragment"><strong>Deduction theorem:</strong> <em>for any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid.</em> <a href="#/fn7" class="footnote-ref" id="fnref7" role="doc-noteref" onclick="return false;"><sup>7</sup></a></li>
-<li class="fragment"><strong>Satisfiability:</strong> a sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#/fn8" class="footnote-ref" id="fnref8" role="doc-noteref" onclick="return false;"><sup>8</sup></a></li>
+<li class="fragment"><strong>Logical equivalence:</strong> two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a> (<span class="math inline">\(\alpha \equiv \beta\)</span> <a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a>)</li>
+<li class="fragment"><strong>Validity:</strong> a sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#/fn7" class="footnote-ref" id="fnref7" role="doc-noteref" onclick="return false;"><sup>7</sup></a></li>
+<li class="fragment"><strong>Deduction theorem:</strong> <em>for any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid.</em> <a href="#/fn8" class="footnote-ref" id="fnref8" role="doc-noteref" onclick="return false;"><sup>8</sup></a></li>
+<li class="fragment"><strong>Satisfiability:</strong> a sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#/fn9" class="footnote-ref" id="fnref9" role="doc-noteref" onclick="return false;"><sup>9</sup></a></li>
 <li class="fragment">Validity and satisfiability are connected:<br>
-<em><span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable</em><a href="#/fn9" class="footnote-ref" id="fnref9" role="doc-noteref" onclick="return false;"><sup>9</sup></a></li>
+<em><span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable</em><a href="#/fn10" class="footnote-ref" id="fnref10" role="doc-noteref" onclick="return false;"><sup>10</sup></a></li>
 <li class="fragment"><strong>Proof by contradiction:</strong> assuming a sentence <span class="math inline">\(\beta\)</span> to be false, which leads to a contradiction with known axioms <span class="math inline">\(\alpha\)</span> – <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable</li>
 </ul>
 </div>
@@ -783,10 +784,10 @@ and a square is breezy only if a neighboring square has a pit</li>
 </section>
 <section id="inference-rules" class="slide level2">
 <h2>Inference rules</h2>
-<p>Following <strong>inference rules</strong><a href="#/fn10" class="footnote-ref" id="fnref10" role="doc-noteref" onclick="return false;"><sup>10</sup></a> can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:</p>
+<p>Following <strong>inference rules</strong><a href="#/fn11" class="footnote-ref" id="fnref11" role="doc-noteref" onclick="return false;"><sup>11</sup></a> can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:</p>
 <div>
 <ul>
-<li class="fragment"><strong>Modus Ponens<a href="#/fn11" class="footnote-ref" id="fnref11" role="doc-noteref" onclick="return false;"><sup>11</sup></a>:</strong> <span class="math inline">\(\frac{\alpha \implies \beta, \ \alpha}{\beta}\)</span><br>
+<li class="fragment"><strong>Modus Ponens<a href="#/fn12" class="footnote-ref" id="fnref12" role="doc-noteref" onclick="return false;"><sup>12</sup></a>:</strong> <span class="math inline">\(\frac{\alpha \implies \beta, \ \alpha}{\beta}\)</span><br>
 The sentence <span class="math inline">\(\beta\)</span> can be inferred, whenever sentences of the form <span class="math inline">\(\alpha \implies \beta\)</span> and <span class="math inline">\(\alpha\)</span> are given</li>
 <li class="fragment"><strong>And-Elimination</strong>: <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> From a conjunction, any of the conjuncts can be inferred</li>
 </ul>
@@ -800,15 +801,15 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <p>We start with the knowledge base containing <span class="math inline">\(R_1\)</span> throught <span class="math inline">\(R_5\)</span> and show to prove <span class="math inline">\(\neg P_{1,2}\)</span></p>
 <div>
 <ol type="1">
-<li class="fragment">Apply biconditional elimination to <span class="math inline">\(R_2\)</span> to obtain <a href="#/fn12" class="footnote-ref" id="fnref12" role="doc-noteref" onclick="return false;"><sup>12</sup></a><br>
+<li class="fragment">Apply biconditional elimination to <span class="math inline">\(R_2\)</span> to obtain <a href="#/fn13" class="footnote-ref" id="fnref13" role="doc-noteref" onclick="return false;"><sup>13</sup></a><br>
 <span class="math inline">\(R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})\)</span></li>
-<li class="fragment">Apply And-Elimination to <span class="math inline">\(R_6\)</span> to obtain <a href="#/fn13" class="footnote-ref" id="fnref13" role="doc-noteref" onclick="return false;"><sup>13</sup></a><br>
+<li class="fragment">Apply And-Elimination to <span class="math inline">\(R_6\)</span> to obtain <a href="#/fn14" class="footnote-ref" id="fnref14" role="doc-noteref" onclick="return false;"><sup>14</sup></a><br>
 <span class="math inline">\(R_7 : (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span></li>
-<li class="fragment">Logical equivalence for contrapositives gives <a href="#/fn14" class="footnote-ref" id="fnref14" role="doc-noteref" onclick="return false;"><sup>14</sup></a><br>
+<li class="fragment">Logical equivalence for contrapositives gives <a href="#/fn15" class="footnote-ref" id="fnref15" role="doc-noteref" onclick="return false;"><sup>15</sup></a><br>
 <span class="math inline">\(R_8 : \neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1}\)</span></li>
-<li class="fragment">Apply Modus Ponens with <span class="math inline">\(R_8\)</span> and the percept <span class="math inline">\(R_4\)</span> (i.e., <span class="math inline">\(\neg B_{1,1}\)</span>) to obtain <a href="#/fn15" class="footnote-ref" id="fnref15" role="doc-noteref" onclick="return false;"><sup>15</sup></a><br>
+<li class="fragment">Apply Modus Ponens with <span class="math inline">\(R_8\)</span> and the percept <span class="math inline">\(R_4\)</span> (i.e., <span class="math inline">\(\neg B_{1,1}\)</span>) to obtain <a href="#/fn16" class="footnote-ref" id="fnref16" role="doc-noteref" onclick="return false;"><sup>16</sup></a><br>
 <span class="math inline">\(R_9 : \neg (P_{1,2} \lor P_{2,1})\)</span></li>
-<li class="fragment">Apply De Morgan’s rule, giving the conclusion<a href="#/fn16" class="footnote-ref" id="fnref16" role="doc-noteref" onclick="return false;"><sup>16</sup></a><br>
+<li class="fragment">Apply De Morgan’s rule, giving the conclusion<a href="#/fn17" class="footnote-ref" id="fnref17" role="doc-noteref" onclick="return false;"><sup>17</sup></a><br>
 <span class="math inline">\(R_{10} : \neg P_{1,2} \land \neg P_{2,1}\)</span> <em>(neither <span class="math inline">\([1,2]\)</span> nor <span class="math inline">\([2,1]\)</span> contains a pit)</em></li>
 </ol>
 </div>
@@ -858,11 +859,11 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <ul>
 <li class="fragment">Rational agents require <strong>knowledge of their world</strong> to make rational decisions</li>
 <li class="fragment">With the help of a (knowledge) <strong>representation language</strong>, this knowledge is represented and stored in a <strong>knowledge base</strong> in the form of <strong>sentences</strong></li>
-<li class="fragment">A representation language is defined by its <strong>syntax<a href="#/fn17" class="footnote-ref" id="fnref17" role="doc-noteref" onclick="return false;"><sup>17</sup></a></strong> and its <strong>semantics<a href="#/fn18" class="footnote-ref" id="fnref18" role="doc-noteref" onclick="return false;"><sup>18</sup></a></strong></li>
+<li class="fragment">A representation language is defined by its <strong>syntax<a href="#/fn18" class="footnote-ref" id="fnref18" role="doc-noteref" onclick="return false;"><sup>18</sup></a></strong> and its <strong>semantics<a href="#/fn19" class="footnote-ref" id="fnref19" role="doc-noteref" onclick="return false;"><sup>19</sup></a></strong></li>
 <li class="fragment"><strong>Inference</strong> is the process of deriving new sentences from old ones</li>
 <li class="fragment"><strong>Propositional logic</strong> is a simple representation language consisting of propositions symbols and logical connectives</li>
-<li class="fragment">Solutions can be found by enumerating models (model-checking) or <strong>inference</strong> and <strong>proofs</strong> using inference rules<a href="#/fn19" class="footnote-ref" id="fnref19" role="doc-noteref" onclick="return false;"><sup>19</sup></a></li>
-<li class="fragment">Propositional logic does not scale to environments of unbounded size<a href="#/fn20" class="footnote-ref" id="fnref20" role="doc-noteref" onclick="return false;"><sup>20</sup></a></li>
+<li class="fragment">Solutions can be found by enumerating models (model-checking) or <strong>inference</strong> and <strong>proofs</strong> using inference rules<a href="#/fn20" class="footnote-ref" id="fnref20" role="doc-noteref" onclick="return false;"><sup>20</sup></a></li>
+<li class="fragment">Propositional logic does not scale to environments of unbounded size<a href="#/fn21" class="footnote-ref" id="fnref21" role="doc-noteref" onclick="return false;"><sup>21</sup></a></li>
 </ul>
 </div>
 <aside></aside></section>
@@ -977,46 +978,47 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 
 <ol>
 <li id="fn1" role="doc-endnote"><p>We label each sentence <span class="math inline">\(R_i\)</span> so that we can refer to them</p></li>
-<li id="fn2" role="doc-endnote"><p><span class="math inline">\(KB \models \alpha\)</span> menas that <span class="math inline">\(KB\)</span> does entail <span class="math inline">\(\alpha\)</span> (a sentence <span class="math inline">\(\alpha\)</span> follows logically from <span class="math inline">\(KB\)</span>)</p></li>
+<li id="fn2" role="doc-endnote"><p><span class="math inline">\(KB \models \alpha\)</span> means that <span class="math inline">\(KB\)</span> does entail <span class="math inline">\(\alpha\)</span> (a sentence <span class="math inline">\(\alpha\)</span> follows logically from <span class="math inline">\(KB\)</span>)</p></li>
 <li id="fn3" role="doc-endnote"><p>In mathematical notation, we write <span class="math inline">\(M(KB) \subseteq M(\alpha)\)</span></p></li>
-<li id="fn4" role="doc-endnote"><p>An alternative definition of equivalence is as follows: any two sentences <span class="math inline">\(\alpha\)</span> and $are equivalent if and only if each of them entails the other: <span class="math inline">\(\alpha \equiv \beta\)</span> if and only if <span class="math inline">\(\alpha \models \beta\)</span> and <span class="math inline">\(\beta \models \alpha\)</span></p></li>
-<li id="fn5" role="doc-endnote"><p>Note that <span class="math inline">\(\equiv\)</span> is used to make claims about sentences, while <span class="math inline">\(\iff\)</span> is used as part of a sentence</p></li>
-<li id="fn6" role="doc-endnote"><p>Valid sentences ar also known as <strong>tautologies</strong>, they are necessarily true</p></li>
-<li id="fn7" role="doc-endnote"><p>Thus, the theorem states that every valid implication sentence describes a legitimate inference</p></li>
-<li id="fn8" role="doc-endnote"><p>The knowledge database given earlier (<span class="math inline">\(R_1 \land R_2 \land R_3 \land R_4 \land R_5\)</span>) is satisfiable because there are thrree models in which it is true.</p></li>
-<li id="fn9" role="doc-endnote"><p><span class="math inline">\(\alpha\)</span> is valid iff <span class="math inline">\(\neg \alpha\)</span> is unsatisfiable; contrapositively, <span class="math inline">\(\alpha\)</span> is satisfiable iff <span class="math inline">\(\neg \alpha\)</span> is not valid.</p></li>
-<li id="fn10" role="doc-endnote"><p>One or two statements at the upper half of the inference rule imply the statement on the lower half</p></li>
-<li id="fn11" role="doc-endnote"><p>Latin for <em>mode that affirms</em></p></li>
-<li id="fn12" role="doc-endnote"><p><span class="math inline">\(R_6\)</span> can be infered as follows:<br>
+<li id="fn4" role="doc-endnote"><p>7 symbols ($B_{1,1}, B_{2,1}, P_{1,1}, P_{1,2}, P_{2,1}, P_{2,2}, P_{3,1}), two statuses each (true, false); models are assignments of <em>true</em> or <em>false</em> to every proposition symbol</p></li>
+<li id="fn5" role="doc-endnote"><p>An alternative definition of equivalence is as follows: any two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are equivalent if and only if each of them entails the other: <span class="math inline">\(\alpha \equiv \beta\)</span> if and only if <span class="math inline">\(\alpha \models \beta\)</span> and <span class="math inline">\(\beta \models \alpha\)</span></p></li>
+<li id="fn6" role="doc-endnote"><p>Note that <span class="math inline">\(\equiv\)</span> is used to make claims about sentences, while <span class="math inline">\(\iff\)</span> is used as part of a sentence</p></li>
+<li id="fn7" role="doc-endnote"><p>Valid sentences ar also known as <strong>tautologies</strong>, they are necessarily true</p></li>
+<li id="fn8" role="doc-endnote"><p>Thus, the theorem states that every valid implication sentence describes a legitimate inference</p></li>
+<li id="fn9" role="doc-endnote"><p>The knowledge database given earlier (<span class="math inline">\(R_1 \land R_2 \land R_3 \land R_4 \land R_5\)</span>) is satisfiable because there are thrree models in which it is true.</p></li>
+<li id="fn10" role="doc-endnote"><p><span class="math inline">\(\alpha\)</span> is valid iff <span class="math inline">\(\neg \alpha\)</span> is unsatisfiable; contrapositively, <span class="math inline">\(\alpha\)</span> is satisfiable iff <span class="math inline">\(\neg \alpha\)</span> is not valid.</p></li>
+<li id="fn11" role="doc-endnote"><p>One or two statements at the upper half of the inference rule imply the statement on the lower half</p></li>
+<li id="fn12" role="doc-endnote"><p>Latin for <em>mode that affirms</em></p></li>
+<li id="fn13" role="doc-endnote"><p><span class="math inline">\(R_6\)</span> can be infered as follows:<br>
 <span class="math inline">\(R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})\)</span><br>
 <span class="math inline">\(\alpha \equiv B_{1,1}\)</span><br>
 <span class="math inline">\(\beta \equiv (P_{1,2} \lor P_{2,1})\)</span><br>
 As <span class="math inline">\((\alpha \iff \beta) \equiv ((\alpha \implies \beta) \land (\beta \implies \alpha))\)</span> applies, <span class="math inline">\(R_6\)</span> can be inferred:<br>
 <span class="math inline">\(R_6 : B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span></p></li>
-<li id="fn13" role="doc-endnote"><p><span class="math inline">\(R_7\)</span> can be infered from <span class="math inline">\(R_6\)</span> as follows:<br>
+<li id="fn14" role="doc-endnote"><p><span class="math inline">\(R_7\)</span> can be infered from <span class="math inline">\(R_6\)</span> as follows:<br>
 <span class="math inline">\(\alpha \equiv B_{1,1} \implies (P_{1,2} \lor P_{2,1})\)</span><br>
 <span class="math inline">\(\beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span><br>
 As <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> (<em>And-Elimination</em>) applies, <span class="math inline">\(R_7\)</span> can be inferred:<br>
 <span class="math inline">\(R_7 : \beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span></p></li>
-<li id="fn14" role="doc-endnote"><p><span class="math inline">\(R_8\)</span> can be infered from <span class="math inline">\(R_7\)</span> as follows:<br>
+<li id="fn15" role="doc-endnote"><p><span class="math inline">\(R_8\)</span> can be infered from <span class="math inline">\(R_7\)</span> as follows:<br>
 <span class="math inline">\(\alpha \equiv (P_{1,2} \lor P_{2,1})\)</span><br>
 <span class="math inline">\(\beta \equiv B_{1,1}\)</span><br>
 As <span class="math inline">\(\alpha \implies \beta \equiv (\neg \beta \implies \neg \alpha)\)</span> applies, <span class="math inline">\(R_8\)</span> can be inferred:<br>
 <span class="math inline">\(R_8 : \neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1}\)</span></p></li>
-<li id="fn15" role="doc-endnote"><p><span class="math inline">\(R_9\)</span> can be infered from <span class="math inline">\(R_8\)</span> and <span class="math inline">\(R_4\)</span> as follows:<br>
+<li id="fn16" role="doc-endnote"><p><span class="math inline">\(R_9\)</span> can be infered from <span class="math inline">\(R_8\)</span> and <span class="math inline">\(R_4\)</span> as follows:<br>
 <span class="math inline">\(\alpha \equiv \neg B_{1,1}\)</span><br>
 <span class="math inline">\(\beta \equiv \neg (P_{1,2} \lor P_{2,1})\)</span><br>
 As <span class="math inline">\(\frac{\alpha \implies \beta, \ \alpha}{\beta}\)</span> applies and <span class="math inline">\(R_4 : B_{1_1}\)</span> is given, <span class="math inline">\(R_8\)</span> can be inferred:<br>
 <span class="math inline">\(R_8 : \beta \equiv \neg (P_{1,2} \lor P_{2,1})\)</span></p></li>
-<li id="fn16" role="doc-endnote"><p><span class="math inline">\(R_10\)</span> can be infered from <span class="math inline">\(R_9\)</span> as follows:<br>
+<li id="fn17" role="doc-endnote"><p><span class="math inline">\(R_10\)</span> can be infered from <span class="math inline">\(R_9\)</span> as follows:<br>
 <span class="math inline">\(\alpha \equiv P_{1,2}\)</span><br>
 <span class="math inline">\(\beta \equiv P_{2,1}\)</span><br>
 As <span class="math inline">\(\neg(\alpha \lor \beta) \equiv (\neg \alpha \land \neg \beta)\)</span> applies, <span class="math inline">\(R_10\)</span> can be inferred:<br>
 <span class="math inline">\(R_8 : \neg P_{1,2} \land \neg P_{2,1}\)</span></p></li>
-<li id="fn17" role="doc-endnote"><p>Specifies the structure of <strong>sentences</strong></p></li>
-<li id="fn18" role="doc-endnote"><p>Defines the <strong>truth</strong> of each sentence in each <strong>possible world</strong> or <strong>model</strong></p></li>
-<li id="fn19" role="doc-endnote"><p>Search algorithms can be used to find solutions</p></li>
-<li id="fn20" role="doc-endnote"><p>Propositional logic lacks the expressive power to deal concisely with time, space, and universal patterns of relationships among objects.</p></li>
+<li id="fn18" role="doc-endnote"><p>Specifies the structure of <strong>sentences</strong></p></li>
+<li id="fn19" role="doc-endnote"><p>Defines the <strong>truth</strong> of each sentence in each <strong>possible world</strong> or <strong>model</strong></p></li>
+<li id="fn20" role="doc-endnote"><p>Search algorithms can be used to find solutions</p></li>
+<li id="fn21" role="doc-endnote"><p>Propositional logic lacks the expressive power to deal concisely with time, space, and universal patterns of relationships among objects.</p></li>
 </ol>
 </section>
     </div>
