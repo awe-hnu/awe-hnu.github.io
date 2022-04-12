@@ -90,9 +90,9 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 - The __state space:__ a set of possible states[^1] the environment can be in[^2]
 - The __initial state:__ the state that the agent starts
 - The __goal state(s):__ a state that the agent is trying to reach[^3]
-- A __transition model:__ returns the state that results from doing action `a` in state `s` (`RESULT(s,a)`)
-- The __sucessor function:__ returns a set of (action, state) pairs for node `s`, where the state is the state reachable by taking the action `a` (`ACTIONS(s)`)
-- An __action cost function:__ gives the numeric cost of applying action `a` in state `s` to reach state `s'` (`ACTION-COST(s,a,s'`)
+- A __transition model:__ returns the state that results from doing action $a$ in state $s$ ($RESULT(s,a)$)
+- The __sucessor function:__ returns a set of (action, state) pairs for node $s$, where the state is the state reachable by taking the action $a$ ($ACTIONS(s)$)
+- An __action cost function:__ gives the numeric cost of applying action $a$ in state $s$ to reach state $s'$ ($ACTION-COST(s,a,s'$)
 - A __path:__ a sequence of actions
 - A __solution:__ a path from the initial state to the goal state
 :::
@@ -110,7 +110,7 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 
 - State space: cities (vertices, each state occurs only once)
 - Initial state: Arad
-- Goal state: Bucharest (goal test: `Is state == Bucharest?`)
+- Goal state: Bucharest (goal test: $Is state == Bucharest?$)
 - Actions: directed edges between the vertices (paths)
 - Action costs: numbers on the paths
 
@@ -133,11 +133,11 @@ The choice of a good abstraction involves removing as much detail as possible wh
 ::: {.notes}
 @fig-search-tree visualizes a partial search tree: the first few steps in finding a path from Arad (initial state) to Bucharest (goal). 
 
-- The __root node__ of the search tree is the initial state `s` *(Arad)*
-- The available actions considerd using `ACTIONS(s)`
-- New nodes, called __child nodes__ or __successor nodes__ are generated using `RESULT(s,a)` (i.e., the root node is __expanded__)
+- The __root node__ of the search tree is the initial state $s$ *(Arad)*
+- The available actions considerd using $ACTIONS(s)$
+- New nodes, called __child nodes__ or __successor nodes__ are generated using $RESULT(s,a)$ (i.e., the root node is __expanded__)
 - Each child node has *Arad* as its __parent node__
-- The child node to be considered next is selected by the minimum value of some __evaluation function__ `f(n)` (__strategies__ see below)
+- The child node to be considered next is selected by the minimum value of some __evaluation function__ $f(n)$ (__strategies__ see below)
 
  In @fig-search-tree, nodes that have been expanded are white with bold letters; nodes on the __frontier__ that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been __reached__. Nodes that could be generated next are shown in faint dashed lines.
 
@@ -155,10 +155,10 @@ There are lots of repeated structure in the search tree. Thus, for most problems
 
 Search algorithms require a data structure to keep track of the __search tree__. A node in the tree is represented by a data structure with four components [@RusselNorvig2022AIMA, p. 91]:
 
-- `node.STATE`: the state to which the node corresponds
-- `node.PARENT`: the node in the tree that generated this node
-- `node.ACTION`: the action that was applied to the parent's state to generate this node
-- `node.PATH-COST`: the total cost of the path from the initial state to generate this node
+- $node.STATE$: the state to which the node corresponds
+- $node.PARENT$: the node in the tree that generated this node
+- $node.ACTION$: the action that was applied to the parent's state to generate this node
+- $node.PATH-COST$: the total cost of the path from the initial state to generate this node
 
 Following the PARENT pointers back from a node allows to revocer the states and actions along the path to that node. Doing this from a goal node generates the solution.
 
@@ -196,12 +196,12 @@ var searchTree = {
 
 :::
 
-In addition, a data structure to store the __fontier__ is neded. Usually this is realized using a __queue__ with following functions  [@RusselNorvig2022AIMA, p. 91]:
+In addition, a data structure to store the __fontier__ is neded. Usually this is realized using a __queue__ with following functions [@RusselNorvig2022AIMA, p. 91]:
 
-- `IS-EMPTY(frontier)`: returns true only if there are no nodes in the frontier
-- `POP(frontier)`: removes the top node from the frontier and returns it
-- `TOP(frontier)`: returns (but does not remove) the top node from the frontier
-- `ADD(node,frontier)`: inserts node into its proper place in the queue
+- $IS-EMPTY(frontier)$: returns true only if there are no nodes in the frontier
+- $POP(frontier)$: removes the top node from the frontier and returns it
+- $TOP(frontier)$: returns (but does not remove) the top node from the frontier
+- $ADD(node,frontier)$: inserts node into its proper place in the queue
 
 
 :::
@@ -236,7 +236,7 @@ They can implement
 ### Breadth-first search
 
 expands the shallowest nodes first;   
-`f(n)` is the depth of the node
+$f(n)$ is the depth of the node
 
   - complete, optimal for unit action costs
   - exponential space complexity
@@ -246,7 +246,7 @@ expands the shallowest nodes first;
 ### Depth-first search
 
 expands the deepest unexpanded node first;   
-`f(n)` is the negative of the depth
+$f(n)$ is the negative of the depth
 
   - neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal
   - linear space complexity, a depth bound can be added
@@ -256,12 +256,12 @@ expands the deepest unexpanded node first;
 ### Uniform-cost search
 
 expands the node with the lowest path costs;   
-`f(n)` returns the cost of the path from the root to the current node
+$f(n)$ returns the cost of the path from the root to the current node
 
   - complete, optimal for general action costs
   - __priority queue[^6]__ using cumulative cost  
 
-[^6]:first pops the node with the minimum costs according to `f(n)`
+[^6]:first pops the node with the minimum costs according to $f(n)$
 [^4]:first-in-first-out queue first pops the node that was added to the queue first 
 [^5]:last-in-first-out queue (also known as a stack) pops first the most recently added node
 
@@ -273,13 +273,13 @@ expands the node with the lowest path costs;
 
 #### General Process
 
-1. Add the start node to the frontier using `ADD(node,frontier)`
-2. Get the top node from the frontier using `POP(frontier)`
-3. Get all the actions avaible for the top node via `ACTIONS(s)`
-4. Get the child nodes for the retreived actions via `RESULT(s,a)`
+1. Add the start node to the frontier using $ADD(node,frontier)$
+2. Get the top node from the frontier using $POP(frontier)$
+3. Get all the actions avaible for the top node via $ACTIONS(s)$
+4. Get the child nodes for the retreived actions via $RESULT(s,a)$
 5. Check if one child nodes is a goal state; if yes return the search tree; if not go ahead
-6. Add the child nodes to the frontier `ADD(node,frontier)`
-7. Repeat steps 2 to 6 as long as no solution is found and `IS-EMPTY(frontier)` is not true 
+6. Add the child nodes to the frontier $ADD(node,frontier)$
+7. Repeat steps 2 to 6 as long as no solution is found and $IS-EMPTY(frontier)$ is not true 
 
 #### Example
 
@@ -408,24 +408,24 @@ Informed (heuristic) search strategies use domain-specific hints about the locai
 
 These strategies can find solutions __more efficiently__ than uninformed strategies.
 
-The hints are generated by a __heuristic function__ `h(n)`
+The hints are generated by a __heuristic function__ $h(n)$
 
 ### Greedy best-first search [@RusselNorvig2022AIMA, p. 103ff]
 
-The Greedy best-first search uses the evlation function `f(n) = h(n)` 
+The Greedy best-first search uses the evlation function $f(n) = h(n)$ 
 
-It expands the first node with the lowest `h(n)` value in the queue. 
+It expands the first node with the lowest $h(n)$ value in the queue. 
 
-In route finding problems, the straight-line distance heuristic is used as `h(n)`.
+In route finding problems, the straight-line distance heuristic is used as $h(n)$.
 
 Greedy best-first graph search is complete in finite state spaces, but not in infinite ones.
 
 ### A* Search [@RusselNorvig2022AIMA, p. 103ff]
 
-The A* search (pronounced "A-star search") uses the evaluation function `f(n) = g(n) + h(n)`
+The A* search (pronounced "A-star search") uses the evaluation function $f(n) = g(n) + h(n)$
 
-- `g(n)` is the path cost from the initial state to node `n` (e.g., computed by using the action-cost function)
-- `h(n)` is the *estimated cost* of the shortes path from `n` to a goal state
+- $g(n)$ is the path cost from the initial state to node $n$ (e.g., computed by using the action-cost function)
+- $h(n)$ is the *estimated cost* of the shortes path from $n$ to a goal state
 
 A* search is complete, if it is cost-optimal depends on the heuristic
 

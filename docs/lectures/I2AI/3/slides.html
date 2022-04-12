@@ -497,9 +497,9 @@
 <li class="fragment">The <strong>state space:</strong> a set of possible states<a href="#/fn1" class="footnote-ref" id="fnref1" role="doc-noteref" onclick="return false;"><sup>1</sup></a> the environment can be in<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a></li>
 <li class="fragment">The <strong>initial state:</strong> the state that the agent starts</li>
 <li class="fragment">The <strong>goal state(s):</strong> a state that the agent is trying to reach<a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a></li>
-<li class="fragment">A <strong>transition model:</strong> returns the state that results from doing action <code>a</code> in state <code>s</code> (<code>RESULT(s,a)</code>)</li>
-<li class="fragment">The <strong>sucessor function:</strong> returns a set of (action, state) pairs for node <code>s</code>, where the state is the state reachable by taking the action <code>a</code> (<code>ACTIONS(s)</code>)</li>
-<li class="fragment">An <strong>action cost function:</strong> gives the numeric cost of applying action <code>a</code> in state <code>s</code> to reach state <code>s'</code> (<code>ACTION-COST(s,a,s'</code>)</li>
+<li class="fragment">A <strong>transition model:</strong> returns the state that results from doing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> (<span class="math inline">\(RESULT(s,a)\)</span>)</li>
+<li class="fragment">The <strong>sucessor function:</strong> returns a set of (action, state) pairs for node <span class="math inline">\(s\)</span>, where the state is the state reachable by taking the action <span class="math inline">\(a\)</span> (<span class="math inline">\(ACTIONS(s)\)</span>)</li>
+<li class="fragment">An <strong>action cost function:</strong> gives the numeric cost of applying action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span> (<span class="math inline">\(ACTION-COST(s,a,s'\)</span>)</li>
 <li class="fragment">A <strong>path:</strong> a sequence of actions</li>
 <li class="fragment">A <strong>solution:</strong> a path from the initial state to the goal state</li>
 </ul>
@@ -519,7 +519,7 @@
 <ul>
 <li>State space: cities (vertices, each state occurs only once)</li>
 <li>Initial state: Arad</li>
-<li>Goal state: Bucharest (goal test: <code>Is state == Bucharest?</code>)</li>
+<li>Goal state: Bucharest (goal test: <span class="math inline">\(Is state == Bucharest?\)</span>)</li>
 <li>Actions: directed edges between the vertices (paths)</li>
 <li>Action costs: numbers on the paths</li>
 </ul>
@@ -556,11 +556,11 @@
 <aside><div>
 <p><a href="#/fig-search-tree">Figure&nbsp;2</a> visualizes a partial search tree: the first few steps in finding a path from Arad (initial state) to Bucharest (goal).</p>
 <ul>
-<li>The <strong>root node</strong> of the search tree is the initial state <code>s</code> <em>(Arad)</em></li>
-<li>The available actions considerd using <code>ACTIONS(s)</code></li>
-<li>New nodes, called <strong>child nodes</strong> or <strong>successor nodes</strong> are generated using <code>RESULT(s,a)</code> (i.e., the root node is <strong>expanded</strong>)</li>
+<li>The <strong>root node</strong> of the search tree is the initial state <span class="math inline">\(s\)</span> <em>(Arad)</em></li>
+<li>The available actions considerd using <span class="math inline">\(ACTIONS(s)\)</span></li>
+<li>New nodes, called <strong>child nodes</strong> or <strong>successor nodes</strong> are generated using <span class="math inline">\(RESULT(s,a)\)</span> (i.e., the root node is <strong>expanded</strong>)</li>
 <li>Each child node has <em>Arad</em> as its <strong>parent node</strong></li>
-<li>The child node to be considered next is selected by the minimum value of some <strong>evaluation function</strong> <code>f(n)</code> (<strong>strategies</strong> see below)</li>
+<li>The child node to be considered next is selected by the minimum value of some <strong>evaluation function</strong> <span class="math inline">\(f(n)\)</span> (<strong>strategies</strong> see below)</li>
 </ul>
 <p>In <a href="#/fig-search-tree">Figure&nbsp;2</a>, nodes that have been expanded are white with bold letters; nodes on the <strong>frontier</strong> that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been <strong>reached</strong>. Nodes that could be generated next are shown in faint dashed lines.</p>
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -584,10 +584,10 @@
 </div>
 <p>Search algorithms require a data structure to keep track of the <strong>search tree</strong>. A node in the tree is represented by a data structure with four components <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 91</a>)</span>:</p>
 <ul>
-<li><code>node.STATE</code>: the state to which the node corresponds</li>
-<li><code>node.PARENT</code>: the node in the tree that generated this node</li>
-<li><code>node.ACTION</code>: the action that was applied to the parent’s state to generate this node</li>
-<li><code>node.PATH-COST</code>: the total cost of the path from the initial state to generate this node</li>
+<li><span class="math inline">\(node.STATE\)</span>: the state to which the node corresponds</li>
+<li><span class="math inline">\(node.PARENT\)</span>: the node in the tree that generated this node</li>
+<li><span class="math inline">\(node.ACTION\)</span>: the action that was applied to the parent’s state to generate this node</li>
+<li><span class="math inline">\(node.PATH-COST\)</span>: the total cost of the path from the initial state to generate this node</li>
 </ul>
 <p>Following the PARENT pointers back from a node allows to revocer the states and actions along the path to that node. Doing this from a goal node generates the solution.</p>
 <div class="small">
@@ -621,10 +621,10 @@
 </div>
 <p>In addition, a data structure to store the <strong>fontier</strong> is neded. Usually this is realized using a <strong>queue</strong> with following functions <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 91</a>)</span>:</p>
 <ul>
-<li><code>IS-EMPTY(frontier)</code>: returns true only if there are no nodes in the frontier</li>
-<li><code>POP(frontier)</code>: removes the top node from the frontier and returns it</li>
-<li><code>TOP(frontier)</code>: returns (but does not remove) the top node from the frontier</li>
-<li><code>ADD(node,frontier)</code>: inserts node into its proper place in the queue</li>
+<li><span class="math inline">\(IS-EMPTY(frontier)\)</span>: returns true only if there are no nodes in the frontier</li>
+<li><span class="math inline">\(POP(frontier)\)</span>: removes the top node from the frontier and returns it</li>
+<li><span class="math inline">\(TOP(frontier)\)</span>: returns (but does not remove) the top node from the frontier</li>
+<li><span class="math inline">\(ADD(node,frontier)\)</span>: inserts node into its proper place in the queue</li>
 </ul>
 </div></aside></section></section>
 <section>
@@ -664,7 +664,7 @@
 <aside><div>
 <h3 id="breadth-first-search">Breadth-first search</h3>
 <p>expands the shallowest nodes first;<br>
-<code>f(n)</code> is the depth of the node</p>
+<span class="math inline">\(f(n)\)</span> is the depth of the node</p>
 <ul>
 <li>complete, optimal for unit action costs</li>
 <li>exponential space complexity</li>
@@ -673,7 +673,7 @@
 </ul>
 <h3 id="depth-first-search">Depth-first search</h3>
 <p>expands the deepest unexpanded node first;<br>
-<code>f(n)</code> is the negative of the depth</p>
+<span class="math inline">\(f(n)\)</span> is the negative of the depth</p>
 <ul>
 <li>neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal</li>
 <li>linear space complexity, a depth bound can be added</li>
@@ -682,7 +682,7 @@
 </ul>
 <h3 id="uniform-cost-search">Uniform-cost search</h3>
 <p>expands the node with the lowest path costs;<br>
-<code>f(n)</code> returns the cost of the path from the root to the current node</p>
+<span class="math inline">\(f(n)\)</span> returns the cost of the path from the root to the current node</p>
 <ul>
 <li>complete, optimal for general action costs</li>
 <li><strong>priority queue<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></strong> using cumulative cost</li>
@@ -694,13 +694,13 @@
 <div id="tabset-1-1">
 <h4 id="general-process">General Process</h4>
 <ol type="1">
-<li>Add the start node to the frontier using <code>ADD(node,frontier)</code></li>
-<li>Get the top node from the frontier using <code>POP(frontier)</code></li>
-<li>Get all the actions avaible for the top node via <code>ACTIONS(s)</code></li>
-<li>Get the child nodes for the retreived actions via <code>RESULT(s,a)</code></li>
+<li>Add the start node to the frontier using <span class="math inline">\(ADD(node,frontier)\)</span></li>
+<li>Get the top node from the frontier using <span class="math inline">\(POP(frontier)\)</span></li>
+<li>Get all the actions avaible for the top node via <span class="math inline">\(ACTIONS(s)\)</span></li>
+<li>Get the child nodes for the retreived actions via <span class="math inline">\(RESULT(s,a)\)</span></li>
 <li>Check if one child nodes is a goal state; if yes return the search tree; if not go ahead</li>
-<li>Add the child nodes to the frontier <code>ADD(node,frontier)</code></li>
-<li>Repeat steps 2 to 6 as long as no solution is found and <code>IS-EMPTY(frontier)</code> is not true</li>
+<li>Add the child nodes to the frontier <span class="math inline">\(ADD(node,frontier)\)</span></li>
+<li>Repeat steps 2 to 6 as long as no solution is found and <span class="math inline">\(IS-EMPTY(frontier)\)</span> is not true</li>
 </ol>
 <h4 id="example">Example</h4>
 <p>Example using the tree depicted in <a href="#/fig-search-tree">Figure&nbsp;2</a>, assuming that the goal is not included:</p>
@@ -917,7 +917,7 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <li id="fn3" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</p></li>
 <li id="fn4" role="doc-endnote"><p>first-in-first-out queue first pops the node that was added to the queue first</p></li>
 <li id="fn5" role="doc-endnote"><p>last-in-first-out queue (also known as a stack) pops first the most recently added node</p></li>
-<li id="fn6" role="doc-endnote"><p>first pops the node with the minimum costs according to <code>f(n)</code></p></li>
+<li id="fn6" role="doc-endnote"><p>first pops the node with the minimum costs according to <span class="math inline">\(f(n)\)</span></p></li>
 </ol>
 </section>
     </div>

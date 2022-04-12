@@ -383,18 +383,18 @@
 <p><strong>Possible formalization</strong></p>
 <div>
 <ul>
-<li class="fragment"><strong>States</strong>: <code>S</code> (start at <code>S₀</code>)</li>
-<li class="fragment"><strong>Player</strong>: <code>TO-MOVE(s)</code> (defines which player has the move in state <code>s</code>)</li>
-<li class="fragment"><strong>Actions</strong>: <code>ACTIONS(s)</code> (the set of legal moves in state <code>s</code>)</li>
-<li class="fragment"><strong>Transition model</strong>: <code>RESULT(s,a)</code> (defines the state resulting from action <code>a</code> in state <code>s</code>)</li>
-<li class="fragment"><strong>Terminal test</strong>: <code>IS-TERMINAL(s)</code> (is true when the game is over<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>)</li>
-<li class="fragment"><strong>Utility function</strong>: <code>UTILITY(s,p)</code> (defines the final numeric value to player <code>p</code> when the game ends in terminal state <code>s</code>)</li>
+<li class="fragment"><strong>States</strong>: <span class="math inline">\(S\)</span> (start at <span class="math inline">\(S_0\)</span>)</li>
+<li class="fragment"><strong>Player</strong>: <span class="math inline">\(TO-MOVE(s)\)</span> (defines which player has the move in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Actions</strong>: <span class="math inline">\(ACTIONS(s)\)</span> (the set of legal moves in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Transition model</strong>: <span class="math inline">\(RESULT(s,a)\)</span> (defines the state resulting from action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Terminal test</strong>: <span class="math inline">\(IS-TERMINAL(s)\)</span> (is true when the game is over<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>)</li>
+<li class="fragment"><strong>Utility function</strong>: <span class="math inline">\(UTILITY(s,p)\)</span> (defines the final numeric value to player <span class="math inline">\(p\)</span> when the game ends in terminal state <span class="math inline">\(s\)</span>)</li>
 </ul>
 </div>
 </div>
 
 <aside><div>
-<p>The initial state, <code>ACTIONS</code> function, and <code>RESULT</code> function define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
+<p>The initial state, <span class="math inline">\(ACTIONS(s)\)</span>, and <span class="math inline">\(RESULT(s,a)\)</span> define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
 </div></aside></section>
 <section id="optimal-decisions" class="slide level2">
 <h2>Optimal decisions</h2>
@@ -437,7 +437,7 @@
 </div>
 
 <aside><div>
-<p>The △ nodes are “<em>MAX</em> nodes”, in which it is <em>MAX’s</em> turn to move; the ▽ nodes are “<em>MIN</em> nodes”. <em>MAX’s</em> best move at the root is α₁ (highest minimax value), <em>MIN’s</em> best move is β₁ (lowest minimax value).</p>
+<p>The △ nodes are “<em>MAX</em> nodes”, in which it is <em>MAX’s</em> turn to move; the ▽ nodes are “<em>MIN</em> nodes”. <em>MAX’s</em> best move at the root is α₁ (the highest minimax value), <em>MIN’s</em> best move is β₁ (the lowest minimax value).</p>
 </div></aside></section>
 <section id="minimax-search-algorithm" class="slide level2">
 <h2>Minimax search algorithm</h2>
@@ -445,12 +445,12 @@
 <div>
 <ul>
 <li class="fragment">Assumes that the adversary plays optimal</li>
-<li class="fragment">Returns action whose terminal state has the optimal <code>MINIMAX</code> value
+<li class="fragment">Returns action whose terminal state has the optimal <span class="math inline">\(MINIMAX\)</span> value
 <ul>
-<li class="fragment">If the state is a terminal state (<code>IS-TERMINAL(s) = true</code>):<br>
-return the state’s utility (<code>UTILITY(s,p)</code>)</li>
-<li class="fragment">If the next agent is <code>MAX</code> (<code>TO-MOVE(s) = MAX</code>): return <code>MAX-VALUE(s)</code></li>
-<li class="fragment">If the next agent is <code>MIN</code> (<code>TO-MOVE(s) = MIN</code>): return <code>MIN-VALUE(s)</code></li>
+<li class="fragment">If the state is a terminal state (<span class="math inline">\(IS-TERMINAL(s) = true\)</span>):<br>
+return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)</li>
+<li class="fragment">If the next agent is <span class="math inline">\(MAX\)</span> (<span class="math inline">\(TO-MOVE(s) = MAX\)</span>): return <span class="math inline">\(MAX-VALUE(s)\)</span></li>
+<li class="fragment">If the next agent is <span class="math inline">\(MIN\)</span> (<span class="math inline">\(TO-MOVE(s) = MIN\)</span>): return <span class="math inline">\(MIN-VALUE(s)\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -689,7 +689,7 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <li id="fn3" role="doc-endnote"><p>The search tree consists of <em>AND nodes</em> and <em>OR nodes</em>. AND nodes reflect the environment’s choice of action (which all need to be considers), OR nodes the agent’s own choices in each state (where only one needs to be considered). AND and OR nodes alternate. A solution is a conditional plan that considers every nondeterministic outcome and makes a plan for each one.</p></li>
 <li id="fn4" role="doc-endnote"><p>guided by the <strong>selection policy</strong></p></li>
 <li id="fn5" role="doc-endnote"><p>For games with binary outcomes, <strong>average utility</strong> equals <em>win percentage</em></p></li>
-<li id="fn6" role="doc-endnote"><p>A heuristic evaluation function returns an estimate of the expected utility of state <code>s</code> to player <code>p</code>.</p></li>
+<li id="fn6" role="doc-endnote"><p>A heuristic evaluation function returns an estimate of the expected utility of state <span class="math inline">\(s\)</span> to player <span class="math inline">\(p\)</span>.</p></li>
 <li id="fn7" role="doc-endnote"><p>Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)</p></li>
 </ol>
 </section>

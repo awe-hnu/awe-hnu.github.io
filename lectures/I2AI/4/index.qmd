@@ -46,12 +46,12 @@ The games most commonly studied within AI are deterministic *(two-player, turn-t
 __Possible formalization__
 
 ::: {.incremental}
-- __States__: `S` (start at `S₀`)
-- __Player__: `TO-MOVE(s)` (defines which player has the move in state `s`)
-- __Actions__: `ACTIONS(s)` (the set of legal moves in state `s`)
-- __Transition model__: `RESULT(s,a)` (defines the state resulting from action `a` in state `s`)
-- __Terminal test__: `IS-TERMINAL(s)` (is true when the game is over[^2])
-- __Utility function__: `UTILITY(s,p)` (defines the final numeric value to player `p` when the game ends in terminal state `s`)
+- __States__: $S$ (start at $S_0$)
+- __Player__: $TO-MOVE(s)$ (defines which player has the move in state $s$)
+- __Actions__: $ACTIONS(s)$ (the set of legal moves in state $s$)
+- __Transition model__: $RESULT(s,a)$ (defines the state resulting from action $a$ in state $s$)
+- __Terminal test__: $IS-TERMINAL(s)$ (is true when the game is over[^2])
+- __Utility function__: $UTILITY(s,p)$ (defines the final numeric value to player $p$ when the game ends in terminal state $s$)
 :::
 
 [^2]: States where the game has ended are called __terminal states__
@@ -59,7 +59,7 @@ __Possible formalization__
 :::
 
 ::: {.notes}
-The initial state, `ACTIONS` function, and `RESULT` function define the __state space graph__, where the vertices are states, the edges are moves and the state might be reached by multiple paths.
+The initial state, $ACTIONS(s)$, and $RESULT(s,a)$ define the __state space graph__, where the vertices are states, the edges are moves and the state might be reached by multiple paths.
 :::
 
 ## Optimal decisions
@@ -95,7 +95,7 @@ The minimax value is the best achievable utility of being in a given sate (again
 ![Example: A adversarial game tree; based on @RusselNorvig2022AIMA [p.195]](images/adversarial-game-tree.svg){#fig-adversarial-game-tree}
 
 ::: {.notes}
-The △ nodes are "*MAX* nodes", in which it is *MAX's* turn to move; the ▽ nodes are "*MIN* nodes". *MAX's* best move at the root is α₁ (highest minimax value), *MIN's* best move is β₁ (lowest minimax value).
+The △ nodes are "*MAX* nodes", in which it is *MAX's* turn to move; the ▽ nodes are "*MIN* nodes". *MAX's* best move at the root is α₁ (the highest minimax value), *MIN's* best move is β₁ (the lowest minimax value).
 :::
 
 ## Minimax search algorithm
@@ -104,11 +104,11 @@ The __minimax algorithm__ performs a complete depth-first exploration of the gam
 
 :::{.incremental}
 - Assumes that the adversary plays optimal
-- Returns action whose terminal state has the optimal `MINIMAX` value
-  - If the state is a terminal state (`IS-TERMINAL(s) = true`):  
-    return the state’s utility (`UTILITY(s,p)`)
-  - If the next agent is `MAX` (`TO-MOVE(s) = MAX`): return `MAX-VALUE(s)`
-  - If the next agent is `MIN` (`TO-MOVE(s) = MIN`): return `MIN-VALUE(s)`
+- Returns action whose terminal state has the optimal $MINIMAX$ value
+  - If the state is a terminal state ($IS-TERMINAL(s) = true$):  
+    return the state’s utility ($UTILITY(s,p)$)
+  - If the next agent is $MAX$ ($TO-MOVE(s) = MAX$): return $MAX-VALUE(s)$
+  - If the next agent is $MIN$ ($TO-MOVE(s) = MIN$): return $MIN-VALUE(s)$
 :::
 
 :::{.fragment}
@@ -218,7 +218,7 @@ With $C=1.4$, the 60/79 node in @fig-mcts-selection has the highest UCB1 score, 
 The conventional wisdom has been that Monte Carlo search has an advantage over Heuristic Alpha-Beta Tree Search (not discussed here, see [@RusselNorvig2022AIMA, p. 202ff]) for games where the branching factor is very high (and thus alpha-beta can't search deep enough), or when it is difficult to define a good evaluation function [^6].
 :::
 
-[^6]: A heuristic evaluation function returns an estimate of the expected utility of state `s` to player `p`.
+[^6]: A heuristic evaluation function returns an estimate of the expected utility of state $s$ to player $p$.
 
 :::
 
