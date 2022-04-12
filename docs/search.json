@@ -4624,7 +4624,7 @@
     "href": "lectures/I2AI/5/index.html#think-rationally",
     "title": "Logical agents",
     "section": "Think rationally",
-    "text": "Think rationally\nUntil now, the focus has been on agents that act rationally. Often, however, rational action requires rational (logical) thought on the agent’s part.\n\nTo this end, relevant aspects of the environment must be represented in a knowledge base (KB), composed of sentences in knowledge reprensentation language (e.g., logic)\n\n\nEach sentences represents some assertion about the world (semantics)\nThe sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (syntax)\nInteraction with the KB through \\(ASK\\) and \\(TELL\\) operations (simplified)\n\n\\(ASK\\): asks the KB what action it should perform\n\\(TELL\\): tells the knowledge base what it perceives\n\n\n\n\n\n\n\n\n\n\nTypes of sentences\n\n\n\n\nAxioms: a sentence is taken as being given without being derived from other sentences\nInference: a sentence is derived from old sentence\n\n\n\n\nLevels of knowledge representation\nThree levels of knowledge representation can be distinguished (Newell 1982):\n\nThe knowledge level concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information system knows that a trip from Ulm to Stuttgart costs EUR 25.\nAt the logical level knowledge is encoded in a formal language; e.g., \\(price(Ulm, Stuttgart, 25.00)\\)\nAt the implementation level the knowledge is represented as sentences; e.g.,\n\nas a string “Price(Freiburg, Basel, 18.00)”\nas a value in a matrix"
+    "text": "Think rationally\nUntil now, the focus has been on agents that act rationally. Often, however, rational action requires rational (logical) thought on the agent’s part.\n\nTo this end, relevant aspects of the environment must be represented in a knowledge base (KB), composed of sentences in knowledge reprensentation language (e.g., logic)\n\n\nEach sentence represents some assertion about the world (semantics)\nThe sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (syntax)\nInteraction with the KB through \\(ASK\\) and \\(TELL\\) operations (simplified)\n\n\\(ASK\\): asks the KB what action it should perform\n\\(TELL\\): tells the knowledge base what it perceives\n\n\n\n\n\n\n\n\n\n\nTypes of sentences\n\n\n\n\nAxioms: a sentence is taken as being given without being derived from other sentences\nInference: a sentence is derived from old sentence\n\n\n\n\nLevels of knowledge representation\nThree levels of knowledge representation can be distinguished (Newell 1982):\n\nThe knowledge level concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information system knows that a trip from Ulm to Stuttgart costs EUR 25.\nAt the logical level knowledge is encoded in a formal language; e.g., \\(price(Ulm, Stuttgart, 25.00)\\)\nAt the implementation level the knowledge is represented as sentences; e.g.,\n\nas a string “Price(Freiburg, Basel, 18.00)”\nas a value in a matrix"
   },
   {
     "objectID": "lectures/I2AI/5/slides.html#think-rationally",
@@ -4876,7 +4876,7 @@
     "href": "lectures/I2AI/5/index.html#peas",
     "title": "Logical agents",
     "section": "PEAS",
-    "text": "PEAS\n\nPerformance measure\n\n+1,000 for finding the gold\n-1,000 for dying (falling into a pit or being eaten by the wumpus)\n-1 for each action taken\n-10 for using the arrow\nThe game ends either when the agents dies or finds the gold\n\n\n\n\nEnvironment\n\n4 x 4 grid with walls surrounding the grid\nThe agent always starts in \\([1,1]\\)\nThe locations of gold and wumpus are chosen randomly (other than \\([1,1]\\))\nEach square other than \\([1,1]\\) can be a pit, with probability .2\nThere is a ladder to leave the cave in square \\([1,1]\\)\n\n\n\n\nActuators\n\nMove (Go forward, turn right by 90°, turn left by 90°)\nGrab (pick up an object in the same square)\nShoot (there is only one arrow)\nLeave the cave (only works in square \\([1,1]\\)).\n\n\n\n\nSensors\n\nIn the square containing the wumpus and in the directly adjacent squares, the agent perceives a stench\nIn the squares adjacent to a pit, the agent perceives a breeze\nIn the square where the gold is, the agent perceives a glitter\nWhen the agent walks into a wall, it perceives a bump\nWhen the wumpus is killed, its scream is heard everywhere\n\nPercepts are represented as a 5-tuple, e.g.,\n\\([Stench, Breeze, Glitter, None, None]\\)\n\nThe PEAS can be characterized as deterministic, discrete, static, and single-agent"
+    "text": "PEAS\n\nPerformance measure\n\n+1,000 for finding the gold\n-1,000 for dying (falling into a pit or being eaten by the wumpus)\n-1 for each action taken\n-10 for using the arrow\nThe game ends either when the agents dies or finds the gold\n\n\n\n\nEnvironment\n\n4 x 4 grid with walls surrounding the grid\nThe agent always starts in \\([1,1]\\)\nThe locations of gold and wumpus are chosen randomly (other than \\([1,1]\\))\nEach square other than \\([1,1]\\) can be a pit, with probability .2\nThere is a ladder to leave the cave in square \\([1,1]\\)\n\n\n\n\nActuators\n\nMove (Go forward, turn right by 90°, turn left by 90°)\nGrab (pick up an object in the same square)\nShoot (there is only one arrow)\nLeave the cave (only works in square \\([1,1]\\))\n\n\n\n\nSensors\n\nIn the square containing the wumpus and in the directly adjacent squares, the agent perceives a stench\nIn the squares adjacent to a pit, the agent perceives a breeze\nIn the square where the gold is, the agent perceives a glitter\nWhen the agent walks into a wall, it perceives a bump\nWhen the wumpus is killed, its scream is heard everywhere\n\nPercepts are represented as a 5-tuple, e.g.,\n\\([Stench, Breeze, Glitter, None, None]\\)\n\nThe PEAS can be characterized as deterministic, discrete, static, and single-agent"
   },
   {
     "objectID": "lectures/I2AI/5/index.html#a-sample-configuration",
@@ -4946,7 +4946,7 @@
     "href": "lectures/I2AI/5/index.html#inference-rules",
     "title": "Logical agents",
     "section": "Inference rules",
-    "text": "Inference rules\nFollowing inference rules11 can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:\n\n\nModus Ponens12: \\(\\frac{\\alpha \\implies \\beta, \\ \\alpha}{\\beta}\\)\nThe sentence \\(\\beta\\) can be inferred, whenever sentences of the form \\(\\alpha \\implies \\beta\\) and \\(\\alpha\\) are given\nAnd-Elimination: \\(\\frac{\\alpha \\land \\beta}{\\beta}\\) From a conjunction, any of the conjuncts can be inferred\n\n\n\nAll of the logical equivalences can be used as inference rules"
+    "text": "Inference rules\nFollowing inference rules11 can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:\n\n\nModus Ponens12: \\(\\frac{\\alpha \\implies \\beta, \\ \\alpha}{\\beta}\\)\nThe sentence \\(\\beta\\) can be inferred, whenever sentences of the form \\(\\alpha \\implies \\beta\\) and \\(\\alpha\\) are given\nAnd-Elimination: \\(\\frac{\\alpha \\land \\beta}{\\beta}\\) From a conjunction, any of the conjuncts can be inferred\n\n\n\nAll logical equivalences can be used as inference rules"
   },
   {
     "objectID": "lectures/I2AI/5/index.html#example",
@@ -5045,5 +5045,75 @@
     "title": "Logical agents",
     "section": "I2AI_5 E3",
     "text": "I2AI_5 E3\nFor each English sentence, there is a corresponding logical sentence. Work out which English sentence corresponds to which propositional logic sentence, and hence determine the meaning (in English) of each proposition symbol.\nEnglish\n\nThere is a Wumpus at (0, 1)\nIf the agent is at (0, 1) and there is a Wumpus at (0, 1), then the agent is not alive.\nThe agent is at (0, 0) and there is no Wumpus at (0, 1)\nThe agent is at (0, 0) or (0, 1), but not both\n\nPropositional Logic\n\n\\((C \\lor B) \\land (\\neg C \\lor \\neg B)\\)\n\\(C \\land \\neg D\\)\n\\(\\neg A \\lor \\neg(B \\land D)\\)\n\\(D\\)"
+  },
+  {
+    "objectID": "lectures/ITSE/index.html",
+    "href": "lectures/ITSE/index.html",
+    "title": "Kick-off 🧐",
+    "section": "",
+    "text": "Slides\nPrinting/export\nIf you want to print or export the slides, open the slides, press e on your keyboard and then print (to pdf)."
+  },
+  {
+    "objectID": "lectures/ITSE/slides.html#topics-1",
+    "href": "lectures/ITSE/slides.html#topics-1",
+    "title": "Kick-off 🧐",
+    "section": "Topics #1",
+    "text": "Topics #1\nFor more details on the topic and literature starting points, please see Moodle\n\n\nSmart Parking — A step towards ecological sustainability? (Schaupp, Hauck)\n\nAnalysis of user ratings; method similar to Schulz et al. (2021)\nBusiness model analysis; desk research, morphological box see Hein et al. (2018)\n\n\n\n\n\nUse of mobility apps for sustainable behavior change (A. Bratrich, Derya)\n\nStructured literature review; details see on Moodle\nAnalysis of mobility apps; morphological box that classifies the apps\n\n\n\n\n\nPublic transport in the new normal and the next normal (Deinzer, Haßler)\n\nAnalysis of business models; morphological box, see Hein et al. (2018)\nImpact of automonous vehicles; structured literature review; details see Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/slides.html#topics-2",
+    "href": "lectures/ITSE/slides.html#topics-2",
+    "title": "Kick-off 🧐",
+    "section": "Topics #2",
+    "text": "Topics #2\n\n\nSimilarities and differences of digital nudging and gamification (M. Batrich, Kühnl)\n\nStructured literature review; details see on Moodle\nStructured review and analysis of cases; details see on Moodle\n\n\n\n\n\nProcess Mining Case Studies in SMEs (Wojcik)\n\nStructured literature review; details see on Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/index.html#topics-1",
+    "href": "lectures/ITSE/index.html#topics-1",
+    "title": "Kick-off 🧐",
+    "section": "Topics #1",
+    "text": "Topics #1\nFor more details on the topic and literature starting points, please see Moodle\n\n\nSmart Parking — A step towards ecological sustainability? (Schaupp, Hauck)\n\nAnalysis of user ratings; method similar to Schulz et al. (2021)\nBusiness model analysis; desk research, morphological box see Hein et al. (2018)\n\n\n\n\n\nUse of mobility apps for sustainable behavior change (A. Bratrich, Derya)\n\nStructured literature review; details see on Moodle\nAnalysis of mobility apps; morphological box that classifies the apps\n\n\n\n\n\nPublic transport in the new normal and the next normal (Deinzer, Haßler)\n\nAnalysis of business models; morphological box, see Hein et al. (2018)\nImpact of automonous vehicles; structured literature review; details see Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/index.html#topics-2",
+    "href": "lectures/ITSE/index.html#topics-2",
+    "title": "Kick-off 🧐",
+    "section": "Topics #2",
+    "text": "Topics #2\n\n\nSimilarities and differences of digital nudging and gamification (M. Batrich, Kühnl)\n\nStructured literature review; details see on Moodle\nStructured review and analysis of cases; details see on Moodle\n\n\n\n\n\nProcess Mining Case Studies in SMEs (Wojcik)\n\nStructured literature review; details see on Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/kick-off/index.html",
+    "href": "lectures/ITSE/kick-off/index.html",
+    "title": "Kick-off 🧐",
+    "section": "",
+    "text": "Slides\nPrinting/export\nIf you want to print or export the slides, open the slides, press e on your keyboard and then print (to pdf)."
+  },
+  {
+    "objectID": "lectures/ITSE/kick-off/index.html#topics-1",
+    "href": "lectures/ITSE/kick-off/index.html#topics-1",
+    "title": "Kick-off 🧐",
+    "section": "Topics #1",
+    "text": "Topics #1\nFor more details on the topic and literature starting points, please see Moodle\n\n\nSmart Parking — A step towards ecological sustainability? (Schaupp, Hauck)\n\nAnalysis of user ratings; method similar to Schulz et al. (2021)\nBusiness model analysis; desk research, morphological box see Hein et al. (2018)\n\n\n\n\n\nUse of mobility apps for sustainable behavior change (A. Bratrich, Derya)\n\nStructured literature review; details see on Moodle\nAnalysis of mobility apps; morphological box that classifies the apps\n\n\n\n\n\nPublic transport in the new normal and the next normal (Deinzer, Haßler)\n\nAnalysis of business models; morphological box, see Hein et al. (2018)\nImpact of automonous vehicles; structured literature review; details see Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/kick-off/index.html#topics-2",
+    "href": "lectures/ITSE/kick-off/index.html#topics-2",
+    "title": "Kick-off 🧐",
+    "section": "Topics #2",
+    "text": "Topics #2\n\n\nSimilarities and differences of digital nudging and gamification (M. Batrich, Kühnl)\n\nStructured literature review; details see on Moodle\nStructured review and analysis of cases; details see on Moodle\n\n\n\n\n\nProcess Mining Case Studies in SMEs (Wojcik)\n\nStructured literature review; details see on Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/kick-off/slides.html#topics-1",
+    "href": "lectures/ITSE/kick-off/slides.html#topics-1",
+    "title": "Kick-off 🧐",
+    "section": "Topics #1",
+    "text": "Topics #1\nFor more details on the topic and literature starting points, please see Moodle\n\n\nSmart Parking — A step towards ecological sustainability? (Schaupp, Hauck)\n\nAnalysis of user ratings; method similar to Schulz et al. (2021)\nBusiness model analysis; desk research, morphological box see Hein et al. (2018)\n\n\n\n\n\nUse of mobility apps for sustainable behavior change (A. Bratrich, Derya)\n\nStructured literature review; details see on Moodle\nAnalysis of mobility apps; morphological box that classifies the apps\n\n\n\n\n\nPublic transport in the new normal and the next normal (Deinzer, Haßler)\n\nAnalysis of business models; morphological box, see Hein et al. (2018)\nImpact of automonous vehicles; structured literature review; details see Moodle"
+  },
+  {
+    "objectID": "lectures/ITSE/kick-off/slides.html#topics-2",
+    "href": "lectures/ITSE/kick-off/slides.html#topics-2",
+    "title": "Kick-off 🧐",
+    "section": "Topics #2",
+    "text": "Topics #2\n\n\nSimilarities and differences of digital nudging and gamification (M. Batrich, Kühnl)\n\nStructured literature review; details see on Moodle\nStructured review and analysis of cases; details see on Moodle\n\n\n\n\n\nProcess Mining Case Studies in SMEs (Wojcik)\n\nStructured literature review; details see on Moodle"
   }
 ]
