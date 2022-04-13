@@ -16,7 +16,6 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
@@ -353,7 +352,7 @@
 
 
 <section>
-<section id="digital-twin" class="title-slide slide level1 center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<section id="digital-twin" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>Digital Twin</h1>
 
 </section>
@@ -467,7 +466,7 @@
 <p>Source: <span class="citation" data-cites="saracco2019digital">Saracco (<a href="#/ref-saracco2019digital" role="doc-biblioref" onclick="return false;">2019, 62</a>)</span></p>
 </div>
 </section></section>
-<section id="qa" class="title-slide slide level1 html-hidden unlisted center" data-background-color="black">
+<section id="qa" class="title-slide slide level1 html-hidden vertical-center unlisted center" data-background-color="black">
 <h1>Q&amp;A</h1>
 
 </section>
@@ -505,6 +504,7 @@ VanDerHorn, Eric, and Sankaran Mahadevan. 2021. <span>“Digital Twin: Generaliz
   <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
 
@@ -674,9 +674,27 @@ VanDerHorn, Eric, and Sankaran Mahadevan. 2021. <span>“Digital Twin: Generaliz
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
+          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
