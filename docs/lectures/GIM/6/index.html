@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.123">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>awe.lectures - K6 Anwendungssysteme</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+
+  <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+  <link href="../../../assets/favicon.png" rel="icon" type="image/png">
+  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+  <script src="../../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "language": {
+      "search-no-results-text": "Keine Ergebnisse.",
+      "search-matching-documents-text": "Dokumente gefunden.",
+      "search-copy-link-title": "Link in die Suche kopieren",
+      "search-hide-matches-text": "Zusätzliche Ergebnisse verbergen",
+      "search-more-match-text": "weitere Ergebnisse in diesem Dokument",
+      "search-more-matches-text": "weitere Ergebnisse in diesem Dokument",
+      "search-clear-button-title": "Zurücksetzen",
+      "search-detached-cancel-button-title": "Abbrechen",
+      "search-submit-button-title": "Abschicken"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<meta property="og:title" content="awe.lectures - K6 Anwendungssysteme">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+<body>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">awe:lectures</span>
+  </a>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">Auf dieser Seite</h2>
+<ul>
+<li><a href="#motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+<li><a href="#lernergebnisse" class="nav-link" data-scroll-target="#lernergebnisse">Lernergebnisse</a></li>
+<li><a href="#wiederholung-is" class="nav-link" data-scroll-target="#wiederholung-is">Wiederholung: IS</a>
+<ul class="collapse">
+<li><a href="#einordnung" class="nav-link" data-scroll-target="#einordnung">Einordnung</a></li>
+<li><a href="#visualisierung" class="nav-link" data-scroll-target="#visualisierung">Visualisierung</a></li>
+</ul></li>
+<li><a href="#anwendungssysteme" class="nav-link" data-scroll-target="#anwendungssysteme">Anwendungssysteme</a>
+<ul class="collapse">
+<li><a href="#definition" class="nav-link" data-scroll-target="#definition">Definition</a></li>
+<li><a href="#betriebliche-as" class="nav-link" data-scroll-target="#betriebliche-as">Betriebliche AS</a></li>
+<li><a href="#beispiele" class="nav-link" data-scroll-target="#beispiele">Beispiele</a></li>
+<li><a href="#einsatzzweck" class="nav-link" data-scroll-target="#einsatzzweck">Einsatzzweck</a>
+<ul class="collapse">
+<li><a href="#operative-anwendungssysteme" class="nav-link" data-scroll-target="#operative-anwendungssysteme">Operative Anwendungssysteme</a></li>
+</ul></li>
+<li><a href="#make-or-buy" class="nav-link" data-scroll-target="#make-or-buy">Make or Buy</a></li>
+</ul></li>
+<li><a href="#literatur" class="nav-link" data-scroll-target="#literatur">Literatur</a></li>
+</ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+
+<div class="quarto-title"><h1 class="title display-7">K6 Anwendungssysteme</h1><p class="subtitle lead">Grundzüge Informationsmanagement (GIM)</p></div></header>
+
+<section id="top" class="level1 slide-link-hidden unlisted" data-visibility="hidden">
+<h1 class="slide-link-hidden unlisted" data-visibility="hidden">Top</h1>
+<p><a href="slides.html">Folien</a> / <a href="https://videoportal.hs-neu-ulm.de/Mediasite/Play/cd2b2018652546078c68956daafddc131d">Podcast</a></p>
+</section>
+<section id="motivation" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Motivation</h1>
+<blockquote class="blockquote">
+<p>Zu den gewaltigen Kosten für die Softwareumstellung als solche kommen jeden Tag neue für Fehlersuche und Problembeseitigung. <em>Ernst Prost (2019), Geschäftsführer der Liqui Moly GmbH in Ulm</em></p>
+</blockquote>
+<div class="incremental">
+<p>Damit das nicht passiert, müssen die passenden Anwendungssysteme ausgewählt und an die Geschäftsprozesse angepasst werden (und/oder vice versa). Welche Anwendungssystemklassen in Unternehmen eingesetzt werden, behandelt dieses Kapitel.</p>
+</div>
+</section>
+<section id="lernergebnisse" class="level1">
+<h1>Lernergebnisse</h1>
+<p>Nach dieser Einheit</p>
+<div class="incremental">
+<ul class="incremental">
+<li>können Sie den Begriff <strong>Anwendungssystem</strong> erläutern und vom Begriff Informationssystem abgrenzen,</li>
+<li>sind Sie in der Lage, betriebliche Anwendungssysteme nach unterschiedlichen Kriterien zu <strong>klassifizieren</strong>,</li>
+<li>können Sie beschreiben, wie die Anwendungssystem-Kategorien <strong>ERP, SCM und BI</strong> aufgebaut sind und welchem Zweck diese jeweils dienen,</li>
+<li>sind Sie in der LAge, den Begriff <strong>Business Intelligence (BI)</strong> zu erläutern und die Komponenten eines BI-Systems zu beschreiben und</li>
+<li>kennen Sie die Argumente für und wider <strong>Individual- und Standardsoftware</strong>.</li>
+</ul>
+</div>
+</section>
+<section id="wiederholung-is" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Wiederholung: IS</h1>
+<section id="einordnung" class="level2">
+<h2 data-anchor-id="einordnung">Einordnung</h2>
+<p><strong>Informationssysteme (IS)</strong> unterstützen die Sammlung, Strukturierung, Verarbeitung, Bereitstellung, Kommunikation und Nutzung von Daten, Informationen und Wissen <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#ref-lemke2015einfuhrung" role="doc-biblioref">Lemke und Brenner 2015</a>)</span>.</p>
+<div class="incremental">
+<p>Sie tragen zur Entscheidungsfindung, Koordination, Steuerung und Kontrolle von Wertschöpfungsprozessen sowie deren Automatisierung, Integration und Virtualisierung bei <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#ref-lemke2015einfuhrung" role="doc-biblioref">Lemke und Brenner 2015</a>)</span>.</p>
+</div>
+<div class="incremental">
+<p>Anwendungssysteme (englisch „Software“) sind in der Regel Teil eines Informationssystems.</p>
+</div>
+</section>
+<section id="visualisierung" class="level2">
+<h2 data-anchor-id="visualisierung">Visualisierung</h2>
+<div id="fig-is" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../1/images/informationssystem.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Schaubild 1: Schematische Darstellung der Komponenten eines Informationssystems nach <span class="citation" data-cites="alpar2000anwendungsorientierte">Alpar u.&nbsp;a. (<a href="#ref-alpar2000anwendungsorientierte" role="doc-biblioref">2019</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="anwendungssysteme" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Anwendungssysteme</h1>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
+<p>Als <strong>Anwendungssystem (AS)</strong> werden alle Programme und Daten, die (betriebliche) Aufgabenstellungen unterstützen, bezeichnet <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#ref-lemke2015einfuhrung" role="doc-biblioref">Lemke und Brenner 2015</a>)</span>.</p>
+<div class="incremental">
+<p>In Kombination mit der Benutzerschnittstelle oder dem User Interface (UI) ist das Anwendungssystem ein technischer Teil eines (betrieblichen) Informationssystems <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#ref-lemke2015einfuhrung" role="doc-biblioref">Lemke und Brenner 2015</a>)</span>.</p>
+<div class="notes">
+<p>Anwendungssysteme werden verkürzt als Anwendung bezeichnet. Oft spricht man auch von „Applikation“ (Englisch „business application“ oder nur „application“). <strong>„App“</strong> ist die Kurzform von Applications und wird oft im Zusammenhang mit mobilen Plattformen verwendet (bspw. Apps für das Smartphone, die über „App Stores“ geladen werden) <span class="citation" data-cites="abts2017grundkurs">(<a href="#ref-abts2017grundkurs" role="doc-biblioref">Abts und Mülder 2017</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="betriebliche-as" class="level2">
+<h2 data-anchor-id="betriebliche-as">Betriebliche AS</h2>
+<p><strong>Betriebliche Anwendungssysteme</strong> unterstützen die Anwender innerhalb eines Unternehmens bei der Durchführung ihrer Aufgaben.</p>
+<div class="incremental">
+<p>Anwendungen bilden dabei die <strong>Geschäftslogik</strong> bzw. die fachlichen Funktionszusammenhänge ab, die durch die Geschäftsprozesse definiert und repräsentiert werden <span class="citation" data-cites="alpar2000anwendungsorientierte">(<a href="#ref-alpar2000anwendungsorientierte" role="doc-biblioref">Alpar u.&nbsp;a. 2019</a>)</span>.</p>
+</div>
+<div class="incremental">
+<p>In modernen Unternehmen werden fast alle Prozesse durch Anwendungssysteme unterstützt.</p>
+</div>
+</section>
+<section id="beispiele" class="level2">
+<h2 data-anchor-id="beispiele">Beispiele</h2>
+<div id="fig-valueChain" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/valueChain.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Schaubild 2: Beispiele für betriebliche AS entlang der Value Chain</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="einsatzzweck" class="level2">
+<h2 data-anchor-id="einsatzzweck">Einsatzzweck</h2>
+<div id="fig-valueChain" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hierarchie.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Schaubild 3: Unterscheidung anhand der Einordnung in die Unternehmenshierarchie</figcaption><p></p>
+</figure>
+</div>
+<section id="operative-anwendungssysteme" class="level3 notes">
+<h3 data-anchor-id="operative-anwendungssysteme">Operative Anwendungssysteme</h3>
+<p>Anwendungssysteme, die die täglichen, für den Geschäftsbetrieb notwendigen Routinetransaktionen ausführen und aufzeichnen; diese Systeme werden auf der operativen Ebene eines Unternehmens eingesetzt.</p>
+<p>Diese Systeme unterstützen das tägliche Geschäft der Anwender (Lagerhaltung, Buchhaltung, Kundenbetreuung, etc.) dienen der effizienten Gestaltung von Geschäftsprozessen stellen eine integrierte Datenbasis bereit, bestenfalls unternehmensweit vermindern bzw. vermeiden von Bearbeitungsfehler (bspw. durch Plausibilitäts-Prüfungen, Beseitigung von Medienbrüchen und unnötigen Bearbeiterwechsel) erhöhen die Abwicklungssicherheit und Transparenz (bspw. durch „harte“ Freigaben und Protokollierung aller relevanten Sachtatbestände inkl. Zeitpunkt und ausführendem Mitarbeiter)</p>
+<p><strong>Informationseingabe</strong></p>
+<ul>
+<li>Transaktionen</li>
+<li>Ereignisse</li>
+</ul>
+<p><strong>Aufbereitung</strong></p>
+<ul>
+<li>Listen erstellen, sortieren und zusammenführen von Informationen</li>
+<li>Aktualisieren</li>
+</ul>
+<p><strong>Informationsausgabe</strong></p>
+<ul>
+<li>Detaillierte Berichte</li>
+<li>Listen und Übersichten</li>
+</ul>
+</section>
+</section>
+<section id="make-or-buy" class="level2">
+<h2 data-anchor-id="make-or-buy">Make or Buy</h2>
+<p>Für viele Bereiche sind Anwendungen am Markt erhältlich, mit der die fachlichen Anforderungen vieler Unternehmen abgedeckt werden können — sogenannte <strong>Standardsoftware</strong> <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens u.&nbsp;a. 2016</a>)</span>.</p>
+<div class="incremental">
+<p>Sind die Anforderungen des Unternehmens sehr spezifisch, so muss die Standardsoftware <strong>modifiziert</strong> bzw. erweitert werden.</p>
+</div>
+<div class="incremental">
+<p>Ist das nicht möglich, ist die Entwicklung eines unternehmensspezifischen Anwendungssystems erforderlich — sogenannte <strong>Invidualsoftare</strong> <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens u.&nbsp;a. 2016</a>)</span>.</p>
+<div class="notes">
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Vor- und Nachteile von Standard- und Individualsoftware
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Einführung und Betrieb von Standardsoftware sind in der Regel mit <strong>weniger Risiken</strong> behaftet:</p>
+<ul>
+<li>Niedrigere und besser kalkulierbare Kosten und höhere Investitionssicherheit</li>
+<li>Möglichkeiten zur Evaluierung vor Einführung</li>
+<li>Höhere Qualität (Reife, Stabilität und Skalierbarkeit, Standardkonformität)</li>
+<li>Abbildung von Best-Practice Prozessen</li>
+</ul>
+<p>Auf der anderen Seite kann Individualsoftware besser auf die Unternehmensbelange zugeschnitten werden. So können bspw. <strong>spezifische Prozesse</strong>, die eine Basis für Wettbewerbsvorteile darstellen, unterstützt werden.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="literatur" class="level1">
+<h1>Literatur</h1>
+
+
+
+
+</section>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Verweise</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-abts2017grundkurs" class="csl-entry" role="doc-biblioentry">
+Abts, D., und W. Mülder. 2017. <em>Grundkurs Wirtschaftsinformatik: Eine kompakte und praxisorientierte Einf<span>ü</span>hrung</em>. Springer Fachmedien Wiesbaden.
+</div>
+<div id="ref-alpar2000anwendungsorientierte" class="csl-entry" role="doc-biblioentry">
+Alpar, Paul, Heinz Lothar Grob, Peter Weimann, und Robert Winter. 2019. <em>Anwendungsorientierte Wirtschaftsinformatik</em>. Springer Vieweg, Wiesbaden.
+</div>
+<div id="ref-lemke2015einfuhrung" class="csl-entry" role="doc-biblioentry">
+Lemke, Claudia, und Walter Brenner. 2015. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik: Band 1: Verstehen des digitalen Zeitalters</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="doc-biblioentry">
+Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016. <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
+</div></section></div></main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+</body></html>
