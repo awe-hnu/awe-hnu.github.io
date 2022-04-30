@@ -178,11 +178,92 @@ Draw an example (game search tree, 3 levels depth).
 
 @fig-pruning: There is no point in looking at the other successor states of *C*, thus it can be skipped.
 
+# Logical agents
+
+## I2AI_5 E1
+
+To save space, we’ll show the list of models as a @tbl-truthtable-5e1 rather than a collection of diagrams. There are eight possible combinations of pits in the three squares, and four possibilities for the wumpus location (including nowhere). We can see that $KB \models \alpha_2$ because every line where KB is true also has $\alpha_2$ true. Similarly for $\alpha_3$.
+
+| Model                            | $KB$       | $\alpha_2$ | $\alpha_3$ |
+|----------------------------------|:----------:|:----------:|:----------:|
+|                                  |            | true       |            |
+| $P_{1,3}$                        |            | true       |            |
+| $P_{2,2}$                        |            |            |            |
+| $P_{3,1}$                        |            | true       |            |
+| $P_{1,3},P_{2,2}$                |            |            |            |
+| $P_{2,2},P_{3,1}$                |            |            |            |
+| $P_{3,1},P_{1,3}$                |            | true       |            |
+| $P_{1,3},P_{3,1},P_{2,2}$        |            |            |            |
+|                                  |            |            |            |
+| $W_{1,3}$                        |            | true       | true       |
+| $W_{1,3},P_{1,3}$                |            | true       | true       |
+| $W_{1,3},P_{2,2}$                |            |            | true       |
+| $W_{1,3},P_{3,1}$                | true       | true       | true       |
+| $W_{1,3},P_{1,3},P_{2,2}$        |            |            | true       |
+| $W_{1,3},P_{2,2},P_{3,1}$        |            |            | true       |
+| $W_{1,3},P_{3,1},P_{1,3}$        |            | true       | true       |
+| $W_{1,3},P_{1,3},P_{3,1},P_{2,2}$|            |            | true       |
+|                                  |            |            |            |
+| $W_{3,1}$                        |            | true       |            |
+| $W_{3,1},P_{1,3}$                |            | true       |            |
+| $W_{3,1},P_{2,2}$                |            |            |            |
+| $W_{3,1},P_{3,1}$                |            | true       |            |
+| $W_{3,1},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{3,1},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{3,1},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{3,1},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+|                                  |            |            |            |
+| $W_{2,2}$                        |            | true       |            |
+| $W_{2,2},P_{1,3}$                |            | true       |            |
+| $W_{2,2},P_{2,2}$                |            |            |            |
+| $W_{2,2},P_{3,1}$                |            | true       |            |
+| $W_{2,2},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{2,2},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{2,2},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{2,2},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+
+: A truth table constructed for I2AI_5 E1. Propositions not listed as true on a given line are assumed false, and only true entries are shown in the table {#tbl-truthtable-5e1}
+
+## I2AI_5 E2
+
+a. If $\alpha \models \gamma$ or $\beta \models \gamma$ (or both) then $(\alpha \land \beta) \models \gamma$   
+   True. This follows from monotonicity
+
+b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\beta \models \gamma$ (or both)   
+   False. Consider $\alpha \equiv A, \beta \equiv B, \gamma \equiv (A \land B)$
+
+|                 | $\alpha$ | $\beta$  | $\alpha \land \beta$ |
+|-----------------|:--------:|:--------:|:--------------------:|
+| $A,B$           | true     | true     | true                 |
+| $A,\neg B$      | true     |          |                      |
+| $\neg A,B$      |          | true     |                      |
+| $\neg A,\neg B$ |          | true     |                      |
+
+: A truth table constructed for I2AI_5 E3b. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3b}  
+
+c. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)   
+   False. Consider $\beta \models A, \gamma \models \neg A$
+
+|           | $\alpha = (A \lor \neg A)$ | $\beta \lor \gamma$  | $\beta$  | $\gamma$ |
+|-----------|:--------------------------:|:--------------------:|:--------:|:--------:|
+| $A$       | true                       | true                 | true     |          |
+| $\neg A$  | true                       | true                 |          | true     |
+
+
+: A truth table constructed for I2AI_5 E3c. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3c}  
+
+### I2AI_5 E3
+
+$A$ = the agent is alive
+$B$ = the agent is at (0, 1)
+$C$ = the agent is at (0, 0)
+$D$ = there is a Wumpus at (0, 1).
+
 # Probability
 
-## I2AI_1
+## I2AI_6 E1
 
-The definition of conditional probability, $P(X|Y) = \frac{P(X \land Y )}{P(Y)} and the definitions of the logical connectives are needed here. 
+The definition of conditional probability, $P(X|Y) = \frac{P(X \land Y )}{P(Y)}$ and the definitions of the logical connectives are needed here. 
 
 It is not enough to say that if $b \land a$ is “given” then $a$ must be true.
 
@@ -194,7 +275,7 @@ P(a|b \land a)= \frac{P(a \land (b \land a))}{P(b \land a)} = \frac{P(b \land a)
 \end{equation}
 $$
 
-## I2AI_2
+## I2AI_6 E2
 
 |   |   |    |
 |--:|:-:|:--:|
@@ -211,7 +292,7 @@ From these, it is straightforward to infer that a = 0.2, b = 0.2, c = 0.1, and d
 
 Therefore, $P(A \land B) = a = 0.2$. Thus the probabilities given are consistent with a rational assignment, and the probability $P(A \land B)$ is exactly determined.
 
-## I2AI_3
+## I2AI_6 E3
 
 Let $V$ be the statement that the patient has the virus, and $A$ and $B$ the statements that the medical tests A and B returned positive, respectively. The problem statement gives:
 

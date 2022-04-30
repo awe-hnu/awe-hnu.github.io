@@ -142,7 +142,7 @@
 <li><a href="#motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
 <li><a href="#example" class="nav-link" data-scroll-target="#example">Example</a></li>
 <li><a href="#uncertainty-in-rules" class="nav-link" data-scroll-target="#uncertainty-in-rules">Uncertainty in rules</a></li>
-<li><a href="#learnings" class="nav-link" data-scroll-target="#learnings">Learnings</a></li>
+<li><a href="#learnings-1" class="nav-link" data-scroll-target="#learnings-1">Learnings</a></li>
 <li><a href="#uncertainty-in-facts" class="nav-link" data-scroll-target="#uncertainty-in-facts">Uncertainty in facts</a></li>
 <li><a href="#probability-theory" class="nav-link" data-scroll-target="#probability-theory">Probability theory</a></li>
 </ul></li>
@@ -179,7 +179,7 @@
 <li><a href="#types-of-variables" class="nav-link" data-scroll-target="#types-of-variables">Types of variables</a></li>
 <li><a href="#text-classification" class="nav-link" data-scroll-target="#text-classification">Text classification</a></li>
 </ul></li>
-<li><a href="#summary" class="nav-link" data-scroll-target="#summary">✏️ Summary</a></li>
+<li><a href="#summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
 <li><a href="#exercises" class="nav-link" data-scroll-target="#exercises">✏️ Exercises</a>
 <ul class="collapse">
 <li><a href="#i2ai_6-e1" class="nav-link" data-scroll-target="#i2ai_6-e1">I2AI_6 E1</a></li>
@@ -238,7 +238,7 @@ Qualification problem
 </section>
 <section id="example" class="level2">
 <h2 data-anchor-id="example">Example</h2>
-<p><strong>Goal</strong>: Be in Ulm at 8:15 to give a lecture</p>
+<p><strong>Goal:</strong> Be in Ulm at 8:15 to give a lecture</p>
 <div class="incremental">
 <p>There are several <strong>plans</strong> that achieve the goal:</p>
 <div class="incremental">
@@ -279,8 +279,12 @@ Qualification problem
 <p>→ Ist still wrong and does not allow to reason from symptoms to causes.</p>
 </div>
 </section>
-<section id="learnings" class="level2">
-<h2 data-anchor-id="learnings">Learnings</h2>
+<section id="learnings" class="level2 html-hidden unlisted vertical-center" data-background-color="blue">
+<h2 class="html-hidden unlisted vertical-center" data-background-color="blue" data-anchor-id="learnings">Learnings</h2>
+<p>What do we learn from that?</p>
+</section>
+<section id="learnings-1" class="level2">
+<h2 data-anchor-id="learnings-1">Learnings</h2>
 <div class="incremental">
 <ul class="incremental">
 <li>We cannot enumerate all possible causes (<strong>laziness</strong>)</li>
@@ -313,7 +317,7 @@ Qualification problem
 <li>We (and other agents) are convinced by facts and rules only up to a certain degree</li>
 <li>One possibility for expressing the degree of belief is to use <strong>probabilities</strong></li>
 <li>The agent is 90% (or 0.9) convinced by its sensor information<br>
-<em>(in 9 out of 10 cases, the information is correct (the agent believes)</em></li>
+<em>(in 9 out of 10 cases, the information is correct–the agent believes)</em></li>
 <li>Probabilities sum up the “uncertainty” that stems from lack of knowledge.</li>
 <li>Probabilities are not to be confused with vagueness<br>
 <em>The predicate tall is vague; the statement, “A man is 1.75–1.80m tall” is uncertain.</em></li>
@@ -381,8 +385,6 @@ Qualification problem
 </div>
 <div class="incremental">
 <p>…</p>
-</div>
-<div class="incremental">
 <p><span class="math inline">\(P(W=snow,C=false) = P(W=snow|C=false)P(C=false)\)</span></p>
 </div>
 </section>
@@ -467,9 +469,11 @@ P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
 &amp;+ P(\neg Cavity \land Toothache) \\
 &amp;+ P(Cavity \land \neg Toothache)
 \end{align}
-\]</span> . . .</p>
+\]</span></p>
+<div class="incremental">
 <p>Unconditional probabilities are obtained by adding across a row or column:</p>
 <p><span class="math inline">\(P(Cavity) = P(Cavity \land Toothache) + P(Cavity \land \neg Toothache)\)</span></p>
+</div>
 <div class="incremental">
 <p>While conditional probabilities are obtained by using the product rule:</p>
 <p><span class="math inline">\(P(Cavity|Toothache) = \frac{P(Cavity \land Toothache)}{P(Toothache)}=\frac{0.04}{0.04+0.01}=0.80\)</span></p>
@@ -767,6 +771,7 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 <li><em>Cause</em> is the <em>Category</em> variable</li>
 <li><em>Effect</em> variables are the presence or abscence of a certaing key words, <em>HasWord<sub>i</sub></em></li>
 </ul>
+<div class="incremental">
 <p>Example sentences:</p>
 <ul>
 <li>Stock rallied on Monday, with major indexes gaining 1% as optimism persisted over the first quarter earnings season.</li>
@@ -774,12 +779,18 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 </ul>
 <hr>
 <p>The task is to classify each sentence into a <em>Category</em>—the major sections of the newspaper (<code>[news, sports, business, weather, entertainment]</code>)</p>
+</div>
+<div class="incremental">
 <p>The naive Bayes model consists of</p>
 <ul>
 <li>the prior probabilities <span class="math inline">\(P(Category)\)</span> and</li>
 <li>the unconditional probabilities <span class="math inline">\(P(HasWord_i|Category)\)</span></li>
 </ul>
+</div>
+<div class="incremental">
 <p>For each category c <span class="math inline">\(P(Category=c)\)</span> is estimated as the fraction of all previously seen documents that are of category c<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>.</p>
+</div>
+<div class="incremental">
 <p>Similarily, <span class="math inline">\(P(HasWord_i|Category)\)</span> is estimated as the fraction of documents of each category that contain word <span class="math inline">\(i\)</span><a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>.</p>
 <hr>
 <p>To categorize a new document, we check which key words appear in the document and then apply <strong>recursive Bayesian updating</strong> to obtain the posterior probablity distribution over categories:</p>
@@ -792,10 +803,11 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 <div class="notes">
 <p>The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase “first quarter” occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of “first” and “quarter.” The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate. Naive Bayes models are widely used for language determination, document retrieval, spam filtering, an other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter–for example, in deciding wether to perform an appendoctomy–one would usually prefer to use more sophisticated models such as Bayesian networks <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 422</a>)</span>.</p>
 </div>
+</div>
 </section>
 </section>
-<section id="summary" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
-<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">✏️ Summary</h1>
+<section id="summary" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Summary</h1>
 <div class="incremental">
 <ul class="incremental">
 <li>Uncertainty is unavoidable in complex, dynamic worlds in which agents are ignorant.</li>
