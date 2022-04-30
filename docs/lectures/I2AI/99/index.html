@@ -106,6 +106,15 @@
 <li><a href="#i2ai_4-e2" class="nav-link" data-scroll-target="#i2ai_4-e2">I2AI_4 E2</a></li>
 <li><a href="#i2ai_4-e3" class="nav-link" data-scroll-target="#i2ai_4-e3">I2AI_4 E3</a></li>
 </ul></li>
+<li><a href="#probability" class="nav-link" data-scroll-target="#probability">Probability</a>
+<ul class="collapse">
+<li><a href="#i2ai_1" class="nav-link" data-scroll-target="#i2ai_1">I2AI_1</a></li>
+<li><a href="#i2ai_2" class="nav-link" data-scroll-target="#i2ai_2">I2AI_2</a></li>
+<li><a href="#i2ai_3" class="nav-link" data-scroll-target="#i2ai_3">I2AI_3</a></li>
+<li><a href="#i2ai_6-e4" class="nav-link" data-scroll-target="#i2ai_6-e4">I2AI_6 E4</a></li>
+<li><a href="#i2ai_6-e5" class="nav-link" data-scroll-target="#i2ai_6-e5">I2AI_6 E5</a></li>
+</ul></li>
+<li><a href="#literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
 </ul>
 </nav>
     </div>
@@ -284,11 +293,124 @@
 </figure>
 </div>
 <p><a href="#fig-pruning">Figure&nbsp;1</a>: There is no point in looking at the other successor states of <em>C</em>, thus it can be skipped.</p>
-
-
-
-
 </section>
+</section>
+<section id="probability" class="level1">
+<h1>Probability</h1>
+<section id="i2ai_1" class="level2">
+<h2 data-anchor-id="i2ai_1">I2AI_1</h2>
+<p>The definition of conditional probability, $P(X|Y) = and the definitions of the logical connectives are needed here.</p>
+<p>It is not enough to say that if <span class="math inline">\(b \land a\)</span> is “given” then <span class="math inline">\(a\)</span> must be true.</p>
+<p>From the definition of conditional probability, and the fact that <span class="math inline">\(a \land a \iff a\)</span> and that conjunction is commutative and associative, we have</p>
+<p><span class="math display">\[
+\begin{equation}
+P(a|b \land a)= \frac{P(a \land (b \land a))}{P(b \land a)} = \frac{P(b \land a)}{P(b \land a)}=1
+\end{equation}
+\]</span></p>
+</section>
+<section id="i2ai_2" class="level2">
+<h2 data-anchor-id="i2ai_2">I2AI_2</h2>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">¬B</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">A</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: center;">b</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">¬A</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: center;">d</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span class="math inline">\(P(A) = a + b = 0.4\)</span></li>
+<li><span class="math inline">\(P(B) = a + c = 0.3\)</span></li>
+<li><span class="math inline">\(P(A \lor B) = a + b + c = 0.5\)</span></li>
+<li><span class="math inline">\(P(True) = a + b + c + d = 1\)</span></li>
+</ul>
+<p>From these, it is straightforward to infer that a = 0.2, b = 0.2, c = 0.1, and d = 0.5.</p>
+<p>Therefore, <span class="math inline">\(P(A \land B) = a = 0.2\)</span>. Thus the probabilities given are consistent with a rational assignment, and the probability <span class="math inline">\(P(A \land B)\)</span> is exactly determined.</p>
+</section>
+<section id="i2ai_3" class="level2">
+<h2 data-anchor-id="i2ai_3">I2AI_3</h2>
+<p>Let <span class="math inline">\(V\)</span> be the statement that the patient has the virus, and <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> the statements that the medical tests A and B returned positive, respectively. The problem statement gives:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(V ) = 0.01 &amp;&amp; \\
+P(A|V ) = 0.95 &amp;&amp; \\
+P(A| \neg V ) = 0.10 &amp;&amp; \\
+P(B| V ) = 0.90 &amp;&amp; \\
+P(B| \neg V ) = 0.05 &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<p>The test whose positive result is more indicative of the virus being present is the one whose posterior probability, <span class="math inline">\(P(V |A)\)</span> or <span class="math inline">\(P(V |B)\)</span> is largest.</p>
+<p>One can compute these probabilities directly from the information given, finding that <span class="math inline">\(P(V |A) = 0.0876\)</span> and <span class="math inline">\(P(V |B) = 0.1538\)</span>, so B is more indicative.</p>
+</section>
+<section id="i2ai_6-e4" class="level2">
+<h2 data-anchor-id="i2ai_6-e4">I2AI_6 E4</h2>
+<p>The basic axiom to use here is the definition of conditional probability:</p>
+<p>We have</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|e) = \frac{P(A,B,e)}{P(E)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A|B,e)P(B|e) = \frac{P(A,B,e)P(B,e)}{P(B,e)P(e)} = \frac{P(A,B,e)}{P(e)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>hence</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|e) = P(A|B,e)P(B|e) &amp;&amp;
+\end{flalign}
+\]</span></p>
+</section>
+<section id="i2ai_6-e5" class="level2">
+<h2 data-anchor-id="i2ai_6-e5">I2AI_6 E5</h2>
+<p>The key to this exercise is rigorous and frequent application of the definition of conditional probability, <span class="math inline">\(P(X|Y) = P(X,Y)/P(Y)\)</span>.</p>
+<p>The original statement that we are given is:</p>
+<p><span class="math inline">\(P(A,B|C) = P(A|C)P(B|C)\)</span></p>
+<p>We start by applying the definition of conditional probability to two of the terms in this statement:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}{P(C)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Now we substitute the right-hand side of these definitions for the left-hand sides in the original statement to get:</p>
+<p><span class="math display">\[
+\begin{flalign}
+\frac{P(A,B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Now we need the definition once more:</p>
+<p><span class="math inline">\(P(A,B,C) = P(A|B,C)P(B,C)\)</span></p>
+<p>We substitute this right-hand side for P(A,B,C) to get:</p>
+<p><span class="math display">\[
+\begin{flalign}
+\frac{P(A|B,C)P(B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Finally, we cancel the <span class="math inline">\(P(B,C)\)</span> and <span class="math inline">\(P(C)\)</span>s to get:</p>
+<p><span class="math inline">\(P(A|B,C) = P(A|C)\)</span></p>
+<p>The second part of the exercise follows from by a similar derivation, or by noticing that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are interchangeable in the original statement (because multiplication is commutative and <span class="math inline">\(A,B\)</span> means the same as <span class="math inline">\(B,A\)</span>).</p>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+
+
+
+
 </section>
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">

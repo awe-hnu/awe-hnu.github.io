@@ -177,3 +177,131 @@ Draw an example (game search tree, 3 levels depth).
 ![Example for pruning](images/pruning.svg){#fig-pruning}
 
 @fig-pruning: There is no point in looking at the other successor states of *C*, thus it can be skipped.
+
+# Probability
+
+## I2AI_1
+
+The definition of conditional probability, $P(X|Y) = \frac{P(X \land Y )}{P(Y)} and the definitions of the logical connectives are needed here. 
+
+It is not enough to say that if $b \land a$ is “given” then $a$ must be true.
+
+From the definition of conditional probability, and the fact that $a \land a \iff a$ and that conjunction is commutative and associative, we have
+
+$$
+\begin{equation}
+P(a|b \land a)= \frac{P(a \land (b \land a))}{P(b \land a)} = \frac{P(b \land a)}{P(b \land a)}=1
+\end{equation}
+$$
+
+## I2AI_2
+
+|   |   |    |
+|--:|:-:|:--:|
+|   | A | ¬B |
+| A | a | b  |
+| ¬A| c | d  |
+
+- $P(A) = a + b = 0.4$
+- $P(B) = a + c = 0.3$
+- $P(A \lor B) = a + b + c = 0.5$
+- $P(True) = a + b + c + d = 1$
+
+From these, it is straightforward to infer that a = 0.2, b = 0.2, c = 0.1, and d = 0.5. 
+
+Therefore, $P(A \land B) = a = 0.2$. Thus the probabilities given are consistent with a rational assignment, and the probability $P(A \land B)$ is exactly determined.
+
+## I2AI_3
+
+Let $V$ be the statement that the patient has the virus, and $A$ and $B$ the statements that the medical tests A and B returned positive, respectively. The problem statement gives:
+
+$$
+\begin{flalign}
+P(V ) = 0.01 && \\
+P(A|V ) = 0.95 && \\
+P(A| \neg V ) = 0.10 && \\
+P(B| V ) = 0.90 && \\
+P(B| \neg V ) = 0.05 && \\
+\end{flalign}
+$$
+
+The test whose positive result is more indicative of the virus being present is the one whose posterior probability, $P(V |A)$ or $P(V |B)$ is largest. 
+
+One can compute these probabilities directly from the information given, finding that $P(V |A) = 0.0876$ and $P(V |B) = 0.1538$, so B is more indicative.
+
+## I2AI_6 E4
+
+The basic axiom to use here is the definition of conditional probability:
+
+We have
+
+$$
+\begin{flalign}
+P(A,B|e) = \frac{P(A,B,e)}{P(E)} &&
+\end{flalign}
+$$
+
+and
+
+$$
+\begin{flalign}
+P(A|B,e)P(B|e) = \frac{P(A,B,e)P(B,e)}{P(B,e)P(e)} = \frac{P(A,B,e)}{P(e)} &&
+\end{flalign}
+$$
+
+hence
+
+$$
+\begin{flalign}
+P(A,B|e) = P(A|B,e)P(B|e) &&
+\end{flalign}
+$$
+
+## I2AI_6 E5
+
+The key to this exercise is rigorous and frequent application of the definition of conditional
+probability, $P(X|Y) = P(X,Y)/P(Y)$.
+
+The original statement that we are given is:
+
+$P(A,B|C) = P(A|C)P(B|C)$
+
+We start by applying the definition of conditional probability to two of the terms in this
+statement:
+
+$$
+\begin{flalign}
+P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}{P(C)} &&
+\end{flalign}
+$$
+
+Now we substitute the right-hand side of these definitions for the left-hand sides in the original
+statement to get:
+
+$$
+\begin{flalign}
+\frac{P(A,B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &&
+\end{flalign}
+$$
+
+Now we need the definition once more: 
+
+$P(A,B,C) = P(A|B,C)P(B,C)$
+
+We substitute this right-hand side for P(A,B,C) to get:
+
+$$
+\begin{flalign}
+\frac{P(A|B,C)P(B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &&
+\end{flalign}
+$$
+
+Finally, we cancel the $P(B,C)$ and $P(C)$s to get:
+
+$P(A|B,C) = P(A|C)$
+
+The second part of the exercise follows from by a similar derivation, or by noticing that $A$ and $B$ are interchangeable in the original statement (because multiplication is commutative and $A,B$ means the same as $B,A$).
+
+# Literature
+::: {#refs}
+:::

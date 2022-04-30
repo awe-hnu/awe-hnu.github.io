@@ -344,7 +344,7 @@
 
 <section id="title-slide" data-background-color="#0333ff" class="center">
   <h1 class="title">Probability</h1>
-  <p class="subtitle">🧠 Introduction to AI — I2AI_5</p>
+  <p class="subtitle">🧠 Introduction to AI — I2AI_6</p>
   <p class="author">Andy Weeger</p>
   <p class="institute">University of Applied Sciences Neu-Ulm</p>
 </section>
@@ -412,7 +412,7 @@
 <p>Take an expert dental diagnosis system as an example.</p>
 <p><span class="math inline">\(Toothache \implies Cavity\)</span></p>
 <div class="fragment">
-<p>→ This rule is incorrect — better:</p>
+<p>→ This rule is incorrect, better:</p>
 </div>
 <div class="fragment">
 <p><span class="math inline">\(Toothache \implies Cavity \lor GumProblem \lor Abscess ...\)</span></p>
@@ -434,20 +434,20 @@
 <h2>Learnings</h2>
 <div>
 <ul>
-<li class="fragment">We cannot enumerate all possible causes (laziness)</li>
-<li class="fragment">And even if we could, we do not know how correct the rules are (theoretical ignorance<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>)</li>
-<li class="fragment">And even if we did there will always be uncertainty about the patient (practical ignorance<a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a>)</li>
+<li class="fragment">We cannot enumerate all possible causes (<strong>laziness</strong>)</li>
+<li class="fragment">And even if we could, we do not know how correct the rules are, refered to as <strong>theoretical ignorance</strong><a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>)</li>
+<li class="fragment">And even if we did there will always be uncertainty about the patient, refered to as <strong>practical ignorance</strong><a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a>)</li>
 </ul>
 </div>
 <div class="fragment">
-<p><strong>Without perfect knowledge, logical rules do not help much</strong></p>
+<p>→ Without perfect knowledge, logical rules do not help much</p>
 </div>
 <aside></aside></section>
 <section id="uncertainty-in-facts" class="slide level2">
 <h2>Uncertainty in facts</h2>
 <p>Let us suppose we wanted to support the localization of a robot with (constant) landmarks. With the availability of landmarks, we can narrow down on the area.</p>
 <div class="fragment">
-<p>Problem: sensors can be <strong>imprecise</strong>.</p>
+<p>Problem: sensors can be <strong>imprecise</strong></p>
 <div>
 <ul>
 <li class="fragment">From the fact that a landmark was perceived, we cannot conclude with certainty that the robot is at that location</li>
@@ -505,77 +505,505 @@
 <aside></aside></section>
 <section id="conditional-probabilities" class="slide level2">
 <h2>Conditional probabilities</h2>
-<p>New information can change the probability, e.g.&nbsp;the probability of a cavity increases if we know the patient has a toothache.</p>
-<div>
-<ul>
-<li class="fragment"><span class="math inline">\(P(A|B)\)</span> is the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given that all we know is <span class="math inline">\(B\)</span>,<br>
-e.g., <span class="math inline">\(P(Cavity | Toothache) = 0.8\)</span></li>
-<li class="fragment"><span class="math inline">\(P(X|Y)\)</span> gives the values of <span class="math inline">\(P(X=x_i|Y=y_j)\)</span> for each possible <span class="math inline">\(i,j\)</span> pair</li>
-<li class="fragment">Conditional propabilities are defined in terms of unconditional probalities:
-<ul>
-<li class="fragment">for any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have <span class="math inline">\(P(a|b)=\frac{P(a \land b)}{P(b)}\)</span>,</li>
-<li class="fragment">or in a different form as <strong>product rule</strong> <span class="math inline">\(P(a \land b) = P(a|b)P(b)\)</span>,</li>
-<li class="fragment">which equals <span class="math inline">\(P(a \land b) = P(b|a)P(a)\)</span></li>
-</ul></li>
-</ul>
+<p>New information (usually called <strong>evidence</strong>) can change the probability, e.g.&nbsp;the probability of a cavity increases if we know the patient has a toothache</p>
+<div class="fragment">
+<p><span class="math inline">\(P(a|b)\)</span> is the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given that all we know is <span class="math inline">\(B\)</span></p>
+<p>&nbsp;&nbsp;Example: <span class="math inline">\(P(Cavity | Toothache) = 0.8\)</span></p>
 </div>
-</section>
+<div class="fragment">
+<p>Conditional propabilities (or posterior probabilities) are defined in terms of unconditional probalities as follows:</p>
+<p>For any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have <span class="math inline">\(P(a|b)=\frac{P(a \land b)}{P(b)}\)</span></p>
+</div>
+<div class="fragment">
+<p>Or in a different form as <strong>product rule</strong></p>
+<p><span class="math inline">\(P(a \land b) = P(a,b) = P(a|b)P(b)\)</span><a href="#/fn7" class="footnote-ref" id="fnref7" role="doc-noteref" onclick="return false;"><sup>7</sup></a></p>
+</div>
+<aside></aside></section>
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
-<p>The <strong>product rules</strong> for all possible values of <span class="math inline">\(Weather\)</span> and <span class="math inline">\(Cavity\)</span> can be written as a single equation:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math inline">\(P(Weather,Cavity)=P(Weather|Cavity)*P(Cavity)\)</span></p>
+<p>The <strong>product rules</strong> for all possible values of <em>Weather</em> and <em>Cavity</em> can be written as a single equation:</p>
+<p><span class="math inline">\(P(Weather,Cavity)=P(Weather|Cavity)P(Cavity)\)</span></p>
 <div class="fragment">
 <p>which corresponds to a system of equations (using abbreviations <span class="math inline">\(W\)</span> and <span class="math inline">\(C\)</span>):</p>
 </div>
 <div class="fragment">
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math inline">\(P(W=sun,C=true) = P(W=sun|C=true)*P(C=true)\)</span></p>
+<p><span class="math inline">\(P(W=sun,C=true) = P(W=sun|C=true)P(C=true)\)</span></p>
 </div>
 <div class="fragment">
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math inline">\(P(W=rain,C=true) = P(W=rain|C=true)*P(C=true)\)</span></p>
+<p><span class="math inline">\(P(W=rain,C=true) = P(W=rain|C=true)P(C=true)\)</span></p>
 </div>
 <div class="fragment">
-<p>&nbsp;&nbsp;&nbsp;&nbsp;…</p>
+<p>…</p>
 </div>
 <div class="fragment">
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math inline">\(P(W=snow,C=false) = P(W=snow|C=false)*P(C=false)\)</span></p>
+<p><span class="math inline">\(P(W=snow,C=false) = P(W=snow|C=false)P(C=false)\)</span></p>
 </div>
-</section></section>
-<section>
-<section id="axiomatic-probability-theory" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
-<h1>Axiomatic probability theory</h1>
-
 </section>
+<section id="marginalization" class="slide level2">
+<h2>Marginalization</h2>
+<p>For any sets of variables <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> we have</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Y) = \sum_z P(Y,z) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Where <span class="math inline">\(\sum_z\)</span> sums over all the possible combinations of values of <span class="math inline">\(Z\)</span><a href="#/fn8" class="footnote-ref" id="fnref8" role="doc-noteref" onclick="return false;"><sup>8</sup></a></p>
+<p>As usual, we can abbreviate <span class="math inline">\(P(Y,Z=z)\)</span> in this equation by <span class="math inline">\(P(Y,z)\)</span>.</p>
+<div class="fragment">
+<p>Using the <strong>product rule</strong>, we can replace <span class="math inline">\(P(Y,z)\)</span> by <span class="math inline">\(P(Y|z)P(z)\)</span>,</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Y) = \sum_z P(Y|z)P(z) &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<aside></aside></section>
 <section id="probability-axioms" class="slide level2">
 <h2>Probability axioms</h2>
-<p>A function <span class="math inline">\(P\)</span> of formulae from propositional logic in the set <span class="math inline">\([0,1]\)</span> is a probability measure if for all propositions A, B:</p>
-<div>
-<ul>
-<li class="fragment"><span class="math inline">\(0 \leq P(A) \leq 1\)</span></li>
-<li class="fragment"><span class="math inline">\(P(true) = 1\)</span></li>
-<li class="fragment"><span class="math inline">\(P(false) = 0\)</span></li>
-<li class="fragment"><span class="math inline">\(P(A \lor B) = P(A) + P(B) - P(A \land B)\)</span></li>
-</ul>
+<p>The <strong>basic axioms of probability</strong> theory say that every possible world has a probability between 0 and 1 and that the total probability of the set of possible worlds is 1:</p>
+<p><span class="math inline">\(0 \leq P(a) \leq 1 \quad \textrm{for every } \omega \textrm{ and} \sum_{\omega \in \Omega}P(\omega)=1\)</span></p>
+<div class="fragment">
+<p>The probability of a disjunction can be derived by following formula, sometimes called <strong>inclusion-exclusion principle</strong>:</p>
+<p><span class="math inline">\(P(a \lor b) = P(a) + P(b) - P(a \land b)\)</span></p>
 </div>
 <div class="fragment">
 <p>All other properties can be derived from these axioms, e.g.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="math inline">\(P(\neg A) = 1–P(A)\)</span></p>
+<p><span class="math inline">\(P(\neg A) = 1–P(A)\)</span></p>
 </div>
 <div class="fragment">
 <p>follows from <span class="math inline">\(P(A \lor \neg A) = 1\)</span> and <span class="math inline">\(P(A \land \neg A) = 0\)</span></p>
 </div>
+</section>
+<section id="joint-probability" class="slide level2">
+<h2>Joint probability</h2>
+<p>Probabilities can be assigned to every proposition; an <strong>atomic event</strong> is an assignment of values to all random variables (i.e., a complete specification of a state)</p>
+<div class="fragment">
+<p>Example: Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be boolean variables, leading to following four atomic events: <span class="math inline">\(X \land Y, \neg X \land Y, X \land \neg Y, \neg X \land \neg Y\)</span></p>
+</div>
+<div class="fragment">
+<p>The joint probability distribution <span class="math inline">\(P(X_1,...,X_n)\)</span> assigns a probability to every atomic event.</p>
+</div>
+<div class="fragment">
+<div id="tbl-distribution">
+<table>
+<caption>Table 1: Probabilities of the atomimc events (full joint distribution for the <em>Toothache</em>, <em>Cavity</em> world)</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: center;">Toothache</td>
+<td style="text-align: center;">¬Toothache</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Cavity</td>
+<td style="text-align: center;">0.04</td>
+<td style="text-align: center;">0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">¬Cavity</td>
+<td style="text-align: center;">0.01</td>
+<td style="text-align: center;">0.89</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Since all atomic events are disjoint, the sum of all fields is 1.</p>
+</div>
+</section>
+<section id="working-with-joint-probabilities" class="slide level2">
+<h2>Working with joint probabilities</h2>
+<p>All relevant probabilities can be computed using the joint probability by expressing them as a <strong>disjunction of atomic events</strong>. Example:</p>
+<p><span class="math display">\[
+\begin{align}
+P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
+&amp;+ P(\neg Cavity \land Toothache) \\
+&amp;+ P(Cavity \land \neg Toothache)
+\end{align}
+\]</span> . . .</p>
+<p>Unconditional probabilities are obtained by adding across a row or column:</p>
+<p><span class="math inline">\(P(Cavity) = P(Cavity \land Toothache) + P(Cavity \land \neg Toothache)\)</span></p>
+<div class="fragment">
+<p>While conditional probabilities are obtained by using the product rule:</p>
+<p><span class="math inline">\(P(Cavity|Toothache) = \frac{P(Cavity \land Toothache)}{P(Toothache)}=\frac{0.04}{0.04+0.01}=0.80\)</span></p>
+</div>
+</section>
+<section id="problems-with-joint-probabilities" class="slide level2">
+<h2>Problems with joint probabilities</h2>
+<p>We can easily obtain all probabilities from the joint probability. The joint probability, however, involves <span class="math inline">\(k^n\)</span> values, if there are <span class="math inline">\(n\)</span> random variables with <span class="math inline">\(k\)</span> values.</p>
+<p>→ Implies difficulties of representation and assessment</p>
+<div class="fragment">
+<p>Questions:</p>
+<ul>
+<li>Is there a more compact way of representing joint probabilities?</li>
+<li>Is there an efficient method to work with this representation?</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Not in general, but it can work in many cases. Modern systems work directly with conditional probabilities and make assumptions on the independence of variables<a href="#/fn9" class="footnote-ref" id="fnref9" role="doc-noteref" onclick="return false;"><sup>9</sup></a> in order to simplify calculations.</p>
+</div>
+<aside></aside></section></section>
+<section>
+<section id="bayes-rule-and-its-use" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1>Bayes’ rule and its use</h1>
+
+</section>
+<section id="bayes-rule" class="slide level2">
+<h2>Bayes’ rule</h2>
+<p>We already know the product rule that can be written in two forms:</p>
+<p><span class="math inline">\(P(a \land b) = P(a|b) P(b) \quad and \quad P(a \land b) = P(b|a) P(a)\)</span></p>
+<div class="fragment">
+<p>By equating the right-hand sides and dividing by <span class="math inline">\(P(a)\)</span>, we get</p>
+<p><span class="math inline">\(P(b|a) = \frac{P(a|b)P(b)}{P(a)}\quad\)</span> (known as <strong>Bayes’ rule</strong>)</p>
+</div>
+<div class="fragment">
+<p>For multi-valued variables (set of equalities):</p>
+<p><span class="math inline">\(P(Y|X) = \frac{P(X|Y) P(Y)}{P(X)}\)</span></p>
+</div>
+<div class="fragment">
+<p>Generalization (conditioning on background evidence <span class="math inline">\(e\)</span>):</p>
+<p><span class="math inline">\(P(Y|X,e) = \frac{P(X|Y,e) P(Y|e)}{P(X|e)}\)</span></p>
+</div>
+</section>
+<section id="value-of-bayes-rule" class="slide level2">
+<h2>Value of Bayes’ rule</h2>
+<p>Bayes’ rule only allows us to compute the single term <span class="math inline">\(P(b|a)\)</span> in terms of three terms:</p>
+<p><span class="math inline">\(P(a|b)\)</span>, <span class="math inline">\(P(b)\)</span>, and <span class="math inline">\(P(a)\)</span></p>
+<div class="fragment">
+<p>That is useful in practice as there are many cases where we do have good probability estimates for these three numbers and need to compute the fourth</p>
+</div>
+<div class="fragment">
+<p>Often, we perceive as evidence the <em>effect</em> of some known <em>cause</em> and we would like to determine that cause. In that case, Bayes’ rule becomes:</p>
+<p><span class="math inline">\(P(cause|effect) = \frac{P(effect|cause)P(cause)}{P(effect)}\)</span></p>
+</div>
+</section>
+<section id="example-2" class="slide level2">
+<h2>Example</h2>
+<p><span class="math display">\[
+\begin{align}
+P(Toothache | Cavity) = {} &amp;  0.4 \\
+P(Cavity) = {} &amp; 0.1 \\
+P(Toothache) = {} &amp; 0.05 \\
+P(Cavity | Toothache) = {} &amp;  \frac{0.04*0.1}{0.05} = 0.8
+\end{align}
+\]</span></p>
+<div>
+<ul>
+<li class="fragment">Here only information that quantifies the relationship between <em>Caviety</em> and <em>Toothache</em> in the <strong>causal direction</strong> is given, the diagnosis is derived by applying Baye’s rule</li>
+<li class="fragment">If there is quantative information in the <strong>diagnostic direction</strong> from symptons to causes, there is no need to use Baye’s rule</li>
+<li class="fragment">However, causal knowledge is more robust than diagnostic knowledge (imagine, e.g., a cavity epidemic<a href="#/fn10" class="footnote-ref" id="fnref10" role="doc-noteref" onclick="return false;"><sup>10</sup></a>)</li>
+</ul>
+</div>
+<aside></aside></section>
+<section id="relative-probability" class="slide level2">
+<h2>Relative Probability</h2>
+<p>Often we would consider multiple causes. For example, a dentist would also like to consider the probability that the patient has a gum disease.</p>
+<p><span class="math display">\[\begin{align}
+P(Toothache | GumDisease) = {} &amp;  0.7 \\
+P(GumDisease) = {} &amp; 0.02
+\end{align}\]</span></p>
+<div class="fragment">
+<p>Which diangosis is more probable?</p>
+<p><span class="math inline">\(P(c|t) = \frac{P(t | c)P(c)}{P(t)} \quad\)</span> or <span class="math inline">\(\quad P(g | t) = \frac{P(t | g)P(g)}{P(t)}\)</span></p>
+</div>
+<div class="fragment">
+<p>If we are only interested in the relative probability, we need not assess P(T):</p>
+<p><span class="math inline">\(\frac{P(c|t)}{P(g|t)} = \frac{P(t|c)P(c)}{P(t)} \frac{P(t)}{P(t|g)P(g)} = \frac{P(t|c)P(c)}{P(t|g)P(g)} = \frac{0.4*0.1}{0.7*0.02} = 2.857\)</span></p>
+</div>
+<div class="fragment">
+<p>→ Important for excluding possible diagnoses</p>
+</div>
+</section>
+<section id="normalization" class="slide level2">
+<h2>Normalization</h2>
+<p>If we wish to determine the absolute probability of <span class="math inline">\(P(c | t)\)</span> and we do not know <span class="math inline">\(P(t)\)</span>, we can also carry out a complete case analysis (e.g.&nbsp;for <span class="math inline">\(c\)</span> and <span class="math inline">\(\neg c\)</span>)</p>
+<div class="fragment">
+<p>We would use the fact that</p>
+<p><span class="math inline">\(P(c | t) + P(\neg c | t) = 1\)</span> (here <span class="math inline">\(c\)</span> and <span class="math inline">\(t\)</span> are boolean variables)</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(c | t) = {} &amp; \frac{P(t|c)P(c)}{P(t)} &amp;&amp; (1.1) \\
+P(\neg c | t) = {} &amp; \frac{P(t|\neg c)P(\neg c)}{P(t)} &amp;&amp; (1.2) \\
+P(c | t) + P(\neg c | t) = {} &amp; \frac{P(t|c)P(c)}{P(t)} + \frac{P(t|\neg c)P(\neg c)}{P(t)} &amp;&amp; (1.3) \\
+P(t) = {} &amp; P(t|c) P(c) + P(t|\neg c) P(\neg c) &amp;&amp; (1.4)
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p>By substituting equation (1.4) into the first equation (1.1), we get:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(c|t) = {} &amp;  \frac{P(t|c)P(c)}{P(t|c)P(c)+P(t|\neg c)P(\neg c)} &amp;&amp; (1.5)
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<h3 id="normalizing-constant">Normalizing constant</h3>
+<p>For random variables with multiple values:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Y|X) = {} &amp; \frac{P(X|Y)P(Y)}{P(X)} &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Y|X) = {} &amp; \alpha P(X|Y) P(Y) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the <strong>normalization constant</strong> needed to make the entries in <span class="math inline">\(P(Y | X)\)</span> sum to 1. Example: <span class="math inline">\(\alpha(.1,.1,.3) = (.2,.2,.6)\)</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="generalization">Generalization</h3>
+<p>Let <span class="math inline">\(e\)</span> be the observed value of an evidence variable <span class="math inline">\(E\)</span>, and let <span class="math inline">\(Y\)</span> be the remaining unobserverd variables.</p>
+<p>The query is <span class="math inline">\(P(X|e)\)</span> and can be evaluated as</p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(X|e) = \frac{P(X,e)}{P(e)} = \alpha P(X,e) = \alpha \sum_y P(X,e,y) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Since <span class="math inline">\(e\)</span> is known, the factor <span class="math inline">\(1 / P(e)\)</span> is the same for all values of <span class="math inline">\(X\)</span>.</p>
+<p>In fact, it can be viewed as a <strong>normalization constant</strong> for the distrubution <span class="math inline">\(P(X|e)\)</span>, ensuring that it adds up to 1.</p>
+
+</div>
+<aside><div>
+<p>The summation is over all possible <span class="math inline">\(y\)</span>s (i.e., all possible combinations of values of the unobserved variables <span class="math inline">\(Y\)</span>). Notice that together, teh variables <span class="math inline">\(X\)</span>, <span class="math inline">\(E\)</span>, and <span class="math inline">\(Y\)</span> constitute the complete set of variables for the domain, so <span class="math inline">\(P(X,e,y)\)</span> is simply a subset of probabilities from the full joint distribution.</p>
+</div></aside></section>
+<section id="example-3" class="slide level2">
+<h2>Example</h2>
+<p>Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease. This test (T) is correct to 99% (1% false positive &amp; 1% false negative results). What does this mean for you?</p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(D|T) = \frac{P(T|D) P(D)}{P(T)} = \frac{P(T|D) P(D)}{P(T|D) P(D) + P(T| \neg D) P( \neg D)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(D) = 0.0001 \quad P(T|D) = 0.99 \quad P(T | \neg D) = 0.01 &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(D|T) = \frac{0.99 x 0.0001}{0.99 x 0.0001 + 0.01 x 0.9999} = \frac{0.000099}{0.010088} ≈ 0.01 &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Bottom line:</strong> if the inaccuracy of the test is much greater than the frequency of occurrence of the disease, then a positive result is not as threatening as one might think.</p>
+</div>
+</section>
+<section id="multiple-evidence" class="slide level2">
+<h2>Multiple evidence</h2>
+<p>A dentist’s probe catches in the aching tooth of a patient.</p>
+<p>Using Bayes’ rule, we can calculate:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Catch) = 0.95 &amp;&amp;
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p>But how does the combined evidence help?</p>
+</div>
+<div class="fragment">
+<p>With the help of Bayes’ rule, the dentist could conclude:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \frac{P(Toothache \land Catch|Cav)P(Cav)}{P(Toothache \land Catch)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache \land Catch|Cav)P(Cav)} &amp;&amp; (2.0)
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Problem:</strong> The dentist needs to know the conditional probabilities of the conjunction <span class="math inline">\(Toothache \land Catch\)</span> for each value of <span class="math inline">\(Cav\)</span>, i.e., <strong>diagnostic knowledge of all combinations of symptoms</strong> in the general case. This might be possible for just two evidence variables, but does not scale up.</p>
+<div class="fragment">
+<p>As it would reduce the complexity of the inference problem, it would be nice if <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> were independent, but they are not: if a probe catches in the tooth, it probably has cavity which probably causes toothache.</p>
+</div>
+<div class="fragment">
+<p>However, <em>given we know whether the tooth has cavity</em>, these variables <em>are</em> independent, as each is directly caused by the cavity, but neither has a direct effect on the other<a href="#/fn11" class="footnote-ref" id="fnref11" role="doc-noteref" onclick="return false;"><sup>11</sup></a>:</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Toothache \land Catch | Cav) = P(Toothache | Cav) P(Catch | Cav) &amp;&amp; (2.1)
+\end{flalign}
+\]</span></p>
+</div>
+<aside></aside></section>
+<section id="conditional-independence" class="slide level2">
+<h2>Conditional independence</h2>
+<p>The general definition of <strong>conditional independence</strong> of two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> given a third variable <span class="math inline">\(Z\)</span> is:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X,Y|Z) = P(X|Z)P(Y|Z) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p>In the dentist example, it seems reasonable to assert conditional independence of the variables <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> given <span class="math inline">\(Cav\)</span>, thus we can insert equation (2.1) into (2.0) leading to</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
 </section></section>
+<section>
+<section id="naive-bayes-models" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1>Naive Bayes models</h1>
+
+<aside><div>
+<p>The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause. The full joint distribution can be written as</p>
+<p>Such a probability distribution is called a <strong>naive Bayes model</strong>—“naive” because it is often used (as a simplifying assumption) in cases where the “effect” variables are <em>not</em> strictly independent given the cause variable.</p>
+<p>In practice, naive Bayes systems often work very well, even when the <strong>conditional independence assumption</strong> is not strictly true.</p>
+</div></aside></section>
+<section id="recursive-bayesian-updating" class="slide level2">
+<h2>Recursive Bayesian updating</h2>
+<p>Multiple evidence can be reduced to prior probabilities and conditional probabilities (assuming conditional independence)</p>
+<div class="fragment">
+<p>The <strong>general combination rule</strong>, if <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> are independent given <span class="math inline">\(X\)</span> is</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X|Z_1, Z_2) = \alpha P(X) P(Z_1|C) P(Z_2|C) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> is the normalization constant.</p>
+</div>
+<div class="fragment">
+<p>The generalization is called <strong>recursive Bayesian updating:</strong></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
+\end{flalign}
+\]</span></p>
+
+</div>
+<aside><div>
+<p>Reinterpreting this equation in words: for each possible cause, multiply the prior probability of the cause by the product of the conditional probabilities of the observed effects given the casue; then normalize the result.</p>
+</div></aside></section>
+<section id="types-of-variables" class="slide level2">
+<h2>Types of variables</h2>
+<p>Variables can be discrete or continuous</p>
+<div class="fragment">
+<p><strong>Discrete variables</strong></p>
+<ul>
+<li><span class="math inline">\(Weather\)</span>: sunny, rain, cloudy, snow</li>
+<li><span class="math inline">\(Cavity\)</span>: true, false (boolean)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Continuous variables</strong></p>
+<ul>
+<li>Tomorrow’s maximum temperature in Berkeley</li>
+<li>Domain can be the entire real line or any subset</li>
+<li>Distributions for continuous variables are typically given by probability density functions</li>
+</ul>
+</div>
+</section>
+<section id="text-classification" class="slide level2">
+<h2>Text classification</h2>
+<p>Imagine following task: given a text, decide which of a predefined set of classes or categories it belongs to.</p>
+<ul>
+<li><em>Cause</em> is the <em>Category</em> variable</li>
+<li><em>Effect</em> variables are the presence or abscence of a certaing key words, <em>HasWord<sub>i</sub></em></li>
+</ul>
+<p>Example sentences:</p>
+<ul>
+<li>Stock rallied on Monday, with major indexes gaining 1% as optimism persisted over the first quarter earnings season.</li>
+<li>Heavy rain continued to pound much of the east coast on Monday, with flood warnings issued in New York City and other locations</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>The task is to classify each sentence into a <em>Category</em>—the major sections of the newspaper (<code>[news, sports, business, weather, entertainment]</code>)</p>
+<p>The naive Bayes model consists of</p>
+<ul>
+<li>the prior probabilities <span class="math inline">\(P(Category)\)</span> and</li>
+<li>the unconditional probabilities <span class="math inline">\(P(HasWord_i|Category)\)</span></li>
+</ul>
+<p>For each category c <span class="math inline">\(P(Category=c)\)</span> is estimated as the fraction of all previously seen documents that are of category c<a href="#/fn12" class="footnote-ref" id="fnref12" role="doc-noteref" onclick="return false;"><sup>12</sup></a>.</p>
+<p>Similarily, <span class="math inline">\(P(HasWord_i|Category)\)</span> is estimated as the fraction of documents of each category that contain word <span class="math inline">\(i\)</span><a href="#/fn13" class="footnote-ref" id="fnref13" role="doc-noteref" onclick="return false;"><sup>13</sup></a>.</p>
+<aside></aside></section>
+<section class="slide level2">
+
+<p>To categorize a new document, we check which key words appear in the document and then apply <strong>recursive Bayesian updating</strong> to obtain the posterior probablity distribution over categories:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>The category with the highest posterior probability is taken.</p>
+
+<aside><div>
+<p>The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase “first quarter” occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of “first” and “quarter.” The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate. Naive Bayes models are widely used for language determination, document retrieval, spam filtering, an other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter–for example, in deciding wether to perform an appendoctomy–one would usually prefer to use more sophisticated models such as Bayesian networks <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 422</a>)</span>.</p>
+</div></aside></section></section>
 <section>
 <section id="exercises" class="title-slide slide level1 vertical-center center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1>✏️ Exercises</h1>
 
 </section>
-<section id="i2ai_6-e1" class="slide level2 smaller">
+<section id="i2ai_6-e1" class="slide level2">
 <h2>I2AI_6 E1</h2>
+<p>Show from the definition of conditional probability that <span class="math inline">\(P(a | b \land a) = 1\)</span>.</p>
+</section>
+<section id="i2ai_6-e2" class="slide level2">
+<h2>I2AI_6 E2</h2>
+<p>Would it be rational for an agent to hold the three beliefs <span class="math inline">\(P(A)=0.4\)</span>, <span class="math inline">\(P(B)=0.3\)</span>, and <span class="math inline">\(P(A \lor B)=0.5\)</span>? If so, what range of probabilities would be rational for the agent to hold for A∧B? Make up a table like the one in <a href="#/tbl-distribution">Table&nbsp;1</a>, and show how it supports your argument about rationality.</p>
+</section>
+<section id="i2ai_6-e3" class="slide level2">
+<h2>I2AI_6 E3</h2>
+<p>Consider two medical tests, A and B, for a virus. Test A is 95% effective at recognizing the virus when it is present, but has a 10% false positive rate (indicating that the virus is present, when it is not). Test B is 90% effective at recognizing the virus, but has a 5% false positive rate. The two tests use independent methods of identifying the virus. The virus is carried by 1% of all people.</p>
+<p>Say that a person is tested for the virus using only one of the tests, and that test comes back positive for carrying the virus. Which test returning positive is more indicative of someone really carrying the virus? Justify your answer mathematically.</p>
+</section>
+<section id="i2ai_6-e4" class="slide level2">
+<h2>I2AI_6 E4</h2>
+<p>It is quite often useful to consider the effect of some specific propositions in the context of some general background evidence that remains fixed, rather than in the complete absence of information. The following questions ask you to prove more general versions of the product rule and Bayes’ rule, with respect to some background evidence <span class="math inline">\(e\)</span>.</p>
+<p>Prove the conditionalized version of the general product rule:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|e) = P(A|B,e)P(B|e) &amp;&amp;
+\end{flalign}
+\]</span></p>
+</section>
+<section id="i2ai_6-e5" class="slide level2">
+<h2>I2AI_6 E5</h2>
+<p>Show that the statement of conditional independence</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|C)=P(A|C)P(B|C) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>is equivalent to each of the statements</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A|B,C)=P(A|C) \quad \textrm{and} \quad P(B|A,C)=P(B|C) &amp;&amp;
+\end{flalign}
+\]</span></p>
 </section></section>
 <section id="literature" class="title-slide slide level1 smaller scrollable">
 <h1>Literature</h1>
-<div id="refs" role="doc-bibliography">
-
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
 </div>
 
 <div class="footer footer-default">
@@ -592,6 +1020,13 @@ e.g., <span class="math inline">\(P(Cavity | Toothache) = 0.8\)</span></li>
 <li id="fn4" role="doc-endnote"><p>Here “expected” means the “average”, or “statistical mean” of the outcome utilities, weighted by the probability of the outcome.</p></li>
 <li id="fn5" role="doc-endnote"><p>Variables in probability theory are called random variables</p></li>
 <li id="fn6" role="doc-endnote"><p>Represents the belief that the temperature at noon is distributed uniformly between 18 and 26 degrees Celcius</p></li>
+<li id="fn7" role="doc-endnote"><p><span class="math inline">\(P(a \land b) = P(a|b)P(b)\)</span> equals <span class="math inline">\(P(a \land b) = P(b|a)P(a)\)</span></p></li>
+<li id="fn8" role="doc-endnote"><p>This process is called marginalization, or summing out—-because we sum up the probabilities for each possible value of the otehr variables, thereby taking the out of the equation.</p></li>
+<li id="fn9" role="doc-endnote"><p>If there is a cavity epidemic and <span class="math inline">\(P(Cavity)\)</span> increases, <span class="math inline">\(P(Toothache | Cavity)\)</span> does not change, but <span class="math inline">\(P(Toothache)\)</span> and <span class="math inline">\(P(Cavity | Toothache)\)</span> will change proportionally</p></li>
+<li id="fn10" role="doc-endnote"><p>If there is a cavity epidemic and <span class="math inline">\(P(Cavity)\)</span> increases, <span class="math inline">\(P(Toothache | Cavity)\)</span> does not change, but <span class="math inline">\(P(Toothache)\)</span> and <span class="math inline">\(P(Cavity | Toothache)\)</span> will change proportionally</p></li>
+<li id="fn11" role="doc-endnote"><p>Toothache depends on the state of the nerves in the tooth, whereas the probe’s accuracy depends primarily on the dentist’s skill, to which the toothache is irrelevant.</p></li>
+<li id="fn12" role="doc-endnote"><p>For example, if 9% of the articles are about weather, we set <span class="math inline">\(P(Category=weather)=0.09\)</span>.</p></li>
+<li id="fn13" role="doc-endnote"><p>For example, if 37% of articles about business contain word 6, “stocks,” so <span class="math inline">\(P(HasWord_6=true|Category=business)\)</span> is set to 0.37</p></li>
 </ol>
 </section>
     </div>
