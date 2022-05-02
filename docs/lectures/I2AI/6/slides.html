@@ -700,7 +700,7 @@ P(Cavity | Toothache) = {} &amp;  \frac{0.04*0.1}{0.05} = 0.8
 </div>
 <aside></aside></section>
 <section id="relative-probability" class="slide level2">
-<h2>Relative Probability</h2>
+<h2>Relative probability</h2>
 <p>Often we would consider multiple causes. For example, a dentist would also like to consider the probability that the patient has a gum disease.</p>
 <p><span class="math display">\[\begin{align}
 P(Toothache | GumDisease) = {} &amp;  0.7 \\
@@ -778,7 +778,7 @@ P(X|e) = \frac{P(X,e)}{P(e)} = \alpha P(X,e) = \alpha \sum_y P(X,e,y) &amp;&amp;
 
 </div>
 <aside><div>
-<p>The summation is over all possible <span class="math inline">\(y\)</span>s (i.e., all possible combinations of values of the unobserved variables <span class="math inline">\(Y\)</span>). Notice that together, teh variables <span class="math inline">\(X\)</span>, <span class="math inline">\(E\)</span>, and <span class="math inline">\(Y\)</span> constitute the complete set of variables for the domain, so <span class="math inline">\(P(X,e,y)\)</span> is simply a subset of probabilities from the full joint distribution.</p>
+<p>The summation is over all possible <span class="math inline">\(y\)</span>s (i.e., all possible combinations of values of the unobserved variables <span class="math inline">\(Y\)</span>). Notice that together, the variables <span class="math inline">\(X\)</span>, <span class="math inline">\(E\)</span>, and <span class="math inline">\(Y\)</span> constitute the complete set of variables for the domain, so <span class="math inline">\(P(X,e,y)\)</span> is simply a subset of probabilities from the full joint distribution.</p>
 </div></aside></section>
 <section id="example-3" class="slide level2">
 <h2>Example</h2>
@@ -886,7 +886,7 @@ P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)}
 <p>The <strong>general combination rule</strong>, if <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> are independent given <span class="math inline">\(X\)</span> is</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(X|Z_1, Z_2) = \alpha P(X) P(Z_1|C) P(Z_2|C) &amp;&amp;
+P(C|Z_1, Z_2) = \alpha P(X) P(Z_1|C) P(Z_2|C) &amp;&amp;
 \end{flalign}
 \]</span></p>
 <p>where <span class="math inline">\(\alpha\)</span> is the normalization constant.</p>
@@ -944,7 +944,7 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 <p>The naive Bayes model consists of</p>
 <ul>
 <li>the prior probabilities <span class="math inline">\(P(Category)\)</span> and</li>
-<li>the unconditional probabilities <span class="math inline">\(P(HasWord_i|Category)\)</span></li>
+<li>the conditional probabilities <span class="math inline">\(P(HasWord_i|Category)\)</span></li>
 </ul>
 </div>
 <div class="fragment">
@@ -965,7 +965,7 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 <p>The category with the highest posterior probability is taken.</p>
 
 <aside><div>
-<p>The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase “first quarter” occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of “first” and “quarter.” The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate. Naive Bayes models are widely used for language determination, document retrieval, spam filtering, an other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter–for example, in deciding wether to perform an appendoctomy–one would usually prefer to use more sophisticated models such as Bayesian networks <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 422</a>)</span>.</p>
+<p>The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase “first quarter” occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of “first” and “quarter.” The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate. Naive Bayes models are widely used for language determination, document retrieval, spam filtering, and other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter–for example, in deciding wether to perform an appendoctomy–one would usually prefer to use more sophisticated models such as Bayesian networks <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 422</a>)</span>.</p>
 </div></aside></section></section>
 <section id="summary" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Summary</h1>
