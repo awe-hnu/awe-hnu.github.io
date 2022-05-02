@@ -387,7 +387,7 @@ $P(cause|effect) = \frac{P(effect|cause)P(cause)}{P(effect)}$
 
 $$
 \begin{align}
-P(Toothache | Cavity) = {} &  0.4 \\
+P(Toothache | Cavity) = {} &  0.04 \\
 P(Cavity) = {} & 0.1 \\
 P(Toothache) = {} & 0.05 \\
 P(Cavity | Toothache) = {} &  \frac{0.04*0.1}{0.05} = 0.8
@@ -413,7 +413,7 @@ P(GumDisease) = {} & 0.02
 
 . . .
 
-Which diangosis is more probable?
+Which diagonsis is more probable?
 
 $P(c|t) = \frac{P(t | c)P(c)}{P(t)} \quad$ or $\quad P(g | t) = \frac{P(t | g)P(g)}{P(t)}$
 
@@ -502,7 +502,7 @@ Since $e$ is known, the factor $1 / P(e)$ is the same for all values of $X$.
 In fact, it can be viewed as a __normalization constant__ for the distrubution $P(X|e)$, ensuring that it adds up to 1.
 
 :::{.notes}
-The summation is over all possible $y$s (i.e., all possible combinations of values of the unobserved variables $Y$). Notice that together, teh variables $X$, $E$, and $Y$ constitute the complete set of variables for the domain, so $P(X,e,y)$ is simply a subset of probabilities from the full joint distribution.
+The summation is over all possible $y$s (i.e., all possible combinations of values of the unobserved variables $Y$). Notice that together, the variables $X$, $E$, and $Y$ constitute the complete set of variables for the domain, so $P(X,e,y)$ is simply a subset of probabilities from the full joint distribution.
 :::
 
 ## Example
@@ -634,7 +634,7 @@ The __general combination rule__, if $Z_1$ and $Z_2$ are independent given $X$ i
 
 $$
 \begin{flalign}
-P(X|Z_1, Z_2) = \alpha P(X) P(Z_1|C) P(Z_2|C) &&
+P(C|Z_1, Z_2) = \alpha P(X) P(Z_1|C) P(Z_2|C) &&
 \end{flalign}
 $$
 
@@ -696,7 +696,7 @@ The task is to classify each sentence into a *Category*—the major sections of 
 The naive Bayes model consists of 
 
 - the prior probabilities $P(Category)$ and
-- the unconditional probabilities $P(HasWord_i|Category)$
+- the conditional probabilities $P(HasWord_i|Category)$
 
 . . .
 
@@ -724,7 +724,7 @@ The category with the highest posterior probability is taken.
 
 :::{.notes}
 The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase "first quarter" occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of "first" and "quarter." The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate.
-Naive Bayes models are widely used for language determination, document retrieval, spam filtering, an other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter--for example, in deciding wether to perform an appendoctomy--one would usually prefer to use more sophisticated models such as Bayesian networks [@RusselNorvig2022AIMA, p. 422].
+Naive Bayes models are widely used for language determination, document retrieval, spam filtering, and other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter--for example, in deciding wether to perform an appendoctomy--one would usually prefer to use more sophisticated models such as Bayesian networks [@RusselNorvig2022AIMA, p. 422].
 :::
 
 # Summary {.vertical-center background-color=blue}
