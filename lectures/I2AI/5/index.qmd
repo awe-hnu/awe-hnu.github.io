@@ -521,6 +521,50 @@ You can use a table like this:
 
 : Propositions not listed as true on a given line are assumed false {tbl-colwidths="[30,7,7,7]"}
 
+### Solution note
+
+To save space, we’ll show the list of models as a @tbl-truthtable-5e1 rather than a collection of diagrams. There are eight possible combinations of pits in the three squares, and four possibilities for the wumpus location (including nowhere). We can see that $KB \models \alpha_2$ because every line where KB is true also has $\alpha_2$ true. Similarly for $\alpha_3$.
+
+| Model                            | $KB$       | $\alpha_2$ | $\alpha_3$ |
+|----------------------------------|:----------:|:----------:|:----------:|
+|                                  |            | true       |            |
+| $P_{1,3}$                        |            | true       |            |
+| $P_{2,2}$                        |            |            |            |
+| $P_{3,1}$                        | true       | true       |            |
+| $P_{1,3},P_{2,2}$                |            |            |            |
+| $P_{2,2},P_{3,1}$                |            |            |            |
+| $P_{3,1},P_{1,3}$                |            | true       |            |
+| $P_{1,3},P_{3,1},P_{2,2}$        |            |            |            |
+|                                  |            |            |            |
+| $W_{1,3}$                        |            | true       | true       |
+| $W_{1,3},P_{1,3}$                |            | true       | true       |
+| $W_{1,3},P_{2,2}$                |            |            | true       |
+| $W_{1,3},P_{3,1}$                | true       | true       | true       |
+| $W_{1,3},P_{1,3},P_{2,2}$        |            |            | true       |
+| $W_{1,3},P_{2,2},P_{3,1}$        |            |            | true       |
+| $W_{1,3},P_{3,1},P_{1,3}$        |            | true       | true       |
+| $W_{1,3},P_{1,3},P_{3,1},P_{2,2}$|            |            | true       |
+|                                  |            |            |            |
+| $W_{3,1}$                        |            | true       |            |
+| $W_{3,1},P_{1,3}$                |            | true       |            |
+| $W_{3,1},P_{2,2}$                |            |            |            |
+| $W_{3,1},P_{3,1}$                |            | true       |            |
+| $W_{3,1},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{3,1},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{3,1},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{3,1},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+|                                  |            |            |            |
+| $W_{2,2}$                        |            | true       |            |
+| $W_{2,2},P_{1,3}$                |            | true       |            |
+| $W_{2,2},P_{2,2}$                |            |            |            |
+| $W_{2,2},P_{3,1}$                |            | true       |            |
+| $W_{2,2},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{2,2},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{2,2},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{2,2},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+
+: A truth table constructed for I2AI_5 E1. Propositions not listed as true on a given line are assumed false, and only true entries are shown in the table {#tbl-truthtable-5e1}
+
 ## I2AI_5 E2
 
 Prove, or find a counterexample to, each of the following assertions, where $\alpha$, $\beta$, and $\gamma$ represent any logical sentence:
@@ -530,6 +574,34 @@ b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\be
 b. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)
 
 Remember, $\alpha \models \beta$ means that __iff__ in every model in which $\alpha$ is true, $\beta$ is also true.
+
+### Solution note
+
+a. If $\alpha \models \gamma$ or $\beta \models \gamma$ (or both) then $(\alpha \land \beta) \models \gamma$   
+   True. This follows from monotonicity
+
+b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\beta \models \gamma$ (or both)   
+   False. Consider $\alpha \equiv A, \beta \equiv B, \gamma \equiv (A \land B)$
+
+|                 | $\alpha$ | $\beta$  | $\alpha \land \beta$ |
+|-----------------|:--------:|:--------:|:--------------------:|
+| $A,B$           | true     | true     | true                 |
+| $A,\neg B$      | true     |          |                      |
+| $\neg A,B$      |          | true     |                      |
+| $\neg A,\neg B$ |          | true     |                      |
+
+: A truth table constructed for I2AI_5 E3b. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3b}  
+
+c. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)   
+   False. Consider $\beta \models A, \gamma \models \neg A$
+
+|           | $\alpha = (A \lor \neg A)$ | $\beta \lor \gamma$  | $\beta$  | $\gamma$ |
+|-----------|:--------------------------:|:--------------------:|:--------:|:--------:|
+| $A$       | true                       | true                 | true     |          |
+| $\neg A$  | true                       | true                 |          | true     |
+
+
+: A truth table constructed for I2AI_5 E3c. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3c}  
 
 ## I2AI_5 E3 {.smaller}
 
@@ -548,6 +620,13 @@ __Propositional Logic__
 - $C \land \neg D$
 - $\neg A \lor \neg(B \land D)$
 - $D$
+
+### Solution note
+
+$A$ = the agent is alive
+$B$ = the agent is at (0, 1)
+$C$ = the agent is at (0, 0)
+$D$ = there is a Wumpus at (0, 1).
 
 # Literature
 ::: {#refs}
