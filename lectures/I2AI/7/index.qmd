@@ -647,6 +647,89 @@ For large data sets, prior becomes irrelevant
 - __Maximum likelihood__ assumes uniform prior, OK for large data sets
 :::
 
+# Deepl learning {.vertical-center background-color=blue background-image="images/bg.jpeg"}
+
+## Introduction
+
+Conventional machine-learning techniques as those discussed above are limited in their ability to process __natural data in their raw form__. 
+
+. . .
+
+Careful engineering and considerable domain expertise are required to transform the raw data into a __suitable internal representation__ from which the learning system could detect or classify patterns in some input.
+
+. . .
+
+In __representation learning__ the system uses methods to automatically discover the representations needed for detection or classification. 
+
+. . .
+
+__Deep-learning methods__ creates multiple levels of representation by transforming the representation at one level (starting with the raw input) into a representation at a higher, slightly more abstract level. 
+
+. . .
+
+With the composition of enough such transformations, very complex functions can be learned. 
+
+## Representations
+
+The key aspect of deep learning is that the levels of representations (i.e., layers of features) __are not designed by human engineers__: they are learned from data using a __general-purpose learning procedure__.
+
+. . .
+
+Example: object detection in images
+
+:::{.incremental}
+- An image comes in the form of an array of pixel values (raw input; input layer)
+- The first layer of representation typically represent the presence or absence of edges at particular orientations and locations in the image (hidden layer 1)
+- The second layer typically detects motifs by spotting particular arrangements of edges, regardless of small variations in the edge positions (hidden layer 2)
+- The third layer may assemble motifs into larger combinations that correspond to parts of familiar objects (hidden layer 3)
+- Subsequent layers would detect objects as combinations of the parts of familiar objects
+:::
+
+----
+
+### Visualization
+
+![Illustration of a deep neural network consisting of multiple representation layers](images/deep-nn.svg){#fig-deep-nn}
+
+## Application
+
+Deep learning methods can __discover intricate structures in high-dimensional data__. 
+
+. . .
+
+Using this capability, deep learning is making major advances in solving problems that could not have been solved before (@lecun2015deep), e.g., 
+
+:::{.incremental}
+- image and speech recognition,
+- analysing particle accelerator data,
+- reconstructing brain circuits,
+- predicting the effects of DNA mutations on gene expression and disease
+- natural language understanding (e.g., topic classification, sentiment analysis, question answering and language translation)
+:::
+
+## Convolutional neural networks
+
+A ___convolutional neural network (ConvNet)___ is a specific kind of neural network with multiple layers,designed to process data that come in the form of multiple arrays[^10]
+
+[^10]: 1D for signals an sequences such as language, 2D for images or audio spectograms, 3D for video
+
+. . .
+
+The role of the ConvNet is to __reduce the arrays__ into a form which is easier to process, without losing features which are critical for getting a good prediction. 
+
+. . .
+
+A ConvNet is structured as a series of stages, which are composed of two types of layers: __convolutional layers__ and __pooling layers__.
+
+:::{.incremental}
+- The __convolution layer__: extraction of the high-level features from the input (by applying convolutional operations/filters)
+- The __pooling layer__: reduction of the spatial size of the convoled feature to decrease the computational power required to process the data through dimensionality reduction.
+:::
+
+. . .
+
+Good read: [A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
+
 # Development process {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
 ## Overview

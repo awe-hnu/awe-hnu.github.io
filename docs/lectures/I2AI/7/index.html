@@ -134,6 +134,11 @@
   <a href="../../../lectures/I2AI/7/index.html" class="sidebar-item-text sidebar-link active">Learning</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../lectures/I2AI/8/slides.html" class="sidebar-item-text sidebar-link">Ethics</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -200,6 +205,16 @@
 <li><a href="#map-learning" class="nav-link" data-scroll-target="#map-learning">MAP learning</a></li>
 <li><a href="#maximum-likelihood-hypothesis" class="nav-link" data-scroll-target="#maximum-likelihood-hypothesis">Maximum likelihood hypothesis</a></li>
 <li><a href="#summary-1" class="nav-link" data-scroll-target="#summary-1">Summary</a></li>
+</ul></li>
+<li><a href="#deepl-learning" class="nav-link" data-scroll-target="#deepl-learning">Deepl learning</a>
+<ul class="collapse">
+<li><a href="#introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+<li><a href="#representations" class="nav-link" data-scroll-target="#representations">Representations</a>
+<ul class="collapse">
+<li><a href="#visualization-1" class="nav-link" data-scroll-target="#visualization-1">Visualization</a></li>
+</ul></li>
+<li><a href="#application" class="nav-link" data-scroll-target="#application">Application</a></li>
+<li><a href="#convolutional-neural-networks" class="nav-link" data-scroll-target="#convolutional-neural-networks">Convolutional neural networks</a></li>
 </ul></li>
 <li><a href="#development-process" class="nav-link" data-scroll-target="#development-process">Development process</a>
 <ul class="collapse">
@@ -1038,6 +1053,86 @@ P(X|d) \approx P(X|h_{MAP})
 </div>
 </section>
 </section>
+<section id="deepl-learning" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Deepl learning</h1>
+<section id="introduction-1" class="level2">
+<h2 data-anchor-id="introduction-1">Introduction</h2>
+<p>Conventional machine-learning techniques as those discussed above are limited in their ability to process <strong>natural data in their raw form</strong>.</p>
+<div class="incremental">
+<p>Careful engineering and considerable domain expertise are required to transform the raw data into a <strong>suitable internal representation</strong> from which the learning system could detect or classify patterns in some input.</p>
+</div>
+<div class="incremental">
+<p>In <strong>representation learning</strong> the system uses methods to automatically discover the representations needed for detection or classification.</p>
+</div>
+<div class="incremental">
+<p><strong>Deep-learning methods</strong> creates multiple levels of representation by transforming the representation at one level (starting with the raw input) into a representation at a higher, slightly more abstract level.</p>
+</div>
+<div class="incremental">
+<p>With the composition of enough such transformations, very complex functions can be learned.</p>
+</div>
+</section>
+<section id="representations" class="level2">
+<h2 data-anchor-id="representations">Representations</h2>
+<p>The key aspect of deep learning is that the levels of representations (i.e., layers of features) <strong>are not designed by human engineers</strong>: they are learned from data using a <strong>general-purpose learning procedure</strong>.</p>
+<div class="incremental">
+<p>Example: object detection in images</p>
+<div class="incremental">
+<ul class="incremental">
+<li>An image comes in the form of an array of pixel values (raw input; input layer)</li>
+<li>The first layer of representation typically represent the presence or absence of edges at particular orientations and locations in the image (hidden layer 1)</li>
+<li>The second layer typically detects motifs by spotting particular arrangements of edges, regardless of small variations in the edge positions (hidden layer 2)</li>
+<li>The third layer may assemble motifs into larger combinations that correspond to parts of familiar objects (hidden layer 3)</li>
+<li>Subsequent layers would detect objects as combinations of the parts of familiar objects</li>
+</ul>
+</div>
+<hr>
+<section id="visualization-1" class="level3">
+<h3 data-anchor-id="visualization-1">Visualization</h3>
+<div id="fig-deep-nn" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/deep-nn.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 7: Illustration of a deep neural network consisting of multiple representation layers</figcaption><p></p>
+</figure>
+</div>
+</section>
+</div>
+</section>
+<section id="application" class="level2">
+<h2 data-anchor-id="application">Application</h2>
+<p>Deep learning methods can <strong>discover intricate structures in high-dimensional data</strong>.</p>
+<div class="incremental">
+<p>Using this capability, deep learning is making major advances in solving problems that could not have been solved before (<span class="citation" data-cites="lecun2015deep">LeCun, Bengio, and Hinton (<a href="#ref-lecun2015deep" role="doc-biblioref">2015</a>)</span>), e.g.,</p>
+<div class="incremental">
+<ul class="incremental">
+<li>image and speech recognition,</li>
+<li>analysing particle accelerator data,</li>
+<li>reconstructing brain circuits,</li>
+<li>predicting the effects of DNA mutations on gene expression and disease</li>
+<li>natural language understanding (e.g., topic classification, sentiment analysis, question answering and language translation)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="convolutional-neural-networks" class="level2">
+<h2 data-anchor-id="convolutional-neural-networks">Convolutional neural networks</h2>
+<p>A <strong><em>convolutional neural network (ConvNet)</em></strong> is a specific kind of neural network with multiple layers,designed to process data that come in the form of multiple arrays<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<div class="incremental">
+<p>The role of the ConvNet is to <strong>reduce the arrays</strong> into a form which is easier to process, without losing features which are critical for getting a good prediction.</p>
+</div>
+<div class="incremental">
+<p>A ConvNet is structured as a series of stages, which are composed of two types of layers: <strong>convolutional layers</strong> and <strong>pooling layers</strong>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>The <strong>convolution layer</strong>: extraction of the high-level features from the input (by applying convolutional operations/filters)</li>
+<li>The <strong>pooling layer</strong>: reduction of the spatial size of the convoled feature to decrease the computational power required to process the data through dimensionality reduction.</li>
+</ul>
+</div>
+</div>
+<div class="incremental">
+<p>Good read: <a href="https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53">A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way</a></p>
+</div>
+</section>
+</section>
 <section id="development-process" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
 <h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Development process</h1>
 <section id="overview" class="level2">
@@ -1145,7 +1240,7 @@ Helpful questions
 <li><strong>Verification and validation:</strong> you test on the training, validation, and datasets, do code reviews, monitoring, and set measures for accountability<br>
 ➞ Do the best to ensure that the system will not be wrong and, for the case, set responsibilities</li>
 <li><strong>Interpretability:</strong> you understand how answers relate to inputs ➞ Do the best to inspect and interpret your model</li>
-<li><strong>Explainability:</strong> the model helps you to understand why a certain output has been produced for a given input ➞ Do the best to explain what your model does<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></li>
+<li><strong>Explainability:</strong> the model helps you to understand why a certain output has been produced for a given input ➞ Do the best to explain what your model does<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></li>
 </ul>
 </div>
 </section>
@@ -1233,6 +1328,9 @@ A set of criteria to see how well you are doing at deploying ML models
 <div id="ref-domingos2012few" class="csl-entry" role="doc-biblioentry">
 Domingos, Pedro. 2012. <span>“A Few Useful Things to Know about Machine Learning.”</span> <em>Communications of the ACM</em> 55 (10): 78–87.
 </div>
+<div id="ref-lecun2015deep" class="csl-entry" role="doc-biblioentry">
+LeCun, Yann, Yoshua Bengio, and Geoffrey Hinton. 2015. <span>“Deep Learning.”</span> <em>Nature</em> 521 (7553): 436–44.
+</div>
 <div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
 Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
 </div>
@@ -1246,7 +1344,8 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <li id="fn5" role="doc-endnote"><p>The training set is divided into two groups; 70% of the training set is used to build the tree, and the remaining 30% for validation; leading to <em>three</em> data sets (training, validation, test)<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6" role="doc-endnote"><p>Pronounced “em-ay-pee”<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7" role="doc-endnote"><p>Which is equal to minimizing <span class="math inline">\(− \log P(X|h_k) − \log P(h_k)\)</span><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>Regulations such as the European GDPR require systems to provide explanations<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>1D for signals an sequences such as language, 2D for images or audio spectograms, 3D for video<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>Regulations such as the European GDPR require systems to provide explanations<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script type="application/javascript">
