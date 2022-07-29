@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="de-DE"><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.123">
+<link href="../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.37">
+
   <meta name="author" content="Andy Weeger">
   <title>awe.lectures - K8 Prozessmodellierung</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,15 +45,6 @@
     }
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
-
-  <link href="../../../assets/favicon.png" rel="icon" type="image/png">
-  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-  <script src="../../../site_libs/quarto-html/tabby.min.js"></script>
-  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
-  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet">
-  <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -59,7 +58,7 @@
   }
 
   .callout.callout-style-simple { 
-    padding: 0em 0.7em;
+    padding: 0em 0.5em;
     border-left: solid #acacac .3rem;
     border-right: solid 1px silver;
     border-top: solid 1px silver;
@@ -170,8 +169,7 @@
     display: none !important;
   }
 
-  .callout.callout-captioned .callout-body > :last-child,
-  .callout.callout-captioned .callout-body > div > :last-child {
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
     margin-bottom: 0.5rem;
   }
 
@@ -336,9 +334,10 @@
     }
   </style>
 <meta property="og:title" content="awe.lectures - K8 Prozessmodellierung">
+<meta property="og:description" content="Grundzüge Informationsmanagement (GIM)">
 <meta property="og:site-name" content="awe.lectures">
 </head>
-<body>
+<body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
@@ -361,10 +360,20 @@
 <blockquote>
 <p>If you can’t describe what you are doing as a process, you don’t know what you’re doing. <em>William Edwards Demin, Physiker, Statistiker und Pionier im Qualitätsmanagement</em></p>
 </blockquote>
-
-<aside><div>
+<aside class="notes">
 <p>Um Geschäftsprozesse zu beschreiben, analysieren und optimieren werden Arbeitsprozesse in einer zeitlich logischen Abfolge anhand bestimmter Syntaxregeln modelliert. Die ereignisgesteuerte Prozesskette (EPK, außerhalb des deutschsprachigen Raums: Event Driven Process Chain) eine sehr einfach anzuwendende Form der Modellierung von Prozessen. Diese schauen wir uns in diesem Kapitel näher an.</p>
-</div></aside></section></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
 <section id="lernergebnisse" class="title-slide slide level1 center">
 <h1>Lernergebnisse</h1>
 <p>Nach dieser Einheit können Sie</p>
@@ -396,11 +405,10 @@
 <div id="fig-modellierung" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/modellierung.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 1: Darstellung des Modellierungsprozesses, aufbauend auf <span class="citation" data-cites="leimeister2021einfuhrung">Leimeister (<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 119</a>)</span></figcaption><p></p>
+<p></p><figcaption>Abbildung 1: Darstellung des Modellierungsprozesses, aufbauend auf <span class="citation" data-cites="leimeister2021einfuhrung">Leimeister (<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 119</a>)</span></figcaption><p></p>
 </figure>
 </div>
-
-<aside><div>
+<aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -415,34 +423,65 @@
 </div>
 </div>
 </div>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="übersichtsdiagramme" class="slide level2">
 <h2>Übersichtsdiagramme</h2>
-
+<aside class="notes">
+<p>Zur Übersicht über die Prozesse eines Unternehmens werden oftmals <strong>Prozesslandkarten</strong> und <strong>Wertschöpfungskettendiagramme</strong> eingesetzt. Prozesslandkarten stellen die wesentlichen Geschäftsprozesse eines Unternehmens dar, während Wertschöpfungskettendiagramme zusätzlich die Zusammenhänge zwischen den wesentlichen Prozessen und deren Teilprozessen darstellen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div id="fig-landkarten" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/prozesslandkarten.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 2: Beispiele für Prozesslandkarten und Wertschöpfungskettendiagramme, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+<p></p><figcaption>Abbildung 2: Beispiele für Prozesslandkarten und Wertschöpfungskettendiagramme, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
 </figure>
 </div>
-<aside><div>
-<p>Zur Übersicht über die Prozesse eines Unternehmens werden oftmals <strong>Prozesslandkarten</strong> und <strong>Wertschöpfungskettendiagramme</strong> eingesetzt. Prozesslandkarten stellen die wesentlichen Geschäftsprozesse eines Unternehmens dar, während Wertschöpfungskettendiagramme zusätzlich die Zusammenhänge zwischen den wesentlichen Prozessen und deren Teilprozessen darstellen.</p>
-</div></aside></section>
+</section>
 <section id="modellierungssprachen" class="slide level2">
 <h2>Modellierungssprachen</h2>
 <p>Zur Modellierung von Geschäftsprozessen und zur Gestaltung von Informationssystemen finden sich in der Praxis eine Vielzahl von Methoden. Zwei Methoden werden besonders häufig eingesetzt: <strong>Ereignisgesteuerte Prozesskette</strong> (EPK) und <strong>Business Process Model and Notation</strong> (BPMN) <span class="citation" data-cites="gadatsch2020grundkurs">(<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">Gadatsch 2020</a>)</span>.</p>
 <div class="fragment">
 <p>Diese Vorlesung führt die Basisnotation der EPK ein.</p>
-
-</div>
-<aside><div>
+<aside class="notes">
 <p>Der Schwerpunkt der EPK-Methode liegt auf der Abbildung des Kontrollflusses von Prozessen, der beschreibt, in welcher logischen Reihenfolge Vorgänge ausgeführt werden sollen.</p>
 <ul>
 <li>Die EPK wurde zum ersten Mal 1992 in einer Veröffentlichung der Universität des Saarlandes spezifiziert.</li>
 <li>Die EPK wurde von der SAP zur Dokumentation Ihres ERP-Systems R/3 genutzt, unter anderem deshalb ist die EPK in Unternehmen immer noch stark verbreitet</li>
 <li>Die EPK beschreibt den Ablauf eines Geschäftsprozesses mit nur wenigen Grundsymbolen</li>
 </ul>
-</div></aside></section></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section></section>
 <section>
 <section id="epk" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>EPK</h1>
@@ -453,15 +492,25 @@
 <div id="fig-syntax" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/syntax.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 3: EPK Basisnotation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+<p></p><figcaption>Abbildung 3: EPK Basisnotation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
 </figure>
 </div>
-
-<aside><div>
+<aside class="notes">
 <p><strong>Funktionen</strong> ändern den Zustand von Objekten im Geschäftsprozess und beschreiben den zugrundeliegenden Transformationsprozess. Funktionen sind also aktive Objekttypen Dies drückt sich auch in der Namensgebung einer Funktion durch Substantiv &amp; Verb aus (z. B. „Auftrag anlegen“)</p>
 <p><strong>Ereignisse</strong> stellen Zustände dar, lösen Funktionen aus und sind wiederum Ergebnis bereits ausgeführter Funktionen. Ereignisse sind passive Objekttypen. Dies drückt sich auch in der Bezeichnung durch ein Substantiv (das Informationsobjekt) und Verb im Perfekt aus („Auftrag angelegt“).</p>
 <p><strong>Konnektoren</strong> Funktionen können in der Praxis von mehr als einem Ereignis angestoßen werden. Um derartige Konstrukte darstellen zu können, werden drei logische Konnektoren verwendet: die Konjunktion („und“), die Disjunktion („exklusives oder“) und die Adjunktion („inklusives oder“).</p>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="modellierungsregeln" class="slide level2">
 <h2>Modellierungsregeln</h2>
 <p>Die Modellierung (also die zeitliche Abfolge des Prozesses) erfolgt von oben links nach unten rechts.</p>
@@ -476,18 +525,11 @@
 </section>
 <section id="verkettungen" class="slide level2">
 <h2>Verkettungen</h2>
-
-<div id="fig-entscheidung" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/entscheidung.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 5: Erlaubte Verknüpfungen</figcaption><p></p>
-</figure>
-</div>
-<aside><div>
+<aside class="notes">
 <div id="fig-unerlaubt" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/unerlaubt.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 4: Ereignisse sind nicht entscheidungsrelevant</figcaption><p></p>
+<p></p><figcaption>Abbildung 4: Ereignisse sind nicht entscheidungsrelevant</figcaption><p></p>
 </figure>
 </div>
 <ul>
@@ -496,24 +538,51 @@
 <li>Verzweigungen müssen mit dem gleichen Konnektor geschlossen werden, mit dem sie geöffnet wurden. Im Gegensatz zur Funktion hat ein Ereignis keine Entscheidungskraft, d.h. nach einem Ereignis darf keine ODER- bzw. - XOR-Verknüpfung zu mehreren Funktionen stattfinden.</li>
 <li>Konnektoren können direkt verkettet, d.h. hintereinander modelliert werden, um komplexe Regeln ausdrücken zu können.</li>
 </ul>
-</div></aside></section>
-<section id="erweiterte-epk-eepk" class="slide level2">
-<h2>Erweiterte EPK (eEPK)</h2>
-
-<div id="fig-eEPK" class="quarto-figure quarto-figure-center">
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="fig-entscheidung" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/eEPK.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 6: eEPK Notation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+<p><img data-src="images/entscheidung.svg"></p>
+<p></p><figcaption>Abbildung 5: Erlaubte Verknüpfungen</figcaption><p></p>
 </figure>
 </div>
-<aside><div>
+</section>
+<section id="erweiterte-epk-eepk" class="slide level2">
+<h2>Erweiterte EPK (eEPK)</h2>
+<aside class="notes">
 <p>EPKs lassen sich um weitere Elemente ergänzen, um Prozesse zu detaillieren. In der Praxis werden vor allem Organisationseinheiten, Anwendungssysteme sowie verarbeitete Informationsobjekte dieser Systeme ergänzt.</p>
 <ul>
 <li>Die <strong>Organisationseinheit</strong> zeigt die einer Funktion zugeordnete organisatorische Einheit, die diese ausführt.</li>
 <li>Das <strong>Informationsobjekt</strong> bildt die vom Prozess verarbeiteten Informationen (Input und Output) ab. Ein Informationsobjekt zeigt also welche Informationen benötigt und/oder erzeugt werden.</li>
 <li>Das <strong>Anwendungssystem</strong> zeigt das den Prozess unterstützende betriebliche Anwendungssystem.</li>
 </ul>
-</div></aside></section></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="fig-eEPK" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/eEPK.svg"></p>
+<p></p><figcaption>Abbildung 6: eEPK Notation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section></section>
 <section>
 <section id="aufgaben" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>✏️ Aufgaben</h1>
@@ -538,8 +607,7 @@
 <li>Für jede neue Reisebuchung muss eine Rechnung erstellt werden. Rechnungen müssen anschließend im Finanzbuchhaltungssystem SAP FI verbucht werden.</li>
 <li>Danach werden parallel (A) die Kreditkarte des Kunden entweder mit dem Rechnungsbetrag belastet oder der Rechnungsbetrag wird per Lastschrift eingezogen (je nach Zahlungsart) und (B) die Rechnung versendet.</li>
 </ul>
-
-<aside><div>
+<aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -553,19 +621,40 @@
 </div>
 </div>
 </div>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="a3-fehlersuche" class="slide level2 scrollable">
 <h2>A3: Fehlersuche</h2>
 <p>Analysieren Sie <a href="images/fehlersuche.png">das EPK</a> und beschreiben Sie mögliche Fehler.</p>
-
-<aside><div>
+<aside class="notes">
 <div id="fig-fehlersuche" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/fehlersuche.png"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 7: Fehlerhaftes EPK</figcaption><p></p>
+<p></p><figcaption>Abbildung 7: Fehlerhaftes EPK</figcaption><p></p>
 </figure>
 </div>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="a4-modellierung-einkaufsprozess" class="slide level2">
 <h2>A4: Modellierung (Einkaufsprozess)</h2>
 <p>Erstellen Sie für folgende Prozess eine ereignisgesteuerte Prozesskette.</p>
@@ -605,19 +694,19 @@ Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinfo
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
   <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
-
   <!-- reveal.js plugins -->
   <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
   <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
   <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
   <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
-
 
   <script>
 
@@ -631,10 +720,9 @@ Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinfo
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'smaller': false,
-
+ 
         // Display controls in the bottom right corner
         controls: false,
 
@@ -718,7 +806,7 @@ Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinfo
         pause: true,
 
         // Flags if speaker notes should be visible to all viewers
-        showNotes: true,
+        showNotes: false,
 
         // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
@@ -854,8 +942,26 @@ Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinfo
         </div>
 
     </div>
-    <script type="application/javascript">
+    <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
       const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
       tabsets.forEach(function(tabset) {
         const tabby = new Tabby('#' + tabset.id);
@@ -872,7 +978,10 @@ Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinfo
         button.blur();
         // flash "checked"
         button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Kopiert");
         setTimeout(function() {
+          button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
         // clear code selection

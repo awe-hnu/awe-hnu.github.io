@@ -10,79 +10,118 @@ website:
   page-navigation: false
   search: false
   site-url: https://awe-hnu.github.io
-  repo-url: https://github.com/awe-hnu/awe-hnu.github.io
-#  page-footer:
-#    background: '#f9f9f9'
-#    center: 
-#      - text: "Home"
-#        href: index.qmd
+  repo-url: https://github.com/awe-hnu/awe-hnu.github.io 
   favicon: assets/favicon.png
   render: 
-  - lectures/DIiI
-  - lectures/GIM
+  - lectures
   - index.qmd
 
   navbar:
     title: awe:lectures
 
   sidebar:
-# BACHELOR
+
+    # OVERVIEW
+    - id: overview
+      style: docked
+      pinned: false
+      title: "Vorlesungen"
+      contents:
+      - text: "Start"
+        file: index.qmd     
+
+    # BACHELOR
     - id: imuk1_gim
+      style: docked
+      pinned: false
+      collapse-level: 1
       title: "Grundzüge IM"
       contents:
-      - text: Moodle
-        href: https://elearning.hnu.de/course/view.php?id=18061      
-      - lectures/GIM/0/index.qmd
-      - lectures/GIM/1/index.qmd
-      - lectures/GIM/2/index.qmd
-      - lectures/GIM/3/index.qmd
-      - lectures/GIM/4/index.qmd
-      - lectures/GIM/5/index.qmd
-      - lectures/GIM/6/index.qmd
-      - lectures/GIM/7/index.qmd
-      - lectures/GIM/8/index.qmd
-      - lectures/GIM/9/index.qmd
-      - lectures/GIM/10/index.qmd
-      - lectures/GIM/the-1/index.qmd
+      - section: "Admin"
+        contents:
+        - text: Moodle
+          href: https://elearning.hnu.de/course/view.php?id=18061
+        - lectures/GIM/admin/index.qmd          
+      - section: "Skript"
+        contents:          
+        - lectures/GIM/1/index.qmd
+        - lectures/GIM/2/index.qmd
+        - lectures/GIM/3/index.qmd
+        - lectures/GIM/4/index.qmd
+        - lectures/GIM/5/index.qmd
+        - lectures/GIM/6/index.qmd
+        - lectures/GIM/7/index.qmd
+        - lectures/GIM/8/index.qmd
+        - lectures/GIM/9/index.qmd
+        - lectures/GIM/10/index.qmd
+      - section: "Prüfungsleistungen"    
+#        contents:    
+#        - lectures/GIM/the-1/index.qmd
 
     # MASTER
+
     - id: dim_diin
       title: "DI in Industry"
       contents:
-      - text: Moodle
-        href: https://elearning.hnu.de/course/view.php?id=18072
-      - lectures/DIiI/0/index.qmd    
-      - lectures/DIiI/1/index.qmd    
-      - lectures/DIiI/2/index.qmd    
-      - lectures/DIiI/3/index.qmd    
-      - lectures/DIiI/4/index.qmd    
-      - lectures/DIiI/5/index.qmd    
-      - lectures/DIiI/assignment/index.qmd
-            
-    # - id: dim_itai
-    #   title: "Intro to AI"
-    #   contents:
-    #   - text: Moodle
-    #     href: https://elearning.hnu.de/course/view.php?id=18071
-    #   - lectures/I2AI/0/index.qmd
-    #   - lectures/I2AI/1/index.qmd
-    #   - lectures/I2AI/2/index.qmd
-    #   - lectures/I2AI/3/index.qmd
-    #   - lectures/I2AI/4/index.qmd
-    #   - lectures/I2AI/5/index.qmd
-    #   - lectures/I2AI/6/index.qmd
-    #   - lectures/I2AI/7/index.qmd
-    #   - lectures/I2AI/8/index.qmd
+      - section: "Admin"
+        contents:
+        - text: Moodle
+          href: https://elearning.hnu.de/course/view.php?id=18072"
+        - lectures/DIiI/22ST/admin/index.qmd    
+      - section: "Lecture notes"
+        contents:
+        - lectures/DIiI/22ST/1/index.qmd    
+        - lectures/DIiI/22ST/2/index.qmd    
+        - lectures/DIiI/22ST/3/index.qmd    
+        - lectures/DIiI/22ST/4/index.qmd    
+        - lectures/DIiI/22ST/5/index.qmd    
+      - section: "Exam"
+        contents:
+        - lectures/DIiI/22ST/assignment/index.qmd
+
+    - id: dim_i2ai
+      title: "Intro to AI"
+      contents:
+      - section: "Admin"
+        contents:
+        - text: Moodle
+          href: https://elearning.hnu.de/course/view.php?id=18071      
+        - lectures/I2AI/22ST/admin/index.qmd
+      - section: "Lecture notes"
+        contents:
+        - lectures/I2AI/22ST/1/index.qmd
+        - lectures/I2AI/22ST/2/index.qmd
+        - lectures/I2AI/22ST/3/index.qmd
+        - lectures/I2AI/22ST/4/index.qmd
+        - lectures/I2AI/22ST/5/index.qmd
+        - lectures/I2AI/22ST/6/index.qmd
+        - lectures/I2AI/22ST/7/index.qmd
+        - lectures/I2AI/22ST/8/index.qmd
+      
+    - id: sim_tam
+      title: "Technology and Application Management"
+      contents:
+      - section: "Admin"
+        contents:      
+        - text: Moodle
+          href: https://elearning.hnu.de/
+        - lectures/TAM/22WT/admin/index.qmd
+      - section: "Lecture notes"
+      - section: "Exam"
+        contents:
+        - lectures/TAM/22WT/assignment/index.qmd
 
 bibliography: bibliography/bibliography.bib
 
 format:   
   html:
-    mainfont: basier_squareregular
+    mainfont: charter
     monofont: basier_squarermono
     linkcolor: "#0333ff"
     fontcolor: black
     toc: true
+    toc-depth: 1
+    number-sections: false
     code-overflow: wrap
     cap-location: bottom  
     anchor-sections: false
@@ -90,12 +129,15 @@ format:
     link-external-newwindow: true
     html-math-method: mathjax
     theme:
-      - simplex
+#      - simplex
       - theme/html.scss
+    page-layout: full
   revealjs:
     theme: 
     - simple
     - theme/slides.scss
+    plugins:
+      - plugins/fullscreen   
     transition: slide
     menu: true
     disable-layout: true
@@ -110,7 +152,6 @@ format:
     tbl-cap-location: bottom  
     html-math-method: mathjax
       # url: https://latex.codecogs.com/svg.latex?
-    show-notes: true
     overview: false
     citations-hover: true
     footnotes-hover: true

@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="de-DE"><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.123">
+<link href="../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.37">
+
   <meta name="author" content="Andy Weeger">
   <title>awe.lectures - K4 Datenbanken #1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,15 +45,6 @@
     }
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
-
-  <link href="../../../assets/favicon.png" rel="icon" type="image/png">
-  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-  <script src="../../../site_libs/quarto-html/tabby.min.js"></script>
-  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
-  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet">
-  <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -59,7 +58,7 @@
   }
 
   .callout.callout-style-simple { 
-    padding: 0em 0.7em;
+    padding: 0em 0.5em;
     border-left: solid #acacac .3rem;
     border-right: solid 1px silver;
     border-top: solid 1px silver;
@@ -170,8 +169,7 @@
     display: none !important;
   }
 
-  .callout.callout-captioned .callout-body > :last-child,
-  .callout.callout-captioned .callout-body > div > :last-child {
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
     margin-bottom: 0.5rem;
   }
 
@@ -336,9 +334,10 @@
     }
   </style>
 <meta property="og:title" content="awe.lectures - K4 Datenbanken #1">
+<meta property="og:description" content="Grundzüge Informationsmanagement (GIM)">
 <meta property="og:site-name" content="awe.lectures">
 </head>
-<body>
+<body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
@@ -385,11 +384,10 @@
 <div id="fig-informationen" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/informationen.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 1: Daten oder Information?</figcaption><p></p>
+<p></p><figcaption>Abbildung 1: Daten oder Information?</figcaption><p></p>
 </figure>
 </div>
-
-<aside><div>
+<aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -413,7 +411,18 @@
 </div>
 </div>
 </div>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="zweck" class="slide level2">
 <h2>Zweck</h2>
 <p>Daten beschreiben <strong>Objekte der realen Welt</strong> durch deren <strong>Merkmale</strong> und sowie deren <strong>Beziehungen</strong> zueinander <span class="citation" data-cites="mertens2016grundzuge">(<a href="#/ref-mertens2016grundzuge" role="doc-biblioref" onclick="return false;">Mertens u.&nbsp;a. 2016</a>)</span>.</p>
@@ -482,7 +491,7 @@
 <div id="fig-redundanzen" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/redundanzen.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 2: Einsatz unterschiedlicher Anwendungssysteme mit eigenen Datenstrukturen</figcaption><p></p>
+<p></p><figcaption>Abbildung 2: Einsatz unterschiedlicher Anwendungssysteme mit eigenen Datenstrukturen</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -495,8 +504,7 @@
 <li class="fragment"><strong>Datenbankmanagementsystem (DBMS):</strong> System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.</li>
 </ul>
 </div>
-
-<aside><div>
+<aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -533,13 +541,24 @@
 </div>
 </div>
 </div>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="beispiel-1" class="slide level2">
 <h2>Beispiel</h2>
 <div id="fig-DBMS" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/DBMS.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 3: Einsatz eines zentralen Datenbanksystems</figcaption><p></p>
+<p></p><figcaption>Abbildung 3: Einsatz eines zentralen Datenbanksystems</figcaption><p></p>
 </figure>
 </div>
 </section></section>
@@ -556,9 +575,7 @@
 </div>
 <div class="fragment">
 <p>Die Datenmodellierung findet <strong>vor</strong> der Umsetzung bzw. Implementierung von Lösungen zum Management der Daten statt (bspw. Datenbanksysteme).</p>
-
-</div>
-<aside><div>
+<aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -572,13 +589,25 @@
 </div>
 </div>
 </div>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="vorgehensmodell" class="slide level2">
 <h2>Vorgehensmodell</h2>
 <div id="fig-vorgehensmodell" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/vorgehensmodell.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 4: Vorgehensmodell zum Entwurf von Datenbanken nach <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 78</a>)</span></figcaption><p></p>
+<p></p><figcaption>Abbildung 4: Vorgehensmodell zum Entwurf von Datenbanken nach <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 78</a>)</span></figcaption><p></p>
 </figure>
 </div>
 </section></section>
@@ -602,7 +631,7 @@
 <div id="fig-konzeptionellesSchema" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/konzeptionellesSchema.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 5: Beispiel für ein konzeptionelles Datenmodell (ERM), eigene Darstellung</figcaption><p></p>
+<p></p><figcaption>Abbildung 5: Beispiel für ein konzeptionelles Datenmodell (ERM), eigene Darstellung</figcaption><p></p>
 </figure>
 </div>
 </section></section>
@@ -619,11 +648,21 @@
 </div>
 <div class="fragment">
 <p>Grafisch werden Entity-Typen im Entity-Relationship-Diagramm durch Rechtecke repräsentiert.</p>
-
-</div>
-<aside><div>
+<aside class="notes">
 <p><strong>Beispiel:</strong> Wesentliche Aufgabe einer Anwendung zur Zeiterfassung ist es, für die Abrechnung Leistungen von Mitarbeitern zu Projektaufträgen zu erfassen. Aus dieser Aufgabenstellung heraus ergeben sich als relevante Entity-Typen “Mitarbeiter” (Rolle), “Leistung” (reales Objekt), “Auftrag”, und “Projekt” (abstrakte Informationsobjekte)</p>
-</div></aside></section>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
 <section id="attribute" class="slide level2">
 <h2>Attribute</h2>
 <p>Anhand von Attributen werden <strong>Eigenschaften von Entity-Typen</strong> beschrieben.</p>
@@ -641,7 +680,7 @@
 <div id="fig-entities" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/entities.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 6: Entitiy-Typen und Attributen der Zeiterfassungsanwendung</figcaption><p></p>
+<p></p><figcaption>Abbildung 6: Entitiy-Typen und Attributen der Zeiterfassungsanwendung</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -661,7 +700,7 @@
 <div id="fig-relationen" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/relationen.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 7: Relationen der Zeiterfassungsanwendung</figcaption><p></p>
+<p></p><figcaption>Abbildung 7: Relationen der Zeiterfassungsanwendung</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -681,7 +720,7 @@
 <div id="fig-kardinalität" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/kardinalität.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 8: Kardinalität in der Notation nach Chen</figcaption><p></p>
+<p></p><figcaption>Abbildung 8: Kardinalität in der Notation nach Chen</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -698,7 +737,7 @@
 <div id="fig-minMax" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/minMax.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 9: Kardinalität in der (min;max)-Notation</figcaption><p></p>
+<p></p><figcaption>Abbildung 9: Kardinalität in der (min;max)-Notation</figcaption><p></p>
 </figure>
 </div>
 </section></section>
@@ -725,7 +764,7 @@
 <div id="fig-datenInformation" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/datenInformation.svg"></p>
-<p></p><figcaption aria-hidden="true">Schaubild 10: Daten oder Information?</figcaption><p></p>
+<p></p><figcaption>Abbildung 10: Daten oder Information?</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -768,19 +807,19 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
   <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
-
   <!-- reveal.js plugins -->
   <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
   <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
   <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
   <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
-
 
   <script>
 
@@ -794,10 +833,9 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'smaller': false,
-
+ 
         // Display controls in the bottom right corner
         controls: false,
 
@@ -881,7 +919,7 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
         pause: true,
 
         // Flags if speaker notes should be visible to all viewers
-        showNotes: true,
+        showNotes: false,
 
         // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
@@ -1017,8 +1055,26 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
         </div>
 
     </div>
-    <script type="application/javascript">
+    <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
       const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
       tabsets.forEach(function(tabset) {
         const tabby = new Tabby('#' + tabset.id);
@@ -1035,7 +1091,10 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
         button.blur();
         // flash "checked"
         button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Kopiert");
         setTimeout(function() {
+          button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
         // clear code selection

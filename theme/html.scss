@@ -48,6 +48,39 @@
           url('lib/fonts/basier_squaremono/basiersquaremono-regularitalic-webfont.ttf') format('truetype');
      font-weight: normal;
      font-style: italic;
+     }   
+     
+     
+@font-face {
+     font-family: 'charter';
+     src: url('lib/fonts/charter/charter_bold_italic-webfont.eot');
+     src: url('lib/fonts/charter/charter_bold_italic-webfont.woff') format('woff');
+     font-weight: bold;
+     font-style: italic;
+     }
+           
+@font-face {
+     font-family: 'charter';
+     src: url('lib/fonts/charter/charter_bold-webfont.eot');
+     src: url('lib/fonts/charter/charter_bold-webfont.woff') format('woff');
+     font-weight: bold;
+     font-style: normal;     
+     }
+      
+@font-face {
+     font-family: 'charter';
+     src: url('lib/fonts/charter/charter_italic-webfont.eot');
+     src: url('lib/fonts/charter/charter_italic-webfont.woff') format('woff');
+     font-weight: normal;
+     font-style: italic;
+     }
+      
+@font-face {
+     font-family: 'charter';
+     src: url('lib/fonts/charter/charter_regular-webfont.eot');
+     src: url('lib/fonts/charter/charter_regular-webfont.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;     
      }     
 
 /*-- scss:defaults --*/
@@ -59,15 +92,15 @@ $theme: "cosmo" !default;
 //
 
 $white:    #fff !default;
-$gray-100: #f4f4f4 !default;
-$gray-200: #eeeeee !default;
-$gray-300: #dfe2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #868e96 !default;
-$gray-700: #495057 !default;
-$gray-800: #373a3c !default;
-$gray-900: #212529 !default;
+$gray-100: rgba(250, 250, 250, 1) !default;
+$gray-200: rgba(245, 245, 245, 1) !default;
+$gray-300: rgba(225, 225, 225, 1) !default;
+$gray-400: rgba(200, 200, 200, 1) !default;
+$gray-500: rgba(175, 175, 175, 1) !default;
+$gray-600: rgba(150, 150, 150, 1) !default;
+$gray-700: rgb(125, 125, 125) !default;
+$gray-800: rgba(100, 100, 100, 1) !default;
+$gray-900: rgba(50, 50, 50, 1) !default;
 $black:    #000 !default;
 
 $blue:    #0333ff !default;
@@ -107,15 +140,32 @@ $font-family-sans-serif:    'basier_squareregular', sans-serif !default;
 $font-family-monospace:     'basier_squaremono', monospace !default;
 $headings-font-weight:      bold !default;
 
-$font-size-root:    16px;
-$toc-font-size:     1rem;
-$h1-font-size:      2rem;
-$h2-font-size:      1.5rem;
-$h3-font-size:      1.3rem;
-$h4-font-size:      1.15rem;
+$font-size-root:    20px;
+$toc-font-size:     .75rem;
+$h1-font-size:      1.7rem;
+$h2-font-size:      1.3rem;
+$h3-font-size:      1.1rem;
+$h4-font-size:      1rem;
 $h5-font-size:      1rem;
 
 $block-margin: .75rem;
+
+
+#top,
+.sidebar {
+     font-family: $font-family-sans-serif;
+     font-size: $toc-font-size;
+}
+
+#quarto-appendix.default *[role=doc-endnotes]>ol,
+.references {
+    font-size: $toc-font-size !important;
+}
+
+#top {
+     border-top: 1px solid $gray-300;
+     border-bottom: 1px solid $gray-300;
+}
 
 // Navbar
 
@@ -170,7 +220,66 @@ body {
      display: none;
 }
 
+#TOC {
+     margin-top: .25em;
+}
+
 .sidebar {
+
+     line-height: 1.1rem;
+     font-size: $toc-font-size;
+
+     .sidebar-item-container {
+          color: inherit;
+          justify-content: start;
+     }
+
+     .sidebar-item-text.text-start {
+          font-weight: bold;
+     }
+
+     &.sidebar-navigation {
+
+          .sidebar-menu-container {
+               padding-top: .5em;
+          }
+          
+          .sidebar-item {
+
+               font-size: inherit;
+
+               a {
+                    padding: .2rem 0;
+               }
+          }
+     }
+
+     .sidebar-item {
+          margin-bottom: 0;
+          &.sidebar-item-section {
+               margin-bottom: 1em;
+          }
+     }
+
+     .sidebar-section {
+          margin-top: 0;
+          padding-left: 0;          
+     }
+
+
+     nav[role=doc-toc]>h2, 
+     nav[role=doc-toc]>.h2 {
+          line-height: 1.1rem;
+          margin: 0;
+          padding: .2rem 0;
+          font-weight: bold;
+          display: block;
+     }
+
+     nav[role=doc-toc]>ul li a {
+          border-left-color: $gray-300;
+     }     
+
 
      padding-top: 0 !important;
 
@@ -211,10 +320,14 @@ table,
 caption,
 p    { margin: $block-margin 0; }
 h1   { margin: $block-margin*4 0 $block-margin*3 0; }
-h1.quarto-secondary-nav-title { margin: $block-margin*4 0; }
+h1.quarto-secondary-nav-title { margin: $block-margin*2 0; }
 h2   { margin: $block-margin*3 0 $block-margin*2 0; }
 h3   { margin: $block-margin*2 0 $block-margin*1 0; }
 h4   { margin: $block-margin*1.5 0 $block-margin*1 0; }
+
+h1, h2, h3, h4 {
+  font-family: basier_squareregular;
+}
 
 h1.title {
   font-size: $h1-font-size*1.5;
@@ -222,8 +335,8 @@ h1.title {
 
 figcaption, caption,
 .panel-caption, caption, .figure-caption {
-     font-family: $font-family-monospace;
-     font-size: 0.8rem;
+     font-family: basier_squareregular;
+     font-size: $toc-font-size;
 }
 
 a {
@@ -236,12 +349,12 @@ h2 {
 }
 
 strong {
-     background-repeat: no-repeat;
+/*     background-repeat: no-repeat;
      background-position: bottom left;
      background-size: 100% 1px;
      background-image: linear-gradient(#000, #000);
      display: inline;
-     font-weight: normal;
+     font-weight: normal;*/
 }  
 
 .anchorjs-link {
@@ -255,24 +368,13 @@ strong {
      }
 
      .subtitle {
-          font-family: $font-family-monospace;
-          font-size: $font-size-root*1.5;
+          font-size: $font-size-root
      }
-
-     border-bottom: 1px solid $gray-300;
-     padding-bottom: $block-margin*2;
-     margin-bottom: $block-margin*2;
 }
 
 #quarto-sidebar {
      padding-top: 0;
 }
-
-.sidebar-navigation .sidebar-item {
-     font-size: 1em;
-}
-
-
 
 @include media-breakpoint-up(lg) { 
 
@@ -280,13 +382,15 @@ strong {
           padding-top: 2em;
      }
 
-     #title-block-header {
-          min-height: 8em;
-     }
+     body.docked .page-columns {
+          display: grid;
+          gap: 0;
+          grid-template-columns: [screen-start] 1.5em [screen-start-inset page-start] minmax(50px, 150px) [page-start-inset] 50px [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, calc( 750px - 3em )) [body-content-end] 1.5em [body-end] 50px [body-end-outset] minmax(0px, 300px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 1.5em [screen-end];
+      }     
 }
 
 .sidebar.margin-sidebar {
-     margin-top: 10em;
+     margin-top: 2em;
 }
 
 main {
@@ -294,22 +398,13 @@ main {
 }
 
 #quarto-sidebar {
-     padding: 0 1.5em;
+     padding: 0 2em;
      background-color: $gray-100;
-}
+     color: $body-color;
+     color: #000;
+     border-top: 1px solid #ff;
+     border-bottom: 1px solid #F5F5F1;
 
-@include media-breakpoint-up(md) { 
-     #quarto-sidebar {
-          padding: 0 2.5em;
-     }
-}
-
-@include media-breakpoint-up(lg) { 
-     #quarto-sidebar {
-          margin-top: 10em;
-          padding: 0 1em;
-          background-color: transparent !important;
-     }
 }
 
 
@@ -336,9 +431,20 @@ ul {
           border-top: none;
           border-bottom: none;
           background-color: $gray-100;
+          border-left: none;
+          padding: .4em 1em;
+
+          >div.callout-body {
+               padding-left: 0 !important;
+          }
 
           >div.callout-header {
                font-size: 1em;
+               font-family: $font-family-sans-serif;
+               opacity: 1;
+               color: $primary;
+               line-height: 1.7em;
+               margin-bottom: .5em;
           }
 
      }
@@ -346,7 +452,7 @@ ul {
 
 
 blockquote {
-  border-left: 5px solid $gray-300;
+  border-left: 1px solid $gray-300;
   color: $body-color;
 
   p:first-child {
@@ -357,6 +463,7 @@ blockquote {
           display: inline-block;
           float: none;
           color: $body-color;
+          font-size:  $toc-font-size;
        }
   }
 }
@@ -370,20 +477,22 @@ blockquote {
 @include media-breakpoint-up(sm) { 
 
      #quarto-header nav {
-          padding-left: 2.5em;
-          padding-right: 2.5em;
-          background: $gray-100;
+          padding-left: 2em;
+          padding-right: 2em;
      }
+
+     .sidebar-navigation .sidebar-item a, .nav-page .nav-page-text, .sidebar-navigation {
+          font-size: $toc-font-size;
+     } 
 
 }
 
 @include media-breakpoint-down(md) { 
 
      #quarto-header nav {
-          padding-left: 1.5em;
-          padding-right: 1.5em;
-          background: $gray-100;
-     }
+          padding-left: 2em;
+          padding-right: 2em;
+     }    
 
      .columns {
 
@@ -395,10 +504,25 @@ blockquote {
 
 } 
 
+@include media-breakpoint-up(lg) { 
+
+     #quarto-header nav {
+          padding-left: 1em;
+          padding-right: 1em;
+     }   
+
+     #quarto-sidebar {
+          margin-top: 2em;
+          padding: 0 1em;
+          background-color: transparent !important;
+     }
+}
+
 
 #quarto-header nav {
-     background: $gray-100;
+     background: $gray-200;
      border: none;
+     font-size: $toc-font-size;
 }
 
 .navbar-brand:hover {
@@ -418,7 +542,8 @@ blockquote {
 
 .callout-note,
 table {
- margin: $block-margin*4 0;
+     margin: $block-margin*4 0;
+     font-size: $toc-font-size;
 }
 
 .quarto-figure {
@@ -426,11 +551,11 @@ table {
 }
 
 table {
-    th,
-    strong {
-     font-weight: $headings-font-weight;
-     background-image: none;
-   }
+     font-family: $font-family-sans-serif;
+     th,
+     strong {
+          font-weight: $headings-font-weight;
+     }
 }
 
 figure {  
@@ -479,4 +604,18 @@ hr {
      #refs {
           margin: 0;
      }
+}
+
+
+
+.quarto-secondary-nav-title {
+     color: inherit;
+}
+
+.header-section-number {
+     font-weight: normal 
+}
+
+.footnotes-end-of-document {
+     margin-top: 5em;
 }
