@@ -331,6 +331,9 @@ h1, h2, h3, h4 {
 
 h1.title {
   font-size: $h1-font-size*1.5;
+  code  {
+     display: none;
+  }
 }
 
 figcaption, caption,
@@ -418,9 +421,18 @@ pre, code, kbd, samp {
      border-top: 1px solid;
 }
 
-ul {
-  list-style-type: square;
+.content ul {
+  list-style-type: circle;
   padding-left: 1em;
+
+  li {
+     margin: $block-margin/2 0;
+  }
+
+}
+
+main ol ol, main ul ul, main ol ul, main ul ol {
+     margin-bottom: 0;
 }
 
 .callout {
@@ -585,24 +597,17 @@ hr {
 }
 
 
-#quarto-appendix.default {
-     margin-top: 0;
-     padding-top: 0;
-     border-top: 0; 
-     background: transparent;
+.references {
 
-     .quarto-appendix-contents:first-child .quarto-appendix-heading {
-          display: none;
-     }
-
-     .csl-entry {
-          margin-bottom: $block-margin;
-          margin-left: 0;
+     &.hanging-indent {
+          margin: 0;
           text-indent: 0;
      }
 
-     #refs {
-          margin: 0;
+     .csl-entry {
+          margin-bottom: $block-margin/2;
+          margin-left: 0;
+          text-indent: 0;
      }
 }
 
@@ -616,6 +621,22 @@ hr {
      font-weight: normal 
 }
 
-.footnotes-end-of-document {
-     margin-top: 5em;
+
+.tippy-box[data-theme~=quarto] {
+     font-family: $font-family-sans-serif;
+     font-size: $toc-font-size;
+     font-style: normal;
+     background-color: $gray-100;
+     border: none;
+     -webkit-box-shadow: 1px 1px 30px 0px rgba(0,0,0,0.1); 
+     box-shadow: 1px 1px 30px 0px rgba(0,0,0,0.1);     
+
+     .hanging-indent {
+          text-indent: 0;
+          margin-left: 0;
+     }
+
+     .tippy-content>*:first-child {
+          margin-top: 0;
+     }
 }

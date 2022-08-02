@@ -1,0 +1,199 @@
+---
+title: "K5 Datenbanken #2"
+subtitle: "Grundzüge Informationsmanagement (GIM)"
+lang: de-DE
+
+format: 
+  html:
+    output-file: index.html
+  revealjs:
+    output-file: slides.html 
+    include-after-body: ../assets/footer.html
+---
+
+[Podcast]: https://videoportal.hs-neu-ulm.de/Mediasite/Play/0f1082decbcb44f081324c2cb441afe91d
+
+# Top{visibility="hidden" .slide-link-hidden .unlisted .unnumbered}
+
+{{< include ../assets/_top.qmd >}}
+
+# Motivation {.vertical-center background-color=blue}
+
+>SELECT * FROM helloworld WHERE phrase = "Hello, World!" *SQL Query*
+
+:::{.notes}
+Die Datenbankabfrage holt alle Felder aus der Tabelle `helloworld` und filtert die Ergebnisse auf die Zeilen, deren Spalte `phrase` "Hello, World!" enthält.
+:::
+
+. . .
+
+Damit solche Abfragen möglich sind, müssen die konzeptionellen Datenmodelle zunächst in ein __logisches Datenbankmodell__ überführt und dann in der Beschreibungssprache der Datenbank implementiert werden. In dieser Vorlesung beschränken wir uns auf konzeptionelle und logische Datenbankmodelle. Letztere schauen wir uns in dieser Einheit genauer an.
+
+# Lernergebnisse 🎯
+
+Nach dieser Einheit  
+
+::: {.incremental}
+- können Sie einfache ERM-Modelle in __Relationenmodelle__ überführen,
+- wissen Sie, was ein __Primärschlüssel__ und was ein __Fremdschlüssel__ ist,
+- können Sie im Relationenmodell __1:1-, 1:n- und n:m-Beziehungen__ abbilden,
+- sind Sie in der Lage, operative und analytische Daten- und Datenbanksysteme zu unterscheiden und
+- können Sie das Konzept __„Big Data“__ erläutern und die Grenzen relationaler Datenbankmodelle beschreiben.
+:::
+
+# Logisches Datenmodell {.vertical-center background-color=blue}
+
+## Definition
+
+Ein logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell. Das logische Datenmodell ist damit __systemabhängig__. 
+
+. . .
+
+Es wird aus dem __systemunabhängigen konzeptionellen Datenmodell__ abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank. 
+
+. . . 
+
+In der Praxis kommt dem __relationalen Modell__ die größte Bedeutung zu. Außerdem kommen hierarchische, auf dem netzwerkartigen oder objektorientierten Datenmodell basierende Datenbanken zum Einsatz.
+
+## Vorgehensmodell
+
+![Vorgehensmodell zum Entwurf von Datenbanken nach @bachle2021einfuhrung [S. 78]](../4/images/vorgehensmodell.svg){#fig-vorgehensmodell}
+
+# Relationale DBS {.vertical-center background-color=blue}
+
+## Definition
+
+Ein Datenbanksystem, das auf dem Relationenmodell basiert, nennt man __relationales Datenbanksystem__ [@codd1983relational]. 
+
+. . .
+
+Grundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen [@leimeister2021einfuhrung]. 
+
+. . .
+
+Eine Relation entspricht einem __Entity-Typen__; jede Zeile der Tabelle entspricht einer __Entity__; die Spalten einer Tabelle entsprechen den __Attributen__. 
+
+## Eigenschaften {visibility=hidden}
+
+Für relationale Datenbanksystemen gilt:
+
+- Jede Relation ist eine zweidimensionale Tabelle. Diese entspricht meistens einem Entity-Typ.   
+  *m:m-Beziehungen erfordern die Bildung einer eigenen Relation. Die Primärschlüssel der beteiligten Entity-Typen werden vererbt.*
+- Jede Zeile der Tabelle beschreibt eine bestimmte Entität.
+- Die Spalten entsprechen den Attributen.
+- Die Entitäten werden durch Attributwerte, also Ausprägungen der Attribute, beschrieben.
+- Die Zeilen müssen paarweise untereinander verschieden sein. Es gibt also keine zwei identischen Zeilen.
+- Die Reihenfolge der Zeilen spielt keine Rolle, ebenso die der Spalten.
+- Attribute sind stets atomar, also nicht in kleinere Einheiten zerlegbar
+
+## Relationen
+
+Eine Relation entspricht (meistens) einem Entity-Typen. 
+
+![Beispiel einer Relation, vgl. @bachle2021einfuhrung](images/entity.svg){#fig-relation}
+
+:::{.notes}
+__Beispiel__: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entity-Typ ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden.
+:::
+
+## 1:1- und 1:n-Beziehungen
+
+Bei 1:1 und 1:n-Beziehungen wird der __Primärschlüssel__ der verbundenen Relation ergänzt.
+
+![Beispiel einer 1:n Beziehung, vgl. @bachle2021einfuhrung](images/beziehungen.svg){#fig-relation}
+
+:::{.notes}
+__Beispiel__: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation `Projekt` um den Primärschlüssel der Relation `Mitarbeiter`, der `Mitarbeiter-Nr.`.
+:::
+
+## n:m-Beziehungen
+
+Eine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte __Koppeltabelle__.
+
+![Beispiel einer 1:n Beziehung, vgl. @bachle2021einfuhrung](images/koppeltabelle.svg){#fig-relation}
+
+:::{.notes}
+__Beispiel__: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation `Buchungen` stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel `Kunden-Nr,` und `Trainings-Nr.` wird zum Primärschlüssel der Koppeltabelle `Buchungen`. 
+:::
+
+# Datensystemtypen {.vertical-center background-color=blue}
+
+## Abgrenzung
+
+Neben der physischen und logischen Datenstruktur werden Datensysteme auch nach __Einsatzzweck__ unterschieden @bachle2021einfuhrung.
+
+:::{.incremental}
+- __Operative Datenbanken__ speichern Daten, die Momentaufnahmen des aktuellen Geschehens darstellen (Transaktionen). Diese dienen dazu, Mitarbeiter im Tagesgeschäft zu unterstützen und Aufgaben zu automatisieren
+- __Analytische Datensysteme__ speichern aktuelle und historische Daten aus operativen Datenbanken in aggregierter Form. Diese dienen dazu, Managemententscheidungen zu unterstützen. Die Daten enthalten in der Regel immer eine Zeitkomponente.
+:::
+
+## Übersicht
+
+|                    	| __Operative Daten__                               	| __Analytische Daten__                              	|
+|-------------------:	|---------------------------------------------------	|----------------------------------------------------	|
+|             *Ziel* 	| Abwicklung von Geschäftsprozessen                 	| Informationen zur Entscheidungsunterstützung       	|
+|      *Dateninhalt* 	| Atomisierte Istwerte (Transaktionsbasis)           	| Verdichtete, transformierte und berechnete Daten   	|
+|              *Art* 	| Dynamisch                                         	| Statisch                                            |
+| *Zugriffsfrequenz* 	| Hoch                                              	| Niedrig                                             |
+|          *Nutzung* 	| Strukturierte, wiederholte Verarbeitung           	| Unstrukturierte, analytische Verarbeitung           |
+|         *Beispiel* 	| Wareneingang einer Bestellung                     	| Absätze eines bestimmten Produkts im Zeitverlauf    |
+
+: Operative und analytische Daten {#tbl-daten}
+
+# Big Data {.vertical-center background-color=blue}
+
+Big Data ist zunehmend die Basis für Managemententscheidungen in Unternehmen. Doch was ist Big Data überhaupt?
+
+## Definition
+
+Der Begriff __Big Data__ meint wörtlich die „großen Daten", also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet [@leimeister2021einfuhrung, S. 201]:
+
+:::{.incremental}
+- Enorme Größe
+- Eine hohe Komplexität
+- Schnelllebigkeit oder schnelles Aufkommen neuer Daten
+- Schwach oder gar nicht strukturiert
+:::
+
+. . .
+
+__Big Data Analytics__ beschreibt die __Fähigkeit__, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) [@lemke2015einfuhrung].
+
+## Visualisierung
+
+![Eigenschaften und Effekte von Big Data (4+1 Vs)](images/bigData.svg){#fig-bigData}
+
+# ✏️ Aufgaben {.vertical-center background-color=blue}
+
+## A1: Grundbegriffe
+
+Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.
+
+- Entity-Typ
+-	Relationenmodell
+-	Relation
+-	Datensatz (Tupel)
+-	Operative Daten
+-	Analytische Daten
+
+## A2: Online-Shop
+
+Erstellen Sie aus dem ERM der Aufgabe A4 aus Kapitel 4 ein Relationen-Modell. 
+
+Zeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze.
+
+## A3: Auftragsverwaltung
+
+Erstellen Sie aus dem ERM der Aufgabe A5 aus Kapitel 4 ein Relationen-Modell.
+
+Zeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze.
+
+## A4: Big Data
+
+Überlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.
+
+Geben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt.
+
+# Literatur 📚
+::: {#refs}
+:::

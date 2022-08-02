@@ -1,0 +1,336 @@
+---
+title: "K4 Datenbanken #1"
+subtitle: "Grundzüge Informationsmanagement (GIM)"
+lang: de-DE
+
+format: 
+  html:
+    output-file: index.html
+  revealjs:
+    output-file: slides.html 
+    include-after-body: ../assets/footer.html
+---
+
+[Podcast]: https://videoportal.hs-neu-ulm.de/Mediasite/Play/5e815720982f4d7c91d61ace65eb87dc1d
+
+# Top{visibility="hidden" .slide-link-hidden .unlisted .unnumbered}
+
+{{< include ../assets/_top.qmd >}}
+
+# Motivation {.vertical-center background-color=blue}
+
+>The world's most valuable resource is no longer oil, but data. *Steve Jobs (1997)*
+
+. . .
+
+Damit Daten Wert haben, müssen möglichst effizient abgelegt, abgerufen, interpretiert und genutzt werden können. In diesem und im folgenden Kapitel lernen Sie die Grundkonzepte hierzu kennen.
+
+# Lernergebnisse 🎯
+
+Nach dieser Einheit  
+
+::: {.incremental}
+- können Sie das Konzept der __Datenintegration__ zur __Vermeidung von Redundanzen__ und __Inkonsistenzen__ erläutern,
+- können Sie Aufgabe von __Datenbanksystemen__ (DBS) beschreiben,
+- können Sie das Vorgehen der __Datenmodellierung__ beschreiben,
+- verstehen Sie die Begriffe __Entity-Typ__, __Entity__, __Attribut__, __Schlüsselattribut__, __Relationship__ und __Kardinalität__ und können diese im Kontext der Datenmodellierung erläutern und 
+- sind Sie in der Lage, ein einfaches __Entity-Relationship-Diagramm__ (ERM) zu entwerfen und daraus __Relationen__ abzuleiten.
+:::
+
+# Daten {.vertical-center background-color=blue}
+
+## Begriffsbestimmung
+
+![Daten oder Information?](images/informationen.svg){#fig-informationen}
+
+:::{.notes}
+:::{.callout-note}
+### Daten - Informationen - Wissen (Wiederholung)
+
+Konzepte:
+
+- __Daten__ sind eine Menge an Zeichen, die einer bestimmten Syntax folgen, einen bestimmten Zweck haben und maschinell verarbeitet werden können. 
+- __Informationen__ sind Daten, die in einen sachlichen Kontext gesetzt sind und denen so Bedeutung zugeordnet werden kann. 
+- __Wissen__ entsteht, wenn Informationen von Menschen interpretiert und bewertet werden. Man unterscheidet zudem zwischen
+  - expliziertes Wissen, also codiertem, externalisiertem Wissen (bspw. in einem Buch) und
+  - impliziertes Wissen, also Wissen, das an die Person gebunden ist.
+
+Ob aus Zeichen Daten, aus Daten Informationen und aus Informationen Wissen wird, ist abhängig vom __Empfänger__.
+:::
+:::
+
+## Zweck
+
+Daten beschreiben __Objekte der realen Welt__ durch deren __Merkmale__ und sowie deren __Beziehungen__ zueinander [@mertens2016grundzuge].
+
+. . .
+
+*Beispiel: Ein Datensatz kann ein Objekt „Artikel“ durch dessen Merkmalen (z. B. Preis, Bezeichnung etc.) und Beziehungen zu anderen Objekten (z. B. Bestellungen, Lieferung) beschreiben.*
+
+## Klassifizierung
+
+Daten können beispielsweise nach folgenden Kriterien klassifiziert werden:
+
+:::{.incremental}
+- Zeichenart bzw. __Datentyp__: numerische (Ziffern), alphabetische (Buchstaben des Alphabets) und alphanumerische Daten (Ziffern, Buchstaben und Sonderzeichen)
+- __Erscheinungsform__: akustische (z. B. menschliche Laute), bildliche (z. B. Grafiken) und schriftliche Daten (z. B. Texte)
+- __Formatierung__: Formatierte (z. B. formgebundene Tabellen) und unformatierte Daten (z. B. formfreie Texte)
+- __Verwendungszweck__: selten zu verändernde Stammdaten (z. B. Personalstammdaten wie Namen und Adressen) und transaktionsorientierte Bewegungsdaten (z. B. Lagerzu- und –abgänge)
+- Stellung im __Verarbeitungsprozess__: Eingabe- und Ausgabedaten
+:::
+
+# Datenmanagement {.vertical-center background-color=blue}
+
+## Relevanz
+
+Der Nutzen von Informationssystemen ergibt sich aus der __sinnvollen Verarbeitung von Daten__, die für bestimmte Aktivitäten bzw. fachliche Funktionen benötigt werden.
+
+. . .
+
+Für die Entwicklung, den Betrieb und das Management von Informationssystemen stellen sich insbesondere folgende Fragen:
+
+:::{.incremental}
+- Was sind die Daten eines Unternehmens, einer Organisation oder eines privaten Haushalts? 
+- Wie können diese strukturiert und erfasst werden? 
+- Wie können diese verarbeitet werden? 
+- Wie erfolgt deren Speicherung und der wiederholte Abruf bzw. deren Präsentation?
+:::
+
+## Struktur
+
+Das Management von Daten erfordert eine __grundlegende Struktur__ zur Systematisierung bzw. Hierarchisierung:
+
+:::{.incremental}
+- Jeder __Datensatz__ besteht aus einem oder mehreren __Datenfeldern__,
+- die Datenfelder haben für alle Datensätze das gleiche Format,
+- die Datenfeldern eines Datensatzes hängen in aller Regel inhaltlich zusammen,
+- alle zusammengehörigen Datensätze werden in einer __Tabelle__ zusammengefasst und
+- die __Datenbank__ vereint die logisch zusammengehörenden Tabellen.
+:::
+
+## Problemstellung
+
+In Unternehmen werden Daten oft an unterschiedlichen Stellen gespeichert. Das führt unter anderem zu folgenden Problemen [@laudon2016wirtschaftsinformatik]: 
+
+:::{.incremental}
+- __Datenredundanzen:__ das mehrfache Vorkommen identischer Datenelemente in verschiedenen Tabellen und/oder Datenbanken (kurz Speicherorten, bspw. dieselben Kundendaten werden in zwei verschiedenen Systemen gespeichert)
+- __Dateninkonsistenzen:__ für dasselbe Attribut sind unterschiedliche Werte in Datenelementen gespeichert, die ein reales Objekt repräsentieren (bspw. unterschiedliche Geburtsdaten eines Kunden).
+:::
+
+## Beispiel
+
+![Einsatz unterschiedlicher Anwendungssysteme mit eigenen Datenstrukturen](images/redundanzen.svg){#fig-redundanzen}
+
+## Datenbanksysteme
+
+Datenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten [@laudon2016wirtschaftsinformatik]:
+
+:::{.incremental}
+- __Datenbank (DB):__ eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können
+- __Datenbankmanagementsystem (DBMS):__ System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.
+:::
+
+:::{.notes}
+:::{.callout-note}
+### Physische und logische Datenstruktur
+Die physische Datenstruktur beschreibt, wie Daten auf einem Datenträger organisiert sind. Änderungen an dieser Struktur soll sich möglichst nicht auf die logische Struktur der Daten auswirken. Die logische Datenstruktur beschreibt, wie die Beziehung zwischen den Daten organisiert ist. Änderungen an dieser Struktur soll keine Auswirkungen auf die Anwendungssysteme haben, die diese Daten nutzen.
+:::
+
+#### Wichtige Anforderungen an DBMS sind nach @mertens2016grundzuge [S. 42]
+
+- __Datenunabhängigkeit__: Unabhängigkeit zwischen dem konzeptuellen Schema und Anwendungsprogrammen bzw. Benutzern (logische Datenunabhängigkeit) sowie zwischen Schema und
+der physischen Datenorganisation (physische Datenunabhängigkeit)
+- Geplante und __kontrollierte Datenredundanz__: Begrenzung der Redundanz auf ein kleinstmögliches bzw. zweckmäßiges Maß durch eine entsprechende Datenstruktur
+- Sicherung der __Datenkonsistenz__: Erhaltung des gleichen Änderungsstands bei mehrfach gespeicherten Datenbeständen
+- __Datenbankintegrität__: Maßnahmen zur Erhaltung der Korrektheit und Vollständigkeit der Daten. Betrifft zum einen die semantische Integrität (Vermeiden von Fehleingaben und unzulässigen Operationen durch Festlegung und Kontrolle von erlaubten Werten und Beziehungen zwischen Datenelementen) sowie die operative Integrität (Verhindern von Fehlern, wenn mehrere Anwender auf gleiche Datenbestände zugreifen)
+- __Datensicherheit__: Bewahrung der Daten vor Verfälschung, Vernichtung und unberechtigtem Zugriff
+- __Datenschutz__: Verhinderung der unberechtigten Verwendung von Daten, z. B. von personenbezogenen Daten
+- __Ausfallsicherheit__: Ein DBMS soll Routinen aufweisen, um nach einem Absturz die Konsistenz der Daten wiederherzustellen, z. B. durch Rückgängigmachen von Transaktionen, die zum Zeitpunkt des Absturzes noch nicht abgeschlosse
+
+:::{.callout-note}
+### Datenintegration
+Datenintegration liegt vor, wenn fachlich gleiche Daten nur einmal gespeichert werden. Bestenfalls speichern Datenbanken deshalb alle Daten eines Unternehmens zentral, z. B. Kunden- und Artikeldaten. Mehrere betriebliche Funktionen können auf diese Daten z.B. durch Anwendungen zugreifen und für verschiedene Aufgaben nutzen.
+:::
+:::
+
+## Beispiel
+
+![Einsatz eines zentralen Datenbanksystems](images/DBMS.svg){#fig-DBMS}
+
+# Datenmodellierung {.vertical-center background-color=blue}
+
+## Ziel
+
+Ziel der Datenmodellierung ist die Beschreibung von Unternehmensdaten in einem __Datenmodell__.
+
+. . .
+
+Ein unternehmensweites Datenmodell, bildet die relevanten Objekte aller Bereiche des Unternehmens ab (Krcmar 2015).
+
+. . .
+
+Die Datenmodellierung findet __vor__ der Umsetzung bzw. Implementierung von Lösungen zum Management der Daten statt (bspw. Datenbanksysteme).
+
+:::{.notes}
+:::{.callout-note}
+### Unternehmensdatenmodell
+Modelle sind vereinfachte und formalisierte Abbildungen eines Ausschnittes der Realität. Das Unternehmensdatenmodell beschreibt die Zusammenhänge zwischen den für die fachlichen Aufgaben erforderlichen Daten. Währen der Modellierung werden für verschiedene Aufgaben gemeinsam verwendete Daten identifiziert und die Voraussetzungen die systemübergreifende Datenintegration geschaffen.
+:::
+:::
+
+## Vorgehensmodell
+
+![Vorgehensmodell zum Entwurf von Datenbanken nach @bachle2021einfuhrung [S. 78]](images/vorgehensmodell.svg){#fig-vorgehensmodell}
+
+# Konzeptionelles Modell  {.vertical-center background-color=blue}
+
+## Definition
+
+Im konzeptionellen Datenmodell (oder auch konzeptionelles Schema) werden alle inhaltlichen Anforderungen an die Datenbank erfasst. Dies geschieht meist mittels einer grafisch orientierten, __formalen Modellierungssprache__. 
+
+. . .
+
+Die am weitesten verbreitete Modellierungssprache ist das __Entity Relationship Model (ERM)__ nach Chen [@bachle2021einfuhrung].
+
+. . .
+
+Das Modell unterscheidet __Entity-Typen__, __Attribute__ und __Beziehungen__.
+
+## Beispiel
+
+![Beispiel für ein konzeptionelles Datenmodell (ERM), eigene Darstellung](images/konzeptionellesSchema.svg){#fig-konzeptionellesSchema}
+
+# ERM {.vertical-center background-color=blue}
+
+## Entity-Typen
+
+__Entity-Typen__ sind reale oder abstrakte Informationsobjekte mit einer eigenständigen Bedeutung wie Rollen (bspw. Kunde), Organisationseinheiten (bspw. Werk), oder reale Objekte (bspw. Artikel) [@bachle2021einfuhrung].
+
+. . .
+
+Ein __Entity__ ist eine einzelne, konkrete Ausprägung eines Entity-Typs (bspw. der Kunde *Hans Dampf*).
+
+. . .
+
+Grafisch werden Entity-Typen im Entity-Relationship-Diagramm durch Rechtecke repräsentiert.
+
+:::{.notes}
+__Beispiel:__ Wesentliche Aufgabe einer Anwendung zur Zeiterfassung ist es, für die Abrechnung Leistungen von Mitarbeitern zu Projektaufträgen zu erfassen. Aus dieser Aufgabenstellung heraus ergeben sich als relevante Entity-Typen "Mitarbeiter" (Rolle), "Leistung" (reales Objekt), "Auftrag", und "Projekt" (abstrakte Informationsobjekte)
+
+:::
+
+## Attribute
+
+Anhand von Attributen werden __Eigenschaften von Entity-Typen__ beschrieben. 
+
+. . .
+
+Ihre konkreten Ausprägungen, die __Attributwerte__, definieren eine einzelne Entity.
+
+. . .
+
+Attribute werden durch __Ellipsen__, die durch Linien mit den Rechtecken der entsprechenden Entity-Typen verbunden sind, dargestellt.
+
+Attribute, die der eindeutigen Identifikation dienen, sogenannte __Schlüsselattribute__, werden unterstrichen [@bachle2021einfuhrung].
+
+----
+
+__Beispiel:__ Anwendung zur Zeiterfassung
+
+![Entitiy-Typen und Attributen der Zeiterfassungsanwendung](images/entities.svg){#fig-entities}
+
+## Relationen
+
+Über die Relationen (engl. Relationships) werden __Beziehungen__ zwischen Entitiy-Typen beschrieben [@bachle2021einfuhrung].
+
+. . .
+
+Relationen werden in Form von __Rauten__ dargestellt und mit __Prädikatsverben__ bezeichnet.
+
+. . .
+
+Die Bezeichnungen sollen gewählt werden, dass sie auf alle Entitys der verknüpften Entity-Typen zutreffen.
+
+----
+
+__Beispiel:__ Anwendung zur Zeiterfassung
+
+![Relationen der Zeiterfassungsanwendung](images/relationen.svg){#fig-relationen}
+
+## Kardinalität
+
+Die Kardinalität bzw. Komplexität der Beziehung spezifiziert die Menge der auftretenden Beziehungen [@bachle2021einfuhrung].
+
+. . .
+
+Grundsätzlich lassen sich 1 zu 1 (1:1), 1 zu n (1:n) sowie n zu m (n:m) Beziehungen unterscheiden.
+
+. . .
+
+Je nach Notationsart wird die Kardinalität unterschiedlich dargestellt. So unterscheidet sich die Notation nach Chen wesentlich von der (min;max)-Notation.
+
+----
+
+__Beispiel:__ Anwendung zur Zeiterfassung
+
+![Kardinalität in der Notation nach Chen](images/kardinalität.svg){#fig-kardinalität}
+
+## (min;max)-Notation
+
+In der (min,max)-Notation werden genaue __Unter-und Obergrenzen__ der zulässigen Anzahl Objekte innerhalb einer Beziehung angegeben. Damit wird festgelegt, dass jede Entität dieses Typs mindestens an min und höchstens an max. Beziehungen des Beziehungstyps teilnimmt. 
+
+. . .
+
+In der (min,max)-Notation wird die Kardinalität im ER-Modell umgekehrt zu Chen-Notationen positioniert
+
+----
+
+__Beispiel:__ Anwendung zur Zeiterfassung
+
+![Kardinalität in der (min;max)-Notation](images/minMax.svg){#fig-minMax}
+
+
+# ✏️ Aufgaben {.vertical-center background-color=blue}
+
+## A1: Grundbegriffe
+
+Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.
+
+-	Information
+-	Daten-Redundanz
+-	Daten-Inkonsistenz
+-	Datenbanksystem
+-	Konzeptionelles Datenmodell
+-	Entity-Typ
+
+## A2: Daten oder Information?
+
+Diskutieren Sie, worin sich die drei Beispiele unten unterscheiden und unter welchen Bedingungen es sich um Daten oder Informationen handelt.
+
+![Daten oder Information?](images/datenInformation.svg){#fig-datenInformation}
+
+## A3: DBMS Vorteile
+
+Nennen Sie die Hauptvorteile eines Datenbanksystems.
+
+## A4: Online-Shop
+
+Ein Online-Shop verarbeitet Bestellungen von Kunden. Jede Bestellung besteht aus Artikeln. Die Artikel werden von Lieferanten geliefert. Auf der Website können die Artikel je Kategorie angezeigt werden. Ein Artikel kann in mehreren Kategorien erscheinen.
+
+Jeder Kunde hat eine Kundennummer. Zudem werden Name, E-Mail, Bankverbindung und andere Daten gespeichert. Jeder Artikel hat eine Artikel-Nummer, eine Beschreibung, ein Bild und ein Preis. Jede Bestellung hat eine Bestellnummer. Eine Kategorie ist über eine ID und eine Bezeichnung charakterisiert. Ein Lieferant hat in unserem Shop eine Lieferantennummer und einen Namen.
+
+Zeichnen Sie das ER-Modell und prüfen Sie, ob die Beziehungen über die Schlüssel hinreichend abgedeckt sind.
+Zeichnen Sie sowohl die Kardinalität nach Chen als auch nach der (min;max)-Notation ein.
+
+## A5: Auftragsverwaltung
+
+Die Mitarbeiter einer Firma sollen die geleisteten Arbeitsstunden als Leistung je Auftrag monatlich erfassen. Ein Auftrag ist in Unteraufträge gegliedert. Die geleisteten Stunden werden über Unteraufträge den Aufträgen zugeordnet. Jeder Mitarbeiter arbeitet an mehreren Unteraufträgen im Monat.
+
+Mitarbeiter sind beschrieben durch eine Personalnummer, einen Namen, und einen festgelegten Stundensatz. Jeder Auftrag hat min. die Auftragsnummer, eine Bezeichnung, einen Auftraggeber ein Auftragsdatum. Jeder Unterauftrag ist beschrieben durch eine Unterauftragsnummer, eine Bezeichnung und einen festgelegten Sollaufwand. Eine Leistung besteht min. aus der Leistungsnummer, einer Bezeichnung, dem Monat der Leistungserstellung und den Ist-Stunden.
+
+Entwerfen Sie das ER-Modell. 
+Kennzeichnen Sie außerdem die Primärschlüssel je Entity-Typ und erläutern Sie deren Funktion.
+
+# Literatur 📚
+::: {#refs}
+:::
