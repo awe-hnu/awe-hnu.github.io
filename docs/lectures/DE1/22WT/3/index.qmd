@@ -18,17 +18,311 @@ format:
 
 <!-- LTeX: language=de-DE -->
 
-[Präsentation](slides.html)[^print]
+[Präsentation](slides.html)[^print] / [Big Picture](assets/big-picture.pdf)
 
 {{< include ../assets/_version.qmd >}}
 
 # Motivation {.vertical-center background-color=blue}
 
+>I don't need a hard disk in my computer if I can get to the server faster. *Steve Jobs (1997)*
+
+. . .
+
+>Es gibt keine Cloud – es gibt nur die Computer anderer Leute. *Unbekannter Urheber*
+
+:::{.notes}
+Informationstechnologien (IT) wie bspw. Serversysteme bilden die Basis heutiger Informationssysteme. In diesem Kapitel lernen Sie Basiselemente der IT-Infrastruktur sowie Basistechnologien der digitalen Transformation wie Cloud Computing und IoT kennen.
+:::
+
 # Lernergebnisse 🎯
+
+Nach dieser Einheit  
+
+::: {.incremental}
+- wissen Sie, was man allgemein unter __Informations- und Kommunikationstechnologie (IKT)__ und __IT-Infrastruktur__ versteht,
+- kennen Sie die wesentlichen __Komponenten der IT__ (Hardware, Netzwerke und der Software),
+- können Sie diese und deren Funktionsweise anhand von Beispielen beschreiben,
+- verstehen Sie das Konzept des __Cloud-Computings__ inkl. der wichtigsten Bereitstellungs- und Service-Modelle und
+- können das Prinzip des __Internet of Things__ erläutern.
+:::
+
+# Informationstechnologie {.vertical-center background-color=blue}
+
+## Definition
+
+Der Begriff __Informations- und Kommunikationstechnologie__ (IKT), oft kurz als __Informationstechnologie__ (IT) bezeichnet, umfasst Technik, die zum Erheben, Speichern, Übertragen und Weiterverarbeiten von Daten und Informationen eingesetzt wird [@laudon2016wirtschaftsinformatik].
+
+. . .
+
+IT bildet die __Basis von digitalen Informationssystemen__ und ist deshalb für ihre Funktionsweise elementar.
+
+. . .
+
+Unterschiedliche Komponenten der IT bilden die __IT-Infrastruktur__, also alle materiellen und immateriellen Ressourcen, die benötigt werden, um am digitalen Leben teilnehmen zu können (bspw. Computer, Internetzugang, Software) [@lemke2015einfuhrung].
+
+:::{.notes}
+:::{.small}
+Heute ist Informations- und Kommunikationstechnik in unserem Leben allgegenwärtig und wird zunehmend schwerer wahrnehmbar bzw. vielfach unsichtbar. Technik tritt aufgrund benutzerfreundlicher, integrierter und konvergenter Produkte immer mehr in den Hintergrund. Die IT-Komponenten bzw. die IT-Infrastruktur ist in vielen Produkten kaum noch als solche erkennbar (bspw. smarte Lautsprecher). Zudem werden wesentliche Komponenten der IT-Infrastruktur wie bspw. der Zugang zum Internet über mobile Netze verstärkt als gegebene, verfügbare und zuverlässige Ressourcen betrachtet, um die man sich nicht mehr spezifisch kümmern muss. Dadurch wird die IT-Infrastruktur immer stärker zur "Commodity", also zur standardisierten und mehr oder weniger homogene Handelswaren wie bspw. Strom, Erdgas, Wärme und Wasser. 
+:::
+:::
+
+## Kern-IT-Infrastruktur
+
+Die Kern-Infrastruktur enthält die für eine digitale und vernetzte Interaktion, Kommunikation und Transaktion zwischen Computern, Menschen und Maschinen notwendige __Hardware-, Netzwerk- und Software-Komponenten__.
+
+![Komponenten der Kern-IT-Infrastruktur nach @lemke2015einfuhrung, S. 96](images/infrastruktur.svg){#fig-infrastruktur}
+
+# Computer {.vertical-center background-color=blue}
+
+## Rechnerklassen
+
+![Computersysteme können nach unterschiedlichen Kriterien klassifiziert werden, eigene Dartsellung](images/rechnerklassen.svg){#fig-rechnerklassen}
+
+:::{.notes}
+:::{.callout-note}
+#### Client-Server-Architektur
+
+Client-/Server-Computing ist eine Architektur für die Zusammenarbeit in Netzwerken: Server, meist leistungsstarke Rechner, stellen Funktionen und Dienstleistungen zur Verfügung, Clients wie PCs können diese Dienste nutzen.
+
+- Der File-Server stellt seine Plattenkapazität mehreren Clients zur Verfügung.
+- Ein Print-Server organisiert vor seinem Drucker eine Warteschlange, in der die Clients aus dem ganzen Netz Druckaufträge ablegen können
+- Der Mailserver stellt allen Clients Postfächer zur Verfügung, aus denen empfangene Mails entnommen und zu versendende Mails abgelegt werden können.
+:::
+:::
+
+---
+
+## Grundlegende Architektur
+
+![Von-Neumann-Architektur, eigene, vereinfachte Darstellung)](images/von-neumann.svg){#fig-vonNeumann}
+
+:::{.notes}
+Computer folgen in der Regel der sogenannten von-Neumann-Architektur und arbeiten nach dem Grundprinzip der __Eingabe-Verarbeitung-Ausgabe (EVA)__ [@abts2017grundkurs, S. 25-26]. Ein Computer umfasst Komponenten für folgende Aufgaben.
+
+- __Eingabe__: Daten müssen zuerst in den Rechner eingegeben werden. Hierzu stehen verschiedene Eingabegeräte zur Verfügung. 
+- __Verarbeitung__: Hierzu gehören unterschiedliche Tätigkeiten wie z. B. mathematische Berechnungen, Prüfen von Daten auf Gleichheit, Vergleichen von numerischen Daten bezüglich ihrer Größe, Sortieren von Datenmengen nach bestimmten Kriterien und Umformungen von Daten nach bestimmten Regeln.
+- __Ausgabe___ Zur Präsentation oder Weiterleitung von Bearbeitungsergebnissen stehen verschiedene Geräte zur Verfügung.
+- __Speicherung__: Damit eingegebene Daten oder erzeugte Ergebnisse nicht verloren gehen, werden sie auf Datenträgern gespeichert (externe Speicher).
+
+:::{.callout-note}
+#### Von-Neumann-Architektur
+
+Die nach dem österreichisch-ungarischen Mathematiker J. von Neumann (1903-1957) benannte Von-Neumann-Architektur beschreibt ein __Referenzmodell__, dass die __interne Struktur eines Computers__, also seinen Aufbau aus verschiedenen Komponenten sowie die Organisation der Arbeitsabläufe darstellt. Die meisten heutigen Computer verwenden diese Architektur und bestehen aus [@leimeister2021einfuhrung, S. 43]:
+
+- einem __Zentralprozessor__ (CPU = Central Processing Unit), der die Befehle (Instruktionen) eines Programms einzeln nacheinander interpretiert und ausführt,
+- einem __Hauptspeicher__, in dem zum Zeitpunkt der Verarbeitung das auszuführende Programm und die dafür benötigten Daten gespeichert sind, und
+- den __Datenwegen__ für den Datentransfer zwischen den Komponenten des Rechners und den peripheren Geräten
+
+Für eine detailierte Beschreibung der Komponenten siehe ç
+:::
+
+:::
+
+# Netzwerke {.vertical-center background-color=blue}
+
+## Definition
+
+Rechnernetze (oder kurz Netzwerke) dienen der __Übertragung von Daten__ zwischen mehreren Rechnern indem Sie Rechner über Übertragungswege miteinander verbinden. Dadurch ermöglichen Netzwerke unterschiedliche Formen zur computergestützten Interaktion, Kommunikation und Transaktion [@leimeister2021einfuhrung].
+
+. . . 
+
+Netzwerke umfassen neben den physischen __Übertragungseinrichtungen__ (bspw. Modem) und __Übertragungswegen__ (bspw. CAT7-Kabel) auch die __Protokolle__ (bspw. TCP/IP) und __Architekturen__ (bspw. Client-Server-Architektur).[^Netzwerke]
+
+[^Netzwerke]: Für detailiertere Beschreibungen zu Datenübertragungsverfahren und Netzwerken wie bspw. die Funktionsweise der TCP/IP Protokollfamilie lesen Sie bitte @abts2017grundkurs [S. 90ff].
+
+## Datenübertragung
+
+Um Daten zu übertragen, braucht man __Datenstationen__, __Übertragungswege__ und __Übertragungsverfahren__. Jedes Datenübertragungssystem wird von mindestens zwei Datenstationen gebildet, die durch einen Übertragungsweg miteinander verbunden sind [@leimeister2021einfuhrung, S. 80].
+
+![Prinzip der Datenübertragung, eigene vereinfachte Darstellung](images/datenuebertragung.svg){#fig-datenuebertragung}
+
+:::{.notes}
+
+Eine __Datenstation__ hat die Aufgabe, Daten für die Übertragung bereitzustellen, Daten zu empfangen und alle für die Kommunikation erforderlichen Funktionen auszuführen.
+
+Unter einem __Übertragungsweg__ versteht man die Verbindung von zwei Datenstationen durch Übertragungsmedien in Form physischer Verbindungen, auf denen codierte Informationen durch elektrische (bspw. Kupferkabel) oder optische Signale (bspw. Glasfaser) oder durch elektromagnetische Wellen (bspw. WiFi) übermittelt werden.
+
+Das __Datenübertragungsverfahren__ definiert, wie die Daten zwischen Daten Datenstationen über den Übertragungsweg ausgetauscht werden. Die Verfahren werden von den Protokollen und Architekturen festgelegt (wie bspw. die TCP/IP Protokollfamilie). Siehe hierzu auch das [OSI-Referenzmodell](https://de.wikipedia.org/wiki/OSI-Modell).
+
+:::
+
+## Klassifizierung
+
+Computernetze können nach unterschiedlichen Kriterien klassifiziert werden, insbesondere anhand folgender Eigenschaften.
+
+:::{.incremental}
+- __Physik__: Übertragungsmedium (kabelgebunden – bspw. Kupfer, Lichtwellenleiter; drahtlos)
+- __Struktur__: Topologie (bspw. Stern, Ring oder Bus; heute hauptsächlich Bus)
+- __Örtliche Begrenzung__: Netzausdehnung (bspw. Local Area Network – LAN; Wide Area Netzwork – WAN)
+- __Organisation__: Betreibermodell (bspw. Öffentlich – Public Network; privat – Private Network)
+- __Leistung__: Übertragungskapazität (maximal möglichen Datenübertragungsmenge pro Sekunde, Bit/s)
+- __Funktion__: Verwendungszweck (bspw. Backbone-Netz, Netzknoten, lokales Netz)
+:::
+
+## Das Internet
+
+Das Internet ist ein __weltumspannendes Rechnernetz__, das aus einer Vielzahl großer internationaler, nationaler und lokaler __Teilnetze__ besteht („Netz der Netze“), die alle das __Kommunikationsprotokoll TCP/IP__ verwenden.
+
+:::{.incremental}
+- Das Internet ist 1969 aus dem von der Wissenschaft entwickelten und vom US-Militär initiierten Rechnernetz __ARPANET__ (Advanced Research Projects Agency Network) entstanden.
+- Der Durchbruch ist auf die rasche Verbreitung von Anwendungen zurückzuführen, die durch die Entwicklung des __World Wide Web__ (WWW) möglich geworden sind.
+- Die anwendungsnahen Dienste im Internet basieren auf __standardisierten Protokollen__, die zur Kommunikation zwischen Client und Server verwendet werden wie bspw. Dateiaustausch (FTP), E-Mail (SMPT, POP, IMAP), Word Wide Web (HTPP)
+:::
+
+---
+
+### Das Netz der Netze
+
+Das Internet verbindet weltweit eine unüberschaubare Anzahl von Netzen unterschiedlicher Struktur miteinander.
+
+![Ausprägungen und Eigenschaften des Internets](images/internet.svg){#fig-internet}
+
+# Software
+
+Man unterscheidet zwischen __Systemsoftware__ und __Anwendungssoftware__. Systemsoftware ist zum Betrieb und zur Steuerung der Hardware und Netzwerke erforderlich, Anwendungssoftware ist für spezifische Tätigkeiten entwickelt [@mertens2016grundzuge. S. 10ff].
+
+. . .
+
+Das __Betriebssystem__ (engl. Operating System) ist Teil der Systemsoftware. Es verknüpft die Komponenten eines Computers miteinander und stellt die Verbindung zwischen einem Benutzer bzw. Anwendungsprogramm und der Hardware her.
+
+. . .
+
+Ein __Anwendungsprogramm__ (engl. Application Software, kurz __Software__) verwendet die Ressourcen des Betriebssystems und der zugrunde liegenden Hardware. In der Alltagssprache hat sich insbesondere in Bezug auf mobile Geräte wie Smartphones die Bezeichnung __App__ (für Applikation) durchgesetzt.
+
+:::{.notes}
+:::{.callout-note}
+#### Anwendungssysteme
+Anwendungssysteme können aus einer Vielzahl von Perspektiven betrachtet und kategorisiert werden. Wir fokussieren auf betriebliche Anwendungssysteme und unterscheiden zwischen Standardsoftware und Individualsoftware.
+:::
+:::
+
+---
+
+## Klassifizierung
+
+![Klassifizierung von Software](images/software.svg){#fig-software}
+
+# Cloud Computing {.vertical-center background-color=blue}
+
+## Definition
+
+Cloud Computing ist ein auf __Virtualisierung__ basierendes __IT-Bereitstellungsmodell__, bei dem Ressourcen in Form von Infrastruktur, Anwendung und Daten über das __Internet__ als verteilter Dienst von einem oder mehreren Dienstanbietern bereitgestellt werden. Diese Dienste sind nach Bedarf skalierbar und können auf einer __Pay-per-Use-Basis__ bepreist werden.
+[@bohm2011cloud]
+
+Cloud-Computing-Dienste werden in verschiedene __Servicemodelle__ (insbesondere IaaS, PaaS und SaaS) und __Bereitstellungsmodelle__ (insbesondere public, private, hybrid) unterschieden. 
+
+## Servicemodelle
+
+![Servicemodelle (typische IT-as-a-Service Outsourcing Ebenen), eigene Dartstelllung](images/servicemodelle.svg){#fig-servicemodelle}
+
+:::{.notes}
+- __Infrastructure as a Service (IaaS)__: Die Bereitstellung von Infrastruktur-Komponenten wie Server, Router, Archivierungs- und Backupsysteme oder auch ein Angebot von speziellen Hardwarekomponenten wie Druckern, Speicherkapazität oder Prozessorleistung. Diese werden virtuell und frei skalierbar angeboten und standardisiert über das Internet bereitgestellt. Der Nutzer kann die Ressourcen lexibel an seine Bedürfnisse anpassen und über das Internet, in der Regel per Weboberflächen, verwalten.
+- __Platform as a Service (PaaS)__: Die Bereitstellung von Entwicklungsumgebungen, in der Regel mit integrierter Datenbank sowie Programmier- und Laufzeitumgebungen und Werkzeugen zum Management der Anwendungen. Mit Hilfe dieser vorkonfigurierten
+Diensten können Nutzer ihren eigenen Anwendungen entwickeln, ohne die zugrundeliegende Infrastruktur verwalten zu müssen. Die Plattformen sind in der Regel auf verschiedene Industrien oder Anwendungsdomänen zugeschnitten.
+- __Software as a Service (SaaS)__: Die Bereitstellung standardisierten Softwarelösungen für Endverbraucher, die nur bedingt an die Wünsche des Endkunden anpassbar sind. Durch die Nutzung von SaaS entfällt die lokale Installation, Administration und Wartung der Software. Dies wird vom Anbieter vorgenommen. Der Zugriff auf die Anwendung erfolgt über das Internet.
+
+Quelle: @leimeister2021einfuhrung [S. 100-101]
+
+<div style="position: relative; padding-bottom: 54.21686746987952%; height: 0;"><iframe src="https://www.loom.com/embed/f56fc6cba3d14349b070a64a312b96c6" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+:::
+
+## Bereitstellungsmodelle
+
+Die unterschiedlichen Bereitstellungsmodelle unterscheiden sich zum einem durch ihre __Zugangsform__ und zum anderen durch die __Einbettung__ dieser in eine bestehende IT-Infrastruktur.
+
+:::{.incremental}
+- __Private Cloud__: Die Dienste sind ausschließlich für die Nutzung innerhalb einer Organisation bestimmt.
+- __Public Cloud__: Die Dienste können von verschiedenen Personen und Unternehmen genutzt werden. 
+- __Hybrid Cloud__: Mischung aus Private und Public Cloud (Ziel: hohe Sicherheit und Skalierbarkeit).
+- __Community Cloud__: Die Dienste können von mehreren Organisationen genutzt werden. Dazu werden mehrere Private Clouds kombiniert.
+::: 
+
+:::{.notes}
+
+### Eigenschaften {visibility="hidden"}
+
+Cloud Computing lässt sich über fünf spezielle Eigenschaften definieren [@leimeister2021einfuhrung, S. 99]: 
+
+- __On-Demand Self-Service__: ein Nutzer eines Cloud-Computing-Dienstes sollte ohne eine vorherige Interaktion mit dem Anbieter zu jedem Zeitpunkt die Möglichkeit haben, auf den Dienst zuzugreifen und bei Bedarf diesen zu skalieren.
+- __Netzwerkzugriff__: ein Nutzer muss von jeder standardisierten Plattform, wie Desktop Computer, Laptops, Tablets sowie weiteren mobilen Endgeräten, auf den Dienst zuzugreifen können.
+- __Ressourcen-Pooling__: einem Nutzer werden notwendige IT-Ressourcen, wie Rechenleistung, Arbeitsspeicher oder Speicherkapazitäten, bedarfsgerecht zugewiesen. Durch die Nutzung von gleicher Hard- und Softwareinfrastruktur für verschiedene
+Nutzer können Kosten eingespart werden.
+- __Schnelle Anpassbarkeit und Elastizität__: Je nach Anforderungen des Kunden können die Ressourcen angepasst bereitgestellt werden. Dabei kann diese Anpassung entweder automatisiert durch den Anbieter oder manuell durch den Kunden erfolgen. 
+- __Messbare Servicenutzung__: Dem Kunden wird der Dienst verbrauchsabhängig Verrechnet. Dadurch entsteht eine transparente Sicht auf die empfangenen Leistungen, sowohl auf Anbieter- als auch auf Nutzerseite.
+:::
+
+# Internet of Things {.vertical-center background-color=blue}
+
+## Definition
+
+Der Begriff __Internet of Things (IoT)__ beschreibt das Konzept, dass virtuelle und physische Gegenstände („Dinge“) über das Internet ansprechbar, erkennbar, lokalisierbar, und steuerbar sind [@leimeister2021einfuhrung, p. 97].
+
+. . .
+
+IoT steht für die zunehmende Vernetzung von Gegenständen und automatisierten Prozessen, die zur wachsenden Verschmelzung der physischen und digitalen Welt führt. 
+
+. . .
+
+Im privaten Umfeld sind sogenannte Smart Homes, also die Vernetzung von Sensoren (bspw. Temperatursensoren) und Aktoren (bspw. Heizung) im Haus bzw. in der Wohnung ein prominentes Beispiel.
+
+. . .
+
+Diese Art der technologischen Vernetzung von Geräten und Daten ermöglicht völlig Arten der Wertschöpfung.
+
+## Funktionsweise
+
+![IoT-Produkt-Dienstleistungs-Logik](images/IoT.svg){#fig-IoT}
+
+## Anwendungsfall ;-) {visibility="hidden"}
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/oY0mxwySaSo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Übungen ✏️ {.vertical-center background-color=blue}
 
+## Grundbegriffe
+
+Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.
+
+-	IT-Infrastruktur
+-	Von-Neumann Architektur
+-	EVA-Prinzip
+-	Netzwerk
+-	TCP/IP
+-	Systemsoftware
+-	Cloud-Computing
+
+## Betriebssysteme
+
+Welche __Betriebssysteme__ kommen in welcher Rechnerklasse zum Einsatz?   
+Recherchieren Sie Beispiele und ergänzen Sie @fig-rechnerklassen.
+
+Welche davon setzen Sie selbst ein?
+
+## Open Source
+
+Betriebs- und Anwendungssysteme sind oft __Open Source Software__. 
+
+Recherchieren Sie diesen Begriff und schreiben Sie die Eigenschaften sowie Vor- und Nachteile von Open Source Software auf.
+
+## Cloud Servicemodelle
+
+Recherchieren Sie auf der Website von [Microsoft Azure](https://azure.microsoft.com) je __Servicemodell__ (IaaS, PaaS, SaaS) ein konkretes Angebot und beschreiben Sie dieses in Ihren eigenen Worten.
+
+## Cloud-Computing Vor- & Nachteile
+
+Diskutieren Sie die __Vor- und Nachteile__ des Cloud-Computings und 
+fassen Sie Ihre Ergebnisse in einer Tabelle zusammen. 
+
 # Lernkontrolle 🧐 {visibility="hidden"}
+
+- Nennen und beschreiben Sie die wesentlichen Elemente der Basis-Infrastruktur.
+- Infrastruktur und Anwendungssysteme werden heute oft als Services aus der Cloud bezogen. Nennen Sie eines der in der Vorlesung besprochenen Service-Modelle und erläutern Sie dieses jeweils anhand eines konkreten Beispiels.
+- Cloud-Computing gilt als eine der Basis-Technologien der digitalen Transformation. Erläutern Sie anhand eines Merkmals von Cloud-Computing, wie diese Technologie die digitale Transformation unterstützt.
+- Nennen Sie eine weitere Technologie, die die digitale Transformation unterstützt und erläutern Sie diese.
+- Nennen Sie zwei Vorteile der Nutzung von IaaS für Unternehmen.
+- Anwendungssysteme werden oft in der Cloud ausgeführt. Dort werden unter anderem Systeme eingesetzt, die mit dem 64 Bit-Betriebssystem z/OS betrieben wird. Zu welcher Rechnerklasse gehören diese Systeme?
+- Nennen Sie zwei der in der Vorlesung besprochenen Eigenschaften dieser Systeme, die diese von Workstations/PCs abgrenzen.
 
 # Literatur 📚
 ::: {#refs}
