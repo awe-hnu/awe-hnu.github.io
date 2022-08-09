@@ -7,7 +7,10 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.37">
 
   <meta name="author" content="Andy Weeger">
@@ -353,25 +356,428 @@
 
 <section id="motivation" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Motivation</h1>
-
+<blockquote>
+<p>The world’s most valuable resource is no longer oil, but data. <em>Steve Jobs (1997)</em></p>
+</blockquote>
+<aside class="notes">
+<p>Im den letzten beiden Kapiteln haben wir uns mit Informationssystemen und Geschäftsprozessen beschäftigt. Informationssysteme werden in Geschäftsprozessen eingesetzt, um sicherzustellen, dass die benötigten Daten in der passenden Form in der richtigen Qualität zum richtigen Zeitpunkt zur Verfügung stehen. In diesem Kapitel schauen wir uns Daten etwas genauer an und beantworten die Frage, wie Daten strukturiert sein müssen, damit diese für das Unternehmen Wert erzeugen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 
 <section id="lernergebnisse" class="title-slide slide level1 center">
 <h1>Lernergebnisse 🎯</h1>
-
+<p>Nach dieser Einheit können Sie</p>
+<div>
+<ul>
+<li class="fragment">erläutern, was Daten sind und wie diese klassifiziert werden können,</li>
+<li class="fragment">erklären, weshalb Daten zur Nutzung in modernen Informationssystemen <strong>strukturiert</strong> werden sollen,</li>
+<li class="fragment">die Besonderheit von <strong>Big Data</strong> erläutern,</li>
+<li class="fragment">die Begriffe <strong>Datenredundanzen</strong> und <strong>Dateninkonsistenzen</strong> sowie sich daraus ergebende Probleme erläutern,</li>
+<li class="fragment">die Notwendigkeit und das Vorgehen der <strong>Datenmodellierung</strong> beschreiben,</li>
+<li class="fragment">ein einfaches <strong>Entity-Relationship-Diagramm</strong> (ERM) zu entwerfen und daraus das <strong>Relationenmodell</strong> abzuleiten.</li>
+</ul>
+</div>
 </section>
 
+<section>
+<section id="daten" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Daten</h1>
+
+</section>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
+<p>Daten sind eine Menge an Zeichen, die einer bestimmten Syntax folgen, einen bestimmten Zweck haben und maschinell verarbeitet werden können.</p>
+<div class="fragment">
+<p>Daten beschreiben <strong>Objekte der realen Welt</strong> durch deren <strong>Merkmale</strong> und deren <strong>Beziehungen</strong> zueinander <span class="citation" data-cites="mertens2016grundzuge">(<a href="#/ref-mertens2016grundzuge" role="doc-biblioref" onclick="return false;">Mertens u.&nbsp;a. 2016</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p><em>Beispiel: Ein Datensatz kann ein Objekt „Artikel” durch dessen Merkmalen (z. B. Preis, Bezeichnung etc.) und Beziehungen zu anderen Objekten (z. B. Bestellungen, Lieferung) beschreiben.</em></p>
+</div>
+<div class="fragment">
+<p>Ob aus Daten Informationen werden, ist davon, ob der <strong>Empfänger</strong> die Daten in einen sachlichen <strong>Kontext</strong> setzen und ihnen so Bedeutung zuordnen kann.</p>
+</div>
+</section>
+<section id="klassifizierung" class="slide level2">
+<h2>Klassifizierung</h2>
+<p>Daten können beispielsweise nach folgenden Kriterien klassifiziert werden:</p>
+<div>
+<ul>
+<li class="fragment">Zeichenart bzw. <strong>Datentyp</strong>: numerische (Ziffern), alphabetische (Buchstaben des Alphabets) und alphanumerische Daten (Ziffern, Buchstaben und Sonderzeichen)</li>
+<li class="fragment"><strong>Erscheinungsform</strong>: akustische (z. B. menschliche Laute), bildliche (z. B. Grafiken) und schriftliche Daten (z. B. Texte)</li>
+<li class="fragment"><strong>Formatierung</strong>: Formatierte (z. B. formgebundene Tabellen) und unformatierte Daten (z. B. formfreie Texte)</li>
+<li class="fragment"><strong>Verwendungszweck</strong>: selten zu verändernde Stammdaten (z. B. Personalstammdaten wie Namen und Adressen) und transaktionsorientierte Bewegungsdaten (z. B. Lagerzu- und –abgänge)</li>
+<li class="fragment">Stellung im <strong>Verarbeitungsprozess</strong>: Eingabe- und Ausgabedaten</li>
+</ul>
+</div>
+</section>
+<section id="struktur" class="slide level2">
+<h2>Struktur</h2>
+<p>Die effiziente Nutzung von Daten in Informationssystemen erfordert eine <strong>grundlegende Struktur</strong> zur Systematisierung bzw. Hierarchisierung von Daten:</p>
+<div>
+<ul>
+<li class="fragment">Jeder <strong>Datensatz</strong> besteht aus einem oder mehreren <strong>Datenfeldern</strong>,</li>
+<li class="fragment">die Datenfelder haben für alle Datensätze das gleiche Format,</li>
+<li class="fragment">die Datenfeldern eines Datensatzes hängen in aller Regel inhaltlich zusammen,</li>
+<li class="fragment">alle zusammengehörigen Datensätze werden in einer <strong>Tabelle</strong> zusammengefasst,</li>
+<li class="fragment">eine die <strong>Datenbank</strong> vereint die logisch zusammengehörenden Tabellen,</li>
+<li class="fragment">die Tabellen enthalten keine redundanten Daten, sind also <strong>redundanzfrei</strong>, und</li>
+<li class="fragment">die Datensätze weisen keine Widersprüche auf, sind also <strong>konsistent</strong>.</li>
+</ul>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Datenredundanzen und Dateninkonsistenzen</strong></p>
+</div>
+<div class="callout-content">
+<p>Die Strukturierung von Daten in einer Datenbank hat unter anderem auch zum Ziel, Datenredundanzen und Dateninkonsistenzen zu vermeiden. - <strong>Datenredundanzen:</strong> das mehrfache Vorkommen identischer Datenelemente in verschiedenen Tabellen und/oder Datenbanken (kurz Speicherorten, bspw. dieselben Kundendaten werden in zwei verschiedenen Systemen gespeichert) - <strong>Dateninkonsistenzen:</strong> für dasselbe Attribut sind unterschiedliche Werte in Datenelementen gespeichert, die ein reales Objekt repräsentieren (bspw. unterschiedliche Geburtsdaten eines Kunden).</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="big-data" class="slide level2">
+<h2>Big Data</h2>
+<p>Der Begriff <strong>Big Data</strong> meint wörtlich die „großen Daten”, also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021, 201</a>)</span>:</p>
+<div>
+<ul>
+<li class="fragment">Enorme Größe</li>
+<li class="fragment">Eine hohe Komplexität</li>
+<li class="fragment">Schnelllebigkeit oder schnelles Aufkommen neuer Daten</li>
+<li class="fragment">Schwach oder gar nicht strukturiert</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Big Data Analytics</strong> beschreibt die <strong>Fähigkeit</strong>, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#/ref-lemke2015einfuhrung" role="doc-biblioref" onclick="return false;">Lemke und Brenner 2015</a>)</span>.</p>
+</div>
+</section>
+<section id="visualisierung" class="slide level2">
+<h2>Visualisierung</h2>
+<div id="fig-bigData" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/bigData.svg" class="lightbox" title="Eigenschaften und Effekte von Big Data (4+1 Vs)" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/bigData.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 1: Eigenschaften und Effekte von Big Data (4+1 Vs)</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="datenmodellierung" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Datenmodellierung</h1>
+
+</section>
+<section id="ziel" class="slide level2">
+<h2>Ziel</h2>
+<p>Ziel der Datenmodellierung ist die Beschreibung der Unternehmensdaten in einem <strong>Datenmodell</strong>.</p>
+<div class="fragment">
+<p>Ein unternehmensweites Datenmodell, bildet die <strong>relevanten Objekte</strong> aller Bereiche des Unternehmens ab (Krcmar 2015).</p>
+</div>
+<div class="fragment">
+<p>Die Datenmodellierung findet <strong>vor</strong> der Umsetzung bzw. Implementierung von Informationssystemen statt.</p>
+</div>
+<div class="fragment">
+<p>Im Rahmen der Datenmodellierung wird zunächst ein <strong>konzeptionelles Schema</strong> erstellt. Dieses stellt alle relevanten Objekte, deren Eigenschaften sowie Beziehungen dar. Davon ausgehend wird dann ein <strong>logisches Datenmodell</strong> abgeleitet (hier Tabellen).</p>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Unternehmensdatenmodell</strong></p>
+</div>
+<div class="callout-content">
+<p>Das Unternehmensdatenmodell beschreibt die Zusammenhänge zwischen den für die fachlichen Aufgaben (bspw. Vertrieb und Produktion) erforderlichen Daten. Währen der Modellierung werden für verschiedene Aufgaben gemeinsam verwendete Daten identifiziert (bspw. Produkte) und die Voraussetzungen für die redundanzfreie und konsistente Verwendung geschaffen.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="konzeptionelles-schema" class="slide level2">
+<h2>Konzeptionelles Schema</h2>
+<p>Im konzeptionellen Schema (oder auch konzeptionelles Datenmodell) werden alle inhaltlichen Anforderungen an die Datenbank erfasst. Dies geschieht meist mittels einer grafisch orientierten, <strong>formalen Modellierungssprache</strong>.</p>
+<div class="fragment">
+<p>Die am weitesten verbreitete Modellierungssprache ist das <strong>Entity Relationship Model (ERM)</strong> nach Chen <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>Das Modell unterscheidet <strong>Entitätstypen</strong> (relevante Objekte), <strong>Attribute</strong> (Eigenschaften der Objekte) und <strong>Beziehungen</strong> zwischen Entitätstypen.</p>
+</div>
+</section>
+<section id="beispiel" class="slide level2">
+<h2>Beispiel</h2>
+<div id="fig-konzeptionellesSchema" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/konzeptionellesSchema.svg" class="lightbox" title="Beispiel für ein konzeptionelles Datenmodell (ERM), eigene Darstellung" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/konzeptionellesSchema.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 2: Beispiel für ein konzeptionelles Datenmodell (ERM), eigene Darstellung</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="logisches-datenmodell" class="slide level2">
+<h2>Logisches Datenmodell</h2>
+<p>Ein logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell.</p>
+<div class="fragment">
+<p>Es wird aus dem <strong>konzeptionellen Schema</strong> abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank.</p>
+</div>
+<div class="fragment">
+<p>In der Praxis sind relationale Datenbanksysteme am weitesten verbreitet. Deshalb kommt dem <strong>relationalen Modell</strong> die größte Bedeutung zu.</p>
+</div>
+<div class="fragment">
+<p>Grundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>Eine Relation entspricht einem <strong>Entitätstypen</strong>, jede Zeile der Tabelle entspricht einer <strong>Entität</strong>, die Spalten einer Tabelle entsprechen den <strong>Attributen</strong>.</p>
+</div>
+</section></section>
+<section>
+<section id="erm" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>ERM</h1>
+
+</section>
+<section id="entitätstypen" class="slide level2">
+<h2>Entitätstypen</h2>
+<p><strong>Entitätstypen</strong> sind reale oder abstrakte Informationsobjekte mit einer eigenständigen Bedeutung wie Rollen (bspw. Kunde), Organisationseinheiten (bspw. Werk), oder Objekte (bspw. Artikel) <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Eine <strong>Entität</strong> ist eine einzelne, konkrete Ausprägung eines Entitätstyps (bspw. der Kunde <em>Hans Dampf</em>).</p>
+</div>
+<div class="fragment">
+<p>Grafisch werden Entitätstyps im Entity Relationship Modell durch Rechtecke repräsentiert.</p>
+<aside class="notes">
+<p><em>Beispiel: Wesentliche Aufgabe einer Anwendung zur Zeiterfassung ist es, für die Abrechnung Leistungen von Mitarbeitern zu Projektaufträgen zu erfassen. Aus dieser Aufgabenstellung heraus ergeben sich als relevante Entitätstyps <strong>Mitarbeiter</strong> (Rolle), <strong>Leistung</strong> (reales Objekt), <strong>Auftrag</strong>, und <strong>Projekt</strong> (abstrakte Informationsobjekte).</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="attribute" class="slide level2">
+<h2>Attribute</h2>
+<p>Anhand von Attributen werden <strong>Eigenschaften von Entitätstypen</strong> beschrieben <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Ihre konkreten Ausprägungen, die <strong>Attributwerte</strong>, definieren eine einzelne Entität.</p>
+</div>
+<div class="fragment">
+<p>Attribute werden durch <strong>Ellipsen</strong>, die durch Linien mit den Rechtecken der entsprechenden Entitätstypen verbunden sind, dargestellt.</p>
+<p>Attribute, die der eindeutigen Identifikation dienen<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>, sogenannte <strong>Schlüsselattribute</strong>, werden unterstrichen.</p>
+</div>
+<aside></aside></section>
+<section class="slide level2">
+
+<h4 id="beispiel-zeiterfassung">Beispiel (Zeiterfassung)</h4>
+<div id="fig-entities" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/entities.svg" class="lightbox" title="Entitätstypen und Attributen der Zeiterfassungsanwendung" data-gallery="quarto-lightbox-gallery-3"><img data-src="images/entities.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 3: Entitätstypen und Attributen der Zeiterfassungsanwendung</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="beziehungen" class="slide level2">
+<h2>Beziehungen</h2>
+<p>Über <strong>Beziehungstypen</strong> werden Verknüpfungen zwischen Entitätstypen beschrieben (bspw. Mitarbeiter <em>leitet</em> Projekt <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Relationen werden in Form von <strong>Rauten</strong> dargestellt und mit Prädikatsverben bezeichnet.</p>
+</div>
+<div class="fragment">
+<p>Die Bezeichnungen sollen gewählt werden, dass sie auf alle Entitäten der verknüpften Entitätstypen zutreffen.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="beispiel-zeiterfassung-1">Beispiel (Zeiterfassung)</h4>
+<div id="fig-relationen" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/relationen.svg" class="lightbox" title="Relationen der Zeiterfassungsanwendung" data-gallery="quarto-lightbox-gallery-4"><img data-src="images/relationen.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 4: Relationen der Zeiterfassungsanwendung</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="kardinalität" class="slide level2">
+<h2>Kardinalität</h2>
+<p>Die Kardinalität legt fest, an wie vielen konkreten Beziehungen eine Beziehungstyps seine Entitäten beteiligt sein können oder müssen <span class="citation" data-cites="bachle2021einfuhrung">(<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">Bächle, Daurer, und Kolb 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Grundsätzlich lassen sich 1 zu 1 (1:1), 1 zu n (1:n) sowie n zu m (n:m) Beziehungen unterscheiden.</p>
+</div>
+<div class="fragment">
+<p>Je nach Notationsart wird die Kardinalität unterschiedlich dargestellt. So unterscheidet sich die Notation nach Chen wesentlich von der (min;max)-Notation.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="beispiel-zeiterfassung-2">Beispiel (Zeiterfassung)</h4>
+<div id="fig-kardinalität" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/kardinalit%C3%A4t.svg" class="lightbox" title="Kardinalität in der Notation nach Chen" data-gallery="quarto-lightbox-gallery-5"><img data-src="images/kardinalit%C3%A4t.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 5: Kardinalität in der Notation nach Chen</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="minmax-notation" class="slide level2">
+<h2>(min;max)-Notation</h2>
+<p>In der (min,max)-Notation werden genaue <strong>Unter-und Obergrenzen</strong> der zulässigen Anzahl Objekte innerhalb einer Beziehung angegeben. Damit wird festgelegt, dass&nbsp;jede&nbsp;Entität dieses Typs mindestens an min und höchstens an max. Beziehungen des Beziehungstyps teilnimmt.</p>
+<div class="fragment">
+<p>In der&nbsp;(min,max)-Notation&nbsp;wird die Kardinalität im ER-Modell umgekehrt zu Chen-Notationen positioniert</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="beispiel-zeiterfassung-3">Beispiel (Zeiterfassung)</h4>
+<div id="fig-minMax" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/minMax.svg" class="lightbox" title="Kardinalität in der (min;max)-Notation" data-gallery="quarto-lightbox-gallery-6"><img data-src="images/minMax.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 6: Kardinalität in der (min;max)-Notation</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+
+<section id="relationen" class="slide level2">
+<h2>Relationen</h2>
+<p>Eine Relation entspricht (meistens) einem Entitätstyps.</p>
+<div id="fig-relation" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/relation.svg" class="lightbox" title="Beispiel einer Relation, vgl. @bachle2021einfuhrung" data-gallery="quarto-lightbox-gallery-7"><img data-src="images/relation.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 7: Beispiel einer Relation, vgl. <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p><em>Beispiel: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entitätstyps ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden.</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="und-1n-beziehungen" class="slide level2">
+<h2>1:1- und 1:n-Beziehungen</h2>
+<p>Bei 1:1 und 1:n-Beziehungen wird der <strong>Primärschlüssel</strong> der verbundenen Relation ergänzt.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/beziehungen.svg" class="lightbox" title="Beispiel einer 1:n Beziehung, vgl. @bachle2021einfuhrung" data-gallery="quarto-lightbox-gallery-8"><img data-src="images/beziehungen.svg" title="fig:"></a></p>
+<p></p><figcaption>Beispiel einer 1:n Beziehung, vgl. <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>::: notes <em>Beispiel: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation <strong>Projekt</strong> um den Primärschlüssel der Relation <strong>Mitarbeiter</strong>, der <strong>Mitarbeiter-Nr.</strong> </em></p>
+</section>
+<section id="nm-beziehungen" class="slide level2">
+<h2>n:m-Beziehungen</h2>
+<p>Eine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte <strong>Koppeltabelle</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/koppeltabelle.svg" class="lightbox" title="Beispiel einer 1:n Beziehung, vgl. @bachle2021einfuhrung" data-gallery="quarto-lightbox-gallery-9"><img data-src="images/koppeltabelle.svg" title="fig:"></a></p>
+<p></p><figcaption>Beispiel einer 1:n Beziehung, vgl. <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p><em>Beispiel: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation <code>Buchungen</code> stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel <code>Kunden-Nr,</code> und <code>Trainings-Nr.</code> wird zum Primärschlüssel der Koppeltabelle <code>Buchungen</code>.</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
 <section id="übungen" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Übungen ✏️</h1>
 
 </section>
-
+<section id="daten-oder-information" class="slide level2">
+<h2>Daten oder Information</h2>
+<p>Diskutieren Sie, worin sich die drei Beispiele unten unterscheiden und unter welchen Bedingungen es sich um Daten oder Informationen handelt.</p>
+<div id="fig-datenInformation" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/datenInformation.svg" class="lightbox" title="Daten oder Information?" data-gallery="quarto-lightbox-gallery-10"><img data-src="images/datenInformation.svg" title="fig:"></a></p>
+<p></p><figcaption>Abbildung 8: Daten oder Information?</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="online-shop" class="slide level2">
+<h2>Online-Shop</h2>
+<p>Sie möchten das Datenmodell für einen Online-Shop erstellen. Über den Shop können Kunden Bestellungen aufgeben. Jede Bestellung besteht aus Artikeln. Die Artikel werden von Lieferanten geliefert. Die Artikel können verschiedenen Kategorien zugeordnet werden.</p>
+<p>Jeder Kunde hat eine Kundennummer. Zudem werden Name, E-Mail, Bankverbindung und andere Daten gespeichert. Jeder Artikel hat eine Artikel-Nummer, eine Beschreibung, ein Bild und ein Preis. Jede Bestellung hat eine Bestellnummer. Eine Kategorie ist über eine ID und eine Bezeichnung charakterisiert. Ein Lieferant hat in unserem Shop eine Lieferantennummer und einen Namen.</p>
+<p>Erstellen Sie das Entity-Relationship Modell. Prüfen Sie, ob jeder Entitätstyp ein Schlüsselattribut besitzt. Zeichnen Sie sowohl die Kardinalität nach Chen als auch nach der (min;max)-Notation ein.</p>
+<p>Leiten Sie aus dem ERM das Relationenmodell ab. Ergänzen Sie in jeder Relation zwei Datensätze.</p>
+</section>
+<section id="auftragsverwaltung" class="slide level2">
+<h2>Auftragsverwaltung</h2>
+<p>In einer Agentur ist jeder Auftrag in Unteraufträge gegliedert. Die Mitarbeiter erfassen die geleisteten Stunden pro Tag und verknüpfen diese mit dem passenden Unterauftrag.</p>
+<p>Mitarbeiter haben eine Personalnummer, einen Namen, und einen festgelegten Stundensatz. Jeder Auftrag hat min. die Auftragsnummer, eine Bezeichnung, einen Auftraggeber ein Auftragsdatum. Jeder Unterauftrag hat eine Unterauftragsnummer, eine Bezeichnung und einen festgelegten Sollaufwand. Eine Leistung besteht min. aus der Leistungsnummer, einer Bezeichnung, dem Monat der Leistungserstellung und den Ist-Stunden.</p>
+<p>Entwerfen Sie das ER-Modell.</p>
+<p>Leiten Sie aus dem ERM das Relationenmodell ab. Ergänzen Sie in jeder Relation zwei Datensätze.</p>
+</section>
+<section id="big-data-1" class="slide level2">
+<h2>Big Data</h2>
+<p>Überlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.</p>
+<p>Geben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt.</p>
+</section></section>
 
 
 <section id="literatur" class="title-slide slide level1 smaller scrollable">
 <h1>Literatur 📚</h1>
-<div id="refs" role="doc-bibliography">
-
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-bachle2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Bächle, Michael A, Stephan Daurer, und Arthur Kolb. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. De Gruyter Oldenbourg.
+</div>
+<div id="ref-leimeister2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. Springer Gabler Berlin Heidelberg.
+</div>
+<div id="ref-lemke2015einfuhrung" class="csl-entry" role="doc-biblioentry">
+Lemke, Claudia, und Walter Brenner. 2015. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik: Band 1: Verstehen des digitalen Zeitalters</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="doc-biblioentry">
+Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016. <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
 </div>
 
 <div class="footer footer-default">
@@ -383,6 +789,7 @@
 
 <ol>
 <li id="fn1" role="doc-endnote"><p><strong>Drucken bzw. als PDF exportieren:</strong> Wenn Sie die Folien ausdrucken oder exportieren möchten, öffnen Sie die Präsentation, drücken Sie <code>e</code> auf Ihrer Tastatur und dann <code>Drucken</code>(als PDF).</p></li>
+<li id="fn2" role="doc-endnote"><p>In Schlüsselattributen kommt jeder Attributwert nur einmal vor, ist also eindeutig. Über Schlüsselattribute können Entitäten eindeutig identifiziert werden.</p></li>
 </ol>
 </section>
     </div>
@@ -734,6 +1141,7 @@
       }
     });
     </script>
+    
     
 
 </body></html>
