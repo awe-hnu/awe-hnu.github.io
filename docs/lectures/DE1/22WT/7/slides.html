@@ -7,7 +7,10 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.37">
 
   <meta name="author" content="Andy Weeger">
@@ -353,25 +356,347 @@
 
 <section id="motivation" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Motivation</h1>
-
+<blockquote>
+<p>Zu den gewaltigen Kosten für die Softwareumstellung als solche kommen jeden Tag neue für Fehlersuche und Problembeseitigung. <em>Ernst Prost (2019), Geschäftsführer der Liqui Moly GmbH in Ulm</em></p>
+</blockquote>
+<div class="fragment">
+<p>Damit das nicht passiert, müssen die passenden Anwendungssysteme ausgewählt und an die Geschäftsprozesse angepasst werden (und/oder vice versa). Bevor wir uns mit der Implementierung von Anwendungssoftware beschäftigen, schauen wir uns in diesem Kapitel an, was die wichtigsten Arten von Anwendungssysteme sind, die im Unternehmen eingesetzt werden.</p>
+</div>
 </section>
 
 <section id="lernergebnisse" class="title-slide slide level1 center">
 <h1>Lernergebnisse 🎯</h1>
-
+<p>Nach dieser Einheit</p>
+<div>
+<ul>
+<li class="fragment">können Sie den Begriff <strong>Anwendungssystem</strong> erläutern und vom Begriff Informationssystem abgrenzen,</li>
+<li class="fragment">sind Sie in der Lage, betriebliche Anwendungssysteme nach unterschiedlichen Kriterien zu <strong>klassifizieren</strong>,</li>
+<li class="fragment">können Sie beschreiben, wie die Anwendungssystem-Kategorien <strong>ERP, SCM und BI</strong> aufgebaut sind und welchem Zweck diese jeweils dienen und</li>
+<li class="fragment">sind Sie in der Lage, den Begriff <strong>Business Intelligence (BI)</strong> zu erläutern und die Komponenten eines BI-Systems zu beschreiben.</li>
+</ul>
+</div>
 </section>
 
+<section>
+<section id="anwendungssysteme" class="title-slide slide level1 center">
+<h1>Anwendungssysteme</h1>
+<p><strong>Anwendungssysteme</strong> bilden den technischen Teil von <strong>Informationssystemen.</strong></p>
+<p>Anwendungssysteme bauen auf einer gegebenen Infrastruktur auf und umfassen alle Programme (Anwendungssoftware), die für ein bestimmtes Aufgabengebiet entwickelt und eingesetzt werden sowie der Daten, die erzeugt und genutzt werden <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(nach <a href="#/ref-laudon2016wirtschaftsinformatik" role="doc-biblioref" onclick="return false;">Laudon, Laudon, und Schoder 2016, p.15</a>)</span>.</p>
+<div class="fragment">
+<p>Anwendungssysteme enthalten entweder <strong>Standardssoftware</strong>, die “von der Stange” gekauft oder aus der Cloud als Software as a Service verwendet werden oder <strong>Individualsoftware</strong>, die spezifisch für eine Organsation entwickelt wird. Beide Typen müssen in Abstimmung mit den anderen Komponenten eingeführt und zum Informationssystem ausgebaut werden.</p>
+</div>
+<div class="fragment">
+<p>Anwendungssysteme werden verkürzt als Anwendung bezeichnet.</p>
+<aside class="notes">
+<p>Oft spricht man auch von „Applikation” (Englisch „business application” oder nur „application”). <strong>„App”</strong> ist die Kurzform von Applications und wird oft im Zusammenhang mit mobilen Plattformen verwendet (bspw. Apps für das Smartphone, die über „App Stores” geladen werden) <span class="citation" data-cites="abts2017grundkurs">(<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">Abts und Mülder 2017</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="visualisierung" class="slide level2">
+<h2>Visualisierung</h2>
+<div id="fig-is" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/informationssystem.svg" class="lightbox" title="Schematische Darstellung der Komponenten eines Informationssystems nach @alpar2000anwendungsorientierte" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/informationssystem.svg"></a></p>
+<p></p><figcaption>Abbildung 1: Schematische Darstellung der Komponenten eines Informationssystems nach <span class="citation" data-cites="alpar2000anwendungsorientierte">Alpar u.&nbsp;a. (<a href="#/ref-alpar2000anwendungsorientierte" role="doc-biblioref" onclick="return false;">2019</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="betriebliche-anwendungssysteme" class="title-slide slide level1 center">
+<h1>Betriebliche Anwendungssysteme</h1>
+<p><strong>Betriebliche Anwendungssysteme</strong> unterstützen die Anwender innerhalb eines Unternehmens bei der Durchführung ihrer Aufgaben.</p>
+<div class="fragment">
+<p>Anwendungen bilden dabei die <strong>Geschäftslogik</strong> bzw. die fachlichen Funktionszusammenhänge ab, die durch die Geschäftsprozesse definiert und repräsentiert werden <span class="citation" data-cites="alpar2000anwendungsorientierte">(<a href="#/ref-alpar2000anwendungsorientierte" role="doc-biblioref" onclick="return false;">Alpar u.&nbsp;a. 2019</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>In modernen Unternehmen unterstützen und integrieren Anwendungssysteme fast alle <strong>Funktionsbereiche und deren Prozesse</strong> (horizontale Integration) und stellen auf unterschiedlichen Hierarchieebenen notwendige Daten zur <strong>Entscheidungsfindung, Planung und Kontrolle</strong> bereit (vertikale Integration).</p>
+</div>
+</section>
+<section id="funktionsbereich" class="slide level2">
+<h2>Funktionsbereich</h2>
+<div id="fig-valueChain" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/valueChain.svg" class="lightbox" title="Beispiele für betriebliche Anwendungssysteme entlang der Wertschöpfungskette (Value Chain)" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/valueChain.svg"></a></p>
+<p></p><figcaption>Abbildung 2: Beispiele für betriebliche Anwendungssysteme entlang der Wertschöpfungskette (Value Chain)<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a></figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>Betriebliche Anwendungssysteme können nach dem Funktionsbereich, in dem diese eingesetzt werden, klassifiziert werden. In <a href="#/fig-valueChain">Abbildung&nbsp;2</a> sind einige beispielhafte Anwendungssysteme und die zugehörige betriebliche Funktion dargestellt.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+<section id="organisatorische-ebene" class="slide level2">
+<h2>Organisatorische Ebene</h2>
+<p>Betriebliche Anwendungssysteme können nach der organisatorischen Ebene, die sie unterstützen, unterteilt werden: Systeme auf der operativen Ebene, Systeme auf der Managementebene und Systeme auf der strategischen Ebene <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#/ref-laudon2016wirtschaftsinformatik" role="doc-biblioref" onclick="return false;">Laudon, Laudon, und Schoder 2016, 406</a>)</span>.</p>
+<div class="fragment">
+<dl>
+<dt>Anwendungssysteme auf operativer Ebene</dt>
+<dd>
+Führen die grundlegenden, für den Geschäftsbetrieb notwendigen Routinetransaktionen aus, zeichnen diese auf und überwachen diese (bspw. Verkauf, Wareneingang, Geldeingang, Materialverbrauch, etc.).
+</dd>
+</dl>
+</div>
+<div class="fragment">
+<dl>
+<dt>Anwendungssysteme auf Managementebene</dt>
+<dd>
+Unterstützen das mittlere Management in den Bereichen Kontrolle, Entscheidungsfindung und Administration.
+</dd>
+</dl>
+</div>
+<div class="fragment">
+<dl>
+<dt>Strategische Anwendungssysteme</dt>
+<dd>
+Unterstützen die langfristige Planung des oberen Managements.
+</dd>
+</dl>
+</div>
+<div class="fragment">
+<p>Vereinfacht kann zwischen <strong>Operativen Anwendungssystemen</strong> und <strong>Analytischen Anwendungssystemen</strong> unterscheiden.</p>
+</div>
+<div class="fragment">
+<p>Analytische Anwendungssysteme nutzen die von den operativen Systemen erzeugten Daten (evtl. ergänzt um Daten aus anderen Quellen), verdichten und bereiten diese auf (insbesondere in Form von Kennzahlen) und unterstützen damit das Management in der Unternehmensführung und Entscheidungsfindung <span class="citation" data-cites="abts2017grundkurs">(<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">Abts und Mülder 2017, 267</a> ff)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/hierarchie.svg" class="lightbox" title="Unterscheidung anhand der Einordnung in die Unternehmenshierarchie" data-gallery="quarto-lightbox-gallery-3"><img data-src="images/hierarchie.svg"></a></p>
+<p></p><figcaption>Unterscheidung anhand der Einordnung in die Unternehmenshierarchie</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section></section>
+<section>
+<section id="wichtige-typen" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Wichtige Typen</h1>
+
+</section>
+<section id="erp-systeme" class="slide level2">
+<h2>ERP-Systeme</h2>
+<p>Als Enterprise Resource Planning Systeme (ERP-Systeme) bezeichnet man <strong>integrierte betriebswirtschaftliche Standardanwendungssoftware</strong>.</p>
+<div class="fragment">
+<p>Integriert bedeutet, dass sämtliche oder <strong>wesentliche Teile der Geschäftsprozesse</strong> innerhalb des Unternehmens unterstützt werden (u.a. Beschaffung, Produktion, Vertrieb und Rechnungswesen) und Daten in einer zentralen Datenbank gehalten werden <span class="citation" data-cites="abts2017grundkurs">(<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">Abts und Mülder 2017</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>ERP-Systeme ermöglichen insbesondere die <strong>horizontale Integration</strong>.</p>
+</div>
+<div class="fragment">
+<p>Die zu den Geschäftsvorfällen erzeugten Daten werden von analytischen Systemen im Sinne der <strong>vertikalen Integration</strong> genutzt. Teilweise wird diese Funtion auch von den ERP-Systemen selbst übernommen.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="visualisierung-1">Visualisierung</h3>
+<div id="fig-erp" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/erp.svg" class="lightbox" title="Schematischer Aufbau eines ERP-Systems, eigene Darstellung basierend auf @abts2017grundkurs [S. 194]" data-gallery="quarto-lightbox-gallery-4"><img data-src="images/erp.svg"></a></p>
+<p></p><figcaption>Abbildung 3: Schematischer Aufbau eines ERP-Systems, eigene Darstellung basierend auf <span class="citation" data-cites="abts2017grundkurs">Abts und Mülder (<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">2017, 194</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="scm-systeme" class="slide level2">
+<h2>SCM-Systeme</h2>
+<p><strong>Supply-Chain-Management (SCM)</strong> beschreibt die aktive Gestaltung aller Prozesse, um Kunden oder Märkte in Wertschöpfungsketten wirtschaftlich mit Produkten und Dienstleistungen zu versorgen.</p>
+<div class="fragment">
+<p>SCM-Systeme unterstützen die <strong>Geschäftsprozessintegration innerhalb der Wertschöpfungskette</strong> zwischen den einzelnen Unternehmen auf den unterschiedlichen Wertschöpfungsstufen und dem Endkunden <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>SCM-Systeme steuern und optimieren unternehmensübergreifende Informations-, Geld- und Güter- und Dienstleistungsströme und unterstüzten damit bei der Gestaltung, Planung und Steuerung von Lieferketten.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="visualisierung-2">Visualisierung</h3>
+<div id="fig-scm" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/scm.svg" class="lightbox" title="Einbettung von SCM-Systemen, eigene Darstellung" data-gallery="quarto-lightbox-gallery-5"><img data-src="images/scm.svg"></a></p>
+<p></p><figcaption>Abbildung 4: Einbettung von SCM-Systemen, eigene Darstellung</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p><strong>Zielsetzungen (Auswahl)</strong>:</p>
+<ul>
+<li>Verringerung des <a href="https://de.wikipedia.org/wiki/Peitscheneffekt_(Supply-Chain-Management)">Bullwhip-Effekts</a></li>
+<li>Erhöhung der Liefertreue Kosteneinsparungen bspw. durch höhere Kapazitätsauslastung und</li>
+<li>Senkung von Lagerbeständen, Verringerung der Lead-Time, etc.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="crm-systeme" class="slide level2">
+<h2>CRM-Systeme</h2>
+<p><strong>Customer-Relationship-Management (CRM)</strong> umfasst den Aufbau und die Festigung langfristig profitabler Kundenbeziehungen durch abgestimmte und kundenindividuelle Marketing-, Sales- und Servicekonzepte mit Hilfe moderner IT.</p>
+<div class="fragment">
+<p><strong>CRM-Systeme</strong> sind Anwendungssysteme, die sämtliche Interaktionen der Unternehmung mit Kunden verfolgen und analysieren, um Umsatz, Rentabilität, Kunden-zufriedenheit und Kundenbindung zu optimieren. Diese Systeme</p>
+<ul>
+<li>vereinen eine Vielzahl von Einzellösungen aus verschiedenen Unternehmensbereichen</li>
+<li>lassen in die beiden Teilbereiche operatives CRM und analytisches CRM aufteilen.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>In der Regel unterscheidet man zwischen <strong>operativen</strong>, <strong>analytischen</strong> und <strong>kommunikativen CRM-Systemen</strong></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="visualisierung-3">Visualisierung</h3>
+<div id="fig-crm" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/crm.svg" class="lightbox" title="Aufbau un Einbettung von CRM-Systemen, eigene Darstellung" data-gallery="quarto-lightbox-gallery-6"><img data-src="images/crm.svg"></a></p>
+<p></p><figcaption>Abbildung 5: Aufbau un Einbettung von CRM-Systemen, eigene Darstellung</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<h3 id="operatives-crm">Operatives CRM</h3>
+<p>Systeme, die Unterstützung für das Tagesgeschäft in der direkten Interaktion mit den Kunden bieten, insbesondere - Unterstützung des Kundenkontakts durch Integration aller Daten zum Kunden - Bereitstellung von Anwendungen für das Front- und Backoffice (bspw. Angebotsmgmt) - Verbesserung der Reaktionsfähigkeit auf Kundenbedürfnisse, Effizienz und Integration der Lieferketten</p>
+<p>Hauptziel ist es, die Kunden zufrieden zu stellen und so viele Daten wie möglich zu sammeln.</p>
+<h3 id="analytisches-crm">Analytisches CRM</h3>
+<p>Systeme, die helfen 360°-Sichten auf den Kunden durch Zusammenführung aller verfügbaren Daten zu erstellen, z.B.,</p>
+<ul>
+<li>Beziehungskarten und Kontaktverlauf</li>
+<li>Demografische und psychografische Daten</li>
+<li>Rentabilitätskennzahlen (z. B. Share of Wallet)</li>
+<li>Marketing- und Vertriebsinformationen</li>
+<li>Daten zur Produktnutzung</li>
+</ul>
+<p>Hauptziel ist die Gewinnung von Wissen über den Kunden, um Ableitungen für die Interaktion mit dem Kunden zu gewinnen und Strategien zur Marktbearbeitung zu entwickeln (bspw. mittels Kundensegmentierung)</p>
+<h3 id="kommunikatives-crm">Kommunikatives CRM</h3>
+<p>Kommunikative CRM Systeme sind oftmals Teil operativer CRM Systeme. Sie umfassen das Management aller Kommunikationskanäle zwischen Kunde und Unternehmen (Telefonie, Internet, E-Mail, Direct Mailing, etc.). Die verschiedenen Kommunikationskanäle werden synchronisiert, gesteuert und eingesetzt, um eine zielgerichtete Kommunikation zwischen Kunden und Unternehmen zu ermöglichen. Dieser Ansatz wird auch als Multi Channel Management bezeichnet.</p>
+<p>Grundsätzlich kann zwischen dem direkten und indirekten Kommunikationskanal unterschieden werden.</p>
+<ul>
+<li>Direkte Kommunikation: Das Unternehmen tritt unmittelbar mit den Kunden in Kontakt (bspw. Besuche von Außendienstmitarbeitern, Telefonate, direkter Kontakt mit dem Verkaufspersonal in Verkaufsräumen, Kontakt via Chat oder Instant Messaging, etc.)</li>
+<li>Indirekte Kommunikation: Es findet kein direkter persönlicher Kontakt zwischen Unternehmen und Kunden statt (bspw. Briefe, Faxe, E-Mail-Kampagnenm etc.)</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bi-systeme" class="slide level2">
+<h2>BI-Systeme</h2>
+<p>Business Intelligence (BI) bezeichnet ein integrierter, IT-basierter Gesamtansatz zur Unterstützung betrieblicher Entscheidungen.</p>
+<div class="fragment">
+<p>BI-Systeme kombinieren Komponenten für die Beschaffung, Aufbereitung und Bereitstellung von Daten. Zielsetzung ist, neue Erkenntnisse aus bestehenden Daten für bessere Entscheidungen zu gewinnen <span class="citation" data-cites="abts2017grundkurs">(<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">Abts und Mülder 2017</a>)</span>.</p>
+<div>
+<ul>
+<li class="fragment">BI-Systeme bauen auf einem <strong>Data Warehouse</strong><a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a>, einer zentralen Datenbank, die aktuelle und historische Daten in aggregierter und mehrdimensionaler Form speichert, auf</li>
+<li class="fragment">Die Daten aus dem DW werden in der Regel mittels <strong>OLAP</strong> analysiert</li>
+<li class="fragment">Mittels <strong>Data Mining</strong> werden die Daten analysisert, um sinnvolle Muster oder Regelmäßigkeiten zu entdecken (bspw. Kaufverhalten der Kunden)</li>
+</ul>
+</div>
+</div>
+<aside></aside></section>
+<section class="slide level2">
+
+<h3 id="visualisierung-4">Visualisierung</h3>
+<div id="fig-bi" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/bi.svg" class="lightbox" title="Schematischer Aufbau von BI-Systemen, eigene Darstellung nach @bachle2021einfuhrung (S. 132)" data-gallery="quarto-lightbox-gallery-7"><img data-src="images/bi.svg"></a></p>
+<p></p><figcaption>Abbildung 6: Schematischer Aufbau von BI-Systemen, eigene Darstellung nach <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#/ref-bachle2021einfuhrung" role="doc-biblioref" onclick="return false;">2021</a>)</span> (S. 132)</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="kollaborationssysteme" class="slide level2">
+<h2>Kollaborationssysteme</h2>
+<p>Als <strong>Kollaborationssysteme</strong> (Collaboration Tools) werden Anwendungssysteme bezeichnet, die die <strong>Zusammenarbeit</strong> von Personen innerhalb eines Unternehmens (funktionsübergreifend) sowie auch unternehmensübergreifend ermöglichen und verbessern <span class="citation" data-cites="abts2017grundkurs">(<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">Abts und Mülder 2017</a>)</span>.</p>
+<div class="fragment">
+<p>Die Zusammenarbeit kann sowohl synchron als auch asynchron erfolgen.</p>
+</div>
+<div class="fragment">
+<p>Mittels Kollaborationssysteme sollen Mitarbeiter funktionsübergreifend besser miteinander kommunizieren und das Wissen untereinander teilen.</p>
+</div>
+<div class="fragment">
+<p><strong>Beispiele:</strong> Office 365, Google Docs, Slack, etc.</p>
+</div>
+</section></section>
+<section>
 <section id="übungen" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Übungen ✏️</h1>
 
 </section>
-
+<section id="rolle-von-anwendungssystemen" class="slide level2">
+<h2>Rolle von Anwendungssystemen</h2>
+<p>Diskutieren Sie in der Gruppe die Rolle von operativen und analytischen Anwendungssystemen und in welcher Beziehung diese zueinander stehen. Erläutern Sie beides anhand von konkreten Beispielen aus der betrieblichen Praxis.</p>
+</section>
+<section id="beispiele" class="slide level2">
+<h2>Beispiele</h2>
+<p>Recherchieren Sie im Internet nach konkreten Beispielen für folgende Kategorien an Anwendungssystemn. Erläutern Sie die Funktion des Systems und begründen Sie die Zuordnung</p>
+<ul>
+<li>Analytisches Anwendungssystem</li>
+<li>Standardsoftware</li>
+<li>Individualsoftware</li>
+<li>Anwendungssystem für HR</li>
+<li>Anwendungssystem für Marketing und Sales</li>
+</ul>
+</section>
+<section id="scm" class="slide level2 scrollable smaller">
+<h2>SCM</h2>
+<p>Sie führen ein Unternehmen, das Flugzeugteile herstellt. Sie haben viele Wettbewerber, die versuchen, günstigere Preise und besserne Kundenservice zu bieten. Sie möchten herausfinden, ob Sei von einem besseren SCM profitieren können.</p>
+<p><a href="assets/bestellungen.xlsx">Hier</a> finden Sie eine Tabellenkalkulationsdatei mit einer Liste sämtlicher Artikel, die Ihr Unternehmen während der letzten drei Monate bei ihren Lieferanten bestellt hat. Analysieren Sie die Datei und bereiten Sie eine Empfehlung dazu vor, wie die in dieser Tabelle enthaltenen Daten zur Verbesserung des Supply Chain Managements eingesetzt werden können. Sie sollten überlegen, wie Sie bevorzugte Lieferanten oder andere Möglichkeiten zur Verbesserung der Lieferung und Prodution der Produkte identifizieren können.</p>
+<p>Erstellen Sie in Excel Brerichte, die Ihre Empfehlung unterstützen.</p>
+</section>
+<section id="crm" class="slide level2">
+<h2>CRM</h2>
+<p>Salesforce ist einer der erfolgreichsten Anbieter von betrieblichen Anwendungssystemen als SaaS und aktuell weltweit führend in cloud-basierten CRM-Systemen.</p>
+<p>Recherchieren Sie <a href="https://www.salesforce.com/de/customer-success-stories/">hier</a> nach für Sie interessanten Fallstudien zum Einsatz von Salesforce durch und beschreiben Sie, wie das CRM-System den Unternehmen hilft, erfolgreicher zu sein.</p>
+<p>Ordnen Sie die Funktionen, die Sie identifiziert haben den drei Ebenen von CRM-Systemen zu (operativ, kommunikativ, analytisch).</p>
+</section>
+<section id="bi" class="slide level2">
+<h2>BI</h2>
+<p>OLAP steht für „Online Analytical Processing“ und erlaubt die mehrdimensionale Abfrage von Daten, die in einem Data Warehouse gespeichert sind. Die Mehrdimensionalität wird üblicherweise anhand eines Datenwürfels (Data Cube; OLAP Cube) veranschaulicht.</p>
+<p>Recherchieren Sie zu OLAP, skizzieren Sie einen Datenwürfel und beschreiben Sie die Slice-Funktion sowie deren Nutzen.</p>
+</section></section>
 
 
 <section id="literatur" class="title-slide slide level1 smaller scrollable">
 <h1>Literatur 📚</h1>
-<div id="refs" role="doc-bibliography">
-
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-abts2017grundkurs" class="csl-entry" role="doc-biblioentry">
+Abts, D., und W. Mülder. 2017. <em>Grundkurs Wirtschaftsinformatik: Eine kompakte und praxisorientierte Einf<span>ü</span>hrung</em>. Springer Fachmedien Wiesbaden.
+</div>
+<div id="ref-alpar2000anwendungsorientierte" class="csl-entry" role="doc-biblioentry">
+Alpar, Paul, Heinz Lothar Grob, Peter Weimann, und Robert Winter. 2019. <em>Anwendungsorientierte Wirtschaftsinformatik</em>. Springer Vieweg, Wiesbaden.
+</div>
+<div id="ref-bachle2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Bächle, Michael A, Stephan Daurer, und Arthur Kolb. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. De Gruyter Oldenbourg.
+</div>
+<div id="ref-laudon2016wirtschaftsinformatik" class="csl-entry" role="doc-biblioentry">
+Laudon, Kenneth C, Jane Price Laudon, und Detlef Schoder. 2016. <em>Wirtschaftsinformatik: Eine Einf<span>ü</span>hrung</em>. Pearson Deutschland GmbH.
+</div>
 </div>
 
 <div class="footer footer-default">
@@ -383,6 +708,8 @@
 
 <ol>
 <li id="fn1" role="doc-endnote"><p><strong>Drucken bzw. als PDF exportieren:</strong> Wenn Sie die Folien ausdrucken oder exportieren möchten, öffnen Sie die Präsentation, drücken Sie <code>e</code> auf Ihrer Tastatur und dann <code>Drucken</code>(als PDF).</p></li>
+<li id="fn2" role="doc-endnote"><p><strong>Abkürzungen:</strong> BI = Business Intelligence; CAD = Computer Aided Design; ERP = Enterprise Resource Planning; PPS = Production Planning System; MES = Manufacturing Execution System; TM = Transportation Management System; EWM = Extended Warehouse Management System; CRM = Customer Relationship Management System</p></li>
+<li id="fn3" role="doc-endnote"><p>Teilbereiche des DW werden als <strong>Data Mart</strong> bezeichnet. Sie werden insbesondere zur Steigerung der Performance eingerichtet (z. B. Data Mart für den Vertrieb)</p></li>
 </ol>
 </section>
     </div>
@@ -624,7 +951,7 @@
         </div>
 
         <div class="footnote">
-            Andy Weeger / Hochschule für Angewandte Wissenschaften Neu-Ulm (HNU) / IMUK1 Grundzüge Informationsmanagement
+            Andy Weeger / Hochschule für Angewandte Wissenschaften Neu-Ulm (HNU) / DEM1 Digital Enterprise 1
        </div>
 
         <div class="logo">
@@ -734,6 +1061,7 @@
       }
     });
     </script>
+    
     
 
 </body></html>
