@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>awe.lectures - Digital Twin</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+
+<meta property="og:title" content="awe.lectures - Digital Twin">
+<meta property="og:description" content="🧑‍🔬 DI in Industry (DIiI)">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe:lectures</span>
+  </a>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Digital Twin</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Admin</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=18072&quot;" class="sidebar-item-text sidebar-link">Moodle</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/admin/index.html" class="sidebar-item-text sidebar-link">Administrivia 🧐</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Lecture notes</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/1/index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/2/index.html" class="sidebar-item-text sidebar-link">Patterns of Innovation</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/3/index.html" class="sidebar-item-text sidebar-link">Crowdsourcing</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/4/index.html" class="sidebar-item-text sidebar-link active">Digital Twin</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/5/index.html" class="sidebar-item-text sidebar-link">Product Uncertainty and AR</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Exam</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/22ST/assignment/index.html" class="sidebar-item-text sidebar-link">Assignment 📑</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#digital-twin" id="toc-digital-twin" class="nav-link active" data-scroll-target="#digital-twin">Digital Twin</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Digital Twin</h1>
+<p class="subtitle lead">🧑‍🔬 DI in Industry (DIiI)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="top" class="level1 slide-link-hidden unlisted unnumbered" data-visibility="hidden">
+<h1 class="slide-link-hidden unlisted unnumbered" data-visibility="hidden">Top</h1>
+<p><a href="slides.html">Open slides</a></p>
+<div class="small">
+<p><code>Version 0.1 (summer term 2022)</code></p>
+</div>
+</section>
+<section id="digital-twin" class="level1 vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">
+<h1 class="vertical-center" data-background-color="blue" data-background-image="images/bg.jpeg">Digital Twin</h1>
+<section id="relevance" class="level2">
+<h2 data-anchor-id="relevance">Relevance</h2>
+<p>Digital twins are among the <strong>most promising digital technologies</strong> being developed at present.</p>
+<div class="incremental">
+<p>Digital twin technology provides capabilities to enable new business models and decision support systems by <strong>incorporating data</strong>, <strong>information</strong>, and <strong>analytics capabilities</strong> as part of their service offerings</p>
+</div>
+<div class="incremental">
+<p>The concept has seen increasing interest in recent years in both academia and industry as indicated by the growth of publications, articles, and commercial marketing <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021</a>)</span>.</p>
+</div>
+</section>
+<section id="origins" class="level2">
+<h2 data-anchor-id="origins">Origins</h2>
+<p>The concept originates is nearly 15 years old and stems from the field of <strong>product lifecylce management</strong> <span class="citation" data-cites="grieves2014digital">(<a href="#ref-grieves2014digital" role="doc-biblioref">Grieves 2014</a>)</span>.</p>
+<div class="incremental">
+<p>The development of the concept was motivated shift from the predominantly paper-based and manual product data to a <strong>digital model of the product</strong>.</p>
+</div>
+<div class="incremental">
+<p>Focusing on connecting physical with digital systems, the digital twin has simlarities to concepts like <strong>Cyber Physical Systems</strong> (CPS, control of production systems) and <strong>Internet of Things</strong> (IoT, networking physical devices).</p>
+</div>
+</section>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
+<div class="notes">
+<p>The concept is constantly evolving as it expands to new industries and use cases. This has already led to a variety of definitions that threaten to blur the concept and may lead to ineffective implementations of the technology.</p>
+</div>
+<p><span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021</a>)</span> propose a consolidated and generalized definition, with clearly established characteristics to distinguish what constitutes a digital twin and what does not.</p>
+<div class="incremental">
+<blockquote class="blockquote">
+<p>A digital twin is “a virtual representation of a physical system (and its associated environment and processes) that is updated through the exchange of information between the physical and virtual systems.” <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 2</a>)</span></p>
+</blockquote>
+</div>
+<div class="incremental">
+<p>The digital twin can be characterized by three primary components:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>A physical reality,</li>
+<li>a virtual representation, and</li>
+<li>interconnections that exchange information between the physical reality and virtual representation</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="components" class="level2">
+<h2 data-anchor-id="components">Components</h2>
+<div id="fig-components" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/components.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Digital Twin components and high-level processes based on @vanderhorn2021digital [p. 3]"><img src="images/components.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Figure 1: Digital Twin components and high-level processes based on <span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021, 3</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<div class="notes">
+<p>The <strong>physical reality</strong> that is to be represented by the digital twin can be decomposed into the <strong>physical system</strong> (the system of interest), the <strong>physical environment</strong> (where the physical system resides), and <strong>physical processes</strong> (the mechanism by which the entities of the system under interest undergo changes in state) <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 3</a>)</span>.</p>
+<p>The <strong>virtual representation</strong> reflects the physical reality in an abstracted form in the virtual space. It can also be decomposed into the <strong>virtual system</strong>, the <strong>virtual environment</strong>, and the <strong>virtual processes</strong>. The abstractions of the physical reality often take the form of data models (data structures) and/or behavior models (mathematical or computational models). The virtual system, the virtual environment, and the virtual processes may contain multiple models of the physical counterparts at different levels of abstraction, which may or may not interact with each other <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 4</a>)</span>.</p>
+<p><strong>Virtual processes</strong> play an essential role in the digital twin because they allow future states to be simulated This includes diagnosis and prognosis, design review, simulation and optimization, as well as “what-if” scenarios and sensitivity analyses. Applying virtual processes to the virtual system changes the virtual system states in a similar way that physical processes change the states in a physical system. This allows the user of the digital twin to hypothesize how the physical system would behave under similar physical processes. Thus, decisions can be made about what actions to take based on whether the simulated results match the desired results (e.g., predictive maintenance) <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 4</a>)</span>.</p>
+<p>The physical-to-virtual connection via a data interconnection enables the process by which data collected from the physical reality is used to update the states maintained in the virtual representation. In general. It encompasses three steps <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 5</a>)</span>.:</p>
+<ol type="1">
+<li>The process of collecting the relevant information including the direct measuring of the physical reality,</li>
+<li>interpreting the collected data to a form that is consistent with the level of abstraction and</li>
+<li>the updating process that uses the data to update the states of the virtual representation.</li>
+</ol>
+</div>
+</section>
+<section id="related-concepts" class="level2">
+<h2 data-anchor-id="related-concepts">Related concepts</h2>
+<p>The concept of digital twins bears similarities to <strong>more traditional digital modeling approaches</strong> (e.g., computer-aided design (CAD) and product lifecycle management (PLM) tools).</p>
+<div class="incremental">
+<p>However, <strong>two key requirements</strong> for a digital twim that make it unique from traditional digital modeling approaches <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 5</a>)</span>.:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>A digital twin represents <strong>a single instance of the system of interest</strong> not a class or fleet of systems and</li>
+<li>the digital twin updates its description of that system as it changes over time.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="implementation-types" class="level2">
+<h2 data-anchor-id="implementation-types">Implementation types</h2>
+<p>According to <span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021</a>)</span>, current industry implementations of digital twins can be generally grouped into three categories:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Digital twin component solutions (e.g., provided by Microsoft),</li>
+<li>commercial off-the-shelf solutions (e.g., provided by OEMs like GE or Siemens), or</li>
+<li>custom hybrid combinations.</li>
+</ol>
+</div>
+</section>
+<section id="application-fields" class="level2">
+<h2 data-anchor-id="application-fields">Application fields</h2>
+<p>The growing consensus is that digital twin implementation will expand in many areas including <strong>healthcare</strong> as promising field <span class="citation" data-cites="saracco2019digital">(<a href="#ref-saracco2019digital" role="doc-biblioref">Saracco 2019</a>)</span>.</p>
+<div class="incremental">
+<p>Digital twin applications in healthcare and education imply that the concept will be <strong>extended from artificial systems to people</strong>.</p>
+</div>
+<div class="incremental">
+<p>The availability of millions of digital twins of people would make inference possible (e.g., by applying AI) and help practitioners gain knowledge that could be used for <strong>precision medicine and proactive health care</strong>.</p>
+</div>
+</section>
+<section id="technology-challenges" class="level2">
+<h2 data-anchor-id="technology-challenges">Technology challenges</h2>
+<p><strong>Interoperability of digital models:</strong> there are different ways to create digital models, which hampers portability of models within and across different areas.</p>
+<div class="incremental">
+<p><strong>Data interconnection:</strong> synchronization between the physical twin and its virtual representation requires pervasive and affordable communication channels (e.g., 5G or LoraWan).</p>
+</div>
+<div class="incremental">
+<p><strong>Extended digital twins:</strong> when the concept evolves to go beyond mirroring and shadowing a physical counterpart (e.g., by taking action on behalf of its physical counterparts), twins need to be open to data exchanges beyond the twin relationship, while preserving their identities and the association with their physical doubles.</p>
+</div>
+<div class="incremental">
+<p><strong>Data privacy, availability, and ownership</strong>: data architecture must ensure that data is secure, portable, and can be controlled by the owner.</p>
+<p>Source: <span class="citation" data-cites="saracco2019digital">Saracco (<a href="#ref-saracco2019digital" role="doc-biblioref">2019, 62</a>)</span></p>
+</div>
+</section>
+</section>
+<section id="qa" class="level1 html-hidden vertical-center unlisted" data-background-color="black">
+<h1 class="html-hidden vertical-center unlisted" data-background-color="black">Q&amp;A</h1>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-grieves2014digital" class="csl-entry" role="doc-biblioentry">
+Grieves, Michael. 2014. <span>“Digital Twin: Manufacturing Excellence Through Virtual Factory Replication.”</span> <em>White Paper</em> 1: 1–7.
+</div>
+<div id="ref-saracco2019digital" class="csl-entry" role="doc-biblioentry">
+Saracco, Roberto. 2019. <span>“Digital Twins: Bridging Physical Space and Cyberspace.”</span> <em>Computer</em> 52 (12): 58–64.
+</div>
+<div id="ref-vanderhorn2021digital" class="csl-entry" role="doc-biblioentry">
+VanDerHorn, Eric, and Sankaran Mahadevan. 2021. <span>“Digital Twin: Generalization, Characterization and Implementation.”</span> <em>Decision Support Systems</em> 145: 113524.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox"});</script>
+
+
+
+</body></html>
