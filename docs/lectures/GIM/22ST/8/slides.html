@@ -7,11 +7,14 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.37">
 
   <meta name="author" content="Andy Weeger">
-  <title>awe.lectures - K10 IT-Management</title>
+  <title>awe.lectures - K8 Prozessmodellierung</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -333,8 +336,8 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="awe.lectures - K10 IT-Management">
-<meta property="og:description" content="Wie werden Informationssysteme?gesteuert?">
+<meta property="og:title" content="awe.lectures - K8 Prozessmodellierung">
+<meta property="og:description" content="Grundzüge Informationsmanagement (GIM)">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 <body class="quarto-light">
@@ -342,48 +345,352 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#0333ff" class="center">
-  <h1 class="title"><code>K10</code> IT-Management</h1>
-  <p class="subtitle">Wie werden Informationssysteme?gesteuert?</p>
+  <h1 class="title">K8 Prozessmodellierung</h1>
+  <p class="subtitle">Grundzüge Informationsmanagement (GIM)</p>
   <p class="author">Andy Weeger</p>
   <p class="institute">University of Applied Sciences Neu-Ulm</p>
-  <p class="date">Wintersemester 2022</p>
 </section>
 
 
 
+<section>
 <section id="motivation" class="title-slide slide level1 vertical-center center" data-background-color="blue">
 <h1>Motivation</h1>
 
 </section>
+<section class="slide level2">
 
+<blockquote>
+<p>If you can’t describe what you are doing as a process, you don’t know what you’re doing. <em>William Edwards Demin, Physiker, Statistiker und Pionier im Qualitätsmanagement</em></p>
+</blockquote>
+<aside class="notes">
+<p>Um Geschäftsprozesse zu beschreiben, analysieren und optimieren werden Arbeitsprozesse in einer zeitlich logischen Abfolge anhand bestimmter Syntaxregeln modelliert. Die ereignisgesteuerte Prozesskette (EPK, außerhalb des deutschsprachigen Raums: Event Driven Process Chain) eine sehr einfach anzuwendende Form der Modellierung von Prozessen. Diese schauen wir uns in diesem Kapitel näher an.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
 <section id="lernergebnisse" class="title-slide slide level1 center">
 <h1>Lernergebnisse 🎯</h1>
-
+<p>Nach dieser Einheit können Sie</p>
+<div>
+<ul>
+<li class="fragment">wesentliche Methoden zur Prozessmodellierung nennen,</li>
+<li class="fragment">die Basisnotation der EPK beschreiben und die Modellierungsregeln anwenden,</li>
+<li class="fragment">EPK-Prozessdiagrame lesen und in Texte übersetzen,</li>
+<li class="fragment">Prozesse als EPK und eEPK darstellen sowie</li>
+<li class="fragment">Fehler in EPK und eEPK-Diagrammen erkennen und korrigieren.</li>
+</ul>
+</div>
 </section>
 
-<section id="übungen" class="title-slide slide level1 vertical-center center" data-background-color="blue">
-<h1>Übungen ✏️</h1>
+<section>
+<section id="prozessmodellierung" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>Prozessmodellierung</h1>
 
 </section>
+<section id="zielsetzung" class="slide level2">
+<h2>Zielsetzung</h2>
+<p>Die Prozessmodellierung dient der Dokumentation von Sachverhalten und erleichtert deren Kommunikation im Unternehmen (bspw. zwischen Hierarchie-Ebenen oder Teams).</p>
+<div class="fragment">
+<p>Prozessmodelle ermöglichen zudem die Analyse von Problemen und Fehlern und dienen der Gestaltung von Aktivitätsketten und deren automatisierter Abarbeitung mit Hilfe von Anwendungssystemen <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021</a>)</span>.</p>
+</div>
+</section>
+<section id="modellierung" class="slide level2">
+<h2>Modellierung</h2>
+<div id="fig-modellierung" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/modellierung.svg" class="lightbox" title="Darstellung des Modellierungsprozesses, aufbauend auf @leimeister2021einfuhrung [S. 119]" data-gallery="quarto-lightbox-gallery-1"><img data-src="images/modellierung.svg"></a></p>
+<p></p><figcaption>Abbildung 1: Darstellung des Modellierungsprozesses, aufbauend auf <span class="citation" data-cites="leimeister2021einfuhrung">Leimeister (<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 119</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Modellierung</strong></p>
+</div>
+<div class="callout-content">
+<p>In der Praxis wird oftmals nicht direkt an einem Gegenstand, sondern mit einer Abbildung des Gegenstands gearbeitet. Eine solche Abbildung ist das Ergebnis eines Konstruktionsprozesses, das die Wahrnehmung von Inhalten eines ausgewählten Gegenstands zweckorientiert repräsentiert und wird als Modell bezeichnet.</p>
+<p>In Modellen werden die für den benötigten Zweck nicht relevant angesehenen Eigenschaften eines Gegenstandes wie bspw. ein Geschäftsprozess weggelassen. Ein solches Modell dient dazu, den zu analysierenden Gegenstand besser zu verstehen, zu steuern und experimentell verändern zu können, um neue Erkenntnisse zu gewinnen.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="übersichtsdiagramme" class="slide level2">
+<h2>Übersichtsdiagramme</h2>
+<aside class="notes">
+<p>Zur Übersicht über die Prozesse eines Unternehmens werden oftmals <strong>Prozesslandkarten</strong> und <strong>Wertschöpfungskettendiagramme</strong> eingesetzt. Prozesslandkarten stellen die wesentlichen Geschäftsprozesse eines Unternehmens dar, während Wertschöpfungskettendiagramme zusätzlich die Zusammenhänge zwischen den wesentlichen Prozessen und deren Teilprozessen darstellen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="fig-landkarten" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/prozesslandkarten.svg" class="lightbox" title="Beispiele für Prozesslandkarten und Wertschöpfungskettendiagramme, aufbauend auf @gadatsch2020grundkurs [S. 87ff]" data-gallery="quarto-lightbox-gallery-2"><img data-src="images/prozesslandkarten.svg"></a></p>
+<p></p><figcaption>Abbildung 2: Beispiele für Prozesslandkarten und Wertschöpfungskettendiagramme, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="modellierungssprachen" class="slide level2">
+<h2>Modellierungssprachen</h2>
+<p>Zur Modellierung von Geschäftsprozessen und zur Gestaltung von Informationssystemen finden sich in der Praxis eine Vielzahl von Methoden. Zwei Methoden werden besonders häufig eingesetzt: <strong>Ereignisgesteuerte Prozesskette</strong> (EPK) und <strong>Business Process Model and Notation</strong> (BPMN) <span class="citation" data-cites="gadatsch2020grundkurs">(<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">Gadatsch 2020</a>)</span>.</p>
+<div class="fragment">
+<p>Diese Vorlesung führt die Basisnotation der EPK ein.</p>
+<aside class="notes">
+<p>Der Schwerpunkt der EPK-Methode liegt auf der Abbildung des Kontrollflusses von Prozessen, der beschreibt, in welcher logischen Reihenfolge Vorgänge ausgeführt werden sollen.</p>
+<ul>
+<li>Die EPK wurde zum ersten Mal 1992 in einer Veröffentlichung der Universität des Saarlandes spezifiziert.</li>
+<li>Die EPK wurde von der SAP zur Dokumentation Ihres ERP-Systems R/3 genutzt, unter anderem deshalb ist die EPK in Unternehmen immer noch stark verbreitet</li>
+<li>Die EPK beschreibt den Ablauf eines Geschäftsprozesses mit nur wenigen Grundsymbolen</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section></section>
+<section>
+<section id="epk" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>EPK</h1>
 
+</section>
+<section id="basisnotation" class="slide level2">
+<h2>Basisnotation</h2>
+<div id="fig-syntax" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/syntax.svg" class="lightbox" title="EPK Basisnotation, aufbauend auf @gadatsch2020grundkurs [S. 87ff]" data-gallery="quarto-lightbox-gallery-3"><img data-src="images/syntax.svg"></a></p>
+<p></p><figcaption>Abbildung 3: EPK Basisnotation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p><strong>Funktionen</strong> ändern den Zustand von Objekten im Geschäftsprozess und beschreiben den zugrundeliegenden Transformationsprozess. Funktionen sind also aktive Objekttypen Dies drückt sich auch in der Namensgebung einer Funktion durch Substantiv &amp; Verb aus (z. B. „Auftrag anlegen“)</p>
+<p><strong>Ereignisse</strong> stellen Zustände dar, lösen Funktionen aus und sind wiederum Ergebnis bereits ausgeführter Funktionen. Ereignisse sind passive Objekttypen. Dies drückt sich auch in der Bezeichnung durch ein Substantiv (das Informationsobjekt) und Verb im Perfekt aus („Auftrag angelegt“).</p>
+<p><strong>Konnektoren</strong> Funktionen können in der Praxis von mehr als einem Ereignis angestoßen werden. Um derartige Konstrukte darstellen zu können, werden drei logische Konnektoren verwendet: die Konjunktion („und“), die Disjunktion („exklusives oder“) und die Adjunktion („inklusives oder“).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="modellierungsregeln" class="slide level2">
+<h2>Modellierungsregeln</h2>
+<p>Die Modellierung (also die zeitliche Abfolge des Prozesses) erfolgt von oben links nach unten rechts.</p>
+<div>
+<ul>
+<li class="fragment"><strong>Kanten</strong> verknüpfen Funktionen und Ereignisse und stellen den Kontrollfluss dar. Jede Funktion/Ereignis hat jeweils nur eine ein- bzw. ausgehende Kante.</li>
+<li class="fragment">Ereignisse und Funktionen wechseln einander ab.</li>
+<li class="fragment">Eine EPK beginnt und endet mit (mindestens) einem Ereignis. Das prozessauslösende Ereignis wird als Start-Ereignis, das prozessabschließendes Ereignis als <strong>Endereignis</strong> bezeichnet.</li>
+<li class="fragment">Folgeprozesse können durch Ende-Ereignisse eines vorangegangenen Prozesses ausgelöst werden, d.&nbsp;h. ein Ende-Ereignis kann in einem anderen Prozess ein <strong>Startereignis</strong> darstellen.</li>
+</ul>
+</div>
+</section>
+<section id="verkettungen" class="slide level2">
+<h2>Verkettungen</h2>
+<aside class="notes">
+<div id="fig-unerlaubt" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/unerlaubt.svg" class="lightbox" title="Ereignisse sind nicht entscheidungsrelevant" data-gallery="quarto-lightbox-gallery-4"><img data-src="images/unerlaubt.svg"></a></p>
+<p></p><figcaption>Abbildung 4: Ereignisse sind nicht entscheidungsrelevant</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Ereignisse und Funktionen haben grundsätzlich nur einen Eingang und einen Ausgang.</li>
+<li>Konnektoren dürfen entweder nur einen Eingang und mehrere Ausgänge (min. 2) oder mehrere Eingänge (min. 2) und nur einen Ausgang haben</li>
+<li>Verzweigungen müssen mit dem gleichen Konnektor geschlossen werden, mit dem sie geöffnet wurden. Im Gegensatz zur Funktion hat ein Ereignis keine Entscheidungskraft, d.h. nach einem Ereignis darf keine ODER- bzw. - XOR-Verknüpfung zu mehreren Funktionen stattfinden.</li>
+<li>Konnektoren können direkt verkettet, d.h. hintereinander modelliert werden, um komplexe Regeln ausdrücken zu können.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="fig-entscheidung" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/entscheidung.svg" class="lightbox" title="Erlaubte Verknüpfungen" data-gallery="quarto-lightbox-gallery-5"><img data-src="images/entscheidung.svg"></a></p>
+<p></p><figcaption>Abbildung 5: Erlaubte Verknüpfungen</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="erweiterte-epk-eepk" class="slide level2">
+<h2>Erweiterte EPK (eEPK)</h2>
+<aside class="notes">
+<p>EPKs lassen sich um weitere Elemente ergänzen, um Prozesse zu detaillieren. In der Praxis werden vor allem Organisationseinheiten, Anwendungssysteme sowie verarbeitete Informationsobjekte dieser Systeme ergänzt.</p>
+<ul>
+<li>Die <strong>Organisationseinheit</strong> zeigt die einer Funktion zugeordnete organisatorische Einheit, die diese ausführt.</li>
+<li>Das <strong>Informationsobjekt</strong> bildt die vom Prozess verarbeiteten Informationen (Input und Output) ab. Ein Informationsobjekt zeigt also welche Informationen benötigt und/oder erzeugt werden.</li>
+<li>Das <strong>Anwendungssystem</strong> zeigt das den Prozess unterstützende betriebliche Anwendungssystem.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="fig-eEPK" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/eEPK.svg" class="lightbox" title="eEPK Notation, aufbauend auf @gadatsch2020grundkurs [S. 87ff]" data-gallery="quarto-lightbox-gallery-6"><img data-src="images/eEPK.svg"></a></p>
+<p></p><figcaption>Abbildung 6: eEPK Notation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#/ref-gadatsch2020grundkurs" role="doc-biblioref" onclick="return false;">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="aufgaben" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<h1>✏️ Aufgaben</h1>
 
-
+</section>
+<section id="a1-wiederholung" class="slide level2">
+<h2>A1: Wiederholung</h2>
+<p>Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.</p>
+<ul>
+<li>Ereignisse</li>
+<li>Funktionen</li>
+<li>Operator „Exklusives oder“/“XOR“</li>
+<li>Operator „Logisches oder“/“Oder“</li>
+<li>Kontrollfluss</li>
+</ul>
+</section>
+<section id="a2-modellierung-reisebuchung" class="slide level2">
+<h2>A2: Modellierung (Reisebuchung)</h2>
+<p>Modellieren Sie gemeinsam folgenden Geschäftsprozess als eEPK. Starten Sie damit im Text Ereignisse, Funktionen und Verknüpfungsoperatoren zu markieren.</p>
+<ul>
+<li>Die Buchhaltung hat die Aufgabe, zu Arbeitsbeginn eines jeden Werktags die am Vortag neu eingegangenen Reisebuchungen zu ermitteln (die Buchungen sind im Reservierungssystem erfasst). Sind keine unbearbeiteten Reisebuchungen im System endet der Prozess.</li>
+<li>Für jede neue Reisebuchung muss eine Rechnung erstellt werden. Rechnungen müssen anschließend im Finanzbuchhaltungssystem SAP FI verbucht werden.</li>
+<li>Danach werden parallel (A) die Kreditkarte des Kunden entweder mit dem Rechnungsbetrag belastet oder der Rechnungsbetrag wird per Lastschrift eingezogen (je nach Zahlungsart) und (B) die Rechnung versendet.</li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Modellierungstool</strong></p>
+</div>
+<div class="callout-content">
+<p>Zur Modellierung können Sie das <a href="https://www.yworks.com/yed-live">yEd Live</a> verwenden. Die EPK-Symbole finden Sie rechts unter „Flussdiagramm“.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a3-fehlersuche" class="slide level2 scrollable">
+<h2>A3: Fehlersuche</h2>
+<p>Analysieren Sie <a href="images/fehlersuche.png">das EPK</a> und beschreiben Sie mögliche Fehler.</p>
+<aside class="notes">
+<div id="fig-fehlersuche" class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="images/fehlersuche.png" class="lightbox" title="Fehlerhaftes EPK" data-gallery="quarto-lightbox-gallery-7"><img data-src="images/fehlersuche.png"></a></p>
+<p></p><figcaption>Abbildung 7: Fehlerhaftes EPK</figcaption><p></p>
+</figure>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="a4-modellierung-einkaufsprozess" class="slide level2">
+<h2>A4: Modellierung (Einkaufsprozess)</h2>
+<p>Erstellen Sie für folgende Prozess eine ereignisgesteuerte Prozesskette.</p>
+<div>
+<ul>
+<li class="fragment">In einem Unternehmen bestellt der zentrale Einkauf regelmäßig Büromaterial bei vier verschiedenen Lieferanten.</li>
+<li class="fragment">Wenn Bedarf vorhanden ist, ruft die Einkaufsabteilung vier Lieferanten an, um ein Angebot über die Lieferungen einzuholen.</li>
+<li class="fragment">Sobald die Angebote eingetroffen sind, werden sie verglichen, es wird ein Lieferant ausgewählt und die Bestellung an diesen Lieferanten geschickt.</li>
+<li class="fragment">Wenn die bestellten Büromaterialien eingetroffen sind, prüft die Abteilung Wareneingangskontrolle zunächst, ob die Lieferung korrekt erfolgte.</li>
+<li class="fragment">Die Ware wird entweder angenommen oder reklamiert (bei Beschädigung oder Fehllieferungen, der Prozess endet hier).</li>
+<li class="fragment">Nach erfolgter Lieferung erhält das Unternehmen die Rechnung.</li>
+<li class="fragment">Die Einkaufsabteilung prüft die Rechnung und weist die Bezahlung an.</li>
+</ul>
+</div>
+</section>
+<section id="a5-modellierung-angebotsbearbeitung" class="slide level2">
+<h2>A5: Modellierung (Angebotsbearbeitung)</h2>
+<p>Modellieren Sie den von Ihnen optimierten Angebotsbearbeitungsprozess des fiktiven Maschinenherstellers aus dem vorherigen Kapitel.</p>
+</section></section>
 <section id="literatur" class="title-slide slide level1 smaller scrollable">
 <h1>Literatur 📚</h1>
-<div id="refs" role="doc-bibliography">
-
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gadatsch2020grundkurs" class="csl-entry" role="doc-biblioentry">
+Gadatsch, Andreas. 2020. <em>Grundkurs Gesch<span>ä</span>ftsprozess-Management: Analyse, Modellierung, Optimierung und Controlling von Prozessen</em>. Springer-Verlag.
+</div>
+<div id="ref-leimeister2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. Springer Gabler Berlin Heidelberg.
+</div>
 </div>
 
 <div class="footer footer-default">
 
 </div>
-</section>
-
-<section class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Fußnoten</h2>
-
-<ol>
-<li id="fn1" role="doc-endnote"><p><strong>Drucken bzw. als PDF exportieren:</strong> Wenn Sie die Folien ausdrucken oder exportieren möchten, öffnen Sie die Präsentation, drücken Sie <code>e</code> auf Ihrer Tastatur und dann <code>Drucken</code>(als PDF).</p></li>
-</ol>
 </section>
     </div>
   </div>
@@ -620,11 +927,11 @@
     <div class="footer custom">
 
         <div class="version">
-            0.7
+            V1.2
         </div>
 
         <div class="footnote">
-            Andy Weeger / Hochschule für Angewandte Wissenschaften Neu-Ulm (HNU) / DEM1 Digital Enterprise 1
+            Andy Weeger / Hochschule für Angewandte Wissenschaften Neu-Ulm (HNU) / Sommersemester 2022 
        </div>
 
         <div class="logo">
@@ -734,6 +1041,7 @@
       }
     });
     </script>
+    
     
 
 </body></html>
