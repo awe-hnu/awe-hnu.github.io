@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>awe.lectures - K8 Prozessmodellierung</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+
+<meta property="og:title" content="awe.lectures - K8 Prozessmodellierung">
+<meta property="og:description" content="Grundzüge Informationsmanagement (GIM)">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe:lectures</span>
+  </a>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Auf dieser Seite</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#lernergebnisse" id="toc-lernergebnisse" class="nav-link" data-scroll-target="#lernergebnisse">Lernergebnisse 🎯</a></li>
+  <li><a href="#prozessmodellierung" id="toc-prozessmodellierung" class="nav-link" data-scroll-target="#prozessmodellierung">Prozessmodellierung</a></li>
+  <li><a href="#epk" id="toc-epk" class="nav-link" data-scroll-target="#epk">EPK</a></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben">✏️ Aufgaben</a></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur">Literatur 📚</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">K8 Prozessmodellierung</h1>
+<p class="subtitle lead">Grundzüge Informationsmanagement (GIM)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="top" class="level1 slide-link-hidden unlisted unnumbered" data-visibility="hidden">
+<h1 class="slide-link-hidden unlisted unnumbered" data-visibility="hidden">Top</h1>
+<p><a href="slides.html">Präsentation öffnen</a> / <a href="https://videoportal.hs-neu-ulm.de/Mediasite/Play/8a483c0fde574a139df3341a66da4ab81d">Podcast</a></p>
+<div class="small">
+<p><code>Version 0.5 (Sommersemester 2022)</code></p>
+</div>
+</section>
+<section id="motivation" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Motivation</h1>
+<hr>
+<blockquote class="blockquote">
+<p>If you can’t describe what you are doing as a process, you don’t know what you’re doing. <em>William Edwards Demin, Physiker, Statistiker und Pionier im Qualitätsmanagement</em></p>
+</blockquote>
+<div class="notes">
+<p>Um Geschäftsprozesse zu beschreiben, analysieren und optimieren werden Arbeitsprozesse in einer zeitlich logischen Abfolge anhand bestimmter Syntaxregeln modelliert. Die ereignisgesteuerte Prozesskette (EPK, außerhalb des deutschsprachigen Raums: Event Driven Process Chain) eine sehr einfach anzuwendende Form der Modellierung von Prozessen. Diese schauen wir uns in diesem Kapitel näher an.</p>
+</div>
+</section>
+<section id="lernergebnisse" class="level1">
+<h1>Lernergebnisse 🎯</h1>
+<p>Nach dieser Einheit können Sie</p>
+<div class="incremental">
+<ul class="incremental">
+<li>wesentliche Methoden zur Prozessmodellierung nennen,</li>
+<li>die Basisnotation der EPK beschreiben und die Modellierungsregeln anwenden,</li>
+<li>EPK-Prozessdiagrame lesen und in Texte übersetzen,</li>
+<li>Prozesse als EPK und eEPK darstellen sowie</li>
+<li>Fehler in EPK und eEPK-Diagrammen erkennen und korrigieren.</li>
+</ul>
+</div>
+</section>
+<section id="prozessmodellierung" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Prozessmodellierung</h1>
+<section id="zielsetzung" class="level2">
+<h2 data-anchor-id="zielsetzung">Zielsetzung</h2>
+<p>Die Prozessmodellierung dient der Dokumentation von Sachverhalten und erleichtert deren Kommunikation im Unternehmen (bspw. zwischen Hierarchie-Ebenen oder Teams).</p>
+<div class="incremental">
+<p>Prozessmodelle ermöglichen zudem die Analyse von Problemen und Fehlern und dienen der Gestaltung von Aktivitätsketten und deren automatisierter Abarbeitung mit Hilfe von Anwendungssystemen <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#ref-leimeister2021einfuhrung" role="doc-biblioref">Leimeister 2021</a>)</span>.</p>
+</div>
+</section>
+<section id="modellierung" class="level2">
+<h2 data-anchor-id="modellierung">Modellierung</h2>
+<div id="fig-modellierung" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/modellierung.svg" class="lightbox" title="Darstellung des Modellierungsprozesses, aufbauend auf @leimeister2021einfuhrung [S. 119]" data-gallery="quarto-lightbox-gallery-1"><img src="images/modellierung.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 1: Darstellung des Modellierungsprozesses, aufbauend auf <span class="citation" data-cites="leimeister2021einfuhrung">Leimeister (<a href="#ref-leimeister2021einfuhrung" role="doc-biblioref">2021, 119</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<div class="notes">
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Modellierung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In der Praxis wird oftmals nicht direkt an einem Gegenstand, sondern mit einer Abbildung des Gegenstands gearbeitet. Eine solche Abbildung ist das Ergebnis eines Konstruktionsprozesses, das die Wahrnehmung von Inhalten eines ausgewählten Gegenstands zweckorientiert repräsentiert und wird als Modell bezeichnet.</p>
+<p>In Modellen werden die für den benötigten Zweck nicht relevant angesehenen Eigenschaften eines Gegenstandes wie bspw. ein Geschäftsprozess weggelassen. Ein solches Modell dient dazu, den zu analysierenden Gegenstand besser zu verstehen, zu steuern und experimentell verändern zu können, um neue Erkenntnisse zu gewinnen.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="übersichtsdiagramme" class="level2">
+<h2 data-anchor-id="übersichtsdiagramme">Übersichtsdiagramme</h2>
+<div class="notes">
+<p>Zur Übersicht über die Prozesse eines Unternehmens werden oftmals <strong>Prozesslandkarten</strong> und <strong>Wertschöpfungskettendiagramme</strong> eingesetzt. Prozesslandkarten stellen die wesentlichen Geschäftsprozesse eines Unternehmens dar, während Wertschöpfungskettendiagramme zusätzlich die Zusammenhänge zwischen den wesentlichen Prozessen und deren Teilprozessen darstellen.</p>
+</div>
+<div id="fig-landkarten" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/prozesslandkarten.svg" class="lightbox" title="Beispiele für Prozesslandkarten und Wertschöpfungskettendiagramme, aufbauend auf @gadatsch2020grundkurs [S. 87ff]" data-gallery="quarto-lightbox-gallery-2"><img src="images/prozesslandkarten.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 2: Beispiele für Prozesslandkarten und Wertschöpfungskettendiagramme, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#ref-gadatsch2020grundkurs" role="doc-biblioref">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="modellierungssprachen" class="level2">
+<h2 data-anchor-id="modellierungssprachen">Modellierungssprachen</h2>
+<p>Zur Modellierung von Geschäftsprozessen und zur Gestaltung von Informationssystemen finden sich in der Praxis eine Vielzahl von Methoden. Zwei Methoden werden besonders häufig eingesetzt: <strong>Ereignisgesteuerte Prozesskette</strong> (EPK) und <strong>Business Process Model and Notation</strong> (BPMN) <span class="citation" data-cites="gadatsch2020grundkurs">(<a href="#ref-gadatsch2020grundkurs" role="doc-biblioref">Gadatsch 2020</a>)</span>.</p>
+<div class="incremental">
+<p>Diese Vorlesung führt die Basisnotation der EPK ein.</p>
+<div class="notes">
+<p>Der Schwerpunkt der EPK-Methode liegt auf der Abbildung des Kontrollflusses von Prozessen, der beschreibt, in welcher logischen Reihenfolge Vorgänge ausgeführt werden sollen.</p>
+<ul>
+<li>Die EPK wurde zum ersten Mal 1992 in einer Veröffentlichung der Universität des Saarlandes spezifiziert.</li>
+<li>Die EPK wurde von der SAP zur Dokumentation Ihres ERP-Systems R/3 genutzt, unter anderem deshalb ist die EPK in Unternehmen immer noch stark verbreitet</li>
+<li>Die EPK beschreibt den Ablauf eines Geschäftsprozesses mit nur wenigen Grundsymbolen</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="epk" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">EPK</h1>
+<section id="basisnotation" class="level2">
+<h2 data-anchor-id="basisnotation">Basisnotation</h2>
+<div id="fig-syntax" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/syntax.svg" class="lightbox" title="EPK Basisnotation, aufbauend auf @gadatsch2020grundkurs [S. 87ff]" data-gallery="quarto-lightbox-gallery-3"><img src="images/syntax.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 3: EPK Basisnotation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#ref-gadatsch2020grundkurs" role="doc-biblioref">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<div class="notes">
+<p><strong>Funktionen</strong> ändern den Zustand von Objekten im Geschäftsprozess und beschreiben den zugrundeliegenden Transformationsprozess. Funktionen sind also aktive Objekttypen Dies drückt sich auch in der Namensgebung einer Funktion durch Substantiv &amp; Verb aus (z. B. „Auftrag anlegen“)</p>
+<p><strong>Ereignisse</strong> stellen Zustände dar, lösen Funktionen aus und sind wiederum Ergebnis bereits ausgeführter Funktionen. Ereignisse sind passive Objekttypen. Dies drückt sich auch in der Bezeichnung durch ein Substantiv (das Informationsobjekt) und Verb im Perfekt aus („Auftrag angelegt“).</p>
+<p><strong>Konnektoren</strong> Funktionen können in der Praxis von mehr als einem Ereignis angestoßen werden. Um derartige Konstrukte darstellen zu können, werden drei logische Konnektoren verwendet: die Konjunktion („und“), die Disjunktion („exklusives oder“) und die Adjunktion („inklusives oder“).</p>
+</div>
+</section>
+<section id="modellierungsregeln" class="level2">
+<h2 data-anchor-id="modellierungsregeln">Modellierungsregeln</h2>
+<p>Die Modellierung (also die zeitliche Abfolge des Prozesses) erfolgt von oben links nach unten rechts.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Kanten</strong> verknüpfen Funktionen und Ereignisse und stellen den Kontrollfluss dar. Jede Funktion/Ereignis hat jeweils nur eine ein- bzw. ausgehende Kante.</li>
+<li>Ereignisse und Funktionen wechseln einander ab.</li>
+<li>Eine EPK beginnt und endet mit (mindestens) einem Ereignis. Das prozessauslösende Ereignis wird als Start-Ereignis, das prozessabschließendes Ereignis als <strong>Endereignis</strong> bezeichnet.</li>
+<li>Folgeprozesse können durch Ende-Ereignisse eines vorangegangenen Prozesses ausgelöst werden, d.&nbsp;h. ein Ende-Ereignis kann in einem anderen Prozess ein <strong>Startereignis</strong> darstellen.</li>
+</ul>
+</div>
+</section>
+<section id="verkettungen" class="level2">
+<h2 data-anchor-id="verkettungen">Verkettungen</h2>
+<div class="notes">
+<div id="fig-unerlaubt" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/unerlaubt.svg" class="lightbox" title="Ereignisse sind nicht entscheidungsrelevant" data-gallery="quarto-lightbox-gallery-4"><img src="images/unerlaubt.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 4: Ereignisse sind nicht entscheidungsrelevant</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Ereignisse und Funktionen haben grundsätzlich nur einen Eingang und einen Ausgang.</li>
+<li>Konnektoren dürfen entweder nur einen Eingang und mehrere Ausgänge (min. 2) oder mehrere Eingänge (min. 2) und nur einen Ausgang haben</li>
+<li>Verzweigungen müssen mit dem gleichen Konnektor geschlossen werden, mit dem sie geöffnet wurden. Im Gegensatz zur Funktion hat ein Ereignis keine Entscheidungskraft, d.h. nach einem Ereignis darf keine ODER- bzw. - XOR-Verknüpfung zu mehreren Funktionen stattfinden.</li>
+<li>Konnektoren können direkt verkettet, d.h. hintereinander modelliert werden, um komplexe Regeln ausdrücken zu können.</li>
+</ul>
+</div>
+<div id="fig-entscheidung" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/entscheidung.svg" class="lightbox" title="Erlaubte Verknüpfungen" data-gallery="quarto-lightbox-gallery-5"><img src="images/entscheidung.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 5: Erlaubte Verknüpfungen</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="erweiterte-epk-eepk" class="level2">
+<h2 data-anchor-id="erweiterte-epk-eepk">Erweiterte EPK (eEPK)</h2>
+<div class="notes">
+<p>EPKs lassen sich um weitere Elemente ergänzen, um Prozesse zu detaillieren. In der Praxis werden vor allem Organisationseinheiten, Anwendungssysteme sowie verarbeitete Informationsobjekte dieser Systeme ergänzt.</p>
+<ul>
+<li>Die <strong>Organisationseinheit</strong> zeigt die einer Funktion zugeordnete organisatorische Einheit, die diese ausführt.</li>
+<li>Das <strong>Informationsobjekt</strong> bildt die vom Prozess verarbeiteten Informationen (Input und Output) ab. Ein Informationsobjekt zeigt also welche Informationen benötigt und/oder erzeugt werden.</li>
+<li>Das <strong>Anwendungssystem</strong> zeigt das den Prozess unterstützende betriebliche Anwendungssystem.</li>
+</ul>
+</div>
+<div id="fig-eEPK" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/eEPK.svg" class="lightbox" title="eEPK Notation, aufbauend auf @gadatsch2020grundkurs [S. 87ff]" data-gallery="quarto-lightbox-gallery-6"><img src="images/eEPK.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 6: eEPK Notation, aufbauend auf <span class="citation" data-cites="gadatsch2020grundkurs">Gadatsch (<a href="#ref-gadatsch2020grundkurs" role="doc-biblioref">2020, 87ff</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="aufgaben" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">✏️ Aufgaben</h1>
+<section id="a1-wiederholung" class="level2">
+<h2 data-anchor-id="a1-wiederholung">A1: Wiederholung</h2>
+<p>Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.</p>
+<ul>
+<li>Ereignisse</li>
+<li>Funktionen</li>
+<li>Operator „Exklusives oder“/“XOR“</li>
+<li>Operator „Logisches oder“/“Oder“</li>
+<li>Kontrollfluss</li>
+</ul>
+</section>
+<section id="a2-modellierung-reisebuchung" class="level2">
+<h2 data-anchor-id="a2-modellierung-reisebuchung">A2: Modellierung (Reisebuchung)</h2>
+<p>Modellieren Sie gemeinsam folgenden Geschäftsprozess als eEPK. Starten Sie damit im Text Ereignisse, Funktionen und Verknüpfungsoperatoren zu markieren.</p>
+<ul>
+<li>Die Buchhaltung hat die Aufgabe, zu Arbeitsbeginn eines jeden Werktags die am Vortag neu eingegangenen Reisebuchungen zu ermitteln (die Buchungen sind im Reservierungssystem erfasst). Sind keine unbearbeiteten Reisebuchungen im System endet der Prozess.</li>
+<li>Für jede neue Reisebuchung muss eine Rechnung erstellt werden. Rechnungen müssen anschließend im Finanzbuchhaltungssystem SAP FI verbucht werden.</li>
+<li>Danach werden parallel (A) die Kreditkarte des Kunden entweder mit dem Rechnungsbetrag belastet oder der Rechnungsbetrag wird per Lastschrift eingezogen (je nach Zahlungsart) und (B) die Rechnung versendet.</li>
+</ul>
+<div class="notes">
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Modellierungstool
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Zur Modellierung können Sie das <a href="https://www.yworks.com/yed-live">yEd Live</a> verwenden. Die EPK-Symbole finden Sie rechts unter „Flussdiagramm“.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a3-fehlersuche" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="a3-fehlersuche">A3: Fehlersuche</h2>
+<p>Analysieren Sie <a href="images/fehlersuche.png">das EPK</a> und beschreiben Sie mögliche Fehler.</p>
+<div class="notes">
+<div id="fig-fehlersuche" class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/fehlersuche.png" class="lightbox" title="Fehlerhaftes EPK" data-gallery="quarto-lightbox-gallery-7"><img src="images/fehlersuche.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 7: Fehlerhaftes EPK</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="a4-modellierung-einkaufsprozess" class="level2">
+<h2 data-anchor-id="a4-modellierung-einkaufsprozess">A4: Modellierung (Einkaufsprozess)</h2>
+<p>Erstellen Sie für folgende Prozess eine ereignisgesteuerte Prozesskette.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>In einem Unternehmen bestellt der zentrale Einkauf regelmäßig Büromaterial bei vier verschiedenen Lieferanten.</li>
+<li>Wenn Bedarf vorhanden ist, ruft die Einkaufsabteilung vier Lieferanten an, um ein Angebot über die Lieferungen einzuholen.</li>
+<li>Sobald die Angebote eingetroffen sind, werden sie verglichen, es wird ein Lieferant ausgewählt und die Bestellung an diesen Lieferanten geschickt.</li>
+<li>Wenn die bestellten Büromaterialien eingetroffen sind, prüft die Abteilung Wareneingangskontrolle zunächst, ob die Lieferung korrekt erfolgte.</li>
+<li>Die Ware wird entweder angenommen oder reklamiert (bei Beschädigung oder Fehllieferungen, der Prozess endet hier).</li>
+<li>Nach erfolgter Lieferung erhält das Unternehmen die Rechnung.</li>
+<li>Die Einkaufsabteilung prüft die Rechnung und weist die Bezahlung an.</li>
+</ul>
+</div>
+</section>
+<section id="a5-modellierung-angebotsbearbeitung" class="level2">
+<h2 data-anchor-id="a5-modellierung-angebotsbearbeitung">A5: Modellierung (Angebotsbearbeitung)</h2>
+<p>Modellieren Sie den von Ihnen optimierten Angebotsbearbeitungsprozess des fiktiven Maschinenherstellers aus dem vorherigen Kapitel.</p>
+</section>
+</section>
+<section id="literatur" class="level1">
+<h1>Literatur 📚</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-gadatsch2020grundkurs" class="csl-entry" role="doc-biblioentry">
+Gadatsch, Andreas. 2020. <em>Grundkurs Gesch<span>ä</span>ftsprozess-Management: Analyse, Modellierung, Optimierung und Controlling von Prozessen</em>. Springer-Verlag.
+</div>
+<div id="ref-leimeister2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. Springer Gabler Berlin Heidelberg.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
+
+
+
+</body></html>
