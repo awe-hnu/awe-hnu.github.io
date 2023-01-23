@@ -34,11 +34,11 @@ As an agent has to act in spite of this, __conclusions under uncertainty__ need 
 :::{.callout-note}
 #### Qualification problem
 
-In philosophy and AI, the qualification problem is concerned with the impossibility of listing all the preconditions required for a real-world action to have its intended effect. It might be posed as how to deal with the things that prevent me from achieving my intended result.
+In philosophy and AI, the qualification problem is concerned with the impossibility of listing all the preconditions required for a real-world action to have its intended effect.
 
-As we have learned, there is no complete solution within logic. System designers must use good judgment in deciding how much detail to specify in their model and what details to omit as all the conditions for an action that are necessary to achieve the intended effect often can't be known or lead to a large belief-state full of unlikely possibilities — this is called the __qualification problem in logic__.
+As we have learned, there is no complete solution within logic. System designers must use good judgment in deciding how much detail to specify in their model and what details to omit. The reason for that is quite simple: often, all the conditions for an action that are necessary to achieve the intended effect can't be known. Or if they can be known, they often lead to a large belief-state full of unlikely possibilities. This is called the __qualification problem in logic__.
 
-Probability theory allows all exceptions to be grouped together without explicitly naming them.
+However, there are good news: probability theory allows all exceptions to be grouped together without explicitly naming them.
 :::
 :::
 
@@ -80,7 +80,7 @@ $Toothache \implies Cavity \lor GumProblem \lor Abscess ...$
 
 . . .
 
-→ We don’t know all the causes[^1]   
+→ However, we don’t know all the causes[^1]   
 
 . . .
 
@@ -103,9 +103,9 @@ What do we learn from that?
 ## Learnings 
 
 :::{.incremental}
-- We cannot enumerate all possible causes (__laziness__)
-- And even if we could, we do not know how correct the rules are, refered to as __theoretical ignorance__[^2]) 
-- And even if we did there will always be uncertainty about the patient, refered to as __practical ignorance__[^3])
+- We cannot enumerate all possible causes (i.e., __laziness__)
+- And even if we could, we do not know how correct the rules are (i.e., __theoretical ignorance__[^2]) 
+- And even if we did there will always be uncertainty about the patient (i.e., __practical ignorance__[^3])
 :::
 
 . . .
@@ -168,7 +168,7 @@ $P(A)$ denotes the unconditional probability or prior probability that $A$ will 
 :::{.incremental}
 - Prior probabilities can be obtained from statistical analysis or general rules
 - A __random variable__[^5] can take on some range---the set of possible values (e.g., Numbers, Boolean, arbitary tokens), e.g. $P(Weather=sunny=0.6)$
-- Logical connectors can be used to build __propositions__, e.g. $P(Cavity \land \neg Insured) = 0.06$
+- Logical connectors can be used to build __probabilistic propositions__, e.g. $P(Cavity \land \neg Insured) = 0.06$$P(Cavity \land \neg Insured) = 0.06$
 - Propositions can contain equations over random variables, e.g. $P(NoonTemp=x) = Uniform(x;18C;26C)$[^6], usually called a __probability density function__
 :::
 
@@ -226,29 +226,31 @@ $P(W=snow,C=false) =  P(W=snow|C=false)P(C=false)$
 
 ## Marginalization 
 
-For any sets of variables $Y$ and $Z$ we have
-
-$$
-\begin{flalign}
-P(Y) = \sum_z P(Y,z) &&
-\end{flalign}
-$$
-
-Where $\sum_z$ sums over all the possible combinations of values of $Z$[^8]
-
-As usual, we can abbreviate $P(Y,Z=z)$ in this equation by $P(Y,z)$.
+**Marginalisation** in probability refers to “summing out” the probability of a random variable $X$ given the joint probability distribution of $X$ with other variable(s).
 
 . . .
 
-Using the __product rule__, we can replace $P(Y,z)$ by $P(Y|z)P(z)$,
+For any sets of variables $X$ and $Z$ we have
+
+$$
+\begin{flalign}
+P(X) = \sum_z P(X,z) &&
+\end{flalign}
+$$
+
+To find $P(X=x)$, we sum all the probability values where $X=x$ occurs with all the possible values of $Z$.
+
+As usual, we can abbreviate $P(X=x,Z=z)$ in this equation by $P(x,z)$.
+
+. . .
+
+Using the __product rule__, we can replace $P(x,z)$ by $P(x|z)P(z)$,
 
 $$
 \begin{flalign}
 P(Y) = \sum_z P(Y|z)P(z) &&
 \end{flalign}
 $$
-
-[^8]:This process is called marginalization, or summing out—-because we sum up the probabilities for each possible value of the otehr variables, thereby taking the out of the equation.
 
 ## Probability axioms
 
@@ -282,7 +284,7 @@ Example: Let $X$ and $Y$ be boolean variables, leading to following four atomic 
 
 . . . 
 
-The joint probability distribution $P(X_1,...,X_n)$ assigns a probability to every atomic event.
+The joint probability distribution $P(x_1,...,x_n)$ assigns a probability to every atomic event.
 
 . . .
 
@@ -381,7 +383,7 @@ That is useful in practice as there are many cases where we do have good probabi
 
 Often, we perceive as evidence the *effect* of some known *cause* and we would like to determine that cause. In that case, Bayes' rule becomes:
 
-$P(cause|effect) = \frac{P(effect|cause)P(cause)}{P(effect)}$
+$P(cause|\mathit{effect}) = \frac{P(\mathit{effect}|cause)P(cause)}{P(\mathit{effect})}$
 
 ## Example
 
@@ -419,7 +421,7 @@ $P(c|t) = \frac{P(t | c)P(c)}{P(t)} \quad$ or $\quad P(g | t) = \frac{P(t | g)P(
 
 . . .
 
-If we are only interested in the relative probability, we need not assess P(T):
+If we are only interested in the relative probability, we need not assess $P(T)$:
 
 $\frac{P(c|t)}{P(g|t)} = \frac{P(t|c)P(c)}{P(t)} \frac{P(t)}{P(t|g)P(g)} = \frac{P(t|c)P(c)}{P(t|g)P(g)} = \frac{0.4*0.1}{0.7*0.02} = 2.857$
 
@@ -507,8 +509,7 @@ The summation is over all possible $y$s (i.e., all possible combinations of valu
 
 ## Example
 
-Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease. This test (T) is
-correct to 99% (1% false positive & 1% false negative results). What does this mean for you?
+Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease ($D$). This test ($T$) is correct to 99% (1% false positive & 1% false negative results). What does this mean for you?
 
 . . .
 
@@ -617,7 +618,15 @@ $$
 # Naive Bayes models {.vertical-center background-color=blue background-image="images/bg.jpeg"}
 
 :::{.notes}
-The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause. The full joint distribution can be written as
+The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause. 
+
+The full joint distribution can be written as
+
+$$
+\begin{flalign}
+P(Cause, \mathit{Effect_1},..., \mathit{Effect_n}) = P(Cause) \prod_{i=1} P(\mathit{Effect_i}|Cause) &&
+\end{flalign}
+$$
 
 Such a probability distribution is called a __naive Bayes model__---"naive" because it is often used (as a simplifying assumption) in cases where the "effect" variables are *not* strictly independent given the cause variable. 
 
