@@ -322,7 +322,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#0333ff" class="center">
+<section id="title-slide" data-background-color="#0333ff">
   <h1 class="title"><code>K9</code> Scale-Up</h1>
   <p class="subtitle">Wie spielen die Elemente zusammen?</p>
   <p class="author">Andy Weeger</p>
@@ -332,14 +332,14 @@
 
 
 
-<section id="motivation" class="title-slide slide level1 vertical-center center" data-background-color="blue">
+<section id="motivation" class="title-slide slide level1 vertical-center" data-background-color="blue">
 <h1>Motivation</h1>
 <blockquote>
 <p>Spiel ist die früheste Form der geistigen Bildung. Durch das Spiel wird die Welt entdeckt und erobert. <em>Friedrich Fröbel (1782-1852), deutscher Reformpädagoge, Begründer des Kindergartens</em>‚</p>
 </blockquote>
 </section>
 
-<section id="lernergebnisse" class="title-slide slide level1 center">
+<section id="lernergebnisse" class="title-slide slide level1">
 <h1>Lernergebnisse 🎯</h1>
 <p>Nach dieser Einheit</p>
 <div>
@@ -352,7 +352,7 @@
 </div>
 </section>
 
-<section id="kontext" class="title-slide slide level1 center">
+<section id="kontext" class="title-slide slide level1">
 <h1>Kontext</h1>
 <p>Stellen Sie sich vor, Sie hätten vor drei Monaten Ihren gute bezahlten Job in der Unternehmenskommunikation gekündigt. Mit 50.000 Dollar Startkapital in der Tasche möchten Sie nun ein neues Abenteuer beginnen und gründen ein Möbelgeschäft.</p>
 <p>Einen Monat später haben Sie <em>MyOffice, Inc.</em> offiziell gegründet. Außerdem haben Sie die ersten drei Mitarbeiter angestellt: Sophia für den Vertrieb, Marc für den Einkauf und Paul als persönlichen Assistenten.</p>
@@ -360,7 +360,7 @@
 <p>Jetzt wird es Zeit, Geld zu verdienen.</p>
 </section>
 
-<section id="vorbereitung" class="title-slide slide level1 center">
+<section id="vorbereitung" class="title-slide slide level1">
 <h1>Vorbereitung</h1>
 <p>Bilden Sie eine Gruppe mit drei bis vier Kommilitonen.</p>
 <ul>
@@ -370,7 +370,7 @@
 </ul>
 </section>
 
-<section id="spielregeln" class="title-slide slide level1 center">
+<section id="spielregeln" class="title-slide slide level1">
 <h1>Spielregeln</h1>
 <p>Das Spiel besteht aus 7 Business Cases. Jeder Case umfasst 8 bis 10 Karten. Wir spielen die Business Cases in folgender Reihenfolge durch:</p>
 <ol type="1">
@@ -386,7 +386,7 @@
 </section>
 
 <section>
-<section id="wiederholungsfragen" class="title-slide slide level1 center">
+<section id="wiederholungsfragen" class="title-slide slide level1">
 <h1>Wiederholungsfragen</h1>
 
 </section>
@@ -487,7 +487,7 @@
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
+'controlsAuto': false,
 'previewLinksAuto': false,
 'smaller': false,
 'pdfSeparateFragments': false,
@@ -541,7 +541,7 @@
 
         // Disables the default reveal.js slide layout (scaling and centering)
         // so that you can use custom CSS layout
-        disableLayout: true,
+        disableLayout: false,
 
         // Vertical centering of slides
         center: false,
@@ -620,7 +620,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'fade',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
@@ -642,7 +642,7 @@
         // specified using percentage units.
         width: 1050,
 
-        height: 700,
+        height: 500,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -674,27 +674,152 @@
         ]
       });
     </script>
-    <div class="footer custom">
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
 
-        <div class="version">
-            V1
-        </div>
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
 
-        <div class="footnote">
-            Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Summer Term 2022 
-       </div>
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
 
-        <div class="logo">
-            <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
-                <g>
-                 <title>HNU</title>
-                 <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
-                 <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
-                </g>   
-            </svg>
-        </div>
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
 
-    </div>
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
     <div class="footer custom">
 
         <div class="version">
