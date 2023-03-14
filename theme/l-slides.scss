@@ -137,7 +137,7 @@ $dark-bg-code-color: #03eeff !default;
 $revealjs-font-size-root: $presentation-font-size-root !default;
 $revealjs-h1-font-size: $presentation-h1-font-size !default;
 $revealjs-h2-font-size: $presentation-h2-font-size !default;
-$revealjs-h3-font-size: $presentation-h3-font-size !default;
+$revealjs-h3-font-size: $presentation-h2-font-size !default;
 $revealjs-h4-font-size: $presentation-h4-font-size !default;
 $revealjs-heading-font: $presentation-heading-font !default;
 $revealjs-heading-color: $presentation-heading-color !default;
@@ -208,6 +208,13 @@ $selectionColor: $selection-color !default;
 }
 
 /*-- scss:rules --*/
+
+
+.reveal .slides h1,
+.reveal .slides h2,
+.reveal .slides h3 {
+  margin: 0 0 3rem 0 !important;
+}
 
 body.quarto-light {
   background: black;
@@ -663,7 +670,7 @@ $progress-height: 5px;
   
   box-shadow: unset;
   border: 0 !important;
-  padding: 40px 60px 100px 60px !important;
+  padding: 40px 60px 80px 60px !important;
  
 
   #title-slide {
@@ -747,6 +754,10 @@ $progress-height: 5px;
   p,
   li {
     max-width: 45em;
+  }
+  
+  p.caption {
+    max-width: unset;
   }
 
   table {
@@ -863,12 +874,20 @@ $progress-height: 5px;
   }
 
   p {
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
   
-  .h1 p:first-chid {
-    font-size: $revealjs-h1-font-size;
+  .large {
+    p:first-child {
+      font-size: $revealjs-h1-font-size*1.5;
+      font-family: $font-family-monospace;
+    }
+    blockquote em {
+      font-size: .75rem;
+    }
   }
+  
+  
 
   h3 {
     margin: 4rem 0 1rem 0 !important;
@@ -942,6 +961,7 @@ $progress-height: 5px;
       img {
         object-fit: contain;
         width: 100%;
+        max-height: 350px;
         position: relative
       }
 
@@ -1027,8 +1047,9 @@ $progress-height: 5px;
 
 .reveal .slides .level1.vertical-center {
   display: flex !important;
-  align-items: center;
+  flex-direction: column;  
   min-height: 500px;
+  justify-content: center;  
 }
 
 .reveal .slides .level2.vertical-center {
@@ -1044,7 +1065,7 @@ $progress-height: 5px;
 
 .reveal.overview .slides .slide {
   overflow: hidden;
-  height: 750px;
+//  height: 750px;
 }
 
 .reveal .footnotes ol li > p:first-child {
@@ -1131,4 +1152,23 @@ $progress-height: 5px;
 
 .reveal .slides>section.stack.present {
   height: 100%;
+}
+
+.slide.level2.discussion-slide h2 {
+  visibility: hidden;
+}
+
+.slide.level1.discussion-slide h2 {
+  visibility: hidden;
+}
+
+.reveal .slides>section.stack.present,
+.reveal .slides .slide {
+  max-height: 500px;
+}  
+
+.reveal .background-color-div,
+.reveal .background-iframe-div {
+  height: calc(var(--slide-height) + 40px) !important;
+  max-height: calc(var(--slide-height) + 40px) !important;  
 }
