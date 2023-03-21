@@ -102,7 +102,7 @@ $presentation-block-margin: 1rem !default;
 
 // text alignment
 $presentation-slide-text-align: left !default;
-$presentation-title-slide-text-align: center !default;
+$presentation-title-slide-text-align: left !default;
 $reveal-slide-text-align: $presentation-slide-text-align !default;
 $reveal-title-slide-text-align: $presentation-title-slide-text-align !default;
 
@@ -384,7 +384,7 @@ $panel-sidebar-padding: 0.5em;
 
 .reveal .panel-input,
 .reveal .panel-sidebar {
-  font-size: 0.5em;
+  font-size: 0.4em;
   padding: $panel-sidebar-padding;
   border-style: solid;
   border-color: $input-panel-border-color;
@@ -421,7 +421,7 @@ $panel-sidebar-padding: 0.5em;
 
 .reveal .slides>section, 
 .reveal .slides>section>section {
-  max-width: 1050px;
+  width: unset;
 }
 
 .reveal.smaller .slides section,
@@ -582,13 +582,6 @@ $panel-sidebar-padding: 0.5em;
 
 $progress-height: 5px;
 
-.background-image-div,
-.background-color-div {
-  top: -40px;
-  left: -80px;
-  right: 0;
-}
-
 .background-image-div {
   background-size: cover;
 }
@@ -643,7 +636,7 @@ $progress-height: 5px;
   text-align: center !important;
   font-family: $font-family-monospace !important;
   font-size: #{$presentation-font-smaller}rem !important;
-  font-size: 0.5em;
+  font-size: 0.4em;
 }
 
 .version,
@@ -670,14 +663,13 @@ $progress-height: 5px;
   
   box-shadow: unset;
   border: 0 !important;
-  padding: 40px 60px 80px 60px !important;
- 
+  //padding: 40px 60px 80px 60px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 
   #title-slide {
-
-    text-align: left !important;
-    padding-top: 10%;
-  
+    
+    padding-top: 20% !important;
 
     .title {
       margin-bottom: 5rem;
@@ -719,6 +711,8 @@ $progress-height: 5px;
       bottom: 0 !important;
       background: white;
       color: lighten($body-color, 75%);
+      left: 0;
+      width: calc(var(--slide-width)) !important;
   }
   
   span.citation {
@@ -951,20 +945,17 @@ $progress-height: 5px;
 
     >p:first-child a {
       
-      max-height: 400px;
       margin: 0 !important;
-      background-color: #f4f4f4;
-      line-height: 1;
-      display: block;
-      overflow: hidden;
-      position: relative;
-      
+
       &:has(img[src$=".png"]),
       &:has(img[src$=".jpg"]) {
-        background-color: unset;
         text-align: left;
       }
 
+      img[src$=".svg"] {
+        background-color: #f4f4f4;
+      }
+      
       img {
         //object-fit: contain;
         width: 100%;
@@ -1057,7 +1048,7 @@ $progress-height: 5px;
 .reveal .slides .level1.vertical-center {
   display: flex !important;
   flex-direction: column;  
-  min-height: 500px;
+  height: calc(var(--slide-height) - 120px);
   justify-content: center;  
 }
 
@@ -1142,7 +1133,7 @@ $progress-height: 5px;
       left: auto;
       bottom: 0;
       font-family: "basier_squaremono";
-      font-size: 0.5em !important;
+      font-size: 0.4em !important;
       width: 1155px !important;
       z-index: 20;
       text-align: left;  
@@ -1171,13 +1162,25 @@ $progress-height: 5px;
   visibility: hidden;
 }
 
-.reveal .slides>section.stack.present,
-.reveal .slides .slide {
-  max-height: 500px;
-}  
-
 .reveal .background-color-div,
 .reveal .background-iframe-div {
-  height: calc(var(--slide-height) + 40px) !important;
-  max-height: calc(var(--slide-height) + 40px) !important;  
+  top: 0;
+  left: 0;
+  bottom: unset;
+  right: unset;
+  height: calc(var(--slide-height) - 80px) !important;
+  width: calc(var(--slide-width)) !important;  
 }
+
+.reveal .slides>section.stack.present, 
+.reveal .slides .slide {
+    padding: unset !important;
+}
+
+#title-slide,
+.reveal .slides section.slide {
+  width: calc(var(--slide-width) - 120px) !important;  
+  padding: 40px 60px 80px 60px !important;
+}
+
+
