@@ -950,6 +950,7 @@ $progress-height: 5px;
     margin-bottom: $blockMargin;    
 
     >p:first-child a {
+      
       max-height: 400px;
       margin: 0 !important;
       background-color: #f4f4f4;
@@ -957,13 +958,20 @@ $progress-height: 5px;
       display: block;
       overflow: hidden;
       position: relative;
+      
+      &:has(img[src$=".png"]),
+      &:has(img[src$=".jpg"]) {
+        background-color: unset;
+        text-align: left;
+      }
 
       img {
-        object-fit: contain;
+        //object-fit: contain;
         width: 100%;
         max-height: 375px;
         margin: 0;
-        position: relative
+        position: relative;
+        display: block;
       }
 
     }
