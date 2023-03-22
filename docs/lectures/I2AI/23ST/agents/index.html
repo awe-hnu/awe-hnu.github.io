@@ -120,7 +120,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/admin/index.html" class="sidebar-item-text sidebar-link">Administrivia 🧐</a>
+  <a href="../../../../lectures/I2AI/23ST/admin/slides.html" class="sidebar-item-text sidebar-link">Administrivia 🧐</a>
   </div>
 </li>
       </ul>
@@ -441,15 +441,15 @@ Example of an PEAS description
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Types of representation of states and the transitions between them
+Types of representation of states
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>The representations of states can be placed along an axis of increasing complexity and expressive power <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 76–77</a>)</span>:</p>
 <ul>
-<li><strong>Atomic representation</strong>: a state is a blackbox with no internal structure (A –&gt; B)</li>
-<li><strong>Factored representation</strong>: a state consists of a vector of attribute values; values can be Boolean, real-valued, or one of a fixed set of symbols; factored states can share some attributes and not others, which makes it easier to identify transitions between states</li>
-<li><strong>Structured representation</strong>: a state includes objects, each of which may have attributes of its own as well as relationships to other objects; structured representations underlie relational databases and first-order logic, first-oder probability models, and much of natural language understanding.</li>
+<li>An <strong>atomic representation</strong> is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you’re looking for. In a sliding tile puzz_le, for instance, you either have the correct alignment of tiles or you do not.</li>
+<li>A <strong>factored representation</strong> is one in which the states are defined by set of features (e.g., Boolean, real-valued, or one of a fixed set of symbols). In a sliding puzzle, this might be a simple heuristic like “number of tiles out of place”.</li>
+<li>A <strong>structured representation</strong> is one in which the states are expressed in form of objects and relations between them (e.g., expressed by logic or probability). Such knowledge about relations called facts.</li>
 </ul>
 <p>The more expressive language is much more concise, but makes reasoning and learning more complex.</p>
 </div>
@@ -494,6 +494,27 @@ Types of representation of states and the transitions between them
 <p>The main difference between <strong>goal-based agents</strong> and <strong>utility-based agents</strong> is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).</p>
 <p>Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.</p>
 </section>
+</div>
+</section>
+<section id="recap" class="level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2 class="html-hidden unlisted discussion-slide" data-background-color="black" data-anchor-id="recap">Recap</h2>
+<div class="large">
+<p>What are the <strong>main differences</strong> between the agents?</p>
+</div>
+</section>
+<section id="main-differences-1" class="level2 html-hidden">
+<h2 class="html-hidden" data-anchor-id="main-differences-1">Main differences</h2>
+<p>In contrast to <strong>simple reflex agents</strong>, <strong>model-based reflex agents</strong> keep track of the state of the world (“stored” in the transition model). However, both act on fixed condition-action rules.</p>
+<div class="incremental">
+<p><strong>Goal-based agents</strong> , have some sort of goal information that describes situations that are desirable and enables them to make goal-based decisions making (i.e., involving consideration of the future based on the transition model.</p>
+</div>
+<div class="incremental">
+<p>The performance measure of <strong>utility-based agents</strong> is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively.</p>
+</div>
+<div class="incremental">
+<div class="smaller">
+<p>Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.</p>
+</div>
 </div>
 </section>
 <section id="learning-agents" class="level2">
@@ -712,7 +733,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","loop":true,"closeEffect":"zoom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","loop":true,"closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 

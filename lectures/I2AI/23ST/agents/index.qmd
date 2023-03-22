@@ -6,6 +6,12 @@ categories: ["Lecture Notes"]
 
 bibliography: ../assets/literature.bib
 
+title-slide-attributes:
+  data-background-image: images/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#564ac6'
+  
 format: 
   html:
     output-file: index.html
@@ -199,13 +205,13 @@ The __transition model__ reflects "how the world works," i.e., how the world evo
 The __sensor model__ reflects how the state of the world is reflected in the agent's percepts (i.e., by its sensors).
 
 :::{.callout-note}
-### Types of representation of states and the transitions between them
+### Types of representation of states
 
 The representations of states can be placed along an axis of increasing complexity and expressive power [@RusselNorvig2022AIMA p. 76-77]:
 
-- __Atomic representation__: a state is a blackbox with no internal structure (A --> B)
-- __Factored representation__: a state consists of a vector of attribute values; values can be Boolean, real-valued, or one of a fixed set of symbols; factored states can share some attributes and not others, which makes it easier to identify transitions between states
-- __Structured representation__: a state includes objects, each of which may have attributes of its own as well as relationships to other objects; structured representations underlie relational databases and first-order logic, first-oder probability models, and much of natural language understanding.
+- An __atomic representation__ is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you're looking for. In a sliding tile puzz_le, for instance, you either have the correct alignment of tiles or you do not.
+- A __factored representation__ is one in which the states are defined by set of features (e.g., Boolean, real-valued, or one of a fixed set of symbols). In a sliding puzzle, this might be a simple heuristic like "number of tiles out of place".
+- A __structured representation__ is one in which the states are expressed in form of objects and relations between them (e.g., expressed by logic or probability). Such knowledge about relations called facts.
 
 The more expressive language is much more concise, but makes reasoning and learning more complex.
 
@@ -223,6 +229,7 @@ A model-based, goal-based agent keeps track of the world state as well as a set 
 ## Utility-based agents
 
 ![A model-based, utility-based agent](images/utility-based-agent.svg){#fig-ub-agent}
+
 
 ::: {.notes}
 A model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome [@RusselNorvig2022AIMA, p. 73].
@@ -249,7 +256,30 @@ The main difference between __model-based reflex agents__ and __goal-based agent
 The main difference between __goal-based agents__ and __utility-based agents__ is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).
 
 Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.
+:::
 
+## Recap {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::{.large}
+What are the **main differences** between the agents?
+:::
+
+## Main differences {.html-hidden}
+
+In contrast to __simple reflex agents__, __model-based reflex agents__ keep track of the state of the world ("stored" in the transition model). However, both act on fixed condition-action rules.
+
+. . .
+
+__Goal-based agents__ , have some sort of goal information that describes situations that are desirable and enables them to make goal-based decisions making (i.e., involving consideration of the future based on the transition model.
+
+. . .
+
+The performance measure of __utility-based agents__ is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively.
+
+. . .
+
+:::{.smaller}
+Example: a goal-based agent for routing just selects actions based on a single, binary goal: reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.
 :::
 
 ## Learning agents
