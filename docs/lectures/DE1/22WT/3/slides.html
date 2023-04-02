@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="de-DE"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.0.37">
+
+  <meta name="author" content="Andy Weeger">
+  <title>awe.lectures - K3 Technologie</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="awe.lectures - K3 Technologie">
+<meta property="og:description" content="Was ist die Basis von Informationssystemen?">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        0.7
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Hochschule für Angewandte Wissenschaften Neu-Ulm (HNU) / DEM1 Digital Enterprise 1
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff">
+  <h1 class="title"><code>K3</code> Technologie</h1>
+  <p class="subtitle">Was ist die Basis von Informationssystemen?</p>
+  <p class="author">Andy Weeger</p>
+  <p class="institute">University of Applied Sciences Neu-Ulm</p>
+  <p class="date">Wintersemester 2022</p>
+</section>
+
+
+
+<section id="motivation" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Motivation</h1>
+<blockquote>
+<p>I don’t need a hard disk in my computer if I can get to the server faster. <em>Steve Jobs (1997)</em></p>
+</blockquote>
+<div class="fragment">
+<blockquote>
+<p>Es gibt keine Cloud&nbsp;– es gibt nur die Computer anderer Leute. <em>Unbekannter Urheber</em></p>
+</blockquote>
+<aside class="notes">
+<p>Informationstechnologien (IT) wie bspw. Serversysteme bilden die Basis heutiger Informationssysteme. In diesem Kapitel lernen Sie Basiselemente der IT-Infrastruktur sowie Basistechnologien der digitalen Transformation wie Cloud Computing und IoT kennen.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="lernergebnisse" class="title-slide slide level1">
+<h1>Lernergebnisse 🎯</h1>
+<p>Nach dieser Einheit</p>
+<div>
+<ul>
+<li class="fragment">wissen Sie, was man allgemein unter <strong>Informations- und Kommunikationstechnologie (IKT)</strong> und <strong>IT-Infrastruktur</strong> versteht,</li>
+<li class="fragment">kennen Sie die wesentlichen <strong>Komponenten der IT</strong> (Hardware, Netzwerke und der Software),</li>
+<li class="fragment">können Sie diese und deren Funktionsweise anhand von Beispielen beschreiben,</li>
+<li class="fragment">verstehen Sie das Konzept des <strong>Cloud-Computings</strong> inkl. der wichtigsten Bereitstellungs- und Servicemodelle und</li>
+<li class="fragment">können das Prinzip des <strong>Internet of Things</strong> erläutern.</li>
+</ul>
+</div>
+</section>
+
+<section>
+<section id="informationstechnologie" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Informationstechnologie</h1>
+
+</section>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
+<p>Der Begriff <strong>Informations- und Kommunikationstechnologie</strong> (IKT), oft kurz als <strong>Informationstechnologie</strong> (IT) bezeichnet, umfasst Technik, die zum Erheben, Speichern, Übertragen und Weiterverarbeiten von Daten und Informationen eingesetzt wird <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#/ref-laudon2016wirtschaftsinformatik" role="doc-biblioref" onclick="return false;">Laudon, Laudon, und Schoder 2016</a>)</span>.</p>
+<div class="fragment">
+<p>IT bildet die <strong>Basis von digitalen Informationssystemen</strong> und ist deshalb für ihre Funktionsweise elementar.</p>
+</div>
+<div class="fragment">
+<p>Unterschiedliche Komponenten der IT bilden die <strong>IT-Infrastruktur</strong>, also alle materiellen und immateriellen Ressourcen, die benötigt werden, um am digitalen Leben teilnehmen zu können (bspw. Computer, Internetzugang, Software) <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#/ref-lemke2015einfuhrung" role="doc-biblioref" onclick="return false;">Lemke und Brenner 2015</a>)</span>.</p>
+<aside class="notes">
+<div class="small">
+<p>Heute ist Informations- und Kommunikationstechnik in unserem Leben allgegenwärtig und wird zunehmend schwerer wahrnehmbar bzw. vielfach unsichtbar. Technik tritt aufgrund benutzerfreundlicher, integrierter und konvergenter Produkte immer mehr in den Hintergrund. Die IT-Komponenten bzw. die IT-Infrastruktur ist in vielen Produkten kaum noch als solche erkennbar (bspw. smarte Lautsprecher). Zudem werden wesentliche Komponenten der IT-Infrastruktur wie bspw. der Zugang zum Internet über mobile Netze verstärkt als gegebene, verfügbare und zuverlässige Ressourcen betrachtet, um die man sich nicht mehr spezifisch kümmern muss. Dadurch wird die IT-Infrastruktur immer stärker zur “Commodity”, also zur standardisierten und mehr oder weniger homogene Handelswaren wie bspw. Strom, Erdgas, Wärme und Wasser.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="kern-it-infrastruktur" class="slide level2">
+<h2>Kern-IT-Infrastruktur</h2>
+<p>Die Kern-Infrastruktur enthält die, für eine digitale und vernetzte Interaktion, Kommunikation und Transaktion zwischen Computern, Menschen und Maschinen notwendige, <strong>Hardware-, Netzwerk- und Software-Komponenten</strong>.</p>
+<div id="fig-infrastruktur" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/infrastruktur.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 1: Komponenten der Kern-IT-Infrastruktur nach <span class="citation" data-cites="lemke2015einfuhrung">Lemke und Brenner (<a href="#/ref-lemke2015einfuhrung" role="doc-biblioref" onclick="return false;">2015</a>)</span>, S. 96</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="computer" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Computer</h1>
+
+</section>
+<section id="rechnerklassen" class="slide level2">
+<h2>Rechnerklassen</h2>
+<div id="fig-rechnerklassen" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/rechnerklassen.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 2: Computersysteme können nach unterschiedlichen Kriterien klassifiziert werden, eigene Dartsellung</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Client-Server-Architektur</strong></p>
+</div>
+<div class="callout-content">
+<p>Client-/Server-Computing ist eine Architektur für die Zusammenarbeit in Netzwerken: Server, meist leistungsstarke Rechner, stellen Funktionen und Dienstleistungen zur Verfügung, Clients wie PCs können diese Dienste nutzen.</p>
+<ul>
+<li>Der File-Server stellt seine Plattenkapazität mehreren Clients zur Verfügung.</li>
+<li>Ein Print-Server organisiert vor seinem Drucker eine Warteschlange, in der die Clients aus dem ganzen Netz Druckaufträge ablegen können</li>
+<li>Der Mailserver stellt allen Clients Postfächer zur Verfügung, aus denen empfangene Mails entnommen und zu versendende Mails abgelegt werden können.</li>
+</ul>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="grundlegende-architektur" class="slide level2">
+<h2>Grundlegende Architektur</h2>
+<div id="fig-vonNeumann" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/von-neumann.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 3: Von-Neumann-Architektur, eigene, vereinfachte Darstellung)</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>Computer folgen in der Regel der sogenannten von-Neumann-Architektur und arbeiten nach dem Grundprinzip der <strong>Eingabe-Verarbeitung-Ausgabe (EVA)</strong> <span class="citation" data-cites="abts2017grundkurs">(<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">Abts und Mülder 2017, 25–26</a>)</span>. Ein Computer umfasst Komponenten für folgende Aufgaben.</p>
+<ul>
+<li><strong>Eingabe:</strong> Daten müssen zuerst in den Rechner eingegeben werden. Hierzu stehen verschiedene Eingabegeräte zur Verfügung.</li>
+<li><strong>Verarbeitung:</strong> Hierzu gehören unterschiedliche Tätigkeiten wie z. B. mathematische Berechnungen, Prüfen von Daten auf Gleichheit, Vergleichen von numerischen Daten bezüglich ihrer Größe, Sortieren von Datenmengen nach bestimmten Kriterien und Umformungen von Daten nach bestimmten Regeln.</li>
+<li><strong>Ausgabe:</strong> Zur Präsentation oder Weiterleitung von Bearbeitungsergebnissen stehen verschiedene Geräte zur Verfügung.</li>
+<li><strong>Speicherung:</strong> Damit eingegebene Daten oder erzeugte Ergebnisse nicht verloren gehen, werden sie auf Datenträgern gespeichert (externe Speicher).</li>
+</ul>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Von-Neumann-Architektur</strong></p>
+</div>
+<div class="callout-content">
+<p>Die nach dem österreichisch-ungarischen Mathematiker J. von Neumann (1903-1957) benannte Von-Neumann-Architektur beschreibt ein <strong>Referenzmodell</strong>, dass die <strong>interne Struktur eines Computers</strong>, also seinen Aufbau aus verschiedenen Komponenten sowie die Organisation der Arbeitsabläufe darstellt. Die meisten heutigen Computer verwenden diese Architektur und bestehen aus <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021, 43</a>)</span>:</p>
+<ul>
+<li>einem <strong>Zentralprozessor</strong> (CPU = Central Processing Unit), der die Befehle (Instruktionen) eines Programms einzeln nacheinander interpretiert und ausführt,</li>
+<li>einem <strong>Hauptspeicher</strong>, in dem zum Zeitpunkt der Verarbeitung das auszuführende Programm und die dafür benötigten Daten gespeichert sind, und</li>
+<li>den <strong>Datenwegen</strong> für den Datentransfer zwischen den Komponenten des Rechners und den peripheren Geräten</li>
+</ul>
+<p>Für eine detailierte Beschreibung der Komponenten siehe ç</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="netzwerke" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Netzwerke</h1>
+
+</section>
+<section id="definition-1" class="slide level2">
+<h2>Definition</h2>
+<p>Rechnernetze (oder kurz Netzwerke) dienen der <strong>Übertragung von Daten</strong> zwischen mehreren Rechnern indem Sie Rechner über Übertragungswege miteinander verbinden. Dadurch ermöglichen Netzwerke unterschiedliche Formen zur computergestützten Interaktion, Kommunikation und Transaktion <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021</a>)</span>.</p>
+<div class="fragment">
+<p>Netzwerke umfassen neben den physischen <strong>Übertragungseinrichtungen</strong> (bspw. Modem) und <strong>Übertragungswegen</strong> (bspw. CAT7-Kabel) auch die <strong>Protokolle</strong> (bspw. TCP/IP) und <strong>Architekturen</strong> (bspw. Client-Server-Architektur).<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a></p>
+</div>
+<aside></aside></section>
+<section id="datenübertragung" class="slide level2">
+<h2>Datenübertragung</h2>
+<p>Um Daten zu übertragen, braucht man <strong>Datenstationen</strong>, <strong>Übertragungswege</strong> und <strong>Übertragungsverfahren</strong>. Jedes Datenübertragungssystem wird von mindestens zwei Datenstationen gebildet, die durch einen Übertragungsweg miteinander verbunden sind <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021, 80</a>)</span>.</p>
+<div id="fig-datenuebertragung" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/datenuebertragung.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 4: Prinzip der Datenübertragung, eigene vereinfachte Darstellung</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<p>Eine <strong>Datenstation</strong> hat die Aufgabe, Daten für die Übertragung bereitzustellen, Daten zu empfangen und alle für die Kommunikation erforderlichen Funktionen auszuführen.</p>
+<p>Unter einem <strong>Übertragungsweg</strong> versteht man die Verbindung von zwei Datenstationen durch Übertragungsmedien in Form physischer Verbindungen, auf denen codierte Informationen durch elektrische (bspw. Kupferkabel) oder optische Signale (bspw. Glasfaser) oder durch elektromagnetische Wellen (bspw. WiFi) übermittelt werden.</p>
+<p>Das <strong>Datenübertragungsverfahren</strong> definiert, wie die Daten zwischen Daten Datenstationen über den Übertragungsweg ausgetauscht werden. Die Verfahren werden von den Protokollen und Architekturen festgelegt (wie bspw. die TCP/IP Protokollfamilie). Siehe hierzu auch das <a href="https://de.wikipedia.org/wiki/OSI-Modell">OSI-Referenzmodell</a>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="klassifizierung" class="slide level2">
+<h2>Klassifizierung</h2>
+<p>Computernetze können nach unterschiedlichen Kriterien klassifiziert werden, insbesondere anhand folgender Eigenschaften.</p>
+<div>
+<ul>
+<li class="fragment"><strong>Physik:</strong> Übertragungsmedium (kabelgebunden – bspw. Kupfer, Lichtwellenleiter; drahtlos)</li>
+<li class="fragment"><strong>Struktur:</strong> Topologie (bspw. Stern, Ring oder Bus; heute hauptsächlich Bus)</li>
+<li class="fragment"><strong>Örtliche Begrenzung:</strong> Netzausdehnung (bspw. Local Area Network – LAN; Wide Area Netzwork – WAN)</li>
+<li class="fragment"><strong>Organisation:</strong> Betreibermodell (bspw. Öffentlich – Public Network; privat – Private Network)</li>
+<li class="fragment"><strong>Leistung:</strong> Übertragungskapazität (maximal möglichen Datenübertragungsmenge pro Sekunde, Bit/s)</li>
+<li class="fragment"><strong>Funktion:</strong> Verwendungszweck (bspw. Backbone-Netz, Netzknoten, lokales Netz)</li>
+</ul>
+</div>
+</section>
+<section id="das-internet" class="slide level2">
+<h2>Das Internet</h2>
+<p>Das Internet ist ein <strong>weltumspannendes Rechnernetz</strong>, das aus einer Vielzahl großer internationaler, nationaler und lokaler <strong>Teilnetze</strong> besteht („Netz der Netze”), die alle das <strong>Kommunikationsprotokoll TCP/IP</strong> verwenden.</p>
+<div>
+<ul>
+<li class="fragment">Das Internet ist 1969 aus dem von der Wissenschaft entwickelten und vom US-Militär initiierten Rechnernetz <strong>ARPANET</strong> (Advanced Research Projects Agency Network) entstanden.</li>
+<li class="fragment">Der Durchbruch ist auf die rasche Verbreitung von Anwendungen zurückzuführen, die durch die Entwicklung des <strong>World Wide Web</strong> (WWW) möglich geworden sind.</li>
+<li class="fragment">Die anwendungsnahen Dienste im Internet basieren auf <strong>standardisierten Protokollen</strong>, die zur Kommunikation zwischen Client und Server verwendet werden wie bspw. Dateiaustausch (FTP), E-Mail (SMPT, POP, IMAP), Word Wide Web (HTPP)</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="das-netz-der-netze">Das Netz der Netze</h3>
+<p>Das Internet verbindet weltweit eine unüberschaubare Anzahl von Netzen unterschiedlicher Struktur miteinander.</p>
+<div id="fig-internet" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/internet.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 5: Ausprägungen und Eigenschaften des Internets</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="software" class="title-slide slide level1">
+<h1>Software</h1>
+<p>Man unterscheidet zwischen <strong>Systemsoftware</strong> und <strong>Anwendungssoftware</strong>. Systemsoftware ist zum Betrieb und zur Steuerung der Hardware und Netzwerke erforderlich, Anwendungssoftware ist für spezifische Tätigkeiten entwickelt <span class="citation" data-cites="mertens2016grundzuge">(<a href="#/ref-mertens2016grundzuge" role="doc-biblioref" onclick="return false;">Mertens u.&nbsp;a. 2016</a>. S. 10ff)</span>.</p>
+<div class="fragment">
+<p>Das <strong>Betriebssystem</strong> (engl. Operating System) ist Teil der Systemsoftware. Es verknüpft die Komponenten eines Computers miteinander und stellt die Verbindung zwischen einem Benutzer bzw. Anwendungsprogramm und der Hardware her.</p>
+</div>
+<div class="fragment">
+<p>Eine <strong>Anwendungssoftware</strong> (engl. Application Software, kurz <strong>Software</strong>) verwendet die Ressourcen des Betriebssystems und der zugrunde liegenden Hardware. In der Alltagssprache hat sich insbesondere in Bezug auf mobile Geräte wie Smartphones die Bezeichnung <strong>App</strong> (für Applikation) durchgesetzt.</p>
+</div>
+</section>
+<section id="klassifizierung-1" class="slide level2">
+<h2>Klassifizierung</h2>
+<div id="fig-software" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/software.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 6: Klassifizierung von Software</figcaption><p></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="cloud-computing" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Cloud Computing</h1>
+
+</section>
+<section id="definition-2" class="slide level2">
+<h2>Definition</h2>
+<p>Cloud Computing ist ein auf <strong>Virtualisierung</strong> basierendes <strong>IT-Bereitstellungsmodell</strong>, bei dem Ressourcen in Form von Infrastruktur, Anwendung und Daten über das <strong>Internet</strong> als verteilter Dienst von einem oder mehreren Dienstanbietern bereitgestellt werden. Diese Dienste sind nach Bedarf skalierbar und können auf einer <strong>Pay-per-Use-Basis</strong> bepreist werden. <span class="citation" data-cites="bohm2011cloud">(<a href="#/ref-bohm2011cloud" role="doc-biblioref" onclick="return false;">Böhm u.&nbsp;a. 2011</a>)</span></p>
+<p>Cloud-Computing-Dienste werden in verschiedene <strong>Servicemodelle</strong> (insbesondere IaaS, PaaS und SaaS) und <strong>Bereitstellungsmodelle</strong> (insbesondere public, private, hybrid) unterschieden.</p>
+</section>
+<section id="servicemodelle" class="slide level2">
+<h2>Servicemodelle</h2>
+<div id="fig-servicemodelle" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/servicemodelle.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 7: Servicemodelle (typische IT-as-a-Service Outsourcing Ebenen), eigene Dartstelllung</figcaption><p></p>
+</figure>
+</div>
+<aside class="notes">
+<ul>
+<li><strong>Infrastructure as a Service (IaaS):</strong> Die Bereitstellung von Infrastruktur-Komponenten wie Server, Router, Archivierungs- und Backupsysteme oder auch ein Angebot von speziellen Hardwarekomponenten wie Druckern, Speicherkapazität oder Prozessorleistung. Diese werden virtuell und frei skalierbar angeboten und standardisiert über das Internet bereitgestellt. Der Nutzer kann die Ressourcen lexibel an seine Bedürfnisse anpassen und über das Internet, in der Regel per Weboberflächen, verwalten.</li>
+<li><strong>Platform as a Service (PaaS):</strong> Die Bereitstellung von Entwicklungsumgebungen, in der Regel mit integrierter Datenbank sowie Programmier- und Laufzeitumgebungen und Werkzeugen zum Management der Anwendungen. Mit Hilfe dieser vorkonfigurierten Diensten können Nutzer ihren eigenen Anwendungen entwickeln, ohne die zugrundeliegende Infrastruktur verwalten zu müssen. Die Plattformen sind in der Regel auf verschiedene Industrien oder Anwendungsdomänen zugeschnitten.</li>
+<li><strong>Software as a Service (SaaS):</strong> Die Bereitstellung standardisierten Softwarelösungen für Endverbraucher, die nur bedingt an die Wünsche des Endkunden anpassbar sind. Durch die Nutzung von SaaS entfällt die lokale Installation, Administration und Wartung der Software. Dies wird vom Anbieter vorgenommen. Der Zugriff auf die Anwendung erfolgt über das Internet.</li>
+</ul>
+<p>Quelle: <span class="citation" data-cites="leimeister2021einfuhrung">Leimeister (<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">2021, 100–101</a>)</span></p>
+<div style="position: relative; padding-bottom: 54.21686746987952%; height: 0;">
+<iframe src="https://www.loom.com/embed/f56fc6cba3d14349b070a64a312b96c6" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+</iframe>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bereitstellungsmodelle" class="slide level2">
+<h2>Bereitstellungsmodelle</h2>
+<p>Die unterschiedlichen Bereitstellungsmodelle unterscheiden sich zum einem durch ihre <strong>Zugangsform</strong> und zum anderen durch die <strong>Einbettung</strong> dieser in eine bestehende IT-Infrastruktur.</p>
+<div>
+<ul>
+<li class="fragment"><strong>Private Cloud:</strong> Die Dienste sind ausschließlich für die Nutzung innerhalb einer Organisation bestimmt.</li>
+<li class="fragment"><strong>Public Cloud:</strong> Die Dienste können von verschiedenen Personen und Unternehmen genutzt werden.</li>
+<li class="fragment"><strong>Hybrid Cloud:</strong> Mischung aus Private und Public Cloud (Ziel: hohe Sicherheit und Skalierbarkeit).</li>
+<li class="fragment"><strong>Community Cloud:</strong> Die Dienste können von mehreren Organisationen genutzt werden. Dazu werden mehrere Private Clouds kombiniert.</li>
+</ul>
+</div>
+<section id="eigenschaften" class="notes" data-visibility="hidden">
+<h3 data-visibility="hidden">Eigenschaften</h3>
+<p>Cloud Computing lässt sich über fünf spezielle Eigenschaften definieren <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021, 99</a>)</span>:</p>
+<ul>
+<li><strong>On-Demand Self-Service:</strong> ein Nutzer eines Cloud-Computing-Dienstes sollte ohne eine vorherige Interaktion mit dem Anbieter zu jedem Zeitpunkt die Möglichkeit haben, auf den Dienst zuzugreifen und bei Bedarf diesen zu skalieren.</li>
+<li><strong>Netzwerkzugriff:</strong> ein Nutzer muss von jeder standardisierten Plattform, wie Desktop Computer, Laptops, Tablets sowie weiteren mobilen Endgeräten, auf den Dienst zuzugreifen können.</li>
+<li><strong>Ressourcen-Pooling:</strong> einem Nutzer werden notwendige IT-Ressourcen, wie Rechenleistung, Arbeitsspeicher oder Speicherkapazitäten, bedarfsgerecht zugewiesen. Durch die Nutzung von gleicher Hard- und Softwareinfrastruktur für verschiedene Nutzer können Kosten eingespart werden.</li>
+<li><strong>Schnelle Anpassbarkeit und Elastizität:</strong> Je nach Anforderungen des Kunden können die Ressourcen angepasst bereitgestellt werden. Dabei kann diese Anpassung entweder automatisiert durch den Anbieter oder manuell durch den Kunden erfolgen.</li>
+<li><strong>Messbare Servicenutzung:</strong> Dem Kunden wird der Dienst verbrauchsabhängig Verrechnet. Dadurch entsteht eine transparente Sicht auf die empfangenen Leistungen, sowohl auf Anbieter- als auch auf Nutzerseite.</li>
+</ul>
+</section>
+</section></section>
+<section>
+<section id="internet-of-things" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Internet of Things</h1>
+
+</section>
+<section id="definition-3" class="slide level2">
+<h2>Definition</h2>
+<p>Der Begriff <strong>Internet of Things (IoT)</strong> beschreibt das Konzept, dass virtuelle und physische Gegenstände („Dinge”) über das Internet ansprechbar, erkennbar, lokalisierbar, und steuerbar sind <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/ref-leimeister2021einfuhrung" role="doc-biblioref" onclick="return false;">Leimeister 2021</a>, p.&nbsp;97)</span>.</p>
+<div class="fragment">
+<p>IoT steht für die zunehmende Vernetzung von Gegenständen und automatisierten Prozessen, die zur wachsenden Verschmelzung der physischen und digitalen Welt führt.&nbsp;</p>
+</div>
+<div class="fragment">
+<p>Im privaten Umfeld sind sogenannte Smart Homes, also die Vernetzung von Sensoren (bspw. Temperatursensoren) und Aktoren (bspw. Heizung) im Haus bzw. in der Wohnung ein prominentes Beispiel.</p>
+</div>
+<div class="fragment">
+<p>Diese Art der technologischen Vernetzung von Geräten und Daten ermöglicht völlig Arten der Wertschöpfung.</p>
+</div>
+</section>
+<section id="funktionsweise" class="slide level2">
+<h2>Funktionsweise</h2>
+<div id="fig-IoT" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/IoT.svg" class="img-fluid"></p>
+<p></p><figcaption>Abbildung 8: IoT-Produkt-Dienstleistungs-Logik</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section>
+<section id="übungen" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<h1>Übungen ✏️</h1>
+
+</section>
+<section id="grundbegriffe" class="slide level2">
+<h2>Grundbegriffe</h2>
+<p>Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.</p>
+<ul>
+<li>IT-Infrastruktur</li>
+<li>Von-Neumann Architektur</li>
+<li>EVA-Prinzip</li>
+<li>Netzwerk</li>
+<li>TCP/IP</li>
+<li>Systemsoftware</li>
+<li>Cloud-Computing</li>
+</ul>
+</section>
+<section id="betriebssysteme" class="slide level2">
+<h2>Betriebssysteme</h2>
+<p>Welche <strong>Betriebssysteme</strong> kommen in welcher Rechnerklasse zum Einsatz?</p>
+<p>Recherchieren Sie Beispiele und ergänzen Sie <a href="#/fig-rechnerklassen">Abbildung&nbsp;2</a>.</p>
+<p>Welche davon setzen Sie selbst (wozu) ein?</p>
+</section>
+<section id="open-source" class="slide level2">
+<h2>Open Source</h2>
+<p>System- und Anwendungssoftware sind oft <strong>Open Source Software</strong>.</p>
+<p>Recherchieren Sie diesen Begriff und schreiben Sie die Eigenschaften sowie Vor- und Nachteile von Open Source Software auf.</p>
+<p>Welche Open Source Software kennen Sie?</p>
+<p>Recherchieren Sie zur <a href="https://opensource.org/licenses/GPL-3.0">GNU General Public License V3</a>, die beispielsweise für Linux verwendet wird. Erläutern Sie was man mit Open Source Software unter dieser Lizenz (nicht) machen darf.</p>
+</section>
+<section id="cloud-servicemodelle" class="slide level2">
+<h2>Cloud Servicemodelle</h2>
+<p>Recherchieren Sie auf der Website von <a href="https://azure.microsoft.com">Microsoft Azure</a> und/oder <a href="https://aws.amazon.com/">Amazon Web Services</a> je <strong>Servicemodell</strong> (IaaS, PaaS, SaaS) min. ein <strong>konkretes Angebot</strong>.</p>
+<p>Beschreiben Sie das Angebot in Ihren eigenen Worten.</p>
+<p>Überlegen Sie, wie Unternehmen diese Services für die Entwicklung von Produkten, die menschlich erwünscht, technologisch machbar und wirtschaftlich tragfähig sind. Geben sie möglichst konkrete Beispiele.</p>
+</section>
+<section id="cloud-computing-vor--nachteile" class="slide level2">
+<h2>Cloud-Computing Vor- &amp; Nachteile</h2>
+<p>Diskutieren Sie die <strong>Vor- und Nachteile</strong> des Cloud-Computings.</p>
+<p>Fassen Sie Ihre Ergebnisse zusammen und geben Sie je Vor und Nachteil ein anschauliches Beispiel.</p>
+</section></section>
+
+
+<section id="literatur" class="title-slide slide level1 smaller scrollable">
+<h1>Literatur 📚</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-abts2017grundkurs" class="csl-entry" role="doc-biblioentry">
+Abts, D., und W. Mülder. 2017. <em>Grundkurs Wirtschaftsinformatik: Eine kompakte und praxisorientierte Einf<span>ü</span>hrung</em>. Springer Fachmedien Wiesbaden.
+</div>
+<div id="ref-bohm2011cloud" class="csl-entry" role="doc-biblioentry">
+Böhm, Markus, Stefanie Leimeister, Christoph Riedl, und Helmut Krcmar. 2011. <span>„Cloud computing–outsourcing 2.0 or a new business model for IT provisioning?“</span> In <em>Application management</em>, 31–56. Springer.
+</div>
+<div id="ref-laudon2016wirtschaftsinformatik" class="csl-entry" role="doc-biblioentry">
+Laudon, Kenneth C, Jane Price Laudon, und Detlef Schoder. 2016. <em>Wirtschaftsinformatik: Eine Einf<span>ü</span>hrung</em>. Pearson Deutschland GmbH.
+</div>
+<div id="ref-leimeister2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. Springer Gabler Berlin Heidelberg.
+</div>
+<div id="ref-lemke2015einfuhrung" class="csl-entry" role="doc-biblioentry">
+Lemke, Claudia, und Walter Brenner. 2015. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik: Band 1: Verstehen des digitalen Zeitalters</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="doc-biblioentry">
+Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016. <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
+</div>
+
+<div class="footer footer-default">
+
+</div>
+</section>
+
+<section class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Fußnoten</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p><strong>Drucken bzw. als PDF exportieren:</strong> Wenn Sie die Folien ausdrucken oder exportieren möchten, öffnen Sie die Präsentation, drücken Sie <code>e</code> auf Ihrer Tastatur und dann <code>Drucken</code>(als PDF).</p></li>
+<li id="fn2" role="doc-endnote"><p>Für detailiertere Beschreibungen zu Datenübertragungsverfahren und Netzwerken wie bspw. die Funktionsweise der TCP/IP Protokollfamilie lesen Sie bitte <span class="citation" data-cites="abts2017grundkurs">Abts und Mülder (<a href="#/ref-abts2017grundkurs" role="doc-biblioref" onclick="return false;">2017, 90ff</a>)</span>.</p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Kopiert");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>

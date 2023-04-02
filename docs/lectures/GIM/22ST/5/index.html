@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>awe.lectures - K5 Datenbanken #2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+
+<meta property="og:title" content="awe.lectures - K5 Datenbanken #2">
+<meta property="og:description" content="Grundzüge Informationsmanagement (GIM)">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe:lectures</span>
+  </a>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Auf dieser Seite</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#lernergebnisse" id="toc-lernergebnisse" class="nav-link" data-scroll-target="#lernergebnisse">Lernergebnisse 🎯</a></li>
+  <li><a href="#logisches-datenmodell" id="toc-logisches-datenmodell" class="nav-link" data-scroll-target="#logisches-datenmodell">Logisches Datenmodell</a></li>
+  <li><a href="#relationale-dbs" id="toc-relationale-dbs" class="nav-link" data-scroll-target="#relationale-dbs">Relationale DBS</a></li>
+  <li><a href="#datensystemtypen" id="toc-datensystemtypen" class="nav-link" data-scroll-target="#datensystemtypen">Datensystemtypen</a></li>
+  <li><a href="#big-data" id="toc-big-data" class="nav-link" data-scroll-target="#big-data">Big Data</a></li>
+  <li><a href="#aufgaben" id="toc-aufgaben" class="nav-link" data-scroll-target="#aufgaben">✏️ Aufgaben</a></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur">Literatur 📚</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">K5 Datenbanken #2</h1>
+<p class="subtitle lead">Grundzüge Informationsmanagement (GIM)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor:in</div>
+    <div class="quarto-title-meta-contents">
+             <p>Andy Weeger </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="top" class="level1 slide-link-hidden unlisted unnumbered" data-visibility="hidden">
+<h1 class="slide-link-hidden unlisted unnumbered" data-visibility="hidden">Top</h1>
+<p><a href="slides.html">Präsentation öffnen</a> / <a href="https://videoportal.hs-neu-ulm.de/Mediasite/Play/0f1082decbcb44f081324c2cb441afe91d">Podcast</a></p>
+<div class="small">
+<p><code>Version 0.5 (Sommersemester 2022)</code></p>
+</div>
+</section>
+<section id="motivation" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Motivation</h1>
+<blockquote class="blockquote">
+<p>SELECT * FROM helloworld WHERE phrase = “Hello, World!” <em>SQL Query</em></p>
+</blockquote>
+<div class="notes">
+<p>Die Datenbankabfrage holt alle Felder aus der Tabelle <code>helloworld</code> und filtert die Ergebnisse auf die Zeilen, deren Spalte <code>phrase</code> “Hello, World!” enthält.</p>
+</div>
+<div class="incremental">
+<p>Damit solche Abfragen möglich sind, müssen die konzeptionellen Datenmodelle zunächst in ein <strong>logisches Datenbankmodell</strong> überführt und dann in der Beschreibungssprache der Datenbank implementiert werden. In dieser Vorlesung beschränken wir uns auf konzeptionelle und logische Datenbankmodelle. Letztere schauen wir uns in dieser Einheit genauer an.</p>
+</div>
+</section>
+<section id="lernergebnisse" class="level1">
+<h1>Lernergebnisse 🎯</h1>
+<p>Nach dieser Einheit</p>
+<div class="incremental">
+<ul class="incremental">
+<li>können Sie einfache ERM-Modelle in <strong>Relationenmodelle</strong> überführen,</li>
+<li>wissen Sie, was ein <strong>Primärschlüssel</strong> und was ein <strong>Fremdschlüssel</strong> ist,</li>
+<li>können Sie im Relationenmodell <strong>1:1-, 1:n- und n:m-Beziehungen</strong> abbilden,</li>
+<li>sind Sie in der Lage, operative und analytische Daten- und Datenbanksysteme zu unterscheiden und</li>
+<li>können Sie das Konzept <strong>„Big Data“</strong> erläutern und die Grenzen relationaler Datenbankmodelle beschreiben.</li>
+</ul>
+</div>
+</section>
+<section id="logisches-datenmodell" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Logisches Datenmodell</h1>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
+<p>Ein logisches Datenmodell ist ein an dem für die physische Speicherung der Daten orientiertes Datenmodell. Das logische Datenmodell ist damit <strong>systemabhängig</strong>.</p>
+<div class="incremental">
+<p>Es wird aus dem <strong>systemunabhängigen konzeptionellen Datenmodell</strong> abgeleitet und dient als Basis für die Implementierung der spezifischen Datenbank.</p>
+</div>
+<div class="incremental">
+<p>In der Praxis kommt dem <strong>relationalen Modell</strong> die größte Bedeutung zu. Außerdem kommen hierarchische, auf dem netzwerkartigen oder objektorientierten Datenmodell basierende Datenbanken zum Einsatz.</p>
+</div>
+</section>
+<section id="vorgehensmodell" class="level2">
+<h2 data-anchor-id="vorgehensmodell">Vorgehensmodell</h2>
+<div id="fig-vorgehensmodell" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="../4/images/vorgehensmodell.svg" class="lightbox" title="Vorgehensmodell zum Entwurf von Datenbanken nach @bachle2021einfuhrung [S. 78]" data-gallery="quarto-lightbox-gallery-1"><img src="../4/images/vorgehensmodell.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 1: Vorgehensmodell zum Entwurf von Datenbanken nach <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#ref-bachle2021einfuhrung" role="doc-biblioref">2021, 78</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="relationale-dbs" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Relationale DBS</h1>
+<section id="definition-1" class="level2">
+<h2 data-anchor-id="definition-1">Definition</h2>
+<p>Ein Datenbanksystem, das auf dem Relationenmodell basiert, nennt man <strong>relationales Datenbanksystem</strong> <span class="citation" data-cites="codd1983relational">(<a href="#ref-codd1983relational" role="doc-biblioref">Codd 1983</a>)</span>.</p>
+<div class="incremental">
+<p>Grundlage des Relationenmodells ist die Relation, eine zweidimensionale Tabelle mit einer festen Anzahl von Spalten und einer beliebigen Anzahl von Zeilen <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#ref-leimeister2021einfuhrung" role="doc-biblioref">Leimeister 2021</a>)</span>.</p>
+</div>
+<div class="incremental">
+<p>Eine Relation entspricht einem <strong>Entity-Typen</strong>; jede Zeile der Tabelle entspricht einer <strong>Entity</strong>; die Spalten einer Tabelle entsprechen den <strong>Attributen</strong>.&nbsp;</p>
+</div>
+</section>
+<section id="eigenschaften" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="eigenschaften">Eigenschaften</h2>
+<p>Für relationale Datenbanksystemen gilt:</p>
+<ul>
+<li>Jede Relation ist eine zweidimensionale Tabelle. Diese entspricht meistens einem Entity-Typ.<br>
+<em>m:m-Beziehungen erfordern die Bildung einer eigenen Relation. Die Primärschlüssel der beteiligten Entity-Typen werden vererbt.</em></li>
+<li>Jede Zeile der Tabelle beschreibt eine bestimmte Entität.</li>
+<li>Die Spalten entsprechen den Attributen.</li>
+<li>Die Entitäten werden durch Attributwerte, also Ausprägungen der Attribute, beschrieben.</li>
+<li>Die Zeilen müssen paarweise untereinander verschieden sein. Es gibt also keine zwei identischen Zeilen.</li>
+<li>Die Reihenfolge der Zeilen spielt keine Rolle, ebenso die der Spalten.</li>
+<li>Attribute sind stets atomar, also nicht in kleinere Einheiten zerlegbar</li>
+</ul>
+</section>
+<section id="relationen" class="level2">
+<h2 data-anchor-id="relationen">Relationen</h2>
+<p>Eine Relation entspricht (meistens) einem Entity-Typen.</p>
+<div id="fig-relation" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/entity.svg" class="lightbox" title="Beispiel einer Relation, vgl. @bachle2021einfuhrung" data-gallery="quarto-lightbox-gallery-2"><img src="images/entity.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 2: Beispiel einer Relation, vgl. <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#ref-bachle2021einfuhrung" role="doc-biblioref">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<div class="notes">
+<p><strong>Beispiel</strong>: Im vorherigen Kapitel wurde das ERM eines Zeiterfassungssystems skizziert. Ein wesentlicher Entity-Typ ist das Projekt. Dieser kann mit den Attributen in eine Relation überführt werden.</p>
+</div>
+</section>
+<section id="und-1n-beziehungen" class="level2">
+<h2 data-anchor-id="und-1n-beziehungen">1:1- und 1:n-Beziehungen</h2>
+<p>Bei 1:1 und 1:n-Beziehungen wird der <strong>Primärschlüssel</strong> der verbundenen Relation ergänzt.</p>
+<div id="fig-relation" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/beziehungen.svg" class="lightbox" title="Beispiel einer 1:n Beziehung, vgl. @bachle2021einfuhrung" data-gallery="quarto-lightbox-gallery-3"><img src="images/beziehungen.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 3: Beispiel einer 1:n Beziehung, vgl. <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#ref-bachle2021einfuhrung" role="doc-biblioref">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<div class="notes">
+<p><strong>Beispiel</strong>: Ein Projekt wird immer von einem Mitarbeiter geleitet, ein Mitarbeiter kann beliebig viele Projekte (inkl. keines) leiten (1:n-Beziehung). Umgesetzt wird diese Beziehung im Relationenmodell durch die Erweiterung der Relation <code>Projekt</code> um den Primärschlüssel der Relation <code>Mitarbeiter</code>, der <code>Mitarbeiter-Nr.</code>.</p>
+</div>
+</section>
+<section id="nm-beziehungen" class="level2">
+<h2 data-anchor-id="nm-beziehungen">n:m-Beziehungen</h2>
+<p>Eine n:m-Beziehung wird durch eine neue Relation realisiert, die sogenannte <strong>Koppeltabelle</strong>.</p>
+<div id="fig-relation" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/koppeltabelle.svg" class="lightbox" title="Beispiel einer 1:n Beziehung, vgl. @bachle2021einfuhrung" data-gallery="quarto-lightbox-gallery-4"><img src="images/koppeltabelle.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 4: Beispiel einer 1:n Beziehung, vgl. <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#ref-bachle2021einfuhrung" role="doc-biblioref">2021</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<div class="notes">
+<p><strong>Beispiel</strong>: Ein Kunde kann mehrere Trainings buchen. Ein Training kann aber auch von mehreren Kunden gebucht werden. In der neuen Relation <code>Buchungen</code> stellen die Primärschlüssel als Fremdschlüssel die Beziehung dar. Die Kombination der Fremdschlüssel <code>Kunden-Nr,</code> und <code>Trainings-Nr.</code> wird zum Primärschlüssel der Koppeltabelle <code>Buchungen</code>.</p>
+</div>
+</section>
+</section>
+<section id="datensystemtypen" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Datensystemtypen</h1>
+<section id="abgrenzung" class="level2">
+<h2 data-anchor-id="abgrenzung">Abgrenzung</h2>
+<p>Neben der physischen und logischen Datenstruktur werden Datensysteme auch nach <strong>Einsatzzweck</strong> unterschieden <span class="citation" data-cites="bachle2021einfuhrung">Bächle, Daurer, und Kolb (<a href="#ref-bachle2021einfuhrung" role="doc-biblioref">2021</a>)</span>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Operative Datenbanken</strong> speichern Daten, die Momentaufnahmen des aktuellen Geschehens darstellen (Transaktionen). Diese dienen dazu, Mitarbeiter im Tagesgeschäft zu unterstützen und Aufgaben zu automatisieren</li>
+<li><strong>Analytische Datensysteme</strong> speichern aktuelle und historische Daten aus operativen Datenbanken in aggregierter Form. Diese dienen dazu, Managemententscheidungen zu unterstützen. Die Daten enthalten in der Regel immer eine Zeitkomponente.</li>
+</ul>
+</div>
+</section>
+<section id="übersicht" class="level2">
+<h2 data-anchor-id="übersicht">Übersicht</h2>
+<div id="tbl-daten">
+<table class="table">
+<caption>Tabelle 1: Operative und analytische Daten</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 41%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th><strong>Operative Daten</strong></th>
+<th><strong>Analytische Daten</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><em>Ziel</em></td>
+<td>Abwicklung von Geschäftsprozessen</td>
+<td>Informationen zur Entscheidungsunterstützung</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><em>Dateninhalt</em></td>
+<td>Atomisierte Istwerte (Transaktionsbasis)</td>
+<td>Verdichtete, transformierte und berechnete Daten</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><em>Art</em></td>
+<td>Dynamisch</td>
+<td>Statisch</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><em>Zugriffsfrequenz</em></td>
+<td>Hoch</td>
+<td>Niedrig</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><em>Nutzung</em></td>
+<td>Strukturierte, wiederholte Verarbeitung</td>
+<td>Unstrukturierte, analytische Verarbeitung</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><em>Beispiel</em></td>
+<td>Wareneingang einer Bestellung</td>
+<td>Absätze eines bestimmten Produkts im Zeitverlauf</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="big-data" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Big Data</h1>
+<p>Big Data ist zunehmend die Basis für Managemententscheidungen in Unternehmen. Doch was ist Big Data überhaupt?</p>
+<section id="definition-2" class="level2">
+<h2 data-anchor-id="definition-2">Definition</h2>
+<p>Der Begriff <strong>Big Data</strong> meint wörtlich die „großen Daten”, also massive Datenmengen bzw. Massendaten, die sich durch die folgenden Eigenschaften auszeichnet <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#ref-leimeister2021einfuhrung" role="doc-biblioref">Leimeister 2021, 201</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Enorme Größe</li>
+<li>Eine hohe Komplexität</li>
+<li>Schnelllebigkeit oder schnelles Aufkommen neuer Daten</li>
+<li>Schwach oder gar nicht strukturiert</li>
+</ul>
+</div>
+<div class="incremental">
+<p><strong>Big Data Analytics</strong> beschreibt die <strong>Fähigkeit</strong>, diese großen Datenmengen mit hoher Geschwindigkeit (oft in Echtzeit) zu verarbeiten, um wertvolle Einsichten zu gewinnen (oft auf Basis von Wahrscheinlichkeiten) <span class="citation" data-cites="lemke2015einfuhrung">(<a href="#ref-lemke2015einfuhrung" role="doc-biblioref">Lemke und Brenner 2015</a>)</span>.</p>
+</div>
+</section>
+<section id="visualisierung" class="level2">
+<h2 data-anchor-id="visualisierung">Visualisierung</h2>
+<div id="fig-bigData" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/bigData.svg" class="lightbox" title="Eigenschaften und Effekte von Big Data (4+1 Vs)" data-gallery="quarto-lightbox-gallery-5"><img src="images/bigData.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 5: Eigenschaften und Effekte von Big Data (4+1 Vs)</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="aufgaben" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">✏️ Aufgaben</h1>
+<section id="a1-grundbegriffe" class="level2">
+<h2 data-anchor-id="a1-grundbegriffe">A1: Grundbegriffe</h2>
+<p>Erläutern Sie in der Kleingruppe reihum die Bedeutung der folgenden Begriffe.</p>
+<ul>
+<li>Entity-Typ</li>
+<li>Relationenmodell</li>
+<li>Relation</li>
+<li>Datensatz (Tupel)</li>
+<li>Operative Daten</li>
+<li>Analytische Daten</li>
+</ul>
+</section>
+<section id="a2-online-shop" class="level2">
+<h2 data-anchor-id="a2-online-shop">A2: Online-Shop</h2>
+<p>Erstellen Sie aus dem ERM der Aufgabe A4 aus Kapitel 4 ein Relationen-Modell.</p>
+<p>Zeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze.</p>
+</section>
+<section id="a3-auftragsverwaltung" class="level2">
+<h2 data-anchor-id="a3-auftragsverwaltung">A3: Auftragsverwaltung</h2>
+<p>Erstellen Sie aus dem ERM der Aufgabe A5 aus Kapitel 4 ein Relationen-Modell.</p>
+<p>Zeichnen Sie hierfür die Struktur aller notwendigen Relationen und ergänzen Sie je Relation zwei Datensätze.</p>
+</section>
+<section id="a4-big-data" class="level2">
+<h2 data-anchor-id="a4-big-data">A4: Big Data</h2>
+<p>Überlegen Sie, wo Ihnen im Alltag Anwendungen begegnen, die Big Data nutzen.</p>
+<p>Geben Sie ein Beispiel und erläutern Sie anhand der 4+1 Vs weshalb es sich um Big Data handelt.</p>
+</section>
+</section>
+<section id="literatur" class="level1">
+<h1>Literatur 📚</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-bachle2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Bächle, Michael A, Stephan Daurer, und Arthur Kolb. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik: ein fallstudienbasiertes Lehrbuch</em>. Walter de Gruyter GmbH &amp; Co KG.
+</div>
+<div id="ref-codd1983relational" class="csl-entry" role="doc-biblioentry">
+Codd, Edgar Frank. 1983. <span>„A relational model of data for large shared data banks“</span>. <em>Communications of the ACM</em> 26 (1): 64–69.
+</div>
+<div id="ref-leimeister2021einfuhrung" class="csl-entry" role="doc-biblioentry">
+Leimeister, Jan Marco. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. Springer Gabler Berlin Heidelberg.
+</div>
+<div id="ref-lemke2015einfuhrung" class="csl-entry" role="doc-biblioentry">
+Lemke, Claudia, und Walter Brenner. 2015. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik: Band 1: Verstehen des digitalen Zeitalters</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});</script>
+
+
+
+</body></html>
