@@ -426,7 +426,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#0333ff">
+<section id="title-slide" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover">
   <h1 class="title">Search</h1>
   <p class="subtitle">🧠 Introduction to AI — I2AI_3</p>
   <p class="author">Andy Weeger</p>
@@ -437,17 +437,17 @@
 
 
 <section>
-<section id="problem-solving" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="problem-solving" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Problem-solving</h1>
 
 </section>
 <section id="applications" class="slide level2">
 <h2>Applications</h2>
 <div class="r-stack html-hidden">
-<p><img data-src="images/routing.jpeg" class="fragment" height="550"></p>
-<p><img data-src="images/vacuum.jpeg" class="fragment" height="400"></p>
-<p><img data-src="images/robot.jpeg" class="fragment" height="300"></p>
-<p><img data-src="images/puzzle.jpeg" class="fragment" height="350"></p>
+<p><img data-src="images/routing.jpeg" class="fragment" height="420"></p>
+<p><img data-src="images/vacuum.jpeg" class="fragment" height="390"></p>
+<p><img data-src="images/robot.jpeg" class="fragment" height="360"></p>
+<p><img data-src="images/puzzle.jpeg" class="fragment" height="320"></p>
 </div>
 <aside class="notes">
 <p>Examples for search problems are <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 87–88</a>)</span>:</p>
@@ -476,14 +476,15 @@
 <div>
 <ul>
 <li class="fragment">The computational process it undertakes is <strong>search</strong></li>
-<li class="fragment">The representations the agents use are <strong>atomic</strong> representations</li>
+<li class="fragment">The representations the agents use are <strong>atomic</strong> representations<a href="#/fn1" class="footnote-ref" id="fnref1" role="doc-noteref" onclick="return false;"><sup>1</sup></a></li>
 <li class="fragment">There are search algorithms for several environments</li>
 </ul>
 </div>
 <div class="fragment">
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
-<p>–&gt; We assume that information about the environment are given (e.g., a map)</p>
 </div>
+<div class="fragment">
+<p>We assume that information about the environment are given (e.g., a map)</p>
 <aside class="notes">
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span>.</p>
 <style type="text/css">
@@ -497,17 +498,18 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
+</div>
+<aside></aside></section>
 <section id="process" class="slide level2">
 <h2>Process</h2>
 <p>In simple environments, agents can follow a four-phase-problem-solving process <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 81–82</a>)</span>:</p>
 <div>
-<ul>
+<ol type="1">
 <li class="fragment"><strong>Goal formulation:</strong> goals organize behavior by limiting the objectives and hence the actions to be considered</li>
 <li class="fragment"><strong>Problem formulation:</strong> the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment</li>
 <li class="fragment"><strong>Search:</strong> the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)</li>
 <li class="fragment"><strong>Execution:</strong> the agent executes the actions in the solution, one at a time</li>
-</ul>
+</ol>
 </div>
 <aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -546,12 +548,12 @@
 <p>A search problem can be defined formally as <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">Russel and Norvig 2022, 83</a>)</span>:</p>
 <div>
 <ul>
-<li class="fragment">The <strong>state space:</strong> a set of possible states<a href="#/fn1" class="footnote-ref" id="fnref1" role="doc-noteref" onclick="return false;"><sup>1</sup></a> the environment can be in<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a></li>
+<li class="fragment">The <strong>state space:</strong> a set of possible states<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a> the environment can be in<a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a></li>
 <li class="fragment">The <strong>initial state:</strong> the state that the agent starts</li>
-<li class="fragment">The <strong>goal state(s):</strong> a state that the agent is trying to reach<a href="#/fn3" class="footnote-ref" id="fnref3" role="doc-noteref" onclick="return false;"><sup>3</sup></a></li>
-<li class="fragment">A <strong>transition model:</strong> returns the state that results from doing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> (<span class="math inline">\(RESULT(s,a)\)</span>)</li>
-<li class="fragment">The <strong>sucessor function:</strong> returns a set of (action, state) pairs for node <span class="math inline">\(s\)</span>, where the state is the state reachable by taking the action <span class="math inline">\(a\)</span> (<span class="math inline">\(ACTIONS(s)\)</span>)</li>
-<li class="fragment">An <strong>action cost function:</strong> gives the numeric cost of applying action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span> (<span class="math inline">\(ACTION-COST(s,a,s'\)</span>)</li>
+<li class="fragment">The <strong>goal state(s):</strong> a state that the agent is trying to reach<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a></li>
+<li class="fragment">A <strong>transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s,a)\)</span> (returns the state <span class="math inline">\(s'\)</span> that results from performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment">The <strong>successor function:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> (returns a set of (action, state) pairs for node <span class="math inline">\(s\)</span>, where the state is the state reachable by taking the action <span class="math inline">\(a\)</span>)</li>
+<li class="fragment">An <strong>action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s,a,s')\)</span> (gives the numeric cost of performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span>)</li>
 <li class="fragment">A <strong>path:</strong> a sequence of actions</li>
 <li class="fragment">A <strong>solution:</strong> a path from the initial state to the goal state</li>
 </ul>
@@ -739,7 +741,7 @@
 <ul>
 <li>complete, optimal for unit action costs</li>
 <li>exponential space complexity</li>
-<li><strong>FIFO queue<a href="#/fn4" class="footnote-ref" id="fnref4" role="doc-noteref" onclick="return false;"><sup>4</sup></a></strong></li>
+<li><strong>FIFO queue<a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a></strong></li>
 <li>a reached table is necessary to store the nodes already reached</li>
 </ul>
 <h3 id="depth-first-search">Depth-first search</h3>
@@ -748,7 +750,7 @@
 <ul>
 <li>neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal</li>
 <li>linear space complexity, a depth bound can be added</li>
-<li><strong>LIFO queue<a href="#/fn5" class="footnote-ref" id="fnref5" role="doc-noteref" onclick="return false;"><sup>5</sup></a></strong></li>
+<li><strong>LIFO queue<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></strong></li>
 <li>the frontier is very small</li>
 </ul>
 <h3 id="uniform-cost-search">Uniform-cost search</h3>
@@ -756,7 +758,7 @@
 <span class="math inline">\(f(n)\)</span> returns the cost of the path from the root to the current node</p>
 <ul>
 <li>complete, optimal for general action costs</li>
-<li><strong>priority queue<a href="#/fn6" class="footnote-ref" id="fnref6" role="doc-noteref" onclick="return false;"><sup>6</sup></a></strong> using cumulative cost</li>
+<li><strong>priority queue<a href="#/fn7" class="footnote-ref" id="fnref7" role="doc-noteref" onclick="return false;"><sup>7</sup></a></strong> using cumulative cost</li>
 </ul>
 <h3 id="illustration-of-strategies">Illustration of strategies</h3>
 <div class="panel-tabset">
@@ -1004,12 +1006,13 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <section class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>A state is a situation that an agent can find itself in.</p></li>
-<li id="fn2" role="doc-endnote"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another</p></li>
-<li id="fn3" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</p></li>
-<li id="fn4" role="doc-endnote"><p>first-in-first-out queue first pops the node that was added to the queue first</p></li>
-<li id="fn5" role="doc-endnote"><p>last-in-first-out queue (also known as a stack) pops first the most recently added node</p></li>
-<li id="fn6" role="doc-endnote"><p>first pops the node with the minimum costs according to <span class="math inline">\(f(n)\)</span></p></li>
+<li id="fn1" role="doc-endnote"><p>An <strong>atomic representation</strong> is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you’re looking for.</p></li>
+<li id="fn2" role="doc-endnote"><p>A state is a situation that an agent can find itself in.</p></li>
+<li id="fn3" role="doc-endnote"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another</p></li>
+<li id="fn4" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)</p></li>
+<li id="fn5" role="doc-endnote"><p>first-in-first-out queue first pops the node that was added to the queue first</p></li>
+<li id="fn6" role="doc-endnote"><p>last-in-first-out queue (also known as a stack) pops first the most recently added node</p></li>
+<li id="fn7" role="doc-endnote"><p>first pops the node with the minimum costs according to <span class="math inline">\(f(n)\)</span></p></li>
 </ol>
 </section>
     </div>

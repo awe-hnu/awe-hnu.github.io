@@ -362,7 +362,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#0333ff">
+<section id="title-slide" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover">
   <h1 class="title">Games</h1>
   <p class="subtitle">🧠 Introduction to AI — I2AI_4</p>
   <p class="author">Andy Weeger</p>
@@ -373,12 +373,26 @@
 
 
 <section>
-<section id="competitive-environments" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="competitive-environments" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Competitive environments</h1>
 
 </section>
-<section id="playful-superiority" class="slide level2 unlisted html-hidden" data-background-color="#0333ff" data-background-image="images/alphaGo.jpeg">
-<h2>Playful superiority</h2>
+<section id="tree-search-in-action" class="slide level2 unlisted html-hidden" data-background-color="#0333ff" data-background-image="images/alphaGo.jpeg">
+<h2>Tree search in action</h2>
+<aside class="notes">
+<p>AlphaGo is a computer program that plays the board game Go, which is considered much more difficult for computers to win than other games such as chess because its strategic and aesthetic nature makes it difficult to construct a direct scoring function. AlphaGo was developed by the London-based DeepMind Technologies, an acquired subsidiary of Alphabet Inc.&nbsp;</p>
+<p>AlphaGo use a <strong>Monte Carlo tree search algorithm</strong> to find their moves based on knowledge previously acquired through machine learning, specifically an artificial neural network (a deep learning method) through extensive training, both from human and computer games. A neural network is trained to recognize the best moves and the winning rates of those moves. This neural network improves the strength of the tree search, leading to stronger move selection in the next iteration.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="adversarial-search" class="slide level2">
 <h2>Adversarial search</h2>
@@ -387,13 +401,13 @@
 <p>This gives rise to <strong>adversarial search</strong> problems.</p>
 </div>
 <div class="fragment">
-<p>The AI community is particularly interested in games of a simplified nature (e.g., chess, go, and poker).</p>
+<p>The AI community is particularly interested in games of a simplified nature (e.g., chess, go, and poker), as in such games</p>
 </div>
 <div>
 <ul>
-<li class="fragment">State of a game is easy to represent</li>
-<li class="fragment">Agents are restricted to a few actions</li>
-<li class="fragment">Effects of actions are defined by precise rules</li>
+<li class="fragment">the state of a game is easy to represent,</li>
+<li class="fragment">agents are restricted to a few actions, and</li>
+<li class="fragment">effects of actions are defined by precise rules.</li>
 </ul>
 </div>
 </section>
@@ -405,16 +419,16 @@
 <div>
 <ul>
 <li class="fragment"><strong>States</strong>: <span class="math inline">\(S\)</span> (start at <span class="math inline">\(S_0\)</span>)</li>
-<li class="fragment"><strong>Player</strong>: <span class="math inline">\(TO-MOVE(s)\)</span> (defines which player has the move in state <span class="math inline">\(s\)</span>)</li>
-<li class="fragment"><strong>Actions</strong>: <span class="math inline">\(ACTIONS(s)\)</span> (the set of legal moves in state <span class="math inline">\(s\)</span>)</li>
-<li class="fragment"><strong>Transition model</strong>: <span class="math inline">\(RESULT(s,a)\)</span> (defines the state resulting from action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>)</li>
-<li class="fragment"><strong>Terminal test</strong>: <span class="math inline">\(IS-TERMINAL(s)\)</span> (is true when the game is over<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>)</li>
-<li class="fragment"><strong>Utility function</strong>: <span class="math inline">\(UTILITY(s,p)\)</span> (defines the final numeric value to player <span class="math inline">\(p\)</span> when the game ends in terminal state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Player</strong>: <span class="math inline">\(\textrm{TO-MOVE}(s)\)</span> (defines which player has the move in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Actions</strong>: <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> (the set of legal moves in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Transition model</strong>: <span class="math inline">\(\textrm{RESULTS}(s,a)\)</span> (defines the state resulting from action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Terminal test</strong>: <span class="math inline">\(\textrm{IS-TERMINAL}(s)\)</span> (is true when the game is over<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref" onclick="return false;"><sup>2</sup></a>)</li>
+<li class="fragment"><strong>Utility function</strong>: <span class="math inline">\(\textrm{UTILITY}(s,p)\)</span> (defines the final numeric value to player <span class="math inline">\(p\)</span> when the game ends in terminal state <span class="math inline">\(s\)</span>)</li>
 </ul>
 </div>
 </div>
 <aside class="notes">
-<p>The initial state, <span class="math inline">\(ACTIONS(s)\)</span>, and <span class="math inline">\(RESULT(s,a)\)</span> define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
+<p>The initial state, <span class="math inline">\(\textrm{ACTIONS}(s)\)</span>, and <span class="math inline">\(\textrm{RESULT}(s,a)\)</span> define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -463,7 +477,7 @@
 <div id="fig-adversarial-game-tree" class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/adversarial-game-tree.svg" class="img-fluid"></p>
-<p></p><figcaption>Figure 1: Example: A adversarial game tree; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 195</a>)</span></figcaption><p></p>
+<p></p><figcaption>Figure 1: Example: A adversarial game tree</figcaption><p></p>
 </figure>
 </div>
 <aside class="notes">
@@ -486,12 +500,11 @@
 <div>
 <ul>
 <li class="fragment">Assumes that the adversary plays optimal</li>
-<li class="fragment">Returns action whose terminal state has the optimal <span class="math inline">\(MINIMAX\)</span> value
+<li class="fragment">Returns action whose terminal state has the optimal <span class="math inline">\(\textrm{MINIMAX}\)</span> value
 <ul>
-<li class="fragment">If the state is a terminal state (<span class="math inline">\(IS-TERMINAL(s) = true\)</span>):<br>
-return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)</li>
-<li class="fragment">If the next agent is <span class="math inline">\(MAX\)</span> (<span class="math inline">\(TO-MOVE(s) = MAX\)</span>): return <span class="math inline">\(MAX-VALUE(s)\)</span></li>
-<li class="fragment">If the next agent is <span class="math inline">\(MIN\)</span> (<span class="math inline">\(TO-MOVE(s) = MIN\)</span>): return <span class="math inline">\(MIN-VALUE(s)\)</span></li>
+<li class="fragment">If the state is a terminal state (<span class="math inline">\(\textrm{IS-TERMINAL}(s) = true\)</span>):<br>
+return the state’s utility (<span class="math inline">\(\textrm{UTILITY}(s,p)\)</span>)</li>
+<li class="fragment">If the next agent is <span class="math inline">\(\textrm{MAX}\)</span> (<span class="math inline">\(\textrm{TO-MOVE}(s) = MAX\)</span>): return <span class="math inline">\(\textrm{MAX-VALUE}(s)\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -530,6 +543,15 @@ return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="pruning" class="slide level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2>Pruning</h2>
+<div class="large">
+<p>What is <strong>pruning</strong>?</p>
+</div>
+<p>Read the note about pruning (and consult <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022</a>)</span> or the internet if necessary).</p>
+<p>Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.</p>
+<p>Draw an example (game search tree, 3 levels depth).</p>
 </section></section>
 <section>
 <section id="monte-carlo-tree-search" class="title-slide slide level1">
@@ -550,6 +572,19 @@ return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)
 <p>Repeats for a set number of iterations or until a given time is over. At the end the successor with the hightest utily is chosen.</p>
 </div>
 <aside></aside></section>
+<section id="function" class="slide level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2>Function</h2>
+<div class="large">
+<p>To what <strong>generic function of agents</strong> does MCTS relate to?</p>
+</div>
+<p>It is the utility function that measures its preferences among states of the world.</p>
+</section>
+<section id="function-1" class="slide level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2>Function</h2>
+<div class="large">
+<p>What should the <strong>selection process</strong> look like?</p>
+</div>
+</section>
 <section id="selection" class="slide level2">
 <h2>Selection</h2>
 <div class="columns">
@@ -557,7 +592,7 @@ return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)
 <div id="fig-mcts-selection" class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/mcts-selection.svg" class="img-fluid"></p>
-<p></p><figcaption>Figure 2: Example: MCTS — selection; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 208</a>)</span></figcaption><p></p>
+<p></p><figcaption>Figure 2: Example: MCTS — selection</figcaption><p></p>
 </figure>
 </div>
 </div><div class="column">
@@ -568,7 +603,7 @@ return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)
 <li class="fragment"><code>P-A</code> has just moved to the root node</li>
 <li class="fragment"><code>P-B</code> selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves</li>
 <li class="fragment"><code>P-A</code> will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)</li>
-<li class="fragment"><code>P-B</code> then continues on the leeaf node marked 27/35</li>
+<li class="fragment"><code>P-B</code> then continues on the leaf node marked 27/35</li>
 <li class="fragment">… until a terminal state is reached</li>
 </ul>
 </div>
@@ -594,15 +629,15 @@ return the state’s utility (<span class="math inline">\(UTILITY(s,p)\)</span>)
 <p><strong>Upper confidence bounds applied to trees</strong> (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)</p>
 <div class="fragment">
 <p><span class="math display">\[
-UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
+\textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 \]</span></p>
 <div>
 <ul>
-<li class="fragment"><span class="math inline">\(U(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>
-<li class="fragment"><span class="math inline">\(N(n)\)</span> is the number of playouts through node <span class="math inline">\(n\)</span></li>
-<li class="fragment"><span class="math inline">\(PARENT(n)\)</span> is the parent node of <span class="math inline">\(n\)</span> in the tree</li>
-<li class="fragment"><span class="math inline">\(\frac{U(n)}{N(n)}\)</span> is the average utility of <span class="math inline">\(n\)</span> <em>(exploitation term, “how good are the stats?”)</em></li>
-<li class="fragment"><span class="math inline">\(\frac{\log{N(PARENT(n))}}{N(n)}\)</span> is higher for <span class="math inline">\(n\)</span> only explored a few times<br>
+<li class="fragment"><span class="math inline">\(\textrm{U}(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>
+<li class="fragment"><span class="math inline">\(\textrm{N}(n)\)</span> is the number of playouts through node <span class="math inline">\(n\)</span></li>
+<li class="fragment"><span class="math inline">\(\textrm{PARENT}(n)\)</span> is the parent node of <span class="math inline">\(n\)</span> in the tree</li>
+<li class="fragment"><span class="math inline">\(\frac{textrm{U}(n)}{\textrm{N}(n)}\)</span> is the average utility of <span class="math inline">\(n\)</span> <em>(exploitation term, “how good are the stats?”)</em></li>
+<li class="fragment"><span class="math inline">\(\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}\)</span> is higher for <span class="math inline">\(n\)</span> only explored a few times<br>
 <em>(exploration term, “how much has the child be ‘ignored’?”)</em></li>
 <li class="fragment"><span class="math inline">\(C\)</span> is a constant that balance exploitation and exploration (theoretically <span class="math inline">\(\sqrt{2}\)</span>)</li>
 </ul>
@@ -642,7 +677,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 <div id="fig-mcts-expansion" class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/mcts-expansion-simulation.svg" class="img-fluid"></p>
-<p></p><figcaption>Figure 3: Example: MCTS — expansion and simulation; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 208</a>)</span></figcaption><p></p>
+<p></p><figcaption>Figure 3: Example: MCTS — expansion and simulation</figcaption><p></p>
 </figure>
 </div>
 </div><div class="column">
@@ -669,7 +704,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 <div id="fig-mcts-propagation" class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/mcts-back-propagation.svg" class="img-fluid"></p>
-<p></p><figcaption>Figure 4: Example: MCTS — selection; based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/ref-RusselNorvig2022AIMA" role="doc-biblioref" onclick="return false;">2022, 208</a>)</span></figcaption><p></p>
+<p></p><figcaption>Figure 4: Example: MCTS — selection</figcaption><p></p>
 </figure>
 </div>
 </div><div class="column">
@@ -710,7 +745,7 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 </div>
 </section></section>
 <section>
-<section id="exercises" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="exercises" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>✏️ Exercises</h1>
 
 </section>
@@ -737,8 +772,8 @@ UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
 
 <h3 id="solution-notes">Solution notes</h3>
 <h4 id="completeness">Completeness</h4>
-<p>In two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the <code>MINIMAX</code> algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.</p>
-<p>The algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is <span class="math inline">\(m\)</span> and there are <span class="math inline">\(b\)</span> legal moves at each point, then the time complexity is <span class="math inline">\(O(b^m)\)</span> for an algorithm that generates all actions at once, or <span class="math inline">\(O(m)\)</span> for an algorithm that generates actions on at a time. The exponential complexity makes <code>MINIMAX</code> impractical for complex games. <code>MINIMAX</code> does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.</p>
+<p>In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the <code>MINIMAX</code> algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.</p>
+<p>The algorithm performs a complete depth-first exploration of the game tree. If the maximum depth of the tree is <span class="math inline">\(m\)</span> and there are <span class="math inline">\(b\)</span> legal moves at each point, then the time complexity is <span class="math inline">\(O(b^m)\)</span> for an algorithm that generates all actions at once, or <span class="math inline">\(O(m)\)</span> for an algorithm that generates actions on at a time. The exponential complexity makes <code>MINIMAX</code> impractical for complex games. <code>MINIMAX</code> does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.</p>
 </section>
 <section class="slide level2">
 

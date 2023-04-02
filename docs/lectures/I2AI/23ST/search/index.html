@@ -214,7 +214,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/games/index.html" class="sidebar-item-text sidebar-link">Games</a>
+  <a href="../../../../lectures/I2AI/23ST/games/slides.html" class="sidebar-item-text sidebar-link">Games</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -295,29 +295,29 @@ div.csl-indent {
 <p><code>Version 0.2 (Summer Term 2023)</code></p>
 </div>
 </section>
-<section id="problem-solving" class="level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
-<h1 class="vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">Problem-solving</h1>
+<section id="problem-solving" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Problem-solving</h1>
 <section id="applications" class="level2">
 <h2 data-anchor-id="applications">Applications</h2>
 <div class="r-stack html-hidden">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/routing.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/routing.jpeg" height="550" class="figure-img"></a></p>
+<p><a href="images/routing.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/routing.jpeg" height="420" class="figure-img"></a></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/vacuum.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/vacuum.jpeg" height="400" class="figure-img"></a></p>
+<p><a href="images/vacuum.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/vacuum.jpeg" height="390" class="figure-img"></a></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/robot.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/robot.jpeg" height="300" class="figure-img"></a></p>
+<p><a href="images/robot.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/robot.jpeg" height="360" class="figure-img"></a></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/puzzle.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/puzzle.jpeg" height="350" class="figure-img"></a></p>
+<p><a href="images/puzzle.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/puzzle.jpeg" height="320" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -338,28 +338,30 @@ div.csl-indent {
 <div class="incremental">
 <ul class="incremental">
 <li>The computational process it undertakes is <strong>search</strong></li>
-<li>The representations the agents use are <strong>atomic</strong> representations</li>
+<li>The representations the agents use are <strong>atomic</strong> representations<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>There are search algorithms for several environments</li>
 </ul>
 </div>
-<div class="fragment">
+<div class="incremental">
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
-<p>–&gt; We assume that information about the environment are given (e.g., a map)</p>
 </div>
+<div class="incremental">
+<p>We assume that information about the environment are given (e.g., a map)</p>
 <div class="notes">
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span>.</p>
+</div>
 </div>
 </section>
 <section id="process" class="level2">
 <h2 data-anchor-id="process">Process</h2>
 <p>In simple environments, agents can follow a four-phase-problem-solving process <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 81–82</a>)</span>:</p>
 <div class="incremental">
-<ul class="incremental">
+<ol class="incremental" type="1">
 <li><strong>Goal formulation:</strong> goals organize behavior by limiting the objectives and hence the actions to be considered</li>
 <li><strong>Problem formulation:</strong> the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment</li>
 <li><strong>Search:</strong> the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)</li>
 <li><strong>Execution:</strong> the agent executes the actions in the solution, one at a time</li>
-</ul>
+</ol>
 </div>
 <div class="notes">
 <div class="callout-note callout callout-style-simple callout-captioned">
@@ -386,12 +388,12 @@ Problem formulation must follow goal formulation
 <p>A search problem can be defined formally as <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 83</a>)</span>:</p>
 <div class="incremental">
 <ul class="incremental">
-<li>The <strong>state space:</strong> a set of possible states<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> the environment can be in<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>The <strong>state space:</strong> a set of possible states<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> the environment can be in<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 <li>The <strong>initial state:</strong> the state that the agent starts</li>
-<li>The <strong>goal state(s):</strong> a state that the agent is trying to reach<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
-<li>A <strong>transition model:</strong> returns the state that results from doing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> (<span class="math inline">\(RESULT(s,a)\)</span>)</li>
-<li>The <strong>sucessor function:</strong> returns a set of (action, state) pairs for node <span class="math inline">\(s\)</span>, where the state is the state reachable by taking the action <span class="math inline">\(a\)</span> (<span class="math inline">\(ACTIONS(s)\)</span>)</li>
-<li>An <strong>action cost function:</strong> gives the numeric cost of applying action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span> (<span class="math inline">\(ACTION-COST(s,a,s'\)</span>)</li>
+<li>The <strong>goal state(s):</strong> a state that the agent is trying to reach<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
+<li>A <strong>transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s,a)\)</span> (returns the state <span class="math inline">\(s'\)</span> that results from performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>)</li>
+<li>The <strong>successor function:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> (returns a set of (action, state) pairs for node <span class="math inline">\(s\)</span>, where the state is the state reachable by taking the action <span class="math inline">\(a\)</span>)</li>
+<li>An <strong>action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s,a,s')\)</span> (gives the numeric cost of performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span>)</li>
 <li>A <strong>path:</strong> a sequence of actions</li>
 <li>A <strong>solution:</strong> a path from the initial state to the goal state</li>
 </ul>
@@ -556,7 +558,7 @@ Definition of search trees
 <ul>
 <li>complete, optimal for unit action costs</li>
 <li>exponential space complexity</li>
-<li><strong>FIFO queue<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></strong></li>
+<li><strong>FIFO queue<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></strong></li>
 <li>a reached table is necessary to store the nodes already reached</li>
 </ul>
 </section>
@@ -567,7 +569,7 @@ Definition of search trees
 <ul>
 <li>neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal</li>
 <li>linear space complexity, a depth bound can be added</li>
-<li><strong>LIFO queue<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></strong></li>
+<li><strong>LIFO queue<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></strong></li>
 <li>the frontier is very small</li>
 </ul>
 </section>
@@ -577,7 +579,7 @@ Definition of search trees
 <span class="math inline">\(f(n)\)</span> returns the cost of the path from the root to the current node</p>
 <ul>
 <li>complete, optimal for general action costs</li>
-<li><strong>priority queue<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></strong> using cumulative cost</li>
+<li><strong>priority queue<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></strong> using cumulative cost</li>
 </ul>
 </section>
 <section id="illustration-of-strategies" class="level3">
@@ -834,12 +836,13 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>A state is a situation that an agent can find itself in.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>first-in-first-out queue first pops the node that was added to the queue first<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>last-in-first-out queue (also known as a stack) pops first the most recently added node<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>first pops the node with the minimum costs according to <span class="math inline">\(f(n)\)</span><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>An <strong>atomic representation</strong> is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you’re looking for.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>A state is a situation that an agent can find itself in.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>first-in-first-out queue first pops the node that was added to the queue first<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>last-in-first-out queue (also known as a stack) pops first the most recently added node<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>first pops the node with the minimum costs according to <span class="math inline">\(f(n)\)</span><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -947,7 +950,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 

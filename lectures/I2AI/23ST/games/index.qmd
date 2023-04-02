@@ -6,9 +6,15 @@ categories: ["Lecture Notes"]
 
 bibliography: ../assets/literature.bib
 
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#564ac6'
+
 format: 
-  html:
-    output-file: index.html
+#  html:
+#    output-file: index.html
   letterbox-revealjs:
     output-file: slides.html 
     date: "Summer Term 2023"
@@ -19,10 +25,15 @@ format:
 
 {{< include ../assets/_top.qmd >}}
 
-# Competitive environments {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Competitive environments {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
+## Tree search in action {.unlisted .html-hidden background-color="#0333ff" background-image="images/alphaGo.jpeg"}
 
-## Playful superiority {.unlisted .html-hidden background-color="#0333ff" background-image="images/alphaGo.jpeg"}
+::: {.notes}
+AlphaGo is a computer program that plays the board game Go, which is considered much more difficult for computers to win than other games such as chess because its strategic and aesthetic nature makes it difficult to construct a direct scoring function. AlphaGo was developed by the London-based DeepMind Technologies, an acquired subsidiary of Alphabet Inc. 
+
+AlphaGo use a **Monte Carlo tree search algorithm** to find their moves based on knowledge previously acquired through machine learning, specifically an artificial neural network (a deep learning method) through extensive training, both from human and computer games. A neural network is trained to recognize the best moves and the winning rates of those moves. This neural network improves the strength of the tree search, leading to stronger move selection in the next iteration.
+:::
 
 ## Adversarial search
 
@@ -33,13 +44,13 @@ This gives rise to __adversarial search__ problems.
 :::
 
 ::: {.fragment}
-The AI community is particularly interested in games of a simplified nature (e.g., chess, go, and poker).
+The AI community is particularly interested in games of a simplified nature (e.g., chess, go, and poker), as in such games
 ::: 
 
 ::: {.incremental}
-- State of a game is easy to represent
-- Agents are restricted to a few actions
-- Effects of actions are defined by precise rules
+- the state of a game is easy to represent,
+- agents are restricted to a few actions, and 
+- effects of actions are defined by precise rules.
 :::
 
 ## Deterministic games
@@ -53,11 +64,11 @@ __Possible formalization__
 
 ::: {.incremental}
 - __States__: $S$ (start at $S_0$)
-- __Player__: $TO-MOVE(s)$ (defines which player has the move in state $s$)
-- __Actions__: $ACTIONS(s)$ (the set of legal moves in state $s$)
-- __Transition model__: $RESULT(s,a)$ (defines the state resulting from action $a$ in state $s$)
-- __Terminal test__: $IS-TERMINAL(s)$ (is true when the game is over[^2])
-- __Utility function__: $UTILITY(s,p)$ (defines the final numeric value to player $p$ when the game ends in terminal state $s$)
+- __Player__: $\textrm{TO-MOVE}(s)$ (defines which player has the move in state $s$)
+- __Actions__: $\textrm{ACTIONS}(s)$ (the set of legal moves in state $s$)
+- __Transition model__: $\textrm{RESULTS}(s,a)$ (defines the state resulting from action $a$ in state $s$)
+- __Terminal test__: $\textrm{IS-TERMINAL}(s)$ (is true when the game is over[^2])
+- __Utility function__: $\textrm{UTILITY}(s,p)$ (defines the final numeric value to player $p$ when the game ends in terminal state $s$)
 :::
 
 [^2]: States where the game has ended are called __terminal states__
@@ -65,7 +76,7 @@ __Possible formalization__
 :::
 
 ::: {.notes}
-The initial state, $ACTIONS(s)$, and $RESULT(s,a)$ define the __state space graph__, where the vertices are states, the edges are moves and the state might be reached by multiple paths.
+The initial state, $\textrm{ACTIONS}(s)$, and $\textrm{RESULT}(s,a)$ define the __state space graph__, where the vertices are states, the edges are moves and the state might be reached by multiple paths.
 :::
 
 ## Optimal decisions
@@ -98,7 +109,7 @@ The minimax value is the best achievable utility of being in a given sate (again
 
 ## Adversarial game tree
 
-![Example: A adversarial game tree; based on @RusselNorvig2022AIMA [p.195]](images/adversarial-game-tree.svg){#fig-adversarial-game-tree}
+![Example: A adversarial game tree](images/adversarial-game-tree.svg){#fig-adversarial-game-tree}
 
 ::: {.notes}
 The △ nodes are "*MAX* nodes", in which it is *MAX's* turn to move; the ▽ nodes are "*MIN* nodes". *MAX's* best move at the root is α₁ (the highest minimax value), *MIN's* best move is β₁ (the lowest minimax value).
@@ -110,11 +121,10 @@ The __minimax algorithm__ performs a complete depth-first exploration of the gam
 
 :::{.incremental}
 - Assumes that the adversary plays optimal
-- Returns action whose terminal state has the optimal $MINIMAX$ value
-  - If the state is a terminal state ($IS-TERMINAL(s) = true$):  
-    return the state’s utility ($UTILITY(s,p)$)
-  - If the next agent is $MAX$ ($TO-MOVE(s) = MAX$): return $MAX-VALUE(s)$
-  - If the next agent is $MIN$ ($TO-MOVE(s) = MIN$): return $MIN-VALUE(s)$
+- Returns action whose terminal state has the optimal $\textrm{MINIMAX}$ value
+  - If the state is a terminal state ($\textrm{IS-TERMINAL}(s) = true$):  
+    return the state’s utility ($\textrm{UTILITY}(s,p)$)
+  - If the next agent is $\textrm{MAX}$ ($\textrm{TO-MOVE}(s) = MAX$): return $\textrm{MAX-VALUE}(s)$
 :::
 
 :::{.fragment}
@@ -141,6 +151,18 @@ Alpha-beta search updates the values of α and β as it goes along and prunes th
 
 :::
 
+## Pruning {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::{.large}
+What is **pruning**?
+:::
+
+Read the note about pruning (and consult @RusselNorvig2022AIMA or the internet if necessary). 
+
+Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.
+
+Draw an example (game search tree, 3 levels depth).
+
 
 # Monte Carlo tree search
 
@@ -165,11 +187,25 @@ Each iteration follows four steps:
 Repeats for a set number of iterations or until a given time is over. At the end the successor with the hightest utily is chosen.
 :::
 
+## Function {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::{.large}
+To what **generic function of agents** does MCTS relate to?
+:::
+
+It is the utility function that measures its preferences among states of the world.
+
+## Function {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::{.large}
+What should the **selection process** look like?
+:::
+
 ## Selection
 
 ::::{.columns}
 :::{.column}
-![Example: MCTS — selection; based on @RusselNorvig2022AIMA [p.208]](images/mcts-selection.svg){#fig-mcts-selection}
+![Example: MCTS — selection](images/mcts-selection.svg){#fig-mcts-selection}
 :::
 :::{.column}
 
@@ -180,7 +216,7 @@ Repeats for a set number of iterations or until a given time is over. At the end
 - `P-A` has just moved to the root node
 - `P-B` selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves
 - `P-A` will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)
-- `P-B` then continues on the leeaf node marked 27/35
+- `P-B` then continues on the leaf node marked 27/35
 - ... until a terminal state is reached
 :::
 :::
@@ -199,15 +235,15 @@ __Upper confidence bounds applied to trees__ (UCT) is a very effective selection
 
 :::{.fragment}
 $$ 
-UCB1(n) = \frac{U(n)}{N(n)} + C * \sqrt{\frac{\log{N(PARENT(n))}}{N(n)}}
+\textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 $$
 
 :::{.incremental}
-- $U(n)$ is the total utility of all playouts that went through node $n$
-- $N(n)$ is the number of playouts through node $n$
-- $PARENT(n)$ is the parent node of $n$ in the tree
-- $\frac{U(n)}{N(n)}$ is the average utility of $n$ *(exploitation term, "how good are the stats?")*
-- $\frac{\log{N(PARENT(n))}}{N(n)}$ is higher for $n$ only explored a few times  
+- $\textrm{U}(n)$ is the total utility of all playouts that went through node $n$
+- $\textrm{N}(n)$ is the number of playouts through node $n$
+- $\textrm{PARENT}(n)$ is the parent node of $n$ in the tree
+- $\frac{textrm{U}(n)}{\textrm{N}(n)}$ is the average utility of $n$ *(exploitation term, "how good are the stats?")*
+- $\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}$ is higher for $n$ only explored a few times  
   *(exploration term, "how much has the child be 'ignored'?")*
 - $C$ is a constant that balance exploitation and exploration (theoretically $\sqrt{2}$)
 :::
@@ -232,7 +268,7 @@ The conventional wisdom has been that Monte Carlo search has an advantage over h
 
 ::::{.columns}
 :::{.column}
-![Example: MCTS — expansion and simulation; based on @RusselNorvig2022AIMA [p.208]](images/mcts-expansion-simulation.svg){#fig-mcts-expansion}
+![Example: MCTS — expansion and simulation](images/mcts-expansion-simulation.svg){#fig-mcts-expansion}
 :::
 :::{.column}
 
@@ -260,7 +296,7 @@ A playout for the newly generated child node is performed *(simulation)*.
 
 ::::{.columns}
 :::{.column}
-![Example: MCTS — selection; based on @RusselNorvig2022AIMA [p.208]](images/mcts-back-propagation.svg){#fig-mcts-propagation}
+![Example: MCTS — selection](images/mcts-back-propagation.svg){#fig-mcts-propagation}
 :::
 :::{.column}
 
@@ -290,7 +326,7 @@ The result of the simulation is used to update all the search tree nodes going u
 
 ![xkcd 1263: reassuring](images/xkcd.png){#fig-xkcd}
 
-# ✏️ Exercises {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# ✏️ Exercises {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## I2AI_4 E1
 
@@ -318,9 +354,9 @@ Come up with a game tree in which MAX will beat a suboptimal MIN.
 
 #### Completeness
 
-In two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the `MINIMAX` algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.
+In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the `MINIMAX` algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.
 
-The algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is $m$ and there are $b$ legal moves at each point, then the time complexity is $O(b^m)$ for an algorithm that generates all actions at once, or $O(m)$ for an algorithm that generates actions on at a time. The exponential complexity makes `MINIMAX` impractical for complex games. `MINIMAX` does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.
+The algorithm performs a complete depth-first exploration of the game tree. If the maximum depth of the tree is $m$ and there are $b$ legal moves at each point, then the time complexity is $O(b^m)$ for an algorithm that generates all actions at once, or $O(m)$ for an algorithm that generates actions on at a time. The exponential complexity makes `MINIMAX` impractical for complex games. `MINIMAX` does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.
 
 ----
 

@@ -6,6 +6,12 @@ categories: ["Lecture Notes"]
 
 bibliography: ../assets/literature.bib
 
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#564ac6'
+
 format: 
   html:
     output-file: index.html
@@ -19,19 +25,19 @@ format:
 
 {{< include ../assets/_top.qmd >}}
 
-# Problem-solving {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Problem-solving {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Applications
 
 ::: {.r-stack .html-hidden}
 
-![](images/routing.jpeg){.fragment height="550"}
+![](images/routing.jpeg){.fragment height="420"}
 
-![](images/vacuum.jpeg){.fragment height="400"}
+![](images/vacuum.jpeg){.fragment height="390"}
 
-![](images/robot.jpeg){.fragment height="300"}
+![](images/robot.jpeg){.fragment height="360"}
 
-![](images/puzzle.jpeg){.fragment height="350"}
+![](images/puzzle.jpeg){.fragment height="320"}
 
 :::
 
@@ -51,15 +57,17 @@ Agents that plan ahead by considering a sequence of actions that form a path to 
 
 ::: {.incremental}
 - The computational process it undertakes is __search__
-- The representations the agents use are __atomic__ representations
+- The representations the agents use are __atomic__ representations^[An __atomic representation__ is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you're looking for.]
 - There are search algorithms for several environments
 :::
 
-::: {.fragment}
+. . .
+
 Here only __simple environments__ are considered *(episodic, single agent, fully observable, deterministic, static, discrete, and known)*.  
 
---> We assume that information about the environment are given (e.g., a map)
-:::
+. . .
+
+We assume that information about the environment are given (e.g., a map)
 
 :::{.notes}
 There are also search algorithms for problems in *partially observable, nondeterministic, unknown, and continuous environments* (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see @RusselNorvig2022AIMA.
@@ -70,10 +78,10 @@ There are also search algorithms for problems in *partially observable, nondeter
 In simple environments, agents can follow a four-phase-problem-solving process [@RusselNorvig2022AIMA, p.81-82]:
 
 ::: {.incremental}
-- __Goal formulation:__ goals organize behavior by limiting the objectives and hence the actions to be considered
-- __Problem formulation:__ the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment
-- __Search:__ the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)
-- __Execution:__ the agent executes the actions in the solution, one at a time 
+1. __Goal formulation:__ goals organize behavior by limiting the objectives and hence the actions to be considered
+2. __Problem formulation:__ the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment
+3. __Search:__ the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)
+4. __Execution:__ the agent executes the actions in the solution, one at a time 
 :::
 
 :::{.notes}
@@ -95,9 +103,9 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 - The __state space:__ a set of possible states[^1] the environment can be in[^2]
 - The __initial state:__ the state that the agent starts
 - The __goal state(s):__ a state that the agent is trying to reach[^3]
-- A __transition model:__ returns the state that results from doing action $a$ in state $s$ ($RESULT(s,a)$)
-- The __sucessor function:__ returns a set of (action, state) pairs for node $s$, where the state is the state reachable by taking the action $a$ ($ACTIONS(s)$)
-- An __action cost function:__ gives the numeric cost of applying action $a$ in state $s$ to reach state $s'$ ($ACTION-COST(s,a,s'$)
+- A __transition model:__ $\textrm{RESULT}(s,a)$ (returns the state $s'$ that results from performing action $a$ in state $s$)
+- The __successor function:__ $\textrm{ACTIONS}(s)$ (returns a set of (action, state) pairs for node $s$, where the state is the state reachable by taking the action $a$)
+- An __action cost function:__ $\textrm{ACTION-COST}(s,a,s')$ (gives the numeric cost of performing action $a$ in state $s$ to reach state $s'$)
 - A __path:__ a sequence of actions
 - A __solution:__ a path from the initial state to the goal state
 :::
