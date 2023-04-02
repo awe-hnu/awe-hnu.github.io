@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>awe.lectures - K7 Integration</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+
+<meta property="og:title" content="awe.lectures - K7 Integration">
+<meta property="og:description" content="Was ist integrierte Informationsverarbeitung?">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe:lectures</span>
+  </a>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Auf dieser Seite</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#lernergebnisse" id="toc-lernergebnisse" class="nav-link" data-scroll-target="#lernergebnisse">Lernergebnisse 🎯</a></li>
+  <li><a href="#integration" id="toc-integration" class="nav-link" data-scroll-target="#integration">Integration</a></li>
+  <li><a href="#stammdatenmanagement" id="toc-stammdatenmanagement" class="nav-link" data-scroll-target="#stammdatenmanagement">Stammdatenmanagement</a></li>
+  <li><a href="#datenbanksysteme" id="toc-datenbanksysteme" class="nav-link" data-scroll-target="#datenbanksysteme">Datenbanksysteme</a></li>
+  <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen ✏️</a></li>
+  <li><a href="#lernkontrolle" id="toc-lernkontrolle" class="nav-link" data-scroll-target="#lernkontrolle">Lernkontrolle 🧐</a></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur">Literatur 📚</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><code>K7</code> Integration</h1>
+<p class="subtitle lead">Was ist integrierte Informationsverarbeitung?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor:in</div>
+    <div class="quarto-title-meta-contents">
+             <p>Andy Weeger </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="top" class="level1 slide-link-hidden unlisted unnumbered" data-visibility="hidden">
+<h1 class="slide-link-hidden unlisted unnumbered" data-visibility="hidden">Top</h1>
+<!-- LTeX: language=de-DE -->
+<p><a href="slides.html">Präsentation</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> / <a href="assets/big-picture.pdf">Big Picture</a></p>
+<div class="small">
+<p><code>Version 0.7 (Wintersemester 2022/23)</code></p>
+</div>
+</section>
+<section id="motivation" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Motivation</h1>
+<blockquote class="blockquote">
+<p>Das Ganze ist mehr als die Summe seiner Teile <em>Aristoteles, Philosoph (384 – 322 v. Chr.)</em></p>
+</blockquote>
+<div class="notes">
+<p>Informationen sind ein wichtiger Produktionsfaktor und entstehen durch die Kontextualisierung, also Vernetzung von Daten. Informationssysteme diese Daten und unterstützen damit Geschäftsprozesse. Durch die zunehmende Arbeitsteilung und Spezialisierung sind Prozesse, Funktionen und Daten im Unternehmen oftmals unzureichend verknüpft. Das führt unter anderem zu Problemen wie Datenredundanzen und -Inkonsistenzen, ineffiziente Prozesse und Qualitätsprobleme. In diesem Kapitel schauen wir uns an, wie durch die Integration von Daten, Funktionen und Prozessen diese Probleme reduziert werden können.</p>
+</div>
+</section>
+<section id="lernergebnisse" class="level1">
+<h1>Lernergebnisse 🎯</h1>
+<p>Nach diesem Kapitel können Sie</p>
+<div class="incremental">
+<ul class="incremental">
+<li>das Konzept der Integration im Sinne einer <strong>integrierten Informationsverarbeitung</strong> erläutern,</li>
+<li>zeigen, welche <strong>Dimensionen der Integration</strong> sich unterscheiden lassen,</li>
+<li>die Konzepte <strong>horizontale und vertikale Integration</strong> anhand von Beispielen erklären,</li>
+<li>erläutern weshalb <strong>Stammdatenmanagement</strong> notwendig ist und wie es umgesetzt werden kann sowie</li>
+<li>die Funktionsweise und Komponenten eines <strong>Datenbanksystems</strong> erläutern.</li>
+</ul>
+</div>
+</section>
+<section id="integration" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Integration</h1>
+<section id="notwendigkeit" class="level2">
+<h2 data-anchor-id="notwendigkeit">Notwendigkeit</h2>
+<p>Anwendungssysteme wurden und werden häufig für einzelne Unternehmen bzw. deren Abteilungen oder sogar einzelne Arbeitsplätze entwickelt.</p>
+<div class="incremental">
+<p>Diese Fragmentierung steht einem arbeitsplatz-, abteilungs- oder unternehmensübergreifenden <strong>Informationsfluss</strong> im Weg.</p>
+</div>
+<div class="incremental">
+<p><strong>Integration</strong> bedeutet, dass diese künstlich geschaffenen Grenzen durch die Verknüpfung von Mensch, Aufgaben und Technik wieder aufgehoben werden <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens u.&nbsp;a. 2016</a>, p.&nbsp;65)</span>.</p>
+<div class="notes">
+<div class="smaller">
+<p><em>Beispiel: Eine Kundendatenbank, ein Online-Shop und ein Finanzbuchhaltungssystem unterstützen zusammen die Auftragsabwicklung in einem Industrieunternehmen. Ohne eine Integration dieser Anwendungssysteme ist eine effiziente Abwicklung des durchgehenden Ablaufs eine Kundenbestellung nicht möglich. Wären etwa die Kundendatenbank und der Online-Shop nicht integriert, so würden Änderungen der Kundendaten, die über den Shop hereinkommen, nicht automatisch in das Kundenverwaltungssystem gelangen. Bei manuellem Abgleich der Daten durch Menschen entstehen durch Medienbrüche typischerweise Fehler und damit hohe Kosten für die Nachbearbeitung.</em></p>
+</div>
+</div>
+</div>
+<div class="incremental">
+<p>Für die Integration bieten sich drei Ansatzpunkte bzw. <strong>Gegenstände</strong> an:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Datenintegration,</li>
+<li>Funktionsintegration und</li>
+<li>Prozessintegration <span class="citation" data-cites="mertens2016grundzuge">(siehe <a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens u.&nbsp;a. 2016</a>, p.&nbsp;65)</span>.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="integrationsgegenstände" class="level2">
+<h2 data-anchor-id="integrationsgegenstände">Integrationsgegenstände</h2>
+<dl>
+<dt>Datenintegration</dt>
+<dd>
+Die Daten von mehreren Anwendungssystemen werden so verwaltet, dass jedes Datum (bspw. die Kundenadresse) nur einmal gespeichert ist. Tritt ein Datum mehrfach auf, werden die Kopien konsistent gehalten. Das wird in der Regel mittels <a href="#datenbanksysteme">Datenbanksystemen</a> oder automatisierten Abgleichen realisiert.
+</dd>
+</dl>
+<div class="incremental">
+<dl>
+<dt>Funktionsintegration</dt>
+<dd>
+Die Funktionsintegration hat die Verzahnung fachlich zusammengehöriger Funktionen in einem Anwendungssystem als Ziel (bspw. eine Plattform, über die alle möglichen Zahlungsmethoden abgewickelt werden können).
+</dd>
+</dl>
+</div>
+<div class="incremental">
+<dl>
+<dt>Prozessintegration</dt>
+<dd>
+In einem Prozess aufeinander folgende Funktionalitäten sind über mehrere Anwendungssysteme nahtlos miteinander verbunden. In jedem Bearbeitungsschritt werden dem Anwender die erforderlichen Funktionen und Daten zur Verfügung gestellt. Prozesse können sowohl innerhalb als auch zwischen Unternehmen integriert sein.
+</dd>
+</dl>
+</div>
+</section>
+<section id="voraussetzungen" class="level2">
+<h2 data-anchor-id="voraussetzungen">Voraussetzungen</h2>
+<p>Voraussetzung für eine gelingende Integration ist ein gutes Verständnis von und eine gute Übersicht über die zu integrierenden Gegenstände (Daten, Funktionen, Prozesse) sowie die eingesetzten Anwendungssysteme <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens u.&nbsp;a. 2016</a>, p.&nbsp;173)</span>.</p>
+<div class="incremental">
+<p><strong>Unternehmensdatenmodelle</strong> beschreiben die Datenbestände eines Unternehmens und deren Struktur (<strong>Datenarchitektur</strong>). In diesem Modell werden unter anderem Mindestanforderungen an Datensätze definiert, die von jedem Anwendungssystem implementiert werden müssen (bspw. Struktur der Kundennummer). Diese erleichtern unter anderem den automatischen Abgleich von Daten.</p>
+</div>
+<div class="incremental">
+<p><strong>Prozessmodelle</strong> und <strong>Organigrammen</strong> beschreiben die Funktionen und Abläufe eines Unternehmens (<strong>Organisationsarchitektur</strong>) und welche Informationssysteme für welche Aufgaben eingesetzt werden.</p>
+</div>
+</section>
+<section id="integrationsrichtung" class="level2">
+<h2 data-anchor-id="integrationsrichtung">Integrationsrichtung</h2>
+<p>Die Integrationsrichtung beschreibt die Orientierung der Integration innerhalb und zwischen den verschiedenen Hierarchieebenen eines Unternehmens <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#ref-laudon2016wirtschaftsinformatik" role="doc-biblioref">Laudon, Laudon, und Schoder 2016</a>, p.&nbsp;437)</span>:</p>
+<div class="incremental">
+<dl>
+<dt>Vertikale Integration</dt>
+<dd>
+Versorgung von Informationssystemen zur Entscheidungsunterstützung (analytische Systeme) mit Daten aus den Systemen, die das Tagesgeschäft ermöglichen bzw. abbilden (operative Systeme). Diese Daten werden verdichtet und verknüpft, um daraus Informationen zu gewinnen.
+</dd>
+</dl>
+</div>
+<div class="incremental">
+<dl>
+<dt>Horizontale Integration</dt>
+<dd>
+Die Verbindung der operativen Anwendungssysteme entlang der betrieblichen Wertschöpfungskette auf gleicher Hierarchieebene mit dem Ziel der durchgängigen Unterstützung von Geschäftsprozessen über mehrere Unternehmensbereiche hinweg.
+</dd>
+</dl>
+</div>
+</section>
+<section id="visualisierung" class="level2">
+<h2 data-anchor-id="visualisierung">Visualisierung</h2>
+<div id="fig-hierarchie" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/hierarchie.svg" class="lightbox" title="Horizontale und vertikale Integrationsorientierung" data-gallery="quarto-lightbox-gallery-1"><img src="images/hierarchie.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 1: Horizontale und vertikale Integrationsorientierung</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="integrationsreichweite" class="level2">
+<h2 data-anchor-id="integrationsreichweite">Integrationsreichweite</h2>
+<p>Hinsichtlich der Reichweite der Integration unterscheidet man zwischen der innerbetrieblichen und der zwischenbetrieblichen Integration <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#ref-laudon2016wirtschaftsinformatik" role="doc-biblioref">Laudon, Laudon, und Schoder 2016</a>, p.&nbsp;437)</span>:</p>
+<div class="incremental">
+<dl>
+<dt>Innerbetriebliche Integration</dt>
+<dd>
+Integrierte Anwendungssysteme verbinden unterschiedliche Unternehmensbereiche entlang der Wertschöpfungskette. Customer Relationship Management (CRM) Systeme verbinden bspw. Marketing, Vertrieb und Kundendienst.
+</dd>
+</dl>
+</div>
+<div class="incremental">
+<dl>
+<dt>Zwischenbetriebliche Integration</dt>
+<dd>
+Anwendungssysteme von zwei oder mehr Unternehmen sind so aufeinander abgestimmt, dass Daten (bspw. Angebote, Aufträge, Lieferscheine, Rechnungen) zwischen Unternehmen und/oder Endkunden über unternehmensübergreifende Systeme digital ausgetauscht werden und so Prozesse weitestgehend automatisiert werden können (bspw. Auftragsabwicklung).
+</dd>
+</dl>
+</div>
+<div class="incremental">
+<p>Unternehmensübergreifende Informationssysteme gewinnen mit der zunehmenden Digitalisierung immer mehr Bedeutung.</p>
+</div>
+</section>
+<section id="integrationszeitpunkt" class="level2">
+<h2 data-anchor-id="integrationszeitpunkt">Integrationszeitpunkt</h2>
+<p>Stapelverarbeitung und Ereignisorientierung sind zwei Ansätze, die über den Zeitpunkt der Integration entscheiden <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#ref-laudon2016wirtschaftsinformatik" role="doc-biblioref">Laudon, Laudon, und Schoder 2016</a>, p.&nbsp;437)</span>:</p>
+<dl>
+<dt>Stapelverarbeitung</dt>
+<dd>
+Bei der Stapelverarbeitung werden zu bearbeitende Daten zunächst gesammelt und dann zu einem definierten Zeitpunkt zwischen unterschiedlichen Anwendungssystemen abgeglichen (bspw. in der Nacht).
+</dd>
+<dt>Ereignisorientierung</dt>
+<dd>
+Bei der Ereignisorientierung ist ein Ereignis der Auslöser von weiteren Verarbeitungsschritten. Verlässt bspw. eine Lieferung den Hof (Ereignis) werden automatisch alle relevanten Logistik-Informationen an den Kunden übertragen (Verarbeitungsschritte).
+</dd>
+</dl>
+</section>
+</section>
+<section id="stammdatenmanagement" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Stammdatenmanagement</h1>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
+<p><strong>Stammdatenmanagement</strong> (engl. Master Data Management, MDM) befasst sich mit dem Management der Stammdaten im Unternehmen <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar 2015, p.43</a>)</span>.</p>
+<div class="incremental">
+<p><strong>Stammdaten</strong> sind Grunddaten eines Unternehmens, die sich auf betriebswirtschaftlich relevante Objekte beziehen. Stammdaten existieren unabhängig von anderen Daten und werden im Zeitablauf selten verändert (bspw. Kunden- oder Materialstammdaten) <span class="citation" data-cites="alpar2000anwendungsorientierte">(<a href="#ref-alpar2000anwendungsorientierte" role="doc-biblioref">Alpar u.&nbsp;a. 2019</a>, p.&nbsp;206)</span>.</p>
+</div>
+<div class="incremental">
+<p>Stammdatenmanagement umfasst in der Regel <strong>Identifikation</strong>, <strong>Konsolidierung</strong>, <strong>Harmonisierung</strong> und <strong>Integration</strong> der Stammdaten sowie die anschließende <strong>Synchronisation</strong> der Daten <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar 2015, p.43</a>)</span>.</p>
+</div>
+</section>
+<section id="notwendigkeit-1" class="level2">
+<h2 data-anchor-id="notwendigkeit-1">Notwendigkeit</h2>
+<p>Stammdaten werden oft in <strong>verschiedenen Anwendungssystemen</strong> benötigt, verwaltet und gespeichert. Bspw. werden Kundendaten oftmals sowohl in Finanzsystemen und in Systemen der Logistik und/oder Marketing vorgehalten <span class="citation" data-cites="alpar2000anwendungsorientierte">(<a href="#ref-alpar2000anwendungsorientierte" role="doc-biblioref">Alpar u.&nbsp;a. 2019</a>, p.&nbsp;206)</span>.</p>
+<div class="incremental">
+<p>Diese <strong>Redundanz</strong> beeinträchtigt sowohl die Konsistenz als auch die Qualität der Stammdaten.</p>
+</div>
+<div class="incremental">
+<p>Der Abgleich von redundanten Daten, die auf unterschiedlichen Systemen abgelegt sind, erfordern einen hohen <strong>organisatorischen Aufwand</strong>.</p>
+</div>
+<div class="incremental">
+<p>Sind Stammdaten identifiziert und harmonisiert, können mithilfe eines <strong>Stammdatenmanagementsystems</strong> die Stammdaten in einer zentralen Datenbank vorgehalten und über die Systeme automatisiert synchronisiert werden.</p>
+</div>
+</section>
+</section>
+<section id="datenbanksysteme" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Datenbanksysteme</h1>
+<section id="notwendigkeit-2" class="level2">
+<h2 data-anchor-id="notwendigkeit-2">Notwendigkeit</h2>
+<p>Sind in einem Unternehmen Daten nicht ausreichend integriert, entstehen <strong>Redundanzen</strong> und es erhöht sich das Risiko für <strong>Dateninkonsistenzen</strong>. Zudem erhöht sich der <strong>Aufwand</strong> für die Datenerfassung <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens u.&nbsp;a. 2016</a>, p.&nbsp;36)</span> und es fehlen die Grundlagen für die Integration von Funktionen und Prozessen.</p>
+<div class="incremental">
+<p>Ein <strong>Datenbankmanagementsystem</strong> ermöglicht es, die Daten eines Unternehmens, deren Nutzung und entsprechende Sicherheitsrichtlinien zu integrieren und zentral zu verwalten.</p>
+</div>
+<div class="incremental">
+<p>Ein Datenbankmanagementsystem ermöglicht die Trennung von Programmcode und Datenhaltung. Anwendungssysteme und Benutzer arbeiten lediglich mit einer <strong>logischen Sicht</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> auf die Daten.</p>
+</div>
+<div class="incremental">
+<p>Durch die <strong>Entkopplung von Daten und Programm</strong> wird zudem Flexibilität der Anwendungssysteme erhöht. Programme können aktualisiert werden, ohne Veränderungen an den Daten vornehmen zu müssen und vice versa.</p>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Physische und logische Datenstruktur
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ein <strong>logisches Datenmodell</strong> (bspw. ein Relationenmodell) legt die Struktur von Datenobjekten und ihre Beziehungen untereinander fest. Das <strong>physische Datenmodell</strong> bezieht sich auf die Art und Weise, wie das System implementiert wird, und berücksichtigt das spezifische Datenbankmanagementsystem. Ein logisches Datenmodell dient als Grundlage für ein physisches Datenmodell.</p>
+<p>Mittels <strong>Sichten</strong> kann flexibel auf die gespeicherten Daten zugegriffen werden. Man kann eine Sicht auch als virtuelle Tabelle bezeichnen, die durch eine Datenbankabfrage definiert werden. Die Abfrage kann Daten aus einer oder mehreren Tabellen des physischen Datenmodells oder aus anderen Sichten in der aktuellen Datenbank oder anderen Datenbanken verwenden.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="visualisierung-1" class="level2">
+<h2 data-anchor-id="visualisierung-1">Visualisierung</h2>
+<div id="fig-redundanzen" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/redundanzen.svg" class="lightbox" title="Anwendungssysteme mit nicht integrierten Daten führen zu Redundanzen" data-gallery="quarto-lightbox-gallery-2"><img src="images/redundanzen.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 2: Anwendungssysteme mit nicht integrierten Daten führen zu Redundanzen</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="definition-1" class="level2">
+<h2 data-anchor-id="definition-1">Definition</h2>
+<p>Datenbanksysteme werden zur Datenorganisation und Datenintegration verwendet und bestehen aus folgenden Komponenten <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#ref-laudon2016wirtschaftsinformatik" role="doc-biblioref">Laudon, Laudon, und Schoder 2016</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Datenbank (DB):</strong> eine möglichst redundanzfreie Sammlung von Daten, die so strukturiert sind, dass sie von mehreren Benutzern und Anwendungen gleichzeitig und effizient genutzt und flexibel ausgewertet und verknüpft werden können.</li>
+<li><strong>Datenbankmanagementsystem (DBMS):</strong> System zur Erstellung und Verwaltung von Datenbanken, die von mehreren Anwendungen genutzt werden können. Ein DBMS trennt physische und logische Datenstruktur.</li>
+</ul>
+</div>
+<section id="wichtige-anforderungen-an-dbms" class="level4 notes">
+<h4 data-anchor-id="wichtige-anforderungen-an-dbms">Wichtige Anforderungen an DBMS</h4>
+<p>Nach <span class="citation" data-cites="mertens2016grundzuge">Mertens u.&nbsp;a. (<a href="#ref-mertens2016grundzuge" role="doc-biblioref">2016, 42</a>)</span> müssen DBMS folgende Anforderungen erfüllen:</p>
+<ul>
+<li><strong>Datenunabhängigkeit</strong>: Unabhängigkeit zwischen dem konzeptionellen Schema und Anwendungsprogrammen (logische Datenunabhängigkeit) sowie zwischen dem konzeptionellen Schema und der physischen Datenorganisation (physische Datenunabhängigkeit)</li>
+<li>Geplante und <strong>kontrollierte Datenredundanz</strong>: Begrenzung der Redundanz auf ein kleinstmögliches bzw. zweckmäßiges Maß durch eine entsprechende Datenstruktur</li>
+<li>Sicherung der <strong>Datenkonsistenz</strong>: Erhaltung des gleichen Änderungsstands bei mehrfach gespeicherten Datenbeständen</li>
+<li><strong>Datenbankintegrität</strong>: Maßnahmen zur Erhaltung der Korrektheit und Vollständigkeit der Daten. Betrifft zum einen die semantische Integrität (Vermeiden von Fehleingaben und unzulässigen Operationen durch Festlegung und Kontrolle von erlaubten Werten und Beziehungen zwischen Datenelementen) sowie die operative Integrität (Verhindern von Fehlern, wenn mehrere Anwender auf gleiche Datenbestände zugreifen)</li>
+<li><strong>Datensicherheit</strong>: Bewahrung der Daten vor Verfälschung, Vernichtung und unberechtigtem Zugriff</li>
+<li><strong>Datenschutz</strong>: Verhinderung der unberechtigten Verwendung von Daten</li>
+<li><strong>Ausfallsicherheit</strong>: Routinen zur Wiederherstellung der Konsistenz der Daten bspw. bei einem Absturz</li>
+</ul>
+</section>
+</section>
+<section id="beispiel" class="level2">
+<h2 data-anchor-id="beispiel">Beispiel</h2>
+<div id="fig-DBMS" class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/dbms.svg" class="lightbox" title="Einsatz eines zentralen Datenbanksystems" data-gallery="quarto-lightbox-gallery-3"><img src="images/dbms.svg" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Abbildung 3: Einsatz eines zentralen Datenbanksystems</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="übungen" class="level1 vertical-center" data-background-color="blue">
+<h1 class="vertical-center" data-background-color="blue">Übungen ✏️</h1>
+<section id="integration-1" class="level2">
+<h2 data-anchor-id="integration-1">Integration</h2>
+<p>Weshalb ist Integration für effizientes Informationsmanagement im Unternehmen wichtig?</p>
+<ul>
+<li>Finden Sie <strong>jeweils min. ein Argument für die Notwendigkeit von Daten-, Funktions- und Prozessintegration</strong>.</li>
+<li>Überlegen Sie <strong>jeweils ein konkretes Beispiel</strong> aus einem produzierendem Unternehmen und geben Sie zudem Integrationsrichtung und Integrationszeitpunkt an.</li>
+</ul>
+</section>
+<section id="stammdaten" class="level2">
+<h2 data-anchor-id="stammdaten">Stammdaten</h2>
+<p>Identifizieren und beschreiben Sie wichtige Stammdaten eines produzierenden Unternehmens, also Daten, die Grundinformationen über betrieblich relevante Objekte enthalten (bspw. Kunde).</p>
+<p>Beantworten Sie zu jedem Stammdatenobjekt (bspw. Kunde) folgende Fragen:</p>
+<ul>
+<li>Wie kann ein Stammdatensatz eindeutig identifiziert werden (bspw. ein spezifischer Kunde)?</li>
+<li>In welchen Prozessen werden diese Stammdaten wozu benötigt?</li>
+<li>Benötigen die Prozesse unterschiedliche Daten des Objekts? Falls ja, wie unterscheiden dich die Sichten?</li>
+</ul>
+</section>
+<section id="datenintegration" class="level2">
+<h2 data-anchor-id="datenintegration">Datenintegration</h2>
+<p>Stammdaten und andere Daten werden in Unternehmen oft in zentralen Datenbanksystemen gehalten.</p>
+<ul>
+<li>Beschreiben Sie, was ein Datenbanksystem ist und aus welchen Komponenten es besteht.</li>
+<li>Welche Voraussetzungen müssen gegeben sein, damit verschiedene Anwendungssysteme dieselbe Datenbank nutzen können?</li>
+<li>Was sind Vor- und Nachteile eines zentralen Datenbanksystems.</li>
+<li>Wozu nutzen Sie ein zentrales Datenbanksystem?</li>
+</ul>
+</section>
+<section id="prozessintegration" class="level2">
+<h2 data-anchor-id="prozessintegration">Prozessintegration</h2>
+<p>Über Cloud-Systeme wie <a href="https://ifttt.com/">IFTTT</a> (<em>If</em> <em>T</em>his <em>T</em>hen <em>T</em>hat) können Sie Anwendungssysteme (Apps) die Sie verwenden integrieren und so wiederkehrende Aufgaben/Tätigkeiten nahtlos automatisieren.</p>
+<p>Schauen Sie sich die Plattform an und beantworten Sie folgende Fragen.</p>
+<p><strong>Wiederholung:</strong></p>
+<ul>
+<li>Welches Service- und Bereitstellungsmodell nutzt IFTTT?</li>
+<li>Erläutern Sie anhand dieses Angebots die Eigenschaften von Cloud-Computing.</li>
+<li>Stellen Sie sich vor, Sie würden IFTTT intensiv nutzen. Welche Vor- und Nachteile ergeben sich aus dem Cloud-Betriebsmodell für Sie?</li>
+</ul>
+<p><strong>Integration:</strong></p>
+<ul>
+<li>Welcher Ihrer privaten “Prozesse” (Tätigkeitsketten) kann IFTTT unterstützen?</li>
+<li>Welche <a href="#Integrationsgegenstände">Gegenstände</a> werden integriert?</li>
+<li>Was ist die Integrationsrichtung?</li>
+</ul>
+<p>Bonus: Erstellen Sie sich einen eigenen Account und erstellen Sie ein eigenes Integrationsszenario.</p>
+</section>
+</section>
+<section id="lernkontrolle" class="level1" data-visibility="hidden">
+<h1 data-visibility="hidden">Lernkontrolle 🧐</h1>
+<ul>
+<li>Beschreiben Sie anhand eines Beispiels, was integrierte Informationsverarbeitung ist. Weshalb ist diese notwendig?</li>
+<li>Erläutern Sie die Begriffe „horizontale Integration“ und „vertikale Integration“.</li>
+<li>Welche Gegenstände sollten für eine effiziente Informationsverarbeitung integriert werden? Geben Sie jeweils ein Beispiel.</li>
+<li>Was sind Voraussetzungen für eine zielgerichtete Integration von Daten und Prozessen in einem Unternehmen?</li>
+<li>Erklären Sie, was Stammdaten sind und weshalb es sinnvoll ist, diese zentral zu verwalten und über Anwendungssysteme hinweg zu synchronisieren.</li>
+<li>Nennen Sie Vorteile einer zentralen Datenbank, die mehrere Anwendungssysteme nutzen im Vergleich zur dezentralen Datenhaltung.</li>
+<li>Aus welchen Komponenten besteht ein Datenbanksystem? Welche Funktion haben diese?</li>
+</ul>
+</section>
+<section id="literatur" class="level1">
+<h1>Literatur 📚</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-alpar2000anwendungsorientierte" class="csl-entry" role="doc-biblioentry">
+Alpar, Paul, Heinz Lothar Grob, Peter Weimann, und Robert Winter. 2019. <em>Anwendungsorientierte Wirtschaftsinformatik</em>. Springer Vieweg, Wiesbaden.
+</div>
+<div id="ref-krcmar2015informationsmanagement" class="csl-entry" role="doc-biblioentry">
+Krcmar, Helmut. 2015. <em>Einf<span>ü</span>hrung in das Informationsmanagement</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+<div id="ref-laudon2016wirtschaftsinformatik" class="csl-entry" role="doc-biblioentry">
+Laudon, Kenneth C, Jane Price Laudon, und Detlef Schoder. 2016. <em>Wirtschaftsinformatik: Eine Einf<span>ü</span>hrung</em>. Pearson Deutschland GmbH.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="doc-biblioentry">
+Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016. <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Fußnoten</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p><strong>Drucken bzw. als PDF exportieren:</strong> Wenn Sie die Folien ausdrucken oder exportieren möchten, öffnen Sie die Präsentation, drücken Sie <code>e</code> auf Ihrer Tastatur und dann <code>Drucken</code>(als PDF).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><strong>Eine Sicht ist eine virtuelle Tabelle, die durch eine Abfrage definiert wird.</strong><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":true,"closeEffect":"zoom"});</script>
+
+
+
+</body></html>
