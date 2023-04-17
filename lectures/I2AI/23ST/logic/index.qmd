@@ -33,7 +33,7 @@ editor:
 The problem-solving agents based on **search algorithms** know things, but only in a very limited, inflexible sense [@RusselNorvig2022AIMA, p. 226]:
 
 ::: {.incremental}
-- They know what actions are available ($\textrm{ACTIONS}(s)$) and what the result of performing a specific action from a speciic state will be ($\textrm{RESULT}(s,a)$). But they **don't know general facts**.
+- They know what actions are available ($\textrm{ACTIONS}(s)$) and what the result of performing a specific action from a specific state will be ($\textrm{RESULT}(s,a)$). But they **don't know general facts**.
 - Using **atomic representations**, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states
 - The goal can formally only be described as an **explicit set of states**
 :::
@@ -192,7 +192,7 @@ A typical wumpus world
 
 ## Exploration
 
-::: r-stack
+::: {.r-stack .html-hidden}
 ![Moving in the wumpus world](images/ww-0.svg){height="400"
 fig-align="left"}
 
@@ -594,14 +594,15 @@ $R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \
 
 #### 2. And-Elimination to $R_6$
 
-$R_7$ can be infered from $R_6$ as follows:
+$R_7$ can be inferred from $R_6$ as follows:
 
 ::: incremental
--   $R_6 : B_{1,1} \implies (P_{1,2} \lor P_{2,1}) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1}$
+-   $R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})$
 -   $\alpha \equiv B_{1,1} \implies (P_{1,2} \lor P_{2,1})$\
 -   $\beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$\
 -   Apply $\frac{\alpha \land \beta}{\beta}$ (*And-Elimination*)
 :::
+
 
 . . .
 
