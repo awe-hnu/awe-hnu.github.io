@@ -16412,7 +16412,7 @@
     "href": "lectures/I2AI/23ST/logic/index.html#think-rationally",
     "title": "Logics",
     "section": "Think rationally",
-    "text": "Think rationally\nUntil now, the focus has been on agents that act rationally. Often, however, rational action requires rational (logical) thought on the agent’s part.\n\nRelevant aspects of the environment must be represented in a knowledge base (KB), composed of sentences in knowledge representation language (e.g., logic).\n\n\nEach sentence represents some assertion about the world (semantics)\nThe sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (syntax)\nInteraction with the KB through \\(\\textrm{ASK}\\) and \\(\\textrm{TELL}\\) operations (simplified)\n\n\\(\\textrm{ASK}\\): asks the KB what action it should perform\n\\(\\textrm{TELL}\\): tells the knowledge base what it perceives\n\n\n\n\n\n\n\n\n\n\nTypes of sentences\n\n\n\n\nAxioms: a sentence is taken as being given without being derived from other sentences\nInference: a sentence is derived from old sentence\n\n\n\n\nLevels of knowledge representation\nThree levels of knowledge representation can be distinguished (Newell 1982):\n\nThe knowledge level concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information system knows that a trip from Ulm to Stuttgart costs EUR\n\n\n\nAt the logical level knowledge is encoded in a formal language; e.g., \\(price(Ulm, Stuttgart, 25.00)\\)\nAt the implementation level the knowledge is represented as sentences; e.g.,\n\nas a string “Price(Freiburg, Basel, 18.00)”\nas a value in a matrix"
+    "text": "Think rationally\nUntil now, the focus has been on agents that act rationally. Often, however, rational action requires rational (logical) thought on the agent’s part.\n\nRelevant aspects of the environment must be represented in a knowledge base (KB), composed of sentences in knowledge representation language (e.g., logic).\n\n\nEach sentence represents some assertion about the world (semantics)\nThe sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (syntax)\nInteraction with the KB through \\(\\textrm{ASK}\\) and \\(\\textrm{TELL}\\) operations (simplified)\n\n\\(\\textrm{ASK}\\): asks the KB what action it should perform\n\\(\\textrm{TELL}\\): tells the knowledge base what it perceives\n\n\n\n\n\n\n\n\n\n\nTypes of sentences\n\n\n\n\nAxioms: a sentence is taken as being given without being derived from other sentences\nInference: a sentence is derived from old sentence\n\n\n\n\nLevels of knowledge representation\nThree levels of knowledge representation can be distinguished (Newell 1982):\n\nThe knowledge level concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information system knows that a trip from Ulm to Stuttgart costs EUR 25.\nAt the logical level knowledge is encoded in a formal language; e.g., \\(price(Ulm, Stuttgart, 25.00)\\)\nAt the implementation level the knowledge is represented as sentences; e.g.,\n\nas a string “Price(Freiburg, Basel, 18.00)”\nas a value in a matrix"
   },
   {
     "objectID": "lectures/I2AI/23ST/logic/index.html#knowledge-based-agents",
@@ -24729,5 +24729,138 @@
     "title": "Logics",
     "section": "Example (wumpus world)",
     "text": "Example (wumpus world)\nRules of the game:\n\n\\(R_1: \\neg P_{1,1}\\)\n\\(R_2: B_{1,1} \\iff (P_{1,2} \\lor P_{2,1})\\)\n\\(R_3: B_{2,1} \\iff (P_{1,1} \\lor P_{2,2} \\lor P_{3,1})\\)\n\n\nThe agent is in \\([1,1]\\) and has received following precepts:\n\n\\(R_4: \\neg B_{1,1}\\)\n\n\n\nQuestion: is there pit in\\([1,2]\\) or \\([2,1]\\)?\nUsing logical inference and the \\(KB\\) containing \\(R_1\\) to \\(R_4\\), we prove that \\(\\neg P_{1,2} \\land \\neg P_{2,1}\\)\n\n\n1. Biconditional elimination to \\(R_2\\)\n\n\n\\(R_2: B_{1,1} \\iff (P_{1,2} \\lor P_{2,1})\\)\n\n\\(\\alpha \\equiv B_{1,1}\\)\n\n\\(\\beta \\equiv P_{1,2} \\lor P_{2,1}\\)\n\nApply \\(\\alpha \\iff \\beta \\equiv (\\alpha \\implies \\beta) \\land (\\beta \\implies \\alpha)\\)\n\n\n\nInference: \\(R_6 : (B_{1,1} \\implies (P_{1,2} \\lor P_{2,1})) \\land ((P_{1,2} \\lor P_{2,1}) \\implies B_{1,1})\\)\n\n\n\n\n2. And-Elimination to \\(R_6\\)\n\\(R_7\\) can be inferred from \\(R_6\\) as follows:\n\n\n\\(R_6 : (B_{1,1} \\implies (P_{1,2} \\lor P_{2,1})) \\land ((P_{1,2} \\lor P_{2,1}) \\implies B_{1,1})\\)\n\\(\\alpha \\equiv B_{1,1} \\implies (P_{1,2} \\lor P_{2,1})\\)\n\n\\(\\beta \\equiv (P_{1,2} \\lor P_{2,1}) \\implies B_{1,1}\\)\n\nApply \\(\\frac{\\alpha \\land \\beta}{\\beta}\\) (And-Elimination)\n\n\n\nInference: \\(R_7 : (P_{1,2} \\lor P_{2,1}) \\implies B_{1,1}\\)\n\n\n\n\n3. Logical equivalence for contrapositives (\\(R_7\\))\n\\(R_8\\) can be inferred from \\(R_7\\) as follows:\n\n\n\\(R_7 : (P_{1,2} \\lor P_{2,1}) \\implies B_{1,1}\\)\n\\(\\alpha \\equiv P_{1,2} \\lor P_{2,1}\\)\n\\(\\beta \\equiv B_{1,1}\\)\nApply \\(\\alpha \\implies \\beta \\equiv \\neg \\beta \\implies \\neg \\alpha\\)\n\n\n\nInference: \\(R_8 : \\neg B_{1,1} \\implies \\neg (P_{1,2} \\lor P_{2,1})\\)\n\n\n\n\n4. Modus Ponens with \\(R_8\\) and the \\(R_4\\)\n\\(R_9\\) can be inferred from \\(R_8\\) and \\(R_4\\) as follows:\n\n\n\\(R_8 : \\neg B_{1,1} \\implies \\neg (P_{1,2} \\lor P_{2,1})\\)\n\\(\\alpha \\equiv \\neg B_{1,1}\\)\n\\(\\beta \\equiv \\neg (P_{1,2} \\lor P_{2,1})\\)\nApply Modus Ponens[^13] \\(\\frac{\\alpha \\implies \\beta, \\ \\alpha}{\\beta}\\)\n\nAs \\(\\neg B_{1,1}\\) (\\(R_4\\)) is given, \\(R_9\\) can be inferred\n\n\n\nInference: \\(R_9 : \\neg (P_{1,2} \\lor P_{2,1})\\)\n\n\n\n\n5. Apply De Morgan’s rule, giving the conclusion\nThe conclusion (\\(R_{10}\\)) can be inferred from \\(R_9\\) as follows:\n\n\n\\(R_9 : \\neg (P_{1,2} \\lor P_{2,1})\\)\n\\(\\alpha \\equiv P_{1,2}\\)\n\\(\\beta \\equiv P_{2,1}\\)\nApply \\(\\neg(\\alpha \\lor \\beta) \\equiv (\\neg \\alpha \\land \\neg \\beta)\\)\n\n\n\nInference: \\(R_{10} : \\neg P_{1,2} \\land \\neg P_{2,1}\\)\nNeither \\([1,2]\\) nor \\([2,1]\\) contains a pit."
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html",
+    "href": "lectures/DIiI/23ST/adoption/index.html",
+    "title": "Technology Adoption",
+    "section": "",
+    "text": "Open slides\n\nVersion 0.2 (Summer Term 2023)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#lets-discuss",
+    "href": "lectures/DIiI/23ST/adoption/index.html#lets-discuss",
+    "title": "Technology Adoption",
+    "section": "Let’s discuss",
+    "text": "Let’s discuss\nUnder what conditions does IT (i.e., digital innovations) create added value in a company?"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#is-business-value",
+    "href": "lectures/DIiI/23ST/adoption/index.html#is-business-value",
+    "title": "Technology Adoption",
+    "section": "IS business value",
+    "text": "IS business value\nValue created by IT is—in a business context—usually referred to as IT/IS business value.\n\n\nIS business value is the impact of investments in particular IS assets on the multidimensional performance and capabilities of economic entities at various levels, complemented by the ultimate meaning of performance in the economic environment. Schryen (2013, 141)\n\n\n\nThe ultimate meaning of performance refers to what is subsequently derived if the outcome is exploited, e.g.\n\n\nimpact on performance of a workflow management system: faster business processes\nthe ultimate meaning: is dependent on the use of gained time and the extent to which competitors have speeded up their processes"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#taxonomy-of-is-business-value",
+    "href": "lectures/DIiI/23ST/adoption/index.html#taxonomy-of-is-business-value",
+    "title": "Technology Adoption",
+    "section": "Taxonomy of IS business value",
+    "text": "Taxonomy of IS business value\n\n\n\nFigure 1: Taxonomy of IS business value types and examples according to Schryen (2013)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#is-and-dynamic-capabilities",
+    "href": "lectures/DIiI/23ST/adoption/index.html#is-and-dynamic-capabilities",
+    "title": "Technology Adoption",
+    "section": "IS and dynamic capabilities",
+    "text": "IS and dynamic capabilities\n\n\n\nFigure 2: Nomological net of DC in IS research based on (steininger2022dynamic?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#the-missing-link",
+    "href": "lectures/DIiI/23ST/adoption/index.html#the-missing-link",
+    "title": "Technology Adoption",
+    "section": "The missing link",
+    "text": "The missing link\n\n\n\nFigure 3: The process model of IS value creation (soh1995creates?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#efective-use",
+    "href": "lectures/DIiI/23ST/adoption/index.html#efective-use",
+    "title": "Technology Adoption",
+    "section": "Efective use",
+    "text": "Efective use\n\n\n\nFigure 4: A model for effective use and its effect on performance according to Burton-Jones and Grange (2013)\n\n\n\n\nKey for Figure 4: Solid arrows reflect primary paths; dashed arrows reflect secondary paths; boxed arrows reflect necessary causality (i.e., x enables but does not determine y ). Bolding on “user,” “system” and “task” reflect the relative emphasis on each element of use (bold reflects more emphasis).\n\nThe Theory of Effective Use defines effective use as “using a system in a way that helps attain the goals of using the system” (Burton-Jones and Grange 2013, 636) and conceptualizes it to consist of three dimensions: transparent interaction, representational fidelity, and informed action.\nTransparent interaction is the extent to which a user is accessing the system’s representations unimpeded by its surface and physical structures.\nRepresentational fidelity is the extent to which a user is obtaining representations from the system that faithfully reflect the domain being represented.\nInformed action is the extent to which a user acts upon the faithful representations he or she obtains from the system to improve his or her state."
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#affordances",
+    "href": "lectures/DIiI/23ST/adoption/index.html#affordances",
+    "title": "Technology Adoption",
+    "section": "Affordances",
+    "text": "Affordances\n\n\n\nFigure 6: Nested affordances based on (burton2013use?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#affordance-generation",
+    "href": "lectures/DIiI/23ST/adoption/index.html#affordance-generation",
+    "title": "Technology Adoption",
+    "section": "Affordance generation",
+    "text": "Affordance generation\n\n\n\nFigure 7: Activity systems as affordances generation systems based on (weeger2021contradictions?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#lets-discuss",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#lets-discuss",
+    "title": "Technology Adoption",
+    "section": "Let’s discuss",
+    "text": "Let’s discuss\nUnder what conditions does IT (i.e., digital innovations) create added value in a company?"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#is-business-value",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#is-business-value",
+    "title": "Technology Adoption",
+    "section": "IS business value",
+    "text": "IS business value\nValue created by IT is—in a business context—usually referred to as IT/IS business value.\n\n\nIS business value is the impact of investments in particular IS assets on the multidimensional performance and capabilities of economic entities at various levels, complemented by the ultimate meaning of performance in the economic environment. Schryen (2013, 141)\n\n\n\nThe ultimate meaning of performance refers to what is subsequently derived if the outcome is exploited, e.g.\n\n\nimpact on performance of a workflow management system: faster business processes\nthe ultimate meaning: is dependent on the use of gained time and the extent to which competitors have speeded up their processes"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#taxonomy-of-is-business-value",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#taxonomy-of-is-business-value",
+    "title": "Technology Adoption",
+    "section": "Taxonomy of IS business value",
+    "text": "Taxonomy of IS business value\n\n\n\nFigure 1: Taxonomy of IS business value types and examples according to Schryen (2013)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#is-and-dynamic-capabilities",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#is-and-dynamic-capabilities",
+    "title": "Technology Adoption",
+    "section": "IS and dynamic capabilities",
+    "text": "IS and dynamic capabilities\n\n\n\nFigure 2: Nomological net of DC in IS research based on (steininger2022dynamic?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#the-missing-link",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#the-missing-link",
+    "title": "Technology Adoption",
+    "section": "The missing link",
+    "text": "The missing link\n\n\n\nFigure 3: The process model of IS value creation (soh1995creates?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#efective-use",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#efective-use",
+    "title": "Technology Adoption",
+    "section": "Efective use",
+    "text": "Efective use\n\n\n\nFigure 4: A model for effective use and its effect on performance according to Burton-Jones and Grange (2013)\n\n\n\n\nKey for Figure 4: Solid arrows reflect primary paths; dashed arrows reflect secondary paths; boxed arrows reflect necessary causality (i.e., x enables but does not determine y ). Bolding on “user,” “system” and “task” reflect the relative emphasis on each element of use (bold reflects more emphasis).\n\nThe Theory of Effective Use defines effective use as “using a system in a way that helps attain the goals of using the system” (Burton-Jones and Grange 2013, 636) and conceptualizes it to consist of three dimensions: transparent interaction, representational fidelity, and informed action.\nTransparent interaction is the extent to which a user is accessing the system’s representations unimpeded by its surface and physical structures.\nRepresentational fidelity is the extent to which a user is obtaining representations from the system that faithfully reflect the domain being represented.\nInformed action is the extent to which a user acts upon the faithful representations he or she obtains from the system to improve his or her state."
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#affordances",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#affordances",
+    "title": "Technology Adoption",
+    "section": "Affordances",
+    "text": "Affordances\n\n\n\nFigure 6: Nested affordances based on (burton2013use?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#affordance-generation",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#affordance-generation",
+    "title": "Technology Adoption",
+    "section": "Affordance generation",
+    "text": "Affordance generation\n\n\n\nFigure 7: Activity systems as affordances generation systems based on (weeger2021contradictions?)"
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/index.html#usage-as-the-missing-link",
+    "href": "lectures/DIiI/23ST/adoption/index.html#usage-as-the-missing-link",
+    "title": "Technology Adoption",
+    "section": "Usage as the missing link",
+    "text": "Usage as the missing link\n\n\n\nFigure 2: The process model of IS value creation (Soh and Markus 1995, 37)\n\n\n\nIT assets need to be used in order to create any impact that, eventually, creates value."
+  },
+  {
+    "objectID": "lectures/DIiI/23ST/adoption/slides.html#usage-as-the-missing-link",
+    "href": "lectures/DIiI/23ST/adoption/slides.html#usage-as-the-missing-link",
+    "title": "Technology Adoption",
+    "section": "Usage as the missing link",
+    "text": "Usage as the missing link\n\n\n\nFigure 2: The process model of IS value creation (Soh and Markus 1995, 37)\n\n\n\nIT assets need to be used in order to create any impact that, eventually, creates value."
   }
 ]
