@@ -6,33 +6,45 @@ categories: ["Lecture Notes"]
 
 bibliography: ../assets/literature.bib
 
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#564ac6'
+
 format: 
-  html:
-    output-file: index.html
+#  html:
+#    output-file: index.html
   letterbox-revealjs:
     output-file: slides.html 
     date: "Summer Term 2023"
     include-before-body: ../assets/footer.html
 ---
 
-# Top{visibility="hidden" .slide-link-hidden .unlisted .unnumbered}
+# Top {visibility="hidden" .slide-link-hidden .unlisted .unnumbered}
 
 {{< include ../assets/_top.qmd >}}
 
-# Introduction {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Introduction {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
-## Motivation
+## Discussion {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
 
-:::{.incremental}
-- The agent's knowledge of the world is incomplete (not enough information) or uncertain (sensors are unreliable)
-- The agent must consider every possible explanation for its percepts (no matter how unlikely)
-- Leads to a large belief-state full of unlikely possibilities and arbitrarily large contingent plans
-- Rules about the world are often incomplete (e.g., are all preconditions for an action known?) or even incorrect
+::: larger
+
+What are challenges related to logic as an approach to knowledge representation?
+
 :::
 
-. . .
+## Qualification problem
 
-As an agent has to act in spite of this, __conclusions under uncertainty__ need to be drawn.
+Logic is good, but often __conclusions under uncertainty__ need to be drawn, as ...
+
+:::{.incremental}
+- the agent's knowledge of the world is incomplete (not enough information) or uncertain (sensors are unreliable);
+- the agent must consider every possible explanation for its percepts (no matter how unlikely);
+- this leads to a large belief-state full of unlikely possibilities and arbitrarily large contingent plans; and
+- rules about the world are often incomplete (e.g., are all preconditions for an action known?) or even incorrect
+:::
 
 :::{.notes}
 :::{.callout-note}
@@ -96,7 +108,7 @@ $Cavity \implies Toothache$
 
 . . .
 
-→ Ist still wrong and does not allow to reason from symptoms to causes.
+→ This is still wrong and does not allow to reason from symptoms to causes.
 
 [^1]:See qualification problem
 
@@ -114,10 +126,17 @@ What do we learn from that?
 
 . . .
 
-→ Without perfect knowledge, logical rules do not help much
+→ Without perfect knowledge (i.e., *"the rules of the game"*), logical rules do not help much
 
 [^2]:Medical science has no complete theory for the domain
 [^3]:For instance, the coincidence of having a toothache and a cavity that are unrelated, or the fact that not all tests have been run
+
+## Discussion {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
+
+::: larger
+What might be a problem related to the localization of a robot?
+:::
+
 
 ## Uncertainty in facts
 
@@ -146,11 +165,13 @@ robot is at that location
   *The predicate tall is vague; the statement, “A man is 1.75–1.80m tall” is uncertain.*
 :::
 
-# Uncertainty and rational decisions {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Uncertainty and rational decisions  {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Decision theory
 
-`decision theory = utility theory + probability theory`
+::: html-hidden
+[= utility theory + probability theory`]{.larger}
+:::
 
 :::{.incremental}
 - We have a choice of actions (or plans)
@@ -167,13 +188,13 @@ It would be rational to choose the action with the __maximum expected utility (M
 
 ## Unconditional probabilities 
 
-$P(A)$ denotes the unconditional probability or prior probability that $A$ will appear in the absence of any other information, e.g. $P(Cavity) = 0.1$
+$P(A)$ denotes the unconditional probability or **prior probability** that $A$ will appear in the absence of any other information, e.g. $P(Cavity) = 0.1$
 
 :::{.incremental}
 - Prior probabilities can be obtained from statistical analysis or general rules
 - A __random variable__[^5] can take on some range---the set of possible values (e.g., Numbers, Boolean, arbitary tokens), e.g. $P(Weather=sunny=0.6)$
-- Logical connectors can be used to build __probabilistic propositions__, e.g. $P(Cavity \land \neg Insured) = 0.06$$P(Cavity \land \neg Insured) = 0.06$
-- Propositions can contain equations over random variables, e.g. $P(NoonTemp=x) = Uniform(x;18C;26C)$[^6], usually called a __probability density function__
+- Logical connectors can be used to build __probabilistic propositions__, e.g. $P(Cavity \land \neg Insured) = 0.06$
+- Propositions can contain equations over random variables, e.g. $P(NoonTemp=x) = \textrm{Uniform}(x;18C;26C)$[^6], usually called a __probability density function__
 :::
 
 [^5]:Variables in probability theory are called random variables
@@ -200,7 +221,7 @@ For any propositions $a$ and $b$ (if $P(b)>0$), we have $P(a|b)=\frac{P(a \land 
 
 Or in a different form as __product rule__
 
-$P(a \land b) = P(a,b) = P(a|b)P(b)$[^10]
+$P(a \land b) = P(a,b) = P(a|b)P(b) = P(b|a)P(a)$[^10]
 
 [^10]:$P(a \land b) = P(a|b)P(b)$ equals $P(a \land b) = P(b|a)P(a)$
 
@@ -464,54 +485,9 @@ P(c|t) = {} &  \frac{P(t|c)P(c)}{P(t|c)P(c)+P(t|\neg c)P(\neg c)} && (1.5)
 \end{flalign}
 $$
 
-. . .
-
-### Normalizing constant
-
-For random variables with multiple values:
-
-$$
-\begin{flalign}
-P(Y|X) = {} & \frac{P(X|Y)P(Y)}{P(X)} && \\
-\end{flalign}
-$$
-
-. . .
-
-$$
-\begin{flalign}
-P(Y|X) = {} & \alpha P(X|Y) P(Y) &&
-\end{flalign}
-$$
-
-
-Where $\alpha$ is the __normalization constant__ needed to make the entries in $P(Y | X)$ sum to 1. Example: $\alpha(.1,.1,.3) = (.2,.2,.6)$
-
 ----
 
-### Generalization
-
-Let $e$ be the observed value of an evidence variable $E$, and let $Y$ be the remaining unobserverd variables. 
-
-The query is $P(X|e)$ and can be evaluated as
-
-. . .
-
-$$
-\begin{flalign}
-P(X|e) = \frac{P(X,e)}{P(e)} = \alpha P(X,e) = \alpha \sum_y P(X,e,y) &&
-\end{flalign}
-$$
-
-Since $e$ is known, the factor $1 / P(e)$ is the same for all values of $X$. 
-
-In fact, it can be viewed as a __normalization constant__ for the distrubution $P(X|e)$, ensuring that it adds up to 1.
-
-:::{.notes}
-The summation is over all possible $y$s (i.e., all possible combinations of values of the unobserved variables $Y$). Notice that together, the variables $X$, $E$, and $Y$ constitute the complete set of variables for the domain, so $P(X,e,y)$ is simply a subset of probabilities from the full joint distribution.
-:::
-
-## Example
+### Example
 
 Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease ($D$). This test ($T$) is correct to 99% (1% false positive & 1% false negative results). What does this mean for you?
 
@@ -542,6 +518,53 @@ $$
 . . .
 
 __Bottom line:__ if the inaccuracy of the test is much greater than the frequency of occurrence of the disease, then a positive result is not as threatening as one might think.
+
+----
+
+### Normalizing constant
+
+For random variables with multiple values:
+
+$$
+\begin{flalign}
+P(Y|X) = {} & \frac{P(X|Y)P(Y)}{P(X)} && \\
+\end{flalign}
+$$
+
+. . .
+
+$$
+\begin{flalign}
+P(Y|X) = {} & \alpha P(X|Y) P(Y) &&
+\end{flalign}
+$$
+
+
+Where $\alpha$ is the __normalization constant__ needed to make the entries in $P(Y | X)$ sum to 1. Example: $\alpha(.1,.1,.3) = (.2,.2,.6)$
+
+----
+
+## Generalization {visibility="hidden"}
+
+Let $e$ be the observed value of an evidence variable $E$, and let $Y$ be the remaining unobserverd variables. 
+
+The query is $P(X|e)$ and can be evaluated as
+
+. . .
+
+$$
+\begin{flalign}
+P(X|e) = \frac{P(X,e)}{P(e)} = \alpha P(X,e) = \alpha \sum_y P(X,e,y) &&
+\end{flalign}
+$$
+
+Since $e$ is known, the factor $1 / P(e)$ is the same for all values of $X$. 
+
+In fact, it can be viewed as a __normalization constant__ for the distrubution $P(X|e)$, ensuring that it adds up to 1.
+
+:::{.notes}
+The summation is over all possible $y$s (i.e., all possible combinations of values of the unobserved variables $Y$). Notice that together, the variables $X$, $E$, and $Y$ constitute the complete set of variables for the domain, so $P(X,e,y)$ is simply a subset of probabilities from the full joint distribution.
+:::
 
 ## Multiple evidence
 
@@ -611,15 +634,27 @@ $$
 
 . . .
 
-In the dentist example, it seems reasonable to assert conditional independence of the variables $Toothache$ and $Catch$ given $Cav$, thus we can insert equation (2.1) into (2.0) leading to
+In the dentist example, it seems reasonable to assert conditional independence of the variables $Toothache$ and $Catch$ given $Cav$, thus we can insert equation (2.1) into (2.0) leading to (2.2)
 
 $$
 \begin{flalign}
-P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)} &&
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache \land Catch|Cav)P(Cav)} && (2.0)
 \end{flalign}
 $$
 
-# Naive Bayes models {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+$$
+\begin{flalign}
+P(Toothache \land Catch | Cav) = P(Toothache | Cav) P(Catch | Cav) && (2.1)
+\end{flalign}
+$$
+
+$$
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)} && (2.2)
+\end{flalign}
+$$
+
+# Naive Bayes models {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 :::{.notes}
 The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause. 
@@ -639,7 +674,7 @@ In practice, naive Bayes systems often work very well, even when the __condition
 
 ## Recursive Bayesian updating
 
-Multiple evidence can be reduced to prior probabilities and conditional probabilities (assuming conditional independence)
+Multiple evidence can be reduced to prior probabilities and conditional probabilities (assuming conditional independence).
 
 . . .
 

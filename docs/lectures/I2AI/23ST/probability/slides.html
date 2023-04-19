@@ -367,7 +367,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#0333ff" class="quarto-title-block">
+<section id="title-slide" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
   <h1 class="title">Probability</h1>
   <p class="subtitle">🧠 Introduction to AI — I2AI_6</p>
 
@@ -387,22 +387,27 @@ Andy Weeger
 
 
 <section>
-<section id="introduction" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="introduction" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Introduction</h1>
 
 </section>
-<section id="motivation" class="slide level2">
-<h2>Motivation</h2>
+<section id="discussion" class="slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
+<h2>Discussion</h2>
+<div class="larger">
+<p>What are challenges related to logic as an approach to knowledge representation?</p>
+</div>
+</section>
+<section id="qualification-problem" class="slide level2">
+<h2>Qualification problem</h2>
+<p>Logic is good, but often <strong>conclusions under uncertainty</strong> need to be drawn, as …</p>
 <div>
 <ul>
-<li class="fragment">The agent’s knowledge of the world is incomplete (not enough information) or uncertain (sensors are unreliable)</li>
-<li class="fragment">The agent must consider every possible explanation for its percepts (no matter how unlikely)</li>
-<li class="fragment">Leads to a large belief-state full of unlikely possibilities and arbitrarily large contingent plans</li>
-<li class="fragment">Rules about the world are often incomplete (e.g., are all preconditions for an action known?) or even incorrect</li>
+<li class="fragment">the agent’s knowledge of the world is incomplete (not enough information) or uncertain (sensors are unreliable);</li>
+<li class="fragment">the agent must consider every possible explanation for its percepts (no matter how unlikely);</li>
+<li class="fragment">this leads to a large belief-state full of unlikely possibilities and arbitrarily large contingent plans; and</li>
+<li class="fragment">rules about the world are often incomplete (e.g., are all preconditions for an action known?) or even incorrect</li>
 </ul>
 </div>
-<div class="fragment">
-<p>As an agent has to act in spite of this, <strong>conclusions under uncertainty</strong> need to be drawn.</p>
 <aside class="notes">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
@@ -430,7 +435,6 @@ Andy Weeger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
@@ -472,7 +476,7 @@ Andy Weeger
 <p><span class="math inline">\(Cavity \implies Toothache\)</span></p>
 </div>
 <div class="fragment">
-<p>→ Ist still wrong and does not allow to reason from symptoms to causes.</p>
+<p>→ This is still wrong and does not allow to reason from symptoms to causes.</p>
 </div>
 <aside></aside></section>
 <section id="learnings" class="slide level2 html-hidden unlisted vertical-center" data-background-color="#0333ff">
@@ -489,9 +493,15 @@ Andy Weeger
 </ul>
 </div>
 <div class="fragment">
-<p>→ Without perfect knowledge, logical rules do not help much</p>
+<p>→ Without perfect knowledge (i.e., <em>“the rules of the game”</em>), logical rules do not help much</p>
 </div>
 <aside></aside></section>
+<section id="discussion-1" class="slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
+<h2>Discussion</h2>
+<div class="larger">
+<p>What might be a problem related to the localization of a robot?</p>
+</div>
+</section>
 <section id="uncertainty-in-facts" class="slide level2">
 <h2>Uncertainty in facts</h2>
 <p>Let us suppose we wanted to support the localization of a robot with (constant) landmarks. With the availability of landmarks, we can narrow down on the area.</p>
@@ -521,13 +531,15 @@ Andy Weeger
 </div>
 </section></section>
 <section>
-<section id="uncertainty-and-rational-decisions" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="uncertainty-and-rational-decisions" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Uncertainty and rational decisions</h1>
 
 </section>
 <section id="decision-theory" class="slide level2">
 <h2>Decision theory</h2>
-<p><code>decision theory = utility theory + probability theory</code></p>
+<div class="html-hidden">
+<p><span class="larger">= utility theory + probability theory`</span></p>
+</div>
 <div>
 <ul>
 <li class="fragment">We have a choice of actions (or plans)</li>
@@ -542,13 +554,13 @@ Andy Weeger
 <aside></aside></section>
 <section id="unconditional-probabilities" class="slide level2">
 <h2>Unconditional probabilities</h2>
-<p><span class="math inline">\(P(A)\)</span> denotes the unconditional probability or prior probability that <span class="math inline">\(A\)</span> will appear in the absence of any other information, e.g.&nbsp;<span class="math inline">\(P(Cavity) = 0.1\)</span></p>
+<p><span class="math inline">\(P(A)\)</span> denotes the unconditional probability or <strong>prior probability</strong> that <span class="math inline">\(A\)</span> will appear in the absence of any other information, e.g.&nbsp;<span class="math inline">\(P(Cavity) = 0.1\)</span></p>
 <div>
 <ul>
 <li class="fragment">Prior probabilities can be obtained from statistical analysis or general rules</li>
 <li class="fragment">A <strong>random variable</strong><a href="#/footnotes" class="footnote-ref" id="fnref5" role="doc-noteref" data-footnote-href="#/fn5" onclick=""><sup>5</sup></a> can take on some range—the set of possible values (e.g., Numbers, Boolean, arbitary tokens), e.g.&nbsp;<span class="math inline">\(P(Weather=sunny=0.6)\)</span></li>
-<li class="fragment">Logical connectors can be used to build <strong>probabilistic propositions</strong>, e.g.&nbsp;<span class="math inline">\(P(Cavity \land \neg Insured) = 0.06\)</span><span class="math inline">\(P(Cavity \land \neg Insured) = 0.06\)</span></li>
-<li class="fragment">Propositions can contain equations over random variables, e.g.&nbsp;<span class="math inline">\(P(NoonTemp=x) = Uniform(x;18C;26C)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref6" role="doc-noteref" data-footnote-href="#/fn6" onclick=""><sup>6</sup></a>, usually called a <strong>probability density function</strong></li>
+<li class="fragment">Logical connectors can be used to build <strong>probabilistic propositions</strong>, e.g.&nbsp;<span class="math inline">\(P(Cavity \land \neg Insured) = 0.06\)</span></li>
+<li class="fragment">Propositions can contain equations over random variables, e.g.&nbsp;<span class="math inline">\(P(NoonTemp=x) = \textrm{Uniform}(x;18C;26C)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref6" role="doc-noteref" data-footnote-href="#/fn6" onclick=""><sup>6</sup></a>, usually called a <strong>probability density function</strong></li>
 </ul>
 </div>
 <aside></aside></section>
@@ -565,7 +577,7 @@ Andy Weeger
 </div>
 <div class="fragment">
 <p>Or in a different form as <strong>product rule</strong></p>
-<p><span class="math inline">\(P(a \land b) = P(a,b) = P(a|b)P(b)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref7" role="doc-noteref" data-footnote-href="#/fn7" onclick=""><sup>7</sup></a></p>
+<p><span class="math inline">\(P(a \land b) = P(a,b) = P(a|b)P(b) = P(b|a)P(a)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref7" role="doc-noteref" data-footnote-href="#/fn7" onclick=""><sup>7</sup></a></p>
 </div>
 <aside></aside></section>
 <section id="example-1" class="slide level2">
@@ -792,54 +804,10 @@ P(t) = {} &amp; P(t|c) P(c) + P(t|\neg c) P(\neg c) &amp;&amp; (1.4)
 P(c|t) = {} &amp;  \frac{P(t|c)P(c)}{P(t|c)P(c)+P(t|\neg c)P(\neg c)} &amp;&amp; (1.5)
 \end{flalign}
 \]</span></p>
-<div class="fragment">
-<h3 id="normalizing-constant">Normalizing constant</h3>
-<p>For random variables with multiple values:</p>
-<p><span class="math display">\[
-\begin{flalign}
-P(Y|X) = {} &amp; \frac{P(X|Y)P(Y)}{P(X)} &amp;&amp; \\
-\end{flalign}
-\]</span></p>
-<div class="fragment">
-<p><span class="math display">\[
-\begin{flalign}
-P(Y|X) = {} &amp; \alpha P(X|Y) P(Y) &amp;&amp;
-\end{flalign}
-\]</span></p>
-<p>Where <span class="math inline">\(\alpha\)</span> is the <strong>normalization constant</strong> needed to make the entries in <span class="math inline">\(P(Y | X)\)</span> sum to 1. Example: <span class="math inline">\(\alpha(.1,.1,.3) = (.2,.2,.6)\)</span></p>
-</div>
-</div>
 </section>
 <section class="slide level2">
 
-<h3 id="generalization">Generalization</h3>
-<p>Let <span class="math inline">\(e\)</span> be the observed value of an evidence variable <span class="math inline">\(E\)</span>, and let <span class="math inline">\(Y\)</span> be the remaining unobserverd variables.</p>
-<p>The query is <span class="math inline">\(P(X|e)\)</span> and can be evaluated as</p>
-<div class="fragment">
-<p><span class="math display">\[
-\begin{flalign}
-P(X|e) = \frac{P(X,e)}{P(e)} = \alpha P(X,e) = \alpha \sum_y P(X,e,y) &amp;&amp;
-\end{flalign}
-\]</span></p>
-<p>Since <span class="math inline">\(e\)</span> is known, the factor <span class="math inline">\(1 / P(e)\)</span> is the same for all values of <span class="math inline">\(X\)</span>.</p>
-<p>In fact, it can be viewed as a <strong>normalization constant</strong> for the distrubution <span class="math inline">\(P(X|e)\)</span>, ensuring that it adds up to 1.</p>
-<aside class="notes">
-<p>The summation is over all possible <span class="math inline">\(y\)</span>s (i.e., all possible combinations of values of the unobserved variables <span class="math inline">\(Y\)</span>). Notice that together, the variables <span class="math inline">\(X\)</span>, <span class="math inline">\(E\)</span>, and <span class="math inline">\(Y\)</span> constitute the complete set of variables for the domain, so <span class="math inline">\(P(X,e,y)\)</span> is simply a subset of probabilities from the full joint distribution.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="example-3" class="slide level2">
-<h2>Example</h2>
+<h3 id="example-3">Example</h3>
 <p>Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease (<span class="math inline">\(D\)</span>). This test (<span class="math inline">\(T\)</span>) is correct to 99% (1% false positive &amp; 1% false negative results). What does this mean for you?</p>
 <div class="fragment">
 <p><span class="math display">\[
@@ -866,6 +834,25 @@ P(D|T) = \frac{0.99 x 0.0001}{0.99 x 0.0001 + 0.01 x 0.9999} = \frac{0.000099}{0
 <p><strong>Bottom line:</strong> if the inaccuracy of the test is much greater than the frequency of occurrence of the disease, then a positive result is not as threatening as one might think.</p>
 </div>
 </section>
+<section class="slide level2">
+
+<h3 id="normalizing-constant">Normalizing constant</h3>
+<p>For random variables with multiple values:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Y|X) = {} &amp; \frac{P(X|Y)P(Y)}{P(X)} &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Y|X) = {} &amp; \alpha P(X|Y) P(Y) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the <strong>normalization constant</strong> needed to make the entries in <span class="math inline">\(P(Y | X)\)</span> sum to 1. Example: <span class="math inline">\(\alpha(.1,.1,.3) = (.2,.2,.6)\)</span></p>
+</div>
+</section>
+
 <section id="multiple-evidence" class="slide level2">
 <h2>Multiple evidence</h2>
 <p>A dentist’s probe catches in the aching tooth of a patient.</p>
@@ -920,16 +907,26 @@ P(X,Y|Z) = P(X|Z)P(Y|Z) &amp;&amp;
 \end{flalign}
 \]</span></p>
 <div class="fragment">
-<p>In the dentist example, it seems reasonable to assert conditional independence of the variables <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> given <span class="math inline">\(Cav\)</span>, thus we can insert equation (2.1) into (2.0) leading to</p>
+<p>In the dentist example, it seems reasonable to assert conditional independence of the variables <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> given <span class="math inline">\(Cav\)</span>, thus we can insert equation (2.1) into (2.0) leading to (2.2)</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)} &amp;&amp;
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache \land Catch|Cav)P(Cav)} &amp;&amp; (2.0)
+\end{flalign}
+\]</span></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Toothache \land Catch | Cav) = P(Toothache | Cav) P(Catch | Cav) &amp;&amp; (2.1)
+\end{flalign}
+\]</span></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)} &amp;&amp; (2.2)
 \end{flalign}
 \]</span></p>
 </div>
 </section></section>
 <section>
-<section id="naive-bayes-models" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="naive-bayes-models" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Naive Bayes models</h1>
 <aside class="notes">
 <p>The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause.</p>
@@ -955,7 +952,7 @@ P(Cause, \mathit{Effect_1},..., \mathit{Effect_n}) = P(Cause) \prod_{i=1} P(\mat
 </section>
 <section id="recursive-bayesian-updating" class="slide level2">
 <h2>Recursive Bayesian updating</h2>
-<p>Multiple evidence can be reduced to prior probabilities and conditional probabilities (assuming conditional independence)</p>
+<p>Multiple evidence can be reduced to prior probabilities and conditional probabilities (assuming conditional independence).</p>
 <div class="fragment">
 <p>The <strong>general combination rule</strong>, if <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> are independent given <span class="math inline">\(X\)</span> is</p>
 <p><span class="math display">\[
