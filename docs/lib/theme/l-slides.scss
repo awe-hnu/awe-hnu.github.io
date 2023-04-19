@@ -69,6 +69,7 @@ $link-color: #0333ff !default;
 $link-color-hover: lighten($link-color, 10%) !default;
 $selection-bg: rgba(0, 0, 0, 0.99);
 
+
 // headings
 $presentation-heading-font: $font-family-sans-serif;
 
@@ -128,9 +129,9 @@ $input-panel-bg: rgba(248, 249, 250, 1) !default;
 $light-bg-text-color: #000 !default;
 $dark-bg-text-color: #fff !default;
 $light-bg-link-color: #0333ff !default;
-$dark-bg-link-color: #35a7df !default;
+$dark-bg-link-color: #05e1f1 !default;
 $light-bg-code-color: #0333ff !default;
-$dark-bg-code-color: #0333ff !default;
+$dark-bg-code-color: #05e1f1 !default;
 
 // --- derive reveal versions of presentation variables for finer-grained override ---
 
@@ -768,6 +769,7 @@ $progress-height: 5px;
     max-width: 45em;
   }
   
+
   p.caption {
     max-width: unset;
   }
@@ -818,6 +820,12 @@ $progress-height: 5px;
       margin-top: $blockMargin;
       display: block;
     }
+    
+    strong {
+      background: #f0f0f0;
+      font-weight: normal;
+      padding: 0 5px;
+    }
 
   }
 
@@ -825,22 +833,26 @@ $progress-height: 5px;
 
       blockquote {
 
-      border-left-color: lighten($link-color, 20%);
+      border-left-color: $dark-bg-link-color;
       color: white;
     
       em {
-        color: lighten($link-color, 20%);
+        color: $dark-bg-link-color;
       }
-
+    
     }
+    
+    strong {
+      background-color: $dark-bg-link-color !important;
+      color: $body-color;
+    }      
 
     span.citation,
     span.citation a {
-      color: lighten($link-color, 40%);
+      color: $dark-bg-link-color;
+      
     }
 
-  
-  
   .larger,
   .large {
     
@@ -903,6 +915,17 @@ $progress-height: 5px;
 
   p {
     margin: 1rem 0;
+  }
+  
+  p span.larger,
+  p span.large {
+      font-size: $revealjs-h1-font-size*1.5;
+      font-family: $font-family-monospace;
+      strong {
+        background: #f0f0f0;
+        font-weight: normal;
+        padding: 0 5px;
+      }       
   }
   
   .larger,
