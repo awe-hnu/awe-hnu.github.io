@@ -1,11 +1,8 @@
-return {
-  {
-    Para = function (para)
-      if para.content == {pandoc.Str'.', pandoc.Space, pandoc.Str'.', pandoc.Space, pandoc.Str'.'} then
-        return none
-      else
-        return para
-      end
-    end,
-  }
-}
+Para = function(e)
+  if (not quarto.doc.isFormat("revealjs")) then
+    if (e == pandoc.Para '. . .') then
+      return {}
+    end
+  end
+  return nil
+end

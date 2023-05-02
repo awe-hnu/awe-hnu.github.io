@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,14 +18,15 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -39,8 +40,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -78,10 +78,12 @@ div.csl-indent {
 </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="awe.lectures - Logics">
 <meta property="og:description" content="🧠 Introduction to AI — I2AI_5">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/I2AI/23ST/logic/images/knowledgeBasedAgents.svg">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 
@@ -96,89 +98,105 @@ div.csl-indent {
     <span class="navbar-title">awe:lectures</span>
     </a>
   </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Logics</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../lectures/I2AI/23ST/intro/index.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../../../lectures/I2AI/23ST/logic/index.html">Logics</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Admin</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="https://elearning.hnu.de/course/view.php?id=19237" class="sidebar-item-text sidebar-link">Moodle</a>
+  <a href="https://elearning.hnu.de/course/view.php?id=19237" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Moodle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/admin/index.html" class="sidebar-item-text sidebar-link">Administrivia 🧐</a>
+  <a href="../../../../lectures/I2AI/23ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia 🧐</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Lecture notes</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/intro/index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="../../../../lectures/I2AI/23ST/intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/agents/index.html" class="sidebar-item-text sidebar-link">Intelligent agents</a>
+  <a href="../../../../lectures/I2AI/23ST/agents/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intelligent agents</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/search/index.html" class="sidebar-item-text sidebar-link">Search</a>
+  <a href="../../../../lectures/I2AI/23ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/games/index.html" class="sidebar-item-text sidebar-link">Adversarial search</a>
+  <a href="../../../../lectures/I2AI/23ST/games/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adversarial search</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/logic/index.html" class="sidebar-item-text sidebar-link active">Logics</a>
+  <a href="../../../../lectures/I2AI/23ST/logic/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Logics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/probability/index.html" class="sidebar-item-text sidebar-link">Probability</a>
+  <a href="../../../../lectures/I2AI/23ST/probability/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/learning/index.html" class="sidebar-item-text sidebar-link">Learning</a>
+  <a href="../../../../lectures/I2AI/23ST/learning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/23ST/ethics/index.html" class="sidebar-item-text sidebar-link">Ethics</a>
+  <a href="../../../../lectures/I2AI/23ST/ethics/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ethics</span></a>
   </div>
 </li>
       </ul>
@@ -186,6 +204,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -201,14 +220,14 @@ div.csl-indent {
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">✏️ Exercises</a></li>
   <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS (letterbox)</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Logics</h1>
+<h1 class="title">Logics</h1>
 <p class="subtitle lead">🧠 Introduction to AI — I2AI_5</p>
   <div class="quarto-categories">
     <div class="quarto-category">Lecture Notes</div>
@@ -221,7 +240,7 @@ div.csl-indent {
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    Andy Weeger 
+    <p class="author">Andy Weeger </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -263,7 +282,7 @@ div.csl-indent {
 <section id="think-rationally" class="level2">
 <h2 data-anchor-id="think-rationally">Think rationally</h2>
 <p>Until now, the focus has been on agents that act rationally. Often, however, rational action requires <strong>rational (logical) thought</strong> on the agent’s part.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>Relevant aspects of the environment must be represented in a <strong>knowledge base</strong> (KB), composed of <strong>sentences</strong> in knowledge representation language (e.g., logic).</p>
 <div class="incremental">
 <ul class="incremental">
@@ -277,12 +296,12 @@ div.csl-indent {
 </ul>
 </div>
 <div class="notes">
-<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Types of sentences
 </div>
 </div>
@@ -307,14 +326,13 @@ Types of sentences
 </ul>
 </section>
 </div>
-</div>
 </section>
 <section id="knowledge-based-agents" class="level2">
 <h2 data-anchor-id="knowledge-based-agents">Knowledge-based agents</h2>
 <div id="fig-kba" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/knowledgeBasedAgents.svg" class="lightbox" title="A simplified illustration of a knowledge-based agent" data-gallery="quarto-lightbox-gallery-1"><img src="images/knowledgeBasedAgents.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: A simplified illustration of a knowledge-based agent</figcaption><p></p>
+<p><a href="images/knowledgeBasedAgents.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A simplified illustration of a knowledge-based agent"><img src="images/knowledgeBasedAgents.svg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;1: A simplified illustration of a knowledge-based agent</figcaption>
 </figure>
 </div>
 <div class="notes">
@@ -346,7 +364,7 @@ Types of sentences
 <section id="peas" class="level2">
 <h2 data-anchor-id="peas">PEAS</h2>
 <p>Let’s apply the PEAS concept to specify the task environment of the wumpus world (though we do not use the complete specification here).</p>
-<div class="incremental">
+<p>. . .</p>
 <section id="performance-measure" class="level4">
 <h4 data-anchor-id="performance-measure">Performance measure</h4>
 <div class="incremental">
@@ -392,15 +410,13 @@ Types of sentences
 <li>When the agent walks into a wall, it perceives a <em>bump</em></li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p>Percepts are represented as a 4-tuple, e.g.,<br>
 <span class="math inline">\([Stench, Breeze, Glitter, None]\)</span></p>
 <div class="notes">
 <p>The PEAS can be characterized as <em>deterministic, discrete, static, and single-agent</em></p>
 </div>
-</div>
 </section>
-</div>
 </section>
 <section id="a-sample-configuration" class="level2">
 <h2 data-anchor-id="a-sample-configuration">A sample configuration</h2>
@@ -408,8 +424,8 @@ Types of sentences
 <div class="column">
 <div id="fig-wumpusWorld" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/wumpusWorld.svg" class="lightbox" title="A typical wumpus world" data-gallery="quarto-lightbox-gallery-2"><img src="images/wumpusWorld.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: A typical wumpus world</figcaption><p></p>
+<p><a href="images/wumpusWorld.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="A typical wumpus world"><img src="images/wumpusWorld.svg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;2: A typical wumpus world</figcaption>
 </figure>
 </div>
 </div><div class="column">
@@ -430,34 +446,34 @@ Types of sentences
 <div class="r-stack html-hidden">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/ww-0.svg" class="lightbox" title="Moving in the wumpus world" data-gallery="quarto-lightbox-gallery-3"><img src="images/ww-0.svg" height="400" class="figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Moving in the wumpus world</figcaption><p></p>
+<p><a href="images/ww-0.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Moving in the wumpus world"><img src="images/ww-0.svg" height="400" class="figure-img"></a></p>
+<figcaption class="figure-caption">Moving in the wumpus world</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/ww-1.svg" class="lightbox" title="&nbsp;" data-gallery="quarto-lightbox-gallery-4"><img src="images/ww-1.svg" height="400" class="figure-img"></a></p>
-<p></p><figcaption class="figure-caption">&nbsp;</figcaption><p></p>
+<p><a href="images/ww-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="&nbsp;"><img src="images/ww-1.svg" height="400" class="figure-img"></a></p>
+<figcaption class="figure-caption">&nbsp;</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/ww-2.svg" class="lightbox" title="&nbsp;" data-gallery="quarto-lightbox-gallery-5"><img src="images/ww-2.svg" height="400" class="figure-img"></a></p>
-<p></p><figcaption class="figure-caption">&nbsp;</figcaption><p></p>
+<p><a href="images/ww-2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="&nbsp;"><img src="images/ww-2.svg" height="400" class="figure-img"></a></p>
+<figcaption class="figure-caption">&nbsp;</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/ww-3.svg" class="lightbox" title="&nbsp;" data-gallery="quarto-lightbox-gallery-6"><img src="images/ww-3.svg" height="400" class="figure-img"></a></p>
-<p></p><figcaption class="figure-caption">&nbsp;</figcaption><p></p>
+<p><a href="images/ww-3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="&nbsp;"><img src="images/ww-3.svg" height="400" class="figure-img"></a></p>
+<figcaption class="figure-caption">&nbsp;</figcaption>
 </figure>
 </div>
 </div>
 <div class="notes">
 <div id="fig-ww-1" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/ww-1.svg" class="lightbox" title="Moving from [1,1] to [2,1]" data-gallery="quarto-lightbox-gallery-7"><img src="images/ww-1.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3: Moving from [1,1] to [2,1]</figcaption><p></p>
+<p><a href="images/ww-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Moving from [1,1] to [2,1]"><img src="images/ww-1.svg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Moving from [1,1] to [2,1]</figcaption>
 </figure>
 </div>
 <ul>
@@ -466,8 +482,8 @@ Types of sentences
 </ul>
 <div id="fig-ww-3" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/ww-3.svg" class="lightbox" title="Moving from [1,2] to [2,3]" data-gallery="quarto-lightbox-gallery-8"><img src="images/ww-3.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;4: Moving from [1,2] to [2,3]</figcaption><p></p>
+<p><a href="images/ww-3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Moving from [1,2] to [2,3]"><img src="images/ww-3.svg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Moving from [1,2] to [2,3]</figcaption>
 </figure>
 </div>
 <ul>
@@ -482,19 +498,16 @@ Types of sentences
 <section id="basic-syntax" class="level2">
 <h2 data-anchor-id="basic-syntax">Basic syntax</h2>
 <p><strong>Propositions</strong> are the building blocks of propositional logic.</p>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Atomic sentences</strong> consist of a single proposition symbol, that can be <code>true</code> or <code>false</code>, e.g.,</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <ul>
 <li><span class="math inline">\(BlockRed\)</span> — <em>The block is red</em></li>
 <li><span class="math inline">\(W_{1,3}\)</span> — <em>The wumpus is in</em> <span class="math inline">\([1,3]\)</span></li>
 </ul>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>The logical connectives <code>and</code> <span class="math inline">\(\land\)</span>, <code>or</code> <span class="math inline">\(\lor\)</span>, <code>not</code> <span class="math inline">\(\neg\)</span>, <code>implies</code> <span class="math inline">\(\implies\)</span>, and <code>if and only if</code> <span class="math inline">\(\iff\)</span> can be used to build <strong>complex sentences</strong>.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>Operator precedence: <span class="math inline">\(\neg, \land, \lor, \implies, \iff\)</span> (use brackets when necessary)</p>
 <div class="notes">
 <section id="logical-connectives" class="level3">
@@ -593,7 +606,6 @@ Types of sentences
 </div>
 </section>
 </div>
-</div>
 </section>
 <section id="exercise-1" class="level2 html-hidden unlisted" data-background-color="#efefef">
 <h2 class="html-hidden unlisted" data-background-color="#efefef" data-anchor-id="exercise-1">Exercise 1</h2>
@@ -664,10 +676,9 @@ Types of sentences
 <section id="basic-semantics" class="level2">
 <h2 data-anchor-id="basic-semantics">Basic semantics</h2>
 <p>Atomic propositions can be <code>true</code> or <code>false</code>.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>The truth of a formula follows from the truth of its atomic propositions (<strong>truth assignment</strong> or <strong>interpretation</strong>) and the connectives.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>Examples:</p>
 <div class="incremental">
 <ul class="incremental">
@@ -682,7 +693,6 @@ Types of sentences
 and a square is breezy only if a neighboring square has a pit</li>
 </ul></li>
 </ul>
-</div>
 </div>
 </section>
 <section id="a-simple-kb" class="level2">
@@ -707,8 +717,8 @@ and a square is breezy only if a neighboring square has a pit</li>
 <div class="column">
 <div id="fig-wumpusWorld-3" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/wumpusWorld-4.svg" class="lightbox" title="The situation reflected by the sentences" data-gallery="quarto-lightbox-gallery-9"><img src="images/wumpusWorld-4.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;5: The situation reflected by the sentences</figcaption><p></p>
+<p><a href="images/wumpusWorld-4.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="The situation reflected by the sentences"><img src="images/wumpusWorld-4.svg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;5: The situation reflected by the sentences</figcaption>
 </figure>
 </div>
 </div><div class="column">
@@ -731,10 +741,9 @@ and a square is breezy only if a neighboring square has a pit</li>
 <h2 data-anchor-id="a-simple-inference">A simple inference</h2>
 <p>Our goal is to decide wether <span class="math inline">\(KB \models \alpha\)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for some sentence <span class="math inline">\(\alpha\)</span>,<br>
 e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <span class="math inline">\(KB\)</span> (and, thus, a safe place to move)?</p>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Model checking</strong> enumerates all possible models to check that <span class="math inline">\(\alpha\)</span> is true in every model in which <span class="math inline">\(KB\)</span> is true<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>Example (the agent has just moved to <span class="math inline">\([2,1]\)</span>):</p>
 <div class="incremental">
 <ul class="incremental">
@@ -746,7 +755,6 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <li>So we cannot yet tell whether there is a pit in <span class="math inline">\([2,2]\)</span></li>
 </ul>
 </div>
-</div>
 </section>
 </section>
 <section id="propositional-proofs" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
@@ -754,12 +762,10 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <section id="introduction-1" class="level2">
 <h2 data-anchor-id="introduction-1">Introduction</h2>
 <p>Entailment by the <span class="math inline">\(KB\)</span> (or logical consequence) can also be done by <strong>theorem proving</strong>.</p>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Theorem proving</strong> means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>For large number of models and short length of proofs, theorem proving <strong>can be more efficient</strong> than model checking.</p>
-</div>
 </section>
 <section id="additional-concepts" class="level2">
 <h2 data-anchor-id="additional-concepts">Additional concepts</h2>
@@ -769,34 +775,30 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <p>Two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, i.e. <span class="math inline">\(\alpha \equiv \beta\)</span><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 </dd>
 </dl>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Validity</dt>
 <dd>
 <p>A sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Deduction theorem</dt>
 <dd>
 <p>For any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Satisfiability</dt>
 <dd>
 <p>A sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>Validity and satisfiability are connected:<br>
 <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
-</div>
 </section>
 <section id="standard-logical-equivalences" class="level2" data-visibility="hidden">
 <h2 data-visibility="hidden" data-anchor-id="standard-logical-equivalences">Standard logical equivalences</h2>
@@ -921,9 +923,8 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li><strong>And-Elimination</strong>: <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> From a conjunction, any of the conjuncts can be inferred</li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p>All <strong>logical equivalences</strong> can be used as inference rules</p>
-</div>
 </section>
 <section id="example-wumpus-world" class="level2">
 <h2 data-anchor-id="example-wumpus-world">Example (wumpus world)</h2>
@@ -933,13 +934,12 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})\)</span></li>
 <li><span class="math inline">\(R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})\)</span></li>
 </ul>
-<div class="incremental">
+<p>. . .</p>
 <p>The agent is in <span class="math inline">\([1,1]\)</span> and has received following precepts:</p>
 <ul>
 <li><span class="math inline">\(R_4: \neg B_{1,1}\)</span></li>
 </ul>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Question:</strong> is there pit in<span class="math inline">\([1,2]\)</span> or <span class="math inline">\([2,1]\)</span>?</p>
 <p>Using logical inference and the <span class="math inline">\(KB\)</span> containing <span class="math inline">\(R_1\)</span> to <span class="math inline">\(R_4\)</span>, we prove that <span class="math inline">\(\neg P_{1,2} \land \neg P_{2,1}\)</span></p>
 <hr>
@@ -956,10 +956,9 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li>Apply <span class="math inline">\(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\)</span></li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Inference:</strong> <span class="math inline">\(R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})\)</span></p>
 <hr>
-</div>
 </section>
 <section id="and-elimination-to-r_6" class="level4">
 <h4 data-anchor-id="and-elimination-to-r_6">2. And-Elimination to <span class="math inline">\(R_6\)</span></h4>
@@ -974,10 +973,9 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li>Apply <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> (<em>And-Elimination</em>)</li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Inference:</strong> <span class="math inline">\(R_7 : (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span></p>
 <hr>
-</div>
 </section>
 <section id="logical-equivalence-for-contrapositives-r_7" class="level4">
 <h4 data-anchor-id="logical-equivalence-for-contrapositives-r_7">3. Logical equivalence for contrapositives (<span class="math inline">\(R_7\)</span>)</h4>
@@ -990,10 +988,9 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li>Apply <span class="math inline">\(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\)</span></li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Inference:</strong> <span class="math inline">\(R_8 : \neg B_{1,1} \implies \neg (P_{1,2} \lor P_{2,1})\)</span></p>
 <hr>
-</div>
 </section>
 <section id="modus-ponens-with-r_8-and-the-r_4" class="level4">
 <h4 data-anchor-id="modus-ponens-with-r_8-and-the-r_4">4. Modus Ponens with <span class="math inline">\(R_8\)</span> and the <span class="math inline">\(R_4\)</span></h4>
@@ -1008,10 +1005,9 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li>As <span class="math inline">\(\neg B_{1,1}\)</span> (<span class="math inline">\(R_4\)</span>) is given, <span class="math inline">\(R_9\)</span> can be inferred</li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Inference:</strong> <span class="math inline">\(R_9 : \neg (P_{1,2} \lor P_{2,1})\)</span></p>
 <hr>
-</div>
 </section>
 <section id="apply-de-morgans-rule-giving-the-conclusion" class="level4">
 <h4 data-anchor-id="apply-de-morgans-rule-giving-the-conclusion">5. Apply De Morgan’s rule, giving the conclusion</h4>
@@ -1024,17 +1020,15 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 <li>Apply <span class="math inline">\(\neg(\alpha \lor \beta) \equiv (\neg \alpha \land \neg \beta)\)</span></li>
 </ul>
 </div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Inference:</strong> <span class="math inline">\(R_{10} : \neg P_{1,2} \land \neg P_{2,1}\)</span></p>
 <p>Neither <span class="math inline">\([1,2]\)</span> nor <span class="math inline">\([2,1]\)</span> contains a pit.</p>
-</div>
 </section>
-</div>
 </section>
 <section id="search-algorithms" class="level2">
 <h2 data-anchor-id="search-algorithms">Search algorithms</h2>
 <p>Search algorithms can be used to find a sequence of steps that constitutes a proof.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>The proof problem is defined as follows:</p>
 <dl>
 <dt>Initial state</dt>
@@ -1042,51 +1036,43 @@ The sentence <span class="math inline">\(\beta\)</span> can be inferred, wheneve
 The initial knowledge database
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Actions</dt>
 <dd>
 All the inference rules applied to all the sentences in the <span class="math inline">\(KB\)</span>
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Result</dt>
 <dd>
 Add the inferred sentence to the knowledge base (<span class="math inline">\(KB\)</span>)
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Goal</dt>
 <dd>
 A state that contains the sentence we are trying to prove
 </dd>
 </dl>
-</div>
 </section>
 </section>
 <section id="open-topics" class="level1">
 <h1>Open topics</h1>
 <p><strong>Completeness</strong> (if the available inference rules are inadequate, the goal is not reachable)</p>
-<div class="incremental">
+<p>. . .</p>
 <p>Level of <strong>complexity</strong> (though propositional logic suffices to represent the wumpus world), e.g.,</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <ul>
 <li>Inference rules must be set up for <strong>each square</strong> (expansion of the rule set)</li>
 <li>We need a <strong>time index</strong> for each proposition that refer to an aspect of the world that is subject to change (further expansion of the rule set)</li>
 </ul>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Efficiency</strong> of inference algorithms</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>For further information on these and other matters, please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span></p>
-</div>
 </section>
 <section id="wrap-up" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Wrap-up</h1>
@@ -1108,8 +1094,8 @@ A state that contains the sentence we are trying to prove
 <h2 data-anchor-id="xkcd">xkcd</h2>
 <div id="fig-xkcd" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/xkcd.png" class="lightbox" title="xkcd 816: Applied Math (explanation see here)" data-gallery="quarto-lightbox-gallery-10"><img src="images/xkcd.png" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6: xkcd 816: Applied Math (explanation see <a href="https://www.explainxkcd.com/wiki/index.php/816:_Applied_Math">here</a>)</figcaption><p></p>
+<p><a href="images/xkcd.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="xkcd 816: Applied Math (explanation see here)"><img src="images/xkcd.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;6: xkcd 816: Applied Math (explanation see <a href="https://www.explainxkcd.com/wiki/index.php/816:_Applied_Math">here</a>)</figcaption>
 </figure>
 </div>
 </section>
@@ -1532,11 +1518,11 @@ False. Consider <span class="math inline">\(\beta \models A, \gamma \models \neg
 </section>
 <section id="literature" class="level1">
 <h1>Literature</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-newell1982knowledge" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-newell1982knowledge" class="csl-entry" role="listitem">
 Newell, Allen. 1982. <span>“The Knowledge Level.”</span> <em>Artificial Intelligence</em> 18 (1): 87–127.
 </div>
-<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="doc-biblioentry">
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
 Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
 </div>
 </div>
@@ -1586,9 +1572,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1653,6 +1653,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1691,12 +1777,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -1707,7 +1793,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":true,"closeEffect":"zoom"});</script>
 
 
 

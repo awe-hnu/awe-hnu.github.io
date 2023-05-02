@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,14 +18,15 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -39,8 +40,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -81,6 +81,7 @@ div.csl-indent {
 
 <meta property="og:title" content="awe.lectures - Digital Twin">
 <meta property="og:description" content="🧑‍🔬 DI in Industry (DIiI)">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/DIiI/23ST/digital-twin/images/components-1.svg">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 
@@ -95,99 +96,116 @@ div.csl-indent {
     <span class="navbar-title">awe:lectures</span>
     </a>
   </div>
+        <div class="quarto-navbar-tools ms-auto">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Digital Twin</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../lectures/DIiI/23ST/introduction/index.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../../../lectures/DIiI/23ST/digital-twin/index.html">Digital Twin</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Admin</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="https://elearning.hnu.de/course/view.php?id=19238" class="sidebar-item-text sidebar-link">Moodle</a>
+  <a href="https://elearning.hnu.de/course/view.php?id=19238" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Moodle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/admin/index.html" class="sidebar-item-text sidebar-link">Administrivia 🧐</a>
+  <a href="../../../../lectures/DIiI/23ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia 🧐</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Lecture notes</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/introduction/index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="../../../../lectures/DIiI/23ST/introduction/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/patterns/index.html" class="sidebar-item-text sidebar-link">Data-driven Innovation</a>
+  <a href="../../../../lectures/DIiI/23ST/patterns/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data-driven Innovation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/hybrid-intelligence/index.html" class="sidebar-item-text sidebar-link">Hybrid Intelligence</a>
+  <a href="../../../../lectures/DIiI/23ST/hybrid-intelligence/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hybrid Intelligence</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/digital-twin/index.html" class="sidebar-item-text sidebar-link active">Digital Twin</a>
+  <a href="../../../../lectures/DIiI/23ST/digital-twin/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Digital Twin</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/adoption/index.html" class="sidebar-item-text sidebar-link">Technology Adoption</a>
+  <a href="../../../../lectures/DIiI/23ST/adoption/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technology Adoption</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/crowdsourcing/index.html" class="sidebar-item-text sidebar-link">Crowdsourcing</a>
+  <a href="../../../../lectures/DIiI/23ST/crowdsourcing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Crowdsourcing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/ar/index.html" class="sidebar-item-text sidebar-link">Product Uncertainty and AR</a>
+  <a href="../../../../lectures/DIiI/23ST/ar/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Product Uncertainty and AR</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Exam</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Exam</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/DIiI/23ST/assignment/index.html" class="sidebar-item-text sidebar-link">Assignment 📑</a>
+  <a href="../../../../lectures/DIiI/23ST/assignment/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment 📑</span></a>
   </div>
 </li>
       </ul>
@@ -195,6 +213,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -204,14 +223,14 @@ div.csl-indent {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS (letterbox)</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Digital Twin</h1>
+<h1 class="title">Digital Twin</h1>
 <p class="subtitle lead">🧑‍🔬 DI in Industry (DIiI)</p>
 </div>
 
@@ -221,7 +240,7 @@ div.csl-indent {
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    Andy Weeger 
+    <p class="author">Andy Weeger </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -255,22 +274,18 @@ div.csl-indent {
 <section id="relevance" class="level2">
 <h2 data-anchor-id="relevance">Relevance</h2>
 <p>Digital twins are among the <strong>most promising digital technologies</strong> being developed at present.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>Digital twin technology provides capabilities to enable new business models and decision support systems by incorporating <strong>data collected from multiple sources</strong> and <strong>analytic capabilities</strong> (e.g., visualizations, behavioral insights).</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>The concept has seen increasing interest in recent years in both academia and industry as indicated by the growth of publications, articles, and commercial marketing <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021</a>)</span>.</p>
-</div>
 </section>
 <section id="origins" class="level2">
 <h2 data-anchor-id="origins">Origins</h2>
 <p>The concept originates is nearly 15 years old and stems from the field of <strong>product lifecylce management</strong> <span class="citation" data-cites="grieves2014digital">(<a href="#ref-grieves2014digital" role="doc-biblioref">Grieves 2014</a>)</span>.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>The development of the concept was motivated shift from the predominantly paper-based and manual product data to a <strong>digital model of the product</strong>.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>Focusing on connecting physical with digital systems, the digital twin has similarities to concepts like <strong>Cyber Physical Systems</strong> (CPS, control of production systems) and <strong>Internet of Things</strong> (IoT, networking physical devices).</p>
-</div>
 </section>
 <section id="definition" class="level2">
 <h2 data-anchor-id="definition">Definition</h2>
@@ -278,12 +293,11 @@ div.csl-indent {
 <p>The concept is constantly evolving as it expands to new industries and use cases. This has already led to a variety of definitions that threaten to blur the concept and may lead to ineffective implementations of the technology.</p>
 </div>
 <p><span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021</a>)</span> propose a consolidated and generalized definition, with clearly established characteristics to distinguish what constitutes a digital twin and what does not.</p>
-<div class="incremental">
+<p>. . .</p>
 <blockquote class="blockquote">
 <p>A digital twin is “a virtual representation of a physical system (and its associated environment and processes) that is updated through the exchange of information between the physical and virtual systems.” <em><span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021, 2</a>)</span></em></p>
 </blockquote>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>The digital twin can be characterized by three primary components:</p>
 <div class="incremental">
 <ol class="incremental" type="1">
@@ -291,7 +305,6 @@ div.csl-indent {
 <li>a virtual representation, and</li>
 <li>interconnections that exchange information between the physical reality and virtual representation</li>
 </ol>
-</div>
 </div>
 </section>
 <section id="components" class="level2">
@@ -321,8 +334,8 @@ div.csl-indent {
 <div class="notes">
 <div id="fig-components" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/components.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Digital Twin components and high-level processes based on @vanderhorn2021digital [p. 3]"><img src="images/components.svg" class="img-fluid figure-img"></a></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Digital Twin components and high-level processes based on <span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021, 3</a>)</span></figcaption><p></p>
+<p><a href="images/components.svg" class="lightbox" title="Digital Twin components and high-level processes based on @vanderhorn2021digital [p. 3]" data-gallery="quarto-lightbox-gallery-5"><img src="images/components.svg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Digital Twin components and high-level processes based on <span class="citation" data-cites="vanderhorn2021digital">VanDerHorn and Mahadevan (<a href="#ref-vanderhorn2021digital" role="doc-biblioref">2021, 3</a>)</span></figcaption>
 </figure>
 </div>
 <p>The <strong>physical reality</strong> that is to be represented by the digital twin can be decomposed into the <strong>physical system</strong> (the system of interest), the <strong>physical environment</strong> (where the physical system resides), and <strong>physical processes</strong> (the mechanism by which the entities of the system under interest undergo changes in state) <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 3</a>)</span>.</p>
@@ -346,7 +359,7 @@ div.csl-indent {
 <section id="related-concepts" class="level2">
 <h2 data-anchor-id="related-concepts">Related concepts</h2>
 <p>The concept of digital twins bears similarities to <strong>more traditional digital modeling approaches</strong> (e.g., computer-aided design (CAD) and product lifecycle management (PLM) tools).</p>
-<div class="incremental">
+<p>. . .</p>
 <p>However, <strong>two key requirements</strong> for a digital twin that make it unique from traditional digital modeling approaches <span class="citation" data-cites="vanderhorn2021digital">(<a href="#ref-vanderhorn2021digital" role="doc-biblioref">VanDerHorn and Mahadevan 2021, 5</a>)</span>.:</p>
 <div class="incremental">
 <ol class="incremental" type="1">
@@ -355,12 +368,11 @@ div.csl-indent {
 <li>the digital twin <strong>updates</strong> its description of that system as it changes over time.</li>
 </ol>
 </div>
-</div>
 </section>
 <section id="systems-of-digital-twins" class="level2">
 <h2 data-anchor-id="systems-of-digital-twins">Systems of digital twins</h2>
 <p>Business value can be increased by <strong>interconnecting digital twins</strong> to complex ecosystems.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>Such interconnected digital twins allow, e.g., to</p>
 <div class="incremental">
 <ul class="incremental">
@@ -368,13 +380,11 @@ div.csl-indent {
 <li>incorporate dependencies and correlations into the models (by analyzing the interactoins)</li>
 </ul>
 </div>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <section id="example" class="level4">
 <h4 data-anchor-id="example">Example</h4>
 <p>Combining the digital twins of customers with the twins of retail and online shops would enable the creation of outstanding omnichannel experiences that seamlessly support the customer journey across all channels.</p>
 </section>
-</div>
 </section>
 <section id="implementation-types" class="level2">
 <h2 data-anchor-id="implementation-types">Implementation types</h2>
@@ -396,48 +406,40 @@ div.csl-indent {
 To help optimize stadium management and operations, a digital twin aggregates multiple data sources, including information about the stadium’s structure and real-time footfall data.
 </dd>
 </dl>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>SpaceX</dt>
 <dd>
 A digital twin of the Dragon capsule enables operators to monitor and adjust trajectories, loads, and propulsion systems. The goal is to maximize reliability and safety during transport.
 </dd>
 </dl>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <dl>
 <dt>Anheuser-Busch InBev</dt>
 <dd>
 A brewing and supply chain digital twin enables brewers to adjust inputs (for instance, “add more hops to mixer #3”) based on active conditions and can automatically compensate for production bottlenecks when, for example, vats are full. It also gives the company’s production engineers remote assistance and AR capabilities for live troubleshooting on how to fix pump leaks and other common issues.
 </dd>
 </dl>
-</div>
 </section>
 <section id="future-application-fields" class="level2">
 <h2 data-anchor-id="future-application-fields">Future application fields</h2>
 <p>The growing consensus is that digital twin implementation will expand in many areas including healthcare as promising field <span class="citation" data-cites="saracco2019digital">(<a href="#ref-saracco2019digital" role="doc-biblioref">Saracco 2019</a>)</span>.</p>
-<div class="incremental">
+<p>. . .</p>
 <p>Digital twin applications in healthcare and education imply that the concept will be <strong>extended from artificial systems to people</strong>.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p>The availability of millions of digital twins of people would make inference possible (e.g., by applying AI) and help practitioners gain knowledge that could be used for <strong>precision medicine and proactive health care</strong>.</p>
-</div>
 </section>
 <section id="technology-challenges" class="level2">
 <h2 data-anchor-id="technology-challenges">Technology challenges</h2>
 <p><span class="citation" data-cites="saracco2019digital">Saracco (<a href="#ref-saracco2019digital" role="doc-biblioref">2019, 62</a>)</span> outlines following challenges related to the design and implementation of digital twins:</p>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Interoperability of digital models:</strong> there are different ways to create digital models, which hampers portability of models within and across different areas.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Data interconnection:</strong> synchronization between the physical twin and its virtual representation requires pervasive and affordable communication channels (e.g., 5G or LoraWan).</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Extended digital twins:</strong> when the concept evolves to go beyond mirroring and shadowing a physical counterpart (e.g., by taking action on behalf of its physical counterparts), twins need to be open to data exchanges beyond the twin relationship, while preserving their identities and the association with their physical doubles.</p>
-</div>
-<div class="incremental">
+<p>. . .</p>
 <p><strong>Data privacy, availability, and ownership</strong>: data architecture must ensure that data is secure, portable, and can be controlled by the owner.</p>
-</div>
 </section>
 </section>
 <section id="qa" class="level1 html-hidden unlisted vertical-center" data-background-color="fad405" data-background-image="../assets/bg.jpg">
@@ -445,14 +447,14 @@ A brewing and supply chain digital twin enables brewers to adjust inputs (for in
 </section>
 <section id="literature" class="level1">
 <h1>Literature</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-grieves2014digital" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-grieves2014digital" class="csl-entry" role="listitem">
 Grieves, Michael. 2014. <span>“Digital Twin: Manufacturing Excellence Through Virtual Factory Replication.”</span> <em>White Paper</em> 1: 1–7.
 </div>
-<div id="ref-saracco2019digital" class="csl-entry" role="doc-biblioentry">
+<div id="ref-saracco2019digital" class="csl-entry" role="listitem">
 Saracco, Roberto. 2019. <span>“Digital Twins: Bridging Physical Space and Cyberspace.”</span> <em>Computer</em> 52 (12): 58–64.
 </div>
-<div id="ref-vanderhorn2021digital" class="csl-entry" role="doc-biblioentry">
+<div id="ref-vanderhorn2021digital" class="csl-entry" role="listitem">
 VanDerHorn, Eric, and Sankaran Mahadevan. 2021. <span>“Digital Twin: Generalization, Characterization and Implementation.”</span> <em>Decision Support Systems</em> 145: 113524.
 </div>
 </div>
@@ -481,9 +483,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -548,6 +564,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -586,12 +688,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp(/https:\/\/awe-hnu\.github\.io/);
+      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -602,7 +704,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom"});</script>
 
 
 
