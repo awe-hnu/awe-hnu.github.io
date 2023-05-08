@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Andy Weeger">
-<meta name="dcterms.date" content="2023-04-02">
+<meta name="dcterms.date" content="2023-05-08">
 
 <title>awe.lectures - Solution Notes</title>
 <style>
@@ -142,7 +142,7 @@ div.csl-indent {
     <p class="author">Andy Weeger</p>
   </div>
       <div class="quarto-title-meta-contents">
-      <p class="date">April 2, 2023</p>
+      <p class="date">May 8, 2023</p>
     </div>  
 </div>
 </header>
@@ -150,6 +150,13 @@ div.csl-indent {
 <p>The solution notes are taken from <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span>.</p>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
+<section id="what-is-ai" class="level2">
+<h2 data-anchor-id="what-is-ai">What is AI?</h2>
+<p>We define artificial intelligence as the study and construction of agent programs that perform well in a given environment, for a given agent architecture.</p>
+<p>We define an agent as an entity that takes action in response to percepts from an environment.</p>
+<p>We define rationality as the property of a system which does the “right thing” given what it knows.</p>
+<p>We define logical reasoning as the a process of deriving new sentences from old, such that the new sentences are necessarily true if the old ones are true. (Notice that does not refer to any specific syntax oor formal language, but it does require a well-defined notion of truth.)</p>
+</section>
 <section id="i2ai_1-e3" class="level2">
 <h2 data-anchor-id="i2ai_1-e3">I2AI_1 E3</h2>
 <p>To what extent are the following computer systems instances of artificial intelligence:</p>
@@ -182,6 +189,47 @@ div.csl-indent {
 </section>
 <section id="intelligent-agents" class="level1">
 <h1>Intelligent Agents</h1>
+<section id="i2ai_2-e4" class="level2">
+<h2 data-anchor-id="i2ai_2-e4">I2AI_2 E4</h2>
+<ol type="1">
+<li><dl>
+<dt>An agent that senses only partial information about the state cannot be perfectly rational.</dt>
+<dd>
+<strong>False.</strong> An agent that only senses partial information could be rational, consider an agent whose performance measure is based on its ability to stay completely static in an environment where there are no other agents, such an agent could be perfectly rational even if it did not have any sensors at all. Granted, such an agent would not be very interesting but it would indeed be rational.
+</dd>
+</dl></li>
+<li><dl>
+<dt>There exist task environments in which no pure reflex agent can behave rationally.</dt>
+<dd>
+<strong>True.</strong> A pure reflex agent ignores previous percepts, so cannot obtain an optimal state estimate in a partially observable environment. Consider a partially unobservable task environment where the performance measure is based on the agent’s extent of exploration. Now assume that this agent is purely reflex, only responding when it’s world state changes, since its performance measure is to explore but its actions are conditional upon change around it then the agent waits for its state to change but it never will because it is the agent’s entire job is to change its state.
+</dd>
+</dl></li>
+<li><dl>
+<dt>There exists a task environment in which every agent is rational.</dt>
+<dd>
+<strong>True.</strong> Consider an environment that disables all agent’s actuators, rendering them immobile (e.g., an environment with a single state). Regardless of what performance measures these agents possessed they are still judged as rational because they are physically incapable of performing anything.
+</dd>
+</dl></li>
+<li><dl>
+<dt>Every agent is rational in an unobservable environment.</dt>
+<dd>
+<strong>False.</strong> Some actions are stupid—and the agent may know this if it has a model of the environment—even if one cannot perceive the environment state.
+</dd>
+</dl></li>
+<li><dl>
+<dt>There is a model-based reflex agent that can remember all of its percepts.</dt>
+<dd>
+<strong>True.</strong> There could be one, but usually, it keeps the model. A model-based reflex agent is one that uses internal memory and a percept history to create a model of the environment in which it’s operating and make decisions based on that model. The term percept means something that has been observed or detected by the agent. The model-based reflex agent stores the past percepts in its memory and uses them to create a model of the environment. The agent then uses this model to determine which action should be taken in any given situation.
+</dd>
+</dl></li>
+<li><dl>
+<dt>A perfectly rational poker-playing agent never loses.</dt>
+<dd>
+<strong>False.</strong> Due to the partially observable, multi-agent, stochastic, sequential, static and discrete nature of poker, even a perfectly rational agent could not possibly win every game unless the agent is completely omniscient, there are too many factors contributing to the complexity of the task environment that are beyond the agent’s scope of influence. Although, these things are true, let us not discount the fact that the agent could be a learning agent and improve its ability to play but it would still probably lose.
+</dd>
+</dl></li>
+</ol>
+</section>
 <section id="i2ai_2-e5" class="level2">
 <h2 data-anchor-id="i2ai_2-e5">I2AI_2 E5</h2>
 <p>For each of the following activities, give a PEAS description of the task environment and characterize it in terms of the properties discussed in class.</p>
@@ -295,7 +343,7 @@ div.csl-indent {
 <h4 data-anchor-id="completeness">Completeness</h4>
 <p>Explain if the <code>MINIMAX</code> algorithm is complete and optimal.</p>
 <p>In two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the <code>MINIMAX</code> algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.</p>
-<p>The algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is <span class="math inline">\(m\)</span> and there are <span class="math inline">\(b\)</span> legal moves at each point, then the time complexity is <span class="math inline">\(O(b^m)\)</span> for an algorithm that generates all actions at once, or <span class="math inline">\(O(m)\)</span> for an algorithm that generates actions on at a time. The exponential complexity makes <code>MINIMAX</code> impractical for complex games. <code>MINIMAX</code> does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.</p>
+<p>The algorithm performs a complete depth-first exploration of the game tree. If the maximum depth of the tree is <span class="math inline">\(m\)</span> and there are <span class="math inline">\(b\)</span> legal moves at each point, then the time complexity is <span class="math inline">\(O(b^m)\)</span> for an algorithm that generates all actions at once, or <span class="math inline">\(O(m)\)</span> for an algorithm that generates actions on at a time. The exponential complexity makes <code>MINIMAX</code> impractical for complex games. <code>MINIMAX</code> does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.</p>
 </section>
 <section id="suboptimally-play" class="level4">
 <h4 data-anchor-id="suboptimally-play">Suboptimally play</h4>
@@ -310,7 +358,7 @@ div.csl-indent {
 <p>Draw an example (game search tree, 3 levels depth).</p>
 <div id="fig-pruning" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/pruning.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Example for pruning"><img src="images/pruning.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/pruning.svg" class="lightbox" title="Example for pruning" data-gallery="quarto-lightbox-gallery-1"><img src="images/pruning.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;1: Example for pruning</figcaption>
 </figure>
 </div>
@@ -564,7 +612,7 @@ False. Consider <span class="math inline">\(\alpha \equiv A, \beta \equiv B, \ga
 </ol>
 <div id="tbl-truthtable-5e3b">
 <table class="table">
-<caption>Table&nbsp;2: A truth table constructed for I2AI_5 E3b. Rembember: <em>for any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid. Means that in any model where <span class="math inline">\(\alpha\)</span> is true, <span class="math inline">\(\beta\)</span> is true.</em></caption>
+<caption>Table&nbsp;2: A truth table constructed for I2AI_5 E3b. Remember: <em>for any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid. Means that in any model where <span class="math inline">\(\alpha\)</span> is true, <span class="math inline">\(\beta\)</span> is true.</em></caption>
 <thead>
 <tr class="header">
 <th></th>
@@ -595,7 +643,7 @@ False. Consider <span class="math inline">\(\alpha \equiv A, \beta \equiv B, \ga
 <tr class="even">
 <td><span class="math inline">\(\neg A,\neg B\)</span></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 </tr>
 </tbody>
@@ -1062,7 +1110,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":true,"closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","loop":true,"closeEffect":"zoom","selector":".lightbox"});</script>
 
 
 

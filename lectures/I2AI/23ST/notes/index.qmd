@@ -14,6 +14,16 @@ The solution notes are taken from @RusselNorvig2022AIMA.
 
 # Introduction
 
+## What is AI?
+
+We define artificial intelligence as the study and construction of agent programs that perform well in a given environment, for a given agent architecture.
+
+We define an agent as an entity that takes action in response to percepts from an environment.
+
+We define rationality as the property of a system which does the “right thing” given what it knows.
+
+We define logical reasoning as the a process of deriving new sentences from old, such that the new sentences are necessarily true if the old ones are true. (Notice that does not refer to any specific syntax oor formal language, but it does require a well-defined notion of truth.)
+
 ## I2AI_1 E3
 
 To what extent are the following computer systems instances of artificial intelligence:
@@ -43,6 +53,28 @@ Read the statements (one after the other) and discuss if the second sentence of 
   Again, your definition of “intelligent” drives your answer to this question.
 
 # Intelligent Agents
+
+## I2AI_2 E4
+
+1. An agent that senses only partial information about the state cannot be perfectly rational.
+: **False.** An agent that only senses partial information could be rational, consider an agent whose performance measure is based on its ability to stay completely static in an environment where there are no other agents, such an agent could be perfectly rational even if it did not have any sensors at all. Granted, such an agent would not be very interesting but it would indeed be rational.
+
+2. There exist task environments in which no pure reflex agent can behave rationally.
+: **True.** A pure reflex agent ignores previous percepts, so cannot obtain an optimal state estimate in a partially observable environment.
+Consider a partially unobservable task environment where the performance measure is based on the agent’s extent of exploration. Now assume that this agent is purely reflex, only responding when it’s world state changes, since its performance measure is to explore but its actions are conditional upon change around it then the agent waits for its state to change but it never will because it is the agent’s entire job is to change its state.
+
+3. There exists a task environment in which every agent is rational.
+: **True.** Consider an environment that disables all agent’s actuators, rendering them immobile (e.g., an environment with a single state). Regardless of what performance measures these agents possessed they are still judged as rational because they are physically incapable of performing anything.
+
+4. Every agent is rational in an unobservable environment.
+: **False.** Some actions are stupid—and the agent may know this if it has a model of the environment—even if one cannot perceive the environment state.
+
+5. There is a model-based reflex agent that can remember all of its percepts.
+: **True.** There could be one, but usually, it keeps the model. A model-based reflex agent is one that uses internal memory and a percept history to create a model of the environment in which it's operating and make decisions based on that model. The term percept means something that has been observed or detected by the agent. The model-based reflex agent stores the past percepts in its memory and uses them to create a model of the environment. The agent then uses this model to determine which action should be taken in any given situation.
+
+6. A perfectly rational poker-playing agent never loses.
+: **False.** Due to the partially observable, multi-agent, stochastic, sequential, static and discrete nature of poker, even a perfectly rational agent could not possibly win every game unless the agent is completely omniscient, there are too many factors contributing to the complexity of the task environment that are beyond the agent’s scope of influence. Although, these things are true, let us not discount the fact that the agent could be a learning agent and improve its ability to play but it would still probably lose.
+
 
 ## I2AI_2 E5
 
@@ -161,7 +193,7 @@ Explain if the `MINIMAX` algorithm is complete and optimal.
 
   In two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the `MINIMAX` algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.
 
-  The algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is $m$ and there are $b$ legal moves at each point, then the time complexity is $O(b^m)$ for an algorithm that generates all actions at once, or $O(m)$ for an algorithm that generates actions on at a time. The exponential complexity makes `MINIMAX` impractical for complex games. `MINIMAX` does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.
+  The algorithm performs a complete depth-first exploration of the game tree. If the maximum depth of the tree is $m$ and there are $b$ legal moves at each point, then the time complexity is $O(b^m)$ for an algorithm that generates all actions at once, or $O(m)$ for an algorithm that generates actions on at a time. The exponential complexity makes `MINIMAX` impractical for complex games. `MINIMAX` does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.
 
 #### Suboptimally play
 
@@ -240,9 +272,9 @@ b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\be
 | $A,B$           | true     | true     | true                 |
 | $A,\neg B$      | true     |          |                      |
 | $\neg A,B$      |          | true     |                      |
-| $\neg A,\neg B$ |          | true     |                      |
+| $\neg A,\neg B$ |          |          |                      |
 
-: A truth table constructed for I2AI_5 E3b. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3b}  
+: A truth table constructed for I2AI_5 E3b. Remember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3b}  
 
 c. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)   
    False. Consider $\beta \models A, \gamma \models \neg A$
