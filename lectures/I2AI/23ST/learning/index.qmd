@@ -6,6 +6,12 @@ categories: ["Lecture Notes"]
 
 bibliography: ../assets/literature.bib
 
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#564ac6'
+
 format: 
   html:
     output-file: index.html
@@ -14,13 +20,15 @@ format:
     include-before-body: ../assets/footer.html
 ---
 
-# Top{visibility="hidden" .slide-link-hidden .unlisted .unnumbered}
+# Top {visibility="hidden" .slide-link-hidden .unlisted .unnumbered}
 
 {{< include ../assets/_top.qmd >}}
 
-# Introduction {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+## Discussion {.html-hidden .discussion-slide .unlisted background-color="#0333ff"}
 
-No intelligence without learning.
+::: larger
+No intelligence without learning?
+:::
 
 ## Definition
 
@@ -37,7 +45,7 @@ A learning agent
 - have no idea how to program a solution themselves (e.g., recognizing faces)
 :::
 
-# The learning agent {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# The learning agent {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 :::{.notes}
 So far an agent’s percepts have only served to help the agent choose its actions. Now they will also serve to improve future behavior.
@@ -103,7 +111,7 @@ of the learning problem.
 :::
 
 :::{.notes}
-### Examples [@RusselNorvig2022AIMA, p. 671] {visibility=hidden}
+### Examples {visibility=hidden}
 
 For image classification, usually supervised learning is used. Inputs can be camera images, each one accompanied by an output saying, e.g., "bus" or "pedestrian". An output like this is called a __label__. The agents learns a function that, when given a new image, predicts the appropriate label.
 
@@ -112,15 +120,6 @@ The most common unsupervised learning task is clustering: detecting potentially 
 An example for reinforcement learning is a chess agent. Imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.
 
 :::
-
-## Exercise ✏️  {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg" .unlisted}
-
-Consider the problem faced by me learning to play tennis.
-
-- Explain how this process fits into the general learning model.
-- Describe the percepts and actions of the player.
-- What types of learning I must do?
-- What example data is available?
 
 ## Why learning works
 
@@ -176,7 +175,7 @@ A hypothesis is __underfitting__ when it fails to find a pattern in the data (i.
 For plots of best-fit functions ($h$) from four different hypothesis spaces ($H$) trained on a data set (a = linear; b = degree-7 polynomial, c = degree-6 polynomial, d = sinusoidal)
 
 
-# Decision trees {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Decision trees {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Learning decision trees
 
@@ -237,9 +236,7 @@ $3^n$ distinct conjunctive hypotheses
 :::
 :::
 
----
-
-### Limitations
+## Limitations
 
 Although decision trees can represent functions with smaller trees, there are functions that require an exponentially large decision tree, e.g.
 
@@ -284,15 +281,15 @@ The input ($x$) is a vector of ten attributes values (discrete values):
 :::
 :::
 
----
+----
 
 ### Example decision tree
 
 ![Decision tree restaurant example based on @RusselNorvig2022AIMA [p. 674]](images/decision-tree.svg){#fig-tree}
 
----
+----
 
-### Training set 
+### Underlying training set 
 
 :::{.smaller}
 | Example | Alt   | Bar   | Fri   | Hun   | Pat    | Price   | Rain   | Res   | Type     | Est       | WillWait     |
@@ -316,10 +313,6 @@ The input ($x$) is a vector of ten attributes values (discrete values):
 
 ## Inducing decision trees from examples
 
-### Naive solution
-
-. . .
-
 To get a __naive solution__, we simply construct a tree with one path to a leaf for each example.
 
 :::{.incremental}
@@ -328,28 +321,17 @@ To get a __naive solution__, we simply construct a tree with one path to a leaf 
 - It just memorizes the observations and __does not generalize__
 :::
 
-
----
-
-### Smallest solution
-
-We want to find a tree that is __consistent with the training set__ (@tbl-res-ts) and is __as small as possible.__
-
 . . .
 
-Unfortunately, it is __intractable__ to find a guaranteed smallest consistent tree.
+How to find a tree that is __consistent with the training set__ (@tbl-res-ts), yet __as small as possible__?
 
-. . .
+:::{.incremental}
+- It is __intractable__ to find a guaranteed smallest consistent tree.
+- However, with some simple heuristics, we can efficiently find one that is __close to the smallest__ (i.e., "smallish" tree).
+- __Decision tree learning__ adopts a greedy divide-and-conquer strategy.
+:::
 
-However, with some simple heuristics, we can efficiently find one that is __close to the smallest__ (i.e., "smallish" tree).
-
-. . .
-
-__Decision tree learning__ adopts a greedy divide-and-conquer strategy.
-
----
-
-### Divide-and-conquer strategy
+## Divide-and-conquer strategy
 
 Always use the __most important attribute__ first, then recursively solve the smaller subproblems
 
@@ -367,21 +349,9 @@ That way, we hope to get to the __correct classification__ with a __small number
 
 [^3]:Meaning that all paths in the tree will be __short__ and the tree as a whole will be __shallow__
 
-## Exercise ✏️  {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg" .unlisted}
-
-Create the decision tree by applying the divide-and-conquer approach on the restaurant examples (approx. 20 minutes).
-
 ----
 
-### Solution note
-
-![Splitting the examples by testing on attributes, based on @RusselNorvig2022AIMA [p. 677]](images/divide-and-conquer.svg){#fig-l-agent}
-
-:::{.notes}
-At each node, we show the positive (light boxes) and negative (dark boxes) examples remaining. (a) Splitting on *Type* brings us no nearer to distinguishing between positive and negative examples. *Type* is a __poor attribute__ (b) Splitting on *Patrons* does a good job of separating positive and negative examples. After splitting on *Patrons*, *Hungry* is a fairly good selection test. The full tree would be *Patrons*, *Hungry*, *Type* and *Fri*.
-:::
-
-## Recursive learning process
+### Recursive learning process
 
 In each recursive step there are four cases to consider:
 
@@ -393,9 +363,7 @@ node’s examples is positive, otherwise *No*.
 - __No attributes left__, but there are still examples with different classifications: there were errors in the data (i.e., noise) or the attributes do not give sufficient information. Answer *Yes* if the majority of examples is positive, otherwise *No*.
 :::
 
-## Exercise ✏️  {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg" .unlisted}
-
-Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see? (approx. 5 minutes)
+----
 
 ## Resulting tree
 
@@ -409,6 +377,8 @@ training examples were generated)
 not hungry. If we are, there are cases in which it tells us to wait.
 - Some tests (*Raining*, *Reservation*) are not included since the algorithm can classify the examples without them
 :::
+
+----
 
 ## Performance assessment
 
@@ -452,7 +422,7 @@ Pruning reduces the size of decision trees by removing sections of the tree that
 - The ranks are computed based on the information gain
 :::
 
-# Statistical ML {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Statistical ML {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Motivation
 
@@ -528,19 +498,13 @@ What flavor will the next candy be?
 
 $P(h_k|X) = αP(X|h_k)P(h_k)$
 
-. . .
-
 $P(h1 | 5\;limes) = αP(5\;limes | h1)P(h1) = \alpha · 0.0^5 · 0.1 = 0$
 $P(h2 | 5\;limes) = αP(5\;limes | h2)P(h2) = \alpha · 0.25^5· 0.2 = 0.000195α$
 $P(h3 | 5\;limes) = αP(5\;limes | h3)P(h3) = \alpha · 0.5^5 · 0.4 = 0.0125α$
 $P(h4 | 5\;limes) = αP(5\;limes | h4)P(h4) = \alpha · 0.75^5 · 0.2 = 0.0475α$
 $P(h5 | 5\;limes) = αP(5\;limes | h5)P(h5) = \alpha · 1.0^5 · 0.1 = 0.1α$
 
-. . .
-
 $\alpha = 1/(0 + 0.000195 + 0.0125 + 0.0475 + 0.1) = 6.2424$
-
-. . .
 
 $P(h_1 | 5\;limes) = 0$   
 $P(h_2 | 5\;limes) = 0.00122$   
@@ -563,9 +527,6 @@ $$
 P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
 \end{flalign}
 $$
-
-. . . 
-
 $$
 \begin{align}
 P(lime \; on \; 6 | 5 \; limes) & = P(lime \; on \; 6 | h1)P(h1 | 5 \; limes) \\
@@ -587,10 +548,6 @@ $$
 ### Likelihood-weighted average
 
 ![Probability that next candy is lime given __d__](images/example-p-prob.svg){#fig-ep-prob}
-
-## Exercise ✏️  {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg" .unlisted}
-
-What do you observe/learn from this example?
 
 ## Observations
 
@@ -650,7 +607,7 @@ For large data sets, prior becomes irrelevant
 - __Maximum likelihood__ assumes uniform prior, OK for large data sets
 :::
 
-# Deepl learning {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Deep learning {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Introduction
 
@@ -733,7 +690,7 @@ A ConvNet is structured as a series of stages, which are composed of two types o
 
 Good read: [A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
 
-# Development process {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Development process {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Overview
 
@@ -814,9 +771,13 @@ After correcting overt errors, the data should be preprocessed so that they can 
 - __Separating categorical attributes:__ transform the data into separate Boolean attributes, where exactly one of it is true
 :::
 
-. . .
+----
 
+### Importance {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
+
+::: .larger
 > At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used. *@domingos2012few*
+:::
 
 ## Model
 
@@ -881,21 +842,45 @@ Source: @RusselNorvig2022AIMA [p. 731]
 :::
 :::
 
-# ✏️ Exercises {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# ✏️ Exercises {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+
+## Exercise {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
 
 ## I2AI_7 E1
 
-Consider the problem faced by an infant learning to speak and understand a language.
+Consider following problems:
+
+1. Me learning to play tennis
+2. An infant learning to speak
+
+Discuss following questions:
 
 - Explain how this process fits into the general learning model.
-- Describe the percepts and actions of the infant, and the types of learning the infant must do. 
-- Describe the subfunctions the infant is trying to learn in terms of inputs and outputs, and available example data.
+- Describe the percepts and actions of the player.
+- What types of learning I must do?
+- What example data is available?
 
 ## I2AI_7 E2
 
-Describe the differences between supervised, unsupervised, and reinforcement learning.
+Create the decision tree by applying the divide-and-conquer approach on the restaurant examples (approx. 20 minutes).
+
+Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see? (approx. 5 minutes)
+
+::: notes
+::: callout-note
+### Solution note
+
+![Splitting the examples by testing on attributes, based on @RusselNorvig2022AIMA [p. 677]](images/divide-and-conquer.svg){#fig-l-agent}
+
+At each node, we show the positive (light boxes) and negative (dark boxes) examples remaining. (a) Splitting on *Type* brings us no nearer to distinguishing between positive and negative examples. *Type* is a __poor attribute__ (b) Splitting on *Patrons* does a good job of separating positive and negative examples. After splitting on *Patrons*, *Hungry* is a fairly good selection test. The full tree would be *Patrons*, *Hungry*, *Type* and *Fri*.
+:::
+:::
 
 ## I2AI_7 E3
+
+Describe the differences between supervised, unsupervised, and reinforcement learning.
+
+## I2AI_7 E4
 
 Define the following machine-learning terms in your own words
 
@@ -904,17 +889,17 @@ b. Hypothesis
 c. Bias
 d. Variance
 
-## I2AI_7 E4
+## I2AI_7 E5
 
 Draw a decision tree for the problem of deciding whether to move forward at a road intersection, given that the light has just turned green.
 
 What problems do you see? Argue based on the qualification problem discussed in [chapter probability](../6/#motivation).
 
-## I2AI_7 E5
+## I2AI_7 E6
 
 We never test the same attribute twice along one path in a decision tree. Why not?
 
-## I2AI_7 E6
+## I2AI_7 E7
 
 Two statisticians go to the doctor and are both given the same prognosis: A 40% chance that the problem is the deadly disease A, and a 60% chance of the fatal disease B. Fortunately, there are anti-A and anti-B drugs that are inexpensive, 100% effective, and free of side-effects. The statisticians have the choice of taking one drug, both, or neither. 
 
