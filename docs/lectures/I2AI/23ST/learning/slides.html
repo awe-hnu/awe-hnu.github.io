@@ -1584,55 +1584,58 @@ P(h_i|d) = P(d|h_i)P(h_i) \approx P(d|h_{MAP})
 </section>
 <section id="i2ai_7-e7" class="slide level2">
 <h2>I2AI_7 E7</h2>
-<p>You want to teach a robot to recognize cat, using a set of features (the presence of blue eyes (<code>b</code>), stripe (<code>s</code>), or spot (<code>m</code>)). You also have several pictures of dogs to use as negative exmaples. The following table summarizes the content of training samples. Each binary feature is represented as <em>1</em> (meaning the feature is present) or <em>0</em> (meaning it is absent). The subject of y of the photo is encoded as <em>1</em> for cat or <em>-1</em> for dog.</p>
+<p>You want to teach a robot to recognize cat, using a set of features (the presence of blue eyes <code>b</code>, stripe <code>s</code>, or spot <code>m</code>). You also have several pictures of dogs to use as negative examples. The following table summarizes the content of training samples. Each binary feature is represented as <em>1</em> (meaning the feature is present) or <em>0</em> (meaning it is absent). The subject of <code>y</code> of the photo is encoded as <em>1</em> for cat or <em>-1</em> for dog.</p>
+<div id="tbl-e7-obs">
 <table>
+<caption>Table&nbsp;2: Observations</caption>
 <thead>
 <tr class="header">
-<th>(<code>m</code>)</th>
-<th>(<code>b</code>)</th>
-<th>(<code>s</code>)</th>
-<th>Subject (<code>y</code>)</th>
+<th style="text-align: center;"><code>m</code></th>
+<th style="text-align: center;"><code>b</code></th>
+<th style="text-align: center;"><code>s</code></th>
+<th style="text-align: center;">Subject <code>y</code></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr class="even">
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr class="odd">
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr class="even">
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
 </tr>
 <tr class="odd">
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>-1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-1</td>
 </tr>
 <tr class="even">
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>-1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-1</td>
 </tr>
 </tbody>
 </table>
+</div>
 <ol type="1">
 <li>Assuming no smoothing, given estimates for the parameters of the classification rule based on the training samples.</li>
 <li>Suppose a subject which has stripe but not spot or blue eyes. What would happen if the robot had to guess the identity of the subject?</li>
