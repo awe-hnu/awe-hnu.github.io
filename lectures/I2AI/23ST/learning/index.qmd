@@ -32,7 +32,7 @@ format:
 No intelligence without learning?
 :::
 
-## Definition
+# Definition
 
 > Learning agents are those that can improve their behavior through diligent study of past experiences and predictions of the future *@RusselNorvig2022AIMA [p. 668]*
 
@@ -76,16 +76,17 @@ __Critic:__ Evaluation of the agent’s behavior based on a given external behav
 __Problem generator:__ Suggests explorative actions that lead the agent to new experiences
 
 
-:::{.notes}
-
-The __performance elements__ of the agent designs described in chapter [Intelligent Agents](../2/) are composed of
+::: notes
+::: callout-note
+### Performance element
+The __performance elements__ of the agent designs described in chapter [Intelligent agents](../2/) are composed of
 
 - a direct mapping from conditions to the current state of actions;
 - a means to infer relevant properties of the world from the percept sequence;
 - information about the way the world evolves and about the results of possible actions the agent can take;
 - utility information indicating the desirability of actions; and/or
 - goals that describe the most desirable states; 
-
+:::
 :::
 
 ## The learning element
@@ -112,15 +113,19 @@ of the learning problem.
 - __Reinforcement learning:__ The most general form of learning in which the agent is not told what to do by a teacher. Rather, it must learn from reinforcements (punishments or rewards). It typically involves learning how the environment works *➞ "just make sense of the data"*
 :::
 
-:::{.notes}
-### Examples {visibility=hidden}
+::: notes
+::: callout-note
+### Examples
 
-For image classification, usually supervised learning is used. Inputs can be camera images, each one accompanied by an output saying, e.g., "bus" or "pedestrian". An output like this is called a __label__. The agents learns a function that, when given a new image, predicts the appropriate label.
+Supervised learning
+: Image classification — inputs can be camera images, each one accompanied by an output saying, e.g., "bus" or "pedestrian". An output like this is called a __label__. The agents learns a function that, when given a new image, predicts the appropriate label.
 
-The most common unsupervised learning task is clustering: detecting potentially useful clusters of input examples. For instance, when shown millions of images, a computer vision system could identify large cluster of similar images (without "knowing" what is shown on these).
+Unsupervised learning
+: Clustering — detecting potentially useful clusters of input examples. For instance, when shown millions of images, a computer vision system could identify large cluster of similar images (without "knowing" what is shown on these).
 
-An example for reinforcement learning is a chess agent. Imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.
-
+Reinforcement learning
+: A chess agent — imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.
+:::
 :::
 
 ## Why learning works
@@ -156,11 +161,14 @@ How do we choose from among multiple consistent hypotheses?
 
 __Ockham’s razor:__ prefer the simplest hypothesis that matches the data
 
-:::{.notes}
+::: notes
+::: callout-note
+### Ockham’s razor
 
 Ockham’s razor is a choice between more complex, low-bias hypotheses that fit the training data well and simple, low-variance hypotheses that may generalize better. Wililiam of Ockham stated in the first century the principle that "plurality [of entities] should not be posited without necessity — the so-called Ockham's razor that "shaves off" dubious explanations.
+:::
 
-:::{.callout-note}
+::: callout-note
 ### Underfitting and overfitting [@RusselNorvig2022AIMA; p. 673]
 
 A hypothesis is __underfitting__ when it fails to find a pattern in the data (i.e., the model has not learned enough from the data). In turn, a hypothesis is __overfitting__ the data when it pays too much attention to the particular data set it is trained on, causing it to perform poorly on unseen data (i.e., the generalization of the model is unreliable).
@@ -444,12 +452,12 @@ Learning can be viewed as __Bayesian updating__ of a probability distribution ov
 
 . . .
 
-$H$ is the hypothesis variable (values $h_1, h_2, . . .$)
+$H$ is the hypothesis variable, values $h_1, h_2, . . .$, prior $P(H)$
 
 . . . 
 
-$x_i$ gives the outcome of random variable $X_i$ after $i$ observations    
-Training data $X = x_1,..., x_N$
+$j$th observation of $d_j$ gives the outcome of random variable $D_j$     
+training data $d = d_1,..., d_N$
 
 . . .
 
@@ -457,19 +465,19 @@ Given the data so far, each hypothesis has a posterior probability:
 
 $$
 \begin{flalign}
-P(h_k|X) = \alpha P(X|h_k)P(h_k)
+P(h_i|d) = \alpha P(d|h_i)P(h_i)
 \end{flalign}
 $$
 
-where $P(X|h_k)$ is called the __likelihood__
+where $P(d|h_i)$ is called the __likelihood__
 
----
+. . .
 
 Predictions use a __likelihood-weighted average__ over the hypotheses:
 
 $$
 \begin{flalign}
-P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
+P(X|d) = \sum_i{P(X|d,h_i)P(h_i|d)} = \sum_i{P(X|h_i)P(h_i|d)}
 \end{flalign}
 $$
 
@@ -498,7 +506,7 @@ What flavor will the next candy be?
 
 ### Posterior probability of hypotheses
 
-$P(h_k|X) = αP(X|h_k)P(h_k)$
+$P(h_k|d) = αP(d|h_k)P(h_k)$
 
 $P(h1 | 5\;limes) = αP(5\;limes | h1)P(h1) = \alpha · 0.0^5 · 0.1 = 0$
 $P(h2 | 5\;limes) = αP(5\;limes | h2)P(h2) = \alpha · 0.25^5· 0.2 = 0.000195α$
@@ -526,7 +534,7 @@ $P(h_5 | 5\;limes) = 0.62424$
 
 $$
 \begin{flalign}
-P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
+P(d_{j+1}|d) = \sum_k{P(d_{j+1}|d,h_k)P(h_k|X)} = \sum_k{P(d_{j+1}|h_k)P(h_k|d)}
 \end{flalign}
 $$
 $$
@@ -558,47 +566,62 @@ The Bayesian prediction __eventually agrees with the true hypothesis__
 :::{.incremental}
 - For any fixed prior that does not rule out the true hypothesis, the posterior of any false hypothesis will eventually vanish
 - The Bayesian prediction is __optimal__ and, given the hypothesis prior, any other prediction will be correct less often
-- However, summing over the hypothesis space is often intractable
-- Real problems require us to resort to __approximate or simplified methods__
 :::
 
+. . .
+
+However, summing over the hypothesis space is often intractable
+
+. . .
+
+➞ Real problems require us to resort to __approximate or simplified methods__
+
+
 ## MAP learning
+
+Summing over the hypothesis space is often intractable (e.g., 18,446,744,073,709,551,616 Boolean functions of 6 attributes).
+
+. . .
 
 A common approximation is to make predictions based on a __single most probable hypothesis__
 
 . . .
 
-__Maximum a posteriori__ (MAP)[^7] learning: choose $h_{MAP}$ maximizing $P(h_k|X)$[^8]
+__Maximum a posteriori__ (MAP)[^7] learning: choose $h_{MAP}$ maximizing $P(h_i|d)$[^8].
+
+. . .
+
+For large data sets, prior becomes irrelevant. 
+
+. . .
+
+**Maximum likelihood (ML) learning**[^ML] means, thus, to choose $h_{ML}$ maximizing $P(d|h_i)$.
 
 $$
 \begin{flalign}
-P(X|d) \approx P(X|h_{MAP})
+P(h_i|d) = P(d|h_i)P(h_i) \approx P(d|h_{MAP})
 \end{flalign}
 $$
 
-:::{.incremental}
-- In the candy example, $h_{MAP}=h5$ after three lime candies in a row
-- The __MAP learner__ the predicts that the fourth candy is lime with probability 1.0, whereas the Bayesian prediction is still 0.8
-- As more data arrive, MAP and Bayesian predictions become closer
-- Finding MAP hypotheses is often much easier than Bayesian learning
-- MAP learning provides a natural embodiment of __Ockham's razor__
-:::
+. . .
+
+As more data arrive, MAP and Bayesian predictions become closer
+
+➞ Finding MAP hypotheses is often much easier than Bayesian learning[^OR]
 
 [^7]: Pronounced "em-ay-pee"
-[^8]: Which is equal to minimizing $− \log P(X|h_k) − \log P(h_k)$
+[^8]: Which is equal to maximizing $P(d|h_i)P(h_i)$ or $\ log P(d|h_i) + \log P(h_i)$
+[^OR]: MAP learning provides a natural embodiment of __Ockham's razor__
+[^ML]: Maximum likelihood is the “standard” (non-Bayesian) statistical learning method
 
----
 
-## Maximum likelihood hypothesis
+::: notes
+**Candy example**
 
-For large data sets, prior becomes irrelevant
-
-:::{.incremental}
-- Thus, we can assume a __uniform prior__ over the hypothesis space
-- __Maximum likelihood__ learning: choose $h_{ML}$ maximizing $P(X|h_k)$
-- This hypothesis is called the __maximum likelihood hypothesis__
-- Maximum likelihood is the "standard" (non-Bayesian) statistical learning method
+- In the candy example, $h_{MAP}=h5$ after three lime candies in a row
+- The __MAP learner__ the predicts that the fourth candy is lime with probability 1.0, whereas the Bayesian prediction is still 0.8
 :::
+
 
 ## Summary
 
@@ -902,6 +925,23 @@ What problems do you see? Argue based on the qualification problem discussed in 
 We never test the same attribute twice along one path in a decision tree. Why not?
 
 ## I2AI_7 E7
+
+You want to teach a robot to recognize cat, using a set of features (the presence of blue eyes (`b`), stripe (`s`), or spot (`m`)). You also have several pictures of dogs to use as negative exmaples. The following table summarizes the content of training samples. Each binary feature is represented as *1* (meaning the feature is present) or *0* (meaning it is absent). The subject of y of the photo is encoded as *1* for cat or *-1* for dog.
+
+| (`m`) | (`b`) | (`s`) | Subject (`y`) |
+|-----|-----|-----|-------------|
+| 0   | 0   | 0   | 1           |
+| 1   | 0   | 0   | 1           |
+| 1   | 1   | 0   | 1           |
+| 0   | 1   | 1   | 1           |
+| 1   | 0   | 1   | -1          |
+| 1   | 1   | 1   | -1          |
+
+1. Assuming no smoothing, given estimates for the parameters of the classification rule based on the training samples.
+2. Suppose a subject which has stripe but not spot or blue eyes. What would happen if the robot had to guess the identity of the subject?
+
+
+## I2AI_7 E8
 
 Two statisticians go to the doctor and are both given the same prognosis: A 40% chance that the problem is the deadly disease A, and a 60% chance of the fatal disease B. Fortunately, there are anti-A and anti-B drugs that are inexpensive, 100% effective, and free of side-effects. The statisticians have the choice of taking one drug, both, or neither. 
 

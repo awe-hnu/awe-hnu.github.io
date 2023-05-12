@@ -212,7 +212,8 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-learning-agent" id="toc-the-learning-agent" class="nav-link active" data-scroll-target="#the-learning-agent">The learning agent</a></li>
+  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition">Definition</a></li>
+  <li><a href="#the-learning-agent" id="toc-the-learning-agent" class="nav-link" data-scroll-target="#the-learning-agent">The learning agent</a></li>
   <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees">Decision trees</a></li>
   <li><a href="#statistical-ml" id="toc-statistical-ml" class="nav-link" data-scroll-target="#statistical-ml">Statistical ML</a></li>
   <li><a href="#deep-learning" id="toc-deep-learning" class="nav-link" data-scroll-target="#deep-learning">Deep learning</a></li>
@@ -283,8 +284,9 @@ div.csl-indent {
 <p>No intelligence without learning?</p>
 </div>
 </section>
-<section id="definition" class="level2">
-<h2 data-anchor-id="definition">Definition</h2>
+</section>
+<section id="definition" class="level1">
+<h1>Definition</h1>
 <blockquote class="blockquote">
 <p>Learning agents are those that can improve their behavior through diligent study of past experiences and predictions of the future <em><span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, 668</a>)</span></em></p>
 </blockquote>
@@ -298,7 +300,6 @@ div.csl-indent {
 </ul>
 </div>
 </section>
-</section>
 <section id="the-learning-agent" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">The learning agent</h1>
 <div class="notes">
@@ -308,7 +309,7 @@ div.csl-indent {
 <h2 data-anchor-id="visualization">Visualization</h2>
 <div id="fig-l-agent" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/learning-agent.svg" class="lightbox" title="A learning agent based on @RusselNorvig2022AIMA [p. 74]" data-gallery="quarto-lightbox-gallery-1"><img src="images/learning-agent.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/learning-agent.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A learning agent based on @RusselNorvig2022AIMA [p. 74]"><img src="images/learning-agent.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;1: A learning agent based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, 74</a>)</span></figcaption>
 </figure>
 </div>
@@ -321,7 +322,17 @@ div.csl-indent {
 <p><strong>Critic:</strong> Evaluation of the agent’s behavior based on a given external behavioral measure (i.e., feedback)</p>
 <p><strong>Problem generator:</strong> Suggests explorative actions that lead the agent to new experiences</p>
 <div class="notes">
-<p>The <strong>performance elements</strong> of the agent designs described in chapter <a href="../2/">Intelligent Agents</a> are composed of</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Performance element
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>performance elements</strong> of the agent designs described in chapter <a href="../2/">Intelligent agents</a> are composed of</p>
 <ul>
 <li>a direct mapping from conditions to the current state of actions;</li>
 <li>a means to infer relevant properties of the world from the percept sequence;</li>
@@ -329,6 +340,8 @@ div.csl-indent {
 <li>utility information indicating the desirability of actions; and/or</li>
 <li>goals that describe the most desirable states;</li>
 </ul>
+</div>
+</div>
 </div>
 </section>
 <section id="the-learning-element" class="level2">
@@ -353,12 +366,34 @@ div.csl-indent {
 <li><strong>Reinforcement learning:</strong> The most general form of learning in which the agent is not told what to do by a teacher. Rather, it must learn from reinforcements (punishments or rewards). It typically involves learning how the environment works <em>➞ “just make sense of the data”</em></li>
 </ul>
 </div>
-<section id="examples" class="level3 notes" data-visibility="hidden">
-<h3 data-visibility="hidden" data-anchor-id="examples">Examples</h3>
-<p>For image classification, usually supervised learning is used. Inputs can be camera images, each one accompanied by an output saying, e.g., “bus” or “pedestrian”. An output like this is called a <strong>label</strong>. The agents learns a function that, when given a new image, predicts the appropriate label.</p>
-<p>The most common unsupervised learning task is clustering: detecting potentially useful clusters of input examples. For instance, when shown millions of images, a computer vision system could identify large cluster of similar images (without “knowing” what is shown on these).</p>
-<p>An example for reinforcement learning is a chess agent. Imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.</p>
-</section>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Examples
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<dl>
+<dt>Supervised learning</dt>
+<dd>
+Image classification — inputs can be camera images, each one accompanied by an output saying, e.g., “bus” or “pedestrian”. An output like this is called a <strong>label</strong>. The agents learns a function that, when given a new image, predicts the appropriate label.
+</dd>
+<dt>Unsupervised learning</dt>
+<dd>
+Clustering — detecting potentially useful clusters of input examples. For instance, when shown millions of images, a computer vision system could identify large cluster of similar images (without “knowing” what is shown on these).
+</dd>
+<dt>Reinforcement learning</dt>
+<dd>
+A chess agent — imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.
+</dd>
+</dl>
+</div>
+</div>
+</div>
 </section>
 <section id="why-learning-works" class="level2">
 <h2 data-anchor-id="why-learning-works">Why learning works</h2>
@@ -382,7 +417,19 @@ div.csl-indent {
 <p>How do we choose from among multiple consistent hypotheses?</p>
 <p><strong>Ockham’s razor:</strong> prefer the simplest hypothesis that matches the data</p>
 <div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ockham’s razor
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Ockham’s razor is a choice between more complex, low-bias hypotheses that fit the training data well and simple, low-variance hypotheses that may generalize better. Wililiam of Ockham stated in the first century the principle that “plurality [of entities] should not be posited without necessity — the so-called Ockham’s razor that”shaves off” dubious explanations.</p>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -402,7 +449,7 @@ Underfitting and overfitting [<span class="citation" data-cites="RusselNorvig202
 <h3 data-anchor-id="example-curve-fitting">Example: curve-fitting</h3>
 <div id="fig-fitting" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/curve-fitting.svg" class="lightbox" title="Finding hypotheses to fit data" data-gallery="quarto-lightbox-gallery-2"><img src="images/curve-fitting.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/curve-fitting.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Finding hypotheses to fit data"><img src="images/curve-fitting.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;2: Finding hypotheses to fit data</figcaption>
 </figure>
 </div>
@@ -497,7 +544,7 @@ Digression: hypothesis spaces
 <h3 data-anchor-id="example-decision-tree">Example decision tree</h3>
 <div id="fig-tree" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/decision-tree.svg" class="lightbox" title="Decision tree restaurant example based on @RusselNorvig2022AIMA [p. 674]" data-gallery="quarto-lightbox-gallery-3"><img src="images/decision-tree.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/decision-tree.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Decision tree restaurant example based on @RusselNorvig2022AIMA [p. 674]"><img src="images/decision-tree.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;3: Decision tree restaurant example based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, 674</a>)</span></figcaption>
 </figure>
 </div>
@@ -826,21 +873,20 @@ Digression: hypothesis spaces
 <section id="bayesian-learning" class="level2">
 <h2 data-anchor-id="bayesian-learning">Bayesian learning</h2>
 <p>Learning can be viewed as <strong>Bayesian updating</strong> of a probability distribution over the hypothesis space</p>
-<p><span class="math inline">\(H\)</span> is the hypothesis variable (values <span class="math inline">\(h_1, h_2, . . .\)</span>)</p>
-<p><span class="math inline">\(x_i\)</span> gives the outcome of random variable <span class="math inline">\(X_i\)</span> after <span class="math inline">\(i\)</span> observations<br>
-Training data <span class="math inline">\(X = x_1,..., x_N\)</span></p>
+<p><span class="math inline">\(H\)</span> is the hypothesis variable, values <span class="math inline">\(h_1, h_2, . . .\)</span>, prior <span class="math inline">\(P(H)\)</span></p>
+<p><span class="math inline">\(j\)</span>th observation of <span class="math inline">\(d_j\)</span> gives the outcome of random variable <span class="math inline">\(D_j\)</span><br>
+training data <span class="math inline">\(d = d_1,..., d_N\)</span></p>
 <p>Given the data so far, each hypothesis has a posterior probability:</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(h_k|X) = \alpha P(X|h_k)P(h_k)
+P(h_i|d) = \alpha P(d|h_i)P(h_i)
 \end{flalign}
 \]</span></p>
-<p>where <span class="math inline">\(P(X|h_k)\)</span> is called the <strong>likelihood</strong></p>
-<hr>
+<p>where <span class="math inline">\(P(d|h_i)\)</span> is called the <strong>likelihood</strong></p>
 <p>Predictions use a <strong>likelihood-weighted average</strong> over the hypotheses:</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
+P(X|d) = \sum_i{P(X|d,h_i)P(h_i|d)} = \sum_i{P(X|h_i)P(h_i|d)}
 \end{flalign}
 \]</span></p>
 </section>
@@ -862,7 +908,7 @@ What flavor will the next candy be?</p>
 <hr>
 <section id="posterior-probability-of-hypotheses" class="level3">
 <h3 data-anchor-id="posterior-probability-of-hypotheses">Posterior probability of hypotheses</h3>
-<p><span class="math inline">\(P(h_k|X) = αP(X|h_k)P(h_k)\)</span></p>
+<p><span class="math inline">\(P(h_k|d) = αP(d|h_k)P(h_k)\)</span></p>
 <p><span class="math inline">\(P(h1 | 5\;limes) = αP(5\;limes | h1)P(h1) = \alpha · 0.0^5 · 0.1 = 0\)</span> <span class="math inline">\(P(h2 | 5\;limes) = αP(5\;limes | h2)P(h2) = \alpha · 0.25^5· 0.2 = 0.000195α\)</span> <span class="math inline">\(P(h3 | 5\;limes) = αP(5\;limes | h3)P(h3) = \alpha · 0.5^5 · 0.4 = 0.0125α\)</span> <span class="math inline">\(P(h4 | 5\;limes) = αP(5\;limes | h4)P(h4) = \alpha · 0.75^5 · 0.2 = 0.0475α\)</span> <span class="math inline">\(P(h5 | 5\;limes) = αP(5\;limes | h5)P(h5) = \alpha · 1.0^5 · 0.1 = 0.1α\)</span></p>
 <p><span class="math inline">\(\alpha = 1/(0 + 0.000195 + 0.0125 + 0.0475 + 0.1) = 6.2424\)</span></p>
 <p><span class="math inline">\(P(h_1 | 5\;limes) = 0\)</span><br>
@@ -876,7 +922,7 @@ What flavor will the next candy be?</p>
 <h3 data-anchor-id="evolution-of-the-five-hypotheses">Evolution of the five hypotheses</h3>
 <div id="fig-eprob" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/example-probs.svg" class="lightbox" title="Posterior probability of candy-hypotheses" data-gallery="quarto-lightbox-gallery-4"><img src="images/example-probs.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/example-probs.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Posterior probability of candy-hypotheses"><img src="images/example-probs.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;4: Posterior probability of candy-hypotheses</figcaption>
 </figure>
 </div>
@@ -886,7 +932,7 @@ What flavor will the next candy be?</p>
 <h3 data-anchor-id="prediction-probability">Prediction probability</h3>
 <p><span class="math display">\[
 \begin{flalign}
-P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
+P(d_{j+1}|d) = \sum_k{P(d_{j+1}|d,h_k)P(h_k|X)} = \sum_k{P(d_{j+1}|h_k)P(h_k|d)}
 \end{flalign}
 \]</span> <span class="math display">\[
 \begin{align}
@@ -909,7 +955,7 @@ P(lime \; on \; 6 | 5 \; limes) &amp; = P(lime \; on \; 6 | h1)P(h1 | 5 \; limes
 <h3 data-anchor-id="likelihood-weighted-average">Likelihood-weighted average</h3>
 <div id="fig-ep-prob" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/example-p-prob.svg" class="lightbox" title="Probability that next candy is lime given d" data-gallery="quarto-lightbox-gallery-5"><img src="images/example-p-prob.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/example-p-prob.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Probability that next candy is lime given d"><img src="images/example-p-prob.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;5: Probability that next candy is lime given <strong>d</strong></figcaption>
 </figure>
 </div>
@@ -922,40 +968,30 @@ P(lime \; on \; 6 | 5 \; limes) &amp; = P(lime \; on \; 6 | h1)P(h1 | 5 \; limes
 <ul class="incremental">
 <li>For any fixed prior that does not rule out the true hypothesis, the posterior of any false hypothesis will eventually vanish</li>
 <li>The Bayesian prediction is <strong>optimal</strong> and, given the hypothesis prior, any other prediction will be correct less often</li>
-<li>However, summing over the hypothesis space is often intractable</li>
-<li>Real problems require us to resort to <strong>approximate or simplified methods</strong></li>
 </ul>
 </div>
+<p>However, summing over the hypothesis space is often intractable</p>
+<p>➞ Real problems require us to resort to <strong>approximate or simplified methods</strong></p>
 </section>
 <section id="map-learning" class="level2">
 <h2 data-anchor-id="map-learning">MAP learning</h2>
+<p>Summing over the hypothesis space is often intractable (e.g., 18,446,744,073,709,551,616 Boolean functions of 6 attributes).</p>
 <p>A common approximation is to make predictions based on a <strong>single most probable hypothesis</strong></p>
-<p><strong>Maximum a posteriori</strong> (MAP)<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> learning: choose <span class="math inline">\(h_{MAP}\)</span> maximizing <span class="math inline">\(P(h_k|X)\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p><strong>Maximum a posteriori</strong> (MAP)<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> learning: choose <span class="math inline">\(h_{MAP}\)</span> maximizing <span class="math inline">\(P(h_i|d)\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+<p>For large data sets, prior becomes irrelevant.</p>
+<p><strong>Maximum likelihood (ML) learning</strong><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> means, thus, to choose <span class="math inline">\(h_{ML}\)</span> maximizing <span class="math inline">\(P(d|h_i)\)</span>.</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(X|d) \approx P(X|h_{MAP})
+P(h_i|d) = P(d|h_i)P(h_i) \approx P(d|h_{MAP})
 \end{flalign}
 \]</span></p>
-<div class="incremental">
-<ul class="incremental">
+<p>As more data arrive, MAP and Bayesian predictions become closer</p>
+<p>➞ Finding MAP hypotheses is often much easier than Bayesian learning<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<div class="notes">
+<p><strong>Candy example</strong></p>
+<ul>
 <li>In the candy example, <span class="math inline">\(h_{MAP}=h5\)</span> after three lime candies in a row</li>
 <li>The <strong>MAP learner</strong> the predicts that the fourth candy is lime with probability 1.0, whereas the Bayesian prediction is still 0.8</li>
-<li>As more data arrive, MAP and Bayesian predictions become closer</li>
-<li>Finding MAP hypotheses is often much easier than Bayesian learning</li>
-<li>MAP learning provides a natural embodiment of <strong>Ockham’s razor</strong></li>
-</ul>
-</div>
-<hr>
-</section>
-<section id="maximum-likelihood-hypothesis" class="level2">
-<h2 data-anchor-id="maximum-likelihood-hypothesis">Maximum likelihood hypothesis</h2>
-<p>For large data sets, prior becomes irrelevant</p>
-<div class="incremental">
-<ul class="incremental">
-<li>Thus, we can assume a <strong>uniform prior</strong> over the hypothesis space</li>
-<li><strong>Maximum likelihood</strong> learning: choose <span class="math inline">\(h_{ML}\)</span> maximizing <span class="math inline">\(P(X|h_k)\)</span></li>
-<li>This hypothesis is called the <strong>maximum likelihood hypothesis</strong></li>
-<li>Maximum likelihood is the “standard” (non-Bayesian) statistical learning method</li>
 </ul>
 </div>
 </section>
@@ -999,7 +1035,7 @@ P(X|d) \approx P(X|h_{MAP})
 <h3 data-anchor-id="visualization-1">Visualization</h3>
 <div id="fig-deep-nn" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/deep-nn.svg" class="lightbox" title="Illustration of a deep neural network consisting of multiple representation layers" data-gallery="quarto-lightbox-gallery-6"><img src="images/deep-nn.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/deep-nn.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Illustration of a deep neural network consisting of multiple representation layers"><img src="images/deep-nn.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;6: Illustration of a deep neural network consisting of multiple representation layers</figcaption>
 </figure>
 </div>
@@ -1021,7 +1057,7 @@ P(X|d) \approx P(X|h_{MAP})
 </section>
 <section id="convolutional-neural-networks" class="level2">
 <h2 data-anchor-id="convolutional-neural-networks">Convolutional neural networks</h2>
-<p>A <strong><em>convolutional neural network (ConvNet)</em></strong> is a specific kind of neural network with multiple layers,designed to process data that come in the form of multiple arrays<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>A <strong><em>convolutional neural network (ConvNet)</em></strong> is a specific kind of neural network with multiple layers,designed to process data that come in the form of multiple arrays<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
 <p>The role of the ConvNet is to <strong>reduce the arrays</strong> into a form which is easier to process, without losing features which are critical for getting a good prediction.</p>
 <p>A ConvNet is structured as a series of stages, which are composed of two types of layers: <strong>convolutional layers</strong> and <strong>pooling layers</strong>.</p>
 <div class="incremental">
@@ -1130,7 +1166,7 @@ Helpful questions
 <li><strong>Verification and validation:</strong> you test on the training, validation, and datasets, do code reviews, monitoring, and set measures for accountability<br>
 ➞ Do the best to ensure that the system will not be wrong and, for the case, set responsibilities</li>
 <li><strong>Interpretability:</strong> you understand how answers relate to inputs ➞ Do the best to inspect and interpret your model</li>
-<li><strong>Explainability:</strong> the model helps you to understand why a certain output has been produced for a given input ➞ Do the best to explain what your model does<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></li>
+<li><strong>Explainability:</strong> the model helps you to understand why a certain output has been produced for a given input ➞ Do the best to explain what your model does<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></li>
 </ul>
 </div>
 </section>
@@ -1201,7 +1237,7 @@ Solution note
 <div class="callout-body-container callout-body">
 <div id="fig-l-agent" class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="images/divide-and-conquer.svg" class="lightbox" title="Splitting the examples by testing on attributes, based on @RusselNorvig2022AIMA [p. 677]" data-gallery="quarto-lightbox-gallery-7"><img src="images/divide-and-conquer.svg" class="img-fluid figure-img"></a></p>
+<p><a href="images/divide-and-conquer.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Splitting the examples by testing on attributes, based on @RusselNorvig2022AIMA [p. 677]"><img src="images/divide-and-conquer.svg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;7: Splitting the examples by testing on attributes, based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, 677</a>)</span></figcaption>
 </figure>
 </div>
@@ -1235,6 +1271,62 @@ Solution note
 </section>
 <section id="i2ai_7-e7" class="level2">
 <h2 data-anchor-id="i2ai_7-e7">I2AI_7 E7</h2>
+<p>You want to teach a robot to recognize cat, using a set of features (the presence of blue eyes (<code>b</code>), stripe (<code>s</code>), or spot (<code>m</code>)). You also have several pictures of dogs to use as negative exmaples. The following table summarizes the content of training samples. Each binary feature is represented as <em>1</em> (meaning the feature is present) or <em>0</em> (meaning it is absent). The subject of y of the photo is encoded as <em>1</em> for cat or <em>-1</em> for dog.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>(<code>m</code>)</th>
+<th>(<code>b</code>)</th>
+<th>(<code>s</code>)</th>
+<th>Subject (<code>y</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Assuming no smoothing, given estimates for the parameters of the classification rule based on the training samples.</li>
+<li>Suppose a subject which has stripe but not spot or blue eyes. What would happen if the robot had to guess the identity of the subject?</li>
+</ol>
+</section>
+<section id="i2ai_7-e8" class="level2">
+<h2 data-anchor-id="i2ai_7-e8">I2AI_7 E8</h2>
 <p>Two statisticians go to the doctor and are both given the same prognosis: A 40% chance that the problem is the deadly disease A, and a 60% chance of the fatal disease B. Fortunately, there are anti-A and anti-B drugs that are inexpensive, 100% effective, and free of side-effects. The statisticians have the choice of taking one drug, both, or neither.</p>
 <p>What will the first statistician (an avid Bayesian) do? How about the second statistician, who always uses the maximum likelihood hypothesis?</p>
 <p>The doctor does some research and discovers that disease B actually comes in two versions, dextro-B and levo-B, which are equally likely and equally treatable by the anti-B drug.</p>
@@ -1268,9 +1360,11 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 <li id="fn4"><p>A tree that is too large risks overfitting the training data and poorly generalizing to new samples.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>The training set is divided into two groups; 70% of the training set is used to build the tree, and the remaining 30% for validation; leading to <em>three</em> data sets (training, validation, test)<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>Pronounced “em-ay-pee”<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Which is equal to minimizing <span class="math inline">\(− \log P(X|h_k) − \log P(h_k)\)</span><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>1D for signals an sequences such as language, 2D for images or audio spectograms, 3D for video<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Regulations such as the European GDPR require systems to provide explanations<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Which is equal to maximizing <span class="math inline">\(P(d|h_i)P(h_i)\)</span> or <span class="math inline">\(\ log P(d|h_i) + \log P(h_i)\)</span><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Maximum likelihood is the “standard” (non-Bayesian) statistical learning method<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>MAP learning provides a natural embodiment of <strong>Ockham’s razor</strong><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>1D for signals an sequences such as language, 2D for images or audio spectograms, 3D for video<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Regulations such as the European GDPR require systems to provide explanations<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1514,7 +1608,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":true,"openEffect":"zoom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 
