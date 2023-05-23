@@ -154,19 +154,11 @@ $h5-font-size:      1rem;
 $block-margin: .75rem;
 
 
-#top,
 .quarto-title-meta-author,
 .quarto-title-meta,
 .sidebar {
    font-family: $font-family-sans-serif;
    font-size: $toc-font-size;
-}
-
-#top {
-  border-top: 1px solid $gray-300;
-  border-bottom: 1px solid $gray-300;
-  background: $gray-100;
-  padding: 5px 10px;
 }
 
 #quarto-appendix.default *[role=doc-endnotes]>ol,
@@ -377,6 +369,10 @@ strong {
 
 #title-block-header.quarto-title-block.default {
 
+  .quarto-title-banner {
+    color: $body-color;
+  }
+
    h1 {
         margin: 0;
    }
@@ -386,10 +382,7 @@ strong {
    }
    
    .quarto-title {
-      padding-bottom: $block-margin*4;
-      border-bottom: 1px solid $gray-300;
-     
-     
+
      .quarto-categories {
        .quarto-category {
          font-family: $font-family-sans-serif;
@@ -402,7 +395,14 @@ strong {
    }
    
    margin: 0;
-    
+  
+  &.page-full {
+    .quarto-title-meta-author,
+    .quarto-title-meta {
+      grid-column: page-start/body-content-end !important;
+    }
+  }
+  
   .quarto-title-meta-author,
   .quarto-title-meta {
        background: $gray-100;
