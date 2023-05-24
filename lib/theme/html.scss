@@ -371,6 +371,14 @@ strong {
 
   .quarto-title-banner {
     color: $body-color;
+    background: white;
+    padding: 0; 
+    margin-top: calc($block-margin*2);
+    
+    @include media-breakpoint-down(lg) { 
+      display: grid;
+    }
+    
   }
 
    h1 {
@@ -398,6 +406,13 @@ strong {
   
   .quarto-title-meta-author,
   .quarto-title-meta {
+    
+       display: none;
+    
+       @include media-breakpoint-up(lg) { 
+         display: grid;
+       }
+    
        background: $gray-100;
        padding: 5px 0;
        grid-column: page-start/body-content-end !important;
@@ -437,7 +452,7 @@ strong {
      body.docked .page-columns {
           display: grid;
           gap: 0;
-          grid-template-columns: [screen-start] 1.5em [screen-start-inset page-start] minmax(50px, 150px) [page-start-inset] 50px [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, calc( 750px - 3em )) [body-content-end] 1.5em [body-end] 50px [body-end-outset] minmax(0px, 300px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 1.5em [screen-end];
+          grid-template-columns: [screen-start] 1.5em [screen-start-inset page-start] minmax(50px, 150px) [page-start-inset] 50px [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, calc( 750px - 4.5em )) [body-content-end] 3em [body-end] 50px [body-end-outset] minmax(0px, 300px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 1.5em [screen-end];
       }     
 }
 
@@ -447,6 +462,11 @@ strong {
 
 main {
   margin: 0;
+  
+  h1:first-child {
+    margin-top: 0;
+  }
+  
 }
 
 #quarto-sidebar {
@@ -557,6 +577,10 @@ blockquote {
        background: white;
      }
 
+}
+
+#quarto-header .quarto-secondary-nav {
+  margin-bottom: 0;
 }
 
 @include media-breakpoint-down(md) { 
@@ -719,10 +743,11 @@ hr {
      margin: $block-margin/2 0 !important;
  }
 
- @include media-breakpoint-down(md) { 
+@include media-breakpoint-down(md) { 
  .gslide-description.description-bottom {
      display: none;
  }
+ 
 }
 
 .content .panel-tabset {
@@ -754,5 +779,11 @@ body.nav-sidebar {
          grid-column: body-content-start/body-content-end !important;
     }
   }
+}
+
+
+.column-margin {
+  font-family: $font-family-sans-serif;
+  font-size: $toc-font-size;
 }
 
