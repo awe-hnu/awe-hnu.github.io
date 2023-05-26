@@ -110,7 +110,7 @@ $pink:    #e83e8c !default;
 $red:     #ff0039 !default;
 $orange:  #f0ad4e !default;
 $yellow:  #ff7518 !default;
-$green:   #3fb618 !default;
+$green:   #3fb618 !default; 
 $teal:    #20c997 !default;
 $cyan:    #9954bb !default;
 
@@ -123,11 +123,13 @@ $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
 
+$header-bg: $gray-200;
+
 $min-contrast-ratio:   2.6 !default;
 
 // Options
 
-$enable-rounded: false !default;
+$enable-rounded: true !default;
 
 // Body
 
@@ -169,7 +171,7 @@ $block-margin: .75rem;
 // Navbar
 
 $navbar-dark-hover-color:       rgba($white, 1) !default;
-$navbar-light-hover-color:      rgba($black, .9) !default;
+$navbar-light-hover-color:      $blue !default;
 
 // Alerts
 
@@ -205,9 +207,18 @@ body {
 }
 
 .navbar-dark {
+    background: transparent;
      .navbar-brand {
-          font-weight: bold;
-          color: $body-color;
+        font-weight: bold;
+        color: $body-color;
+        padding: 0;
+        font-size: 2em;
+     }
+     
+     .navbar-nav {
+       .nav-link {
+         color: $black;
+       }
      }
 
      a {
@@ -280,7 +291,7 @@ body {
      }
 
      nav[role=doc-toc]>ul li a {
-          border-left-color: $gray-300;
+          border-left-color: $header-bg;
      }     
 
 
@@ -354,26 +365,28 @@ h2 {
      padding: 0;
 }
 
-strong {
-/*     background-repeat: no-repeat;
-     background-position: bottom left;
-     background-size: 100% 1px;
-     background-image: linear-gradient(#000, #000);
-     display: inline;
-     font-weight: normal;*/
-}  
-
 .anchorjs-link {
      display: none;
 }
 
-#title-block-header.quarto-title-block.default {
+#title-block-header {
+  
+  &::before {
+    display: block;
+    height: 100px;
+    width: 100vw;    
+    margin-top: -100px;
+    content: " ";
+    background-color: $header-bg;
+  }
+  
+  background-color: $header-bg;
+  padding: calc($block-margin*2) 0;
 
   .quarto-title-banner {
     color: $body-color;
-    background: white;
+    background: transparent;
     padding: 0; 
-    margin-top: calc($block-margin*2);
     
     @include media-breakpoint-down(lg) { 
       display: grid;
@@ -394,9 +407,10 @@ strong {
      .quarto-categories {
        .quarto-category {
          font-family: $font-family-sans-serif;
-         background-color: $gray-300;
-         border-color: $gray-300;
+         background-color: $white;
+         border-color: $white;
          color: $gray-600;
+         border-radius: 1rem;
        }
      }
      
@@ -413,8 +427,6 @@ strong {
          display: grid;
        }
     
-       background: $gray-100;
-       padding: 5px 0;
        grid-column: page-start/body-content-end !important;
        
        .quarto-title-meta-contents,
@@ -422,7 +434,6 @@ strong {
          margin: 2px 10px;
          p {
            margin: 0;
-           line-height: .8em;
            margin-block-end: 0 !important;
          }         
        }
@@ -448,27 +459,35 @@ strong {
      #quarto-document-content {
           padding-top: 2em;
      }
-
+     
+    body.floating.slimcontent .page-columns,
+    body.floating .page-columns {
+      grid-template-columns: [screen-start] 50px [screen-start-inset] 5fr [page-start] 50px [page-start-inset] minmax(50px, 150px) [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, 650px) [body-content-end] 50px [body-end] 50px [body-end-outset] minmax(50px, 150px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 50px [screen-end];   
+    }
+    
      body.docked.slimcontent .page-columns,
      body.docked .page-columns {
           display: grid;
           gap: 0;
-          grid-template-columns: [screen-start] 1.5em [screen-start-inset page-start] minmax(50px, 150px) [page-start-inset] 50px [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, calc( 750px - 4.5em )) [body-content-end] 3em [body-end] 50px [body-end-outset] minmax(0px, 300px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 1.5em [screen-end];
+          grid-template-columns: [screen-start] 50px [screen-start-inset page-start] 125px [page-start-inset] 50px [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, 750px) [body-content-end] 50px [body-end] 50px [body-end-outset] minmax(0px, 200px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 1.5em [screen-end];
       }     
+      
+      body .page-columns {
+        grid-template-columns: [screen-start] 1.5em [screen-start-inset] 5fr [page-start] 50px [page-start-inset] minmax(50px, 150px) [body-start-outset] 50px [body-start] 1.5em [body-content-start] minmax(450px, calc( 750px - 3em )) [body-content-end] 1.5em [body-end] 50px [body-end-outset] minmax(50px, 150px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 1.5em [screen-end];
+      }
+      
+      
+      .page-columns .column-page {
+        grid-column: body-content-start/body-content-end;      
+      }
+      
 }
 
 .sidebar.margin-sidebar {
      margin-top: 2em;
 }
 
-main {
-  margin: 0;
-  
-  section:first-child h1 {
-    margin-top: 0;
-  }
-  
-}
+
 
 #quarto-sidebar {
      padding: 0 2em;
@@ -534,7 +553,7 @@ main ol ol, main ul ul, main ol ul, main ul ol {
 
 
 blockquote {
-  border-left: 1px solid $gray-300;
+  border-left: 1px solid $gray-400;
   color: $body-color;
 
   p:first-child {
@@ -550,35 +569,92 @@ blockquote {
   }
 }
 
-
 #quarto-header {
-  border-bottom: none !important;
-}
+    
+    font-size: $toc-font-size;
+    background: $header-bg;
+    border-bottom: 1px solid $black;
 
-
-@include media-breakpoint-up(sm) { 
-
-    #quarto-header {
-      .quarto-secondary-nav {
-        margin-bottom: 2em;
-      }
+    @include media-breakpoint-up(lg) { 
+      display: grid;
+      gap: 0;
+      grid-template-columns: [screen-start] 50px [screen-start-inset] 5fr [page-start] 50px [page-start-inset] minmax(50px, 150px) [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(450px, 650px) [body-content-end] 50px [body-end] 50px [body-end-outset] minmax(50px, 150px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 50px [screen-end];   
     }
+    
+    nav {
+      grid-column: page-start/page-end;
+    }
+    
+    .navbar {
+      padding-top: 0;
+      padding-bottom: 0;
+      
+      .nav-link {
+        padding: .5rem 1rem 0.25rem 1rem;
+      }
+      
+    }
+    
+    nav.quarto-secondary-nav {
+      
+      font-family: $font-family-sans-serif;
+      font-size: $toc-font-size;
+      background-color: transparent !important;
+      border-top: 1px solid $body-color;
+      
+      @include media-breakpoint-up(lg) { 
+        display: none !important; 
+      }       
+    }
+    
+    .quarto-navbar-tools {
+      display: none;
+    }
+    
+    .navbar-container {
+      padding: $block-margin 0;
+    }
+    
+    @include media-breakpoint-up(md) { 
+      .navbar,
+      nav.quarto-secondary-nav {
+        display: grid;
+        padding: 0;
+        gap: 0;
+        grid-template-columns: [screen-start] 50px [screen-start-inset] 5fr [page-start] 50px [page-start-inset] minmax(50px, 150px) [body-start-outset] 50px [body-start] 50px [body-content-start] minmax(150px, 650px) [body-content-end] 50px [body-end] 50px [body-end-outset] minmax(50px, 150px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 50px [screen-end];   
+        
+        .container-fluid {
+          grid-column: page-start/page-end-inset;
+        }
+      
+      }
+      
+      @include media-breakpoint-up(lg) { 
+        .navbar,
+        nav.quarto-secondary-nav {
+          display: flex;
+          grid-template-columns: unset;   
+          padding: 0 1em;
+        }  
 
-     #quarto-header nav {
-          padding-left: 2em;
-          padding-right: 2em;
-     }
-
-     .sidebar-navigation .sidebar-item a, .nav-page .nav-page-text, .sidebar-navigation {
-          font-size: $toc-font-size;
-     } 
-     
-     #quarto-sidebar {
-       margin-top: -2em;
-       background: white;
-     }
-
+      }
+      
+      .quarto-page-breadcrumbs {
+        padding-left: 0;
+        a {
+          color: $body-color;
+        }
+      }
+      
+      .quarto-btn-toggle {
+        color: $body-color;
+      }
+      
+    }
+    
+  
 }
+
 
 #quarto-header .quarto-secondary-nav {
   margin-bottom: 0;
@@ -603,6 +679,15 @@ blockquote {
 
 @include media-breakpoint-up(lg) { 
 
+main {
+  margin: 0;
+  
+  section:first-child h1 {
+    margin-top: 0;
+  }
+  
+}
+
      #quarto-header nav {
           padding-left: 1em;
           padding-right: 1em;
@@ -615,15 +700,17 @@ blockquote {
      }
 }
 
-
-#quarto-header nav {
-     background: $gray-200;
-     border: none;
-     font-size: $toc-font-size;
-}
-
 .navbar-brand:hover {
      color: $blue !important;
+}
+
+.navbar-nav {
+  font-family: $font-family-sans-serif;
+  
+  .navb-link {
+    color: $black;
+  }
+  
 }
 
 .columns {
@@ -767,10 +854,6 @@ hr {
   
 }
 
-.quarto-secondary-nav {
-  font-family: $font-family-sans-serif;
-}
-
 body.nav-sidebar {
   
   #title-block-header.quarto-title-block.default {
@@ -788,3 +871,23 @@ body.nav-sidebar {
   font-size: $toc-font-size;
 }
 
+
+
+#quarto-sidebar.collapse-horizontal {
+@include media-breakpoint-down(lg) {  
+  border-top: 1px solid $black;
+}  
+}
+
+#quarto-sidebar-glass.show {
+  background-color: rgba(0,0,0,.9);
+}
+
+.btn {
+  font-size: unset;
+  border-radius: 1rem;
+}
+
+.btn-light {
+  background-color: $header-bg;
+}
