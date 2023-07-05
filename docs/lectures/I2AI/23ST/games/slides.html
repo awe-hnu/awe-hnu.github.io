@@ -9,11 +9,11 @@
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.340">
+  <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Andy Weeger">
-  <meta name="dcterms.date" content="2023-01-01">
-  <title>awe.lectures - Topics</title>
+  <meta name="dcterms.date" content="2023-04-02">
+  <title>awe.lectures - Adversarial search</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -51,7 +51,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -340,8 +340,8 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="awe.lectures - Topics">
-<meta property="og:description" content="IT as a Service Enabler (ITSE)">
+<meta property="og:title" content="awe.lectures - Adversarial search">
+<meta property="og:description" content="🧠 Introduction to AI — I2AI_4">
 <meta property="og:site-name" content="awe.lectures">
 </head>
 <body class="quarto-light">
@@ -352,7 +352,7 @@
     </div>
 
     <div class="footnote">
-        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / IT as a Service Enabler
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Intro to AI
    </div>
 
     <div class="logo">
@@ -369,9 +369,9 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#0333ff" class="quarto-title-block">
-  <h1 class="title">Topics</h1>
-  <p class="subtitle">IT as a Service Enabler (ITSE)</p>
+<section id="title-slide" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Adversarial search</h1>
+  <p class="subtitle">🧠 Introduction to AI — I2AI_4</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -384,139 +384,427 @@ Andy Weeger
     </div>
 </div>
 
-  <p class="date">January 1, 2023</p>
+  <p class="date">April 2, 2023</p>
 </section>
 <section>
-<section id="overview" class="title-slide slide level1">
-<h1>Overview</h1>
-<p><strong>General remark:</strong> When you work on the topics, your ambition should be to produce a solid scientific paper (good way to prepare for the BA)</p>
+<section id="competitive-environments" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1>Competitive environments</h1>
+
+</section>
+<section id="tree-search-in-action" class="slide level2 unlisted html-hidden" data-background-color="#0333ff" data-background-image="images/alphaGo.jpeg">
+<h2>Tree search in action</h2>
+<aside class="notes">
+<p>AlphaGo is a computer program that plays the board game Go, which is considered much more difficult for computers to win than other games such as chess because its strategic and aesthetic nature makes it difficult to construct a direct scoring function. AlphaGo was developed by the London-based DeepMind Technologies, an acquired subsidiary of Alphabet Inc.&nbsp;</p>
+<p>AlphaGo use a <strong>Monte Carlo tree search algorithm</strong> to find their moves based on knowledge previously acquired through machine learning, specifically an artificial neural network (a deep learning method) through extensive training, both from human and computer games. A neural network is trained to recognize the best moves and the winning rates of those moves. This neural network improves the strength of the tree search, leading to stronger move selection in the next iteration.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="adversarial-search" class="slide level2">
+<h2>Adversarial search</h2>
+<p>In <strong>competitive</strong> environments, two or more agents have conflicting goals.</p>
 <div class="fragment">
-<p>Topics:</p>
+<p>This gives rise to <strong>adversarial search</strong> problems.</p>
+</div>
+<div class="fragment">
+<p>The AI community is particularly interested in games of a simplified nature (e.g., chess, go, and poker), as in such games</p>
+</div>
 <div>
 <ul>
-<li class="fragment">Analysis of the smart city app Ulm/Neu-Ulm <em>(theory-based evaluation, 3 students)</em></li>
-<li class="fragment">Analysis of Gamification Elements in a Smart City App <em>(theory-based analysis, 1 student)</em></li>
-<li class="fragment">Use of secondary material and IS <em>(structured literature review, 1 student)</em></li>
-<li class="fragment">Resource efficiency and IS <em>(structured literature review, 1 student)</em></li>
-<li class="fragment">Digitalization and sustainability in the DAX 40 companies <em>(empiciral study, 2 students)</em></li>
+<li class="fragment">the state of a game is easy to represent,</li>
+<li class="fragment">agents are restricted to a few actions, and</li>
+<li class="fragment">effects of actions are defined by precise rules.</li>
+</ul>
+</div>
+</section>
+<section id="deterministic-games" class="slide level2">
+<h2>Deterministic games</h2>
+<p>The games most commonly studied within AI are deterministic <em>(two-player, turn-taking, fully observable, zero-sum<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a>)</em> <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 192</a>)</span>.</p>
+<div class="fragment">
+<p><strong>Possible formalization</strong></p>
+<div>
+<ul>
+<li class="fragment"><strong>States</strong>: <span class="math inline">\(S\)</span> (start at <span class="math inline">\(S_0\)</span>)</li>
+<li class="fragment"><strong>Player</strong>: <span class="math inline">\(\textrm{TO-MOVE}(s)\)</span> (defines which player has the move in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Actions</strong>: <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> (the set of legal moves in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Transition model</strong>: <span class="math inline">\(\textrm{RESULTS}(s,a)\)</span> (defines the state resulting from action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>)</li>
+<li class="fragment"><strong>Terminal test</strong>: <span class="math inline">\(\textrm{IS-TERMINAL}(s)\)</span> (is true when the game is over<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a>)</li>
+<li class="fragment"><strong>Utility function</strong>: <span class="math inline">\(\textrm{UTILITY}(s,p)\)</span> (defines the final numeric value to player <span class="math inline">\(p\)</span> when the game ends in terminal state <span class="math inline">\(s\)</span>)</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>The initial state, <span class="math inline">\(\textrm{ACTIONS}(s)\)</span>, and <span class="math inline">\(\textrm{RESULT}(s,a)\)</span> define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+<section id="optimal-decisions" class="slide level2">
+<h2>Optimal decisions</h2>
+<p>Players (here <code>MIN</code> and <code>MAX</code>, alternate turns) need to have a conditional plan—a contingent strategy specifying a response to each move of the opponent.</p>
+<div>
+<ul>
+<li class="fragment">For games with binary outcomes (win or lose), <em>AND-OR</em><a href="#/footnotes" class="footnote-ref" id="fnref3" role="doc-noteref" data-footnote-href="#/fn3" onclick=""><sup>3</sup></a> search tree can be used<br>
+<span class="citation" data-cites="RusselNorvig2022AIMA">(see <a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 143</a>)</span></li>
+<li class="fragment">For games with multiple outcome scores, the <strong>minimax search</strong> algorithm is used</li>
+</ul>
+</div>
+<aside></aside></section></section>
+<section>
+<section id="minimax-search" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Minimax search</h1>
+
+</section>
+<section id="minimax-value" class="slide level2">
+<h2>Minimax value</h2>
+<p>Given a state-space search tree, each node’s <strong>minimax value</strong> is calculated.</p>
+<div class="fragment">
+<p>The minimax value is the best achievable utility of being in a given sate (against a rational adversary).</p>
+<div>
+<ul>
+<li class="fragment"><code>MAX</code> prefers to move to a state of maximum value<br>
+</li>
+<li class="fragment"><code>MIN</code> prefers to move to a state of minimum value<br>
+</li>
 </ul>
 </div>
 </div>
 </section>
-<section id="analysis-of-smart-city-app" class="slide level2">
-<h2>Analysis of Smart City App</h2>
-<p>Your task is to test and evaluate a prototype of a smart city app for Ulm/Neu-Ulm. The aim of the app is, among others, to promote sustainable mobility forms like public transportation or biking. As the prototype is in German, respective language skills are required. As to that you will adopt a design-science approach and:</p>
-<ul>
-<li>Review the literature and summarize the knowledge on mobility apps and platforms that are used to induce behavioral change.</li>
-<li>Analyze the prototype app in regards to its design principles based on prior literature.</li>
-<li>Test the app and its effects, e.g.&nbsp;among students.</li>
-<li>Deduct learnings and update the design principles based on the evaluation.</li>
-</ul>
-<p>The focus of this work should be on the test and evaluation phase. You will report and discuss your findings in a joint paper.</p>
-<section id="starting-points-for-reading" class="notes">
-<h4>Starting points for reading</h4>
-<ul>
-<li><span class="citation" data-cites="hevner2008design">A. R. Hevner et al. (<a href="#/references" role="doc-biblioref" onclick="">2008</a>)</span></li>
-<li><span class="citation" data-cites="hevner2010design">A. Hevner and Chatterjee (<a href="#/references" role="doc-biblioref" onclick="">2010</a>)</span></li>
-<li><span class="citation" data-cites="hein2018towards">Hein et al. (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></li>
-<li><span class="citation" data-cites="lieberoth2018selective">Lieberoth, Jensen, and Bredahl (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></li>
-<li><span class="citation" data-cites="gunther2020behavioral">Günther et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span></li>
-</ul>
+<section id="adversarial-game-tree" class="slide level2">
+<h2>Adversarial game tree</h2>
+<div id="fig-adversarial-game-tree" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/adversarial-game-tree.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;1: Example: A adversarial game tree</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>The △ nodes are “<em>MAX</em> nodes”, in which it is <em>MAX’s</em> turn to move; the ▽ nodes are “<em>MIN</em> nodes”. <em>MAX’s</em> best move at the root is α₁ (the highest minimax value), <em>MIN’s</em> best move is β₁ (the lowest minimax value).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-</section>
-<section id="analysis-of-gamification-elements-in-a-smart-city-app" class="slide level2">
-<h2>Analysis of Gamification Elements in a Smart City App</h2>
-<p>Your task is to analyze the gamification elements of a prototype of a smart city app for Ulm/Neu-Ulm. The aim of the app is, among others, to promote sustainable mobility forms like public transportation or biking. As the prototype is in German, respective language skills are required.</p>
-<p>In you analysis you are required to:</p>
+<section id="minimax-search-algorithm" class="slide level2">
+<h2>Minimax search algorithm</h2>
+<p>The <strong>minimax algorithm</strong> performs a complete depth-first exploration of the game tree <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 196–96</a>)</span>.</p>
+<div>
 <ul>
-<li>Review the literature and summarize the knowledge on gamification elements in mobility apps and mobility platforms to promote more sustainable mobility behavior.</li>
-<li>Analyze the prototype app in regards to its gamification elements based on prior literature.</li>
-<li>Deduct potential starting points for an optimization and further development of the gamification elements in the app based on the extant literature.</li>
-</ul>
-<p>You will report and discuss your findings in a research paper.</p>
-<section id="starting-points-for-reading-1" class="notes">
-<h4>Starting points for reading</h4>
+<li class="fragment">Assumes that the adversary plays optimal</li>
+<li class="fragment">Returns action whose terminal state has the optimal <span class="math inline">\(\textrm{MINIMAX}\)</span> value
 <ul>
-<li><span class="citation" data-cites="lieberoth2018selective">Lieberoth, Jensen, and Bredahl (<a href="#/references" role="doc-biblioref" onclick="">2018</a>)</span></li>
-<li><span class="citation" data-cites="nakashima2017gamification">Nakashima, Sato, and Maruyama (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span></li>
-<li><span class="citation" data-cites="cellina2019large">Cellina et al. (<a href="#/references" role="doc-biblioref" onclick="">2019</a>)</span></li>
+<li class="fragment">If the state is a terminal state (<span class="math inline">\(\textrm{IS-TERMINAL}(s) = true\)</span>):<br>
+return the state’s utility (<span class="math inline">\(\textrm{UTILITY}(s,p)\)</span>)</li>
+<li class="fragment">If the next agent is <span class="math inline">\(\textrm{MAX}\)</span> (<span class="math inline">\(\textrm{TO-MOVE}(s) = MAX\)</span>): return <span class="math inline">\(\textrm{MAX-VALUE}(s)\)</span></li>
+</ul></li>
 </ul>
-</section>
-</section>
-<section id="use-of-secondary-material-and-is" class="slide level2">
-<h2>Use of secondary material and IS</h2>
-<p>Your task is to review current literature to answer following research question: “How can IS help increase the use of secondary materials in new product offerings?”</p>
-<p>As to that, you will conduct a structured literature review following [<span class="citation" data-cites="webster2002analyzing">Webster and Watson (<a href="#/references" role="doc-biblioref" onclick="">2002</a>)</span>]<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a> and analyze the included papers and synthesize the existing knowledge.</p>
-<p>You will report and discuss your findings in a paper.</p>
-<section id="starting-points-for-reading-2" class="notes">
-<h4>Starting points for reading</h4>
-<p>Please read following papers to get familiar with the overall topic</p>
+</div>
+<div class="fragment">
+<p>The exponential complexity makes the miminmax algorithm impractical for complex games (even with alpha-beta pruning applied; chess game tree size &gt; atoms in the universe).</p>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pruning to reduce computing complexity <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 198–99</a>)</span>.</strong></p>
+</div>
+<div class="callout-content">
+<p>Pruning stops the search at the moment when it is determined that the value of a subtree is worse than the best solution already identified.</p>
+<p>The general principle is as follows: consider a node <em>n</em> somewhere in the tree, such that Player has a choice of moving to <em>n</em>. If Player has a better choice either at the same level or at any point higher up in the tree, then Player will never move to <em>n</em>. So enough about <em>n</em> is found out (by examining some of its descendants) to reach this conclusion, it can be pruned <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 198</a>)</span>.</p>
+<p>Alpha-beta pruning gets its name from the two extra parameters in <em>MAX-VALUE(state,α,β)</em> that describe the bounds on the backed-up values that appear anywhere along the path:</p>
 <ul>
-<li><span class="citation" data-cites="zeiss2021mobilising">Zeiss et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span></li>
-<li><span class="citation" data-cites="van2023sustainable">Aalst, Hinz, and Weinhardt (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></li>
+<li>α = the value of the best choice for <code>MAX</code> found so far (“at least”)</li>
+<li>β = the value of the bast choice for <code>MIN</code> found so far (“at most”)</li>
 </ul>
+<p>Alpha-beta search updates the values of α and β as it goes along and prunes the remaining branches at a node as soon as the value of the current node is known to be worse than the current α and β for <code>MAX</code> or <code>MIN</code>, respectively.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<aside></aside></section>
-<section id="resource-efficiency-and-is" class="slide level2">
-<h2>Resource efficiency and IS</h2>
-<p>Your task is to review current literature to answer following research question: “How can the use of (innovative) IT improve resource efficiency?”</p>
-<p>As to that, you will conduct a structured literature review following [<span class="citation" data-cites="webster2002analyzing">Webster and Watson (<a href="#/references" role="doc-biblioref" onclick="">2002</a>)</span>]<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a> and analyze the included papers and synthesize the existing knowledge.</p>
-<p>You will report and discuss your findings in a paper.</p>
-<section id="starting-points-for-reading-3" class="notes">
-<h4>Starting points for reading</h4>
-<p>Please read following papers to get familiar with the overall topic</p>
-<ul>
-<li><span class="citation" data-cites="zeiss2021mobilising">Zeiss et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span></li>
-<li><span class="citation" data-cites="van2023sustainable">Aalst, Hinz, and Weinhardt (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></li>
-</ul>
-</section>
-<aside></aside></section>
-<section id="digitalization-and-sustainability-in-dax-40-companies" class="slide level2">
-<h2>Digitalization and sustainability in DAX 40 companies</h2>
-<p>Your task is to review the current practice of leading German companies to combine digitalization and sustainability to answer following research question: “How do leading companies use digitalization initiatives to improve sustainability?”</p>
-<p>You will review IS literature to identify ways to improve sustainability by IT, analyze the annual (sustainability) reports of the leading 40 DAX companies within the last three years, press releases and newspaper articles and identify if the companies relate their digilization initiatives to sustainability efforts and how they use digitalization to improve social, economical, and environmental sustainability.</p>
-<p>You will report and discuss your findings in <strong>a joint paper</strong>.</p>
-<section id="starting-points-for-reading-4" class="notes">
-<h4>Starting points for reading</h4>
-<p>Please read following papers to get familiar with the overall topic and the method</p>
-<ul>
-<li><span class="citation" data-cites="zeiss2021mobilising">Zeiss et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span></li>
-<li><span class="citation" data-cites="van2023sustainable">Aalst, Hinz, and Weinhardt (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></li>
-</ul>
-</section>
+<section id="pruning" class="slide level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2>Pruning</h2>
+<div class="large">
+<p>What is <strong>pruning</strong>?</p>
+</div>
+<p>Read the note about pruning (and consult <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span> or the internet if necessary).</p>
+<p>Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.</p>
+<p>Draw an example (game search tree, 3 levels depth).</p>
 </section></section>
-<section id="references" class="title-slide slide level1 smaller scrollable">
-<h1>References</h1>
+<section>
+<section id="monte-carlo-tree-search" class="title-slide slide level1">
+<h1>Monte Carlo tree search</h1>
+<p><strong>Monte Carlo tree search</strong> (MCTS) does estimate the value of a state as the <strong>average utility</strong><a href="#/footnotes" class="footnote-ref" id="fnref4" role="doc-noteref" data-footnote-href="#/fn4" onclick=""><sup>4</sup></a> over a number of simulations of complete games starting from the current state <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 207–9</a>)</span>.</p>
+<div class="fragment">
+<p>Each iteration follows four steps:</p>
+<div>
+<ul>
+<li class="fragment"><strong>Selection</strong> (choosing a move<a href="#/footnotes" class="footnote-ref" id="fnref5" role="doc-noteref" data-footnote-href="#/fn5" onclick=""><sup>5</sup></a>, leading to a successor node, and repeat that process, moving down the tree to a leaf)</li>
+<li class="fragment"><strong>Expansion</strong> (one to several new children are created for the selected node)</li>
+<li class="fragment"><strong>Simulation</strong> (a simulation for the newly generated child node is performed)</li>
+<li class="fragment"><strong>Back-propagation</strong> (the result of the simulation is used to update all the search tree nodes going up to the root)</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<p>Repeats for a set number of iterations or until a given time is over. At the end the successor with the hightest utily is chosen.</p>
+</div>
+<aside></aside></section>
+<section id="function" class="slide level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2>Function</h2>
+<div class="large">
+<p>To what <strong>generic function of agents</strong> does MCTS relate to?</p>
+</div>
+<p>It is the utility function that measures its preferences among states of the world.</p>
+</section>
+<section id="function-1" class="slide level2 html-hidden unlisted discussion-slide" data-background-color="black">
+<h2>Function</h2>
+<div class="large">
+<p>What should the <strong>selection process</strong> look like?</p>
+</div>
+</section>
+<section id="selection" class="slide level2">
+<h2>Selection</h2>
+<div class="columns">
+<div class="column">
+<div id="fig-mcts-selection" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/mcts-selection.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;2: Example: MCTS — selection</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="fragment">
+<p><a href="#/selection">Figure&nbsp;2</a> shows a tree with the root representing a state where <code>P-A</code> has won 37/100 playouts done</p>
+<div>
+<ul>
+<li class="fragment"><code>P-A</code> has just moved to the root node</li>
+<li class="fragment"><code>P-B</code> selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves</li>
+<li class="fragment"><code>P-A</code> will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)</li>
+<li class="fragment"><code>P-B</code> then continues on the leaf node marked 27/35</li>
+<li class="fragment">… until a terminal state is reached</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained. So it makes sense to use a selection policy that balances exploitation and exploration.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="selection-policy-example" class="slide level2">
+<h2>Selection policy example</h2>
+<p><strong>Upper confidence bounds applied to trees</strong> (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)</p>
+<div class="fragment">
+<p><span class="math display">\[
+\textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
+\]</span></p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(\textrm{U}(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>
+<li class="fragment"><span class="math inline">\(\textrm{N}(n)\)</span> is the number of playouts through node <span class="math inline">\(n\)</span></li>
+<li class="fragment"><span class="math inline">\(\textrm{PARENT}(n)\)</span> is the parent node of <span class="math inline">\(n\)</span> in the tree</li>
+<li class="fragment"><span class="math inline">\(\frac{\textrm{U}(n)}{\textrm{N}(n)}\)</span> is the average utility of <span class="math inline">\(n\)</span> <em>(exploitation term, “how good are the stats?”)</em></li>
+<li class="fragment"><span class="math inline">\(\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}\)</span> is higher for <span class="math inline">\(n\)</span> only explored a few times<br>
+<em>(exploration term, “how much has the child be ‘ignored’?”)</em></li>
+<li class="fragment"><span class="math inline">\(C\)</span> is a constant that balance exploitation and exploration (theoretically <span class="math inline">\(\sqrt{2}\)</span>)</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>With <span class="math inline">\(C=1.4\)</span>, the 60/79 node in <a href="#/selection">Figure&nbsp;2</a> has the highest UCB1 score, but with <span class="math inline">\(C=1.5\)</span>, it would be the 2/11 node.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Utiliy of MCTS</strong></p>
+</div>
+<div class="callout-content">
+<p>The conventional wisdom has been that Monte Carlo search has an advantage over heuristic alpha-beta tree search (not discussed here, see <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 202ff</a>)</span>) for games where the branching factor is very high (and thus alpha-beta can’t search deep enough), or when it is difficult to define a good evaluation function <a href="#/footnotes" class="footnote-ref" id="fnref6" role="doc-noteref" data-footnote-href="#/fn6" onclick=""><sup>6</sup></a>.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+<section id="expansion-and-simulation" class="slide level2">
+<h2>Expansion and simulation</h2>
+<div class="columns">
+<div class="column">
+<div id="fig-mcts-expansion" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/mcts-expansion-simulation.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;3: Example: MCTS — expansion and simulation</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="fragment">
+<p><a href="#/expansion-and-simulation">Figure&nbsp;3</a> shows a tree where a new child of the selected node is generated and marked with <code>0/0</code> <em>(expansion)</em>.</p>
+</div>
+<div class="fragment">
+<p>A playout for the newly generated child node is performed <em>(simulation)</em>.</p>
+<div>
+<ul>
+<li class="fragment">Moves for both players according the playout policy<a href="#/footnotes" class="footnote-ref" id="fnref7" role="doc-noteref" data-footnote-href="#/fn7" onclick=""><sup>7</sup></a> are chosen</li>
+<li class="fragment">The moves are not recorded in the search tree</li>
+<li class="fragment">In <a href="#/expansion-and-simulation">Figure&nbsp;3</a>, the simulation results in a win for <code>P-B</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<aside></aside></section>
+<section id="back-propagation" class="slide level2">
+<h2>Back-propagation</h2>
+<div class="columns">
+<div class="column">
+<div id="fig-mcts-propagation" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/mcts-back-propagation.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;4: Example: MCTS — selection</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="fragment">
+<p>The result of the simulation is used to update all the search tree nodes going up to the root.</p>
+<div>
+<ul>
+<li class="fragment"><code>P-B's</code> nodes are incremented in both the number of wins and the number of playouts</li>
+<li class="fragment"><code>P-A's</code> nodes are incremented in the number of playouts only</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="wrap-up" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Wrap-up</h1>
+
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<div>
+<ul>
+<li class="fragment">In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the <strong>minimax algorithm</strong> can select optimal moves by a depth-first search in the game tree</li>
+<li class="fragment">Efficiency can be improved by using the <strong>alpha-beta</strong> search algorithm, which eliminates subtrees that are shown to be irrelevant.</li>
+<li class="fragment"><strong>Monte Carlo tree search</strong> evaluates states by playing out the game all the way to the end to see who won. This playout <strong>simulation</strong> is repeated multiple times. The evaluation is an average of the results.</li>
+</ul>
+</div>
+</section>
+<section id="xkcd" class="slide level2">
+<h2>xkcd</h2>
+<div id="fig-xkcd" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/xkcd.png" class="img-fluid"></p>
+<figcaption>Figure&nbsp;5: xkcd 1263: reassuring</figcaption>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="exercises" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1>✏️ Exercises</h1>
+
+</section>
+<section id="i2ai_4-e1" class="slide level2">
+<h2>I2AI_4 E1</h2>
+<p>Explain in your own words the following terms:</p>
+<ul>
+<li>Zero-sum</li>
+<li>Terminal test</li>
+<li>Minimax value</li>
+<li>Selection policy</li>
+<li>Playout policy</li>
+<li>Monte Carlo tree</li>
+<li>Back-propagation</li>
+</ul>
+</section>
+<section id="i2ai_4-e2" class="slide level2">
+<h2>I2AI_4 E2</h2>
+<p>Explain if the <code>MINIMAX</code> algorithm is complete and optimal.</p>
+<p>Can it be beaten by an opponent playing suboptimally? Why (not)?</p>
+<p>Come up with a game tree in which MAX will beat a suboptimal MIN.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="solution-notes">Solution notes</h3>
+<h4 id="completeness">Completeness</h4>
+<p>In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the <code>MINIMAX</code> algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.</p>
+<p>The algorithm performs a complete depth-first exploration of the game tree. If the maximum depth of the tree is <span class="math inline">\(m\)</span> and there are <span class="math inline">\(b\)</span> legal moves at each point, then the time complexity is <span class="math inline">\(O(b^m)\)</span> for an algorithm that generates all actions at once, or <span class="math inline">\(O(m)\)</span> for an algorithm that generates actions on at a time. The exponential complexity makes <code>MINIMAX</code> impractical for complex games. <code>MINIMAX</code> does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.</p>
+</section>
+<section class="slide level2">
+
+<h4 id="suboptimally-play">Suboptimally play</h4>
+<p>If <em>MIN</em> does not play optimally, then <em>MAX</em> will do at least as well as against an optimal player, possibly better.</p>
+</section>
+<section id="i2ai_4-e3" class="slide level2">
+<h2>I2AI_4 E3</h2>
+<p>Read the note about pruning (and consult <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span> if necessary).</p>
+<p>Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.</p>
+<p>Draw an example (game search tree, 3 levels depth).</p>
+</section></section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-van2023sustainable" class="csl-entry" role="listitem">
-Aalst, Wil MP van der, Oliver Hinz, and Christof Weinhardt. 2023. <span>“Sustainable Systems Engineering.”</span> <em>Business &amp; Information Systems Engineering</em>, 1–6.
-</div>
-<div id="ref-cellina2019large" class="csl-entry" role="listitem">
-Cellina, Francesca, Dominik Bucher, Francesca Mangili, José Veiga Simão, Roman Rudel, and Martin Raubal. 2019. <span>“A Large Scale, App-Based Behaviour Change Experiment Persuading Sustainable Mobility Patterns: Methods, Results and Lessons Learnt.”</span> <em>Sustainability</em> 11 (9): 2674.
-</div>
-<div id="ref-gunther2020behavioral" class="csl-entry" role="listitem">
-Günther, Sebastian A, Thorsten Staake, Samuel Schöb, and Verena Tiefenbeck. 2020. <span>“The Behavioral Response to a Corporate Carbon Offset Program: A Field Experiment on Adverse Effects and Mitigation Strategies.”</span> <em>Global Environmental Change</em> 64: 102123.
-</div>
-<div id="ref-hein2018towards" class="csl-entry" role="listitem">
-Hein, Andreas, Markus Scheiber, Markus Böhm, Jörg Weking, and Helmut Krcmar. 2018. <span>“Towards a Design Framework for Service Platform Ecosystems.”</span> In <em>ECIS</em>, 132.
-</div>
-<div id="ref-hevner2008design" class="csl-entry" role="listitem">
-Hevner, Alan R, Salvatore T March, Jinsoo Park, and Sudha Ram. 2008. <span>“Design Science in Information Systems Research.”</span> <em>Management Information Systems Quarterly</em> 28 (1): 6.
-</div>
-<div id="ref-hevner2010design" class="csl-entry" role="listitem">
-Hevner, Alan, and Samir Chatterjee. 2010. <span>“Design Science Research in Information Systems.”</span> In <em>Design Research in Information Systems</em>, 9–22. Springer.
-</div>
-<div id="ref-lieberoth2018selective" class="csl-entry" role="listitem">
-Lieberoth, Andreas, Niels Holm Jensen, and Thomas Bredahl. 2018. <span>“Selective Psychological Effects of Nudging, Gamification and Rational Information in Converting Commuters from Cars to Buses: A Controlled Field Experiment.”</span> <em>Transportation Research Part F: Traffic Psychology and Behaviour</em>.
-</div>
-<div id="ref-nakashima2017gamification" class="csl-entry" role="listitem">
-Nakashima, Ryota, Takahiro Sato, and Takuya Maruyama. 2017. <span>“Gamification Approach to Smartphone-App-Based Mobility Management.”</span> <em>Transportation Research Procedia</em> 25: 2344–55.
-</div>
-<div id="ref-webster2002analyzing" class="csl-entry" role="listitem">
-Webster, Jane, and Richard T Watson. 2002. <span>“Analyzing the Past to Prepare for the Future: Writing a Literature Review.”</span> <em>MIS Quarterly</em>, xiii–xxiii.
-</div>
-<div id="ref-zeiss2021mobilising" class="csl-entry" role="listitem">
-Zeiss, Roman, Anne Ixmeier, Jan Recker, and Johann Kranz. 2021. <span>“Mobilising Information Systems Scholarship for a Circular Economy: Review, Synthesis, and Directions for Future Research.”</span> <em>Information Systems Journal</em> 31 (1): 148–83.
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
 </div>
 </div>
 
@@ -528,8 +816,13 @@ Zeiss, Roman, Anne Ixmeier, Jan Recker, and Johann Kranz. 2021. <span>“Mobilis
 <section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Initial search query in <a href="https://www-webofscience-com.ezproxy.hnu.de">Web of Science</a>: ´TS = ((“information systems” OR “information technology”) AND (“circular economy” OR “sustainability”) AND “recycling”)´</p></li>
-<li id="fn2"><p>Initial search query in <a href="https://www-webofscience-com.ezproxy.hnu.de">Web of Science</a>: ´TS = (“resource efficiency” AND (“information technology” OR “information system”))´</p></li>
+<li id="fn1"><p>Zero-sum means that what is good for one player is just as bad for the other: there is no “win-win” outcome</p></li>
+<li id="fn2"><p>States where the game has ended are called <strong>terminal states</strong></p></li>
+<li id="fn3"><p>The search tree consists of <em>AND nodes</em> and <em>OR nodes</em>. AND nodes reflect the environment’s choice of action (which all need to be considers), OR nodes the agent’s own choices in each state (where only one needs to be considered). AND and OR nodes alternate. A solution is a conditional plan that considers every nondeterministic outcome and makes a plan for each one.</p></li>
+<li id="fn4"><p>guided by the <strong>selection policy</strong></p></li>
+<li id="fn5"><p>For games with binary outcomes, <strong>average utility</strong> equals <em>win percentage</em></p></li>
+<li id="fn6"><p>A heuristic evaluation function returns an estimate of the expected utility of state <span class="math inline">\(s\)</span> to player <span class="math inline">\(p\)</span>.</p></li>
+<li id="fn7"><p>Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)</p></li>
 </ol>
 </section>
     </div>
