@@ -337,9 +337,10 @@ h1   { margin: $block-margin*4 0 $block-margin*3 0; }
 h1.quarto-secondary-nav-title { margin: $block-margin*2 0; }
 h2   { margin: $block-margin*3 0 $block-margin*2 0; }
 h3   { margin: $block-margin*2 0 $block-margin*1 0; }
-h4   { margin: $block-margin*1.5 0 $block-margin*1 0; }
+h4, .h4   { margin: $block-margin*1.5 0 $block-margin*1 0; }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4,
+.h4 {
   font-family: basier_squareregular;
 }
 
@@ -894,4 +895,28 @@ body.nav-sidebar {
 
 .btn-light {
   background-color: $header-bg;
+}
+
+
+ol {
+  counter-reset: item;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  
+  li {
+    clear: left;
+    margin-left: 0 !important;
+    padding-left: 2em;
+    position: relative;
+    
+    &:before {
+      content: counter(item) ". ";
+      counter-increment: item;
+      left: 0;
+      position: absolute;
+      width: 2em;
+      color: $link-color;
+    }
+  }
 }

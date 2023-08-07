@@ -817,7 +817,7 @@ $progress-height: 5px;
 
     em {
       font-style: normal;
-      color: $link-color;
+      color: #7e7e7e;
       font-size: #{$presentation-font-smaller}em;
       margin-top: $blockMargin;
       display: block;
@@ -1154,7 +1154,7 @@ $progress-height: 5px;
 }
 
 .reveal .footnotes ol li {
-  margin-bottom: $blockMargin;
+  margin-bottom: $blockMargin/2;
 }
 
 .reveal .footnotes ol li:before {
@@ -1274,6 +1274,8 @@ section.footnotes,
   text-indent: 0;
 }
 
+.reveal .slides section .semi-fade-out-fixed,
+.reveal .slides section .fragment.semi-fade-out.visible,
 .reveal .slides section .fragment.fade-in-then-semi-out.visible {
   opacity: .2;
 }
@@ -1281,4 +1283,34 @@ section.footnotes,
 .reveal .slides section .fragment.fade-in-then-semi-out.current-fragment {
     opacity: 1;
     visibility: inherit;
+}
+
+.reveal .slides section .fragment.highlight-current-blue.current-fragment {
+  color: $light-bg-link-color;
+}
+
+
+.reveal .slides section {
+ol {
+  counter-reset: item;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  
+  li {
+    clear: left;
+    margin-left: 0 !important;
+    padding-left: 2em;
+    position: relative;
+    
+    &:before {
+      content: counter(item) ". ";
+      counter-increment: item;
+      left: 0;
+      position: absolute;
+      width: 2em;
+      color: $link-color;
+    }
+  }
+}
 }
