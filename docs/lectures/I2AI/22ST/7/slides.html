@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.433">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2023-01-01">
+  <title>awe.lectures - Learning</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="awe.lectures - Learning">
+<meta property="og:description" content="🧠 Introduction to AI — I2AI_7">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V1.0
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Summer Term 2022 
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" class="quarto-title-block">
+  <h1 class="title">Learning</h1>
+  <p class="subtitle">🧠 Introduction to AI — I2AI_7</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">January 1, 2023</p>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Introduction</h1>
+<p>No intelligence without learning.</p>
+</section>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
+<blockquote>
+<p>Learning agents are those that can improve their behavior through diligent study of past experiences and predictions of the future <em><span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 668</a>)</span></em></p>
+</blockquote>
+<div class="fragment">
+<p>A learning agent</p>
+<div>
+<ul>
+<li class="fragment">uses so-called <strong>machine learning</strong> (ML), if it is a computer;</li>
+<li class="fragment">improves performance based on experience (i.e., observations of the world);</li>
+<li class="fragment">is required when the designer lacks omniscience (i.e., in unknown environments) and/or</li>
+<li class="fragment">have no idea how to program a solution themselves (e.g., recognizing faces)</li>
+</ul>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-learning-agent" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>The learning agent</h1>
+<aside class="notes">
+<p>So far an agent’s percepts have only served to help the agent choose its actions. Now they will also serve to improve future behavior.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="visualization" class="slide level2">
+<h2>Visualization</h2>
+<div id="fig-l-agent" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/learning-agent.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;1: A learning agent based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 74</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="building-blocks" class="slide level2">
+<h2>Building blocks</h2>
+<p><strong>Performance element:</strong> Processes percepts and chooses actions (relates to the basics of AI we have studied so far)</p>
+<div class="fragment">
+<p><strong>Learning element:</strong> Carries out improvements. Requires awareness and feedback on how the agent is doing in the environment</p>
+</div>
+<div class="fragment">
+<p><strong>Critic:</strong> Evaluation of the agent’s behavior based on a given external behavioral measure (i.e., feedback)</p>
+</div>
+<div class="fragment">
+<p><strong>Problem generator:</strong> Suggests explorative actions that lead the agent to new experiences</p>
+<aside class="notes">
+<p>The <strong>performance elements</strong> of the agent designs described in chapter <a href="../2/">Intelligent Agents</a> are composed of</p>
+<ul>
+<li>a direct mapping from conditions to the current state of actions;</li>
+<li>a means to infer relevant properties of the world from the percept sequence;</li>
+<li>information about the way the world evolves and about the results of possible actions the agent can take;</li>
+<li>utility information indicating the desirability of actions; and/or</li>
+<li>goals that describe the most desirable states;</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="the-learning-element" class="slide level2">
+<h2>The learning element</h2>
+<p>The design of the learning element is influenced by four important aspects:</p>
+<div>
+<ul>
+<li class="fragment">Which <strong>component</strong> of the performance element is to be improved?</li>
+<li class="fragment">What <strong>representation</strong> should be chosen (i.e., what model)?</li>
+<li class="fragment">What <strong>prior information</strong> is available (i.e., prior knowledge that influences the model)?</li>
+<li class="fragment">What form of <strong>feedback</strong> is available?</li>
+</ul>
+</div>
+</section>
+<section id="types-of-feedback" class="slide level2">
+<h2>Types of feedback</h2>
+<p>The type of feedback available for learning is usually the most important factor in determining the nature of the learning problem.</p>
+<div class="fragment">
+<div>
+<ul>
+<li class="fragment"><strong>Supervised learning:</strong> Involves learning a function from examples of its inputs and outputs <em>➞ correct answer for each training instance</em></li>
+<li class="fragment"><strong>Unsupervised learning:</strong> The agent has to learn patterns in the input when no specific output values are given <em>➞ reward sequence, no correct answers</em></li>
+<li class="fragment"><strong>Reinforcement learning:</strong> The most general form of learning in which the agent is not told what to do by a teacher. Rather, it must learn from reinforcements (punishments or rewards). It typically involves learning how the environment works <em>➞ “just make sense of the data”</em></li>
+</ul>
+</div>
+<section id="examples-russelnorvig2022aima-p.-671" class="notes" data-visibility="hidden">
+<h3 data-visibility="hidden">Examples <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 671</a>)</span></h3>
+<p>For image classification, usually supervised learning is used. Inputs can be camera images, each one accompanied by an output saying, e.g., “bus” or “pedestrian”. An output like this is called a <strong>label</strong>. The agents learns a function that, when given a new image, predicts the appropriate label.</p>
+<p>The most common unsupervised learning task is clustering: detecting potentially useful clusters of input examples. For instance, when shown millions of images, a computer vision system could identify large cluster of similar images (without “knowing” what is shown on these).</p>
+<p>An example for reinforcement learning is a chess agent. Imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.</p>
+</section>
+</div>
+</section>
+<section id="exercise" class="slide level2 vertical-center unlisted" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h2>Exercise ✏️</h2>
+<p>Consider the problem faced by me learning to play tennis.</p>
+<ul>
+<li>Explain how this process fits into the general learning model.</li>
+<li>Describe the percepts and actions of the player.</li>
+<li>What types of learning I must do?</li>
+<li>What example data is available?</li>
+</ul>
+</section>
+<section id="why-learning-works" class="slide level2">
+<h2>Why learning works</h2>
+<p>How can we be sure that our learned hypothesis will predict well for previously unseen inputs? I.e., how do we know that the hypothesis <span class="math inline">\(h\)</span> is close to the target function <span class="math inline">\(f\)</span> when <span class="math inline">\(f\)</span> is unknown?</p>
+<div class="fragment">
+<p>The underlying principle of <strong>computational learning theory</strong> is, that any hypothesis that is seriously wrong will almost certainly be “found out” with high probability after a small number of examples</p>
+</div>
+<div class="fragment">
+<p>Thus, any hypothesis that is consistent with a sufficiently large set of training examples is unlikely to be seriously wrong: that is, it must be <strong>probably approximately correct</strong> (PAC)</p>
+</div>
+</section>
+<section id="inductive-learning" class="slide level2">
+<h2>Inductive learning</h2>
+<p>The task of learning is to find good hypotheses about the world.</p>
+<div>
+<ul>
+<li class="fragment">An <strong>example</strong> is a pair <span class="math inline">\((x, f(x))\)</span> (input and output)</li>
+<li class="fragment">The complete set of examples is called the <strong>training set</strong> (supervised learning)</li>
+<li class="fragment"><strong>Pure inductive inference:</strong> for a collection of examples for <span class="math inline">\(f\)</span> (the <strong>target function</strong>), return a function <span class="math inline">\(h\)</span> (hypothesis) that approximates <span class="math inline">\(f\)</span></li>
+<li class="fragment">The function h typically is member of a <strong>hypothesis space</strong> <span class="math inline">\(H\)</span></li>
+<li class="fragment">A good hypothesis should <strong>generalize the data</strong> well (i. e., will <strong>predict</strong> unseen examples correctly)</li>
+<li class="fragment">A hypothesis is <strong>consistent</strong> with the data set if it agrees with all the data</li>
+</ul>
+</div>
+<div class="fragment">
+<p>How do we choose from among multiple consistent hypotheses?</p>
+</div>
+<div class="fragment">
+<p><strong>Ockham’s razor:</strong> prefer the simplest hypothesis that matches the data</p>
+<aside class="notes">
+<p>Ockham’s razor is a choice between more complex, low-bias hypotheses that fit the training data well and simple, low-variance hypotheses that may generalize better. Wililiam of Ockham stated in the first century the principle that “plurality [of entities] should not be posited without necessity — the so-called Ockham’s razor that”shaves off” dubious explanations.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Underfitting and overfitting [<span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span>; p.&nbsp;673]</strong></p>
+</div>
+<div class="callout-content">
+<p>A hypothesis is <strong>underfitting</strong> when it fails to find a pattern in the data (i.e., the model has not learned enough from the data). In turn, a hypothesis is <strong>overfitting</strong> the data when it pays too much attention to the particular data set it is trained on, causing it to perform poorly on unseen data (i.e., the generalization of the model is unreliable).</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="example-curve-fitting">Example: curve-fitting</h3>
+<div id="fig-fitting" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/curve-fitting.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;2: Finding hypotheses to fit data</figcaption>
+</figure>
+</div>
+<p>For plots of best-fit functions (<span class="math inline">\(h\)</span>) from four different hypothesis spaces (<span class="math inline">\(H\)</span>) trained on a data set (a = linear; b = degree-7 polynomial, c = degree-6 polynomial, d = sinusoidal)</p>
+</section></section>
+<section>
+<section id="decision-trees" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Decision trees</h1>
+
+</section>
+<section id="learning-decision-trees" class="slide level2">
+<h2>Learning decision trees</h2>
+<p>A <strong>decision tree</strong> is a representation of a function that maps a vector of attribute values to a single output value—a “decision”.</p>
+<div class="fragment">
+<p><strong>Search</strong> is used to find a decision (i.e., performing a sequence of tests).</p>
+</div>
+<div class="fragment">
+<p>In <strong>Boolean decision trees</strong>, the input is a set of vector of input attributes <span class="math inline">\(X\)</span> and a single Boolean output value <span class="math inline">\(y\)</span></p>
+</div>
+<div class="fragment">
+<p><strong>Learning process</strong>: Definition of the goal predicate in the form of a decision tree.</p>
+<div>
+<ul>
+<li class="fragment">An internal node of the decision tree represents a test of a property</li>
+<li class="fragment">Branches are labeled with the possible values of the test</li>
+<li class="fragment">Each leaf node specifies the Boolean value to be returned if that leaf is reached</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="expressiveness" class="slide level2">
+<h2>Expressiveness</h2>
+<p>A Boolean decision tree is equivalent to a logical statement of the form</p>
+<p><span class="math display">\[
+\begin{flalign}
+Output \iff (Path_1 \lor Path_2 \lor ...)
+\end{flalign}
+\]</span></p>
+<p>where each <span class="math inline">\(Path_i\)</span> is a <strong>conjunction</strong> of the form <span class="math inline">\((A_m = v_x \; \land \; A_n = v_y \; \land \; ...)\)</span> of <strong>attribute-value tests</strong> corresponding to a path from the root to a <span class="math inline">\(true\)</span> leaf.</p>
+<div class="fragment">
+<p>Any function in propositional logic can be represented by a decision tree by translating every row of a truth table to a path in the tree.</p>
+</div>
+<div class="fragment">
+<p>This can lead to a tree whose size is <strong>exponential</strong> in the number of attributes.</p>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Digression: hypothesis spaces</strong></p>
+</div>
+<div class="callout-content">
+<p>How many distinct decision trees with <span class="math inline">\(n\)</span> Boolean attributes?<br>
+= number of Boolean functions<br>
+= number of distinct truth tables with <span class="math inline">\(2^n\)</span> rows = <span class="math inline">\(2^{2^n}\)</span></p>
+<p>E.g., with 6 Boolean attributes, there are 18,446,744,073,709,551,616 trees</p>
+<p>How many purely conjunctive hypotheses (e.g., <span class="math inline">\(Hungry \land \neg Rain\)</span>)?</p>
+<p>Each attribute can be in (positive), in (negative), or out:<br>
+<span class="math inline">\(3^n\)</span> distinct conjunctive hypotheses</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="limitations">Limitations</h3>
+<p>Although decision trees can represent functions with smaller trees, there are functions that require an exponentially large decision tree, e.g.</p>
+<p>. . .</p>
+<div>
+<ul>
+<li class="fragment"><strong>Majority function</strong>, which returns true if more than half of the inputs are true</li>
+<li class="fragment"><strong>Parity function</strong>, which returns true if and only if an even number of inputs are true</li>
+<li class="fragment"><span class="math inline">\(y &gt; A_1 + A_2\)</span> with real-valued attributes <a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a></li>
+</ul>
+</div>
+<p>. . .</p>
+<p>Summary: decision trees are good for some kinds of functions and bad for others.</p>
+<aside></aside></section>
+<section id="example-problem" class="slide level2">
+<h2>Example problem</h2>
+<p>Supervised learning problem of deciding whether to wait for a table at a restaurant <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 668</a>)</span></p>
+<div class="fragment">
+<p>The output (<span class="math inline">\(y\)</span>) is a Boolean variable <strong>WillWait</strong></p>
+</div>
+<div class="fragment">
+<p>The input (<span class="math inline">\(x\)</span>) is a vector of ten attributes values (discrete values):</p>
+<div class="smaller">
+<div>
+<ul>
+<li class="fragment"><strong>Alternate</strong> – Is there an alternative? (T/F)</li>
+<li class="fragment"><strong>Bar</strong> – Does the restaurant have a bar to wait in? (T/F)</li>
+<li class="fragment"><strong>Fri</strong> – Is it Friday or Saturday? (T/F)</li>
+<li class="fragment"><strong>Hungry</strong> – Am I hungry? (T/F)</li>
+<li class="fragment"><strong>Patrons</strong> – How many guests are there? (none, some, full)</li>
+<li class="fragment"><strong>Price</strong> – How expensive is the food? (€, €€, €€€)</li>
+<li class="fragment"><strong>WaitEstimate</strong> – How long do we have to wait? (0-10, 10-30, 30-60, &gt;60)</li>
+<li class="fragment"><strong>Reservation</strong> – Have I made a reservation? (T/F)</li>
+<li class="fragment"><strong>Raining</strong> – Is it raining outside? (T/F)</li>
+<li class="fragment"><strong>Type</strong> – What kind of restaurant is it? (French, Italian, Thai, Burger)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="example-decision-tree">Example decision tree</h3>
+<div id="fig-tree" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/decision-tree.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;3: Decision tree restaurant example based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 674</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="training-set">Training set</h3>
+<div class="smaller">
+<div id="tbl-res-ts">
+<table style="width:100%;">
+<caption>Table&nbsp;1: Examples for the restaurant domain</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Example</th>
+<th style="text-align: center;">Alt</th>
+<th style="text-align: center;">Bar</th>
+<th style="text-align: center;">Fri</th>
+<th style="text-align: center;">Hun</th>
+<th style="text-align: center;">Pat</th>
+<th style="text-align: center;">Price</th>
+<th style="text-align: center;">Rain</th>
+<th style="text-align: center;">Res</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Est</th>
+<th style="text-align: left;">WillWait</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_1\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€€€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">French</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: left;"><span class="math inline">\(y_1 =\)</span> Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_2\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">30-60</td>
+<td style="text-align: left;"><span class="math inline">\(y_2 =\)</span> No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_3\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: left;"><span class="math inline">\(y_3 =\)</span> Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_4\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">10-30</td>
+<td style="text-align: left;"><span class="math inline">\(y_4 =\)</span> Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_5\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€€€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">French</td>
+<td style="text-align: center;">&gt;60</td>
+<td style="text-align: left;"><span class="math inline">\(y_5 =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_6\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">es</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Italian</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: left;"><span class="math inline">\(y_6 =\)</span> Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_7\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: left;"><span class="math inline">\(y_7 =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_8\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: left;"><span class="math inline">\(y_8 =\)</span> Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_9\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">&gt;60</td>
+<td style="text-align: left;"><span class="math inline">\(y_9 =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_{10}\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€€€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Italian</td>
+<td style="text-align: center;">10-30</td>
+<td style="text-align: left;"><span class="math inline">\(y_{10}=\)</span> No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_{11}\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: left;"><span class="math inline">\(y_{11} =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_{12}\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">30-60</td>
+<td style="text-align: left;"><span class="math inline">\(y_{12} =\)</span> Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="inducing-decision-trees-from-examples" class="slide level2">
+<h2>Inducing decision trees from examples</h2>
+<h3 id="naive-solution">Naive solution</h3>
+<p>. . .</p>
+<p>To get a <strong>naive solution</strong>, we simply construct a tree with one path to a leaf for each example.</p>
+<div>
+<ul>
+<li class="fragment">We test all the attributes along the path and attach the classification of the example to the leaf</li>
+<li class="fragment">Whereas the resulting tree will correctly classify all given examples, it will not say much about other cases</li>
+<li class="fragment">It just memorizes the observations and <strong>does not generalize</strong></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="smallest-solution">Smallest solution</h3>
+<p>We want to find a tree that is <strong>consistent with the training set</strong> (<a href="#/tbl-res-ts">Table&nbsp;1</a>) and is <strong>as small as possible.</strong></p>
+<p>. . .</p>
+<p>Unfortunately, it is <strong>intractable</strong> to find a guaranteed smallest consistent tree.</p>
+<p>. . .</p>
+<p>However, with some simple heuristics, we can efficiently find one that is <strong>close to the smallest</strong> (i.e., “smallish” tree).</p>
+<p>. . .</p>
+<p><strong>Decision tree learning</strong> adopts a greedy divide-and-conquer strategy.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="divide-and-conquer-strategy">Divide-and-conquer strategy</h3>
+<p>Always use the <strong>most important attribute</strong> first, then recursively solve the smaller subproblems</p>
+<div>
+<ul>
+<li class="fragment">The “most important attribute” is the one that makes the most difference<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a></li>
+<li class="fragment">Split the training set into subsets each corresponding to a particular value of that attribute</li>
+<li class="fragment">Now that we have divided the training set into several smaller training sets, we can recursively apply this process to the smaller training sets</li>
+</ul>
+</div>
+<p>. . .</p>
+<p>That way, we hope to get to the <strong>correct classification</strong> with a <strong>small number of tests</strong><a href="#/footnotes" class="footnote-ref" id="fnref3" role="doc-noteref" data-footnote-href="#/fn3" onclick=""><sup>3</sup></a></p>
+<aside></aside></section>
+<section id="exercise-1" class="slide level2 vertical-center unlisted" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h2>Exercise ✏️</h2>
+<p>Create the decision tree by applying the divide-and-conquer approach on the restaurant examples (approx. 20 minutes).</p>
+</section>
+<section class="slide level2">
+
+<h3 id="solution-note">Solution note</h3>
+<div id="fig-l-agent" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/divide-and-conquer.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;4: Splitting the examples by testing on attributes, based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 677</a>)</span></figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>At each node, we show the positive (light boxes) and negative (dark boxes) examples remaining. (a) Splitting on <em>Type</em> brings us no nearer to distinguishing between positive and negative examples. <em>Type</em> is a <strong>poor attribute</strong> (b) Splitting on <em>Patrons</em> does a good job of separating positive and negative examples. After splitting on <em>Patrons</em>, <em>Hungry</em> is a fairly good selection test. The full tree would be <em>Patrons</em>, <em>Hungry</em>, <em>Type</em> and <em>Fri</em>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="recursive-learning-process" class="slide level2">
+<h2>Recursive learning process</h2>
+<p>In each recursive step there are four cases to consider:</p>
+<div>
+<ul>
+<li class="fragment">Positive and negative examples: choose a <strong>new attribute</strong></li>
+<li class="fragment"><strong>Common outcome</strong> (only positive or only negative examples): done (answer is <em>Yes</em> or <em>No</em>).</li>
+<li class="fragment"><strong>No examples:</strong> there was no example with the desired property. Answer <em>Yes</em> if the majority of the parent node’s examples is positive, otherwise <em>No</em>.</li>
+<li class="fragment"><strong>No attributes left</strong>, but there are still examples with different classifications: there were errors in the data (i.e., noise) or the attributes do not give sufficient information. Answer <em>Yes</em> if the majority of examples is positive, otherwise <em>No</em>.</li>
+</ul>
+</div>
+</section>
+<section id="exercise-2" class="slide level2 vertical-center unlisted" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h2>Exercise ✏️</h2>
+<p>Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see? (approx. 5 minutes)</p>
+</section>
+<section id="resulting-tree" class="slide level2">
+<h2>Resulting tree</h2>
+<p>Properties of the learning outcome:</p>
+<div>
+<ul>
+<li class="fragment">The resulting tree is <strong>considerably simpler</strong> than the one originally given (and from which the training examples were generated)</li>
+<li class="fragment">The learning algorithm outputs a tree that is <strong>consistent</strong> with all examples it has seen</li>
+<li class="fragment">The tree does not need to agree with the correct function, e.g.&nbsp;it suggests not to wait if we are not hungry. If we are, there are cases in which it tells us to wait.</li>
+<li class="fragment">Some tests (<em>Raining</em>, <em>Reservation</em>) are not included since the algorithm can classify the examples without them</li>
+</ul>
+</div>
+</section>
+<section id="performance-assessment" class="slide level2">
+<h2>Performance assessment</h2>
+<p>To assess the power of the prediction, the following method can be applied:</p>
+<div>
+<ul>
+<li class="fragment">Collect a large number of examples</li>
+<li class="fragment">Divide it into two disjoint sets: the <strong>training set</strong> and the <strong>test set</strong></li>
+<li class="fragment">Use the training set to generate <span class="math inline">\(h\)</span></li>
+<li class="fragment">Measure the percentage of examples of the test set that are correctly classified by <span class="math inline">\(h\)</span></li>
+<li class="fragment">Repeat the process for randomly-selected training sets of different sizes</li>
+</ul>
+</div>
+<div class="fragment">
+<p>As the training set grows, the prediction quality increases</p>
+</div>
+</section>
+<section id="generalization" class="slide level2">
+<h2>Generalization</h2>
+<p>Pruning reduces the size of decision trees by removing sections of the tree that are non-critical and redundant to classify instances.</p>
+<div>
+<ul>
+<li class="fragment">Pruning reduces the complexity of the final hypothesis (tree size) and reduces overfitting<a href="#/footnotes" class="footnote-ref" id="fnref4" role="doc-noteref" data-footnote-href="#/fn4" onclick=""><sup>4</sup></a></li>
+<li class="fragment">Predictive accuracy as measured by a cross-validation set<a href="#/footnotes" class="footnote-ref" id="fnref5" role="doc-noteref" data-footnote-href="#/fn5" onclick=""><sup>5</sup></a></li>
+<li class="fragment">One of the simplest forms of pruning is <strong>reduced error pruning</strong>:
+<ul>
+<li class="fragment">For each leave, each node is replaced with its most popular output</li>
+<li class="fragment">If the prediction accuracy is not affected then the change is kept</li>
+<li class="fragment">It is somewhat naive, but simple and speedy</li>
+</ul></li>
+</ul>
+</div>
+<aside></aside></section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<div>
+<ul>
+<li class="fragment">Decision trees are one possibility for <strong>representing (Boolean) functions</strong></li>
+<li class="fragment">They <strong>can be exponential</strong> in the number of attributes</li>
+<li class="fragment">It is often too difficult to find the minimal decision tree</li>
+<li class="fragment">One method for generating decision trees that are as flat as possible is based on ranking the attributes</li>
+<li class="fragment">The ranks are computed based on the information gain</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="statistical-ml" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Statistical ML</h1>
+
+</section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<p>As discussed in <a href="../6/">chapter probability</a>, <strong>probability and utility theory</strong> allow agents to deal with uncertainty</p>
+<div class="fragment">
+<p>To apply probabilistic reasoning, however, the agents must first learn their probabilistic theories of the world from experience</p>
+</div>
+<div class="fragment">
+<p>We will discuss statistical learning methods as robust ways to <strong>learn probabilistic models</strong></p>
+</div>
+</section>
+<section id="bayesian-learning" class="slide level2">
+<h2>Bayesian learning</h2>
+<p>Learning can be viewed as <strong>Bayesian updating</strong> of a probability distribution over the hypothesis space</p>
+<div class="fragment">
+<p><span class="math inline">\(H\)</span> is the hypothesis variable (values <span class="math inline">\(h_1, h_2, . . .\)</span>)</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(x_i\)</span> gives the outcome of random variable <span class="math inline">\(X_i\)</span> after <span class="math inline">\(i\)</span> observations<br>
+Training data <span class="math inline">\(X = x_1,..., x_N\)</span></p>
+</div>
+<div class="fragment">
+<p>Given the data so far, each hypothesis has a posterior probability:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(h_k|X) = \alpha P(X|h_k)P(h_k)
+\end{flalign}
+\]</span></p>
+<p>where <span class="math inline">\(P(X|h_k)\)</span> is called the <strong>likelihood</strong></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Predictions use a <strong>likelihood-weighted average</strong> over the hypotheses:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
+\end{flalign}
+\]</span></p>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<p>Suppose there are five kinds of bags of candies:</p>
+<div>
+<ul>
+<li class="fragment">10% are <span class="math inline">\(h_1\)</span> : 100% <em>cherry</em> candies</li>
+<li class="fragment">20% are <span class="math inline">\(h_2\)</span> : 75% <em>cherry</em> and 25% <em>lime</em> candies</li>
+<li class="fragment">40% are <span class="math inline">\(h_3\)</span> : 50% <em>cherry</em> and 50% <em>lime</em> candies</li>
+<li class="fragment">20% are <span class="math inline">\(h_4\)</span> : 25% <em>cherry</em> and 75% <em>lime</em> candies</li>
+<li class="fragment">10% are <span class="math inline">\(h_5\)</span> : 100% <em>lime</em> candies</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Then we draw 10 candies from some bag (<span class="math inline">\(d_1,...,d_10\)</span>), which are all <em>lime</em> candies.</p>
+</div>
+<div class="fragment">
+<p>What kind of bag is it?<br>
+What flavor will the next candy be?</p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="posterior-probability-of-hypotheses">Posterior probability of hypotheses</h3>
+<p><span class="math inline">\(P(h_k|X) = αP(X|h_k)P(h_k)\)</span></p>
+<p>. . .</p>
+<p><span class="math inline">\(P(h1 | 5\;limes) = αP(5\;limes | h1)P(h1) = \alpha · 0.0^5 · 0.1 = 0\)</span> <span class="math inline">\(P(h2 | 5\;limes) = αP(5\;limes | h2)P(h2) = \alpha · 0.25^5· 0.2 = 0.000195α\)</span> <span class="math inline">\(P(h3 | 5\;limes) = αP(5\;limes | h3)P(h3) = \alpha · 0.5^5 · 0.4 = 0.0125α\)</span> <span class="math inline">\(P(h4 | 5\;limes) = αP(5\;limes | h4)P(h4) = \alpha · 0.75^5 · 0.2 = 0.0475α\)</span> <span class="math inline">\(P(h5 | 5\;limes) = αP(5\;limes | h5)P(h5) = \alpha · 1.0^5 · 0.1 = 0.1α\)</span></p>
+<p>. . .</p>
+<p><span class="math inline">\(\alpha = 1/(0 + 0.000195 + 0.0125 + 0.0475 + 0.1) = 6.2424\)</span></p>
+<p>. . .</p>
+<p><span class="math inline">\(P(h_1 | 5\;limes) = 0\)</span><br>
+<span class="math inline">\(P(h_2 | 5\;limes) = 0.00122\)</span><br>
+<span class="math inline">\(P(h_3 | 5\;limes) = 0.07803\)</span><br>
+<span class="math inline">\(P(h_4 | 5\;limes) = 0.29650\)</span><br>
+<span class="math inline">\(P(h_5 | 5\;limes) = 0.62424\)</span></p>
+</section>
+<section class="slide level2">
+
+<h3 id="evolution-of-the-five-hypotheses">Evolution of the five hypotheses</h3>
+<div id="fig-eprob" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/example-probs.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;5: Posterior probability of candy-hypotheses</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="prediction-probability">Prediction probability</h3>
+<p><span class="math display">\[
+\begin{flalign}
+P(X_{N+1}|X) = \sum_k{P(X_{N+1}|X,h_k)P(h_k|X)} = \sum_k{P(X_{N+1}|h_k)P(h_k|X)}
+\end{flalign}
+\]</span></p>
+<p>. . .</p>
+<p><span class="math display">\[
+\begin{align}
+P(lime \; on \; 6 | 5 \; limes) &amp; = P(lime \; on \; 6 | h1)P(h1 | 5 \; limes) \\
+&amp; + P(lime \; on \; 6 | h2)P(h2 | 5 \; limes) \\
+&amp; + P(lime \; on \; 6 | h3)P(h3 | 5 \; limes) \\
+&amp; + P(lime \; on \; 6 | h4)P(h4 | 5 \; limes) \\
+&amp; + P(lime \; on \; 6 | h5)P(h5 | 5 \; limes) \\
+&amp; = 0 × 0 \\
+&amp; + 0.25 × 0.00122 \\
+&amp; + 0.5 × 0.07830 \\
+&amp; + 0.75 × 0.29650 \\
+&amp; + 1.0 × 0.62424 \\
+&amp; = 0.88607 \\
+\end{align}
+\]</span></p>
+</section>
+<section class="slide level2">
+
+<h3 id="likelihood-weighted-average">Likelihood-weighted average</h3>
+<div id="fig-ep-prob" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/example-p-prob.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;6: Probability that next candy is lime given <strong>d</strong></figcaption>
+</figure>
+</div>
+</section>
+<section id="exercise-3" class="slide level2 vertical-center unlisted" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h2>Exercise ✏️</h2>
+<p>What do you observe/learn from this example?</p>
+</section>
+<section id="observations" class="slide level2">
+<h2>Observations</h2>
+<p>The Bayesian prediction <strong>eventually agrees with the true hypothesis</strong></p>
+<div>
+<ul>
+<li class="fragment">For any fixed prior that does not rule out the true hypothesis, the posterior of any false hypothesis will eventually vanish</li>
+<li class="fragment">The Bayesian prediction is <strong>optimal</strong> and, given the hypothesis prior, any other prediction will be correct less often</li>
+<li class="fragment">However, summing over the hypothesis space is often intractable</li>
+<li class="fragment">Real problems require us to resort to <strong>approximate or simplified methods</strong></li>
+</ul>
+</div>
+</section>
+<section id="map-learning" class="slide level2">
+<h2>MAP learning</h2>
+<p>A common approximation is to make predictions based on a <strong>single most probable hypothesis</strong></p>
+<div class="fragment">
+<p><strong>Maximum a posteriori</strong> (MAP)<a href="#/footnotes" class="footnote-ref" id="fnref6" role="doc-noteref" data-footnote-href="#/fn6" onclick=""><sup>6</sup></a> learning: choose <span class="math inline">\(h_{MAP}\)</span> maximizing <span class="math inline">\(P(h_k|X)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref7" role="doc-noteref" data-footnote-href="#/fn7" onclick=""><sup>7</sup></a></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X|d) \approx P(X|h_{MAP})
+\end{flalign}
+\]</span></p>
+<div>
+<ul>
+<li class="fragment">In the candy example, <span class="math inline">\(h_{MAP}=h5\)</span> after three lime candies in a row</li>
+<li class="fragment">The <strong>MAP learner</strong> the predicts that the fourth candy is lime with probability 1.0, whereas the Bayesian prediction is still 0.8</li>
+<li class="fragment">As more data arrive, MAP and Bayesian predictions become closer</li>
+<li class="fragment">Finding MAP hypotheses is often much easier than Bayesian learning</li>
+<li class="fragment">MAP learning provides a natural embodiment of <strong>Ockham’s razor</strong></li>
+</ul>
+</div>
+</div>
+<aside></aside></section>
+<section id="maximum-likelihood-hypothesis" class="slide level2">
+<h2>Maximum likelihood hypothesis</h2>
+<p>For large data sets, prior becomes irrelevant</p>
+<div>
+<ul>
+<li class="fragment">Thus, we can assume a <strong>uniform prior</strong> over the hypothesis space</li>
+<li class="fragment"><strong>Maximum likelihood</strong> learning: choose <span class="math inline">\(h_{ML}\)</span> maximizing <span class="math inline">\(P(X|h_k)\)</span></li>
+<li class="fragment">This hypothesis is called the <strong>maximum likelihood hypothesis</strong></li>
+<li class="fragment">Maximum likelihood is the “standard” (non-Bayesian) statistical learning method</li>
+</ul>
+</div>
+</section>
+<section id="summary-1" class="slide level2">
+<h2>Summary</h2>
+<div>
+<ul>
+<li class="fragment">Bayesian learning techniques formulate learning as a form of <strong>probabilistic inference</strong></li>
+<li class="fragment"><strong>Full Bayesian learning</strong> gives best possible predictions but is intractable</li>
+<li class="fragment"><strong>Maximum a posterior</strong> learning selects the most likely hypothesis given the data (balancing complexity with accuracy on training data)</li>
+<li class="fragment"><strong>Maximum likelihood</strong> assumes uniform prior, OK for large data sets</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="deepl-learning" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Deepl learning</h1>
+
+</section>
+<section id="introduction-1" class="slide level2">
+<h2>Introduction</h2>
+<p>Conventional machine-learning techniques as those discussed above are limited in their ability to process <strong>natural data in their raw form</strong>.</p>
+<div class="fragment">
+<p>Careful engineering and considerable domain expertise are required to transform the raw data into a <strong>suitable internal representation</strong> from which the learning system could detect or classify patterns in some input.</p>
+</div>
+<div class="fragment">
+<p>In <strong>representation learning</strong> the system uses methods to automatically discover the representations needed for detection or classification.</p>
+</div>
+<div class="fragment">
+<p><strong>Deep-learning methods</strong> creates multiple levels of representation by transforming the representation at one level (starting with the raw input) into a representation at a higher, slightly more abstract level.</p>
+</div>
+<div class="fragment">
+<p>With the composition of enough such transformations, very complex functions can be learned.</p>
+</div>
+</section>
+<section id="representations" class="slide level2">
+<h2>Representations</h2>
+<p>The key aspect of deep learning is that the levels of representations (i.e., layers of features) <strong>are not designed by human engineers</strong>: they are learned from data using a <strong>general-purpose learning procedure</strong>.</p>
+<div class="fragment">
+<p>Example: object detection in images</p>
+<div>
+<ul>
+<li class="fragment">An image comes in the form of an array of pixel values (raw input; input layer)</li>
+<li class="fragment">The first layer of representation typically represent the presence or absence of edges at particular orientations and locations in the image (hidden layer 1)</li>
+<li class="fragment">The second layer typically detects motifs by spotting particular arrangements of edges, regardless of small variations in the edge positions (hidden layer 2)</li>
+<li class="fragment">The third layer may assemble motifs into larger combinations that correspond to parts of familiar objects (hidden layer 3)</li>
+<li class="fragment">Subsequent layers would detect objects as combinations of the parts of familiar objects</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="visualization-1">Visualization</h3>
+<div id="fig-deep-nn" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/deep-nn.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;7: Illustration of a deep neural network consisting of multiple representation layers</figcaption>
+</figure>
+</div>
+</section>
+<section id="application" class="slide level2">
+<h2>Application</h2>
+<p>Deep learning methods can <strong>discover intricate structures in high-dimensional data</strong>.</p>
+<div class="fragment">
+<p>Using this capability, deep learning is making major advances in solving problems that could not have been solved before (<span class="citation" data-cites="lecun2015deep">LeCun, Bengio, and Hinton (<a href="#/literature" role="doc-biblioref" onclick="">2015</a>)</span>), e.g.,</p>
+<div>
+<ul>
+<li class="fragment">image and speech recognition,</li>
+<li class="fragment">analysing particle accelerator data,</li>
+<li class="fragment">reconstructing brain circuits,</li>
+<li class="fragment">predicting the effects of DNA mutations on gene expression and disease</li>
+<li class="fragment">natural language understanding (e.g., topic classification, sentiment analysis, question answering and language translation)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="convolutional-neural-networks" class="slide level2">
+<h2>Convolutional neural networks</h2>
+<p>A <strong><em>convolutional neural network (ConvNet)</em></strong> is a specific kind of neural network with multiple layers,designed to process data that come in the form of multiple arrays<a href="#/footnotes" class="footnote-ref" id="fnref8" role="doc-noteref" data-footnote-href="#/fn8" onclick=""><sup>8</sup></a></p>
+<div class="fragment">
+<p>The role of the ConvNet is to <strong>reduce the arrays</strong> into a form which is easier to process, without losing features which are critical for getting a good prediction.</p>
+</div>
+<div class="fragment">
+<p>A ConvNet is structured as a series of stages, which are composed of two types of layers: <strong>convolutional layers</strong> and <strong>pooling layers</strong>.</p>
+<div>
+<ul>
+<li class="fragment">The <strong>convolution layer</strong>: extraction of the high-level features from the input (by applying convolutional operations/filters)</li>
+<li class="fragment">The <strong>pooling layer</strong>: reduction of the spatial size of the convoled feature to decrease the computational power required to process the data through dimensionality reduction.</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<p>Good read: <a href="https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53">A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way</a></p>
+</div>
+<aside></aside></section></section>
+<section>
+<section id="development-process" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>Development process</h1>
+
+</section>
+<section id="overview" class="slide level2">
+<h2>Overview</h2>
+<p>We are still in the early stages of defining a methodology for machine learning projects; the tools and processes are not as well developed as in software engineering</p>
+<div class="fragment">
+<p><span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 722ff</a>)</span> propose a process that involves following typical steps</p>
+<div>
+<ul>
+<li class="fragment">Problem formulation</li>
+<li class="fragment">Data collection, assessment, and management</li>
+<li class="fragment">Model selection and training</li>
+<li class="fragment">Checking trustworthiness of the system</li>
+<li class="fragment">Operation, monitoring, and maintenance</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="problem" class="slide level2">
+<h2>Problem</h2>
+<p>Figuring out what problem you want to solve compromises three parts:</p>
+<div>
+<ol type="1">
+<li class="fragment"><strong>Problem:</strong> What problem do I solve for my users?<br>
+➞ Find an objective that you can track and that relates to your “true goals”</li>
+<li class="fragment"><strong>Suitability:</strong> What parts of the problem(s) can be solved by ML?<br>
+➞ Often not all parts of the problem require ML</li>
+<li class="fragment"><strong>Approach:</strong> What kind of learning is appropriate?<br>
+➞ Often a <em>semi-supervised learning approach</em> is suitable (few labeled examples, large collection of unlabeled examples)</li>
+</ol>
+</div>
+</section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+<blockquote>
+<p>Real data are messy</p>
+</blockquote>
+<div class="fragment">
+<p>ML needs data, <strong>a lot of data</strong>, of which at least a subset is labeled</p>
+</div>
+<div class="fragment">
+<p>Manufacturing these data can be done by <strong>own labor</strong> or by <strong>crowdsourcing</strong> (paid, volunteers, users); one might also start with <strong>publicly available general-purpose dataset</strong> (or a model that has been pretrained) and then add specific data</p>
+</div>
+<div class="fragment">
+<p>Maintain a <strong>data provenance</strong> for all data (i.e., for each columns of your data set, you should know the exact definition, where the data come from, what the possible values are, and who has worked on it)</p>
+</div>
+<div class="fragment">
+<p>When data are limited, <strong>data augmentation</strong> can help (i.e., creating multiple versions of each image by rotating, translating, cropping, or scaling each image, or by changing brightness or color balancing or adding noise)</p>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Helpful questions</strong></p>
+</div>
+<div class="callout-content">
+<p>Questions to be asked are - Is this the right data for my task? - Does it capture enough of the right inputs to give us a chance of learning a model? - Does it contain the outputs I want to predict? - If not, can I build an unsupervised model? - Or can I label a portion of the data and then do semi-supervised learning? - Is it relevant data? - How much data do I need? Recommendation: draw a learning curve to see if more data will help. - Could there be data entry errors? - What to be done with missing data fields? - Are there spelling errors or inconsistent terminology in text data? - Are there outliers in the data?</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="feature-engineering">Feature engineering</h3>
+<p>After correcting overt errors, the data should be preprocessed so that they can be handled more easily</p>
+<div>
+<ul>
+<li class="fragment"><strong>Quantization:</strong> forcing a continuous valued input into fixed bins (e.g., waiting time in 0-10, 10-30, 30-60, or &gt;60 minutes)</li>
+<li class="fragment"><strong>Normalization data:</strong> transforming data so that it has a standard deviation of 1</li>
+<li class="fragment"><strong>Separating categorical attributes:</strong> transform the data into separate Boolean attributes, where exactly one of it is true</li>
+</ul>
+</div>
+<p>. . .</p>
+<blockquote>
+<p>At the end of the day, some machine learning projects succeed and some fail. What makes the difference? Easily the most important factor is the features used. <em><span class="citation" data-cites="domingos2012few">Domingos (<a href="#/literature" role="doc-biblioref" onclick="">2012</a>)</span></em></p>
+</blockquote>
+</section>
+<section id="model" class="slide level2">
+<h2>Model</h2>
+<p>Before starting with building a model, you might start with getting an <strong>intuitive feel for the data</strong> (e.g., by means of exploratory data analysis)</p>
+<div class="fragment">
+<p>There is no guaranteed way to pick the <strong>best model class</strong>, but there are some rough guidelines:</p>
+<div>
+<ul>
+<li class="fragment"><strong>Random forests</strong> are good then there are a lot of categorical features, where many of these may be irrelevant</li>
+<li class="fragment"><strong>Nonparametric methods</strong> are good when having a lot of data and no prior model</li>
+<li class="fragment"><strong>Logistic regression</strong> does well when the data are linearly separable (or can be converted to be so)</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<p>Do what worked well in similar past problems—and search: run experiments with multiple possible models</p>
+</div>
+</section>
+<section id="trustworthiness" class="slide level2">
+<h2>Trustworthiness</h2>
+<p>Doing well with test data is a necessary but not sufficient condition for <strong>trust</strong> in the model (by you and your stakeholders), it also requires</p>
+<div>
+<ul>
+<li class="fragment"><strong>Verification and validation:</strong> you test on the training, validation, and datasets, do code reviews, monitoring, and set measures for accountability<br>
+➞ Do the best to ensure that the system will not be wrong and, for the case, set responsibilities</li>
+<li class="fragment"><strong>Interpretability:</strong> you understand how answers relate to inputs ➞ Do the best to inspect and interpret your model</li>
+<li class="fragment"><strong>Explainability:</strong> the model helps you to understand why a certain output has been produced for a given input ➞ Do the best to explain what your model does<a href="#/footnotes" class="footnote-ref" id="fnref9" role="doc-noteref" data-footnote-href="#/fn9" onclick=""><sup>9</sup></a></li>
+</ul>
+</div>
+<aside></aside></section>
+<section id="operation" class="slide level2">
+<h2>Operation</h2>
+<p>After the model is deployed to the users, additional challenges will arise</p>
+<div>
+<ul>
+<li class="fragment"><strong>Long tail of user inputs:</strong> you might see inputs that were never tested before and you need to know whether your model generalizes well for them (i.e., you need to monitor the performance)</li>
+<li class="fragment"><strong>Nonstationarity:</strong> the world changes over time (e.g., spammers adapt their tactics); you need to consider how often to adapt the model (i.e., find a tradeoff between a well tested model and a model that is built from the latest data)</li>
+</ul>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A set of criteria to see how well you are doing at deploying ML models</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Tests for features and data</strong> (1) Feature expectations are captured in a schema. (2) AU feature. are beneficial. (3) No feature’s cost is too much. ( 4) Features adhere to meta-level requirements. (5) The data pipeline has appropriate privacy controls. (6) New features can be added quickly. (7) All input feature code is tested.</p>
+<p><strong>Tests for model development</strong> (1) Every model specification undergoes a code review. (2) Every model is checked in to a repository. (3) Offline proxy metrics correlate with actual metrics (4) All hyperparameters have been tuned. (5) The impact of model staleness is known. (6) A simpler model is not better. (7) Model quality is sufficient on all important data slices. The model has been tested for considerations of inclusion.</p>
+<p><strong>Tests for ML infrastructure</strong> (1) Training is reproducible. (2) Model specification code is unit tested. (3) The full ML pipeline is integration tested. (4) Model quality is validated before attempting to serve it. (5) The model allows debugging by observing the step-by-step computation of training or inference on a single example. (6) Models are tested via a canary process before they enter production serving environments. (7) Models can be quickly and safely rolled back to a previous serving version.</p>
+<p><strong>Monitoring tests for ML</strong> (1) Dependency changes result in notification. (2) Data invariants hold in training and serving inputs. (3) Training and serving features compute the same values (4) Models are not too tales (5) The model is numerically stable. (6) The model ha not experienced regressions in training speed, serving latency, throughput, or RAM usage. (7) The model has not experienced a regression in prediction quality on served data.</p>
+<p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 731</a>)</span></p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="exercises" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<h1>✏️ Exercises</h1>
+
+</section>
+<section id="i2ai_7-e1" class="slide level2">
+<h2>I2AI_7 E1</h2>
+<p>Consider the problem faced by an infant learning to speak and understand a language.</p>
+<ul>
+<li>Explain how this process fits into the general learning model.</li>
+<li>Describe the percepts and actions of the infant, and the types of learning the infant must do.</li>
+<li>Describe the subfunctions the infant is trying to learn in terms of inputs and outputs, and available example data.</li>
+</ul>
+</section>
+<section id="i2ai_7-e2" class="slide level2">
+<h2>I2AI_7 E2</h2>
+<p>Describe the differences between supervised, unsupervised, and reinforcement learning.</p>
+</section>
+<section id="i2ai_7-e3" class="slide level2">
+<h2>I2AI_7 E3</h2>
+<p>Define the following machine-learning terms in your own words</p>
+<ol type="a">
+<li>Training set</li>
+<li>Hypothesis</li>
+<li>Bias</li>
+<li>Variance</li>
+</ol>
+</section>
+<section id="i2ai_7-e4" class="slide level2">
+<h2>I2AI_7 E4</h2>
+<p>Draw a decision tree for the problem of deciding whether to move forward at a road intersection, given that the light has just turned green.</p>
+<p>What problems do you see? Argue based on the qualification problem discussed in <a href="../6/#motivation">chapter probability</a>.</p>
+</section>
+<section id="i2ai_7-e5" class="slide level2">
+<h2>I2AI_7 E5</h2>
+<p>We never test the same attribute twice along one path in a decision tree. Why not?</p>
+</section>
+<section id="i2ai_7-e6" class="slide level2">
+<h2>I2AI_7 E6</h2>
+<p>Two statisticians go to the doctor and are both given the same prognosis: A 40% chance that the problem is the deadly disease A, and a 60% chance of the fatal disease B. Fortunately, there are anti-A and anti-B drugs that are inexpensive, 100% effective, and free of side-effects. The statisticians have the choice of taking one drug, both, or neither.</p>
+<p>What will the first statistician (an avid Bayesian) do? How about the second statistician, who always uses the maximum likelihood hypothesis?</p>
+<p>The doctor does some research and discovers that disease B actually comes in two versions, dextro-B and levo-B, which are equally likely and equally treatable by the anti-B drug.</p>
+<p>Now that there are three hypotheses, what will the two statisticians do?</p>
+</section></section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-domingos2012few" class="csl-entry" role="listitem">
+Domingos, Pedro. 2012. <span>“A Few Useful Things to Know about Machine Learning.”</span> <em>Communications of the ACM</em> 55 (10): 78–87.
+</div>
+<div id="ref-lecun2015deep" class="csl-entry" role="listitem">
+LeCun, Yann, Yoshua Bengio, and Geoffrey Hinton. 2015. <span>“Deep Learning.”</span> <em>Nature</em> 521 (7553): 436–44.
+</div>
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
+</div>
+
+<div class="footer footer-default">
+
+</div>
+</section>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The decision is a diagonal line, and all decision tree tests divide the space up into rectangular, axis-aligned boxes. We would have to stack a lot of boxes to closely approximate the diagonal line.</p></li>
+<li id="fn2"><p>The selection is implemented by means of a <em>choosing attribute test</em>, which is based on information theory and measures the information gain from the attribute tests. For more details please refer to <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 681</a> ff)</span></p></li>
+<li id="fn3"><p>Meaning that all paths in the tree will be <strong>short</strong> and the tree as a whole will be <strong>shallow</strong></p></li>
+<li id="fn4"><p>A tree that is too large risks overfitting the training data and poorly generalizing to new samples.</p></li>
+<li id="fn5"><p>The training set is divided into two groups; 70% of the training set is used to build the tree, and the remaining 30% for validation; leading to <em>three</em> data sets (training, validation, test)</p></li>
+<li id="fn6"><p>Pronounced “em-ay-pee”</p></li>
+<li id="fn7"><p>Which is equal to minimizing <span class="math inline">\(− \log P(X|h_k) − \log P(h_k)\)</span></p></li>
+<li id="fn8"><p>1D for signals an sequences such as language, 2D for images or audio spectograms, 3D for video</p></li>
+<li id="fn9"><p>Regulations such as the European GDPR require systems to provide explanations</p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
