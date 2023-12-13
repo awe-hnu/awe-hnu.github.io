@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.433">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2023-10-16">
+  <title>awe.lectures - Strategy Formation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="awe.lectures - Strategy Formation">
+<meta property="og:description" content="What to consider when ‘crafting’ strategies?">
+<meta property="og:site-name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V0.1
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Strategic Management
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#46c8f1" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Strategy Formation</h1>
+  <p class="subtitle">What to consider when ‘crafting’ strategies?</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">October 16, 2023</p>
+</section>
+<section id="learning-outcomes" class="title-slide slide level1">
+<h1>Learning outcomes</h1>
+<p>After this session, you should have a solid understanding of</p>
+<div>
+<ul>
+<li class="fragment">how strategies do seem to be made (i.e., the descriptive side of the field of strategic management);</li>
+<li class="fragment">what differentiates a good strategy from a poor strategy;</li>
+<li class="fragment">the differences between deliberate and emergent strategies;</li>
+<li class="fragment">the arguments for incrementalism and strategy making as a crafting and learning process;</li>
+<li class="fragment">how strategy can be understood as an interplay between actions and ideas, and between experience and inspiration;</li>
+<li class="fragment">the importance of collective intuition, quick conflict, disciplined pace of decision making, and defusing wasteful political behavior;</li>
+<li class="fragment">and implications for the strategic management process.</li>
+</ul>
+</div>
+</section>
+
+<section id="reflection" class="title-slide slide level1 unlisted unnumbered html-hidden" data-background-color="#000">
+<h1>Reflection</h1>
+<div class="medium">
+<p>What is strategy?</p>
+</div>
+</section>
+
+<section id="prologue" class="title-slide slide level1 vertical-center" data-background-color="#0333ff">
+<h1>Prologue</h1>
+<blockquote>
+<p>[Good strategy] does not pop out of some strategic-management tool, matrix, triangle, or fill-in-the-blanks scheme. Instead, a talented leader has identified the one or two critical issues in a situation—the pivot points that can multiply the effectiveness of the effort—and then focused and concentrated action and resources on them. <em><span class="citation" data-cites="rumelt2011good">R. Rumelt (<a href="#/literature" role="doc-biblioref" onclick="">2011</a>)</span></em></p>
+</blockquote>
+</section>
+
+<section>
+<section id="good-vs.-poor-strategy" class="title-slide slide level1 vertical-center" data-background-color="#0333ff">
+<h1>Good vs.&nbsp;poor strategy</h1>
+<aside class="notes">
+<p>Good strategy is made up of <em>diagnosing situations correctly</em>, <em>adopting an overall policy for dealing with the problems and opportunities</em> identified by the diagnosis, and finally <em>coordinating a set of steps that support this policy</em>. Poor strategy does not follow this process, or does it badly.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="reflection-1" class="slide level2 unlisted unnumbered html-hidden" data-background-color="#000">
+<h2>Reflection</h2>
+<p>Form small groups and reflect on <strong>the hallmarks of a good strategy</strong> and <strong>the hallmarks of a poor strategy</strong> based on what you have learned so far.</p>
+<p>Take 10 minutes, craft one slide for each aspect and prepare to present your findings.</p>
+</section>
+<section id="hallmarks-of-a-good-strategy" class="slide level2">
+<h2>Hallmarks of a good strategy</h2>
+<p>According to <span class="citation" data-cites="rumelt2012good">R. P. Rumelt (<a href="#/literature" role="doc-biblioref" onclick="">2012</a>)</span> a good strategy …</p>
+<div>
+<ul>
+<li class="fragment">identifies the <strong>critical issues</strong> in a situation,</li>
+<li class="fragment">focuses and <strong>concentrates action and resources</strong> on these issues,</li>
+<li class="fragment"><strong>acknowledges the challenges</strong> faced to solve the issues,</li>
+<li class="fragment">provides an approach to <strong>overcome the challenges</strong>.</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="medium">
+<p>Good strategies tend to look <strong>simple</strong> and <strong>obvious</strong> in retrospect.</p>
+</div>
+</div>
+</section>
+<section id="hallmarks-of-a-poor-strategy" class="slide level2">
+<h2>Hallmarks of a poor strategy</h2>
+<p>According to <span class="citation" data-cites="rumelt2012good">R. P. Rumelt (<a href="#/literature" role="doc-biblioref" onclick="">2012</a>)</span> key hallmarks of poor strategy are:</p>
+<div>
+<ul>
+<li class="fragment">Failure to face the challenge.</li>
+<li class="fragment">Mistaking goals for strategy.</li>
+<li class="fragment">Bad strategic objectives.</li>
+<li class="fragment">Fluff <a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a>.</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="medium">
+<p>Ignores the power of choice and instead tries to reconcile a variety of conflicting demands.</p>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Failure to face the problem:</strong></p>
+<ul>
+<li>Since a strategy is an approach to overcoming a challenge, if the challenge is not defined, one cannot assess the quality of the strategy used to respond to it. Therefore, one cannot identify and reject a poor strategy, or improve a good one.</li>
+<li>Failure to identify and analyse the obstacles leads merely to stretch goals/budgets/wish lists.</li>
+</ul>
+<p><strong>Mistaking goals for strategy:</strong></p>
+<ul>
+<li>It is important to see the distinction between the goals, and the strategy used to achieve those goals.</li>
+<li>The job of a leader – the strategist – is to have a strategy that focuses effort on achieving the goal.</li>
+</ul>
+<p><strong>Bad strategic objectives:</strong></p>
+<ul>
+<li>Another sign of poor strategy is fuzzy strategic objectives. This problem manifests itself as: a long list of things to do/accomplish, mislabelled as strategies; a ‘blue sky’ – a restatement of the challenge/desired state of affairs that does not identify ‘how’ to get there.</li>
+<li>Good strategy works by focusing energy and resources on one/very few pivotal objectives, whose accomplishment will lead to a cascade of favorable outcomes.</li>
+<li>Good strategy also creates a link between short-term objectives/action and the long-term strategic goal.</li>
+</ul>
+<p><strong>Fluff:</strong></p>
+<ul>
+<li>Poor strategy is often characterized by ‘fluff’, or superficial abstraction.</li>
+<li>Fluff is a restatement of the obvious, combined with a generous sprinkling of buzzwords that masquerade as expertise.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+<section id="reasons-for-poor-strategy" class="slide level2">
+<h2>Reasons for poor strategy</h2>
+<div class="fragment">
+<div class="medium">
+<p>Poor strategy has many roots, but the key ones are: <span class="fragment highlight-current-blue">the inability to choose</span>, and <span class="fragment highlight-current-blue">template-style planning</span> <span class="smaller"><span class="citation" data-cites="rumelt2012good">R. P. Rumelt (<a href="#/literature" role="doc-biblioref" onclick="">2012</a>)</span></span>.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Strategy means focus and therefore choice. Choice means that some goals are set aside in the favor of others - it is about choosing what to do and what not to do. When such deliberate choices are not made, the result is a poor strategy.</p>
+<p>Strategy is often thought of as something that can be generated by a formula. This takes the form of a “vision-mission-strategy” statement or template. This template-like system of strategic planning, which produces empty rhetorical examples, is widely used and often mistaken for decisive insights.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="reflection-2" class="slide level2 unlisted unnumbered html-hidden" data-background-color="#000">
+<h2>Reflection</h2>
+<div class="medium">
+<p>What characterizes good strategies (i.e., what is the basic underlying structure)?</p>
+</div>
+</section>
+<section id="the-kernel-of-good-strategy" class="slide level2">
+<h2>The kernel of good strategy</h2>
+<aside class="notes">
+<p>Good strategies have a basic underlying structure:</p>
+<ol type="1">
+<li><strong>A diagnosis:</strong> an explanation of the nature of the challenge. A good diagnosis simplifies the overwhelming complexity of reality by identifying certain aspects of the situation as being the critical ones.</li>
+<li><strong>A guiding policy:</strong> an overall approach chosen to cope with or overcome the obstacles identified in the diagnosis.</li>
+<li><strong>Coherent actions:</strong> steps that are coordinated with one another to support the accomplishment of the guiding policy.</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="medium">
+<p>At its core, strategy is always the same: <span class="fragment highlight-current-blue">discover the crucial factors in a situation</span> and <span class="fragment highlight-current-blue">design a way to <span class="fragment highlight-current-blue">coherently coordinate and focus actions</span> to deal with them</span>.</p>
+</div>
+</section>
+<section id="reflection-3" class="slide level2 unlisted unnumbered html-hidden" data-background-color="#000">
+<h2>Reflection</h2>
+<p>Form small groups and take 10 minutes to consolidate your answers to my questions on <span class="citation" data-cites="mintzberg1978patterns">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1978</a>)</span>.</p>
+<ul>
+<li>Why and how does Mintzberg challenge the prevailing view of strategic planning (i.e., strategy form<em>ul</em>ation) as the primary approach to strategy formation?</li>
+<li>How does Mintzberg propose to think of strategy formation instead?</li>
+<li>Which patterns of strategy formation has Mintzberg identified? Can you provide examples of organizations that might employ each of these patterns?</li>
+<li>Why and how can the <em>aggressive, proactive strategy-maker</em> as well as <em>contingency planning</em> be risky for organizations, particular in turbulent environments?</li>
+<li>What practical implications can you draw from Mintzberg’s insights for organizations’ strategic management practices?</li>
+</ul>
+</section></section>
+<section>
+<section id="strategy-formation" class="title-slide slide level1 vertical-center" data-background-color="#0333ff">
+<h1>Strategy formation</h1>
+<blockquote>
+<p>A strategy is not a fixed plan, nor does it change systematically at pre-arranged times solely at the will of management. <em><span class="citation" data-cites="mintzberg1978patterns">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1978</a>)</span>.</em></p>
+</blockquote>
+</section>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
+<div class="html-hidden">
+<div class="medium">
+<p>Crafting strategies that revolve around the interplay of the <span class="fragment highlight-blue">environment</span>, the <span class="fragment highlight-blue">organizational operating system</span> (i.e., bureaucracy), and <span class="fragment highlight-blue">leadership</span>.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Following <span class="citation" data-cites="mintzberg1978patterns">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1978</a>)</span>, strategy development in most organizations can be thought of as an interplay of three fundamental forces:</p>
+<ol type="1">
+<li>an <strong>environment</strong> that changes continuously but irregularly, with frequent interruptions and wide fluctuations in its rate of change;</li>
+<li>an <strong>organizational operating system</strong> (i.e., bureaucracy) that seeks primarily to stabilize its actions, regardless of the characteristics of the environment it serves;</li>
+<li>and a <strong>leadership</strong> whose role is to mediate between these two forces, maintaining the stability of the organization’s operating system while ensuring its adaptation to changes in the environment.</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="strategy-and-strategic-change" class="slide level2">
+<h2>Strategy and strategic change</h2>
+<div class="html-hidden">
+<div class="medium">
+<p><span class="fragment fade-in"><strong>Strategy:</strong></span> <span class="fragment fade-in-then-semi-out">consistent behaviors by which the place in the environment is established.</span> <span class="fragment fade-in"><strong>Strategic change:</strong></span> <span class="fragment fade-in-then-semi-out">responses to environmental change, limited by the bureaucracy and mediated by leadership.</span></p>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Strategy</strong> can then be viewed as the set of consistent behaviors by which the organization establishes for a time its place in its environment <span class="citation" data-cites="mintzberg1978patterns">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1978</a>)</span>.</p>
+<p><strong>Strategic change</strong> can be viewed as the organization’s response to environmental change, constrained by the momentum of the bureaucracy and accelerated or dampened by the leadership <span class="citation" data-cites="mintzberg1978patterns">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1978</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="types-of-strategies" class="slide level2" data-background-image="images/intended-vs-emergent.jpg" data-background-color="black">
+<h2>Types of strategies</h2>
+<div class="html-hidden">
+<div class="medium">
+<p><span class="fragment fade-in"><strong>Intended strategies</strong></span><br>
+<span class="fragment fade-in">and <strong>emergent strategies</strong>.</span></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div id="fig-types" class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/types.svg" class="img-fluid"></p>
+<figcaption>Figure&nbsp;1: Types of strategies according to <span class="citation" data-cites="mintzberg1978patterns">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1978</a>)</span></figcaption>
+</figure>
+</div>
+<div class="fragment">
+<p><strong>Deliberate strategies</strong> are intended strategies that get realized.</p>
+</div>
+<div class="fragment">
+<p><strong>Unrealized strategies</strong> are intended strategies that do not get realized, perhaps because of unrealistic expectations, misjudgments about the environment, or changes in the environment.</p>
+</div>
+<div class="fragment">
+<p><strong>Emergent strategies</strong> are realized strategies that were never intended, perhaps because no strategy was intended at the outset or perhaps because they were got displaced along the way.</p>
+</div>
+<div class="fragment">
+<p><strong>Realized strategies</strong> refer to actually “observable pattern of behavior”, consistent over time based on a continuum between <em>deliberate strategy</em> and <em>emergent strategy</em>.</p>
+<aside class="notes">
+<p>For a strategy to be perfectly thought out, i.e., for the realized strategy (pattern of action) to form exactly as intended, at least three conditions must be met <span class="citation" data-cites="mintzberg1985strategies">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg and Waters 1985</a>)</span>:</p>
+<ol type="1">
+<li>Precise intentions in the organization, articulated very specifically before any action was taken.</li>
+<li>The intentions must have been known to all actors in the organization: they were either seen as their own or accepted, probably in response to some kind of organizational control mechanism.</li>
+<li>These collective intentions must have been carried out exactly as they were intended, without any outside force influencing them.</li>
+</ol>
+<p>For a strategy to be fully emergent, there must be order, i.e., consistency of action over time, even if there is no intention behind it <span class="citation" data-cites="mintzberg1985strategies">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg and Waters 1985</a>)</span>. However, it is hard to imagine actions without intention in any part of the organization. Thus, it can be assumed that a purely emergent strategy is as rare as a purely intentional strategy.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
+<div class="html-hidden">
+<div class="medium">
+<p><span class="fragment fade-in-then-semi-out">Strategies have a <strong>life cycle</strong>,</span> <span class="fragment fade-in-then-semi-out">which is coined by waves of change and continuity.</span></p>
+</div>
+<p><span class="fragment fade-in">Thus, a strategy cannot be a fixed plan,</span> <span class="fragment fade-in">or being updated at a predetermined time.</span></p>
+<div class="fragment">
+<p>Overall, the dichotomy between formulation (and strategy-maker) and implementation (and subordinates who implement) makes little sense <span class="citation" data-cites="mintzberg1978patterns">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1978</a>)</span>.</p>
+</div>
+</div>
+<aside class="notes">
+<p>Following his theoretical and empirical observations, <span class="citation" data-cites="mintzberg1978patterns">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1978</a>)</span> conclueds that</p>
+<ol type="1">
+<li>strategies have a <strong>life cycle</strong> spanning from its conception, elaboration, decay, and death; and</li>
+<li>there are <strong>periodic waves of change and continuity</strong> within the life cycle.</li>
+</ol>
+<p>Thus, the assumptions of planning theory that a strategy-maker “formulates” a strategy, while the subordinates implement are often proved false <span class="citation" data-cites="mintzberg1978patterns">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1978</a>)</span>:</p>
+<ol type="1">
+<li>The formulator is fully informed</li>
+<li>The environment is sufficiently stable, or at least predictable. Thus, there will be no need for <em>re</em>formulation during implementation.</li>
+</ol>
+<p>Consequently, a strategy cannot be a fixed plan, nor does it change systematically at a predetermined time solely at the will of management (e.g., as a result of strategy deviations). Similarly, contingency planning, a popular prescription in times of environmental turmoil, can be risky because plans can tend to come to fruition whether they are needed or not. And so sometimes it can also be risky to make strategy explicit, especially in an uncertain environment with a dominant organizational operating system tending towards stability <span class="citation" data-cites="mintzberg1978patterns">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1978</a>)</span>.</p>
+<p><span class="citation" data-cites="mintzberg1978patterns">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1978</a>)</span> instead highlights that strategy formation is not a one-size-fits-all process. Rather, it involves various approaches and patterns, including <em>entrepreneurial</em>, <em>adaptive</em>, <em>planning</em>, and <em>logical incrementalism</em>.</p>
+<ul>
+<li>Entrepreneurial approach: Strategy emerges from a single visionary leader.</li>
+<li>Adaptive approach: Strategies evolve incrementally in response to changing circumstances.</li>
+<li>Planned approach: Formal strategic planning processes drive strategy formulation. Logical incrementalism: A blend of planning and adaptation, where strategies develop incrementally.</li>
+</ul>
+<p>Consequently, strategy formation is not limited to formal processes or boardroom decisions. Informal interactions, serendipity, and learning from experience play a significant role. Likewise, aligning organizational actions with formulated strategies can be complex and may require ongoing adjustment.</p>
+<p>Strategists are not only planners or visionaries; they are also learners and pattern recognisers. They manage a process in which strategies/visions can emerge as well as be deliberately conceived. They are open minded, sensitive to experience and learn about their organisations/industries through personal involvement.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="crafting-strategy" class="title-slide slide level1 vertical-center" data-background-color="#0333ff">
+<h1>Crafting strategy</h1>
+<p>The following thoughts on strategy formation are based on <span class="citation" data-cites="henry1987crafting">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1987</a>)</span>.</p>
+</section>
+<section id="guiding-idea" class="slide level2">
+<h2>Guiding idea</h2>
+<div class="medium">
+<p>The process by which effective strategies are created is better captured by <span class="fragment highlight-blue">thinking of strategy as a craft</span>, rather than as a planning process <span class="smaller"><span class="citation" data-cites="henry1987crafting">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1987</a>)</span>.</span></p>
+</div>
+<div class="fragment">
+<p>Why does strategy as a craft better reflect the process by which strategies are formed?</p>
+<aside class="notes">
+<ul>
+<li>Craft involves traditional skill, dedication, mastery of detail through long experience and an intimate understanding of the materials at hand. Formulation and implementation merge into a <strong>fluid process of learning through which creativity evolves</strong>.</li>
+<li>The craftsman has an <strong>intimate knowledge of his/her work, capabilities and markets</strong>. In considering future prospects, they draw upon their past experiences. This knowledge is ‘tacit’–they sense rather than analyse these things.</li>
+<li>Similarly, effective corporate strategies also evolve through such a creative process. <strong>Strategists are craftsmen, who link corporate capabilities to future market opportunities</strong>. They use their past experiences, and bring to their work an equally intimate knowledge of the issues they deal with.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="tenets" class="slide level2">
+<h2>Tenets</h2>
+<blockquote>
+<p>Like potters at the wheel, organizations must make sense of the past if they hope to manage the future. Only by coming to understand the patterns that form in their own behavior do they get to know their capabilities and their potential. Thus crafting stategy, like managing craft, requires a natural synthesis of future, present and past. <em><span class="citation" data-cites="henry1987crafting">Mintzberg (<a href="#/literature" role="doc-biblioref" onclick="">1987</a>)</span></em></p>
+</blockquote>
+<div class="html-hidden">
+<div>
+<ol type="1">
+<li class="fragment">Strategies are <em>both</em> <strong>plans</strong> for the future and <strong>patterns</strong> from the past.</li>
+<li class="fragment">Strategies need not be <strong>deliberate</strong>—they can also <strong>emerge</strong>, more or less.</li>
+<li class="fragment">Effective strategies <strong>develop</strong> in all kinds of strange ways.</li>
+<li class="fragment">Strategic reorientation happen in brief, <strong>quantum leaps</strong>.</li>
+<li class="fragment">Managing strategy is to <strong>craft</strong> <em>thought</em> and <em>action</em>, <em>control</em> and <em>learning</em>, <em>stability</em> and <em>change.</em></li>
+</ol>
+</div>
+</div>
+<aside class="notes">
+<h3 id="plans-for-the-future-and-patterns-from-the-past">Plans for the future <em>and</em> patterns from the past</h3>
+<p>The term ‘strategy’ is used as much to explain past behavior (pattern in actions over time, or realized strategy) as to describe intended behavior (the plan). A plan need not necessarily produce a pattern. So too, a pattern need not result from a plan.</p>
+<h3 id="strategies-need-not-be-deliberate-they-can-also-emerge-more-or-less">Strategies need not be deliberate – they can also emerge, more or less</h3>
+<p><strong>The interplay of strategy formulation and implementation</strong></p>
+<p>A realized strategy can be the result of a deliberate process involving formulation followed by successful implementation. However, it can also emerge as an adaptive response to evolving circumstances.</p>
+<p>When planned intentions fall short of achieving desired outcomes, organizations may find themselves with unrealized strategies. This can be attributed to challenges in implementation, but it may also stem from the belief that strategies should be strictly planned rather than allowed to evolve gradually through an organization’s actions and experiences.</p>
+<p><strong>The synergy of thought and action</strong></p>
+<p>Similar to how skilled craftspeople seamlessly blend thought and action in their craft, organizations should not separate the aspects of ‘thinking’ and ‘doing’ in strategy.</p>
+<p>Strategy is deeply intertwined with the day-to-day operational details of running an organization. Effective strategy does not exist in isolation but is deeply embedded in the organizational context.</p>
+<p><strong>Balancing control and adaptation</strong></p>
+<p>Purely deliberate strategy formulation can limit an organization’s ability to learn and adapt once the strategy is set in stone. In contrast, emergent strategy allows for ongoing adaptation but may risk losing control.</p>
+<p>Achieving effective strategy making requires a balance between learning and responsiveness on one hand and maintaining a level of control on the other. Therefore, in practice, strategy making often blends deliberate and emergent strategies to strike this balance.</p>
+<h3 id="effective-strategies-develop-in-all-kinds-of-strange-ways">Effective strategies develop in all kinds of strange ways</h3>
+<p>Effective strategies can take shape through a variety of unconventional and unexpected paths. There is no one-size-fits-all approach to strategy development.</p>
+<p>Surprising as it may seem, errors can transform into opportunities, limitations can ignite creativity, and even moments of boredom can lead to significant strategic change.</p>
+<p><strong>Empowering strategy development from the bottom up</strong></p>
+<p>Often strategies originate at lower organizational levels, nurtured by individuals with both technical expertise and a deep understanding of the on-ground realities. With the right resources and a capacity for learning, these locally generated strategies evolve into collective and organizational approaches.</p>
+<p>These grass-roots strategies are particularly prevalent in businesses that require a high degree of expertise and creative thinking. In these organizations, strategy development is not confined to boardrooms but is embraced at all levels. Technical experts who are intimately familiar with the business’s intricacies play a central role in shaping the strategies that drive success.</p>
+<h3 id="strategic-reorientations-happen-in-brief-quantum-leaps">Strategic reorientations happen in brief, quantum leaps</h3>
+<p>Strategic reorientation often manifest as abrupt and significant transformations, challenging the traditional perspective that change in an organization should be continuous.</p>
+<p>While conventional wisdom suggests continuous adaptation, strategy inherently seeks to establish stability. Organisations pursue a given strategic orientation for most of the time, as they achieve success not by changing strategies, but by exploiting the ones they have. However, when that strategic orientation grows out of sync with its environment over time, revolutionary change must take place. The organisation quickly alters many of its established patterns, as it tries to leap/shift to a new position of stability.</p>
+<p>A crucial aspect of strategy-making is navigating the delicate equilibrium between preserving stability and responding to external changes.</p>
+<h3 id="to-manage-strategy-then-is-to-craft-thought-and-action-control-and-learning-stability-and-change">To manage strategy, then, is to craft thought and action, control and learning, stability and change</h3>
+<p>Strategists are not only planners or visionaries; they are also learners and pattern recognisers. They manage a process in which strategies/visions can emerge as well as be deliberately conceived. They are open minded, sensitive to experience and learn about their organisations/industries through personal involvement.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="capabilities" class="slide level2">
+<h2>Capabilities</h2>
+<div class="html-hidden">
+<div class="medium">
+<p><span class="fragment fade-in-then-semi-out">Managing stability,</span><br>
+<span class="fragment fade-in-then-semi-out">detecting discontinuity,</span><br>
+<span class="fragment fade-in-then-semi-out">knowing the business,</span><br>
+<span class="fragment fade-in-then-semi-out">managing patterns,</span><br>
+<span class="fragment fade-in-then-semi-out">and reconciling change and continuity <span class="smaller"><span class="citation" data-cites="henry1987crafting">(<a href="#/literature" role="doc-biblioref" onclick="">Mintzberg 1987</a>)</span></span></span></p>
+</div>
+</div>
+<aside class="notes">
+<h3 id="manage-stability">Manage stability</h3>
+<p>Managing strategy primarily involves maintaining stability within the organization, rather than constantly pushing for change. It’s crucial to spend time making the current strategy work effectively.</p>
+<p>Instead of fixating on change, it’s more important to know when change is necessary. An excessive focus on change can be counterproductive and disrupt the organization’s balance.</p>
+<h3 id="detect-discontinuity">Detect discontinuity</h3>
+<p>Most changes are small and temporary, requiring no major strategic response. Significant environmental changes that demand attention are infrequent but can be identified.</p>
+<p>The real challenge lies in spotting subtle, unexpected shifts that could threaten the organization’s future. This calls for foresight and active involvement to recognize these irregular changes.</p>
+<h3 id="know-the-business">Know the business</h3>
+<p>Strategic thinking relies on a deep understanding of the business and the creativity to harness that knowledge. Those with this expertise often notice things others miss and seize emerging opportunities.</p>
+<h3 id="manage-patterns">Manage patterns</h3>
+<p>Effective strategy management hinges on the ability to identify emerging patterns and support their development. This might involve creating flexible structures, hiring innovative talent, defining overarching strategies, and observing evolving patterns.</p>
+<p>Some patterns may need careful monitoring until their impact becomes clearer, helping decide whether to make them part of the deliberate strategy.</p>
+<h3 id="reconcile-change-and-continuity">Reconcile change and continuity</h3>
+<p>Managers should aim to strike a balance between change and continuity. An excessive fixation on either can harm the organization in the long run.</p>
+<p>New patterns should be held in check until the organization is prepared for a significant strategic shift. Moreover, understanding past experiences is essential for navigating the future effectively. Crafting strategy, much like managing a craft, involves synthesizing the past, present, and future.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="review-and-consolidation" class="title-slide slide level1">
+<h1>Review and consolidation</h1>
+<p>The following questions are designed to review and consolidate what you have learned and are a good starting point for preparing for the exam.</p>
+<div class="smaller">
+<ul>
+<li>How do good strategies differ from bad strategies?</li>
+<li>What do the hallmarks of a good strategy imply for the strategic management process?</li>
+<li>Why does Mintzberg speak of strategy formation or crafting rather then strategy formulation?</li>
+<li>Why and how does cognition play a significant role in strategy formation?</li>
+<li>What is the role of informal processes in strategy formation? Can you provide examples from real-world organizations where strategies emerged through informal interactions or learning from experience?</li>
+<li>How might the patterns of strategy formation affect the execution of strategies within organizations?</li>
+<li>Why can it be assumed that a purely emergent strategy is as rare as a purely intentional strategy?</li>
+<li>What do the tenets of seeing strategic management as an art and craft imply for strategic management?</li>
+<li>Discuss the following statement: <em>Strategy seldom comes out of a structured process. It’s a mix of deliberate and emergent strategies and in practice in management learning by doing often is more important than planning.</em> What does it imply for the process and the capabilities required to craft effective strategies?</li>
+<li>Firms that are successful in making high-quality strategic decisions on a frequent basis have following capabilities: (1) building collective intuition that enhances the ability of top management to spot threats/opportunities sooner and more accurately; (2) stimulating quick conflict to improve the quality of strategic thinking without sacrificing significant time; and (3) defusing political behavior that creates unproductive conflict and wastes time. Why are these capabilities critical for effectively crafting successful strategies? Having a look at <span class="citation" data-cites="eisenhardt1999strategy">Eisenhardt (<a href="#/literature" role="doc-biblioref" onclick="">1999</a>)</span> will help to answer the question.</li>
+<li>The “Honda Effect” is a term often used to describe the business success and impact of the Japanese automaker Honda in the United States, particularly during the 1970s and 1980s (e.g., in <span class="citation" data-cites="pascale1996honda">Pascale (<a href="#/literature" role="doc-biblioref" onclick="">1996</a>)</span>). Research on that effect and explain the difference views of strategy that manifested in the approaches of American and Japanese automakers at the time.</li>
+</ul>
+</div>
+</section>
+
+<section id="homework" class="title-slide slide level1">
+<h1>Homework</h1>
+<p>Read <span class="citation" data-cites="barnett2012does">Barnett and Salomon (<a href="#/literature" role="doc-biblioref" onclick="">2012</a>)</span> and make notes on following questions:</p>
+<div class="smaller">
+<ul>
+<li>What are the primary objectives of Barnett and Salomon’s study regarding CSR and financial performance?</li>
+<li>How do the authors measure CSR and financial performance in their study?</li>
+<li>What are the main findings of the study regarding the relationship between CSR and financial performance?</li>
+<li>Were there any unexpected or counterintuitive results in the research findings? How do these findings contribute to the understanding of CSR in strategic management?</li>
+<li>How can the findings of this study inform strategic management practices?</li>
+</ul>
+</div>
+</section>
+
+<section id="qa" class="title-slide slide level1 html-hidden unlisted vertical-center" data-background-color="#0333ff" data-background-image="../assets/bg.jpg">
+<h1>Q&amp;A</h1>
+
+</section>
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-barnett2012does" class="csl-entry" role="listitem">
+Barnett, Michael L, and Robert M Salomon. 2012. <span>“Does It Pay to Be Really Good? Addressing the Shape of the Relationship Between Social and Financial Performance.”</span> <em>Strategic Management Journal</em> 33 (11): 1304–20.
+</div>
+<div id="ref-eisenhardt1999strategy" class="csl-entry" role="listitem">
+Eisenhardt, Kathleen M. 1999. <span>“Strategy as Strategic Decision Making.”</span> <em>MIT Sloan Management Review</em> 40 (3): 65.
+</div>
+<div id="ref-mintzberg1978patterns" class="csl-entry" role="listitem">
+Mintzberg, Henry. 1978. <span>“Patterns in Strategy Formation.”</span> <em>Management Science</em> 24 (9): 934–48.
+</div>
+<div id="ref-henry1987crafting" class="csl-entry" role="listitem">
+———. 1987. <span>“Crafting Strategy.”</span> <em>Harvard Business Review</em>, 66–75.
+</div>
+<div id="ref-mintzberg1985strategies" class="csl-entry" role="listitem">
+Mintzberg, Henry, and James A Waters. 1985. <span>“Of Strategies, Deliberate and Emergent.”</span> <em>Strategic Management Journal</em> 6 (3): 257–72.
+</div>
+<div id="ref-pascale1996honda" class="csl-entry" role="listitem">
+Pascale, Richard T. 1996. <span>“The Honda Effect.”</span> <em>California Management Review</em> 38 (4): 80–91.
+</div>
+<div id="ref-rumelt2011good" class="csl-entry" role="listitem">
+Rumelt, R. 2011. <em>Good Strategy/Bad Strategy: The Difference and Why It Matters</em>. Profile.
+</div>
+<div id="ref-rumelt2012good" class="csl-entry" role="listitem">
+Rumelt, Richard P. 2012. <span>“Good Strategy/Bad Strategy: The Difference and Why It Matters.”</span> <em>Strategic Direction</em> 28 (8).
+</div>
+</div>
+
+<div class="footer footer-default">
+
+</div>
+</section>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h2>Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Entertainment or writing perceived as trivial or superficial.</p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
