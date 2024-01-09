@@ -1,0 +1,630 @@
+---
+title: "Logical agents"
+subtitle: "🧠 Introduction to AI — I2AI_5"
+lang: en
+
+format: 
+  html:
+    output-file: index.html
+  presentation-revealjs:
+    output-file: slides.html
+    include-before-body: ../assets/footer.html
+---
+
+
+# Logical agents {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+
+## Search limitations
+
+The problem-solving agents based on __search algorithms__ know things, but only in a very limited, inflexible sense [@RusselNorvig2022AIMA, p. 226]:
+
+:::{.incremental}
+- They know what actions are available ($ACTIONS(s)$) and what the result of performing a specific action from a speciic state will be ($RESULT(s,a)$). But they __don't know general facts__.
+- Using __atomic representations__, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states
+- The goal can formally only be described as an __explicit set of states__
+:::
+
+## Think rationally
+
+Until now, the focus has been on agents that act rationally. Often, however, rational action requires __rational (logical) thought__ on the agent’s part. 
+
+. . .
+
+To this end, relevant aspects of the environment must be represented in a __knowledge base__ (KB), composed of __sentences__ in knowledge reprensentation language (e.g., logic)
+
+:::{.incremental}
+- Each sentence represents some assertion about the world (__semantics__)
+- The sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (__syntax__)
+- Interaction with the KB through $ASK$ and $TELL$ operations (simplified)
+  - $ASK$: asks the KB what action it should perform
+  - $TELL$: tells the knowledge base what it perceives
+:::
+
+:::{.notes}
+:::{.callout-note}
+### Types of sentences
+
+- __Axioms__: a sentence is taken as being given without being derived from other sentences
+- __Inference__: a sentence is derived from old sentence 
+:::
+
+### Levels of knowledge representation
+
+Three levels of knowledge representation can be distinguished [@newell1982knowledge]:
+
+- The __knowledge level__ concerns the total knowledge contained in the KB at the most abstract level; e.g., the Deutsche Bahn information 
+system knows that a trip from Ulm to Stuttgart costs EUR 25.
+- At the __logical level__ knowledge is encoded in a formal language; e.g., $price(Ulm, Stuttgart, 25.00)$
+- At the __implementation level__ the knowledge is represented as sentences; e.g.,
+  - as a string “Price(Freiburg, Basel, 18.00)”
+  - as a value in a matrix
+:::
+
+## Knowledge-based agents
+
+![A simplified illustration of a knowledge-based agent](images/knowledgeBasedAgents.svg){#fig-kba}
+
+:::{.notes}
+A knowledge-based agent uses its knowledge base to
+
+- represent its background knowledge,
+- store its observations (i.e., percepts),
+- derive actions, and 
+- store its executed actions.
+:::
+
+# The wumpus world {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+
+The example is taken from @RusselNorvig2022AIMA
+
+## Introduction
+
+The __wumpus world__ is an environment in which knowledge-based agents can show their worth.
+
+:::{.incremental}
+- A cave consisting of rooms connected by passageways
+- Wumpus is in one room, it eats anyone who enters its room
+- The wumpus can be shut by an agent, but the agent only has one arrow
+- Some rooms contain bottomless pits
+- The goal is to survive, to find a heap of gold and to leave the cave
+:::
+
+## PEAS
+
+### Performance measure
+
+- +1,000 for finding the gold
+- -1,000 for dying (falling into a pit or being eaten by the wumpus)
+- -1 for each action taken
+- -10 for using the arrow
+- The game ends either when the agents dies or finds the gold
+
+---
+
+### Environment
+
+- 4 x 4 grid with walls surrounding the grid
+- The agent always starts in $[1,1]$
+- The locations of gold and wumpus are chosen randomly (other than $[1,1]$)
+- Each square other than $[1,1]$ can be a pit, with probability .2
+- There is a ladder to leave the cave in square $[1,1]$ 
+
+----
+
+### Actuators
+
+- Move (*Go forward*, *turn right by 90°*, *turn left by 90°*)
+- *Grab* (pick up an object in the same square)
+- *Shoot* (there is only one arrow)
+- *Leave* the cave (only works in square $[1,1]$)
+
+----
+
+### Sensors
+
+- In the square containing the wumpus and in the directly adjacent squares, the agent perceives a *stench*
+- In the squares adjacent to a pit, the agent perceives a *breeze*
+- In the square where the gold is, the agent perceives a *glitter*
+- When the agent walks into a wall, it perceives a *bump*
+- When the wumpus is killed, its *scream* is heard everywhere
+
+Percepts are represented as a 5-tuple, e.g.,  
+$[Stench, Breeze, Glitter, None, None]$
+
+:::{.notes}
+The PEAS can be characterized as *deterministic, discrete, static, and single-agent*
+::::
+
+## A sample configuration
+
+:::{.columns}
+:::{.column}
+![A typical wumpus world](images/wumpusWorld.svg){#fig-wumpusWorld}
+:::
+:::{.column}
+A typical wumpus world
+
+:::{.incremental}
+- The agent is in the bottom left corner $[1,1]$, facing east (rightward)
+- There are three pits in the world ($[4,4]$,$[3,3]$, and $[3,1]$)
+- Wumpus is in room $[1,3]$
+- The gold is in room $[2,3]$
+:::
+:::
+:::
+
+## Exploration
+
+![Moving from [1,1] to [2,1]](images/ww-1.svg){#fig-ww-1}
+
+:::{.notes}
+- __Left:__ The initial situation after percept $[None,None,None,None,None]$
+- __Right:__ After moving to $[2,1]$ and perceiving $[None,Breeze,None,None,None]$
+:::
+
+----
+
+The wumpus is in [1,3].
+
+![Moving from [1,1] to [2,1]](images/ww-2.svg){#fig-ww-2}
+
+:::{.notes}
+- __Left:__ After moving to $[1,1]$ and then $[1,2]$, and perceiving  $[Stench,None,None,None,None]$
+- __Right:__ After moving to $[2,2]$ and then $[2,3]$, and perceiving  $[Stench,Breeze,Glitter,None,None]$
+:::
+
+# Propositional logic {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+
+## Basic syntax
+
+__Propositions__ are the building blocks of propositional logic. 
+
+. . .
+
+__Atomic sentences__ consist of a single proposition symbol, that stands for a proposition, that can be $true$ or $false$, e.g.,
+
+. . .
+
+- $BlockRed$ — *The block is red* 
+- $W_{1,3}$ — *The wumpus is in $[1,3]$*
+
+. . .
+
+The logical connectives `and` ($\land$), `or` ($\lor$), `not` ($\neg$), `implies` ($\implies$), and `if and only if` ($\iff$) can be used to build __complex sentences__.
+
+. . .
+
+Operator precedence: $\neg, \land, \lor, \implies, \iff$ (use brackets when necessary)
+
+:::{.notes}
+
+### Logical connectives
+
+Logical connectives (also called logical operators) are symbols or words used to connect two or more sentences (of either a formal or a natural language) in a grammatically valid way, such that the value of the compound sentence produced depends only on that of the original sentences and on the meaning of the connective.
+
+#### Conjunction (and)
+
+$P \land Q$
+
+Sentence letters are called __conjuncts__; the two conjuncts can be reversed and retain the original meaning.
+
+### Disjunction (or)
+
+$P \lor Q$
+
+Sentences letters are called __disjuncts__; the two disjuncts can be reversed and retain the original meaning. The disjunction is always understood inclusively as an or/and; that is, P might entail, Q might entail, or both P and Q might entail.
+
+### Negation (not)
+
+$\neg P$
+
+A negated atomic sentence is called a __negative literal__.
+
+### Implication
+
+$P \implies Q$
+
+The first sentence letter is called __antecedent__ and second is called __consequent__. The antecedent and consequent cannot be reversed and still retain its original meaning. Implications are also known as rules of if-then statements.
+
+### Biconditional (if and only if, iff)
+
+$P \iff Q$
+
+The biconditional combines a conditional relation between P and Q and its reverse. Sentence letters are called “biconditions”; the two biconditions can be reversed and retain the original meaning.
+
+### Truth tables
+
+| $\alpha$                | $\beta$                 | $\neg \alpha$           | $\alpha \land \beta$    | $\alpha \lor \beta$     | $\alpha \implies \beta$| $\alpha \iff \beta$     |
+|:-----------------------:|:-----------------------:|:-----------------------:|:-----------------------:|:----------------------:|:-----------------------:|:-----------------------:|
+| **false**                   | **false**                   | true                    | false                   | false                  | true                    | true                    |
+| **false**    | **true**    | true          | false                | true                | true                    | false               |
+| **true**     | **false**   | false         | false                | true                | false                   | false               |
+| **true**     | **true**    | false         | true                 | true                | true                    | true                |
+
+: Truth tables for the five logical connectives {#tbl-ttConnectives}
+
+:::
+
+## Basic semantics
+
+Atomic propositions can be $true$ or $false$.
+
+. . .
+
+The truth of a formula follows from the truth of its atomic propositions (__truth assignment__ or __interpretation__) and the connectives.
+
+. . .
+
+Examples:
+
+:::{.incremental}
+- $(P \lor Q) \land R$
+  - If P and Q are false and R is true, the formula is false
+  - If P and R are true, the formula is true regardless of what Q is
+- $B_{1,2} \iff (P_{1,2} \lor P_{2,1})$
+  - A square is breezy if a neighboring square has a pit,   
+  and a square is breezy only if a neighboring square has a pit
+:::
+
+## A simple KB
+
+### Symbols
+
+If we focus on the immutable aspects of the wumpus world, we need the following symbols for each $[x,y]$ location
+
+:::{.incremental}
+- $P_{x,y}$ is true if there is a pit in $[x,y]$
+- $W_{x,y}$ is true if there is a wumpus in $[x,y]$, dead or alive
+- $B_{x,y}$ is true if there is a breeze in $[x,y]$
+- $S_{x,y}$ is true if there is a stench in $[x,y]$
+- $L_{x,y}$ is true if the agent is in location $[x,y]$
+:::
+
+----
+
+### Sentences
+
+Following sentences[^1] will suffice to derive $\neg P_{1,2}$ (there is no pit in *[1,2])*:
+
+:::{.incremental}
+- $R_1: \neg P_{1,1}$
+- $R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})$
+- $R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})$
+- $R_4: \neg B_{1,1}$
+- $R_5: B_{2,1}$
+:::
+
+. . .
+
+The sentences reflect the situation depicted in @fig-ww-1 where the agent has moved to $[2,1]$ and perceiving $[None,Breeze,None,None,None]$
+
+[^1]: We label each sentence $R_i$ so that we can refer to them
+
+## A simple inference
+
+Our goal is to decide wether $KB \models \alpha$ [^2] for some sentence $\alpha$, 
+e.g. is $\neg P_{1,2}$ entailed by our $KB$ (and, thus, a safe place to move)?
+
+. . .
+
+__Model checking__ enumerates all possible models to check that $\alpha$ is true in every model in which $KB$ is true[^3]
+
+. . .
+
+Example (the agent has just moved to $[2,1]$):
+
+:::{.incremental}
+- Given current proposition symbols there are 2<sup>7</sup> = 128 possible models[^2.1]
+- In three of these models $R_1$ through $R_5$ are true (the current KB)
+- In all of these three rows, $P_{1,2}$ is false
+- So we can say, there is not pit in [1,2]
+- Only two of the three models, $P_{2,2}$ is true
+- So we cannot yet tell wether there is a pit in $[2,2]$
+:::
+
+[^2]:$KB \models \alpha$ means that $KB$ does entail $\alpha$ (a sentence $\alpha$ follows logically from $KB$)
+[^2.1]:7 symbols ($B_{1,1}, B_{2,1}, P_{1,1}, P_{1,2}, P_{2,1}, P_{2,2}, P_{3,1}), two statuses each (true, false); models are assignments of *true* or *false* to every proposition symbol
+[^3]:In mathematical notation, we write $M(KB) \subseteq M(\alpha)$
+
+# Propositional proofs {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+
+## Introduction
+
+Entailment can not only be determined by __model checking__, it can also be done by theorem proving.
+
+. . .
+
+__Theorem proving__ means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.
+
+. . .
+
+For large number of models and short length of proofs, theorem proving __can be more efficient__ than model checking.
+
+## Additional concepts
+
+Some additional concepts are needed to plug into the details:
+
+:::{.incremental}
+- __Logical equivalence:__ two sentences $\alpha$ and $\beta$ are logically equivalent if they are true in the same set of models[^5] ($\alpha \equiv \beta$ [^4])
+- __Validity:__ a sentence is valid if it is true in *all* models (e.g., $P \lor \neg P$)[^6]
+- __Deduction theorem:__ *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid.* [^7]
+- __Satisfiability:__ a sentence is satisfiable if it is true in, or satisfied by, *some* model[^8]
+- Validity and satisfiability are connected:   
+*$\alpha \models \beta$ if and only if the sentence $(\alpha \land \neg \beta)$ is unsatisfiable*[^9]  
+:::
+
+[^4]:Note that $\equiv$ is used to make claims about sentences, while $\iff$ is used as part of a sentence
+[^5]:An alternative definition of equivalence is as follows: any two sentences $\alpha$ and $\beta$ are equivalent if and only if each of them entails the other: $\alpha \equiv \beta$ if and only if $\alpha \models \beta$ and $\beta \models \alpha$
+[^6]:Valid sentences ar also known as __tautologies__, they are necessarily true
+[^7]:Thus, the theorem states that every valid implication sentence describes a legitimate inference
+[^8]:The knowledge database given earlier ($R_1 \land R_2 \land R_3 \land R_4 \land R_5$) is satisfiable because there are thrree models in which it is true.
+[^9]:$\alpha$ is valid iff $\neg \alpha$ is unsatisfiable; contrapositively, $\alpha$ is satisfiable iff $\neg \alpha$ is not valid.
+
+## Standard logical equivalences {.smaller}
+
+The symbols $\alpha$, $\beta$, and $\gamma$ stand for arbitrary sentences of propositional logic
+
+- $(\alpha \land \beta) \equiv (\beta \land \alpha)$ --- commutativity of $\land$
+- $(\alpha \lor \beta) \equiv (\beta \lor \alpha)$ --- commutativity of $\lor$
+- $((\alpha \land \beta) \land \gamma) \equiv (\alpha \land (\beta \land \gamma))$ --- associativity of $\land$
+- $((\alpha \lor \beta) \lor \gamma) \equiv (\alpha \lor (\beta \lor \gamma))$ --- associativity of $\lor$
+- $\neg(\neg\alpha) \equiv \alpha$ --- double negation elimination
+- $(\alpha \implies \beta) \equiv (\neg \beta \implies \neg \alpha)$ --- contraposition
+- $(\alpha \implies \beta) \equiv (\neg \alpha \lor \beta)$ --- implication elimination
+- $(\alpha \iff \beta) \equiv ((\alpha \implies \beta) \land (\beta \implies \alpha))$ --- biconditional elimination
+- $\neg(\alpha \land \beta) \equiv (\neg \alpha \lor \neg \beta)$ --- De Morgan
+- $\neg(\alpha \lor \beta) \equiv (\neg \alpha \land \neg \beta)$ --- De Morgan
+- $(\alpha \land (\beta \lor \gamma)) \equiv ((\alpha \land \beta) \lor (\alpha \land \gamma))$ --- distributivity of $\land$ over $\lor$
+- $(\alpha \lor (\beta \land \gamma)) \equiv ((\alpha \lor \beta) \land (\alpha \lor \gamma))$ --- distributivity of $\lor$ over $\land$
+
+
+## Inference rules
+
+Following __inference rules__[^10] can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:
+
+:::{.incremental}
+- __Modus Ponens[^11]:__ $\frac{\alpha \implies \beta, \ \alpha}{\beta}$   
+  The sentence $\beta$ can be inferred, whenever sentences of the form $\alpha \implies \beta$ and $\alpha$ are given
+- __And-Elimination__: $\frac{\alpha \land \beta}{\beta}$
+  From a conjunction, any of the conjuncts can be inferred
+:::
+
+. . .
+
+All __logical equivalences__ can be used as inference rules
+
+[^10]: One or two statements at the upper half of the inference rule imply the statement on the lower half
+[^11]: Latin for *mode that affirms*
+
+## Example
+
+We start with the knowledge base containing $R_1$ throught $R_5$ and show to prove $\neg P_{1,2}$
+
+:::{.incremental}
+1. Apply biconditional elimination to $R_2$ to obtain [^r6]  
+   $R_6  :  (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})$
+2. Apply And-Elimination to $R_6$ to obtain [^r7]  
+   $R_7  :  (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$
+3. Logical equivalence for contrapositives gives [^r8]  
+   $R_8  :  \neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1}$
+4. Apply Modus Ponens with $R_8$ and the percept $R_4$ (i.e., $\neg B_{1,1}$) to obtain [^r9]   
+   $R_9  :  \neg (P_{1,2} \lor P_{2,1})$
+5. Apply De Morgan's rule, giving the conclusion[^r10]   
+   $R_{10} :  \neg P_{1,2} \land \neg P_{2,1}$ *(neither $[1,2]$ nor $[2,1]$ contains a pit)*
+:::
+
+[^r6]: $R_6$ can be infered as follows:   
+       $R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})$  
+       $\alpha \equiv B_{1,1}$  
+       $\beta \equiv (P_{1,2} \lor P_{2,1})$  
+       As $(\alpha \iff \beta) \equiv ((\alpha \implies \beta) \land (\beta \implies \alpha))$ applies, $R_6$ can be inferred:  
+       $R_6  :  B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1}$
+[^r7]: $R_7$ can be infered from $R_6$ as follows:  
+       $\alpha \equiv B_{1,1} \implies (P_{1,2} \lor P_{2,1})$  
+       $\beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$  
+       As $\frac{\alpha \land \beta}{\beta}$ (*And-Elimination*) applies, $R_7$ can be inferred:  
+       $R_7  :  \beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}$  
+[^r8]: $R_8$ can be infered from $R_7$ as follows:  
+       $\alpha \equiv (P_{1,2} \lor P_{2,1})$  
+       $\beta \equiv B_{1,1}$    
+       As $\alpha \implies \beta \equiv (\neg \beta \implies \neg \alpha)$ applies, $R_8$ can be inferred:  
+       $R_8  :  \neg (P_{1,2} \lor P_{2,1}) \implies \neg B_{1,1}$
+[^r9]: $R_9$ can be infered from $R_8$ and $R_4$ as follows:  
+       $\alpha \equiv \neg B_{1,1}$  
+       $\beta \equiv \neg (P_{1,2} \lor P_{2,1})$    
+       As $\frac{\alpha \implies \beta, \ \alpha}{\beta}$ applies and $R_4 : B_{1_1}$ is given, $R_8$ can be inferred:  
+       $R_8  :  \beta \equiv \neg (P_{1,2} \lor P_{2,1})$     
+[^r10]: $R_10$ can be infered from $R_9$ as follows:  
+       $\alpha \equiv P_{1,2}$  
+       $\beta \equiv P_{2,1}$    
+       As $\neg(\alpha \lor \beta) \equiv (\neg \alpha \land \neg \beta)$ applies, $R_10$ can be inferred:  
+       $R_8  :  \neg P_{1,2} \land \neg P_{2,1}$     
+
+
+
+## Search algorithms
+
+Search algorithms can be used to find a sequence of steps that constitutes a proof. 
+
+. . .
+
+The proof problem is defined as follows:
+
+:::{.incremental}
+- __Initial state:__ the initial knowledge database
+- __Actions:__ all the inference rules applied to all the sentences that match the upper half of the inference rule
+- __Result:__ add the sentence in the lower half of the inference rule to the knowledge base
+- __Goal:__ a state that contains the sentence we are trying to prove 
+:::
+
+# Open topics
+
+:::{.incremental}
+- __Completeness__ (if the available inference rules are inadequate, the goal is not reachable)
+- Level of __complexity__ (though propositional logic suffices to represent the wumpus world), e.g.,
+  - Rules must be set up for __each square__
+  - We need a __time index__ for each proposition that refer to an aspect of the world that changes (further expansion of the rule set)
+- __Efficiency__ of inference algorithms
+- ...
+:::
+
+. . .
+
+For further information on these and other matters, please see @RusselNorvig2022AIMA
+
+# Wrap-up {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+
+## Summary
+
+:::{.incremental}
+- Rational agents require __knowledge of their world__ to make rational decisions
+- With the help of a (knowledge) __representation language__, this knowledge is represented and stored in a __knowledge base__ in the form of __sentences__
+- A representation language is defined by its __syntax[^12]__ and its __semantics[^13]__
+- __Inference__ is the process of deriving new sentences from old ones
+- __Propositional logic__ is a simple representation language  consisting of propositions symbols and logical connectives
+- Solutions can be found by enumerating models (model-checking) or __inference__ and __proofs__ using inference rules[^14]
+- Propositional logic does not scale to environments of unbounded size[^15]
+:::
+
+[^12]: Specifies the structure of __sentences__
+[^13]: Defines the __truth__ of each sentence in each __possible world__ or __model__
+[^14]: Search algorithms can be used to find solutions
+[^15]: Propositional logic lacks the expressive power to deal concisely with time, space, and universal patterns of relationships among objects.
+ 
+
+## xkcd
+
+![xkcd 816: Applied Math (explanation see [here](https://www.explainxkcd.com/wiki/index.php/816:_Applied_Math))](images/xkcd.png){#fig-xkcd}
+
+
+# ✏️ Exercises {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+
+## I2AI_5 E1 {.smaller}
+
+Suppose the agent has progressed to the point shown in @fig-ww-2 (left part) having perceived nothing in $[1,1]$, a breeze in $[2,1]$, and a stench in $[1,2]$, and is now concerned with the contents of $[1,3]$, $[2,2]$, and $[3,1]$. Each of these can contain a pit, and at most one can contain a wumpus. Construct the set of possible worlds (you should find 32 of them). Mark the worlds in which the KB is true and those in which each of the following sentences is true:
+
+- $\alpha_2$ = “There is no pit in $[2,2]$”
+- $\alpha_3$ = “There is a wumpus in $[1,3]$”
+
+Hence show that $KB \models \alpha_2$ and $KB \models \alpha_3$
+
+You can use a table like this:
+
+| Model                         | $KB$       | $\alpha_2$ | $\alpha_3$ |
+|-------------------------------|------------|------------|------------|
+| $P_{1,3}$                     |            | true       |            |
+| $P_{1,3}, P_{3,1}, P_{2,2}$   |            |            |            |
+| ...                           |            |            |            |
+
+: Propositions not listed as true on a given line are assumed false {tbl-colwidths="[30,7,7,7]"}
+
+### Solution note
+
+To save space, we’ll show the list of models as a @tbl-truthtable-5e1 rather than a collection of diagrams. There are eight possible combinations of pits in the three squares, and four possibilities for the wumpus location (including nowhere). We can see that $KB \models \alpha_2$ because every line where KB is true also has $\alpha_2$ true. Similarly for $\alpha_3$.
+
+| Model                            | $KB$       | $\alpha_2$ | $\alpha_3$ |
+|----------------------------------|:----------:|:----------:|:----------:|
+|                                  |            | true       |            |
+| $P_{1,3}$                        |            | true       |            |
+| $P_{2,2}$                        |            |            |            |
+| $P_{3,1}$                        | true       | true       |            |
+| $P_{1,3},P_{2,2}$                |            |            |            |
+| $P_{2,2},P_{3,1}$                |            |            |            |
+| $P_{3,1},P_{1,3}$                |            | true       |            |
+| $P_{1,3},P_{3,1},P_{2,2}$        |            |            |            |
+|                                  |            |            |            |
+| $W_{1,3}$                        |            | true       | true       |
+| $W_{1,3},P_{1,3}$                |            | true       | true       |
+| $W_{1,3},P_{2,2}$                |            |            | true       |
+| $W_{1,3},P_{3,1}$                | true       | true       | true       |
+| $W_{1,3},P_{1,3},P_{2,2}$        |            |            | true       |
+| $W_{1,3},P_{2,2},P_{3,1}$        |            |            | true       |
+| $W_{1,3},P_{3,1},P_{1,3}$        |            | true       | true       |
+| $W_{1,3},P_{1,3},P_{3,1},P_{2,2}$|            |            | true       |
+|                                  |            |            |            |
+| $W_{3,1}$                        |            | true       |            |
+| $W_{3,1},P_{1,3}$                |            | true       |            |
+| $W_{3,1},P_{2,2}$                |            |            |            |
+| $W_{3,1},P_{3,1}$                |            | true       |            |
+| $W_{3,1},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{3,1},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{3,1},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{3,1},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+|                                  |            |            |            |
+| $W_{2,2}$                        |            | true       |            |
+| $W_{2,2},P_{1,3}$                |            | true       |            |
+| $W_{2,2},P_{2,2}$                |            |            |            |
+| $W_{2,2},P_{3,1}$                |            | true       |            |
+| $W_{2,2},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{2,2},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{2,2},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{2,2},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+
+: A truth table constructed for I2AI_5 E1. Propositions not listed as true on a given line are assumed false, and only true entries are shown in the table {#tbl-truthtable-5e1}
+
+## I2AI_5 E2
+
+Prove, or find a counterexample to, each of the following assertions, where $\alpha$, $\beta$, and $\gamma$ represent any logical sentence:
+
+a. If $\alpha \models \gamma$ or $\beta \models \gamma$ (or both) then $(\alpha \land \beta) \models \gamma$
+b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\beta \models \gamma$ (or both)
+b. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)
+
+Remember, $\alpha \models \beta$ means that __iff__ in every model in which $\alpha$ is true, $\beta$ is also true.
+
+### Solution note
+
+a. If $\alpha \models \gamma$ or $\beta \models \gamma$ (or both) then $(\alpha \land \beta) \models \gamma$   
+   True. This follows from monotonicity
+
+b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\beta \models \gamma$ (or both)   
+   False. Consider $\alpha \equiv A, \beta \equiv B, \gamma \equiv (A \land B)$
+
+|                 | $\alpha$ | $\beta$  | $\alpha \land \beta$ |
+|-----------------|:--------:|:--------:|:--------------------:|
+| $A,B$           | true     | true     | true                 |
+| $A,\neg B$      | true     |          |                      |
+| $\neg A,B$      |          | true     |                      |
+| $\neg A,\neg B$ |          | true     |                      |
+
+: A truth table constructed for I2AI_5 E3b. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3b}  
+
+c. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)   
+   False. Consider $\beta \models A, \gamma \models \neg A$
+
+|           | $\alpha = (A \lor \neg A)$ | $\beta \lor \gamma$  | $\beta$  | $\gamma$ |
+|-----------|:--------------------------:|:--------------------:|:--------:|:--------:|
+| $A$       | true                       | true                 | true     |          |
+| $\neg A$  | true                       | true                 |          | true     |
+
+
+: A truth table constructed for I2AI_5 E3c. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3c}  
+
+## I2AI_5 E3 {.smaller}
+
+For each English sentence, there is a corresponding logical sentence. Work out which English sentence corresponds to which propositional logic sentence, and hence determine the meaning (in English) of each proposition symbol.
+
+__English__
+
+- There is a Wumpus at (0, 1)
+- If the agent is at (0, 1) and there is a Wumpus at (0, 1), then the agent is not alive.
+- The agent is at (0, 0) and there is no Wumpus at (0, 1)
+- The agent is at (0, 0) or (0, 1), but not both
+
+__Propositional Logic__
+
+- $(C \lor B) \land (\neg C \lor \neg B)$
+- $C \land \neg D$
+- $\neg A \lor \neg(B \land D)$
+- $D$
+
+### Solution note
+
+$A$ = the agent is alive
+$B$ = the agent is at (0, 1)
+$C$ = the agent is at (0, 0)
+$D$ = there is a Wumpus at (0, 1).
+
+# Literature
+::: {#refs}
+:::
