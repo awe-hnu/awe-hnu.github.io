@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -26,6 +26,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -65,6 +66,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -74,30 +76,57 @@ div.csl-indent {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <meta property="og:title" content="awe.lectures - Probability">
 <meta property="og:description" content="🧠 Introduction to AI — I2AI_6">
-<meta property="og:site-name" content="awe.lectures">
+<meta property="og:site_name" content="awe.lectures">
 </head>
 
-<body class="nav-sidebar floating nav-fixed slimcontent">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">awe</span>
     </a>
   </div>
           <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../../index.html" rel="" target="">
- <span class="menu-text">Start</span></a>
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://www.hnu.de" rel="" target="">
- <span class="menu-text">HNU</span></a>
+    <a class="nav-link" href="https://www.hnu.de"> 
+<span class="menu-text">HNU</span></a>
   </li>  
 </ul>
           <div class="quarto-navbar-tools">
@@ -106,12 +135,12 @@ div.csl-indent {
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../lectures/I2AI/23ST/intro/index.html">Lecture notes</a></li><li class="breadcrumb-item"><a href="../../../../lectures/I2AI/23ST/probability/index.html">Probability</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <a class="flex-grow-1 no-decor" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Probability</h1>
+        </a>     
     </div>
   </nav>
 </header>
@@ -119,7 +148,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Probability</h1>
+      <h1 class="title d-none d-lg-block">Probability</h1>
             <p class="subtitle lead">🧠 Introduction to AI — I2AI_6</p>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Lecture Notes</div>
@@ -127,21 +156,21 @@ div.csl-indent {
                   </div>
   </div>
     
-  <div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-author column-body">
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-heading">Organisation</div>
     
       <div class="quarto-title-meta-contents">
       <p class="author">Andy Weeger </p>
     </div>
-      <div class="quarto-title-meta-contents">
+    <div class="quarto-title-meta-contents">
           <p class="affiliation">
               Neu-Ulm University of Applied Sciences
             </p>
         </div>
-      </div>
+    </div>
 
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-body">
 
         
       <div>
@@ -154,7 +183,7 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">December 13, 2023</p>
+        <p class="date-modified">January 30, 2024</p>
       </div>
     </div>
       
@@ -163,7 +192,7 @@ div.csl-indent {
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
@@ -251,7 +280,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -269,12 +298,13 @@ div.csl-indent {
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="slides.html"><i class="bi bi-file-slides"></i>RevealJS (presentation)</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full column-body" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
 
 
 
-<section id="introduction" class="level1 vertical-center page-columns page-full" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+
+<section id="introduction" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Introduction</h1>
 <section id="discussion" class="level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
 <h2 class="html-hidden discussion-slide unlisted" data-background-color="#efefef" data-anchor-id="discussion">Discussion</h2>
@@ -325,13 +355,13 @@ Qualification problem
 <p>All these plans are correct, but they imply different <strong>costs</strong> and different <strong>probabilities</strong> of actually achieving the goal.</p>
 <p><span class="math inline">\(P_2\)</span> eventually is the plan of choice as the success rate of P1 is only 80%</p>
 </section>
-<section id="uncertainty-in-rules" class="level2 page-columns page-full">
+<section id="uncertainty-in-rules" class="level2">
 <h2 data-anchor-id="uncertainty-in-rules">Uncertainty in rules</h2>
 <p>Take an expert dental diagnosis system as an example.</p>
 <p><span class="math inline">\(Toothache \implies Cavity\)</span></p>
 <p>→ This rule is incorrect, better:</p>
 <p><span class="math inline">\(Toothache \implies Cavity \lor GumProblem \lor Abscess ...\)</span></p>
-<div class="page-columns page-full"><p>→ However, we don’t know all the causes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;See qualification problem</p></li></div></div>
+<p>→ However, we don’t know all the causes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Perhaps a causal rule is better?</p>
 <p><span class="math inline">\(Cavity \implies Toothache\)</span></p>
 <p>→ This is still wrong and does not allow to reason from symptoms to causes.</p>
@@ -342,15 +372,15 @@ Qualification problem
 <p>What do we learn from that?</p>
 </div>
 </section>
-<section id="learnings" class="level2 page-columns page-full">
+<section id="learnings" class="level2">
 <h2 data-anchor-id="learnings">Learnings</h2>
-<div class="incremental page-columns page-full">
+<div class="incremental">
 <ul class="incremental">
 <li>We cannot enumerate all possible causes (i.e., <strong>laziness</strong>)</li>
 <li>And even if we could, we do not know how correct the rules are (i.e., <strong>theoretical ignorance</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>)</li>
 <li>And even if we did there will always be uncertainty about the patient (i.e., <strong>practical ignorance</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>)</li>
 </ul>
-<div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Medical science has no complete theory for the domain</p></li><li id="fn3"><p><sup>3</sup>&nbsp;For instance, the coincidence of having a toothache and a cavity that are unrelated, or the fact that not all tests have been run</p></li></div></div>
+</div>
 <p>→ Without perfect knowledge (i.e., <em>“the rules of the game”</em>), logical rules do not help much</p>
 </section>
 <section id="discussion-2" class="level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
@@ -386,7 +416,7 @@ Qualification problem
 </div>
 </section>
 </section>
-<section id="decisions-under-uncertainty" class="level1 vertical-center page-columns page-full" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="decisions-under-uncertainty" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Decisions under uncertainty</h1>
 <section id="decision-theory" class="level2">
 <h2 data-anchor-id="decision-theory">Decision theory</h2>
@@ -403,37 +433,37 @@ Qualification problem
 </div>
 <p>It would be rational to choose the action with the <strong>maximum expected utility (MEU)</strong>—the “average”, or “statistical mean” of the outcome utilities minus the costs of the actions leading to the outcome, weighted by the probability of the outcome.</p>
 </section>
-<section id="unconditional-probabilities" class="level2 page-columns page-full">
+<section id="unconditional-probabilities" class="level2">
 <h2 data-anchor-id="unconditional-probabilities">Unconditional probabilities</h2>
 <p><span class="math inline">\(P(A)\)</span> denotes the unconditional probability or <strong>prior probability</strong> that <span class="math inline">\(A\)</span> will appear in the absence of any other information, e.g.&nbsp;<span class="math inline">\(P(Cavity) = 0.1\)</span></p>
-<div class="incremental page-columns page-full">
+<div class="incremental">
 <ul class="incremental">
 <li>Prior probabilities can be obtained from statistical analysis or general rules</li>
 <li>A <strong>random variable</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> can take on some range—the set of possible values (e.g., Numbers, Boolean, arbitary tokens), e.g.&nbsp;<span class="math inline">\(P(Weather=sunny=0.6)\)</span></li>
 <li>Logical connectors can be used to build <strong>probabilistic propositions</strong>, e.g.&nbsp;<span class="math inline">\(P(Cavity \land \neg Insured) = 0.06\)</span></li>
 <li>Propositions can contain equations over random variables, e.g.&nbsp;<span class="math inline">\(P(NoonTemp=x) = \textrm{Uniform}(x;18C;26C)\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, usually called a <strong>probability density function</strong></li>
 </ul>
-<div class="no-row-height column-margin column-container"><li id="fn4"><p><sup>4</sup>&nbsp;Variables in probability theory are called random variables</p></li><li id="fn5"><p><sup>5</sup>&nbsp;Represents the belief that the temperature at noon is distributed uniformly between 18 and 26 degrees Celcius</p></li></div></div>
+</div>
 </section>
-<section id="conditional-probabilities" class="level2 page-columns page-full">
+<section id="conditional-probabilities" class="level2">
 <h2 data-anchor-id="conditional-probabilities">Conditional probabilities</h2>
 <p>New information (usually called <strong>evidence</strong>) can change the probability, e.g.&nbsp;the probability of a cavity increases if we know the patient has a toothache</p>
 <p><span class="math inline">\(P(a|b)\)</span> is the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given that all we know is <span class="math inline">\(B\)</span></p>
-<p>&nbsp;&nbsp;Example: <span class="math inline">\(P(Cavity | Toothache) = 0.8\)</span></p>
+<div class="line-block">&nbsp;&nbsp;Example: <span class="math inline">\(P(Cavity | Toothache) = 0.8\)</span></div>
 <p>Conditional propabilities (or posterior probabilities) are defined in terms of unconditional probalities as follows:</p>
 <p>For any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have <span class="math inline">\(P(a|b)=\frac{P(a \land b)}{P(b)}\)</span></p>
 <p>Or in a different form as <strong>product rule</strong></p>
-<div class="page-columns page-full"><p><span class="math inline">\(P(a \land b) = P(a,b) = P(a|b)P(b) = P(b|a)P(a)\)</span><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn6"><p><sup>6</sup>&nbsp;<span class="math inline">\(P(a \land b) = P(a|b)P(b)\)</span> equals <span class="math inline">\(P(a \land b) = P(b|a)P(a)\)</span></p></li></div></div>
+<p><span class="math inline">\(P(a \land b) = P(a,b) = P(a|b)P(b) = P(b|a)P(a)\)</span><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 </section>
 <section id="example-1" class="level2">
 <h2 data-anchor-id="example-1">Example</h2>
 <p>The <strong>product rules</strong> for all possible values of <em>Weather</em> and <em>Cavity</em> can be written as a single equation:</p>
 <p><span class="math inline">\(P(Weather,Cavity)=P(Weather|Cavity)P(Cavity)\)</span></p>
 <p>which corresponds to a system of equations (using abbreviations <span class="math inline">\(W\)</span> and <span class="math inline">\(C\)</span>):</p>
-<p><span class="math inline">\(P(W=sun,C=true) = P(W=sun|C=true)P(C=true)\)</span></p>
-<p><span class="math inline">\(P(W=rain,C=true) = P(W=rain|C=true)P(C=true)\)</span></p>
+<p><span class="math inline">\(P(W=sun,C=true)   =  P(W=sun|C=true)P(C=true)\)</span></p>
+<p><span class="math inline">\(P(W=rain,C=true)  =  P(W=rain|C=true)P(C=true)\)</span></p>
 <p>…</p>
-<p><span class="math inline">\(P(W=snow,C=false) = P(W=snow|C=false)P(C=false)\)</span></p>
+<p><span class="math inline">\(P(W=snow,C=false) =  P(W=snow|C=false)P(C=false)\)</span></p>
 </section>
 <section id="marginalization" class="level2">
 <h2 data-anchor-id="marginalization">Marginalization</h2>
@@ -468,9 +498,10 @@ P(Y) = \sum_z P(Y|z)P(z) &amp;&amp;
 <p>Probabilities can be assigned to every proposition; an <strong>atomic event</strong> is an assignment of values to all random variables (i.e., a complete specification of a state)</p>
 <p>Example: Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be boolean variables, leading to following four atomic events: <span class="math inline">\(X \land Y, \neg X \land Y, X \land \neg Y, \neg X \land \neg Y\)</span></p>
 <p>The joint probability distribution <span class="math inline">\(P(x_1,...,x_n)\)</span> assigns a probability to every atomic event.</p>
-<div id="tbl-distribution">
+<div id="tbl-distribution" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table">
-<caption>Table&nbsp;1: Probabilities of the atomic events (full joint distribution for the <em>Toothache</em>, <em>Cavity</em> world)</caption>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;"></td>
@@ -489,6 +520,11 @@ P(Y) = \sum_z P(Y|z)P(z) &amp;&amp;
 </tr>
 </tbody>
 </table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Probabilities of the atomic events (full joint distribution for the <em>Toothache</em>, <em>Cavity</em> world)
+</figcaption>
+</figure>
 </div>
 <p>Since all atomic events are disjoint, the sum of all fields is 1.</p>
 </section>
@@ -513,7 +549,7 @@ P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
 <p>What challenges arise when dealing with <strong>joint probabilities</strong>?</p>
 </div>
 </section>
-<section id="problems-with-joint-probabilities" class="level2 page-columns page-full">
+<section id="problems-with-joint-probabilities" class="level2">
 <h2 data-anchor-id="problems-with-joint-probabilities">Problems with joint probabilities</h2>
 <p>We can easily obtain all probabilities from the joint probability. The joint probability, however, involves <span class="math inline">\(k^n\)</span> values, if there are <span class="math inline">\(n\)</span> random variables with <span class="math inline">\(k\)</span> values.</p>
 <p>→ Implies difficulties of representation and assessment</p>
@@ -522,7 +558,7 @@ P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
 <li>Is there a more compact way of representing joint probabilities?</li>
 <li>Is there an efficient method to work with this representation?</li>
 </ul>
-<div class="page-columns page-full"><p>Not in general, but it can work in many cases. Modern systems work directly with conditional probabilities and make assumptions on the independence of variables<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> in order to simplify calculations.</p><div class="no-row-height column-margin column-container"><li id="fn7"><p><sup>7</sup>&nbsp;Factoring large joint distributions into smaller joint distributions, using absolute indepence. For instance, weather and dental problems are independent, thus, these can be split.</p></li></div></div>
+<p>Not in general, but it can work in many cases. Modern systems work directly with conditional probabilities and make assumptions on the independence of variables<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> in order to simplify calculations.</p>
 </section>
 <section id="single-work" class="level2 html-hidden discussion-slide unlisted" data-background-color="#d7d7d7">
 <h2 class="html-hidden discussion-slide unlisted" data-background-color="#d7d7d7" data-anchor-id="single-work">Single work</h2>
@@ -531,7 +567,7 @@ P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
 </div>
 </section>
 </section>
-<section id="bayes-rule" class="level1 vertical-center page-columns page-full" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="bayes-rule" class="level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
 <h1 class="vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">Bayes’ rule</h1>
 <section id="derivation" class="level2">
 <h2 data-anchor-id="derivation">Derivation</h2>
@@ -552,7 +588,7 @@ P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
 <p>Often, we perceive as evidence the <em>effect</em> of some known <em>cause</em> and we would like to determine that cause. In that case, Bayes’ rule becomes:</p>
 <p><span class="math inline">\(P(cause|\mathit{effect}) = \frac{P(\mathit{effect}|cause)P(cause)}{P(\mathit{effect})}\)</span></p>
 </section>
-<section id="example-2" class="level2 page-columns page-full">
+<section id="example-2" class="level2">
 <h2 data-anchor-id="example-2">Example</h2>
 <p><span class="math display">\[
 \begin{align}
@@ -562,13 +598,13 @@ P(Toothache) = {} &amp; 0.05 \\
 P(Cavity | Toothache) = {} &amp;  \frac{0.04*0.1}{0.05} = 0.8
 \end{align}
 \]</span></p>
-<div class="incremental page-columns page-full">
+<div class="incremental">
 <ul class="incremental">
 <li>Here only information that quantifies the relationship between <em>Caviety</em> and <em>Toothache</em> in the <strong>causal direction</strong> is given, the diagnosis is derived by applying Baye’s rule</li>
 <li>If there is quantative information in the <strong>diagnostic direction</strong> from symptons to causes, there is no need to use Baye’s rule</li>
 <li>However, causal knowledge is more robust than diagnostic knowledge (imagine, e.g., a cavity epidemic<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>)</li>
 </ul>
-<div class="no-row-height column-margin column-container"><li id="fn8"><p><sup>8</sup>&nbsp;If there is a cavity epidemic and <span class="math inline">\(P(Cavity)\)</span> increases, <span class="math inline">\(P(Toothache | Cavity)\)</span> does not change, but <span class="math inline">\(P(Toothache)\)</span> and <span class="math inline">\(P(Cavity | Toothache)\)</span> will change proportionally</p></li></div></div>
+</div>
 </section>
 <section id="relative-probability" class="level2">
 <h2 data-anchor-id="relative-probability">Relative probability</h2>
@@ -657,7 +693,7 @@ P(X|e) = \frac{P(X,e)}{P(e)} = \alpha P(X,e) = \alpha \sum_y P(X,e,y) &amp;&amp;
 <p>The summation is over all possible <span class="math inline">\(y\)</span>s (i.e., all possible combinations of values of the unobserved variables <span class="math inline">\(Y\)</span>). Notice that together, the variables <span class="math inline">\(X\)</span>, <span class="math inline">\(E\)</span>, and <span class="math inline">\(Y\)</span> constitute the complete set of variables for the domain, so <span class="math inline">\(P(X,e,y)\)</span> is simply a subset of probabilities from the full joint distribution.</p>
 </div>
 </section>
-<section id="multiple-evidence" class="level2 page-columns page-full">
+<section id="multiple-evidence" class="level2">
 <h2 data-anchor-id="multiple-evidence">Multiple evidence</h2>
 <p>A dentist’s probe catches in the aching tooth of a patient.</p>
 <p>Using Bayes’ rule, we can calculate:</p>
@@ -681,7 +717,7 @@ P(Cav | Toothache \land Catch) = \alpha{P(Toothache \land Catch|Cav)P(Cav)} &amp
 <hr>
 <p><strong>Problem:</strong> The dentist needs to know the conditional probabilities of the conjunction <span class="math inline">\(Toothache \land Catch\)</span> for each value of <span class="math inline">\(Cav\)</span>, i.e., <strong>diagnostic knowledge of all combinations of symptoms</strong> in the general case. This might be possible for just two evidence variables, but does not scale up.</p>
 <p>As it would reduce the complexity of the inference problem, it would be nice if <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> were independent, but they are not: if a probe catches in the tooth, it probably has cavity which probably causes toothache.</p>
-<div class="page-columns page-full"><p>However, <em>given we know whether the tooth has cavity</em>, these variables <em>are</em> independent, as each is directly caused by the cavity, but neither has a direct effect on the other<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>:</p><div class="no-row-height column-margin column-container"><li id="fn9"><p><sup>9</sup>&nbsp;Toothache depends on the state of the nerves in the tooth, whereas the probe’s accuracy depends primarily on the dentist’s skill, to which the toothache is irrelevant.</p></li></div></div>
+<p>However, <em>given we know whether the tooth has cavity</em>, these variables <em>are</em> independent, as each is directly caused by the cavity, but neither has a direct effect on the other<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>:</p>
 <p><span class="math display">\[
 \begin{flalign}
 P(Toothache \land Catch | Cav) = P(Toothache | Cav) P(Catch | Cav) &amp;&amp; (2.1)
@@ -714,7 +750,7 @@ P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)}
 \]</span></p>
 </section>
 </section>
-<section id="naive-bayes-models" class="level1 vertical-center page-columns page-full" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="naive-bayes-models" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Naive Bayes models</h1>
 <div class="notes">
 <p>The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause.</p>
@@ -762,7 +798,7 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 <li>Distributions for continuous variables are typically given by probability density functions</li>
 </ul>
 </section>
-<section id="text-classification" class="level2 page-columns page-full">
+<section id="text-classification" class="level2">
 <h2 data-anchor-id="text-classification">Text classification</h2>
 <p>Imagine following task: given a text, decide which of a predefined set of classes or categories it belongs to.</p>
 <ul>
@@ -781,8 +817,8 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 <li>the prior probabilities <span class="math inline">\(P(Category)\)</span> and</li>
 <li>the conditional probabilities <span class="math inline">\(P(HasWord_i|Category)\)</span></li>
 </ul>
-<div class="page-columns page-full"><p>For each category c <span class="math inline">\(P(Category=c)\)</span> is estimated as the fraction of all previously seen documents that are of category c<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn10"><p><sup>10</sup>&nbsp;For example, if 9% of the articles are about weather, we set <span class="math inline">\(P(Category=weather)=0.09\)</span>.</p></li></div></div>
-<div class="page-columns page-full"><p>Similarily, <span class="math inline">\(P(HasWord_i|Category)\)</span> is estimated as the fraction of documents of each category that contain word <span class="math inline">\(i\)</span><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn11"><p><sup>11</sup>&nbsp;For example, if 37% of articles about business contain word 6, “stocks,” so <span class="math inline">\(P(HasWord_6=true|Category=business)\)</span> is set to 0.37</p></li></div></div>
+<p>For each category c <span class="math inline">\(P(Category=c)\)</span> is estimated as the fraction of all previously seen documents that are of category c<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p>
+<p>Similarily, <span class="math inline">\(P(HasWord_i|Category)\)</span> is estimated as the fraction of documents of each category that contain word <span class="math inline">\(i\)</span><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p>
 <hr>
 <p>To categorize a new document, we check which key words appear in the document and then apply <strong>recursive Bayesian updating</strong> to obtain the posterior probablity distribution over categories:</p>
 <p><span class="math display">\[
@@ -816,7 +852,7 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
 </section>
 <section id="i2ai_6-e2" class="level2">
 <h2 data-anchor-id="i2ai_6-e2">I2AI_6 E2</h2>
-<p>Would it be rational for an agent to hold the three beliefs <span class="math inline">\(P(A)=0.4\)</span>, <span class="math inline">\(P(B)=0.3\)</span>, and <span class="math inline">\(P(A \lor B)=0.5\)</span>? If so, what range of probabilities would be rational for the agent to hold for A∧B? Make up a table like the one in <a href="#tbl-distribution">Table&nbsp;1</a>, and show how it supports your argument about rationality.</p>
+<p>Would it be rational for an agent to hold the three beliefs <span class="math inline">\(P(A)=0.4\)</span>, <span class="math inline">\(P(B)=0.3\)</span>, and <span class="math inline">\(P(A \lor B)=0.5\)</span>? If so, what range of probabilities would be rational for the agent to hold for A∧B? Make up a table like the one in <a href="#tbl-distribution" class="quarto-xref">Table&nbsp;1</a>, and show how it supports your argument about rationality.</p>
 </section>
 <section id="i2ai_6-e3" class="level2">
 <h2 data-anchor-id="i2ai_6-e3">I2AI_6 E3</h2>
@@ -880,7 +916,7 @@ P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}
 </section>
 <section id="literature" class="level1">
 <h1>Literature</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
 Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
 </div>
@@ -890,7 +926,22 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
 </section>
 
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>See qualification problem<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Medical science has no complete theory for the domain<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>For instance, the coincidence of having a toothache and a cavity that are unrelated, or the fact that not all tests have been run<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Variables in probability theory are called random variables<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Represents the belief that the temperature at noon is distributed uniformly between 18 and 26 degrees Celcius<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><span class="math inline">\(P(a \land b) = P(a|b)P(b)\)</span> equals <span class="math inline">\(P(a \land b) = P(b|a)P(a)\)</span><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Factoring large joint distributions into smaller joint distributions, using absolute indepence. For instance, weather and dental problems are independent, thus, these can be split.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>If there is a cavity epidemic and <span class="math inline">\(P(Cavity)\)</span> increases, <span class="math inline">\(P(Toothache | Cavity)\)</span> does not change, but <span class="math inline">\(P(Toothache)\)</span> and <span class="math inline">\(P(Cavity | Toothache)\)</span> will change proportionally<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Toothache depends on the state of the nerves in the tooth, whereas the probe’s accuracy depends primarily on the dentist’s skill, to which the toothache is irrelevant.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>For example, if 9% of the articles are about weather, we set <span class="math inline">\(P(Category=weather)=0.09\)</span>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>For example, if 37% of articles about business contain word 6, “stocks,” so <span class="math inline">\(P(HasWord_6=true|Category=business)\)</span> is set to 0.37<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -963,10 +1014,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -976,8 +1044,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -990,6 +1067,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1033,6 +1229,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1058,6 +1255,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1115,23 +1338,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

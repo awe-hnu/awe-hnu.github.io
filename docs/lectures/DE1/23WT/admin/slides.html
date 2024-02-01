@@ -9,7 +9,7 @@
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Andy Weeger">
   <title>awe.lectures - Administratives 🧐</title>
@@ -34,6 +34,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -176,7 +177,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -341,7 +343,7 @@
   </style>
 <meta property="og:title" content="awe.lectures - Administratives 🧐">
 <meta property="og:description" content="DEM_1 DE1: Digitalisierung und Informationssysteme">
-<meta property="og:site-name" content="awe.lectures">
+<meta property="og:site_name" content="awe.lectures">
 </head>
 <body class="quarto-light">
 <div class="footer custom">
@@ -518,9 +520,10 @@ Andy Weeger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<div id="tbl-schedule">
+<div id="tbl-schedule" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table>
-<caption>Tabelle&nbsp;1: Zeitplan Wintersemester 2022/23 (Änderungen vorbehalten)</caption>
 <colgroup>
 <col style="width: 17%">
 <col style="width: 62%">
@@ -612,6 +615,11 @@ Andy Weeger
 </tbody>
 </table>
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;1: Zeitplan Wintersemester 2022/23 (Änderungen vorbehalten)
+</figcaption>
+</figure>
+</div>
 <aside></aside></section></section>
 <section id="qa" class="title-slide slide level1 unlisted html-hidden" data-background-color="lightgrey" data-background-image="images/question.jpeg">
 <h1>Q&amp;A</h1>
@@ -634,7 +642,7 @@ Andy Weeger
 </section></section>
 <section id="literatur" class="title-slide slide level1 smaller scrollable">
 <h1>Literatur 📚</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bachle2021einfuhrung" class="csl-entry" role="listitem">
 Bächle, Michael A, Stephan Daurer, und Arthur Kolb. 2021. <em>Einf<span>ü</span>hrung in die Wirtschaftsinformatik</em>. De Gruyter Oldenbourg.
 </div>
@@ -646,8 +654,10 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
 </div>
 </div>
 
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
 
@@ -687,7 +697,6 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
       Reveal.initialize({
 'controlsAuto': false,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1094,10 +1103,9 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1107,8 +1115,17 @@ Mertens, P., F. Bodendorf, W. König, M. Schumann, T. Hess, und P. Buxmann. 2016
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
