@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+<meta name="dcterms.date" content="2023-09-01">
+
+<title>awe.lectures - Strategy Types</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<meta property="og:title" content="awe.lectures - Strategy Types">
+<meta property="og:description" content="What are generic strategies and what are they good for?">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de"> 
+<span class="menu-text">HNU</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Strategy Types</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Strategy Types</h1>
+            <p class="subtitle lead">What are generic strategies and what are they good for?</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author column-body">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Organisation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Andy Weeger </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Neu-Ulm University of Applied Sciences
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta column-body">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 1, 2023</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">February 19, 2024</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=19658" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia 🧐</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/strategy/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Strategy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/strategy-types/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Strategy Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/environment/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/capabilities/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Capabilities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/strategy-formation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Strategy Formation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/CSR/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ethics and Responsibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/structure/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/evaluation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Management Control</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/IT-strategy/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IS Strategy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/SM/23WT/case-study/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Case Study</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link active" data-scroll-target="#learning-outcomes">Learning outcomes</a></li>
+  <li><a href="#galbraith-and-schendel" id="toc-galbraith-and-schendel" class="nav-link" data-scroll-target="#galbraith-and-schendel">Galbraith and Schendel</a></li>
+  <li><a href="#ansoff" id="toc-ansoff" class="nav-link" data-scroll-target="#ansoff">Ansoff</a></li>
+  <li><a href="#porter" id="toc-porter" class="nav-link" data-scroll-target="#porter">Porter</a></li>
+  <li><a href="#mintzberg" id="toc-mintzberg" class="nav-link" data-scroll-target="#mintzberg">Mintzberg</a></li>
+  <li><a href="#blue-ocean-strategy" id="toc-blue-ocean-strategy" class="nav-link" data-scroll-target="#blue-ocean-strategy">Blue Ocean Strategy</a></li>
+  <li><a href="#review-and-consolidation" id="toc-review-and-consolidation" class="nav-link" data-scroll-target="#review-and-consolidation">Review and consolidation</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="learning-outcomes" class="level1">
+<h1>Learning outcomes</h1>
+<p>After this session, you should have a solid understanding of</p>
+<div class="incremental">
+<ul class="incremental">
+<li>different generic strategies as proposed by Ansoff, Porter and Mintzberg;</li>
+<li>the competitive characteristics that define the strategy types and their applicability;</li>
+<li>the significance of locating (and focusing on) the core business;</li>
+<li>the concepts of vertical and horizontal integration, internal and external growth; and</li>
+<li>the importance of trade-offs in strategic management;</li>
+</ul>
+</div>
+<p>You are able to apply the knowledge gained to real-life scenarios to describe and provide explanations for strategic decisions made by firms, particularly to develop initial guidance regarding the selection of an appropriate strategy.</p>
+</section>
+<section id="reflection" class="level1 unlisted unnumbered html-hidden" data-background-color="#000">
+<h1 class="unlisted unnumbered html-hidden" data-background-color="#000">Reflection</h1>
+<p>Before we start: Any questions or comments regarding the different types of corporate strategies outlined by <span class="citation" data-cites="galbraith1983empirical">Galbraith, Craig, and Schendel (<a href="#ref-galbraith1983empirical" role="doc-biblioref">1983</a>)</span> and my questions?</p>
+</section>
+<section id="galbraith-and-schendel" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Galbraith and Schendel</h1>
+<section id="overview" class="level2">
+<h2 data-anchor-id="overview">Overview</h2>
+<div class="html-hidden">
+<p>Consumer goods:</p>
+<div class="medium">
+<p><span class="fragment fade-in-then-semi-out">Harvest,</span> <span class="fragment fade-in-then-semi-out">builder,</span> <span class="fragment fade-in-then-semi-out">continuity,</span> <span class="fragment fade-in-then-semi-out">climber,</span> <span class="fragment fade-in-then-semi-out">niche &amp;</span> <span class="fragment fade-in-then-semi-out">cashout</span></p>
+</div>
+<p>Industrial products:</p>
+<div class="medium">
+<p><span class="fragment fade-in-then-semi-out">Low commitment,</span> <span class="fragment fade-in-then-semi-out">maintenance,</span> <span class="fragment fade-in-then-semi-out">growth &amp;</span> <span class="fragment fade-in-then-semi-out">niche</span></p>
+</div>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="galbraith1983empirical">Galbraith, Craig, and Schendel (<a href="#ref-galbraith1983empirical" role="doc-biblioref">1983</a>)</span> developed a typology of strategy encompassing six generic strategies for consumer goods and four for industrial products based on empirical data. The typology reaffirms that distinct, consistent, and recurring patterns of strategic behavior exist.</p>
+<section id="consumer-goods" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="consumer-goods">Consumer goods</h2>
+<dl>
+<dt>Harvest</dt>
+<dd>
+Organizations following a harvest strategy often prioritize maximizing short-term financial returns. They may reduce investments in growth and innovation. Characteristics: Emphasis on cost reduction, efficiency, and capitalizing on existing assets and market positions.
+</dd>
+<dt>Builder</dt>
+<dd>
+Organizations that actively seek growth opportunities and invest in expanding their market presence within consumer goods. Characteristics: Willingness to take risks, invest in R&amp;D and new ventures, and pursue aggressive growth strategies.
+</dd>
+<dt>Continuity</dt>
+<dd>
+Organizations that aim to maintain stability and continuity by avoiding major changes or risks within consumer goods. Characteristics: Preference for maintaining existing operations, market positions, and core business practices.
+</dd>
+<dt>Climber</dt>
+<dd>
+Organizations that aggressively pursue growth and expansion, often at a rapid pace. Characteristics: High-risk tolerance, willingness to enter new markets, and pursue growth opportunities aggressively.
+</dd>
+<dt>Niche</dt>
+<dd>
+Organizations that specialize in serving a narrow market segment or niche within consumer goods. Characteristics: Deep understanding of niche markets, customized products/services, and a focus on meeting specialized customer needs.
+</dd>
+<dt>Cashout</dt>
+<dd>
+Organizations that generate significant cash flows from established business units but may not actively seek growth. Characteristics: Emphasis on cash generation and profitability from mature products or services.
+</dd>
+</dl>
+</section>
+<section id="industrial-products" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="industrial-products">Industrial products</h2>
+<dl>
+<dt>Low commitment:</dt>
+<dd>
+Low commitment organizations maintain a minimal commitment to any particular strategy and may lack a clear strategic direction. Characteristics: Limited investment in strategic planning, unclear direction, and a lack of focus on specific strategic goals.
+</dd>
+<dt>Maintenance</dt>
+<dd>
+Maintenance-focused organizations prioritize preserving their existing market positions and may not actively seek growth. Characteristics: Emphasis on stability, efficiency, and maintaining current business operations.
+</dd>
+<dt>Growth</dt>
+<dd>
+Growth organizations prioritize growth and expansion as a central strategic objective. Characteristics: Willingness to invest in new markets, product development, and acquisitions to achieve growth targets.
+</dd>
+<dt>Niche</dt>
+<dd>
+Niche organizations operate within specialized market segments, similar to that uncovered for consumer goods. Characteristics: Narrow product line, with only marginal emphasis on promotional activities
+</dd>
+</dl>
+</section>
+</div>
+</section>
+</section>
+<section id="ansoff" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Ansoff</h1>
+<section id="overview-1" class="level2">
+<h2 data-anchor-id="overview-1">Overview</h2>
+<div class="r-stack html-hidden">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ansoff-1.svg" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1" title="The Ansoff-matrix [@ansoff1965corporate]"><img src="images/ansoff-1.svg" class="fragment figure-img" height="420" alt="The Ansoff-matrix (Ansoff 1965)"></a></p>
+<figcaption>The Ansoff-matrix <span class="citation" data-cites="ansoff1965corporate">(<a href="#ref-ansoff1965corporate" role="doc-biblioref">Ansoff 1965</a>)</span></figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ansoff-2.svg" class="lightbox" data-glightbox="description: .lightbox-desc-2" data-gallery="quarto-lightbox-gallery-2" title="&nbsp;"><img src="images/ansoff-2.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ansoff-3.svg" class="lightbox" data-glightbox="description: .lightbox-desc-3" data-gallery="quarto-lightbox-gallery-3" title="&nbsp;"><img src="images/ansoff-3.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ansoff-4.svg" class="lightbox" data-glightbox="description: .lightbox-desc-4" data-gallery="quarto-lightbox-gallery-4" title="&nbsp;"><img src="images/ansoff-4.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ansoff-5.svg" class="lightbox" data-glightbox="description: .lightbox-desc-5" data-gallery="quarto-lightbox-gallery-5" title="&nbsp;"><img src="images/ansoff-5.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ansoff.svg" class="lightbox" data-glightbox="description: .lightbox-desc-6" data-gallery="quarto-lightbox-gallery-6" title="&nbsp;"><img src="images/ansoff.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+</div>
+<div class="notes">
+<div id="fig-ansoff" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ansoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/ansoff.svg" class="lightbox" data-glightbox="description: .lightbox-desc-7" data-gallery="quarto-lightbox-gallery-7"><img src="images/ansoff.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ansoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The Ansoff-matrix <span class="citation" data-cites="ansoff1965corporate">(<a href="#ref-ansoff1965corporate" role="doc-biblioref">Ansoff 1965</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p>The Ansoff-matrix <span class="citation" data-cites="ansoff1965corporate">(<a href="#ref-ansoff1965corporate" role="doc-biblioref">Ansoff 1965</a>)</span> is a strategic framework that helps organizations consider growth strategies based on two key factors: products (what they offer) and markets (who they serve). The matrix consists of four growth strategies, each with its own focus.</p>
+<section id="strategies" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="strategies">Strategies</h2>
+<dl>
+<dt>Market penetration</dt>
+<dd>
+Organisations with a market penetration strategy aim to increase market share and sales within existing markets with existing products. They focus on selling more of their current products or services to their current customer base. This often involves tactics like price adjustments, marketing campaigns, or enhancing customer loyalty
+</dd>
+<dt>Market development</dt>
+<dd>
+Organizations pursuing market development strategy expand into new markets or customer segments with existing products. They seek to identify and enter new geographic regions or customer groups that haven’t been previously served. This could involve entering new countries, regions, or demographic segments.
+</dd>
+<dt>Product development</dt>
+<dd>
+Organizations with a product development strategy create and introduce new products or services into existing markets.They focus aim to leverage their existing market knowledge and customer base to introduce new products or services. This may involve research and development efforts or acquisitions of technologies or innovations.
+</dd>
+<dt>Diversification</dt>
+<dd>
+Organizations with a diversification strategy enter entirely new markets with new products or services. Diversification strategies are the most ambitious and risky. Organizations seek growth by both creating new offerings and entering new markets that are unrelated to their current business. Diversification can be either related (limited connection to current products or markets) or unrelated (no connection).
+</dd>
+</dl>
+</section>
+</div>
+</section>
+</section>
+<section id="porter" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Porter</h1>
+<section id="overview-2" class="level2">
+<h2 data-anchor-id="overview-2">Overview</h2>
+<div class="r-stack html-hidden">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/porter-1.svg" class="lightbox" data-glightbox="description: .lightbox-desc-8" data-gallery="quarto-lightbox-gallery-8" title="Porter’s three generic strategies [@porter1980competitive]"><img src="images/porter-1.svg" class="fragment figure-img" height="420" alt="Porter’s three generic strategies (Porter 1980)"></a></p>
+<figcaption>Porter’s three generic strategies <span class="citation" data-cites="porter1980competitive">(<a href="#ref-porter1980competitive" role="doc-biblioref">Porter 1980</a>)</span></figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/porter-2.svg" class="lightbox" data-glightbox="description: .lightbox-desc-9" data-gallery="quarto-lightbox-gallery-9" title="&nbsp;"><img src="images/porter-2.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/porter-3.svg" class="lightbox" data-glightbox="description: .lightbox-desc-10" data-gallery="quarto-lightbox-gallery-10" title="&nbsp;"><img src="images/porter-3.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/porter-4.svg" class="lightbox" data-glightbox="description: .lightbox-desc-11" data-gallery="quarto-lightbox-gallery-11" title="&nbsp;"><img src="images/porter-4.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/porter.svg" class="lightbox" data-glightbox="description: .lightbox-desc-12" data-gallery="quarto-lightbox-gallery-12" title="&nbsp;"><img src="images/porter.svg" class="fragment figure-img" height="420" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+</div>
+<div class="notes">
+<div id="fig-porter" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-porter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/porter.svg" class="lightbox" data-glightbox="description: .lightbox-desc-13" data-gallery="quarto-lightbox-gallery-13"><img src="images/porter.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-porter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Porter’s three generic strategies <span class="citation" data-cites="porter1980competitive">(<a href="#ref-porter1980competitive" role="doc-biblioref">Porter 1980</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p><span class="citation" data-cites="porter1980competitive">Porter (<a href="#ref-porter1980competitive" role="doc-biblioref">1980</a>)</span> proposed three generic strategies that organizations can pursue to gain a competitive advantage in their respective industries. These strategies are based on the scope of the target market and the competitive advantage sought.</p>
+<section id="strategies-1" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="strategies-1">Strategies</h2>
+<dl>
+<dt>Cost leadership strategy</dt>
+<dd>
+The cost leadership strategy centers on achieving the lowest production and delivery costs in an industry, enabling a company to offer products or services at competitive prices while maintaining profitability. Key elements include economies of scale, rigorous cost control, and pricing at or below industry averages. This strategy targets a broad market scope but comes with risks such as intense price competition and the potential need to sacrifice quality or innovation.
+</dd>
+<dt>Differentiation strategy</dt>
+<dd>
+The differentiation strategy focuses on creating unique and distinctive products or services that customers perceive as valuable and distinct from competitors. This uniqueness allows a company to command premium prices and build customer loyalty. It involves product innovation, effective branding and marketing, and a customer-centric approach. The target market is often broad, appealing to customers willing to pay more for differentiated offerings. However, sustaining differentiation requires ongoing investment and innovation.
+</dd>
+<dt>Focus strategy</dt>
+<dd>
+The focus strategy involves concentrating efforts on serving a specific market segment, niche, or customer group exceptionally well. By tailoring products, services, or solutions to meet the distinct needs of this chosen market, a company can excel within a narrow scope. Key aspects include market segmentation, specialization, and relationship building within the targeted segment. While the focus strategy minimizes exposure to broader market risks, it also makes the company vulnerable to changes in the chosen market and potential competition from larger players.
+</dd>
+</dl>
+</section>
+<section id="stuck-in-the-middle" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="stuck-in-the-middle">Stuck in the middle</h2>
+<p>Being <strong>stuck in the middle</strong> refers to a situation where a company attempts to pursue multiple generic strategies simultaneously without excelling in any one of them. This term is often used to describe a lack of clear strategic focus or a failure to achieve a competitive advantage through cost leadership, differentiation, or focus.</p>
+<p>Effective strategic management often involves making deliberate choices about which generic strategy to pursue and aligning the organization’s resources and activities accordingly. When a company tries to pursue multiple strategies without excelling in any of them, it may struggle to compete effectively in its industry.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Trade-offs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Trade-offs are necessary in order to secure a strategic position against activities that are incompatible. The essence of strategy is as much about choosing what not to do as choosing what to do <span class="citation" data-cites="mintzberg2014strategy">(<a href="#ref-mintzberg2014strategy" role="doc-biblioref">Mintzberg 2014</a>)</span>.</p>
+<p>Trade-offs arise for three reasons: 1. To avoid inconsistencies in image or reputation. 2. Different positions require different product configurations, equipment, skills, management systems, etc. 3. Due to limits on internal coordination and control.</p>
+<p>Positioning trade-offs are essential to strategy – they create the need for choice, and purposefully limit what a company offers. They deter ‘straddling’ and ‘repositioning’ by competitors.</p>
+</div>
+</div>
+</section>
+<section id="guidelines-david2016strategic" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="guidelines-david2016strategic">Guidelines <span class="citation" data-cites="david2016strategic">(<a href="#ref-david2016strategic" role="doc-biblioref">David and David 2016</a>)</span></h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">MP</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">MD</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">PD</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">D</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Market penetration:</p>
+<ul>
+<li>When current markets are not saturated with a particular product or service</li>
+<li>When the usage rate of present customers could be increased significantly</li>
+<li>When the market shares of major competitors have been declining while total industry sales have been increasing</li>
+<li>When the correlation between dollar sales and dollar marketing expenditures historically has been high</li>
+<li>When increased economies of scale provide major competitive advantages</li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Market development:</p>
+<ul>
+<li>When new channels of distribution are available that are reliable, inexpensive, and of good quality</li>
+<li>When an organization is very successful at what it does</li>
+<li>When new untapped or unsaturated markets exist</li>
+<li>When an organization has the needed capital and human resources to manage expanded operations</li>
+<li>When an organization has excess production capacity</li>
+<li>When an organization’s basic industry is rapidly becoming global in scope</li>
+</ul>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Product development:</p>
+<ul>
+<li>When an organization has successful products that are in the maturity stage of the product life cycle</li>
+<li>When an organization competes in an industry characterized by rapid technological developments</li>
+<li>When major competitors offer better-quality products at comparable prices</li>
+<li>When an organization competes in a high-growth industry</li>
+<li>When an organization has strong research and development capabilities</li>
+</ul>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Related diversification:</p>
+<ul>
+<li>When an organization competes in a no-growth or a slow-growth industry</li>
+<li>When adding new, but related, products would significantly enhance the sales of current products</li>
+<li>When new, but related, products could be offered at highly competitive prices</li>
+<li>When new, but related, products have seasonal sales levels that counterbalance an organization’s existing peaks and valleys</li>
+<li>When an organization’s products are currently in the declining stage of the product’s life cycle</li>
+<li>When an organization has a strong management team</li>
+</ul>
+<p>Unrelated diversification:</p>
+<ul>
+<li>When revenues derived from an organization’s current products would increase significantly by adding the new, unrelated products</li>
+<li>When an organization competes in a highly competitive or a no-growth industry, as indicated by low industry profit margins and returns</li>
+<li>When an organization’s present channels of distribution can be used to market the new products to current customers</li>
+<li>When the new products have countercyclical sales patterns compared to present products</li>
+<li>When an organization’s basic industry is experiencing declining annual sales and profits</li>
+<li>When an organization has the capital and managerial talent needed to compete successfully in a new industry</li>
+<li>When an organization has the opportunity to purchase an unrelated business that is an attractive investment opportunity</li>
+<li>When there exists financial synergy</li>
+<li>When existing markets for an organization’s present products are saturated</li>
+<li>When antitrust action could be charged against an organization that historically has concentrated on a single industry</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+</section>
+<section id="exercise" class="level2 unlisted unnumbered html-hidden" data-background-color="#000">
+<h2 class="unlisted unnumbered html-hidden" data-background-color="#000" data-anchor-id="exercise">Exercise</h2>
+<p>Form small groups, write down the definition and find examples for each of the following strategies:</p>
+<p><em>Forward integration, backward integration, horizontal integration, market penetration, market development, product development, and diversification</em></p>
+<p>Look at each example and find reasons for selecting the strategy—does it make sense?</p>
+<div class="notes">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 50%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Strategy</th>
+<th>Definition</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Forward Integration</td>
+<td>Gaining ownership or increased control over distributors or retailers</td>
+<td>Amazon began rapid delivery services in some U.S. cities.</td>
+</tr>
+<tr class="even">
+<td>Backward Integration</td>
+<td>Seeking ownership or increased control of a firm’s suppliers</td>
+<td>Starbucks purchased a coffee farm.</td>
+</tr>
+<tr class="odd">
+<td>Horizontal Integration</td>
+<td>Seeking ownership or increased control over competitors</td>
+<td>&amp;T acquired Susquehanna Bancshares.</td>
+</tr>
+<tr class="even">
+<td>Market Penetration</td>
+<td>Seeking increased market share for present products or services in present markets through greater marketing efforts</td>
+<td>Under Armour signed tennis champion Andy Murray to a 4-year, $23 million marketing deal.</td>
+</tr>
+<tr class="odd">
+<td>Market Development</td>
+<td>Introducing present products or services into new geographic area</td>
+<td>Gap opened its first five stores in China.</td>
+</tr>
+<tr class="even">
+<td>Product Development</td>
+<td>Seeking increased sales by improving present products or services or developing new ones</td>
+<td>Amazon just began offering its own line of baby diapers and wipes.</td>
+</tr>
+<tr class="odd">
+<td>Related Diversification</td>
+<td>Adding new but related products or services</td>
+<td>Facebook acquired the text-messaging firm WhatsApp for $19 billion.</td>
+</tr>
+<tr class="even">
+<td>Unrelated Diversification</td>
+<td>Adding new, unrelated products or services</td>
+<td>Kroger and Whole Foods Market are cooking meals, becoming restaurants.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="mintzberg" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Mintzberg</h1>
+<section id="overview-3" class="level2">
+<h2 data-anchor-id="overview-3">Overview</h2>
+<p>According to <span class="citation" data-cites="mintzberg1988generic">Mintzberg (<a href="#ref-mintzberg1988generic" role="doc-biblioref">1988</a>)</span> families of strategies can be divided into five broad groups:</p>
+<div class="html-hidden">
+<div class="medium">
+<p><span class="fragment fade-in-then-semi-out">Locating the core business,</span> <span class="fragment fade-in-then-semi-out">distinguishing the core business,</span> <span class="fragment fade-in-then-semi-out">elaborating the core business,</span> <span class="fragment fade-in-then-semi-out">extending the core business &amp;</span> <span class="fragment fade-in-then-saemi-out">reconceiving the core business</span></p>
+</div>
+</div>
+</section>
+<section id="strategies-2" class="level2 notes" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="strategies-2">Strategies</h2>
+<dl>
+<dt>Locating the core business:</dt>
+<dd>
+Focuses on identifying and concentrating on the core activities that define the organization’s essential business. This strategy involves a clear understanding of the core competencies and core products or services that the organization excels in. Resources are directed toward strengthening and emphasizing these core areas while potentially divesting from non-core activities.
+</dd>
+<dt>Distinguishing the core business</dt>
+<dd>
+Focuses on highlighting and differentiating the core business from competitors. Organizations pursuing this strategy work on creating unique selling propositions (USPs) for their core products or services. They aim to stand out in the market by emphasizing what makes their core offerings distinct and valuable to customers.
+</dd>
+<dt>Elaborating the core business</dt>
+<dd>
+Focuses on expanding and deepening the core business to explore related opportunities. This strategy involves seeking growth and diversification within the boundaries of the core business. Organizations may introduce new products or services that are closely aligned with their existing core competencies and customer base.
+</dd>
+<dt>Extending the core business:</dt>
+<dd>
+Focuses on broadening the core business by exploring new markets or customer segments. Organizations using this strategy look for opportunities to leverage their existing core capabilities and enter new markets or customer groups. It may involve geographical expansion or targeting different demographics.
+</dd>
+<dt>Reconceiving the core business</dt>
+<dd>
+Focuses on rethinking and transforming the core business to adapt to changing conditions. This strategy is about radical change and innovation. Organizations reassess their core business in response to significant shifts in the industry, technology, or market demands. It may involve redefining the core competencies and adopting a more disruptive approach.
+</dd>
+</dl>
+<section id="locating-the-core-business" class="level3">
+<h3 data-anchor-id="locating-the-core-business">Locating the core business</h3>
+<p>A business can be thought to exist at a junction in a network of industries <span class="citation" data-cites="mintzberg1988generic">(<a href="#ref-mintzberg1988generic" role="doc-biblioref">Mintzberg 1988</a>)</span>.</p>
+<ul>
+<li><strong>Upstream business strategy:</strong> the flow of the product seems to be divergent, from a basic material to a variety of uses for it. Upstream business tends to be technology and capital-intensive rather than people-intensive, and more inclined to search for advantage through low-cost than through high margins to favor sales push over market pull (e.g., Wieland producing copper semi-finished products).</li>
+<li><strong>Midstream business strategy:</strong> here the organization sits at the neck of an hour glass, drawing a variety of inputs into a single production process out of which flows the prpduct to a variety of users (e.g., Apple producing iPhones).</li>
+<li><strong>Downstream business strategy:</strong> here a wide variety of inputs converge into a narrow funnel (e.g., Mediamarkt selling many electronic products).</li>
+</ul>
+<p><span class="citation" data-cites="mintzberg1988generic">Mintzberg (<a href="#ref-mintzberg1988generic" role="doc-biblioref">1988</a>)</span> provides a way to analyze and prioritize the essential elements of an organization’s operations. This framework can help companies better understand where they should focus their efforts and resources to strengthen their core business and achieve competitive advantage.</p>
+</section>
+<section id="distinguishing-the-core-business" class="level3">
+<h3 data-anchor-id="distinguishing-the-core-business">Distinguishing the core business</h3>
+<p>The concept of “distinguishing the core business” refers to a strategic approach where an organization emphasizes and differentiates its central or core activities from other non-core or peripheral aspects of its operations. It involves</p>
+<ul>
+<li><strong>Identifying core activities:</strong> Before a company can distinguish its core business, it must first identify what its core activities or competencies are. These are the fundamental processes, products, or services that define the essence of the organization and contribute significantly to its success.</li>
+<li><strong>Focusing resources:</strong> Once the core activities are identified, the organization allocates a significant portion of its resources, such as talent, capital, and time, to support and strengthen these core elements. This focus ensures that the company excels in the areas that truly set it apart from competitors.</li>
+<li><strong>Emphasizing differentiation:</strong> Distinguishing the core business involves creating a clear distinction between what the organization does exceptionally well (its core) and what may be less critical or peripheral to its overall mission. This differentiation often involves developing unique capabilities, expertise, or product/service features that are valued by customers.</li>
+<li><strong>Strategic positioning:</strong> By emphasizing and differentiating the core business, the organization strategically positions itself as a leader or specialist in those core activities. This can help it compete more effectively, command premium prices, and build a strong brand reputation.</li>
+<li><strong>Resource allocation:</strong> The organization may channel a significant portion of its investments, both in terms of financial resources and talent, toward continuous improvement and innovation within the core business. This ongoing investment ensures that the core remains a source of competitive advantage.</li>
+</ul>
+<p>Porter’s framework of generic strategies constitute strategies to distinguish the core business. <em>Cost leadership</em> and <em>differentiation</em> align with the idea of distinguishing the core business by focusing on specific strengths, whether in cost efficiency or unique features. <em>Focus strategy</em> aligns with both concepts as it involves concentrating resources and efforts on a specific market segment or niche, which essentially becomes the organization’s core customer base.</p>
+</section>
+<section id="elaborating-the-core-business" class="level3">
+<h3 data-anchor-id="elaborating-the-core-business">Elaborating the core business</h3>
+<p>An organization can elaborate a business in a number of ways. It can develop its product offerings within that business, it can develop its market via new segments, new channels or new geographic areas, or it can simply push the same products more vigorously through the same markets. This relates well to the strategy types proposed by <span class="citation" data-cites="ansoff1965corporate">Ansoff (<a href="#ref-ansoff1965corporate" role="doc-biblioref">1965</a>)</span>:</p>
+<ul>
+<li>Penetration strategies</li>
+<li>Market development strategies (e.g., geographic extension)</li>
+<li>Product development strategies</li>
+<li>Diversification strategies</li>
+</ul>
+</section>
+<section id="extending-the-core-business" class="level3">
+<h3 data-anchor-id="extending-the-core-business">Extending the core business</h3>
+<p>Organizations might chose to extend their operating chains vertically or horizontally.</p>
+<ul>
+<li><strong>Vertical integration</strong> means backward or forward integration in the operating chain (downstream or upstream; i.e., chain integration strategies)
+<ul>
+<li><strong>Forward integration:</strong> gaining ownership or increased control over distributors or retailers</li>
+<li><strong>Backward integration:</strong> seeking ownership or increased control of a firm’s suppliers</li>
+</ul></li>
+<li><strong>Horizontal integration</strong> means seeking ownership or increased control over competitors in the saim value chain</li>
+</ul>
+<p>The business can be extended either by <strong>internal development</strong> or <strong>acquisition</strong>.</p>
+</section>
+<section id="reconceiving-the-core-business" class="level3">
+<h3 data-anchor-id="reconceiving-the-core-business">Reconceiving the core business</h3>
+<p>Business redefinition represents a complete reimagining of the core business. <span class="citation" data-cites="mintzberg1988generic">Mintzberg (<a href="#ref-mintzberg1988generic" role="doc-biblioref">1988</a>)</span> identifies three basic reconception strategies:</p>
+<ol type="1">
+<li><strong>Business redefinition strategy</strong> involves fundamentally redefining the organization’s purpose, identity, and core activities in response to changing market conditions or disruptive forces.</li>
+<li><strong>Business recombination strategy</strong> involves reconfiguring existing resources, capabilities, or business units in new and innovative ways to create value.</li>
+<li><strong>Core relocation strategy</strong> refers to shifting the primary focus and resources of the organization from one area or aspect of the business to another.</li>
+</ol>
+</section>
+</section>
+<section id="exercise-1" class="level2 unlisted unnumbered html-hidden" data-background-color="#000">
+<h2 class="unlisted unnumbered html-hidden" data-background-color="#000" data-anchor-id="exercise-1">Exercise</h2>
+<p>Extending the core business by means of integration strategies usually involve merging with or acquiring another firm.</p>
+<ol type="1">
+<li>What are benefits of merging with or acquiring another company?</li>
+<li>What risks involved in company acquisitions?</li>
+</ol>
+<div class="notes">
+<p>Benefits:</p>
+<ul>
+<li>To provide improved capacity utilization</li>
+<li>To make better use of the existing sales force</li>
+<li>To reduce managerial staff</li>
+<li>To gain economies of scale</li>
+<li>To smooth out seasonal trends in sales</li>
+<li>To gain access to new suppliers, distributors, customers, products, and creditors</li>
+<li>To gain new technology</li>
+<li>To gain market share</li>
+<li>To enter global markets</li>
+<li>To gain pricing power</li>
+<li>To reduce tax obligations</li>
+<li>To eliminate competitors</li>
+</ul>
+<p>Risks:</p>
+<ul>
+<li>Integration difficulties up and down the two value chains</li>
+<li>Taking on too much new debt the target firm owes or to buy the target</li>
+<li>Inability to achieve synergy</li>
+<li>Too much diversification</li>
+<li>Difficult to integrate different organizational cultures</li>
+<li>Reduced employee morale due to layoffs and relocations</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="blue-ocean-strategy" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Blue Ocean Strategy</h1>
+<section id="overview-4" class="level2">
+<h2 data-anchor-id="overview-4">Overview</h2>
+<div class="html-hidden">
+<p>Create and capture value without intense competition by means of</p>
+<div class="medium">
+<p><span class="fragment fade-in-then-semi-out">Identifying and converting noncustomers,</span> <span class="fragment fade-in-then-semi-out">four actions &amp;</span> <span class="fragment fade-in-then-semi-out">six paths</span></p>
+</div>
+</div>
+<div class="notes">
+<p>Blue ocean strategy is a business strategy framework that encourages organizations to seek new and uncontested market spaces, where they can create and capture value without intense competition. The “blue ocean” represents uncharted waters, free from the competition seen in the “red ocean,” which symbolizes saturated and highly competitive markets <span class="citation" data-cites="kim2005blue">(<a href="#ref-kim2005blue" role="doc-biblioref">Kim and Mauborgne 2005</a>)</span>.</p>
+<p>By applying the principles of blue ocean strategy, organizations can break away from head-to-head competition in overcrowded markets and discover new growth opportunities by creating innovative value propositions and appealing to new customer segments.</p>
+<section id="four-actions" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="four-actions">Four actions</h2>
+<p>Organizations are advised to consider four key questions to create a blue ocean strategy:</p>
+<ul>
+<li>What factors should be eliminated or reduced well below the industry standard?</li>
+<li>What factors should be raised well above the industry standard?</li>
+<li>What factors should be created that the industry has never offered?</li>
+<li>What factors should be reduced to the industry standard?</li>
+</ul>
+</section>
+<section id="six-paths" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="six-paths">Six paths</h2>
+<p>To identify new market spaces, organizations can explore six paths:</p>
+<ul>
+<li>Look across industries</li>
+<li>Look across strategic groups within industries</li>
+<li>Look across the chain of buyers</li>
+<li>Look across complementary product or service offerings</li>
+<li>Look across functional or emotional appeal to buyers</li>
+<li>Look across time</li>
+</ul>
+</section>
+<section id="noncustomers" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="noncustomers">Noncustomers</h2>
+<p>Identifying and converting noncustomers (those who are not currently served by the industry) into customers is a key aspect of blue ocean strategy.</p>
+<p><span class="citation" data-cites="kim2005blue">Kim and Mauborgne (<a href="#ref-kim2005blue" role="doc-biblioref">2005</a>)</span> categorize noncustomers into three tiers:</p>
+<dl>
+<dt>Soon-to-be noncustomers</dt>
+<dd>
+Soon-to-be noncustomers are individuals or entities that are not currently part of your customer base but are likely to become noncustomers in the near future if their needs or preferences are not addressed. These potential noncustomers are dissatisfied or frustrated with the existing offerings in the market. They might be experiencing unmet needs, inconveniences, or issues with current products or services.
+</dd>
+<dt>Refusing noncustomers</dt>
+<dd>
+Refusing noncustomers are individuals or entities that consciously choose not to engage with your industry or product category despite having alternatives available. These noncustomers have actively decided not to use the products or services within your industry due to reasons such as cost, inconvenience, or dissatisfaction with existing offerings. The goal with refusing noncustomers is to understand their objections or reasons for refusal and to find ways to eliminate those barriers or create offerings that align with their preferences. By doing so, organizations can convert refusing noncustomers into customers.
+</dd>
+<dt>Unexplored Noncustomers</dt>
+<dd>
+Unexplored noncustomers are individuals or entities who have never been considered as potential customers by your industry because they fall outside the traditional market boundaries. These noncustomers are often overlooked because they do not fit the typical customer profile or have unique needs that have not been addressed by existing products or services in the market. Identifying unexplored noncustomers opens up new market spaces. Organizations can tap into this untapped segment by innovating and creating products or services that cater specifically to the unmet needs and preferences of this group.
+</dd>
+</dl>
+<p>By understanding the unique characteristics and motivations of each group, organizations can develop value propositions that resonate with these noncustomers and convert them into loyal customers, thus moving away from crowded “red oceans” and into “blue oceans” of opportunity.</p>
+</section>
+</div>
+</section>
+</section>
+<section id="review-and-consolidation" class="level1">
+<h1>Review and consolidation</h1>
+<p>The following questions are designed to review and consolidate what you have learned and are a good starting point for preparing for the exam.</p>
+<div class="smaller">
+<ol type="1">
+<li>Define and discuss vertical integration (<em>or another generic strategy</em>)</li>
+<li>Give some guidelines when vertical integration (<em>or another generic strategy</em>) is an excellent strategy to pursue.</li>
+<li>What are advantages and disadvantages of vertical integration (<em>or another generic strategy</em>)?</li>
+<li>Define and give an example of a “blue ocean strategy.”</li>
+<li>Define and explain “first mover advantages.” To which generic strategies does it relate?</li>
+<li>Discuss whether it is best for a small firm to grow internally (organically) or to grow externally using means such as partnerships, joint ventures or mergers and acquisitions.</li>
+<li>Give reasons why so many companies are divesting (spinning off) key segments/divisions of the firm.</li>
+<li>Explain the following statement: <em>Unlike with cost leadership where a firm examines how to reduce costs along its value chain, with differentiation one looks to maximize value along each level of the value chain.</em></li>
+<li>Called de-integration, there appears to be a growing trend for firms to become less forward integrated. Discuss why.</li>
+<li>What conditions, externally and internally, would be desired/necessary for a firm to diversify?</li>
+<li>What are major benefits of acquiring another firm?</li>
+<li>Why is it not advisable to pursue too many strategies at once?</li>
+<li>There are cooperative and competitive strategies. What is the difference? What are advantages and disadvantages?</li>
+</ol>
+</div>
+<!--
+
+De-integration makes sense in industries that have global distributors.
+Companies today shop around, play one distributor against another, and go with the
+best deal. Global competition is also spurring firms to reduce their number of suppliers
+and to demand higher levels of service and quality from those they keep.
+
+-->
+</section>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<p>Read <span class="citation" data-cites="hallegatte2009strategies">Hallegatte (<a href="#ref-hallegatte2009strategies" role="doc-biblioref">2009</a>)</span> and make notes on following questions:</p>
+<div class="smaller">
+<ul>
+<li>Why should climate change be a strategic topic for contemporary firms?</li>
+<li>How does the article describe the uncertainty associated with climate change and its impacts?</li>
+<li>What are the implications of this uncertainty for businesses and organizations?</li>
+<li>What is robust decision-making in light of the climate change as proposed in the article?</li>
+<li>What are insights offered into how individuals, communities, and organizations can efficiently adapt to climate change? How can these insights inform and enhance the strategic management process?</li>
+<li>While only briefly mentioned in the article, economic evaluation is crucial in both climate adaptation and strategic management. How can organizations assess the cost-effectiveness of their strategies and make informed decisions about resource allocation in light of the many uncertainties of climate change?</li>
+<li>What are the five examples of practical strategies discussed in the article? Why are they particularly suited to coping with the high level of uncertainty that climate change is creating?</li>
+</ul>
+</div>
+</section>
+<section id="qa" class="level1 html-hidden unlisted vertical-center" data-background-color="#0333ff" data-background-image="../assets/bg.jpg">
+<h1 class="html-hidden unlisted vertical-center" data-background-color="#0333ff" data-background-image="../assets/bg.jpg">Q&amp;A</h1>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ansoff1965corporate" class="csl-entry" role="listitem">
+Ansoff, H. I. 1965. <em>Corporate Strategy: An Analytic Approach to Business Policy for Growth and Expansion</em>. McGraw-Hill.
+</div>
+<div id="ref-david2016strategic" class="csl-entry" role="listitem">
+David, F. R., and F. R. David. 2016. <em>Strategic Management: A Competitive Advantage Approach, Concepts and Cases, Global Edition</em>. Psychology Express. Pearson Education.
+</div>
+<div id="ref-galbraith1983empirical" class="csl-entry" role="listitem">
+Galbraith, Jay R., Cynthia A. Craig, and Dan Schendel. 1983. <span>“An Empirical Analysis of Strategy Types.”</span> <em>Strategic Management Journal</em> 4 (2): 153–73.
+</div>
+<div id="ref-hallegatte2009strategies" class="csl-entry" role="listitem">
+Hallegatte, Stéphane. 2009. <span>“Strategies to Adapt to an Uncertain Climate Change.”</span> <em>Global Environmental Change</em> 19 (2): 240–47.
+</div>
+<div id="ref-kim2005blue" class="csl-entry" role="listitem">
+Kim, W. C., and R. Mauborgne. 2005. <em>Blue Ocean Strategy: How to Create Uncontested Market Space and Make Competition Irrelevant</em>. BusinessPro Collection. Harvard Business School Press.
+</div>
+<div id="ref-mintzberg1988generic" class="csl-entry" role="listitem">
+Mintzberg, Henry. 1988. <span>“Generic Strategies: Toward a Comprehensive Framework.”</span> <em>Advances in Strategic Management</em> 5 (1): 1–67.
+</div>
+<div id="ref-mintzberg2014strategy" class="csl-entry" role="listitem">
+———. 2014. <em>The Strategy Process: Concepts, Contexts, Cases</em>. Pearson education.
+</div>
+<div id="ref-porter1980competitive" class="csl-entry" role="listitem">
+Porter, M. E. 1980. <em>Competitive Strategy: Techniques for Analyzing Industries and Competitors</em>. Free Press.
+</div>
+</div>
+
+
+<div class="hidden" aria-hidden="true">
+<span class="glightbox-desc lightbox-desc-1">The Ansoff-matrix <span class="citation" data-cites="ansoff1965corporate">(<a href="#ref-ansoff1965corporate" role="doc-biblioref">Ansoff 1965</a>)</span></span>
+<span class="glightbox-desc lightbox-desc-2">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-3">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-4">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-5">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-6">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-7">Figure&nbsp;1: The Ansoff-matrix <span class="citation" data-cites="ansoff1965corporate">(<a href="#ref-ansoff1965corporate" role="doc-biblioref">Ansoff 1965</a>)</span></span>
+<span class="glightbox-desc lightbox-desc-8">Porter’s three generic strategies <span class="citation" data-cites="porter1980competitive">(<a href="#ref-porter1980competitive" role="doc-biblioref">Porter 1980</a>)</span></span>
+<span class="glightbox-desc lightbox-desc-9">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-10">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-11">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-12">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-13">Figure&nbsp;2: Porter’s three generic strategies <span class="citation" data-cites="porter1980competitive">(<a href="#ref-porter1980competitive" role="doc-biblioref">Porter 1980</a>)</span></span>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","loop":false,"closeEffect":"zoom","selector":".lightbox"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
+
+
+
+
+</body></html>

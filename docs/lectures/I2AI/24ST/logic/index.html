@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+<meta name="dcterms.date" content="2024-02-12">
+
+<title>awe.lectures - Propositional Logics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="awe.lectures - Propositional Logics">
+<meta property="og:description" content="🧠 Introduction to AI">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de"> 
+<span class="menu-text">HNU</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Propositional Logics</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Propositional Logics</h1>
+            <p class="subtitle lead">🧠 Introduction to AI</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  <div class="quarto-title-meta-author column-body">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Organisation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author">Andy Weeger </p>
+    </div>
+    <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Neu-Ulm University of Applied Sciences
+            </p>
+        </div>
+    </div>
+
+  <div class="quarto-title-meta column-body">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 12, 2024</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">February 19, 2024</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">Moodle</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia 🧐</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/agents/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Agent Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/logic/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Propositional Logics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/probabilities/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probabilities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/learning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/genAI/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generative AI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/hybrid-intelligence/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hybrid Intelligence</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/24ST/ethics/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ethics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#logical-agents" id="toc-logical-agents" class="nav-link active" data-scroll-target="#logical-agents">Logical agents</a></li>
+  <li><a href="#the-wumpus-world" id="toc-the-wumpus-world" class="nav-link" data-scroll-target="#the-wumpus-world">The wumpus world</a></li>
+  <li><a href="#propositional-logic" id="toc-propositional-logic" class="nav-link" data-scroll-target="#propositional-logic">Propositional logic</a></li>
+  <li><a href="#propositional-proofs" id="toc-propositional-proofs" class="nav-link" data-scroll-target="#propositional-proofs">Propositional proofs</a></li>
+  <li><a href="#open-topics" id="toc-open-topics" class="nav-link" data-scroll-target="#open-topics">Open topics</a></li>
+  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up">Wrap-up</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">✏️ Exercises</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="logical-agents" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Logical agents</h1>
+<section id="search-limitations" class="level2">
+<h2 data-anchor-id="search-limitations">Search limitations</h2>
+<p>The problem-solving agents based on <strong>search algorithms</strong> know things, but only in a very limited, inflexible sense <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022, 226</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>They know what actions are available (<em>ACTIONS(s)</em>) and what the result of performing a specific action from a specific state will be (<em>RESULT(s,a)</em>). But they <strong>don’t know general facts</strong>.</li>
+<li>Using <strong>atomic representations</strong>, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states</li>
+<li>The goal can formally only be described as an <strong>explicit set of states</strong></li>
+</ul>
+</div>
+</section>
+<section id="logical-thought" class="level2">
+<h2 data-anchor-id="logical-thought">Logical thought</h2>
+<p>Until now, the focus has been on agents that act rationally. Often, however, rational action requires <strong>rational (logical) thought</strong> on the agent’s part.</p>
+<p>Relevant aspects of the environment must be represented in a <strong>knowledge base</strong> (KB), composed of <strong>sentences</strong> in knowledge representation language (e.g., logic).</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Each sentence represents some assertion about the world (<strong>semantics</strong>)</li>
+<li>The sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (<strong>syntax</strong>)</li>
+<li>Interaction with the KB through <em>ASK</em> and <em>TELL</em> operations (simplified)
+<ul class="incremental">
+<li><em>ASK</em>: asks the KB what action it should perform</li>
+<li><em>TELL</em>: tells the knowledge base what it perceives</li>
+</ul></li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Types of sentences
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Axioms</strong>: a sentence is taken as being given without being derived from other sentences</li>
+<li><strong>Inference</strong>: a sentence is derived from old sentence</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="propositional-logics" class="level2">
+<h2 data-anchor-id="propositional-logics">Propositional logics</h2>
+<p>Propositional logic (sometimes called zero-order logic) is a very simple logic systems<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Objects known as <strong>sentences</strong> or <strong>formulae</strong> encode information, which denote some statement about the world.</li>
+<li><strong>Atoms</strong> are basic sentences and the building blocks of propositional logic. They are usually denoted by “P, Q, R, S, …”, e.g.&nbsp;P might stand for “It is raining”.</li>
+<li>Atoms can combine with <strong>logical connectives</strong> such as “and, or, if then” to form more sentences called compound formulae.</li>
+<li>Through reasoning or <strong>inference</strong> new information can be derived based on existing knowledge about the world.</li>
+</ul>
+</div>
+</section>
+<section id="knowledge-based-agents" class="level2">
+<h2 data-anchor-id="knowledge-based-agents">Knowledge-based agents</h2>
+<div id="fig-kba" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kba-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/knowledgeBasedAgents.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-glightbox="description: .lightbox-desc-1"><img src="images/knowledgeBasedAgents.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kba-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A simplified illustration of a knowledge-based agent
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>A knowledge-based agent uses its knowledge base to</p>
+<ul>
+<li>represent its background knowledge,</li>
+<li>store its observations (i.e., percepts),</li>
+<li>derive actions, and</li>
+<li>store its executed actions.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="the-wumpus-world" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">The wumpus world</h1>
+<p>The example is taken from <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span></p>
+<section id="introduction" class="level2">
+<h2 data-anchor-id="introduction">Introduction</h2>
+<p>The <strong>wumpus world</strong> is an environment in which knowledge-based agents can show their worth.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>A cave consisting of rooms connected by passageways</li>
+<li>Wumpus is in one room, it eats anyone who enters its room</li>
+<li>Some rooms contain bottomless pits</li>
+<li>The goal is to survive, to find a heap of gold and to leave the cave</li>
+</ul>
+</div>
+</section>
+<section id="peas" class="level2">
+<h2 data-anchor-id="peas">PEAS</h2>
+<p>Let’s apply the PEAS concept to specify the task environment of the wumpus world (though we do not use the complete specification here).</p>
+<section id="performance-measure" class="level4">
+<h4 data-anchor-id="performance-measure">Performance measure</h4>
+<div class="incremental">
+<ul class="incremental">
+<li>+1,000 for finding the gold</li>
+<li>-1,000 for dying (falling into a pit or being eaten by the wumpus)</li>
+<li>-1 for each action taken</li>
+<li>The game ends either when the agents dies or finds the gold</li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="environment" class="level4">
+<h4 data-anchor-id="environment">Environment</h4>
+<div class="incremental">
+<ul class="incremental">
+<li>4 x 4 grid with walls surrounding the grid</li>
+<li>The agent always starts in <span class="math inline">\([1,1]\)</span></li>
+<li>The locations of gold and wumpus are chosen randomly (other than <span class="math inline">\([1,1]\)</span>)</li>
+<li>Each square other than <span class="math inline">\([1,1]\)</span> can be a pit, with probability .2</li>
+<li>There is a ladder to leave the cave in square <span class="math inline">\([1,1]\)</span></li>
+</ul>
+</div>
+</section>
+<section id="actuators" class="level4 fragment">
+<h4 class="fragment" data-anchor-id="actuators">Actuators</h4>
+<div class="incremental">
+<ul class="incremental">
+<li>Move (<em>Go forward</em>, <em>turn right by 90°</em>, <em>turn left by 90°</em>)</li>
+<li>Grab (<em>pick up an object in the same square</em>)</li>
+<li>Leave the cave (<em>only works in square</em> <span class="math inline">\([1,1]\)</span>)</li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="sensors" class="level4">
+<h4 data-anchor-id="sensors">Sensors</h4>
+<div class="incremental">
+<ul class="incremental">
+<li>In the square containing the wumpus and in the directly adjacent squares, the agent perceives a <em>stench</em></li>
+<li>In the squares neighboring a pit, the agent perceives a <em>breeze</em></li>
+<li>In the square where the gold is, the agent perceives a <em>glitter</em></li>
+<li>When the agent walks into a wall, it perceives a <em>bump</em></li>
+</ul>
+</div>
+<p>Percepts are represented as a 4-tuple, e.g.,<br>
+<span class="math inline">\([Stench, Breeze, Glitter, None]\)</span></p>
+<div class="notes">
+<p>The PEAS can be characterized as <em>deterministic, discrete, static, and single-agent</em></p>
+</div>
+</section>
+</section>
+<section id="a-sample-configuration" class="level2">
+<h2 data-anchor-id="a-sample-configuration">A sample configuration</h2>
+<div class="columns">
+<div class="column">
+<div id="fig-wumpusWorld" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wumpusWorld-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/wumpusWorld.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" data-glightbox="description: .lightbox-desc-2"><img src="images/wumpusWorld.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wumpusWorld-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A typical wumpus world
+</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<p>A typical wumpus world</p>
+<div class="incremental">
+<ul class="incremental">
+<li>The agent is in the bottom left corner <span class="math inline">\([1,1]\)</span>, facing east (rightward)</li>
+<li>There are three pits in the world (<span class="math inline">\([4,4]\)</span>,<span class="math inline">\([3,3]\)</span>, and <span class="math inline">\([3,1]\)</span>)</li>
+<li>Wumpus is in room <span class="math inline">\([1,3]\)</span></li>
+<li>The gold is in room <span class="math inline">\([2,3]\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="exploration" class="level2">
+<h2 data-anchor-id="exploration">Exploration</h2>
+<div class="r-stack html-hidden">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ww-0.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" data-glightbox="description: .lightbox-desc-3" title="Moving in the wumpus world"><img src="images/ww-0.svg" class="quarto-figure quarto-figure-left figure-img" height="400" alt="Moving in the wumpus world"></a></p>
+<figcaption>Moving in the wumpus world</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ww-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" data-glightbox="description: .lightbox-desc-4" title="&nbsp;"><img src="images/ww-1.svg" class="fragment quarto-figure quarto-figure-left figure-img" height="400" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ww-2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" data-glightbox="description: .lightbox-desc-5" title="&nbsp;"><img src="images/ww-2.svg" class="fragment quarto-figure quarto-figure-left figure-img" height="400" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><a href="images/ww-3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" data-glightbox="description: .lightbox-desc-6" title="&nbsp;"><img src="images/ww-3.svg" class="fragment quarto-figure quarto-figure-left figure-img" height="400" alt="&nbsp;"></a></p>
+<figcaption>&nbsp;</figcaption>
+</figure>
+</div>
+</div>
+<div class="notes">
+<div id="fig-ww-1" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ww-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/ww-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" data-glightbox="description: .lightbox-desc-7"><img src="images/ww-1.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ww-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Moving from [1,1] to [2,1]
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Left:</strong> The initial situation after percept <span class="math inline">\([None,None,None,None]\)</span></li>
+<li><strong>Right:</strong> After moving to <span class="math inline">\([2,1]\)</span> and perceiving <span class="math inline">\([None,Breeze,None,None]\)</span></li>
+</ul>
+<div id="fig-ww-3" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ww-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/ww-3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" data-glightbox="description: .lightbox-desc-8"><img src="images/ww-3.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ww-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Moving from [1,2] to [2,3]
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Left:</strong> After moving to <span class="math inline">\([1,1]\)</span> and then <span class="math inline">\([1,2]\)</span>, and perceiving <span class="math inline">\([Stench,None,None,None]\)</span></li>
+<li><strong>Right:</strong> After moving to <span class="math inline">\([2,2]\)</span> and then <span class="math inline">\([2,3]\)</span>, and perceiving <span class="math inline">\([Stench,Breeze,Glitter,None]\)</span></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="propositional-logic" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Propositional logic</h1>
+<section id="basic-syntax" class="level2">
+<h2 data-anchor-id="basic-syntax">Basic syntax</h2>
+<p><strong>Propositions</strong> are the building blocks of propositional logic.</p>
+<p><strong>Atomic sentences</strong> consist of a single proposition symbol, that can be <code>true</code> or <code>false</code>, e.g.,</p>
+<ul>
+<li><span class="math inline">\(BlockRed\)</span> — <em>The block is red</em></li>
+<li><span class="math inline">\(W_{1,3}\)</span> — <em>The wumpus is in</em> <span class="math inline">\([1,3]\)</span></li>
+</ul>
+<p>The logical connectives <code>and</code> <span class="math inline">\(\land\)</span>, <code>or</code> <span class="math inline">\(\lor\)</span>, <code>not</code> <span class="math inline">\(\neg\)</span>, <code>implies</code> <span class="math inline">\(\implies\)</span>, and <code>if and only if</code> <span class="math inline">\(\iff\)</span> can be used to build <strong>complex sentences</strong>.</p>
+<p>Operator precedence: <span class="math inline">\(\neg, \land, \lor, \implies, \iff\)</span> (use brackets when necessary)</p>
+<div class="notes">
+<section id="logical-connectives" class="level3">
+<h3 data-anchor-id="logical-connectives">Logical connectives</h3>
+<p>Logical connectives (also called logical operators) are symbols or words used to connect two or more sentences (of either a formal or a natural language) in a grammatically valid way, such that the value of the compound sentence produced depends only on that of the original sentences and on the meaning of the connective.</p>
+<section id="conjunction-and" class="level4">
+<h4 data-anchor-id="conjunction-and">Conjunction (and)</h4>
+<p><span class="math inline">\(P \land Q\)</span></p>
+<p>Sentence letters are called <strong>conjuncts</strong>; the two conjuncts can be reversed and retain the original meaning.</p>
+</section>
+<section id="disjunction-or" class="level4">
+<h4 data-anchor-id="disjunction-or">Disjunction (or)</h4>
+<p><span class="math inline">\(P \lor Q\)</span></p>
+<p>Sentences letters are called <strong>disjuncts</strong>; the two disjuncts can be reversed and retain the original meaning. The disjunction is always understood inclusively as an or/and; that is, P might entail, Q might entail, or both P and Q might entail.</p>
+</section>
+<section id="negation-not" class="level4">
+<h4 data-anchor-id="negation-not">Negation (not)</h4>
+<p><span class="math inline">\(\neg P\)</span></p>
+<p>A negated atomic sentence is called a <strong>negative literal</strong>.</p>
+</section>
+<section id="implication" class="level4">
+<h4 data-anchor-id="implication">Implication</h4>
+<p><span class="math inline">\(P \implies Q\)</span></p>
+<p>The first sentence letter is called <strong>antecedent</strong> and second is called <strong>consequent</strong>. The antecedent and consequent cannot be reversed and still retain its original meaning. Implications are also known as rules of if-then statements.</p>
+</section>
+<section id="biconditional-if-and-only-if-iff" class="level4">
+<h4 data-anchor-id="biconditional-if-and-only-if-iff">Biconditional (if and only if, iff)</h4>
+<p><span class="math inline">\(P \iff Q\)</span></p>
+<p>The biconditional combines a conditional relation between P and Q and its reverse. Sentence letters are called “biconditions”; the two biconditions can be reversed and retain the original meaning.</p>
+</section>
+</section>
+<section id="truth-tables" class="level3">
+<h3 data-anchor-id="truth-tables">Truth tables</h3>
+<div id="tbl-ttConnectives" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-ttConnectives-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(\alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\neg \alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \land \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \lor \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \implies \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \iff \beta\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">false</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">false</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;">false</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-ttConnectives-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Truth tables for the five logical connectives
+</figcaption>
+</figure>
+</div>
+</section>
+</div>
+</section>
+<section id="exercise-1" class="level2 html-hidden unlisted" data-background-color="#efefef">
+<h2 class="html-hidden unlisted" data-background-color="#efefef" data-anchor-id="exercise-1">Exercise 1</h2>
+<p>Explain the logical operators to each other and complete following truth table.</p>
+<div class="smaller">
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(\alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\neg \alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \land \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \lor \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \implies \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \iff \beta\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="basic-semantics" class="level2">
+<h2 data-anchor-id="basic-semantics">Basic semantics</h2>
+<p>Atomic propositions can be <code>true</code> or <code>false</code>.</p>
+<p>The truth of a formula follows from the truth of its atomic propositions (<strong>truth assignment</strong> or <strong>interpretation</strong>) and the connectives.</p>
+<p>Examples:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\((P \lor Q) \land R\)</span>
+<ul class="incremental">
+<li>If P and Q are false and R is true, the formula is false</li>
+<li>If P and R are true, the formula is true regardless of what Q is</li>
+</ul></li>
+<li><span class="math inline">\(B_{2,1} \iff (P_{2,2} \lor P_{3,1})\)</span>
+<ul class="incremental">
+<li>A square is breezy if a neighboring square has a pit,<br>
+and a square is breezy only if a neighboring square has a pit</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="a-simple-kb" class="level2">
+<h2 data-anchor-id="a-simple-kb">A simple KB</h2>
+<section id="symbols" class="level4">
+<h4 data-anchor-id="symbols">Symbols</h4>
+<p>If we focus on the immutable aspects of the wumpus world, we need the following symbols for each <span class="math inline">\([x,y]\)</span> location</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(P_{x,y}\)</span> is true if there is a pit in <span class="math inline">\([x,y]\)</span></li>
+<li><span class="math inline">\(W_{x,y}\)</span> is true if there is a wumpus in <span class="math inline">\([x,y]\)</span>, dead or alive</li>
+<li><span class="math inline">\(B_{x,y}\)</span> is true if there is a breeze in <span class="math inline">\([x,y]\)</span></li>
+<li><span class="math inline">\(S_{x,y}\)</span> is true if there is a stench in <span class="math inline">\([x,y]\)</span></li>
+<li><span class="math inline">\(L_{x,y}\)</span> is true if the agent is in location <span class="math inline">\([x,y]\)</span></li>
+</ul>
+</div>
+<hr>
+</section>
+<section id="sentences" class="level4">
+<h4 data-anchor-id="sentences">Sentences</h4>
+<div class="columns">
+<div class="column">
+<div id="fig-wumpusWorld-3" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wumpusWorld-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/wumpusWorld-4.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" data-glightbox="description: .lightbox-desc-9"><img src="images/wumpusWorld-4.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wumpusWorld-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: The situation reflected by the sentences
+</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<p>Following sentences<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> reflect the <span class="math inline">\(KB\)</span> for the situation depicted in <a href="#fig-wumpusWorld-3" class="quarto-xref">Figure&nbsp;5</a> where the agent has moved to <span class="math inline">\([2,1]\)</span> and received the precepts below:</p>
+<p><span class="math inline">\([None,Breeze,None,None]\)</span></p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(R_1: \neg P_{1,1}\)</span></li>
+<li><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})\)</span></li>
+<li><span class="math inline">\(R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})\)</span></li>
+<li><span class="math inline">\(R_4: \neg B_{1,1}\)</span></li>
+<li><span class="math inline">\(R_5: B_{2,1}\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="a-simple-inference" class="level2">
+<h2 data-anchor-id="a-simple-inference">A simple inference</h2>
+<p>Our goal is to decide wether <span class="math inline">\(KB \models \alpha\)</span><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> for some sentence <span class="math inline">\(\alpha\)</span>,<br>
+e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <span class="math inline">\(KB\)</span> (and, thus, a safe place to move)?</p>
+<p><strong>Model checking</strong> enumerates all possible models to check that <span class="math inline">\(\alpha\)</span> is true in every model in which <span class="math inline">\(KB\)</span> is true<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>Example (the agent has just moved to <span class="math inline">\([2,1]\)</span>):</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Given current proposition symbols there are 2<sup>7</sup> = 128 possible models<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
+<li>In three of these models <span class="math inline">\(R_1\)</span> to <span class="math inline">\(R_5\)</span> (the current KB) are true</li>
+<li>In all of these three models, <span class="math inline">\(P_{1,2}\)</span> is false</li>
+<li>So we can say, there is not pit in <span class="math inline">\([1,2]\)</span></li>
+<li>Only two of the three models, <span class="math inline">\(P_{2,2}\)</span> is true</li>
+<li>So we cannot yet tell whether there is a pit in <span class="math inline">\([2,2]\)</span></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="propositional-proofs" class="level1 vertical-center page-columns page-full" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Propositional proofs</h1>
+<section id="introduction-1" class="level2">
+<h2 data-anchor-id="introduction-1">Introduction</h2>
+<p>Entailment by the <span class="math inline">\(KB\)</span> (or logical consequence) can also be done by <strong>theorem proving</strong>.</p>
+<p><strong>Theorem proving</strong> means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.</p>
+<p>For large number of models and short length of proofs, theorem proving <strong>can be more efficient</strong> than model checking.</p>
+</section>
+<section id="additional-concepts" class="level2">
+<h2 data-anchor-id="additional-concepts">Additional concepts</h2>
+<dl>
+<dt>Logical equivalence</dt>
+<dd>
+<p>Two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, i.e. <span class="math inline">\(\alpha \equiv \beta\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+</dd>
+</dl>
+<dl>
+<dt>Validity</dt>
+<dd>
+<p>A sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+</dd>
+</dl>
+<dl>
+<dt>Deduction theorem</dt>
+<dd>
+<p>For any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+</dd>
+</dl>
+<dl>
+<dt>Satisfiability</dt>
+<dd>
+<p>A sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+</dd>
+</dl>
+<p>Validity and satisfiability are connected:<br>
+<span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+</section>
+<section id="standard-logical-equivalences" class="level2 page-columns page-full" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="standard-logical-equivalences">Standard logical equivalences</h2>
+<div class="column-page-inset-right">
+<div id="tbl-equiv" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-equiv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Commutativity of</strong> <span class="math inline">\(\land\)</span> <strong>and</strong> <span class="math inline">\(\lor\)</span></td>
+<td><span class="math inline">\(\alpha \land \beta \equiv \beta \land \alpha\)</span></td>
+<td><span class="math inline">\(\alpha \lor \beta \equiv \beta \lor \alpha\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Associativity of</strong> <span class="math inline">\(\land\)</span> <strong>and</strong> <span class="math inline">\(\lor\)</span></td>
+<td><span class="math inline">\((\alpha \land \beta) \land \gamma \equiv \alpha \land (\beta \land \gamma)\)</span></td>
+<td><span class="math inline">\((\alpha \lor \beta) \lor \gamma \equiv \alpha \lor (\beta \lor \gamma)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Double negation elimination</strong></td>
+<td><span class="math inline">\(\neg(\neg\alpha) \equiv \alpha\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Contraposition</strong></td>
+<td><span class="math inline">\(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Implication elimination</strong></td>
+<td><span class="math inline">\(\alpha \implies \beta \equiv \neg \alpha \lor \beta\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Biconditional elimination</strong></td>
+<td><span class="math inline">\(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>De Morgan</strong></td>
+<td><span class="math inline">\(\neg(\alpha \land \beta) \equiv \neg \alpha \lor \neg \beta\)</span></td>
+<td><span class="math inline">\(\neg(\alpha \lor \beta) \equiv \neg \alpha \land \neg \beta\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Distributivity of</strong> <span class="math inline">\(\land\)</span> <strong>over</strong> <span class="math inline">\(\lor\)</span> <strong>and vice versa</strong></td>
+<td><span class="math inline">\(\alpha \land (\beta \lor \gamma) \equiv (\alpha \land \beta) \lor (\alpha \land \gamma)\)</span></td>
+<td><span class="math inline">\(\alpha \lor (\beta \land \gamma) \equiv (\alpha \lor \beta) \land (\alpha \lor \gamma)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-equiv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Logical equivalences (the symbols <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\gamma\)</span> stand for arbitrary sentences of propositional logic)
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level2 html-hidden unlisted" data-background-color="#efefef">
+<h2 class="html-hidden unlisted" data-background-color="#efefef" data-anchor-id="exercise-2">Exercise 2</h2>
+<div class="html-hidden">
+<p>Check the following equivalences.<br>
+If you have issues of understanding, try to find a real life example.</p>
+</div>
+<div class="smaller">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Commutativity of</strong> <span class="math inline">\(\land\)</span> <strong>and</strong> <span class="math inline">\(\lor\)</span></td>
+<td><span class="math inline">\(\alpha \land \beta \equiv \beta \land \alpha\)</span></td>
+<td><span class="math inline">\(\alpha \lor \beta \equiv \beta \lor \alpha\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Associativity of</strong> <span class="math inline">\(\land\)</span> <strong>and</strong> <span class="math inline">\(\lor\)</span></td>
+<td><span class="math inline">\((\alpha \land \beta) \land \gamma \equiv \alpha \land (\beta \land \gamma)\)</span></td>
+<td><span class="math inline">\((\alpha \lor \beta) \lor \gamma \equiv \alpha \lor (\beta \lor \gamma)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Double negation elimination</strong></td>
+<td><span class="math inline">\(\neg(\neg\alpha) \equiv \alpha\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Contraposition</strong></td>
+<td><span class="math inline">\(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Implication elimination</strong></td>
+<td><span class="math inline">\(\alpha \implies \beta \equiv \neg \alpha \lor \beta\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Biconditional elimination</strong></td>
+<td><span class="math inline">\(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>De Morgan</strong></td>
+<td><span class="math inline">\(\neg(\alpha \land \beta) \equiv \neg \alpha \lor \neg \beta\)</span></td>
+<td><span class="math inline">\(\neg(\alpha \lor \beta) \equiv \neg \alpha \land \neg \beta\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Distributivity of</strong> <span class="math inline">\(\land\)</span> <strong>over</strong> <span class="math inline">\(\lor\)</span> <strong>and vice versa</strong></td>
+<td><span class="math inline">\(\alpha \land (\beta \lor \gamma) \equiv (\alpha \land \beta) \lor (\alpha \land \gamma)\)</span></td>
+<td><span class="math inline">\(\alpha \lor (\beta \land \gamma) \equiv (\alpha \lor \beta) \land (\alpha \lor \gamma)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="inference-rules" class="level2">
+<h2 data-anchor-id="inference-rules">Inference rules</h2>
+<p>Following <strong>inference rules</strong><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Modus Ponens</strong><a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>: <span class="math inline">\(\frac{\alpha \implies \beta, \ \alpha}{\beta}\)</span><br>
+The sentence <span class="math inline">\(\beta\)</span> can be inferred, whenever sentences of the form <span class="math inline">\(\alpha \implies \beta\)</span> and <span class="math inline">\(\alpha\)</span> are given<br>
+<span class="fragment">(e.g., “A implies B” is true, and “A” is true, then “B” must also be true.)</span></li>
+<li><strong>And-Elimination</strong> (Conjunction Elimination): <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span><br>
+From a conjunction, any of the conjuncts can be inferred<br>
+<span class="fragment">(e.g., If both “P and Q” are true, then “P” must be true and “Q” must be true)</span></li>
+</ul>
+</div>
+<p>All <strong>logical equivalences</strong> can be used as inference rules</p>
+</section>
+<section id="example-wumpus-world" class="level2">
+<h2 data-anchor-id="example-wumpus-world">Example (wumpus world)</h2>
+<p>Rules of the game:</p>
+<ul>
+<li><span class="math inline">\(R_1: \neg P_{1,1}\)</span></li>
+<li><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})\)</span></li>
+<li><span class="math inline">\(R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})\)</span></li>
+</ul>
+<p>The agent is in <span class="math inline">\([1,1]\)</span> and has received following precepts:</p>
+<ul>
+<li><span class="math inline">\(R_4: \neg B_{1,1}\)</span></li>
+</ul>
+<p><strong>Question:</strong> is there pit in<span class="math inline">\([1,2]\)</span> or <span class="math inline">\([2,1]\)</span>?</p>
+<p>Using logical inference and the <span class="math inline">\(KB\)</span> containing <span class="math inline">\(R_1\)</span> to <span class="math inline">\(R_4\)</span>, we prove that <span class="math inline">\(\neg P_{1,2} \land \neg P_{2,1}\)</span></p>
+<hr>
+<section id="biconditional-elimination-to-r_2" class="level4">
+<h4 data-anchor-id="biconditional-elimination-to-r_2">1. Biconditional elimination to <span class="math inline">\(R_2\)</span></h4>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})\)</span><br>
+</li>
+<li><span class="math inline">\(\alpha \equiv B_{1,1}\)</span><br>
+</li>
+<li><span class="math inline">\(\beta \equiv P_{1,2} \lor P_{2,1}\)</span><br>
+</li>
+<li>Apply <span class="math inline">\(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\)</span></li>
+</ul>
+</div>
+<p><strong>Inference:</strong> <span class="math inline">\(R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})\)</span></p>
+<hr>
+</section>
+<section id="and-elimination-to-r_6" class="level4">
+<h4 data-anchor-id="and-elimination-to-r_6">2. And-Elimination to <span class="math inline">\(R_6\)</span></h4>
+<p><span class="math inline">\(R_7\)</span> can be inferred from <span class="math inline">\(R_6\)</span> as follows:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(R_6 : (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})\)</span></li>
+<li><span class="math inline">\(\alpha \equiv B_{1,1} \implies (P_{1,2} \lor P_{2,1})\)</span><br>
+</li>
+<li><span class="math inline">\(\beta \equiv (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span><br>
+</li>
+<li>Apply <span class="math inline">\(\frac{\alpha \land \beta}{\beta}\)</span> (<em>And-Elimination</em>)</li>
+</ul>
+</div>
+<p><strong>Inference:</strong> <span class="math inline">\(R_7 : (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span></p>
+<hr>
+</section>
+<section id="logical-equivalence-for-contrapositives-r_7" class="level4">
+<h4 data-anchor-id="logical-equivalence-for-contrapositives-r_7">3. Logical equivalence for contrapositives (<span class="math inline">\(R_7\)</span>)</h4>
+<p><span class="math inline">\(R_8\)</span> can be inferred from <span class="math inline">\(R_7\)</span> as follows:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(R_7 : (P_{1,2} \lor P_{2,1}) \implies B_{1,1}\)</span></li>
+<li><span class="math inline">\(\alpha \equiv P_{1,2} \lor P_{2,1}\)</span></li>
+<li><span class="math inline">\(\beta \equiv B_{1,1}\)</span></li>
+<li>Apply <span class="math inline">\(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\)</span></li>
+</ul>
+</div>
+<p><strong>Inference:</strong> <span class="math inline">\(R_8 : \neg B_{1,1} \implies \neg (P_{1,2} \lor P_{2,1})\)</span></p>
+<hr>
+</section>
+<section id="modus-ponens-with-r_8-and-the-r_4" class="level4">
+<h4 data-anchor-id="modus-ponens-with-r_8-and-the-r_4">4. Modus Ponens with <span class="math inline">\(R_8\)</span> and the <span class="math inline">\(R_4\)</span></h4>
+<p><span class="math inline">\(R_9\)</span> can be inferred from <span class="math inline">\(R_8\)</span> and <span class="math inline">\(R_4\)</span> as follows:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(R_8 : \neg B_{1,1} \implies \neg (P_{1,2} \lor P_{2,1})\)</span></li>
+<li><span class="math inline">\(\alpha \equiv \neg B_{1,1}\)</span></li>
+<li><span class="math inline">\(\beta \equiv \neg (P_{1,2} \lor P_{2,1})\)</span></li>
+<li>Apply Modus Ponens[^13] <span class="math inline">\(\frac{\alpha \implies \beta, \ \alpha}{\beta}\)</span><br>
+</li>
+<li>As <span class="math inline">\(\neg B_{1,1}\)</span> (<span class="math inline">\(R_4\)</span>) is given, <span class="math inline">\(R_9\)</span> can be inferred</li>
+</ul>
+</div>
+<p><strong>Inference:</strong> <span class="math inline">\(R_9 : \neg (P_{1,2} \lor P_{2,1})\)</span></p>
+<hr>
+</section>
+<section id="apply-de-morgans-rule-giving-the-conclusion" class="level4">
+<h4 data-anchor-id="apply-de-morgans-rule-giving-the-conclusion">5. Apply De Morgan’s rule, giving the conclusion</h4>
+<p>The conclusion (<span class="math inline">\(R_{10}\)</span>) can be inferred from <span class="math inline">\(R_9\)</span> as follows:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(R_9 : \neg (P_{1,2} \lor P_{2,1})\)</span></li>
+<li><span class="math inline">\(\alpha \equiv P_{1,2}\)</span></li>
+<li><span class="math inline">\(\beta \equiv P_{2,1}\)</span></li>
+<li>Apply <span class="math inline">\(\neg(\alpha \lor \beta) \equiv (\neg \alpha \land \neg \beta)\)</span></li>
+</ul>
+</div>
+<p><strong>Inference:</strong> <span class="math inline">\(R_{10} : \neg P_{1,2} \land \neg P_{2,1}\)</span></p>
+<p>Neither <span class="math inline">\([1,2]\)</span> nor <span class="math inline">\([2,1]\)</span> contains a pit.</p>
+</section>
+</section>
+<section id="search-algorithms" class="level2">
+<h2 data-anchor-id="search-algorithms">Search algorithms</h2>
+<p>Search algorithms can be used to find a sequence of steps that constitutes a proof.</p>
+<p>The proof problem is defined as follows:</p>
+<dl>
+<dt>Initial state</dt>
+<dd>
+The initial knowledge database
+</dd>
+</dl>
+<dl>
+<dt>Actions</dt>
+<dd>
+All the inference rules applied to all the sentences in the <span class="math inline">\(KB\)</span>
+</dd>
+</dl>
+<dl>
+<dt>Result</dt>
+<dd>
+Add the inferred sentence to the knowledge base (<span class="math inline">\(KB\)</span>)
+</dd>
+</dl>
+<dl>
+<dt>Goal</dt>
+<dd>
+A state that contains the sentence we are trying to prove
+</dd>
+</dl>
+</section>
+</section>
+<section id="open-topics" class="level1">
+<h1>Open topics</h1>
+<p><strong>Completeness</strong> (if the available inference rules are inadequate, the goal is not reachable)</p>
+<p>Level of <strong>complexity</strong> (though propositional logic suffices to represent the wumpus world), e.g.,</p>
+<ul>
+<li>Inference rules must be set up for <strong>each square</strong> (expansion of the rule set)</li>
+<li>We need a <strong>time index</strong> for each proposition that refer to an aspect of the world that is subject to change (further expansion of the rule set)</li>
+</ul>
+<p><strong>Efficiency</strong> of inference algorithms</p>
+<p>For further information on these and other matters, please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span></p>
+</section>
+<section id="wrap-up" class="level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Wrap-up</h1>
+<section id="summary" class="level2">
+<h2 data-anchor-id="summary">Summary</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>Rational agents require <strong>knowledge of their world</strong> to make rational decisions</li>
+<li>With the help of a (knowledge) <strong>representation language</strong>, this knowledge is represented and stored in a <strong>knowledge base</strong> in the form of <strong>sentences</strong></li>
+<li>A representation language is defined by its <strong>syntax</strong><a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> and its <strong>semantics</strong><a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></li>
+<li><strong>Inference</strong> is the process of deriving new sentences from old ones</li>
+<li><strong>Propositional logic</strong> is a simple representation language consisting of propositions symbols and logical connectives</li>
+<li>Solutions can be found by enumerating models (model-checking) or <strong>inference</strong> and <strong>proofs</strong> using inference rules<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></li>
+<li>Propositional logic does not scale to environments of unbounded size<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></li>
+</ul>
+</div>
+</section>
+<section id="xkcd" class="level2">
+<h2 data-anchor-id="xkcd">xkcd</h2>
+<div id="fig-xkcd" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-xkcd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/xkcd.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" data-glightbox="description: .lightbox-desc-10"><img src="images/xkcd.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xkcd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: xkcd 816: Applied Math (explanation see <a href="https://www.explainxkcd.com/wiki/index.php/816:_Applied_Math">here</a>)
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="exercises" class="level1 vertical-center page-columns page-full" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">✏️ Exercises</h1>
+<section id="knowledge-representation" class="level2">
+<h2 data-anchor-id="knowledge-representation">Knowledge representation</h2>
+<p>Explain why knowledge representation languages (KRL) are required.</p>
+<p>Research real life AI applications that use (propositional) logic as KRL.</p>
+<p>Search of other examples for KRL.</p>
+</section>
+<section id="truth-table" class="level2">
+<h2 data-anchor-id="truth-table">Truth table</h2>
+<p>Complete following truth table.</p>
+<div class="smaller">
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(\alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\neg \alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \land \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \lor \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \implies \beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \iff \beta\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"><strong>false</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"><strong>true</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="equivalences" class="level2 page-columns page-full">
+<h2 data-anchor-id="equivalences">Equivalences</h2>
+<p>Try to find a real life example for the following equivalences.</p>
+<div class="column-page-inset-right">
+<div class="smaller">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Commutativity of</strong> <span class="math inline">\(\land\)</span> <strong>and</strong> <span class="math inline">\(\lor\)</span></td>
+<td><span class="math inline">\(\alpha \land \beta \equiv \beta \land \alpha\)</span></td>
+<td><span class="math inline">\(\alpha \lor \beta \equiv \beta \lor \alpha\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Associativity of</strong> <span class="math inline">\(\land\)</span> <strong>and</strong> <span class="math inline">\(\lor\)</span></td>
+<td><span class="math inline">\((\alpha \land \beta) \land \gamma \equiv \alpha \land (\beta \land \gamma)\)</span></td>
+<td><span class="math inline">\((\alpha \lor \beta) \lor \gamma \equiv \alpha \lor (\beta \lor \gamma)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Double negation elimination</strong></td>
+<td><span class="math inline">\(\neg(\neg\alpha) \equiv \alpha\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Contraposition</strong></td>
+<td><span class="math inline">\(\alpha \implies \beta \equiv \neg \beta \implies \neg \alpha\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Implication elimination</strong></td>
+<td><span class="math inline">\(\alpha \implies \beta \equiv \neg \alpha \lor \beta\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Biconditional elimination</strong></td>
+<td><span class="math inline">\(\alpha \iff \beta \equiv (\alpha \implies \beta) \land (\beta \implies \alpha)\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>De Morgan</strong></td>
+<td><span class="math inline">\(\neg(\alpha \land \beta) \equiv \neg \alpha \lor \neg \beta\)</span></td>
+<td><span class="math inline">\(\neg(\alpha \lor \beta) \equiv \neg \alpha \land \neg \beta\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Distributivity of</strong> <span class="math inline">\(\land\)</span> <strong>over</strong> <span class="math inline">\(\lor\)</span> <strong>and vice versa</strong></td>
+<td><span class="math inline">\(\alpha \land (\beta \lor \gamma) \equiv (\alpha \land \beta) \lor (\alpha \land \gamma)\)</span></td>
+<td><span class="math inline">\(\alpha \lor (\beta \land \gamma) \equiv (\alpha \lor \beta) \land (\alpha \lor \gamma)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="wumpus-world" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="wumpus-world">Wumpus world</h2>
+<p>Suppose the agent has progressed to the point shown in <a href="#fig-ww-3" class="quarto-xref">Figure&nbsp;4</a> (left part) having perceived nothing in <span class="math inline">\([1,1]\)</span>, a breeze in <span class="math inline">\([2,1]\)</span>, and a stench in <span class="math inline">\([1,2]\)</span>, and is now concerned with the contents of <span class="math inline">\([1,3]\)</span>, <span class="math inline">\([2,2]\)</span>, and <span class="math inline">\([3,1]\)</span>. Each of these can contain a pit, and at most one can contain a wumpus. Construct the set of possible worlds (you should find 32 of them). Mark the worlds in which the KB is true and those in which each of the following sentences is true:</p>
+<ul>
+<li><span class="math inline">\(\alpha_2\)</span> = “There is no pit in <span class="math inline">\([2,2]\)</span>”</li>
+<li><span class="math inline">\(\alpha_3\)</span> = “There is a wumpus in <span class="math inline">\([1,3]\)</span>”</li>
+</ul>
+<p>Hence show that <span class="math inline">\(KB \models \alpha_2\)</span> and <span class="math inline">\(KB \models \alpha_3\)</span></p>
+<p>You can use a table like this:</p>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th><span class="math inline">\(KB\)</span></th>
+<th><span class="math inline">\(\alpha_2\)</span></th>
+<th><span class="math inline">\(\alpha_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_{1,3}\)</span></td>
+<td></td>
+<td>true</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_{1,3}, P_{3,1}, P_{2,2}\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Propositions not listed as true on a given line are assumed false</p>
+<div class="notes">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Solution note</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Proof</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>There are eight possible combinations of pits in the three squares, and four possibilities for the Wumpus location (including nowhere). We can see that <span class="math inline">\(KB \models \alpha_2\)</span> because every line where KB is true also has <span class="math inline">\(\alpha_2\)</span> true. Similarly for <span class="math inline">\(\alpha_3\)</span>.</p>
+<div id="tbl-truthtable-5e1" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-truthtable-5e1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th style="text-align: center;"><span class="math inline">\(KB\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha_2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_{3,1}\)</span></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_{1,3},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_{2,2},P_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_{3,1},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_{1,3},P_{3,1},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{1,3},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{1,3},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{1,3},P_{3,1}\)</span></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{1,3},P_{1,3},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{1,3},P_{2,2},P_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{1,3},P_{3,1},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{1,3},P_{1,3},P_{3,1},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="even">
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{3,1},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{3,1},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{3,1},P_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{3,1},P_{1,3},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{3,1},P_{2,2},P_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{3,1},P_{3,1},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{3,1},P_{1,3},P_{3,1},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{2,2},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{2,2},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{2,2},P_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{2,2},P_{1,3},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{2,2},P_{2,2},P_{3,1}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W_{2,2},P_{3,1},P_{1,3}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_{2,2},P_{1,3},P_{3,1},P_{2,2}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-truthtable-5e1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: A truth table constructed for I2AI_5 E1. Propositions not listed as true on a given line are assumed false, and only true entries are shown in the table
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="i2ai_5-e2" class="level2">
+<h2 data-anchor-id="i2ai_5-e2">I2AI_5 E2</h2>
+<p>Prove, or find a counterexample to, each of the following assertions, where <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(\gamma\)</span> represent any logical sentence:</p>
+<ol type="a">
+<li>If <span class="math inline">\(\alpha \models \gamma\)</span> or <span class="math inline">\(\beta \models \gamma\)</span> (or both) then <span class="math inline">\((\alpha \land \beta) \models \gamma\)</span></li>
+<li>If <span class="math inline">\((\alpha \land \beta) \models \gamma\)</span> then <span class="math inline">\(\alpha \models \gamma\)</span> or <span class="math inline">\(\beta \models \gamma\)</span> (or both)</li>
+<li>If <span class="math inline">\(\alpha \models (\beta \lor \gamma)\)</span> then <span class="math inline">\(\alpha \models \beta\)</span> or <span class="math inline">\(\alpha \models \gamma\)</span> (or both)</li>
+</ol>
+<p>Also try to find a real life example</p>
+<p>Remember, <span class="math inline">\(\alpha \models \beta\)</span> means that <strong>iff</strong> in every model in which <span class="math inline">\(\alpha\)</span> is true, <span class="math inline">\(\beta\)</span> is also true.</p>
+<div class="notes">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Solution note</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p><strong>True.</strong> This follows from monotonicity</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Andy’s real life example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider <span class="math inline">\(\alpha \equiv A\)</span> and <span class="math inline">\(\beta \equiv B\)</span></p>
+<ul>
+<li>A = <em>It’s raining</em></li>
+<li>B = <em>Someone pees on the street</em></li>
+<li><span class="math inline">\(\gamma\)</span> = <em>The street is wet</em></li>
+</ul>
+<p>It does mean that in any situation</p>
+<ul>
+<li>where <em>It’s raining</em>, <em>The street is wet</em> <strong>OR</strong><br>
+</li>
+<li>where <em>Someone pees on the street</em>, <em>The street is wet</em></li>
+</ul>
+<p>It also means that in any situation where <em>It’s raining</em> ** AND <em>Someone pees on the street</em>, <em>The street is wet</em></p>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p><strong>False.</strong> Consider:<br>
+<span class="math inline">\(\alpha \equiv A, \beta \equiv B, \gamma \equiv (A \land B)\)</span></p>
+<div id="tbl-truthtable-5e3b" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-truthtable-5e3b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha \land \beta\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(A,B\)</span></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(A,\neg B\)</span></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\neg A,B\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\neg A,\neg B\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-truthtable-5e3b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: A truth table constructed for I2AI_5 E3b. Remember: <em>for any sentences</em> <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid. Means that in any model where <span class="math inline">\(\alpha\)</span> is true, <span class="math inline">\(\beta\)</span> is true.
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Andy’s real life example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>A = <em>You are at the HNU</em></li>
+<li>B = <em>It’s Wednesday</em></li>
+<li><span class="math inline">\(\gamma\)</span> = <em>Only vegan food is available</em></li>
+</ul>
+<p>(<em>You are at the HNU</em> <strong>and</strong> <em>It’s Wednesday</em>) <strong>implies</strong> that <em>Only vegan food is available</em></p>
+<p>But it does not mean that in any situation</p>
+<ul>
+<li>where <em>You are at the HNU</em>, <em>Only vegan food is available</em> <strong>OR</strong><br>
+</li>
+<li>when <em>It’s Wednesday</em>, <em>Only vegan food is available</em></li>
+</ul>
+<p>There might be occassions</p>
+<ul>
+<li>where <em>You are at the HNU</em> and normal food is available <strong>OR</strong></li>
+<li>when <em>It’s Wednesday</em> and normal food is available</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<p><strong>False.</strong> Consider<br>
+<span class="math inline">\(\beta \models A, \gamma \models \neg A\)</span></p>
+<div id="tbl-truthtable-5e3c" class="quarto-float">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-truthtable-5e3c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><span class="math inline">\(\alpha = (A \lor \neg A)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\beta \lor \gamma\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\beta\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\gamma\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(A\)</span></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\neg A\)</span></td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;">true</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-truthtable-5e3c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: A truth table constructed for I2AI_5 E3c. Remember: <em>for any sentences</em> <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid. Means that in any model where <span class="math inline">\(\alpha\)</span> is true, <span class="math inline">\(\beta\)</span> is true.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="propositions" class="level2">
+<h2 data-anchor-id="propositions">Propositions</h2>
+<p>For each English sentence, there is a corresponding logical sentence. Work out which English sentence corresponds to which propositional logic sentence, and hence determine the meaning (in English) of each proposition symbol.</p>
+<div class="columns">
+<div class="column">
+<p><strong>English</strong></p>
+<ul>
+<li>There is a Wumpus at (0, 1)</li>
+<li>If the agent is at (0, 1) and there is a Wumpus at (0, 1), then the agent is not alive.</li>
+<li>The agent is at (0, 0) and there is no Wumpus at (0, 1)</li>
+<li>The agent is at (0, 0) or (0, 1), but not both</li>
+</ul>
+</div><div class="column">
+<p><strong>Propositional Logic</strong></p>
+<ul>
+<li><span class="math inline">\((C \lor B) \land (\neg C \lor \neg B)\)</span></li>
+<li><span class="math inline">\(C \land \neg D\)</span></li>
+<li><span class="math inline">\(\neg A \lor \neg(B \land D)\)</span></li>
+<li><span class="math inline">\(D\)</span></li>
+</ul>
+</div>
+</div>
+<div class="notes">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Solution note</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Sentences</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<ul>
+<li><span class="math inline">\(A\)</span> = the agent is alive</li>
+<li><span class="math inline">\(B\)</span> = the agent is at (0, 1)</li>
+<li><span class="math inline">\(C\)</span> = the agent is at (0, 0)</li>
+<li><span class="math inline">\(D\)</span> = there is a Wumpus at (0, 1)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
+</div>
+
+
+<div class="hidden" aria-hidden="true">
+<span class="glightbox-desc lightbox-desc-1">Figure&nbsp;1: A simplified illustration of a knowledge-based agent</span>
+<span class="glightbox-desc lightbox-desc-2">Figure&nbsp;2: A typical wumpus world</span>
+<span class="glightbox-desc lightbox-desc-3">Moving in the wumpus world</span>
+<span class="glightbox-desc lightbox-desc-4">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-5">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-6">&nbsp;</span>
+<span class="glightbox-desc lightbox-desc-7">Figure&nbsp;3: Moving from [1,1] to [2,1]</span>
+<span class="glightbox-desc lightbox-desc-8">Figure&nbsp;4: Moving from [1,2] to [2,3]</span>
+<span class="glightbox-desc lightbox-desc-9">Figure&nbsp;5: The situation reflected by the sentences</span>
+<span class="glightbox-desc lightbox-desc-10">Figure&nbsp;6: xkcd 816: Applied Math (explanation see <a href="https://www.explainxkcd.com/wiki/index.php/816:_Applied_Math">here</a>)</span>
+</div>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://medium.com/abacus-ai/an-overview-of-logic-in-ai-and-machine-learning-2f41ccb2a335">Reading recommendation</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We label each sentence <span class="math inline">\(R_i\)</span> so that we can refer to them<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><span class="math inline">\(KB \models \alpha\)</span> means that <span class="math inline">\(KB\)</span> does entail <span class="math inline">\(\alpha\)</span> (a sentence <span class="math inline">\(\alpha\)</span> follows logically from <span class="math inline">\(KB\)</span>)<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>In mathematical notation, we write <span class="math inline">\(M(KB) \subseteq M(\alpha)\)</span><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>7 symbols (<span class="math inline">\(B_{1,1}\)</span>, <span class="math inline">\(B_{2,1}\)</span>, <span class="math inline">\(P_{1,1}\)</span>, <span class="math inline">\(P_{1,2}\)</span>, <span class="math inline">\(P_{2,1}\)</span>, <span class="math inline">\(P_{2,2}\)</span>, <span class="math inline">\(P_{3,1}\)</span>), two statuses each (true, false); models are assignments of <em>true</em> or <em>false</em> to every proposition symbol<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>An alternative definition of equivalence is as follows: any two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are equivalent if and only if each of them entails the other: <span class="math inline">\(\alpha \equiv \beta\)</span> if and only if <span class="math inline">\(\alpha \models \beta\)</span> and <span class="math inline">\(\beta \models \alpha\)</span><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Note that <span class="math inline">\(\equiv\)</span> is used to make claims about sentences, while <span class="math inline">\(\iff\)</span> is used as part of a sentence<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Valid sentences are also known as <strong>tautologies</strong>, they are necessarily true<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>The deduction theorem states that every valid implication sentence describes a legitimate inference<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>The knowledge database given earlier (<span class="math inline">\(R_1 \land R_2 \land R_3 \land R_4 \land R_5\)</span>) is satisfiable because there are three models in which it is true.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><span class="math inline">\(\alpha\)</span> is valid iff <span class="math inline">\(\neg \alpha\)</span> is unsatisfiable; contrapositively, <span class="math inline">\(\alpha\)</span> is satisfiable iff <span class="math inline">\(\neg \alpha\)</span> is not valid.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>One or two statements at the upper half of the inference rule imply the statement on the lower half<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Latin for <em>mode that affirms</em><a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Specifies the structure of <strong>sentences</strong><a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>Defines the <strong>truth</strong> of each sentence in each <strong>possible world</strong> or <strong>model</strong><a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>Search algorithms can be used to find solutions<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Propositional logic lacks the expressive power to deal concisely with time, space, and universal patterns of relationships among objects.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","openEffect":"zoom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
+
+
+
+
+</body></html>
