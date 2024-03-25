@@ -1,0 +1,450 @@
+---
+title: "Solution Notes"
+subtitle: "🧠 Introduction to AI"
+
+format: 
+  html:
+    output-file: index.html
+---
+
+The solution notes are taken from @RusselNorvig2022AIMA.
+
+# Introduction
+
+## I2AI_1 E3
+
+To what extent are the following computer systems instances of artificial intelligence:
+
+* Although __bar code scanning__ is in a sense computer vision, these are not AI systems. The problem of reading a bar code is an extremely limited and artificial form of visual interpretation, and it has been carefully designed to be as simple as possible, given the hardware.
+* The problem of determining the __relevance of a web page to a query__ is a problem in natural language understanding, and the techniques are related to those we will discuss later. Search engines also use clustering techniques. Likewise, other functionalities provided by a search engines use intelligent techniques; for instance, the spelling corrector uses a form of data mining based on observing users’ corrections of their own spelling errors. On the other hand, the problem of indexing billions of web pages in a way that allows retrieval in seconds is a problem in database design, not in artificial intelligence.
+* To a limited extent. __Voice-activated telephone__ menus tend to use vocabularies which are very limited – e.g. the digits, “Yes”, and “No” — and within the designers’ control, which greatly simplifies the problem. On the other hand, the programs must deal with an uncontrolled space of all kinds of voices and accents. Modern digital assistants like Siri and the Google Assistant make more use of artificial intelligence techniques, but still have a limited repetoire.
+* __Internet routing algorithms__ are borderline. There is something to be said for viewing these as intelligent agents working in cyberspace. The task is sophisticated, the information available is partial, the techniques are heuristic (not guaranteed optimal), and the state of the world is dynamic. All of these are characteristic of intelligent activities. On the other hand, the task is very far from those normally carried out in human cognition. In recent years there have been suggestions to base more core algorithmic work on machine learning.
+
+## I2AI_1 E5
+
+Read the statements (one after the other) and discuss if the second sentence of each statement is true and if it does imply the first.
+
+> Surely computers cannot be intelligent  
+—they can do only what their programmers tell them.
+
+  This depends on your definition of “intelligent” and “tell.” In one sense computers only do what the programmers command them to do, but in another sense what the programmers consciously tells the computer to do often has very little to do with what the computer actually does. Anyone who has written a program with an ornery bug knows this, as does anyone who has written a successful machine learning program. So in one sense Samuel “told” the computer “learn to play checkers better than I do, and then play that way,” but in another sense he told the computer “follow this learning algorithm” and it learned to play. So we’re left in the situation where you may or may not consider learning to play checkers to be a sign of intelligence (or you may think that learning to play in the right way requires intelligence, but not in this way), and you may think the intelligence resides in the programmer or in the computer.
+
+> Surely animals cannot be intelligent  
+—they can do only what their genes tell them.
+
+  The point of this exercise is to notice the parallel with the previous one. Whatever you decided about whether computers could be intelligent in 1.11, you are committed to making the same conclusion about animals (including humans), unless your reasons for deciding whether something is intelligent take into account the mechanism (programming via genes versus programming via a human programmer).
+
+> Surely animals, humans, and computers cannot be intelligent  
+—they can do only what their constituent atoms are told to do by the laws of physics.
+
+  Again, your definition of “intelligent” drives your answer to this question.
+
+# Intelligent Agents
+
+## I2AI_2 E5
+
+For each of the following activities, give a PEAS description of the task environment and characterize it in terms of the properties discussed in class.
+
+*Many of these can actually be argued either way, depending on the level of detail and abstraction.*
+
+__Playing soccer:__ Partially observable, stochastic, sequential, dynamic, continuous, multi-agent.
+
+__Exploring the subsurface oceans of Titan:__ Partially observable, stochastic, sequential, dynamic, continuous, single agent (unless
+there are alien life forms that are usefully modeled as agents).
+
+__Shopping for used AI books on the Internet:__ Partially observable, deterministic, sequential, static, discrete, single agent. (it can also be multi-agent and dynamic if we buy books via auction)
+
+__Playing a tennis match:__ Fully observable, stochastic, episodic (every point is separate), dynamic, continuous, multi-agent.
+
+## I2AI_2 E6
+
+For each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property. 
+
+Lay out any assumptions you make to reach your conclusions. 
+
+a. __Fully observable__: driving; document classification; tutoring a student in calculus; skin cancer diagnosis from images
+b. __Continuous__: driving; spoken conversation; written conversation; climate engineering by stratospheric aerosol injection
+c. __Stochastic__: driving; sudoku; poker; soccer
+d. __Static__: chat room; checkers; tax planning; tennis  
+
+
+__Fully Observable__: document classification > skin cancer diagnosis from images > driving > tutoring a high-school student in calculus.
+
+- Document classification is a fairly canonical example of a (non-sequential) observable problem, because the correct classification depends almost entirely on the visible text of the document itself. There might be a slight influence from “provenance” information (date, authorship, etc.) that may not be directly observable. 
+- Skin cancer diagnosis can sometimes be done well from an image of the lesion, bot other factors such as patient age, changes in the lesion over time, medical history, and family history can be important. 
+- Driving is often considered to be observable because we imagine that we are making decisions based on what we see, but (1) velocity and turn signal status of other vehicles can be judged only from multiple image frames, and (2) assessing the intended actions of other vehicles may require accumulating information over an extended period—e.g., to determine if a vehicle is stopped or broken down, driving slowly or looking for an address or a parking spot, turning left or has forgotten to turn off the turn signal. Other vehicles, hedges, fog, and so on can obscure visual access to important aspects of the driving environment. 
+- Tutoring is almost completely unobservable: what matters is the student’s level of understanding, learning style, basic math skills, etc. clues must be gathered over days, weeks, and months.
+
+__Continuous:__ climate engineering > driving > spoken conversation > written conversation. 
+
+- Climate engineering by aerosol injection is quintessentially continuous: the engineer must decide how much to inject, where, and when, and all of these are continuous quantities. 
+- The control actions of driving are mostly continuous (steering, acceleration/ braking) but there are discrete elements (turn signal, headlights). More importantly, the problem is usually handled using discrete high-level actions (change lanes left, take exit, etc.) that have implementations as continuous control problems. This kind of discrete/ continuous hierarchy is very common; playing chess in the physical world is a perfect example.
+- Spoken conversation is closer to chess than driving: roughly speaking, we choose the discrete words to say and delegate the saying to continuous motor control routines. Prosody (volume, pitch, and speed variation) is, however, an important continuous element in how we speak that is largely absent from written communication.
+
+__Stochastic:__ poker > soccer > driving > sudoku.
+
+- In poker, nearly everything is determined by the fall of the cards, which is entirely stochastic from the viewpoint of the players. 
+- Both soccer and driving contain elements that are fairly deterministic, such as the flight of the ball and the response of the engine, and elements that are stochastic, such as tire punctures and the outcomes of tackles. Yet typically one can make reasonably reliable driving plans over many minutes, whereas it is essentially impossible to predict the state of a soccer game one minute into the future.
+Sudoku, of course, is entirely deterministic.
+
+__Static:__ tax planning > checkers > chat room > tennis.
+
+- While no human activity is completely static, given the finite length of our lifetimes, tax planning comes close—the typical “deadline” to get it done is often weeks or months, and the relevant aspects of the environment (life/death, number of offspring, tax law) may change even more slowly. 
+- In checkers, the world state doesn’t change until someone moves, but the clock ticks so the problem is semi-dynamic.
+- In the chat room, long delays in replying are unacceptable, so it is a fairly real-time environment, but not nearly as real-time as tennis, where a delay of a split second often makes the difference between winning and losing a point.
+
+# Search
+
+## I2AI_3 E3
+
+Your goal is to navigate a robot out of a maze. It starts in the center of the maze facing north. You can turn the robot to face north, east, south, or west; direct the robot to move forward a certain distance (it will stop before a wall). 
+
+a. Formulate this problem. How large is the state space?
+b. In navigating a maze, the only place we need to turn is at the intersection of two or more corridors. Reformulate this problem using this observation. How large is the state space now?
+c. From each point in the maze, we can move in any of the four directions until we reach a turning point, and this is the only action we need to do. Reformulate the problem using these actions. Do we need to keep track of the robot’s orientation now?
+d. In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.
+
+#### Problem statement
+
+- The center of the maze is at (0; 0), and the maze itself is a square from (-1;-1) to (1; 1).
+- __Initial state:__ robot at coordinate (0; 0), facing North.
+- __Goal test:__ either jxj > 1 or jyj > 1 where (x; y) is the current location.
+- __Successor function:__ move forwards any distance d; change direction robot it facing.
+- __Cost function:__ total distance moved.
+
+The state space is infinitely large, since the robot’s position is continuous.
+
+### Reformulated problem statement
+
+The state will record the intersection the robot is currently at, along with the direction it’s facing. At the end of each corridor leaving the maze we will have an exit node. We’ll assume some node corresponds to the center of the maze.
+
+- __Initial state:__ at the center of the maze facing North.
+- __Goal test:__ at an exit node.
+- __Successor function:__ move to the next intersection in front of us, if there is one; turn to face a new direction.
+- __Cost function:__ total distance moved.
+
+There are 4n states, where n is the number of intersections.
+
+### Reformulated problem statement #2
+
+- __Initial state:__ at the center of the maze.
+- __Goal test:__ at an exit node.
+- __Successor function:__ move to next intersection to the North, South, East, or West.
+- __Cost function:__ total distance moved.
+
+We no longer need to keep track of the robot’s orientation since it is irrelevant to predicting the outcome of our actions, and not part of the goal test. The motor system that executes this plan will need to keep track of the robot’s current orientation, to know when to rotate the robot.
+
+#### Abstractions
+
+State:
+
+- Ignoring the height of the robot off the ground, whether it is tilted off the vertical.
+-  The robot can face in only four directions.
+- Other parts of the world ignored: possibility of other robots in the maze, the weather in the Caribbean.
+
+Action:
+
+- We assumed all positions we safely accessible: the robot couldn’t get stuck or damaged.
+- The robot can move as far as it wants, without having to recharge its batteries.
+- Simplified movement system: moving forwards a certain distance, rather than controlled each individual motor and watching the sensors to detect collisions.
+
+# Games
+
+## I2AI_4 E2
+
+#### Completeness
+
+Explain if the `MINIMAX` algorithm is complete and optimal. 
+
+  In two-player, discrete, deterministic, turn-taking zero-sum gamges with perfect information, the `MINIMAX` algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.
+
+  The algorithm performas a complete depth-first exploration of the game tree. If the maximum depth of the tree is $m$ and there are $b$ legal moves at each point, then the time complexity is $O(b^m)$ for an algorithm that generates all actions at once, or $O(m)$ for an algorithm that generates actions on at a time. The exponential complexity makes `MINIMAX` impractical for complex games. `MINIMAX` does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.
+
+#### Suboptimally play
+
+Can it be beaten by an opponent playing suboptimally? Why (not)?
+
+If *MIN* does not play optimally, then *MAX* will do at least as well as against an optimal player, possibly better.
+
+## I2AI_4 E3
+
+Read the note about pruning (and consult @RusselNorvig2022AIMA if necessary). 
+
+Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.
+
+Draw an example (game search tree, 3 levels depth).
+
+![Example for pruning](images/pruning.svg){#fig-pruning}
+
+@fig-pruning: There is no point in looking at the other successor states of *C*, thus it can be skipped.
+
+# Logical agents
+
+## I2AI_5 E1
+
+To save space, we’ll show the list of models as a @tbl-truthtable-5e1 rather than a collection of diagrams. There are eight possible combinations of pits in the three squares, and four possibilities for the wumpus location (including nowhere). We can see that $KB \models \alpha_2$ because every line where KB is true also has $\alpha_2$ true. Similarly for $\alpha_3$.
+
+| Model                            | $KB$       | $\alpha_2$ | $\alpha_3$ |
+|----------------------------------|:----------:|:----------:|:----------:|
+|                                  |            | true       |            |
+| $P_{1,3}$                        |            | true       |            |
+| $P_{2,2}$                        |            |            |            |
+| $P_{3,1}$                        |            | true       |            |
+| $P_{1,3},P_{2,2}$                |            |            |            |
+| $P_{2,2},P_{3,1}$                |            |            |            |
+| $P_{3,1},P_{1,3}$                |            | true       |            |
+| $P_{1,3},P_{3,1},P_{2,2}$        |            |            |            |
+|                                  |            |            |            |
+| $W_{1,3}$                        |            | true       | true       |
+| $W_{1,3},P_{1,3}$                |            | true       | true       |
+| $W_{1,3},P_{2,2}$                |            |            | true       |
+| $W_{1,3},P_{3,1}$                | true       | true       | true       |
+| $W_{1,3},P_{1,3},P_{2,2}$        |            |            | true       |
+| $W_{1,3},P_{2,2},P_{3,1}$        |            |            | true       |
+| $W_{1,3},P_{3,1},P_{1,3}$        |            | true       | true       |
+| $W_{1,3},P_{1,3},P_{3,1},P_{2,2}$|            |            | true       |
+|                                  |            |            |            |
+| $W_{3,1}$                        |            | true       |            |
+| $W_{3,1},P_{1,3}$                |            | true       |            |
+| $W_{3,1},P_{2,2}$                |            |            |            |
+| $W_{3,1},P_{3,1}$                |            | true       |            |
+| $W_{3,1},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{3,1},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{3,1},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{3,1},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+|                                  |            |            |            |
+| $W_{2,2}$                        |            | true       |            |
+| $W_{2,2},P_{1,3}$                |            | true       |            |
+| $W_{2,2},P_{2,2}$                |            |            |            |
+| $W_{2,2},P_{3,1}$                |            | true       |            |
+| $W_{2,2},P_{1,3},P_{2,2}$        |            |            |            |
+| $W_{2,2},P_{2,2},P_{3,1}$        |            |            |            |
+| $W_{2,2},P_{3,1},P_{1,3}$        |            | true       |            |
+| $W_{2,2},P_{1,3},P_{3,1},P_{2,2}$|            |            |            |
+
+: A truth table constructed for I2AI_5 E1. Propositions not listed as true on a given line are assumed false, and only true entries are shown in the table {#tbl-truthtable-5e1}
+
+## I2AI_5 E2
+
+a. If $\alpha \models \gamma$ or $\beta \models \gamma$ (or both) then $(\alpha \land \beta) \models \gamma$   
+   True. This follows from monotonicity
+
+b. If $(\alpha \land \beta) \models \gamma$ then $\alpha \models \gamma$ or $\beta \models \gamma$ (or both)   
+   False. Consider $\alpha \equiv A, \beta \equiv B, \gamma \equiv (A \land B)$
+
+|                 | $\alpha$ | $\beta$  | $\alpha \land \beta$ |
+|-----------------|:--------:|:--------:|:--------------------:|
+| $A,B$           | true     | true     | true                 |
+| $A,\neg B$      | true     |          |                      |
+| $\neg A,B$      |          | true     |                      |
+| $\neg A,\neg B$ |          | true     |                      |
+
+: A truth table constructed for I2AI_5 E3b. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3b}  
+
+c. If $\alpha \models (\beta \lor \gamma)$ then $\alpha \models \beta$ or $\alpha \models \gamma$ (or both)   
+   False. Consider $\beta \models A, \gamma \models \neg A$
+
+|           | $\alpha = (A \lor \neg A)$ | $\beta \lor \gamma$  | $\beta$  | $\gamma$ |
+|-----------|:--------------------------:|:--------------------:|:--------:|:--------:|
+| $A$       | true                       | true                 | true     |          |
+| $\neg A$  | true                       | true                 |          | true     |
+
+
+: A truth table constructed for I2AI_5 E3c. Rembember: *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid. Means that in any model where $\alpha$ is true, $\beta$ is true.* {#tbl-truthtable-5e3c}  
+
+### I2AI_5 E3
+
+- $A$ = the agent is alive
+- $B$ = the agent is at (0, 1)
+- $C$ = the agent is at (0, 0)
+- $D$ = there is a Wumpus at (0, 1).
+
+# Probability
+
+## I2AI_6 E1
+
+The definition of conditional probability, $P(X|Y) = \frac{P(X \land Y )}{P(Y)}$ and the definitions of the logical connectives are needed here. 
+
+It is not enough to say that if $b \land a$ is “given” then $a$ must be true.
+
+From the definition of conditional probability, and the fact that $a \land a \iff a$ and that conjunction is commutative and associative, we have
+
+$$
+\begin{equation}
+P(a|b \land a)= \frac{P(a \land (b \land a))}{P(b \land a)} = \frac{P(b \land a)}{P(b \land a)}=1
+\end{equation}
+$$
+
+## I2AI_6 E2
+
+|   |   |    |
+|--:|:-:|:--:|
+|   | B | ¬B |
+| A | a | b  |
+| ¬A| c | d  |
+
+- $P(A) = a + b = 0.4$
+- $P(B) = a + c = 0.3$
+- $P(A \lor B) = a + b + c = 0.5$
+- $P(True) = a + b + c + d = 1$
+
+From these, it is straightforward to infer that a = 0.2, b = 0.2, c = 0.1, and d = 0.5. 
+
+Therefore, $P(A \land B) = a = 0.2$. Thus the probabilities given are consistent with a rational assignment, and the probability $P(A \land B)$ is exactly determined.
+
+## I2AI_6 E3
+
+Let $V$ be the statement that the patient has the virus, and $A$ and $B$ the statements that the medical tests A and B returned positive, respectively. The problem statement gives:
+
+$$
+\begin{flalign}
+P(V ) = 0.01 && \\
+P(A|V ) = 0.95 && \\
+P(A| \neg V ) = 0.10 && \\
+P(B| V ) = 0.90 && \\
+P(B| \neg V ) = 0.05 && \\
+\end{flalign}
+$$
+
+The test whose positive result is more indicative of the virus being present is the one whose posterior probability, $P(V |A)$ or $P(V |B)$ is largest. 
+
+One can compute these probabilities directly from the information given, finding that $P(V |A) = 0.0876$ and $P(V |B) = 0.1538$, so B is more indicative.
+
+## I2AI_6 E4
+
+The basic axiom to use here is the definition of conditional probability:
+
+We have
+
+$$
+\begin{flalign}
+P(A,B|e) = \frac{P(A,B,e)}{P(E)} &&
+\end{flalign}
+$$
+
+and
+
+$$
+\begin{flalign}
+P(A|B,e)P(B|e) = \frac{P(A,B,e)P(B,e)}{P(B,e)P(e)} = \frac{P(A,B,e)}{P(e)} &&
+\end{flalign}
+$$
+
+hence
+
+$$
+\begin{flalign}
+P(A,B|e) = P(A|B,e)P(B|e) &&
+\end{flalign}
+$$
+
+## I2AI_6 E5
+
+The key to this exercise is rigorous and frequent application of the definition of conditional
+probability, $P(X|Y) = P(X,Y)/P(Y)$.
+
+The original statement that we are given is:
+
+$P(A,B|C) = P(A|C)P(B|C)$
+
+We start by applying the definition of conditional probability to two of the terms in this
+statement:
+
+$$
+\begin{flalign}
+P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}{P(C)} &&
+\end{flalign}
+$$
+
+Now we substitute the right-hand side of these definitions for the left-hand sides in the original
+statement to get:
+
+$$
+\begin{flalign}
+\frac{P(A,B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &&
+\end{flalign}
+$$
+
+Now we need the definition once more: 
+
+$P(A,B,C) = P(A|B,C)P(B,C)$
+
+We substitute this right-hand side for P(A,B,C) to get:
+
+$$
+\begin{flalign}
+\frac{P(A|B,C)P(B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &&
+\end{flalign}
+$$
+
+Finally, we cancel the $P(B,C)$ and $P(C)$s to get:
+
+$P(A|B,C) = P(A|C)$
+
+The second part of the exercise follows from by a similar derivation, or by noticing that $A$ and $B$ are interchangeable in the original statement (because multiplication is commutative and $A,B$ means the same as $B,A$).
+
+# Learning
+
+## I2AI_7 E1
+
+The first step is to appreciate the variety of knowledge that goes under the heading “language.”
+
+The infant must learn to recognize and produce speech, learn vocabulary, learn grammar, learn the semantic and pragmatic interpretation of a speech act, and learn strategies for disambiguation, among other things. 
+
+The performance elements for this (in humans) and their associated learning mechanisms are obviously very complex and as yet little is known about them.
+
+A naive model of the learning environment considers just the exchange of speech sounds. In reality, the physical context of each utterance is crucial: a child must see the context in which “watermelon” is uttered in order to learn to associate “watermelon” with watermelons.
+
+Thus, the environment consists not just of other humans but also the physical objects and events about which discourse takes place. Auditory sensors detect speech sounds, while other senses (primarily visual) provide information on the physical context. The relevant effectors are the speech organs and the motor capacities that allow the infant to respond to speech or that elicit verbal feedback.
+
+The performance standard could simply be the infant’s general utility function, however that is realized, so that the infant performs reinforcement learning to perform and respond to speech acts so as to improve its well-being—for example, by obtaining food and attention.
+
+However, humans’ built-in capacity for mimicry suggests that the production of sounds similar to those produced by other humans is a goal in itself. The child (once he or she learns to differentiate sounds and learn about pointing or other means of indicating salient objects) is also exposed to examples of supervised learning: an adult says “shoe” or “belly button” while indicating the appropriate object. So sentences produced by adults provide labelled positive examples, and the response of adults to the infant’s speech acts provides further classification
+feedback.
+
+Mostly, it seems that adults do not correct the child’s speech, so there are very few negative classifications of the child’s attempted sentences. This is significant because early work on language learning, such as the work of Gold (1967) concentrated just on identifying the set of strings that are grammatical, assuming a particular grammatical formalism. If there are only positive examples, then there is nothing to rule out the grammar $S \implies Word$. Some
+theorists (notably Chomsky and Fodor) used what they call the “poverty of the stimulus” argument to say that the basic universal grammar of languages must be innate, because otherwise (given the lack of negative examples) there would be no way that a child could learn a language (under the assumptions of language learning as learning a set of grammatical strings). Critics have called this the “poverty of the imagination” argument—I can’t think of a learning mechanism that would work, so it must be innate. Indeed, if we go to probabilistic context free grammars, then it is possible to learn a language without negative examples.
+
+### What with learning tennis?
+
+Learning tennis is much simpler than learning to speak. The requisite skills can be divided into movement, playing strokes, and strategy. 
+
+The environment consists of the court, ball, opponent, and one’s own body. The relevant sensors are the visual system and proprioception (the sense of forces on and position of one’s own body parts). The effectors are the muscles involved in moving to the ball and hitting the stroke. 
+
+The learning process involves both supervised learning and reinforcement learning. Supervised learning occurs in acquiring the predictive transition models, e.g., where the opponent will hit the ball, where the ball will land, and what trajectory the ball will have after one’s own stroke (e.g., if I hit a half-volley this way, it goes into the net, but if I hit it that way, it clears the net). 
+
+Reinforcement learning occurs when points are won and lost—this is particularly important for strategic aspects of play such as shot placement and positioning (e.g., in 60% of the points where I hit a lob in response to a cross-court shot, I end up losing the point). 
+
+In the early stages, reinforcement also occurs when a shot succeeds in clearing the net and landing in the opponent’s court. Achieving this small success is itself a sequential process involving many motor control commands, and there is no teacher available to tell the learner’s motor cortex which motor control commands to issue.
+
+## I2AI_7 E2
+
+In supervised learning, the training data consists of input–output pairs, where the labeled outputs are what we are trying to learn. In unsupervised learning, there is no labeled output, and the goal is to find patterns or clusters in the input. In reinforcement learning, the learnin
+
+## I2AI_7 E3
+
+a. __Training set:__ A set of input–output pair examples, used as input to a machine learning program to
+create a hypothesis.
+b. __Hypothesis:__ In machine learning, a hypothesis is a function, learned from the training data and a
+member of the hypothesis space, that maps inputs to outputs.
+c. __Bias:__ The amount by which the output of a hypothesis consistently varies from the true answer in a particular direction, regardless of the exact training data.
+d. __Variance:__ The amount by which the output of a hypothesis randomly varies from the true answer, when trained on slightly different data sets.
+
+## I2AI_7 E5
+
+In standard decision trees, attribute tests divide examples according to the attribute value. Therefore, any example reaching the second test already has a known value for the attribute and the second test is redundant. 
+
+In some decision tree systems, however, all tests are Boolean even if the attributes are multivalued or continuous. In this case, additional tests of the at tribute can be used to check different values or subdivide the range further (e.g., first check if X > 0, and then if it is, check if x > 10).
+
+## I2AI_7 E6
+
+The Bayesian approach would be to take both drugs. The maximum likelihood approach would be to take the anti-B drug.
+
+In the case where there are two versions of B, the Bayesian still recommends taking both drugs, while the maximum likelihood approach is now to take
+the anti-A drug, since it has a 40% chance of being correct, versus 30% for each of the B cases. 
+
+This is of course a caricature, and you would be hard-pressed to find a doctor, even a rabid maximum-likelihood advocate who would prescribe like this.
+
+# Literature
+::: {#refs}
+:::
