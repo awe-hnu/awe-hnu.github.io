@@ -535,7 +535,7 @@ Andy Weeger
 </div>
 </section></section>
 <section>
-<section id="decisions-under-uncertainty" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="decisions-under-uncertainty" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Decisions under uncertainty</h1>
 
 </section>
@@ -572,12 +572,16 @@ Andy Weeger
 <h2>Conditional probabilities</h2>
 <p>New information (usually called <strong>evidence</strong>) can change the probability, e.g.&nbsp;the probability of a cavity increases if we know the patient has a toothache</p>
 <div class="fragment">
-<p><span class="math inline">\(P(a|b)\)</span> is the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given that all we know is <span class="math inline">\(B\)</span></p>
-<div class="line-block">&nbsp;&nbsp;Example: <span class="math inline">\(P(Cavity | Toothache) = 0.8\)</span></div>
+<p><span class="math inline">\(P(a|b)\)</span> is the <strong>conditional probability</strong> of <span class="math inline">\(a\)</span> given that all we know is <span class="math inline">\(b\)</span></p>
 </div>
 <div class="fragment">
-<p>Conditional probabilities (or posterior probabilities) are defined in terms of unconditional probalities as follows:</p>
-<p>For any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have <span class="math inline">\(P(a|b)=\frac{P(a \land b)}{P(b)}\)</span></p>
+<p>Conditional probabilities (or posterior probabilities) are defined in terms of unconditional probabilities as follows:</p>
+<p>For any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(a|b) = \frac{P(a \land b)}{P(b)} = \frac{P(a, b)}{P(b)}&amp;&amp;
+\end{flalign}
+\]</span></p>
 </div>
 <div class="fragment">
 <p>Or in a different form as <strong>product rule</strong></p>
@@ -728,7 +732,7 @@ P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
 </div>
 </section></section>
 <section>
-<section id="bayes-rule" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
+<section id="bayes-rule" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Bayes’ rule</h1>
 
 </section>
@@ -829,26 +833,30 @@ P(c|t) = {} &amp;  \frac{P(t|c)P(c)}{P(t|c)P(c)+P(t|\neg c)P(\neg c)} &amp;&amp;
 
 <h3 id="example-3">Example</h3>
 <p>Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease (<span class="math inline">\(D\)</span>). This test (<span class="math inline">\(T\)</span>) is correct to 99% (1% false positive &amp; 1% false negative results). What does this mean for you?</p>
-<p>. . .</p>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 P(D|T) = \frac{P(T|D) P(D)}{P(T)} = \frac{P(T|D) P(D)}{P(T|D) P(D) + P(T| \neg D) P( \neg D)} &amp;&amp;
 \end{flalign}
-\]</span></p>
-<p>. . .</p>
+\]</span> <span class="smaller">Applying marginalization to Bayes Law with Boolean variables.</span></p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 P(D) = 0.0001 \quad P(T|D) = 0.99 \quad P(T | \neg D) = 0.01 &amp;&amp;
 \end{flalign}
 \]</span></p>
-<p>. . .</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
-P(D|T) = \frac{0.99 x 0.0001}{0.99 x 0.0001 + 0.01 x 0.9999} = \frac{0.000099}{0.010088} ≈ 0.01 &amp;&amp;
+P(D|T) = \frac{0.99 \times 0.0001}{0.99 \times 0.0001 + 0.01 \times 0.9999} = \frac{0.000099}{0.010088} ≈ 0.01 &amp;&amp;
 \end{flalign}
 \]</span></p>
-<p>. . .</p>
+</div>
+<div class="fragment">
 <p><strong>Bottom line:</strong> if the inaccuracy of the test is much greater than the frequency of occurrence of the disease, then a positive result is not as threatening as one might think.</p>
+</div>
 </section>
 <section class="slide level2">
 
@@ -859,13 +867,21 @@ P(D|T) = \frac{0.99 x 0.0001}{0.99 x 0.0001 + 0.01 x 0.9999} = \frac{0.000099}{0
 P(Y|X) = {} &amp; \frac{P(X|Y)P(Y)}{P(X)} &amp;&amp; \\
 \end{flalign}
 \]</span></p>
-<p>. . .</p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+\alpha = \frac{1}{P(X)} = \sum_i P(X,Y_i)P(Y_i) &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<p>The sum of all possible values of the unknown parameter <span class="math inline">\(P(X)\)</span> is often infinite. Thus, the normalization constant <span class="math inline">\(\alpha\)</span> is often determined approximately. We get:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 P(Y|X) = {} &amp; \alpha P(X|Y) P(Y) &amp;&amp;
 \end{flalign}
 \]</span></p>
-<p>Where <span class="math inline">\(\alpha\)</span> is the <strong>normalization constant</strong> needed to make the entries in <span class="math inline">\(P(Y | X)\)</span> sum to 1. Example: <span class="math inline">\(\alpha(.1,.1,.3) = (.2,.2,.6)\)</span></p>
+</div>
 </section>
 
 <section id="multiple-evidence" class="slide level2">
@@ -941,7 +957,7 @@ P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)}
 </div>
 </section></section>
 <section>
-<section id="naive-bayes-models" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="naive-bayes-models" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Naive Bayes models</h1>
 <aside class="notes">
 <p>The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause.</p>
@@ -1117,7 +1133,7 @@ P(a|b \land a) = \frac{P(a\land(b \land a))}{P(b \land a)} &amp;&amp;
 \]</span> Which is equal to</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(a|b \land a) = \frac{P(a \land b)}{P(a \land b)} = 1 &amp;&amp;
+P(a|b \land a) = \frac{P(b \land a)}{P(b \land a)} = 1 &amp;&amp;
 \end{flalign}
 \]</span></p>
 </div>
@@ -1192,10 +1208,14 @@ P(a|b \land a) = \frac{P(a \land b)}{P(a \land b)} = 1 &amp;&amp;
 <h2>Medical tests</h2>
 <p>Consider two medical tests, A and B, for a virus. Test A is 95% effective at recognizing the virus when it is present, but has a 10% false positive rate (indicating that the virus is present, when it is not). Test B is 90% effective at recognizing the virus, but has a 5% false positive rate. The two tests use independent methods of identifying the virus. The virus is carried by 1% of all people.</p>
 <p>Say that a person is tested for the virus using only one of the tests, and that test comes back positive for carrying the virus. Which test returning positive is more indicative of someone really carrying the virus? Justify your answer mathematically.</p>
-<p>:::notes :::panel-tabset</p>
-<h4 id="solution-note-1">Solution note</h4>
+<aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Solution note</a></li><li><a href="#tabset-3-2">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
 <p>Open only if you need help.</p>
-<h4 id="answer-1">Answer</h4>
+</div>
+<div id="tabset-3-2">
 <p>Let <span class="math inline">\(V\)</span> be the statement that the patient has the virus, and <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> the statements that the medical tests A and B returned positive, respectively. The problem statement gives:</p>
 <p><span class="math display">\[
 \begin{flalign}
@@ -1208,6 +1228,20 @@ P(B| \neg V ) = 0.05 &amp;&amp; \\
 \]</span></p>
 <p>The test whose positive result is more indicative of the virus being present is the one whose posterior probability, <span class="math inline">\(P(V |A)\)</span> or <span class="math inline">\(P(V |B)\)</span> is largest.</p>
 <p>One can compute these probabilities directly from the information given, finding that <span class="math inline">\(P(V |A) = 0.0876\)</span> and <span class="math inline">\(P(V |B) = 0.1538\)</span>, so B is more indicative.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="conditional-independence-1" class="slide level2">
 <h2>Conditional independence</h2>
@@ -1225,12 +1259,12 @@ P(A|B,C)=P(A|C) \quad \textrm{and} \quad P(B|A,C)=P(B|C) &amp;&amp;
 \]</span></p>
 <aside class="notes">
 <div class="panel-tabset">
-<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Solution notes</a></li><li><a href="#tabset-3-2">Proof</a></li></ul>
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Solution notes</a></li><li><a href="#tabset-4-2">Proof</a></li></ul>
 <div class="tab-content">
-<div id="tabset-3-1">
+<div id="tabset-4-1">
 <p>Open only if you need help.</p>
 </div>
-<div id="tabset-3-2">
+<div id="tabset-4-2">
 <p>The key to this exercise is rigorous and frequent application of the definition of conditional probability, <span class="math inline">\(P(X|Y) = P(X,Y)/P(Y)\)</span>.</p>
 <p>The original statement that we are given is:</p>
 <p><span class="math inline">\(P(A,B|C) = P(A|C)P(B|C)\)</span></p>
@@ -1271,6 +1305,138 @@ P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+<section id="pacman" class="slide level2">
+<h2>Pacman</h2>
+<p>Pacman has developed a hobby of fishing. Over the years, he has learned that a day can be considered fit or unfit for fishing <span class="math inline">\(Y\)</span> which results in three features: whether or not Ms.&nbsp;Pacman can show up <span class="math inline">\(M\)</span>, the temperature of the day <span class="math inline">\(T\)</span>, and how high the water level is <span class="math inline">\(W\)</span>. Pacman models it as an Naive Bayes classification problem.</p>
+<p>We wish to calculate the probability a day is fit for fishing given features of the day. Consider the conditional probability tables that Pacman has estimated over the years:</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>yes</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>no.</td>
+<td>0.9</td>
+</tr>
+</tbody>
+</table>
+<div class="columns">
+<div class="column">
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(M\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(M|Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>yes</td>
+<td>yes</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>no</td>
+<td>yes</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>yes</td>
+<td>no</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>no</td>
+<td>no</td>
+<td>0.8</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column">
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(W|Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>high</td>
+<td>yes</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>low</td>
+<td>yes</td>
+<td>0.9</td>
+</tr>
+<tr class="odd">
+<td>high</td>
+<td>no</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>low</td>
+<td>no</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(T\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(T|Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cold</td>
+<td>yes</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>warm</td>
+<td>yes</td>
+<td>0.3</td>
+</tr>
+<tr class="odd">
+<td>hot</td>
+<td>yes</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>cold</td>
+<td>no</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>warm</td>
+<td>no</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>hot</td>
+<td>no</td>
+<td>0.3</td>
+</tr>
+</tbody>
+</table>
+<p>Using the method of Naive Bayes, if Ms.&nbsp;Pacman is available, the weather is cold, and the water level is high, do we predict that the day is fit for fishing?</p>
 </section></section>
 <section id="literature" class="title-slide slide level1 smaller scrollable">
 <h1>Literature</h1>

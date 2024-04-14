@@ -166,7 +166,7 @@ robot is at that location
   *The predicate tall is vague; the statement, “A man is 1.75–1.80m tall” is uncertain.*
 :::
 
-# Decisions under uncertainty  {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# Decisions under uncertainty {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Decision theory
 
@@ -206,15 +206,19 @@ New information (usually called __evidence__) can change the probability, e.g. t
 
 . . .
 
-$P(a|b)$ is the __conditional probability__ of $A$ given that all we know is $B$
-
-|   Example: $P(Cavity | Toothache) = 0.8$
+$P(a|b)$ is the __conditional probability__ of $a$ given that all we know is $b$
 
 . . .
 
-Conditional probabilities (or posterior probabilities) are defined in terms of unconditional probalities as follows:
+Conditional probabilities (or posterior probabilities) are defined in terms of unconditional probabilities as follows:
 
-For any propositions $a$ and $b$ (if $P(b)>0$), we have $P(a|b)=\frac{P(a \land b)}{P(b)}$
+For any propositions $a$ and $b$ (if $P(b)>0$), we have 
+
+$$
+\begin{flalign}
+P(a|b) = \frac{P(a \land b)}{P(b)} = \frac{P(a, b)}{P(b)}&&
+\end{flalign}
+$$
 
 . . .
 
@@ -378,7 +382,7 @@ Not in general, but it can work in many cases. Modern systems work directly with
 Work through the **Bayes' rule** chapter, try to get it and note issues of understanding.
 :::
 
-# Bayes' rule {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
+# Bayes' rule {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Derivation
 
@@ -501,15 +505,18 @@ $$
 
 Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease ($D$). This test ($T$) is correct to 99% (1% false positive & 1% false negative results). What does this mean for you?
 
-. . .
+:::fragment
 
 $$
 \begin{flalign}
 P(D|T) = \frac{P(T|D) P(D)}{P(T)} = \frac{P(T|D) P(D)}{P(T|D) P(D) + P(T| \neg D) P( \neg D)} &&
 \end{flalign}
 $$
+[Applying marginalization to Bayes Law with Boolean variables.]{.smaller}
 
-. . .
+:::
+
+:::fragment
 
 $$
 \begin{flalign}
@@ -517,17 +524,23 @@ P(D) = 0.0001 \quad P(T|D) = 0.99 \quad P(T | \neg D) = 0.01 &&
 \end{flalign}
 $$
 
-. . .
+:::
+
+:::fragment
 
 $$
 \begin{flalign}
-P(D|T) = \frac{0.99 x 0.0001}{0.99 x 0.0001 + 0.01 x 0.9999} = \frac{0.000099}{0.010088} ≈ 0.01 &&
+P(D|T) = \frac{0.99 \times 0.0001}{0.99 \times 0.0001 + 0.01 \times 0.9999} = \frac{0.000099}{0.010088} ≈ 0.01 &&
 \end{flalign}
 $$
 
-. . .
+:::
+
+:::fragment
 
 __Bottom line:__ if the inaccuracy of the test is much greater than the frequency of occurrence of the disease, then a positive result is not as threatening as one might think.
+
+::::
 
 ----
 
@@ -541,7 +554,18 @@ P(Y|X) = {} & \frac{P(X|Y)P(Y)}{P(X)} && \\
 \end{flalign}
 $$
 
-. . .
+:::fragment
+
+$$
+\begin{flalign}
+\alpha = \frac{1}{P(X)} = \sum_i P(X,Y_i)P(Y_i) && \\
+\end{flalign}
+$$
+
+The sum of all possible values of the unknown parameter $P(X)$ is often infinite. Thus, the normalization constant $\alpha$ is often determined approximately. We get:
+:::
+
+:::fragment
 
 $$
 \begin{flalign}
@@ -549,14 +573,13 @@ P(Y|X) = {} & \alpha P(X|Y) P(Y) &&
 \end{flalign}
 $$
 
-
-Where $\alpha$ is the __normalization constant__ needed to make the entries in $P(Y | X)$ sum to 1. Example: $\alpha(.1,.1,.3) = (.2,.2,.6)$
+:::
 
 ----
 
 ## Generalization {visibility="hidden"}
 
-Let $e$ be the observed value of an evidence variable $E$, and let $Y$ be the remaining unobserverd variables. 
+Let $e$ be the observed value of an evidence variable $E$, and let $Y$ be the remaining unobserved variables. 
 
 The query is $P(X|e)$ and can be evaluated as
 
@@ -664,7 +687,7 @@ P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)}
 \end{flalign}
 $$
 
-# Naive Bayes models {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# Naive Bayes models {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 :::{.notes}
 The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause. 
@@ -831,7 +854,7 @@ Which is equal to
 
 $$
 \begin{flalign}
-P(a|b \land a) = \frac{P(a \land b)}{P(a \land b)} = 1 &&
+P(a|b \land a) = \frac{P(b \land a)}{P(b \land a)} = 1 &&
 \end{flalign}
 $$
 
@@ -903,6 +926,8 @@ The test whose positive result is more indicative of the virus being present is 
 
 One can compute these probabilities directly from the information given, finding that $P(V |A) = 0.0876$ and $P(V |B) = 0.1538$, so B is more indicative.
 
+:::
+:::
 
 ## Conditional independence
 
@@ -978,6 +1003,50 @@ The second part of the exercise follows from by a similar derivation, or by noti
 :::
 
 :::
+
+## Pacman
+
+Pacman has developed a hobby of fishing. Over the years, he has learned that a day can be considered fit or unfit for fishing $Y$ which results in three features: whether or not Ms. Pacman can show up $M$, the  temperature of the day $T$, and how high the water level is $W$. Pacman models it as an Naive 
+Bayes classification problem.
+
+We wish to calculate the probability a day is fit for fishing given features of the  day. Consider the conditional probability tables that Pacman has estimated over the years:
+
+
+| $Y$   | $P(Y)$ |
+|-------|--------|
+| yes   | 0.1    |
+| no.   | 0.9    |
+
+:::columns
+:::column
+| $M$ | $Y$ | $P(M|Y)$ |
+|-----|-----|-----------|
+| yes | yes | 0.5       |
+| no  | yes | 0.5       |
+| yes | no  | 0.2       |
+| no  | no  | 0.8       |
+:::
+:::column
+| $W$  | $Y$ | $P(W|Y)$ |
+|------|-----|-----------|
+| high | yes | 0.1       |
+| low  | yes | 0.9       |
+| high | no  | 0.5       |
+| low  | no  | 0.5       |
+:::
+:::
+
+| $T$  | $Y$ | $P(T|Y)$ |
+|------|-----|-----------|
+| cold | yes | 0.2       |
+| warm | yes | 0.3       |
+| hot  | yes | 0.5       |
+| cold | no  | 0.5       |
+| warm | no  | 0.2       |
+| hot  | no  | 0.3       |
+
+Using the method of Naive Bayes, if Ms. Pacman is available, the weather is 
+cold, and the water level is high, do we predict that the day is fit for fishing?
 
 # Literature
 ::: {#refs}
