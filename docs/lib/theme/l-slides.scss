@@ -220,6 +220,7 @@ $selectionColor: $selection-color !default;
 .reveal .slides h3 {
   
   margin: 0 0 3rem 0;
+  line-height: 1em;
   
   &:after {
     background: none repeat scroll 0 0 $light-color;
@@ -341,6 +342,11 @@ section.has-dark-background {
   
   p {
     max-width: unset;
+  }
+  
+  .medium p {
+    font-family: $font-family-sans-serif;
+    font-size: $presentation-font-size-root;
   }
   
 }
@@ -700,7 +706,13 @@ $progress-height: 5px;
     
   }
   .headline-only {
-    h1 {
+
+    display: flex !important;
+    flex-direction: column;  
+    justify-content: center;  
+    
+    h1,
+    h2 {
       margin: 0 0 .2em 0;
       font-size: calc($revealjs-h1-font-size*2);
       
@@ -987,6 +999,19 @@ $progress-height: 5px;
       }       
   }
   
+  .larger,
+  .large {
+    p:first-child {
+      font-size: $revealjs-large-font-size;
+    }
+  }
+  
+  .xlarge p:first-child,
+  li span .xlarge,
+  p span.xlarge {
+       font-size: $revealjs-large-font-size*2;   
+  }  
+  
   li span.larger,
   li span.large {
     &::after {
@@ -995,10 +1020,10 @@ $progress-height: 5px;
     }
   }  
   
+  .xlarge,
   .larger,
   .large {
     p:first-child {
-      font-size: $revealjs-large-font-size;
       font-family: $font-family-monospace;
       line-height: 1.2;
       margin: $blockMargin*2 0;
@@ -1203,15 +1228,11 @@ $progress-height: 5px;
 }
 
 #title-slide,
-.reveal .slides .level1.vertical-center {
+.reveal .slides .level1.vertical-center,
+.reveal .slides .level2.vertical-center {
   display: flex !important;
   flex-direction: column;  
   justify-content: center;  
-}
-
-.reveal .slides .level2.vertical-center {
-  margin: 0;
-  padding-top: 15%
 }
 
 .reveal.overview .slides .vertical-center {
