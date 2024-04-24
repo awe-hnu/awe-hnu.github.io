@@ -39,7 +39,7 @@ A learning agent
 - have no idea how to program a solution themselves (e.g., recognizing faces)
 :::
 
-# The learning agent {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# The learning agent {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 :::{.notes}
 So far an agent’s percepts have only served to help the agent choose its actions. Now they will also serve to improve future behavior.
@@ -182,7 +182,7 @@ A hypothesis is __underfitting__ when it fails to find a pattern in the data (i.
 :::
 
 
-# Decision trees {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# Decision trees {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Learning decision trees
 
@@ -429,7 +429,7 @@ Pruning reduces the size of decision trees by removing sections of the tree that
 - The ranks are computed based on the information gain
 :::
 
-# Statistical ML {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# Statistical ML {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Motivation
 
@@ -474,7 +474,7 @@ Predictions use a __likelihood-weighted average__ over the hypotheses:
 
 $$
 \begin{flalign}
-P(X|d) = \sum_i{P(X|d,h_i)P(h_i|d)} = \sum_i{P(X|h_i)P(h_i|d)}
+P(H|d) = \sum_i{P(H|d,h_i)P(h_i|d)} = \sum_i{P(H|h_i)P(h_i|d)}
 \end{flalign}
 $$
 
@@ -492,7 +492,7 @@ Suppose there are five kinds of bags of candies:
 
 . . .
 
-Then we draw 10 candies from some bag ($d_1,...,d_10$), which are all *lime* candies.
+Then we draw 5 candies from some bag ($d_1,...,d_10$), which are all *lime* candies.
 
 . . .
 
@@ -523,11 +523,15 @@ $P(h_5 | 5\;limes) = 0.62424$
 
 ### Evolution of the five hypotheses
 
+The posterior probabilties change the more evidence we gain.
+
 ![Posterior probability of candy-hypotheses](images/example-probs.svg){#fig-eprob}
 
 ---
 
 ### Prediction probability
+
+Let's calculate the probabilit that we draw a lime on our 6th attempt given the data we have (types of bags and observations made).
 
 $$
 \begin{flalign}
@@ -580,7 +584,7 @@ Summing over the hypothesis space is often intractable (e.g., 18,446,744,073,709
 
 . . .
 
-A common approximation is to make predictions based on a __single most probable hypothesis__
+A common approximation is to make predictions based on a __single most probable hypothesis__.
 
 . . .
 
@@ -596,15 +600,25 @@ For large data sets, prior becomes irrelevant.
 
 $$
 \begin{flalign}
-P(h_i|d) = P(d|h_i)P(h_i) \approx P(d|h_{MAP})
+P(h_i|d) = \frac{P(d|h_i)P(h_i)}{P(d)} \approx P(d|h_i)P(h_i) \approx P(d|h_{MAP})
 \end{flalign}
 $$
+
+We don't need to directly calculate $P(d)$ (i.e., the evidence term) for finding the MAP estimate as $P(d)$ acts like a constant and does not affect which value maximizes the posterior probability.
+
+------
+
+MAP learning aims to find the value that maximizes the product of likelihood ($P(d|h_i)$) and prior probability ($P(h_i)$).
 
 . . .
 
 As more data arrive, MAP and Bayesian predictions become closer
 
 ➞ Finding MAP hypotheses is often much easier than Bayesian learning[^OR]
+
+. . .
+
+Usually specialized machine learning algorithms handle the complex calculations behind finding the MAP estimate.
 
 [^7]: Pronounced "em-ay-pee"
 [^8]: Which is equal to maximizing $P(d|h_i)P(h_i)$ or $\ log P(d|h_i) + \log P(h_i)$
@@ -629,7 +643,7 @@ As more data arrive, MAP and Bayesian predictions become closer
 - __Maximum likelihood__ assumes uniform prior, OK for large data sets
 :::
 
-# Deep learning {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# Deep learning {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Introduction
 
@@ -712,7 +726,7 @@ A ConvNet is structured as a series of stages, which are composed of two types o
 
 Good read: [A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
 
-# Development process {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
+# Development process {.vertical-center .headline-only background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
 ## Overview
 
@@ -868,14 +882,6 @@ Source: @RusselNorvig2022AIMA [p. 731]
 
 ## Exercise {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
 
-## Concepts
-
-Define the following machine-learning terms in your own words
-
-a. Training set
-b. Hypothesis
-c. Bias
-d. Variance
 
 ## Learning scenarios
 
@@ -895,19 +901,56 @@ Discuss following questions:
 
 Describe the differences between supervised, unsupervised, and reinforcement learning.
 
+## Ockham’s razor
+
+In your own words, explain to us what Ockham's razor is. Find an example that you can use to enrich your explanation of the concept.
+
+## ML concepts
+
+Define the following machine-learning terms in your own words
+
+a. Inductive learning
+b. Training set
+c. Hypothesis
+d. Bias
+e. Variance
+f. Curve fitting
+
 ## Qualification problem
 
 Draw a decision tree for the problem of deciding whether to move forward at a road intersection, given that the light has just turned green.
 
 What problems do you see? Argue based on the qualification problem discussed in [chapter probability](../6/#motivation).
 
+Generalize your findings and describe for which kind of problems decision trees are not suitable.
+
 ## Divide-and-conquer
 
-Create the decision tree by applying the divide-and-conquer approach on the restaurant examples (approx. 20 minutes).
+Create the decision tree by applying the divide-and-conquer approach on the restaurant examples.
 
-Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see? (approx. 5 minutes)
+Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see?.
+
+:::notes
+
+:::panel-tabset
+
+#### Solution note
+
+Open only if you need help.
+
+
+#### Open
+
+![Splitting the examples by testing on attributes, based on @RusselNorvig2022AIMA [p. 677]](images/divide-and-conquer.svg){#fig-l-agent}
+
+At each node, we show the positive (light boxes) and negative (dark boxes) examples remaining. (a) Splitting on *Type* brings us no nearer to distinguishing between positive and negative examples. *Type* is a __poor attribute__ (b) Splitting on *Patrons* does a good job of separating positive and negative examples. After splitting on *Patrons*, *Hungry* is a fairly good selection test. The full tree would be *Patrons*, *Hungry*, *Type* and *Fri*.
+
+:::
+:::
 
 ## Decision tree
+
+Explain how decision trees can be used to create a learning agent. Relate your answers to the components outlined in the lecture notes.
 
 We never test the same attribute twice along one path in a decision tree. Why not?
 
@@ -926,7 +969,7 @@ You want to teach a robot to recognize cat, using a set of features (the presenc
 
 : Observations {#tbl-e7-obs}
 
-1. Assuming no smoothing, given estimates for the parameters of the classification rule based on the training samples.
+1. Assuming no smoothing, give estimates for the parameters of the classification rule based on the training samples.
 2. Suppose a subject which has stripe but not spot or blue eyes. What would happen if the robot had to guess the identity of the subject?
 
 ## Statisticians

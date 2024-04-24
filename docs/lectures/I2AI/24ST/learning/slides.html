@@ -407,7 +407,7 @@ Andy Weeger
 </section>
 
 <section>
-<section id="the-learning-agent" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="the-learning-agent" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>The learning agent</h1>
 <aside class="notes">
 <p>So far an agent’s percepts have only served to help the agent choose its actions. Now they will also serve to improve future behavior.</p>
@@ -640,7 +640,7 @@ Figure&nbsp;2: Finding hypotheses to fit data
       }</style></aside>
 </section></section>
 <section>
-<section id="decision-trees" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="decision-trees" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Decision trees</h1>
 
 </section>
@@ -1089,7 +1089,7 @@ Table&nbsp;1: Examples for the restaurant domain
 </div>
 </section></section>
 <section>
-<section id="statistical-ml" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="statistical-ml" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Statistical ML</h1>
 
 </section>
@@ -1126,7 +1126,7 @@ P(h_i|d) = \alpha P(d|h_i)P(h_i)
 <p>Predictions use a <strong>likelihood-weighted average</strong> over the hypotheses:</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(X|d) = \sum_i{P(X|d,h_i)P(h_i|d)} = \sum_i{P(X|h_i)P(h_i|d)}
+P(H|d) = \sum_i{P(H|d,h_i)P(h_i|d)} = \sum_i{P(H|h_i)P(h_i|d)}
 \end{flalign}
 \]</span></p>
 </div>
@@ -1144,7 +1144,7 @@ P(X|d) = \sum_i{P(X|d,h_i)P(h_i|d)} = \sum_i{P(X|h_i)P(h_i|d)}
 </ul>
 </div>
 <div class="fragment">
-<p>Then we draw 10 candies from some bag (<span class="math inline">\(d_1,...,d_10\)</span>), which are all <em>lime</em> candies.</p>
+<p>Then we draw 5 candies from some bag (<span class="math inline">\(d_1,...,d_10\)</span>), which are all <em>lime</em> candies.</p>
 </div>
 <div class="fragment">
 <p>What kind of bag is it?<br>
@@ -1166,6 +1166,7 @@ What flavor will the next candy be?</p>
 <section class="slide level2">
 
 <h3 id="evolution-of-the-five-hypotheses">Evolution of the five hypotheses</h3>
+<p>The posterior probabilties change the more evidence we gain.</p>
 <div id="fig-eprob" class="quarto-figure quarto-figure-left quarto-float">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-eprob-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1180,6 +1181,7 @@ Figure&nbsp;4: Posterior probability of candy-hypotheses
 <section class="slide level2">
 
 <h3 id="prediction-probability">Prediction probability</h3>
+<p>Let’s calculate the probabilit that we draw a lime on our 6th attempt given the data we have (types of bags and observations made).</p>
 <p><span class="math display">\[
 \begin{flalign}
 P(d_{j+1}|d) = \sum_k{P(d_{j+1}|d,h_k)P(h_k|X)} = \sum_k{P(d_{j+1}|h_k)P(h_k|d)}
@@ -1234,7 +1236,7 @@ Figure&nbsp;5: Probability that next candy is lime given <strong>d</strong>
 <h2>MAP learning</h2>
 <p>Summing over the hypothesis space is often intractable (e.g., 18,446,744,073,709,551,616 Boolean functions of 6 attributes).</p>
 <div class="fragment">
-<p>A common approximation is to make predictions based on a <strong>single most probable hypothesis</strong></p>
+<p>A common approximation is to make predictions based on a <strong>single most probable hypothesis</strong>.</p>
 </div>
 <div class="fragment">
 <p><strong>Maximum a posteriori</strong> (MAP)<a href="#/footnotes" class="footnote-ref" id="fnref6" role="doc-noteref" data-footnote-href="#/fn6" onclick=""><sup>6</sup></a> learning: choose <span class="math inline">\(h_{MAP}\)</span> maximizing <span class="math inline">\(P(h_i|d)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref7" role="doc-noteref" data-footnote-href="#/fn7" onclick=""><sup>7</sup></a>.</p>
@@ -1246,13 +1248,21 @@ Figure&nbsp;5: Probability that next candy is lime given <strong>d</strong>
 <p><strong>Maximum likelihood (ML) learning</strong><a href="#/footnotes" class="footnote-ref" id="fnref8" role="doc-noteref" data-footnote-href="#/fn8" onclick=""><sup>8</sup></a> means, thus, to choose <span class="math inline">\(h_{ML}\)</span> maximizing <span class="math inline">\(P(d|h_i)\)</span>.</p>
 <p><span class="math display">\[
 \begin{flalign}
-P(h_i|d) = P(d|h_i)P(h_i) \approx P(d|h_{MAP})
+P(h_i|d) = \frac{P(d|h_i)P(h_i)}{P(d)} \approx P(d|h_i)P(h_i) \approx P(d|h_{MAP})
 \end{flalign}
 \]</span></p>
+<p>We don’t need to directly calculate <span class="math inline">\(P(d)\)</span> (i.e., the evidence term) for finding the MAP estimate as <span class="math inline">\(P(d)\)</span> acts like a constant and does not affect which value maximizes the posterior probability.</p>
 </div>
+<aside></aside></section>
+<section class="slide level2">
+
+<p>MAP learning aims to find the value that maximizes the product of likelihood (<span class="math inline">\(P(d|h_i)\)</span>) and prior probability (<span class="math inline">\(P(h_i)\)</span>).</p>
 <div class="fragment">
 <p>As more data arrive, MAP and Bayesian predictions become closer</p>
 <p>➞ Finding MAP hypotheses is often much easier than Bayesian learning<a href="#/footnotes" class="footnote-ref" id="fnref9" role="doc-noteref" data-footnote-href="#/fn9" onclick=""><sup>9</sup></a></p>
+</div>
+<div class="fragment">
+<p>Usually specialized machine learning algorithms handle the complex calculations behind finding the MAP estimate.</p>
 <aside class="notes">
 <p><strong>Candy example</strong></p>
 <ul>
@@ -1284,7 +1294,7 @@ P(h_i|d) = P(d|h_i)P(h_i) \approx P(d|h_{MAP})
 </div>
 </section></section>
 <section>
-<section id="deep-learning" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="deep-learning" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Deep learning</h1>
 
 </section>
@@ -1370,7 +1380,7 @@ Figure&nbsp;6: Illustration of a deep neural network consisting of multiple repr
 </div>
 <aside></aside></section></section>
 <section>
-<section id="development-process" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<section id="development-process" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
 <h1>Development process</h1>
 
 </section>
@@ -1544,16 +1554,6 @@ Figure&nbsp;6: Illustration of a deep neural network consisting of multiple repr
 <section id="exercise" class="slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
 <h2>Exercise</h2>
 </section>
-<section id="concepts" class="slide level2">
-<h2>Concepts</h2>
-<p>Define the following machine-learning terms in your own words</p>
-<ol type="a">
-<li>Training set</li>
-<li>Hypothesis</li>
-<li>Bias</li>
-<li>Variance</li>
-</ol>
-</section>
 <section id="learning-scenarios" class="slide level2">
 <h2>Learning scenarios</h2>
 <p>Consider following problems:</p>
@@ -1573,18 +1573,69 @@ Figure&nbsp;6: Illustration of a deep neural network consisting of multiple repr
 <h2>Learning types</h2>
 <p>Describe the differences between supervised, unsupervised, and reinforcement learning.</p>
 </section>
+<section id="ockhams-razor-1" class="slide level2">
+<h2>Ockham’s razor</h2>
+<p>In your own words, explain to us what Ockham’s razor is. Find an example that you can use to enrich your explanation of the concept.</p>
+</section>
+<section id="ml-concepts" class="slide level2">
+<h2>ML concepts</h2>
+<p>Define the following machine-learning terms in your own words</p>
+<ol type="a">
+<li>Inductive learning</li>
+<li>Training set</li>
+<li>Hypothesis</li>
+<li>Bias</li>
+<li>Variance</li>
+<li>Curve fitting</li>
+</ol>
+</section>
 <section id="qualification-problem" class="slide level2">
 <h2>Qualification problem</h2>
 <p>Draw a decision tree for the problem of deciding whether to move forward at a road intersection, given that the light has just turned green.</p>
 <p>What problems do you see? Argue based on the qualification problem discussed in <a href="../6/#motivation">chapter probability</a>.</p>
+<p>Generalize your findings and describe for which kind of problems decision trees are not suitable.</p>
 </section>
 <section id="divide-and-conquer" class="slide level2">
 <h2>Divide-and-conquer</h2>
-<p>Create the decision tree by applying the divide-and-conquer approach on the restaurant examples (approx. 20 minutes).</p>
-<p>Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see? (approx. 5 minutes)</p>
+<p>Create the decision tree by applying the divide-and-conquer approach on the restaurant examples.</p>
+<p>Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see?.</p>
+<aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Solution note</a></li><li><a href="#tabset-1-2">Open</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-1-2">
+<div id="fig-l-agent" class="quarto-figure quarto-figure-left quarto-float">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/divide-and-conquer.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Splitting the examples by testing on attributes, based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 677</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p>At each node, we show the positive (light boxes) and negative (dark boxes) examples remaining. (a) Splitting on <em>Type</em> brings us no nearer to distinguishing between positive and negative examples. <em>Type</em> is a <strong>poor attribute</strong> (b) Splitting on <em>Patrons</em> does a good job of separating positive and negative examples. After splitting on <em>Patrons</em>, <em>Hungry</em> is a fairly good selection test. The full tree would be <em>Patrons</em>, <em>Hungry</em>, <em>Type</em> and <em>Fri</em>.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="decision-tree" class="slide level2">
 <h2>Decision tree</h2>
+<p>Explain how decision trees can be used to create a learning agent. Relate your answers to the components outlined in the lecture notes.</p>
 <p>We never test the same attribute twice along one path in a decision tree. Why not?</p>
 </section>
 <section id="cat-recognition" class="slide level2">
@@ -1648,7 +1699,7 @@ Table&nbsp;2: Observations
 </figure>
 </div>
 <ol type="1">
-<li>Assuming no smoothing, given estimates for the parameters of the classification rule based on the training samples.</li>
+<li>Assuming no smoothing, give estimates for the parameters of the classification rule based on the training samples.</li>
 <li>Suppose a subject which has stripe but not spot or blue eyes. What would happen if the robot had to guess the identity of the subject?</li>
 </ol>
 </section>
