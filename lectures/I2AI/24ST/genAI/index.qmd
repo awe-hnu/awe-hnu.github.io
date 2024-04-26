@@ -25,15 +25,156 @@ format:
     include-before-body: ../assets/footer.html
 ---
 
-# Preparation
+# Resources
 
-Please read following article:
+In preparation for the lecture, you need to read [Stephen Wolfram's article on what ChatGPT is doing and why it works](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
 
-[What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2024/02/what-is-chatgpt-doing-and-why-does-it-work/)
+If you have only limited understanding of what GenAI is, please go through: [Geeks for Geeks articla on the basis of generative AI](https://www.geeksforgeeks.org/what-is-generative-ai/)
 
-# Discussion
+If you want to do a deepdive, please consider working through [Microsoft's Artificial Intelligence for Beginners - A Curriculum](https://microsoft.github.io/AI-For-Beginners/)
 
-Stay tuned
+# ✏️ Exercises {.vertical-center background-color=black}
+
+## Deep Learning
+
+What are the two things you have newly learned about **deep learning**?
+
+## Key concepts
+
+Identify, list and explain the key concepts discussed in the article in your own words (e.g., temperature).
+
+Reflect on how these concepts contribute to ChatGPT's functionality.
+
+## Loss function
+
+Explain in your own words what a "lost function", sometimes also called “cost function”, is.
+
+How does the loss function change over the course of training a neural network?
+
+## Learning {.scrollable}
+
+Analyze following statements and determine if they are true or false. Justify your answer.
+
+:::smaller
+1. It can be easier to solve more complicated problems with neural nets than simpler ones. 
+2. Optimizing neural network training relies heavily on trial-and-error approaches. Researchers have gradually built a collection of effective techniques through experimentation.
+3. The field of neural network training is shifting away from building models entirely from scratch. Instead, researchers are increasingly using two main approaches: transfer learning^[Transfer learning involves incorporating the knowledge of a pre-trained network into a new model, allowing the new model to learn faster and achieve better performance.] and data augmentation^[Data augmentation refers to the use of pre-trained networks to generate new training examples, expanding the available data and potentially improving the performance of the new model].
+4. In the early days of neural networks features have been discovered through the training process, which allowed the network to identify patterns that might not be obvious to human experts. In modern neural networks, features are often hand-crafted by domain experts.
+5. Features are not directly stored within individual neurons. Instead, the network's ability to identify features emerges from the collective behavior of many neurons and their connections.
+6. Perceptrons can only solve linearly separable problems. This means the data points can be perfectly separated into two classes by a straight line.
+For more complex classification tasks, multi-layer perceptrons (artificial neural networks with multiple layers of perceptrons) are required.
+7. One technique for neural network training is to iterate through the entire dataset multiple times, allowing the network to learn from each example.
+8. A common approach for generating training data for Large Language Models (LLMs) involves a technique called "guessing". This method takes an existing piece of text, removes a portion of the ending (masking it out), and presents it to the LLM. The LLM is then tasked with predicting the guessed portion, essentially completing the text. By comparing its prediction to the original, unmasked text, the LLM learns the patterns and relationships within language.
+9. Even with powerful hardware like GPUs, training large neural networks can be inefficient. This is because current computer architectures often have a separation between memory (where data is stored) and processing units (like CPUs or GPUs) that limits how much data can be accessed simultaneously. This separation forces the network to process information in small chunks, with most of the network waiting for the relevant data to be fetched from memory. This can significantly slow down the training process.
+10. Computational irreducibility suggests that there is no fundamental limit to the level of regularity that exists in certain problems. There are no such problems that are inherently complex. Every problem can be related to simple, learnable patterns.
+11. The ability of LLMs to handle tasks like writing essays challenges our understanding of computational difficulty. It seems that these tasks, while complex for computers in the past, may be computationally simpler than we initially believed.
+:::
+
+<!--
+
+Re 8: its masking, not guessing. The rest is fine.
+
+-->
+
+:::notes
+:::callout-note
+
+### Features vs. neurons
+
+**Features** are the detectable characteristics or patterns within the data that the network aims to identify. They are essentially the building blocks that the network uses for tasks like classification or prediction [@Wolfram2023GPT].
+
+**Neurons** These are the individual processing units that make up the network. They are responsible for receiving input, applying an activation function, and sending the output to other neurons [@Wolfram2023GPT].
+
+An analogy: Imagine a team of detectives working on a case. Features would be the individual clues they find at the crime scene (fingerprints, shoe prints, etc.). Each detective (neuron) analyzes the clues and shares their findings with others. Through collaboration and information sharing, the team (network) builds a bigger picture of the crime (recognizes the features) and solves the case (completes the task).
+
+:::
+
+:::callout-note
+
+### Learnability vs. computational irreducibility
+
+Learnability refers to a machine learning system's ability to acquire knowledge from data. For a machine learning system to learn effectively, there need to be underlying patterns and regularities in the data. By identifying these regularities, the system can compress the data and make accurate predictions or classifications on new, unseen data. The more a system can compress data by identifying these regularities, the more efficient and powerful it becomes.
+
+Computational irreducibility refers to problems that are inherently complex and may not have simple, learnable patterns. The concept suggests that there may be a fundamental limit to the level of regularity that exists in certain problems. 
+
+While learnability thrives on regularities, computational irreducibility limits regularity. Or put another way, there’s an ultimate tradeoff between capability and trainability: the more you want a system to make “true use” of its computational capabilities, the more it’s going to show computational irreducibility, and the less it’s going to be trainable. 
+
+Regarding the capabilities of current LLMs: Instead what we should conclude is that tasks—like writing essays—that we humans could do, but we didn’t think computers could do, are actually in some sense computationally easier than we thought [@Wolfram2023GPT].
+:::
+
+:::
+
+## Embeddings
+
+1. Form small groups of two to three students.
+2. Discuss the concept of embeddings within your group. 
+3. Compile a list of 10 words relevant to a specific topic (e.g., technology, sports, food).
+4. Create a word-embedding that makes use of a four-dimensional space that captures the semantic relationship of the 10 words.
+5. Reflect on how word embeddings capture semantic relationships between words and how they contribute to language understanding in AI systems like ChatGPT.
+
+<!---
+
+the dimensions represent features or attributes in the vector space used to represent words via word embeddings. Each dimension corresponds to a specific aspect or characteristic of the word's meaning or context, and the value along each dimension indicates the word's position or strength in that particular attribute.
+
+For example, in the representation:
+
+Innovation [0.2, 0.5, −0.1, 0.3]
+
+- The first dimension (0.2) might represent how closely related the word "innovation" is to technological advancements.
+- The second dimension (0.5) could indicate the level of novelty or originality associated with the concept of innovation.
+- The third dimension (-0.1) might capture any negative connotations or drawbacks commonly associated with innovation.
+- ...
+
+Each dimension contributes to the overall representation of the word in the vector space, allowing for nuanced relationships and meanings to be captured. These dimensions are determined by the training process of the word embedding model, which analyzes the co-occurrence patterns of words in a large corpus of text data and learns to map words to vectors in such a way that preserves semantic relationships.
+
+--->
+
+
+:::notes
+:::callout-note
+
+#### Embedding
+
+Embedding refers to a low-dimensional vector representation of a piece of data, typically used for categorical variables like words, images, or even users. This process of transforming discrete data into a continuous vector space is called embedding.
+
+Embeddings are important, as  
+
+- raw data like words or categories are not directly usable by neural networks, which operate on numbers. Embeddings bridge this gap by converting these discrete units into numerical vectors.
+- ideally, the vectors  capture semantic relationships between the data points. For example, words with similar meanings should have embeddings that are closer together in the vector space.
+- they allow neural networks to perform various operations like addition, subtraction, and similarity calculations. This allows the network to learn complex relationships between the data points.
+
+:::
+:::
+
+## Transformers
+
+Form groups of two and do additional research on the architecture and building blocks of the most notable feature of technologies like GPT, so called transformers.
+
+:::notes
+:::callout-note
+
+#### Transformer architecture
+
+Large language models like GPT are neural nets that are particularly set up for dealing with language. Their most notable feature is a piece of neural net architecture called a “transformer”. 
+
+You can imagine a transformer as a powerful machine for understanding sequences, like sentences. A transformer has two main parts: an encoder and a decoder.
+
+The encoder ...
+
+- reads the input sequence (like a sentence), and
+- uses special building blocks called **attention blocks** to figure out how the words relate to each other. Attention is like focusing on the most important parts of a conversation with multiple people.
+- These attention blocks work alongside other building blocks called **feed-forward blocks** that help the model learn more complex patterns beyond just word relationships.
+- Together, the attention and feed-forward blocks within each encoder layer create a condensed representation of the entire sentence. This captures the meaning and connections between words^[The output of the transformer encoder is a higher-dimensional representation of the entire input sequence. It captures not only the meaning of individual words but also the relationships and context between them. This representation is often much richer and more complex than a single embedding vector.].
+
+The decoder ...
+
+- uses the condensed representation from the encoder, and
+- generates the output sequence word by word, like translating a sentence or writing a summary.
+- While generating, it also pays attention to the words it already created, like following a conversation turn by turn.
+
+Attention is what makes transformers special. This allows them to understand long-distance relationships between words, important for tasks like translation or summarization. In addition and unlike some other models, transformers can analyze all parts of the sequence at once, making them faster. Overall, transformers are like super-analyzers that can break down complex sequences and understand the hidden connections within them.
+:::
+:::
 
 # Literature
 ::: {#refs}
