@@ -18,6 +18,8 @@ format:
   presentation-revealjs:
     output-file: slides.html
     include-before-body: ../assets/footer.html
+    toc-depth: 2
+    slide-level: 5
 ---
 
 # Revision {.headline-only .vertical-center background-color="#0333ff"}
@@ -92,13 +94,640 @@ Emerging information technologies enable **intelligent** and **affective** syste
 ## Discussion {.discussion-slide background-color="#000"}
 
 :::medium
-What do we mean by\
-**intelligent system?**
+What do we mean \
+by **intelligence**?
 :::
 
-Provide a description that outlines what intelligence in terms of digital technologies could mean. Take 5 minutes to reflect in small groups.
+Provide a description that outlines what intelligence could mean. \
+Take 5 minutes to reflect in small groups.
 
-## Characteristics
+## Human intelligence
+
+> **Human intelligence** "covers the capacity to learn, reason, and adaptively perform effective actions within an environment, based on existing knowledge. This allows humans to adapt to changing environments and act towards achieving their goals." *@dellermann2019hybrid [p. 632]*
+
+. . .
+
+@sternberg1985beyond proposes three distinctive dimensions:
+
+:::{.incremental}
+- **Componential intelligence**\
+the ability to take apart problems and being able to see solutions not often seen
+- **Experiential intelligence**\
+the ability to learn and adapt through evolutionary experience
+- **Contextual intelligence**\
+the ability to create an ideal fit between the environment by adaptation, shaping, and selection
+:::
+
+## Artificial intelligence
+
+> ‘AI system’ means a machine-based systems designed to [operate with varying levels of autonomy]{.fragment .highlight-current-blue} and that may [exhibit adaptiveness after deployment]{.fragment .highlight-current-blue} and that, [for explicit or implicit objectives, infers, from the input it received]{.fragment .highlight-current-blue}, how to [generate output such as content, predictions, recommendations, or decisions]{.fragment .highlight-current-blue}, that can [influence physical or virtual environment]{.fragment .highlight-current-blue} [@euAIAct2024].
+
+:::fragment
+Based on this definition, three main properties of intelligent agents can be distinguished:
+:::
+
+:::medium
+[Capacity to work in a complex environment^[The capacity to work in a complex environment is described as agency],]{.fragment .fade-in-then-semi-out} 
+[cognitive abilities^[Cognitive abilities are, for instance, perception and language], and ]{.fragment .fade-in-then-semi-out} 
+[complex intelligent behavior^[Intelligent behavior is reflected, for instance, by rationality and learning].]{.fragment  .fade-in-then-semi-out}
+:::
+
+## Working in complex environments {.headline-only background-color="#f0f0f0"}
+
+### Agents and environments
+
+![Necessary components to interact with complex environments](images/actor.svg){#fig-agent}
+
+:::notes
+An agent is anything that can be viewed as perceiving its __environment__ through __sensors__ and acting upon that environment through __actuators__.
+:::
+
+### Task environment
+
+When designing an intelligent system, the **task environment** (i.e., the problem) must be specified as fully as possible, including
+
+:::medium
+[Thep [p]{.link-color}erformance measure]{.fragment} \
+[the [e]{.link-color}nvironment,]{.fragment} \
+[the [a]{.link-color}ctuators,]{.fragment} \
+[and the [s]{.link-color}ensors]{.fragment}
+:::
+
+:::fragment
+@RusselNorvig2022AIMA call the task environment PEAS.
+:::
+
+
+::: {.notes}
+::: {.callout-note}
+### Example of an PEAS description
+
+Task environment of a taxi driver agent
+
+- __P__: Safe, fast, legal, comfortable, maximize profits, minimize impact on other road users
+- __E__: Roads, other road users, police, pedestrians, customers, weather
+- __A__: Steering, accelerator, brake, signal horn, display, speech
+- __S__: Cameras, radar, speedometer, GPS, engine, sensors, accelerometer, microphones, touchscreen
+
+Source: @RusselNorvig2022AIMA [p. 61]
+
+:::
+:::
+
+### Properties
+
+Task environments can be categorized along following dimensions [@RusselNorvig2022AIMA, p.62-64]:
+
+::: {.incremental}
+- Fully observable ⇠⇢ partially observable
+- Single agent ⇠⇢ multi-agent
+- Deterministic ⇠⇢ nondeterministic
+- Episodic ⇠⇢ sequential
+- Static ⇠⇢ dynamic
+- Discrete ⇠⇢ continuous
+- Known ⇠⇢ unknown
+:::
+
+::: {.notes}
+__Explanations__
+
+- If an agent's sensors give it access to the full state of the environment at any point in time, then we say that the task environment is *fully observable* (e.g., image analysis).
+- When multiple agents intend to maximize a performance measure that depends on the behavior of other agents, we say the environment is *multi-agent* (e.g., chess).
+- When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a *deterministic* environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a *stochastic* environment (e.g., poker).
+- If an agent's experience is divided into atomic episodes in which the agent receives a perception and then performs a single action, and if the next episode does not depend on the actions performed in the previous episodes, then we say that the task environment is *episodic* (e.g., image analysis).
+- If the environment changes while an agent is deliberating, then the environment is *dynamic* (e.g., taxi driving).
+- If the environment has a finite number of different states, we speak of *discrete* environments (e.g., chess).
+- If the outcomes (or outcome probabilities) for all actions are given, then the environment is *known* (e.g., solitaire card game).
+
+Source: @RusselNorvig2022AIMA, p.62-64
+
+:::
+
+:::notes
+The hardest case is *partially observable, multi-agent, nondeterministic, sequential, dynamic, and continuous.*
+:::
+
+### Exercise {.discussion-slide background-color="#000"}
+
+:::medium
+Describe the task environment of a **chess player** and a **autonomous car.**
+:::
+
+Form small groups, take 15 minutes for this exercise and prepare yourself to present your findings.
+
+:::notes
+
+**Chess player:**
+
+- static
+- discrete
+- fully-observable
+- deterministic
+- sequential
+- known
+
+**Autonomous car**
+
+- dynamic
+- continuos
+- partial-observable
+- stochastic
+- sequential
+- known
+
+:::
+
+### Autonomous vs. advisor system
+
+:::r-stack
+
+![Types of intelligent systems in terms of their interaction with the environment [@Molina2020Intelligent]](images/systemTypes-1.svg){.fragment height="400"}
+
+![&nbsp;](images/systemTypes.svg){.fragment height="400"}
+
+:::
+
+
+## Cognitive abilities {.headline-only background-color="#f0f0f0"}
+
+### Processing mental information
+
+A cognitive ability is an ability that requires to process mental information [@carroll1993human]. 
+
+. . .
+
+It refers to the skills involved in performing tasks associated with perception, understanding, reasoning, judgment, and language.
+
+. . .
+
+There are four types of cognitive abilities: 
+
+. . .
+
+:::medium
+[Attention,]{.fragment} 
+[memory,]{.fragment}
+[logic and reasoning,]{.fragment} 
+[auditory and visual processing.]{.fragment}
+:::
+
+### Primary cognitive abilities
+
+:::r-stack
+
+![Primary cognitive abilities of intelligent systems based on @Molina2020Intelligent](images/cognition-1.svg){ height="400"}
+
+![&nbsp;](images/cognition-2.svg){.fragment height="400"}
+
+![&nbsp;](images/cognition-3.svg){.fragment height="400"}
+
+![&nbsp;](images/cognition-4.svg){.fragment height="400"}
+
+![&nbsp;](images/cognition.svg){.fragment height="400"}
+
+:::
+
+### Exercise {.discussion-slide background-color="#000"}
+
+:::medium
+Describe the basic cognitive abilities of an **autonomous car.**
+:::
+
+Form small groups, take 10 minutes for this exercise. \
+Prepare yourself to present your findings.
+
+### Deliberation and reactive behavior
+
+![Different types of behavior require different "thinking systems" based on @Molina2020Intelligent](images/behavior.svg){ height="400"}
+
+### Multiagent systems
+
+![Meta cognitive abilities by means of multiagent systems based on @Molina2020Intelligent](images/multi-agent.svg){ height="400"}
+
+
+## Complex intelligent behavior {.headline-only background-color="#f0f0f0"}
+
+### Properties
+
+To realize complex intelligent behavior, the components of an intelligent system (i.e., perception, deliberation, action control and interaction) must have following properties (to some extent):
+
+:::large
+[Rationality]{.fragment} \
+[Learning]{.fragment} \
+[Introspection]{.fragment} \
+:::
+
+### Rationality
+
+A rational agent is one that does the right thing.
+
+:::fragment
+> For each possible percept sequence, a rational agent should select an __action__ that is expected to maximize its __performance measure__, given the evidence provided by the __percept sequence__ and whatever built-in __knowledge__ the agent has [@RusselNorvig2022AIMA, p.58].
+:::
+
+:::notes
+
+What is rational at any given time depends on four things:
+
+- The performance measure that defines the criterion of success
+- The agent's prior knowledge of the environment
+- The actions that the agent can performance
+- The agent's percept sequence to date
+
+:::
+
+:::fragment
+It can be quite hard to formulate a performance measure correctly, however:
+
+> If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it [...] we had better be quite sure that the purpose built into the machine is the purpose which we really desire [@Wiener1960Some, p. 1358]
+:::
+
+### Exercise {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::large
+Under which circumstances does a **vacuum cleaning agent** act rational?
+:::
+
+:::notes
+Under following circumstances, the vacuum cleaning agent is rational:
+
+- The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a "lifetime" of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth).
+- The "geography" of the environment is known *a priori* but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The *Right* and *Left* actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is.
+- The only available action is *Right*, *Left*, and *Suck*.
+- The agent correctly perceives its location and whether that location contains dirt.
+
+For details such as tabulated agent functions please see @RusselNorvig2022AIMA.
+:::
+
+### Rationality and perfection
+
+:::large
+Rationality != perfection
+:::
+
+:::incremental
+- Rationality maximizes *expected* performance
+- Perfection maximizes *actual* performance
+- Perfection requires omniscience
+- Rational choice depends only on the percept sequence *to date*
+:::
+
+:::notes
+
+As the environment is usually not completely known *a priori* and completely predictable (or stable), information gathering and learning are important parts of rationality [@RusselNorvig2022AIMA, p.59].
+
+**Example:** The vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.
+
+:::
+
+### Rationality and cognitive abilities
+
+:::r-stack
+
+![Rational decisions affect different cognitive abilities [@Molina2020Intelligent]](images/rationalQuestions-1.svg){ height="400"}
+
+![&nbsp;](images/rationalQuestions-2.svg){.fragment height="400"}
+
+![&nbsp;](images/rationalQuestions-3.svg){.fragment height="400"}
+
+![&nbsp;](images/rationalQuestions-4.svg){.fragment height="400"}
+
+![&nbsp;](images/rationalQuestions.svg){.fragment height="400"}
+
+:::
+
+### Learning
+
+> Learning agents are those that can improve their behavior through diligent study of past experiences and predictions of the future *@RusselNorvig2022AIMA [p. 668]*
+
+. . .
+
+A learning agent
+
+:::{.incremental}
+- uses so-called __machine learning__ (ML), if it is a computer;
+- improves performance based on experience (i.e., observations of the world);
+- is required when the designer lacks omniscience (i.e., in unknown environments) and/or
+- has no idea how to program a solution themselves (e.g., recognizing faces)
+:::
+
+### Learning types
+
+[Supervised learning]{.large} \
+[Involves learning a function from examples *➞ test and training data*]{.link-color .fragment}
+
+[Unsupervised learning]{.large} \
+[The agent has to learn patterns in the input *➞ identification of categories or classifications*]{.link-color .fragment}
+
+[Reinforcement learning]{.large} \
+[The agent must learn from punishments or rewards *➞ learning by trial and error*]{.link-color .fragment}
+
+### Learning and cognitive abilities
+
+:::r-stack
+
+![Adaptation through learning can affect differnt cognitive abilities [@Molina2020Intelligent]](images/learning-1.svg){ height="400"}
+
+![&nbsp;](images/learning-2.svg){.fragment height="400"}
+
+![&nbsp;](images/learning-3.svg){.fragment height="400"}
+
+![&nbsp;](images/learning-4.svg){.fragment height="400"}
+
+![&nbsp;](images/learning.svg){.fragment height="400"}
+
+:::
+
+### Introspection 
+
+:::medium
+Introspection refers to the capabilitiy to **analyze one's cognitive abilities**.
+:::
+
+The system uses an [observable model of its own abilities]{.link-color}.\   
+[This model is used to simulate self-awareness processes.]{.fragment}
+
+. . .
+
+Introspection allows the system ...
+
+:::incremental
+- ... to judge its own actions and, thus, provides [learning opportunities]{.link-color} <br />
+  (e.g., analyzing past outputs ot identify errors or biases) and
+- ... to [generate explanations]{.link-color} and, thus, to justify decisions to the user <br /> 
+  (e.g., explainable AI — showing how a systems arrives at a solution)
+:::
+
+## Summary {background-color="#f0f0f0"}
+
+The properties of an intelligent system are
+
+[Capacity to work in a <br /> complex environment]{.medium .fragment} \
+[Interaction with the environment and other agents]{.fragment .fade-in-then-semi-out}
+
+[Cognitive abilities]{.medium .fragment} \
+[Perception, action control, deliberation, and interaction]{.fragment .fade-in-then-semi-out}
+
+[Complex intelligent behavior]{.medium .fragment}\
+[Acting rationally, adaptation through learning, and introspection]{.fragment .fade-in-then-semi-out}
+
+### Exercise {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::large
+Select an intelligent system and analyse it using the properties outlined here.
+:::
+
+Form small group and take 20 minutes to work on a comprehensive analysis.\
+Prepare a short presentation and prepare yourself to perform it.
+
+# Affections {.headline-only background-color="#0333ff"}
+
+## Affective computing {background-color="#f0f0f0"}
+
+:::large
+Computing that relates to, arises from or deliberately influences emotion.
+:::
+
+:::aside
+@picard2000affective
+:::
+
+## Objectives
+
+:::medium
+Assigning systems "the human-like capabilities of observation, interpretation and generation of affect features^["Affect" is basically a synonym for emotion.]" [[@tao2005affective, p. 981]]{.smaller}
+:::
+
+. . .
+
+The goal is to simulaty empathy — that affective systems can interpret the emotional states of humans and adapt their behavior to them, giving an appropriate response for those emotions (i.e., *emotion aware systems*).
+
+## Properties
+
+[Emotion recognition]{.medium .fragment} \
+[Interpreting the emotional states of humans]{.fragment .fade-in-then-semi-out}
+
+[Emotion expresssion]{.medium .fragment} \
+[Ability to simulate human affects (e.g. 'emotional modality')]{.fragment .fade-in-then-semi-out}
+
+[Adequate response to emotion]{.medium .fragment}\
+[Linking emotion recognition and expression e.g., to reinforce the meaning of messages]{.fragment .fade-in-then-semi-out}
+
+## Emotional signals
+
+:::medium
+[Facial expression]{.highlight-current-blue .fragment}, [posture]{.highlight-current-blue .fragment}, [speech]{.highlight-current-blue .fragment}, [force or rhythm of key stroke]{.highlight-current-blue .fragment}, [temperature change]{.highlight-current-blue .fragment} (e.g., hand on mouse) can signify changes in user's emotional state.
+:::
+
+. . .
+
+These can be detected and interpreted by an affective system.
+
+. . .
+
+Affective systems can use some of these to simulate emoptions.
+
+## Basic emotions
+
+@ekman1987universals categorized emotions into 6 groups:
+
+:::large
+[Fear,]{.fragment .fade-in-then-semi-out}
+[surprise,]{.fragment .fade-in-then-semi-out}
+[disgust,]{.fragment .fade-in-then-semi-out}
+[anger,]{.fragment .fade-in-then-semi-out}
+[happiness,]{.fragment .fade-in-then-semi-out}
+[and sadness]{.fragment .fade-in-then-semi-out}
+:::
+
+. . .
+
+All of these can facially expressed.
+
+## Examples
+
+- **Facial expression analysis**\
+Using computer vision and machine learning to analyze facial expressions and determine the emotional state of a person.
+- **Voice analysis**\
+Analyzing the tone, pitch, and other characteristics of a person's voice to determine their emotional state.
+- **Physiological sensing**\
+Using wearable devices to monitor physiological signals such as heart rate, skin conductance, and body temperature to detect emotional responses.
+- **Emotion simulation**\
+Developing systems that can generate emotional responses, such as a virtual assistant that can express empathy or a chatbot that can adapt its tone based on the user's emotional state.
+
+## Exercise {.html-hidden .unlisted .discussion-slide background-color=black}
+
+:::large
+Search for real-life use cases for affective computing.
+:::
+
+Form small group and take 15 minutes for your research.\
+Prepare a short presentation of a use case and the technologies that enable it.\
+Relate them to the basic properties of affective systems.\
+Argue why affective computing is effective in this use case.
+
+# Hybrid intelligence {.headline-only background-color="#0333ff"}
+
+## Homework
+
+Form small groups and synthesize your findings from reading @dellermann2019hybrid by findings answers to following questions:
+
+1. How can hybrid intelligence be defined?
+2. What are main characteristics of hybrid intelligence?
+3. What are complementary strengths of humans and machines?
+4. What implications does that concept have for practice?
+
+Take 15 minutes to synthesize your findings and to create a short presentation.
+
+## Concept
+
+:::medium
+The idea is to combine the complementary capabilities of humans and computers to augment each other.
+:::
+
+:::aside
+@dellermann2019hybrid
+:::
+
+## Complementary strengths 
+
+:::columns
+
+:::column
+[Human intelligence]{.medium .link-color}
+
+[Flexibility & transfer]{.fragment fragment-index="1"}
+
+[Empathy & creativity]{.fragment fragment-index="2"}
+
+[Eventualities]{.fragment fragment-index="3"}
+
+[Common sense]{.fragment fragment-index="4"}
+
+[**Intuition**]{.fragment fragment-index="5"}
+:::
+
+:::column
+[Artificial intelligence]{.medium .link-color}
+
+[Pattern recognition]{.fragment fragment-index="1"}
+
+[Probabistics]{.fragment fragment-index="2"}
+
+[Consistency]{.fragment fragment-index="3"}
+
+[Speed & efficiency]{.fragment fragment-index="4"}
+
+[**Analysis**]{.fragment fragment-index="5"}
+
+:::
+
+:::
+
+:::notes
+Humans are flexible, creative, empathic, and can adapt to various settings. This allows, for instance, human domain experts to deal with so called ‘‘broken-leg’’ predictions that deviate from the currently known probability distribution. However, they are restricted by bound rationality that prevents them from aggregating information perfectly and drawing conclusions from that. On the other hand, machines are particularly good at solving repetitive tasks that require fast
+processing of huge amounts of data, at recognizing complex patterns, or weighing multiple factors following consistent rules of probability theory [@dellermann2019hybrid].
+
+However, there is also a technology-centric perspective that assumes that true intelligence can ultimately only be found in well-developed and mature (general) AI systems. Humans are biologically limited in their information processing and reasoning abilities and exhibit many types of cognitive biases, while computers offer virtually infinite possibilities to develop rational intelligence at human levels and beyond [@peeters2021hybrid].
+
+**Model of human cognition**
+
+@kahneman2011thinking proposed a two-system model of human cognition, which he called System 1 and System 2.
+
+System 1 is an intuitive, automatic, and fast mode of thinking that operates outside of our conscious awareness. It is responsible for generating impressions, making quick judgments, and executing routine tasks with minimal effort.
+
+System 2, on the other hand, is a more analytical, controlled, and deliberate mode of thinking that requires conscious effort and attention. It is responsible for problem-solving, critical thinking, and decision-making.
+
+While System 1 operates quickly and automatically, it can be prone to biases and errors, particularly in complex or unfamiliar situations. System 2, though slower and more effortful, can help us avoid these biases and make more accurate decisions.
+
+:::
+
+## Definition
+
+> **Hybrid intelligence** is defined as the ability to achieve complex goals by combining human and artificial intelligence, thereby reaching superior results to those each of them could have accomplished separately, and
+continuously improve by learning from each other. *@dellermann2019hybrid [p. 640]*
+
+Main characteristics of hybrid intelligence are:
+
+:::incremental
+- **Collectively**\
+Tasks are performed collectively and activities are conditionally dependent
+- **Superior results**\
+Neither AI nor humans could have achieved the outcome without the other
+- **Continuous learning** \
+All components of the socio-technical system learn from each other through experience
+:::
+
+## Visualization
+
+![Distribution of roles in hybrid intelligence [@dellermann2019hybrid, p. 640]](images/hybridIntelligence.svg)
+
+## General observations
+
+@peeters2021hybrid see following evidence that support a hybrid intelligence perspective:
+
+:::incremental
+- In various domains, **unforeseen emergent effects** at the systemic level can be observed\
+(e.g., sustaining biases with hiring software and other decision support systems)
+- One of the biggest challenges is **to seamlessly integrate AI systems** in human processes and workflows (e.g., autonomous cars and robots)
+- At the level of teams, AI applications and humans together form human–agent teams\
+(e.g., RPA integrated in a team)
+:::
+
+. . .
+
+[Observability]{.link-color}[^O], [predictability]{.link-color}[^P], [explainability]{.link-color}[^D], and [directability]{.link-color}[^E] are important requirements for the effective design of hybrid intelligence
+
+
+[^O]: Observability means that an actor should make its status, its knowledge of the team, task, and environment observable to others. 
+[^P]: Predictability means that an actor should behave predictably such that others can rely on them when considering their own actions.
+[^D]: Directability means that actors should have the opportunity to (re-)direct each other’s behavior. 
+[^E]: Explainability means that agents should be capable of explaining their behavior to others
+:::
+
+## Implications
+
+According to @peeters2021hybrid following conclusions can be drawn:
+
+:::{.incremental}
+- Intelligence should not be studied at the level of individual humans or AI-machines, but **at the group level** of humans and AI-machines working together. 
+- Increasing the intelligence of a system should be achieved by **increasing the quality of the interaction between its constituents** rather than the intelligence of the constituents themselves. 
+- Both human as well as artificial intelligence can be regarded as very shallow when considered in isolation.
+- No AI is an island.
+:::
+
+## Examples
+
+[Robots in de klas](https://www.robotsindeklas.nl/)
+: A team consisting of a remedial teacher, an educational therapist, and a Nao robot collaborate to support a child with learning difficulties. The robot provides expertise and advice while also helping the child stay focused and engaged.
+
+. . .
+
+[Spawn](https://www.thefader.com/2019/05/21/holly-herndon-proto-ai-spawn-interview)
+: The musician Holly Herndon created "Spawn," an AI system that generates unique music different from her usual style. By using Spawn as a tool, Holly is able to avoid creating music that repeats her previous works but to to expand the possibilities of their music.
+
+. . .
+
+**What examples do come to your mind?**
+
+## Explainable AI and human cognition
+
+@bauer2023expl show that **AI systems that provide explanations** (XAI) in addition to predictions [^XAI] may
+
+:::{.incremental}
+- draw users’ attention excessively to the explanations (i.e., those that confirm their prior beliefs[^CB]) rather than adhering to the prediction,
+- diminish employees' decision-making performance for the task at hand,
+- lead individuals to carry over learned patterns to other domains (e.g., biased explanations),
+- decrease individual level-noise in the decision-making process (i.e., an individual's decisions become more consistent),
+- additionally foster differences in the decision-making process across subgroups of users that possess heterogeneous priors.
+:::
+
+. . .
+
+A focus on the explanation as well as increased decision variance can substantially contribute to errors and ultimately harm business performance (see e.g., @kahneman2021noise.
+
+[^XAI]: Will become a regulatory standard and many domains
+[^CB]: A phenomenon called *confirmation bias*
 
 # Q&A {.html-hidden .unlisted .headline-only .vertical-center background-color="#0333ff" background-image="../assets/bg.jpg"}
 
