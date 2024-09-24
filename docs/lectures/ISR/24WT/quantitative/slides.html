@@ -9,11 +9,11 @@
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2023-08-28">
-  <title>awe.lectures - Quantitative methods</title>
+  <title>awe.lectures – Quantitative methods</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -342,7 +342,7 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="awe.lectures - Quantitative methods">
+<meta property="og:title" content="Quantitative methods – awe.lectures">
 <meta property="og:description" content="Approach phenomena through quantifiable evidence">
 <meta property="og:site_name" content="awe.lectures">
 </head>
@@ -470,7 +470,7 @@ Andy Weeger
 </div>
 <aside class="notes">
 <p>The research process has a focus on correct measurement and statistical analysis. Large amounts of responses to analyze relationships are required.</p>
-<div id="fig-quant-process" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-quant-process" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-quant-process-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/quantitative-process-1.svg" class="img-fluid">
@@ -527,7 +527,7 @@ Figure&nbsp;1: The process of quantitative research based on <span class="citati
 <li><strong>Shared meaning:</strong> If the connection between theoretical concepts and measures is unclear, measuring the constructs accurately becomes difficult. Ensuring accurate measurements minimizes data problems. However, without shared meaning, even accurate measurements won’t reflect the intended constructs. For instance, if you’re studying emotions related to technology and you confuse “compassion” with a similar concept like “empathy,” issues arise.</li>
 <li><strong>Aaccuracy of measurement:</strong> Researchers need accurate data to draw valid conclusions. No matter the analysis, conclusions are unreliable without data reliability.</li>
 </ul>
-<div id="fig-operationalization" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-operationalization" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-operationalization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/operationalization.svg" class="img-fluid">
@@ -638,7 +638,7 @@ Figure&nbsp;2: Measures and measurements based on <span class="citation" data-ci
 </div>
 </div>
 <aside class="notes">
-<div id="fig-operationalization" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-operationalization" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-operationalization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/reliability-validity.svg" class="img-fluid">
@@ -692,7 +692,7 @@ Figure&nbsp;3: Meeting requirements for validity and reliability <span class="ci
 </section>
 <section id="examples" class="slide level3 smaller scrollable">
 <h3>Examples</h3>
-<div id="tbl-tam-scales" class="quarto-float">
+<div id="tbl-tam-scales" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-tbl">
 <div aria-describedby="tbl-tam-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table style="width:99%;">
@@ -854,7 +854,7 @@ Table&nbsp;1: Scales from TAM <span class="citation" data-cites="venkatesh2003us
 </div>
 </section>
 <aside class="notes">
-<div id="fig-data-collection" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-data-collection" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-data-collection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/data-collection.svg" class="img-fluid">
@@ -1464,18 +1464,7 @@ Wright, Ryan T, Damon E Campbell, Jason Bennett Thatcher, and Nicholas Roberts. 
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1507,7 +1496,47 @@ Wright, Ryan T, Damon E Campbell, Jason Bennett Thatcher, and Nicholas Roberts. 
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -1544,7 +1573,11 @@ Wright, Ryan T, Damon E Campbell, Jason Bennett Thatcher, and Nicholas Roberts. 
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

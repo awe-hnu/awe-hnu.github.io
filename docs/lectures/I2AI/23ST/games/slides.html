@@ -9,11 +9,11 @@
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2023-04-02">
-  <title>awe.lectures - Adversarial search</title>
+  <title>awe.lectures – Adversarial search</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -342,7 +342,7 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="awe.lectures - Adversarial search">
+<meta property="og:title" content="Adversarial search – awe.lectures">
 <meta property="og:description" content="🧠 Introduction to AI — I2AI_4">
 <meta property="og:site_name" content="awe.lectures">
 </head>
@@ -490,7 +490,7 @@ Andy Weeger
 </section>
 <section id="adversarial-game-tree" class="slide level2">
 <h2>Adversarial game tree</h2>
-<div id="fig-adversarial-game-tree" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-adversarial-game-tree" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-adversarial-game-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/adversarial-game-tree.svg" class="img-fluid">
@@ -609,7 +609,7 @@ return the state’s utility (<span class="math inline">\(\textrm{UTILITY}(s,p)\
 <h2>Selection</h2>
 <div class="columns">
 <div class="column">
-<div id="fig-mcts-selection" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-mcts-selection" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-mcts-selection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/mcts-selection.svg" class="img-fluid">
@@ -632,8 +632,7 @@ Figure&nbsp;2: Example: MCTS — selection
 </ul>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <aside class="notes">
 <p>It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained. So it makes sense to use a selection policy that balances exploitation and exploration.</p>
 <style type="text/css">
@@ -698,7 +697,7 @@ Figure&nbsp;2: Example: MCTS — selection
 <h2>Expansion and simulation</h2>
 <div class="columns">
 <div class="column">
-<div id="fig-mcts-expansion" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-mcts-expansion" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-mcts-expansion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/mcts-expansion-simulation.svg" class="img-fluid">
@@ -722,14 +721,13 @@ Figure&nbsp;3: Example: MCTS — expansion and simulation
 </ul>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 <aside></aside></section>
 <section id="back-propagation" class="slide level2">
 <h2>Back-propagation</h2>
 <div class="columns">
 <div class="column">
-<div id="fig-mcts-propagation" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-mcts-propagation" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-mcts-propagation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/mcts-back-propagation.svg" class="img-fluid">
@@ -749,8 +747,7 @@ Figure&nbsp;4: Example: MCTS — selection
 </ul>
 </div>
 </div>
-</div>
-</div>
+</div></div>
 </section></section>
 <section>
 <section id="wrap-up" class="title-slide slide level1 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
@@ -769,7 +766,7 @@ Figure&nbsp;4: Example: MCTS — selection
 </section>
 <section id="xkcd" class="slide level2">
 <h2>xkcd</h2>
-<div id="fig-xkcd" class="quarto-figure quarto-figure-left quarto-float">
+<div id="fig-xkcd" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-xkcd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/xkcd.png" class="img-fluid">
@@ -1237,18 +1234,7 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1280,7 +1266,47 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -1317,7 +1343,11 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
