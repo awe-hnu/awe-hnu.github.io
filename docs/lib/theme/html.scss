@@ -94,7 +94,7 @@ $theme: "cosmo" !default;
 $white:    #fff !default;
 $gray-100: rgba(250, 250, 250, 1) !default;
 $gray-200: rgba(245, 245, 245, 1) !default;
-$gray-300: rgba(225, 225, 225, 1) !default;
+$gray-300: rgba(224, 221, 221, 1) !default;
 $gray-400: rgba(200, 200, 200, 1) !default;
 $gray-500: rgba(175, 175, 175, 1) !default;
 $gray-600: rgba(150, 150, 150, 1) !default;
@@ -120,10 +120,9 @@ $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
+$light:         $gray-300 !default;
 $dark:          $gray-800 !default;
 
-$header-bg: $gray-200;
 
 $min-contrast-ratio:   2.6 !default;
 
@@ -133,10 +132,8 @@ $enable-rounded: true !default;
 
 // Body
 
-body {
-}
-
-$body-color:    $black !default;
+$body-color:  $black !default;
+$body-bg:     $light;
 
 // Fonts
 
@@ -154,6 +151,7 @@ $h4-font-size:      1rem;
 $h5-font-size:      1rem;
 
 $block-margin: .75rem;
+
 
 
 .quarto-title-meta-author,
@@ -296,7 +294,7 @@ body {
      }
 
      nav[role=doc-toc]>ul li a {
-          border-left-color: $header-bg;
+          // border-left-color: $header-bg;
      }     
 
 
@@ -375,7 +373,26 @@ h2 {
      display: none;
 }
 
+body.nav-sidebar #title-block-header.quarto-title-block.default {
+
+  .quarto-title-meta-author.column-body {
+    grid-column: 3 / 5 !important;
+  }
+  
+  .quarto-title-meta.column-body {
+    grid-column: 5 / 7 !important;
+  }
+
+}
+
 #title-block-header {
+  
+  
+  
+  grid-template-columns: [screen-start] 50px [screen-start-inset] 5fr [page-start] 50px [body-left-start] minmax(375px, 575px)
+   [body-right-start] minmax(375px, 575px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 50px [screen-end];
+  
+  
   
   &::before {
     display: block;
@@ -383,14 +400,21 @@ h2 {
     width: 100vw;    
     margin-top: -100px;
     content: " ";
-    background-color: $header-bg;
   }
   
-  background-color: $header-bg;
   padding: calc($block-margin*2) 0;
 
   .quarto-title-banner {
     
+    &.page-full {
+      grid-column: body-left-start / page-end-inset !important;
+    }
+    
+    .column-body {
+      grid-column: page-start / body-content-end;
+    }
+    
+  
     color: $body-color;
     
     h1 {
@@ -432,6 +456,8 @@ h2 {
   
   .quarto-title-meta-author,
   .quarto-title-meta {
+    
+    
     
        display: none;
     
@@ -503,12 +529,6 @@ h2 {
 
 #quarto-sidebar {
      padding: 0 2em;
-     background-color: $gray-100;
-     color: $body-color;
-     color: #000;
-     border-top: 1px solid #ff;
-     border-bottom: 1px solid #F5F5F1;
-
 }
 
 
@@ -586,10 +606,9 @@ blockquote {
 }
 
 #quarto-header {
-    
+  
+    background-color: $white;
     font-size: $toc-font-size;
-    background: $header-bg;
-    border-bottom: 1px solid $black;
 
     @include media-breakpoint-up(lg) { 
       display: grid;
@@ -683,6 +702,10 @@ blockquote {
           padding-right: 2em;
      }    
 
+    .quarto-banner nav.quarto-secondary-nav {
+      border-bottom: 0 !important;
+    }
+
      .columns {
 
           .column {
@@ -705,13 +728,13 @@ main {
 }
 
      #quarto-header nav {
-          padding-left: 1em;
+          padding-left: 50px;
           padding-right: 1em;
      }   
 
      #quarto-sidebar {
           margin-top: 2em;
-          padding: 0 1em;
+          padding: 0;
           background-color: transparent !important;
      }
 }
@@ -920,7 +943,7 @@ body.nav-sidebar {
 }
 
 .btn-light {
-  background-color: $header-bg;
+
 }
 
 
@@ -992,4 +1015,14 @@ figure.quarto-float-tbl>div:first-child {
 
 .table.table-striped>:not(caption)>*>* {
   border-bottom: 0;
+}
+
+body.nav-sidebar #title-block-header.quarto-title-block.default .quarto-title-meta-author {
+  grid-column: page-start / page-end !important;
+}
+
+@media (max-width: 991.98px) {
+    nav.quarto-secondary-nav {
+        border-bottom: 0px !important;
+    }
 }
