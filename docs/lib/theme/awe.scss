@@ -79,7 +79,7 @@ $orange:  #f0ad4e !default;
 $yellow:  #ff7518 !default;
 $green:   #3fb618 !default;
 $teal:    #20c997 !default;
-$cyan:    #9954bb !default;
+$cyan:    #00ffff !default;
 
 $primary:       $blue !default;
 $secondary:     $gray-800 !default;
@@ -355,6 +355,7 @@ figcaption, caption,
 .btn {
   border-radius: 2px;
   font-weight: $font-weight-bold;
+  font-size: $font-size-small;
 }
 
 .quarto-title-meta-contents,
@@ -429,12 +430,20 @@ main ol ol, main ul ul, main ol ul, main ul ol {
      }
 }
 
+#quarto-content {
+  li strong,
+  p strong {
+    font-weight: normal;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
 
 blockquote {
   
-  border-left: 1px solid $border-color;
+  border-left: 2px solid $link-color;
   margin: $block-margin*2 0;
-  padding: 0 1.5rem;
+  padding: .5rem 1.5rem;
   color: $body-color;
   
   strong {
@@ -443,13 +452,12 @@ blockquote {
 
   p:first-child {
        margin-top: 0;
-       color: $link-color;
 
        em {
-          display: inline-block;
-          float: none;
-          color: $body-color;
-          font-size:  $toc-font-size;
+          font-size: $font-size-small;
+          display: block;
+          font-style: normal;
+          color: $gray-500;
        }
   }
 }
@@ -492,6 +500,10 @@ td {
 .medium,
 .large {
  font-weight: bold; 
+ 
+ strong {
+   font-weight: bold !important;
+ }
  
  blockquote {
    font-weight: normal;
@@ -739,3 +751,49 @@ body.nav-sidebar #title-block-header {
 .sidebar-item-toggle {
   display: none;
 }
+
+.quarto-title .quarto-categories .quarto-category {
+  border-radius: 0;
+  text-transform: unset;
+  color: $gray-500;
+}
+
+.quarto-container {
+  min-height: unset;
+}
+
+footer.footer {
+  border-top: 1px solid $border-color;
+}
+
+
+@include media-breakpoint-up(lg) { 
+
+  .nav-footer {
+    display: grid;
+    grid-template-columns: [screen-start] 50px [screen-start-inset] 5fr [page-start] 50px [page-start-inset] minmax(50px, 150px) [body-start-outset] 25px [body-start] 75px [body-content-start] minmax(350px, 650px) [body-content-end] 75px [body-end] 25px [body-end-outset] minmax(50px, 100px) [page-end-inset] 50px [page-end] 5fr [screen-end-inset] 50px [screen-end];
+  }
+
+}
+
+.nav-footer {
+
+  .nav-footer-left,
+  .nav-footer-center,
+  .nav-footer-right {
+    font-size: $toc-font-size;
+  }
+
+  .nav-footer-left {
+    grid-column: page-start / body-start;
+  }
+  
+  .nav-footer-center {
+    grid-column: body-content-start / body-content-end;
+  }
+  
+  .nav-footer-right {
+    grid-column: body-end / page-end;
+  }
+}
+
