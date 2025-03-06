@@ -6,7 +6,7 @@
 -- Function to check if an element has the html-hidden class
 local function has_html_hidden_class(elem)
   if elem.classes then
-    for i, class in ipairs(elem.classes) do
+    for _, class in ipairs(elem.classes) do
       if class == "html-hidden" then
         return true
       end
@@ -15,60 +15,40 @@ local function has_html_hidden_class(elem)
   return false
 end
 
--- Track hidden headers to know which sections to exclude
-local hidden_headers = {}
+-- Track if we're in a hidden section and at what level
+local hidden_section_level = 0
 
--- Pre-process to identify hidden headers
-function preprocess_hidden_headers(doc)
-  local headers_to_hide = {}
-  
-  -- First pass: identify all headers with html-hidden class
-  for i, el in ipairs(doc.blocks) do
-    if el.t == "Header" and has_html_hidden_class(el) then
-      table.insert(headers_to_hide, {id = el.identifier, level = el.level})
-    end
-  end
-  
-  return headers_to_hide
-end
-
--- Check if a block is part of a hidden section
-local function is_in_hidden_section(header_stack, block)
-  for _, hidden_header in ipairs(hidden_headers) do
-    for _, current_header in ipairs(header_stack) do
-      if current_header.id == hidden_header.id then
-        return true
-      end
-    end
-  end
-  return false
-end
-
--- Process the document to remove hidden sections
-function process_document(doc)
-  -- Get all hidden headers first
-  hidden_headers = preprocess_hidden_headers(doc)
-  
+-- Process the document
+local function process_document(doc)
   local new_blocks = {}
-  local header_stack = {}
+  
+  -- Reset tracking variables at the start of processing
+  hidden_section_level = 0
   
   for i, block in ipairs(doc.blocks) do
-    -- Update header stack when encountering headers
     if block.t == "Header" then
-      -- Pop headers of same or higher level from stack
-      while #header_stack > 0 and header_stack[#header_stack].level >= block.level do
-        table.remove(header_stack)
+      -- When we hit a header, we need to determine if we're starting a new section
+      -- or exiting a hidden section
+      
+      -- If new header level is <= current hidden section level, we're exiting the hidden section
+      if hidden_section_level > 0 and block.level <= hidden_section_level then
+        hidden_section_level = 0
       end
       
-      -- Add current header to stack if not hidden
-      if not has_html_hidden_class(block) then
-        table.insert(header_stack, {id = block.identifier, level = block.level})
-        table.insert(new_blocks, block)
+      -- Check if this header should be hidden
+      if has_html_hidden_class(block) then
+        hidden_section_level = block.level
+        -- Don't add this header to new_blocks
+      else
+        -- Only add non-hidden headers that aren't in a hidden section
+        if hidden_section_level == 0 then
+          table.insert(new_blocks, block)
+        end
       end
-      -- If header is hidden, don't add it (and subsequent content will be filtered)
     else
-      -- For non-header blocks, check if it has html-hidden class or is in a hidden section
-      if not has_html_hidden_class(block) and not is_in_hidden_section(header_stack, block) then
+      -- For non-header blocks, only add them if not in a hidden section
+      -- and if they don't have the html-hidden class themselves
+      if hidden_section_level == 0 and not has_html_hidden_class(block) then
         table.insert(new_blocks, block)
       end
     end
@@ -79,49 +59,49 @@ function process_document(doc)
 end
 
 -- Process specific element types
-function Div(div)
+local function filter_div(div)
   if has_html_hidden_class(div) then
     return {} -- Return an empty list to remove the element
   end
   return div
 end
 
-function Span(span)
+local function filter_span(span)
   if has_html_hidden_class(span) then
     return {} -- Return an empty list to remove the element
   end
   return span
 end
 
-function CodeBlock(code)
+local function filter_codeblock(code)
   if has_html_hidden_class(code) then
     return {} -- Return an empty list to remove the element
   end
   return code
 end
 
-function Code(code)
+local function filter_code(code)
   if has_html_hidden_class(code) then
     return {} -- Return an empty list to remove the element
   end
   return code
 end
 
-function Table(table)
-  if has_html_hidden_class(table) then
+local function filter_table(tbl)
+  if has_html_hidden_class(tbl) then
     return {} -- Return an empty list to remove the element
   end
-  return table
+  return tbl
 end
 
-function Image(image)
-  if has_html_hidden_class(image) then
+local function filter_image(img)
+  if has_html_hidden_class(img) then
     return {} -- Return an empty list to remove the element
   end
-  return image
+  return img
 end
 
-function Link(link)
+local function filter_link(link)
   if has_html_hidden_class(link) then
     return {} -- Return an empty list to remove the element
   end
@@ -131,11 +111,11 @@ end
 -- Return the filter functions
 return {
   Pandoc = process_document,
-  Div = Div,
-  Span = Span,
-  CodeBlock = CodeBlock,
-  Code = Code,
-  Table = Table,
-  Image = Image,
-  Link = Link
+  Div = filter_div,
+  Span = filter_span,
+  CodeBlock = filter_codeblock,
+  Code = filter_code,
+  Table = filter_table,
+  Image = filter_image,
+  Link = filter_link
 }

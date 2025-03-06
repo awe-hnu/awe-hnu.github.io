@@ -1,32 +1,42 @@
 @font-face {
      font-family: 'basier_squareregular';
-     src: url('lib/fonts/basier_squareregular/basiersquare-regular-webfont.eot');
-     src: url('lib/fonts/basier_squareregular/basiersquare-regular-webfont.woff2') format('woff2'),
-          url('lib/fonts/basier_squareregular/basiersquare-regular-webfont.woff') format('woff'),
-          url('lib/fonts/basier_squareregular/basiersquare-regular-webfont.ttf') format('truetype');
+     src: url('lib/fonts/basier_square/basiersquare-regular-webfont.eot');
+     src: url('lib/fonts/basier_square/basiersquare-regular-webfont.woff2') format('woff2'),
+          url('lib/fonts/basier_square/basiersquare-regular-webfont.woff') format('woff'),
+          url('lib/fonts/basier_square/basiersquare-regular-webfont.ttf') format('truetype');
      font-weight: 300;
      font-style: normal;
 }
 
 @font-face {
      font-family: 'basier_squareregular';
-     src: url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.eot');
-     src: url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.woff2') format('woff2'),
-          url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.woff') format('woff'),
-          url('lib/fonts/basier_squareregularitalic/basiersquare-regularitalic-webfont.ttf') format('truetype');
+     src: url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.eot');
+     src: url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.woff2') format('woff2'),
+          url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.woff') format('woff'),
+          url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.ttf') format('truetype');
      font-weight: 300;
      font-style: italic;
 }
 
 @font-face {
-     font-family: 'basier_squareregular';
-     src: url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.eot');
-     src: url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.woff2') format('woff2'),
-          url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.woff') format('woff'),
-          url('lib/fonts/basier_squaresemibold/basiersquare-semibold-webfont.ttf') format('truetype');
-     font-weight: bold;
-     font-style: normal;
-}  
+  font-family: 'basier_squareregular';
+  src: url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.eot');
+  src: url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.woff2') format('woff2'),
+       url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.woff') format('woff'),
+       url('lib/fonts/basier_square/basiersquare-regularitalic-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'basier_squareregular';
+    src: url('lib/fonts/basier_square/basiersquare-medium-webfont.eot');
+    src: url('lib/fonts/basier_square/basiersquare-medium-webfont.woff2') format('woff2'),
+         url('lib/fonts/basier_square/basiersquare-medium-webfont.woff') format('woff'),
+         url('lib/fonts/basier_square/basiersquare-medium-webfont.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 @font-face {
      font-family: 'basier_squaremono';
@@ -115,7 +125,7 @@ $font-family-monospace:     'basier_squaremono', monospace !default;
 $font-size-root:    18px;
 $font-size-small:   .9em;
 $toc-font-size:     .75rem;
-$h1-font-size:      2rem;
+$h1-font-size:      2.5rem;
 $h2-font-size:      1.7rem;
 $h3-font-size:      1.5rem;
 $h4-font-size:      1rem;
@@ -450,7 +460,7 @@ blockquote {
   }
 
   p:first-child {
-       margin-top: 0;
+       margin-top: 0 !important;
 
        em {
           font-size: $font-size-small;
@@ -496,6 +506,7 @@ td {
   }
 }
 
+/*
 .medium,
 .large {
  font-weight: bold; 
@@ -508,6 +519,7 @@ td {
    font-weight: normal;
  }
 }
+*/
 
 figure.quarto-float-tbl>p:first-child,
 figure.quarto-float-tbl>div:first-child {
@@ -712,24 +724,40 @@ body.nav-sidebar #title-block-header {
 
 
 .columns {
-
-     .column {
-          padding: 0 .5em;
-          dl:first-child,
-          ul:first-child,
-          p:first-child {
-            margin-top: 1.5em;
-          }          
-          div.quarto-figure p {
-            margin-top: 0;
-          }          
-     }
-     .column:last-child {
-          padding-right: 0;
-     }     
+  
+  
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;    
+    
+   .column {
      
-     .column:first-child {
-          padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      align-self: center;     
+
+      p,
+      ul {
+        margin-right: 1em;
+      }
+      
+      .quarto-figure {
+        margin: 0;
+        
+        figcaption {
+          margin-top: 1em;
+        }
+      }
+
+      dl:first-child,
+      ul:first-child,
+      p:first-child {
+        margin-top: 1.5em;
+      }          
+      div.quarto-figure p {
+        margin-top: 0;
+      }          
      }
 
 }
