@@ -55,14 +55,15 @@ Rational means, that the agent acts in a way that is expected to maximize its pe
 :::callout-note
 ### Example
 
-To illustrate these ideas @RusselNorvig2022AIMA [p. 55] use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent **perceives** which square it is in and whether there is dirt in the square. The agent starts in square A. The available **actions** are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple **agent function** is the following: if the current square is dirty, then suck; otherwise, move to the other square. 
+a robotic vacuum cleaner moves around a grid of squares, some of which are dirty and some of which are clean. The vacuum cleaner *perceives* where it is and if there is dirt there. It's *actions* are move to the right or left, suck up the dirt, or do nothing. The *agent function* prescribes that if the current square is dirty, it should suck up the dirt; otherwise, it should move to the other square. 
 
-Under following circumstances, the vacuum cleaning agent is rational:
+Under following circumstances, the vacuum cleaning agent is rational [@RusselNorvig2022AIMA]:
 
-- The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a "lifetime" of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth).
-- The "geography" of the environment is known *a priori* but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The *Right* and *Left* actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is.
-- The only available action is *Right*, *Left*, and *Suck*.
-- The agent correctly perceives its location and whether that location contains dirt.
+- The *performance measure* of the vacuum cleaner awards one point for each clean square at each time step
+- The only available actions are *right*, *left*, and *suck*.
+- The "geography" of the environment is known *a priori* but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. 
+- The *right* and *left* actions move the agent one square except when this would take the agent outside the environment. Then it remains where it is.
+- The robot correctly perceives its location and whether the square is dirty.
 
 :::
 :::
@@ -80,21 +81,22 @@ Under which circumstances does a **vacuum cleaning agent** act rational?
 . . .
 
 :::medium
-It is difficult to formulate a performance measure correctly. This is a reason to be careful.
+It is difficult to formulate a performance measure correctly.\
+**This is a reason to be careful.**
 :::
 
 
-## Rationality vs. perfecteion
+## Rationality vs. perfection
 
 :::large
 Rationality is not the same as perfection. 
 :::
 
 :::incremental
-- Rationality maximizes *expected* performance
-- Perfection maximizes *actual* performance
-- Perfection requires omniscience
-- Rational choice depends only on the percept sequence *to date*
+- Rationality maximizes *expected* performance.
+- Perfection maximizes *actual* performance.
+- Perfection requires omniscience.
+- Rational choice depends only on the percept sequence *to date*.
 :::
 
 :::notes
@@ -113,7 +115,7 @@ The vacuum cleaner needs to explore an initially unknown environment (i.e., expl
 
 ## Components 
 
-Before designing an agent (*the solution*), the task environment (*the problem*) must be specified as fully as possible, including
+Before designing an agent (i.e., *the solution*), the task environment (i.e., *the problem*) must be specified as fully as possible, including
 
 :::medium
 :::incremental
@@ -499,13 +501,8 @@ For each of the following assertions, say whether it is true or false and suppor
 5. A perfectly rational poker-playing agent never loses.
 
 :::notes
-:::panel-tabset
-
+:::{.callout-tip collapse="true"}
 #### Solution notes
-
-Open only if you need help.
-
-#### Answers
 
 1. **False.** Perfect rationality refers to the ability to make gooddecisions given the sensor information received.
 2. **True.** A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment

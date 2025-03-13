@@ -52,7 +52,7 @@ div.csl-indent {
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-e0eb2afd00f1106a745477b4cb951d2b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-958042f70c8408fec33d651ba659857d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -162,7 +162,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Mar 12, 2025</p>
+        <p class="date-modified">Mar 13, 2025</p>
       </div>
     </div>
       
@@ -216,6 +216,12 @@ cookieconsent.run({
   <div class="sidebar-item-container"> 
   <a href="../../../../lectures/I2AI/25ST/agents/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Agent Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search</span></a>
   </div>
 </li>
       </ul>
@@ -286,13 +292,14 @@ Example
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To illustrate these ideas <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, 55</a>)</span> use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent <strong>perceives</strong> which square it is in and whether there is dirt in the square. The agent starts in square A. The available <strong>actions</strong> are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple <strong>agent function</strong> is the following: if the current square is dirty, then suck; otherwise, move to the other square.</p>
-<p>Under following circumstances, the vacuum cleaning agent is rational:</p>
+<p>a robotic vacuum cleaner moves around a grid of squares, some of which are dirty and some of which are clean. The vacuum cleaner <em>perceives</em> where it is and if there is dirt there. It’s <em>actions</em> are move to the right or left, suck up the dirt, or do nothing. The <em>agent function</em> prescribes that if the current square is dirty, it should suck up the dirt; otherwise, it should move to the other square.</p>
+<p>Under following circumstances, the vacuum cleaning agent is rational <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel and Norvig 2022</a>)</span>:</p>
 <ul>
-<li>The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a “lifetime” of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth).</li>
-<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The <em>Right</em> and <em>Left</em> actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is.</li>
-<li>The only available action is <em>Right</em>, <em>Left</em>, and <em>Suck</em>.</li>
-<li>The agent correctly perceives its location and whether that location contains dirt.</li>
+<li>The <em>performance measure</em> of the vacuum cleaner awards one point for each clean square at each time step</li>
+<li>The only available actions are <em>right</em>, <em>left</em>, and <em>suck</em>.</li>
+<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square.</li>
+<li>The <em>right</em> and <em>left</em> actions move the agent one square except when this would take the agent outside the environment. Then it remains where it is.</li>
+<li>The robot correctly perceives its location and whether the square is dirty.</li>
 </ul>
 </div>
 </div>
@@ -304,20 +311,21 @@ Example
 <p>If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire <em><span class="citation" data-cites="Wiener1960Some">Wiener (<a href="#ref-Wiener1960Some" role="doc-biblioref">1960, 1358</a>)</span></em></p>
 </blockquote>
 <div class="medium">
-<p>It is difficult to formulate a performance measure correctly. This is a reason to be careful.</p>
+<p>It is difficult to formulate a performance measure correctly.<br>
+<strong>This is a reason to be careful.</strong></p>
 </div>
 </section>
-<section id="rationality-vs.-perfecteion" class="level2">
-<h2 data-anchor-id="rationality-vs.-perfecteion">Rationality vs.&nbsp;perfecteion</h2>
+<section id="rationality-vs.-perfection" class="level2">
+<h2 data-anchor-id="rationality-vs.-perfection">Rationality vs.&nbsp;perfection</h2>
 <div class="large">
 <p>Rationality is not the same as perfection.</p>
 </div>
 <div class="incremental">
 <ul class="incremental">
-<li>Rationality maximizes <em>expected</em> performance</li>
-<li>Perfection maximizes <em>actual</em> performance</li>
-<li>Perfection requires omniscience</li>
-<li>Rational choice depends only on the percept sequence <em>to date</em></li>
+<li>Rationality maximizes <em>expected</em> performance.</li>
+<li>Perfection maximizes <em>actual</em> performance.</li>
+<li>Perfection requires omniscience.</li>
+<li>Rational choice depends only on the percept sequence <em>to date</em>.</li>
 </ul>
 </div>
 <div class="notes">
@@ -342,7 +350,7 @@ Example
 <h1 class="headline-only" data-background-image="../assets/bg.jpeg">Environments</h1>
 <section id="components" class="level2">
 <h2 data-anchor-id="components">Components</h2>
-<p>Before designing an agent (<em>the solution</em>), the task environment (<em>the problem</em>) must be specified as fully as possible, including</p>
+<p>Before designing an agent (i.e., <em>the solution</em>), the task environment (i.e., <em>the problem</em>) must be specified as fully as possible, including</p>
 <div class="medium">
 <div class="incremental">
 <ul class="incremental">
@@ -836,13 +844,18 @@ Figure&nbsp;7: The evolution of AI agents
 <li>A perfectly rational poker-playing agent never loses.</li>
 </ol>
 <div class="notes">
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Solution notes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Open only if you need help.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="callout-title-container flex-fill">
+Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li><strong>False.</strong> Perfect rationality refers to the ability to make gooddecisions given the sensor information received.</li>
 <li><strong>True.</strong> A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment</li>

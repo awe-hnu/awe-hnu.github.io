@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-d9bd74b15bba82f926b6807e60adc7b9.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-51f1eb42c1c25aebb6a6ec2d057ad404.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -249,13 +249,14 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 <p><strong>Example</strong></p>
 </div>
 <div class="callout-content">
-<p>To illustrate these ideas <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 55</a>)</span> use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent <strong>perceives</strong> which square it is in and whether there is dirt in the square. The agent starts in square A. The available <strong>actions</strong> are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple <strong>agent function</strong> is the following: if the current square is dirty, then suck; otherwise, move to the other square.</p>
-<p>Under following circumstances, the vacuum cleaning agent is rational:</p>
+<p>a robotic vacuum cleaner moves around a grid of squares, some of which are dirty and some of which are clean. The vacuum cleaner <em>perceives</em> where it is and if there is dirt there. It’s <em>actions</em> are move to the right or left, suck up the dirt, or do nothing. The <em>agent function</em> prescribes that if the current square is dirty, it should suck up the dirt; otherwise, it should move to the other square.</p>
+<p>Under following circumstances, the vacuum cleaning agent is rational <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022</a>)</span>:</p>
 <ul>
-<li>The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a “lifetime” of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth).</li>
-<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The <em>Right</em> and <em>Left</em> actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is.</li>
-<li>The only available action is <em>Right</em>, <em>Left</em>, and <em>Suck</em>.</li>
-<li>The agent correctly perceives its location and whether that location contains dirt.</li>
+<li>The <em>performance measure</em> of the vacuum cleaner awards one point for each clean square at each time step</li>
+<li>The only available actions are <em>right</em>, <em>left</em>, and <em>suck</em>.</li>
+<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square.</li>
+<li>The <em>right</em> and <em>left</em> actions move the agent one square except when this would take the agent outside the environment. Then it remains where it is.</li>
+<li>The robot correctly perceives its location and whether the square is dirty.</li>
 </ul>
 </div>
 </div>
@@ -287,22 +288,23 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 </blockquote>
 <div class="fragment">
 <div class="medium">
-<p>It is difficult to formulate a performance measure correctly. This is a reason to be careful.</p>
+<p>It is difficult to formulate a performance measure correctly.<br>
+<strong>This is a reason to be careful.</strong></p>
 </div>
 </div>
 </section>
 
-<section id="rationality-vs.-perfecteion" class="title-slide slide level2">
-<h2>Rationality vs.&nbsp;perfecteion</h2>
+<section id="rationality-vs.-perfection" class="title-slide slide level2">
+<h2>Rationality vs.&nbsp;perfection</h2>
 <div class="large">
 <p>Rationality is not the same as perfection.</p>
 </div>
 <div>
 <ul>
-<li class="fragment">Rationality maximizes <em>expected</em> performance</li>
-<li class="fragment">Perfection maximizes <em>actual</em> performance</li>
-<li class="fragment">Perfection requires omniscience</li>
-<li class="fragment">Rational choice depends only on the percept sequence <em>to date</em></li>
+<li class="fragment">Rationality maximizes <em>expected</em> performance.</li>
+<li class="fragment">Perfection maximizes <em>actual</em> performance.</li>
+<li class="fragment">Perfection requires omniscience.</li>
+<li class="fragment">Rational choice depends only on the percept sequence <em>to date</em>.</li>
 </ul>
 </div>
 <aside class="notes">
@@ -340,7 +342,7 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 </section>
 <section id="components" class="title-slide slide level2">
 <h2>Components</h2>
-<p>Before designing an agent (<em>the solution</em>), the task environment (<em>the problem</em>) must be specified as fully as possible, including</p>
+<p>Before designing an agent (i.e., <em>the solution</em>), the task environment (i.e., <em>the problem</em>) must be specified as fully as possible, including</p>
 <div class="medium">
 <div>
 <ul>
@@ -1004,13 +1006,15 @@ Figure&nbsp;7: The evolution of AI agents
 <li>A perfectly rational poker-playing agent never loses.</li>
 </ol>
 <aside class="notes">
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Solution notes</a></li><li><a href="#tabset-1-2">Answers</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<p>Open only if you need help.</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="tabset-1-2">
+<p><strong>Solution notes</strong></p>
+</div>
+<div class="callout-content">
 <ol type="1">
 <li><strong>False.</strong> Perfect rationality refers to the ability to make gooddecisions given the sensor information received.</li>
 <li><strong>True.</strong> A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment</li>
