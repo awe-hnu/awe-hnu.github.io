@@ -210,45 +210,35 @@ Andy Weeger
   <p class="date">March 10, 2025</p>
 </section>
 <section>
-<section id="terms-definitions" class="title-slide slide level1 headline-only">
-<h1>Terms &amp; definitions</h1>
-<aside class="notes">
-<p>All areas of engineering can be seen as designing artifacts that interact with the world. AI operates at the most interesting end to the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 56</a>)</span>.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<section id="agents" class="title-slide slide level1 headline-only">
+<h1>Agents</h1>
+
 </section>
-<section id="agents" class="title-slide slide level2">
-<h2>Agents</h2>
+<section id="rational-agents" class="title-slide slide level2">
+<h2>Rational agents</h2>
 <div id="fig-agent" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/actor.svg" class="img-fluid">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Agents interact with environments through sensors and actuators
+Figure&nbsp;1: Rational agents interact with environments through sensors and actuators
 </figcaption>
 </figure>
 </div>
 <aside class="notes">
-<p>An agent is anything that can be viewed as perceiving its environment through sensors and acting upon that environment through actuators <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022</a>)</span>.</p>
-<p>This foundational definition emphasizes:</p>
+<p>A rational agent is anything that is</p>
 <ul>
-<li>The perception-action cycle
+<li>perceiving its environment through <strong>sensors</strong>,</li>
+<li>thinking and deciding on the next actions<br>
+(mapping given percepts to actions),</li>
+<li>and acting through <strong>actuators</strong></li>
+</ul>
+<p>Rational means, that the agent acts in a way that is expected to maximize its performance measure, given it’s</p>
 <ul>
-<li>A percept contains what the agent’s sensors are perceiving, the <strong>percept sequence</strong> is the complete history of everything the agent has ever perceived.</li>
-<li>An agents implements an <strong>agent function</strong> which maps any given percept sequence to an action (an abstract mathematical description; here depicted as <code>?</code>).</li>
-<li>The agent function for an AI agent will be implemented by an <strong>agent program</strong> (a concrete implementation, running within some physical system).</li>
-</ul></li>
-<li>Environment interaction</li>
+<li>built-in knowledge (i.e., the agent function<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a>),</li>
+<li>perceived experience (i.e., the percep sequence<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a>),</li>
+<li>and acting capabilities</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -259,11 +249,77 @@ Figure&nbsp;1: Agents interact with environments through sensors and actuators
 <p><strong>Example</strong></p>
 </div>
 <div class="callout-content">
-<p>To illustrate these ideas <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 55</a>)</span> use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent perceives which square it is in and whether there is dirt in the square. The agent starts in square A. The available actions are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple agent function is the following: if the current square is dirty, then suck; otherwise, move to the other square.</p>
+<p>To illustrate these ideas <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, 55</a>)</span> use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent <strong>perceives</strong> which square it is in and whether there is dirt in the square. The agent starts in square A. The available <strong>actions</strong> are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple <strong>agent function</strong> is the following: if the current square is dirty, then suck; otherwise, move to the other square.</p>
+<p>Under following circumstances, the vacuum cleaning agent is rational:</p>
+<ul>
+<li>The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a “lifetime” of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth).</li>
+<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The <em>Right</em> and <em>Left</em> actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is.</li>
+<li>The only available action is <em>Right</em>, <em>Left</em>, and <em>Suck</em>.</li>
+<li>The agent correctly perceives its location and whether that location contains dirt.</li>
+</ul>
 </div>
 </div>
 </div>
-<p><span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span> definition of AI agents establishes the minimum requirements for agency —perception and action— and emphasizes <strong>rationality</strong> as the guiding principle for agent behavior. This serves as the foundation upon which more specialized agent concepts are built.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+
+<section id="exercise" class="title-slide slide level2 html-hidden unlisted discussion-slide">
+<h2>Exercise</h2>
+<div class="large">
+<p>Under which circumstances does a <strong>vacuum cleaning agent</strong> act rational?</p>
+</div>
+</section>
+
+<section id="performance-measure" class="title-slide slide level2">
+<h2>Performance measure</h2>
+<blockquote>
+<p>If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire <em><span class="citation" data-cites="Wiener1960Some">Wiener (<a href="#/literature" role="doc-biblioref" onclick="">1960, 1358</a>)</span></em></p>
+</blockquote>
+<div class="fragment">
+<div class="medium">
+<p>It is difficult to formulate a performance measure correctly. This is a reason to be careful.</p>
+</div>
+</div>
+</section>
+
+<section id="rationality-vs.-perfecteion" class="title-slide slide level2">
+<h2>Rationality vs.&nbsp;perfecteion</h2>
+<div class="large">
+<p>Rationality is not the same as perfection.</p>
+</div>
+<div>
+<ul>
+<li class="fragment">Rationality maximizes <em>expected</em> performance</li>
+<li class="fragment">Perfection maximizes <em>actual</em> performance</li>
+<li class="fragment">Perfection requires omniscience</li>
+<li class="fragment">Rational choice depends only on the percept sequence <em>to date</em></li>
+</ul>
+</div>
+<aside class="notes">
+<p>As the environment is usually not completely known <em>a priori</em> and completely predictable (or stable), information gathering and learning are important parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 59</a>)</span>.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>The vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.</p>
+</div>
+</div>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -276,28 +332,27 @@ Figure&nbsp;1: Agents interact with environments through sensors and actuators
           display:block!important;
       }</style></aside>
 </section>
-
-<section id="agent-types" class="title-slide slide level2 headline-only">
-<h2>Agent types</h2>
+</section>
+<section>
+<section id="agent-types" class="title-slide slide level1 headline-only">
+<h1>Agent types</h1>
 
 </section>
-<section id="simple-reflex-agents" class="slide level3">
-<h3>Simple reflex agents</h3>
+<section id="simple-reflex-agents" class="title-slide slide level2">
+<h2>Simple reflex agents</h2>
 <div id="fig-sr-agent" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-sr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img data-src="images/simple-reflex-agent.svg" class="img-fluid">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: A simple reflex agent
+Figure&nbsp;2: A simple reflex agent<a href="#/footnotes" class="footnote-ref" id="fnref3" role="doc-noteref" data-footnote-href="#/fn3" onclick=""><sup>3</sup></a>
 </figcaption>
 </figure>
 </div>
 <aside class="notes">
-<div class="small">
-<p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.</p>
-</div>
 <p>Simple reflex agents select actions on the basis of the <em>current</em> percept, ignoring the rest of the percept history. Thus, these agents work only if the correct decision can be made on the basis of just the current percept. The environment needs to be fully observable <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 68</a>)</span>.</p>
+<p>Example: A <strong>thermostat</strong> makes decisions based solely on the current temperature reading, without considering past temperatures or future predictions.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -309,9 +364,10 @@ Figure&nbsp;2: A simple reflex agent
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="model-based-reflex-agents" class="slide level3">
-<h3>Model-based reflex agents</h3>
+<aside></aside></section>
+
+<section id="model-based-reflex-agents" class="title-slide slide level2">
+<h2>Model-based reflex agents</h2>
 <div id="fig-mr-agent" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-mr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -323,9 +379,12 @@ Figure&nbsp;3: A model-based reflex agent
 </figure>
 </div>
 <aside class="notes">
-<p>Model-based reflex agents use transition models and sensor models to keep track of the state of the world as perceived by the sensors (i.e., internal state). <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 70</a>)</span>.</p>
-<p>The <strong>transition model</strong> reflects “how the world works,” i.e., how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.</p>
-<p>The <strong>sensor model</strong> reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors).</p>
+<p>Model-based reflex agents maintain an internal models of the world, which helps them keep track of the current state and make decisions based on this model. This allows them to handle partially observable environments more effectively <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 70</a>)</span>.</p>
+<ul>
+<li>The <strong>transition model</strong> reflects how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.</li>
+<li>The <strong>sensor model</strong> reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors).</li>
+</ul>
+<p>Eample: A <strong>self-driving car</strong> uses its transition model to predict the state of the environment reflected in the sensor model and make decisions accordingly.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -357,8 +416,9 @@ Figure&nbsp;3: A model-based reflex agent
           display:block!important;
       }</style></aside>
 </section>
-<section id="goal-based-agents" class="slide level3">
-<h3>Goal-based agents</h3>
+
+<section id="goal-based-agents" class="title-slide slide level2">
+<h2>Goal-based agents</h2>
 <div id="fig-gb-agent" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-gb-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -370,42 +430,9 @@ Figure&nbsp;4: A model-based, goal-based agent
 </figure>
 </div>
 <aside class="notes">
-<p>A model-based, goal-based agent keeps track of the world state as well as a set of goals it is trying to achieve. Such an agent chooses an action that will (eventually) lead to the achievement of its goals <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 72</a>)</span>.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="utility-based-agents" class="slide level3">
-<h3>Utility-based agents</h3>
-<div id="fig-ub-agent" class="quarto-float quarto-figure quarto-figure-left">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-ub-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img data-src="images/utility-based-agent.svg" class="img-fluid">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ub-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: A model-based, utility-based agent
-</figcaption>
-</figure>
-</div>
-<aside class="notes">
-<p>A model-based, utility-based agent uses a model of the world, along with a utility function that measures its preferences among states of the world. It chooses the action that leads to the best expected utility, where expected utility is computed by averaging over all possible states, weighted by the probability of the outcome <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 73</a>)</span>.</p>
-<p>The <strong>utility function</strong> is essentially an internalization of the performance measure.</p>
-<p>A utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism.</p>
-<p>In addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:</p>
-<ul>
-<li>When there are conflicting goals, the utility function specifies the appropriate tradeoff.</li>
-<li>Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals</li>
-</ul>
-<p>Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity.</p>
-<p>There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning).</p>
+<p>Goal-based agents make decisions based on a set of goals they aim to achieve. They consider the current state, possible actions, and the outcomes of these actions to determine the best path to reach their goals <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 72</a>)</span>.</p>
+<p>Goal-based agents often use search and planning algorithms to find the optimal sequence of actions to achieve their goals, best-case considering both immediate and long-term consequences.</p>
+<p>Example: A <strong>delivery robot</strong> is designed to navigate from a starting point to a destination within an environment, often avoiding obstacles and optimizing its route.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -419,23 +446,40 @@ Figure&nbsp;5: A model-based, utility-based agent
       }</style></aside>
 </section>
 
-<section id="rational-agents" class="title-slide slide level2">
-<h2>Rational agents</h2>
-<div class="large">
-<p>A rational agent is one<br>
-that does <strong>the right thing</strong>.</p>
+<section id="utility-based-agents" class="title-slide slide level2">
+<h2>Utility-based agents</h2>
+<div id="fig-ub-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ub-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/utility-based-agent.svg" class="img-fluid">
 </div>
-<div class="fragment">
-<p>A rational agent is one that acts so as to achieve the best outcome or, when there is uncertainty, <strong>the best expected outcome</strong>. <span class="fragment">This means that for each possible percept sequence,</span> <span class="fragment">a rational agent should select an <strong>action</strong> that is expected to maximize its <strong>performance measure</strong>,</span> <span class="fragment">given the evidence provided by the <strong>percept sequence</strong></span> <span class="fragment">and whatever built-in <strong>knowledge</strong> the agent has <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 58</a>)</span>.</span></p>
-</div>
-<div class="fragment">
-<div class="html-hidden">
-<div class="medium">
-<p>Rationality is not the same as perfection.</p>
-</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ub-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: A model-based, utility-based agent
+</figcaption>
+</figure>
 </div>
 <aside class="notes">
-<p>As the environment is usually not completely known <em>a priori</em> and completely predictable (or stable), information gathering and learning are important parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 59</a>)</span> —rationality is, thus, not the same as perfection.</p>
+<p>Utility-based agents make decisions by evaluating the utility (or value) of different possible actions and choosing the one that maximizes their overall utility. These agents consider not only the goals but also the trade-offs and preferences to achieve the best possible outcome <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 73</a>)</span>.</p>
+<p>The <strong>utility function</strong> is a mathematical function that calculates <strong>expected utility</strong> for all possible states, weighted by the probability of the outcome. The agent evaluates the utility of different actions and selects the one that <strong>maximizes its expected utility</strong>.</p>
+<p>A utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism. In addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:</p>
+<ul>
+<li>When there are conflicting goals, the utility function specifies the appropriate tradeoff.</li>
+<li>Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals</li>
+</ul>
+<p>Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity. There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning).</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A <strong>smart thermostat</strong> continuously evaluates the utility of different temperature settings and adjusts accordingly to maximize overall utility, balancing comfort and energy savings.</p>
+</div>
+</div>
+</div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -447,6 +491,60 @@ that does <strong>the right thing</strong>.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+
+
+<section id="recap" class="title-slide slide level2 html-hidden unlisted discussion-slide">
+<h2>Recap</h2>
+<div class="large">
+<p>What are the <strong>main differences</strong> between the agents?</p>
+</div>
+</section>
+
+<section id="learning-agents" class="title-slide slide level2">
+<h2>Learning agents</h2>
+<div id="fig-l-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/learning-agent.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: A learning agent
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>Learning agents are AI systems designed to improve their performance over time by learning from their environment and experiences. Unlike traditional AI systems that operate with fixed programming, learning agents adapt, evolve, and refine their actions based on feedback and data. Thus, learning agents have greater <strong>autonony</strong>.</p>
+<p>A learning agent consists of four conceptual components <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022</a>, p- 74-75)</span>, as shown in <a href="#/fig-l-agent" class="quarto-xref">Figure&nbsp;6</a>:</p>
+<ul>
+<li><strong>Learning element</strong>: Acquires knowledge and improves performance by analyzing data, interactions, and feedback. Uses techniques such as supervised, unsupervised, and reinforcement learning.</li>
+<li><strong>Performance element</strong>: Executes tasks based on the knowledge acquired by the learning element.</li>
+<li><strong>Performance standard</strong> or critic: Evaluates the actions taken by the performance element and provides feedback.</li>
+<li><strong>Problem generator</strong>: Identifies opportunities for further learning and exploration. Exploratory actions may be suboptimal in the short term, but can lead to the discovery of better actions in the long term.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="rational-agents-1" class="title-slide slide level2">
+<h2>Rational agents</h2>
+<div class="html-hidden">
+<div class="large">
+<p>A rational agent is one<br>
+that does <strong>the right thing</strong>.</p>
+</div>
+</div>
+<div class="fragment">
+<p>Utility-based learning agents are rational agents as they act so as to achieve the best outcome or, when there is uncertainty, <strong>the best expected outcome</strong>. <span class="fragment">This means that for each possible percept sequence,</span> <span class="fragment">a rational agent should select an <strong>action</strong> that is expected to maximize its <strong>performance measure</strong>,</span> <span class="fragment">given the evidence provided by the <strong>percept sequence</strong></span> <span class="fragment">and whatever built-in <strong>knowledge</strong> the agent has,</span> <span class="fragment">which evolves over time <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 58</a>)</span>.</span></p>
 </div>
 </section>
 
@@ -487,7 +585,7 @@ that does <strong>the right thing</strong>.</p>
 <img data-src="images/evolution.svg" class="img-fluid">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: The evolution of AI agents
+Figure&nbsp;7: The evolution of AI agents
 </figcaption>
 </figure>
 </div>
@@ -914,7 +1012,7 @@ Figure&nbsp;6: The evolution of AI agents
 </div>
 </section>
 </section>
-<section id="qa" class="title-slide slide level1 html-hidden unlisted vertical-center" data-background-color="#0333ff">
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only">
 <h1>Q&amp;A</h1>
 
 </section>
@@ -940,9 +1038,21 @@ Seeber, Isabella, Eva Bittner, Robert O Briggs, Triparna De Vreede, Gert-Jan De 
 <div id="ref-shavit2023practices" class="csl-entry" role="listitem">
 Shavit, Yonadav, Sandhini Agarwal, Miles Brundage, Steven Adler, Cullen O’Keefe, Rosie Campbell, Teddy Lee, et al. 2023. <span>“Practices for Governing Agentic AI Systems.”</span> <em>Research Paper, OpenAI</em>.
 </div>
+<div id="ref-Wiener1960Some" class="csl-entry" role="listitem">
+Wiener, Norbert. 1960. <span>“Some Moral and Technical Consequences of Automation.”</span> <em>Science</em> 131 (3410): 1355–58.
+</div>
 </div>
 
 
+</section>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h3>Footnotes</h3>
+
+<ol>
+<li id="fn1"><p>The <strong>agent function</strong> maps any given percept sequence to an action (an abstract mathematical description).</p></li>
+<li id="fn2"><p>The term <strong>percept</strong> refers to the content an agent’s sensors are perceiving. The <strong>percept sequence</strong> is the complete history of everything an agent has ever perceived.</p></li>
+<li id="fn3"><p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.</p></li>
+</ol>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
