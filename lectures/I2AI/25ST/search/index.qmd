@@ -15,14 +15,14 @@ title-slide-attributes:
   data-background-color: '#0333ff'
 
 format: 
-  presentation-revealjs:
-    output-file: slides.html 
-    include-before-body: ../assets/footer.html
   html:
     output-file: index.html
     margin-header: | 
       [Slides](slides.html){.btn .btn-primary target="blank"}
     format-links: false        
+  presentation-revealjs:
+    output-file: slides.html 
+    include-before-body: ../assets/footer.html    
 ---
 
 # Introduction {.headline-only background-image="../assets/bg.jpeg"}
@@ -659,7 +659,13 @@ AlphaGo is a computer program that plays the board game Go, which is considered 
 
 ![A human trying to beat AlphaGo](images/alphaGo.jpeg){#fig-alphaGo}
 
-AlphaGo use a **Monte Carlo tree search algorithm** to find their moves based on knowledge previously acquired through machine learning, specifically an artificial neural network (a deep learning method) through extensive training, both from human and computer games. A neural network is trained to recognize the best moves and the winning rates of those moves. This neural network improves the strength of the tree search, leading to stronger move selection in the next iteration.
+AlphaGo use a **Monte Carlo tree search algorithm** to find their moves based on knowledge previously acquired through machine learning, specifically an artificial neural network (a deep learning method) through extensive training, both from human and computer games. A neural network is trained to recognize the best moves and the winning rates of those moves. This neural network improves the strength of the tree search, leading to stronger move selection in the next iteration. It is used to decide on
+
+- the next action to choose in the selection-phase,
+- which leaf-node to extend in the expansion phase, and
+- which actions to choose in the simulation phase
+
+A nice summary of MCTS and AlphaGo can be found [here](https://www.analyticsvidhya.com/blog/2019/01/monte-carlo-tree-search-introduction-algorithm-deepmind-alphago/).
 :::
 
 ## Adversarial search
