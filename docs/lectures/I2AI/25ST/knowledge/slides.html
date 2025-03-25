@@ -1066,9 +1066,9 @@ A state that contains the sentence we are trying to prove
 </dl>
 </div>
 </section>
-</section>
-<section id="open-topics" class="title-slide slide level1">
-<h1>Open topics</h1>
+
+<section id="open-topics" class="title-slide slide level2 html-hidden">
+<h2>Open topics</h2>
 <p><strong>Completeness</strong> (if the available inference rules are inadequate, the goal is not reachable)</p>
 <div class="fragment">
 <p>Level of <strong>complexity</strong> (though propositional logic suffices to represent the wumpus world), e.g.,</p>
@@ -1083,7 +1083,115 @@ A state that contains the sentence we are trying to prove
 <p><strong>Efficiency</strong> of inference algorithms</p>
 </div>
 <div class="fragment">
-<p>For further information on these and other matters, please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span></p>
+<p>For further information on these and other matters, please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span>-</p>
+</div>
+</section>
+</section>
+<section id="knowledge-graph" class="title-slide slide level1">
+<h1>Knowledge Graph</h1>
+<aside class="notes">
+<p>The Wumpus World example can definitely be adapted to explain knowledge graphs, though it requires some reconceptualization from its traditional propositional logic presentation.</p>
+<p><span class="h4">Entities (Nodes)</span></p>
+<ul>
+<li><strong>Locations</strong>: cells in the grid [1,1], [1,2], etc.</li>
+<li><strong>Game elements</strong>: Wumpus, gold, pits</li>
+<li><strong>The agent</strong> itself</li>
+<li><strong>Sensory perceptions</strong>: stench, breeze, glitter</li>
+<li><strong>Safety</strong> of locations</li>
+</ul>
+<p><span class="h4">Relationships (Edges)</span></p>
+<ul>
+<li><code>locatedAt</code> (connecting entities to grid locations)</li>
+<li><code>adjacentTo</code> (connecting locations to each other)</li>
+<li><code>causes</code> (e.g., Wumpus <code>causes</code> stench)</li>
+<li><code>perceives</code> (agent <code>perceives</code> stench)</li>
+<li><code>visited</code> (agent <code>visited</code> location)</li>
+<li><code>contains</code> (location <code>contains</code> pit/gold/Wumpus)</li>
+</ul>
+<div class="cell" data-reveal="true" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Agent] --&gt;|locatedAt| L11[Location 1,1]
+    A --&gt;|perceives| S[Stench]
+    S --&gt;|causedBy| W[Wumpus]
+    W --&gt;|locatedAt| L12[Location 1,2]
+    L11 --&gt;|adjacentTo| L12
+    L11 --&gt;|adjacentTo| L21[Location 2,1]
+    L12 --&gt;|safe| No
+    L21 --&gt;|visited| No
+    L21 --&gt;|safe| Unknown
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The knowledge graph would grow as the agent explores the environment:</p>
+<ol type="1">
+<li>The agent starts with general knowledge like “Wumpus causes stench in adjacent cells”</li>
+<li>When perceiving a breeze at location [1,1], new nodes and edges are added</li>
+<li>The agent can query the graph to make inferences: “Which unvisited locations are safe?”</li>
+</ol>
+<p><span class="h4">Advantages</span></p>
+<ul>
+<li>The spatial relationships between cells are explicitly modeled</li>
+<li>The agent’s exploration history is captured in the graph structure</li>
+<li>Complex queries can traverse multiple relationship types</li>
+<li>The graph naturally expands as knowledge grows</li>
+</ul>
+<p>A knowledge graph can represent the Wumpus World more intuitively, making the spatial reasoning aspects more explicit while maintaining the logical inference capabilities needed for the agent to navigate safely and find the gold.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="html-hidden">
+<div class="columns">
+<div class="column" style="width:70%;">
+<p><span class="h4">Key components</span></p>
+<ul>
+<li>Nodes: locations, Wumpus, pits, gold, agent, perceptions, safety</li>
+<li>Edges: <code>locatedAt</code>, <code>adjacentTo</code>, <code>causes</code>, <code>perceives</code></li>
+</ul>
+<p><span class="h4">Advantages</span></p>
+<ol type="1">
+<li>Explicit spatial relationships between cells</li>
+<li>Intuitive representation of agent’s knowledge</li>
+<li>Progressive knowledge acquisition as exploration occurs</li>
+<li>Complex query capabilities across multiple relationships</li>
+</ol>
+</div><div class="column" style="width:30%;">
+<div class="cell" data-reveal="true" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Agent] --&gt;|locatedAt| L11[Location 1,1]
+    A --&gt;|perceives| S[Stench]
+    S --&gt;|causedBy| W[Wumpus]
+    W --&gt;|locatedAt| L12[Location 1,2]
+    L11 --&gt;|adjacentTo| L12
+    L11 --&gt;|adjacentTo| L21[Location 2,1]
+    L12 --&gt;|safe| No
+    L21 --&gt;|visited| No
+    L21 --&gt;|safe| Unknown
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
 </div>
 </section>
 

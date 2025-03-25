@@ -742,7 +742,7 @@ Result
 Goal
 : A state that contains the sentence we are trying to prove
 
-# Open topics
+## Open topics {.html-hidden}
 
 **Completeness** (if the available inference rules are inadequate, the goal is not reachable)
 
@@ -761,7 +761,96 @@ Level of **complexity** (though propositional logic suffices to represent the wu
 
 . . .
 
-For further information on these and other matters, please see @RusselNorvig2022AIMA
+For further information on these and other matters, please see @RusselNorvig2022AIMA-
+
+
+# Knowledge Graph
+
+:::notes
+The Wumpus World example can definitely be adapted to explain knowledge graphs, though it requires some reconceptualization from its traditional propositional logic presentation.
+
+[Entities (Nodes)]{.h4}
+
+- **Locations**: cells in the grid [1,1], [1,2], etc.
+- **Game elements**: Wumpus, gold, pits
+- **The agent** itself
+- **Sensory perceptions**: stench, breeze, glitter
+- **Safety** of locations
+
+[Relationships (Edges)]{.h4}
+
+- `locatedAt` (connecting entities to grid locations)
+- `adjacentTo` (connecting locations to each other)
+- `causes` (e.g., Wumpus `causes` stench)
+- `perceives` (agent `perceives` stench)
+- `visited` (agent `visited` location)
+- `contains` (location `contains` pit/gold/Wumpus)
+
+```{mermaid}
+graph TD
+    A[Agent] -->|locatedAt| L11[Location 1,1]
+    A -->|perceives| S[Stench]
+    S -->|causedBy| W[Wumpus]
+    W -->|locatedAt| L12[Location 1,2]
+    L11 -->|adjacentTo| L12
+    L11 -->|adjacentTo| L21[Location 2,1]
+    L12 -->|safe| No
+    L21 -->|visited| No
+    L21 -->|safe| Unknown
+```
+
+The knowledge graph would grow as the agent explores the environment:
+
+1. The agent starts with general knowledge like "Wumpus causes stench in adjacent cells"
+2. When perceiving a breeze at location [1,1], new nodes and edges are added
+3. The agent can query the graph to make inferences: "Which unvisited locations are safe?"
+
+[Advantages]{.h4}
+
+- The spatial relationships between cells are explicitly modeled
+- The agent's exploration history is captured in the graph structure
+- Complex queries can traverse multiple relationship types
+- The graph naturally expands as knowledge grows
+
+A knowledge graph can represent the Wumpus World more intuitively, making the spatial reasoning aspects more explicit while maintaining the logical inference capabilities needed for the agent to navigate safely and find the gold.
+:::
+
+:::html-hidden
+
+::::columns
+:::{.column width=70%}
+[Key components]{.h4}
+
+- Nodes: locations, Wumpus, pits, gold, agent, perceptions, safety
+- Edges: `locatedAt`, `adjacentTo`, `causes`, `perceives`
+
+[Advantages]{.h4}
+
+1. Explicit spatial relationships between cells
+2. Intuitive representation of agent's knowledge
+3. Progressive knowledge acquisition as exploration occurs
+4. Complex query capabilities across multiple relationships
+:::
+
+:::{.column width=30%}
+```{mermaid}
+graph TD
+    A[Agent] -->|locatedAt| L11[Location 1,1]
+    A -->|perceives| S[Stench]
+    S -->|causedBy| W[Wumpus]
+    W -->|locatedAt| L12[Location 1,2]
+    L11 -->|adjacentTo| L12
+    L11 -->|adjacentTo| L21[Location 2,1]
+    L12 -->|safe| No
+    L21 -->|visited| No
+    L21 -->|safe| Unknown
+```
+:::
+::::
+
+:::
+
+
 
 # Wrap-up {.headline-only background-image="../assets/bg.jpeg"}
 
