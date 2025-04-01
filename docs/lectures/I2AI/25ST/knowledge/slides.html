@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-6ce1f2d2e9660df9ed53bdd78042cf0a.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-fac8255993a23eb3dc7581dc52b617e4.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -1087,8 +1087,8 @@ A state that contains the sentence we are trying to prove
 </div>
 </section>
 </section>
-<section id="knowledge-graph-representation" class="title-slide slide level1">
-<h1>Knowledge Graph representation</h1>
+<section id="knowledge-graph" class="title-slide slide level1">
+<h1>Knowledge Graph</h1>
 <aside class="notes">
 <p>The Wumpus World example can definitely be adapted to explain knowledge graphs, though it requires some reconceptualization from its traditional propositional logic presentation.</p>
 <p><span class="h4">Entities (Nodes)</span></p>
@@ -1097,6 +1097,7 @@ A state that contains the sentence we are trying to prove
 <li><strong>Game elements</strong>: Wumpus, gold, pits</li>
 <li><strong>The agent</strong> itself</li>
 <li><strong>Sensory perceptions</strong>: stench, breeze, glitter</li>
+<li><strong>Safety</strong> of locations</li>
 </ul>
 <p><span class="h4">Relationships (Edges)</span></p>
 <ul>
@@ -1107,6 +1108,27 @@ A state that contains the sentence we are trying to prove
 <li><code>visited</code> (agent <code>visited</code> location)</li>
 <li><code>contains</code> (location <code>contains</code> pit/gold/Wumpus)</li>
 </ul>
+<div class="cell" data-reveal="true" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Agent] --&gt;|locatedAt| L11[Location 1,1]
+    A --&gt;|perceives| S[Stench]
+    S --&gt;|causedBy| W[Wumpus]
+    W --&gt;|locatedAt| L12[Location 1,2]
+    L11 --&gt;|adjacentTo| L12
+    L11 --&gt;|adjacentTo| L21[Location 2,1]
+    L12 --&gt;|safe| No
+    L21 --&gt;|visited| No
+    L21 --&gt;|safe| Unknown
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>The knowledge graph would grow as the agent explores the environment:</p>
 <ol type="1">
 <li>The agent starts with general knowledge like “Wumpus causes stench in adjacent cells”</li>
@@ -1137,7 +1159,7 @@ A state that contains the sentence we are trying to prove
 <div class="column" style="width:70%;">
 <p><span class="h4">Key components</span></p>
 <ul>
-<li>Nodes: locations, Wumpus, pits, gold, agent, perceptions</li>
+<li>Nodes: locations, Wumpus, pits, gold, agent, perceptions, safety</li>
 <li>Edges: <code>locatedAt</code>, <code>adjacentTo</code>, <code>causes</code>, <code>perceives</code></li>
 </ul>
 <p><span class="h4">Advantages</span></p>

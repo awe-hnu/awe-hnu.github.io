@@ -52,7 +52,7 @@ div.csl-indent {
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-c2fbe5b667dc6c12a34220e6aca225c6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-30d6ba78130312a1c129854e52a348e9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -281,7 +281,7 @@ window.Quarto = {
   <li><a href="#wumpus-world" id="toc-wumpus-world" class="nav-link" data-scroll-target="#wumpus-world">Wumpus World</a></li>
   <li><a href="#propositional-logic" id="toc-propositional-logic" class="nav-link" data-scroll-target="#propositional-logic">Propositional logic</a></li>
   <li><a href="#propositional-proofs" id="toc-propositional-proofs" class="nav-link" data-scroll-target="#propositional-proofs">Propositional proofs</a></li>
-  <li><a href="#knowledge-graph-representation" id="toc-knowledge-graph-representation" class="nav-link" data-scroll-target="#knowledge-graph-representation">Knowledge Graph representation</a></li>
+  <li><a href="#knowledge-graph" id="toc-knowledge-graph" class="nav-link" data-scroll-target="#knowledge-graph">Knowledge Graph</a></li>
   <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up">Wrap-up</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
@@ -1024,8 +1024,8 @@ A state that contains the sentence we are trying to prove
 </dl>
 </section>
 </section>
-<section id="knowledge-graph-representation" class="level1">
-<h1>Knowledge Graph representation</h1>
+<section id="knowledge-graph" class="level1">
+<h1>Knowledge Graph</h1>
 <div class="notes">
 <p>The Wumpus World example can definitely be adapted to explain knowledge graphs, though it requires some reconceptualization from its traditional propositional logic presentation.</p>
 <p><span class="h4">Entities (Nodes)</span></p>
@@ -1034,6 +1034,7 @@ A state that contains the sentence we are trying to prove
 <li><strong>Game elements</strong>: Wumpus, gold, pits</li>
 <li><strong>The agent</strong> itself</li>
 <li><strong>Sensory perceptions</strong>: stench, breeze, glitter</li>
+<li><strong>Safety</strong> of locations</li>
 </ul>
 <p><span class="h4">Relationships (Edges)</span></p>
 <ul>
@@ -1044,6 +1045,27 @@ A state that contains the sentence we are trying to prove
 <li><code>visited</code> (agent <code>visited</code> location)</li>
 <li><code>contains</code> (location <code>contains</code> pit/gold/Wumpus)</li>
 </ul>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Agent] --&gt;|locatedAt| L11[Location 1,1]
+    A --&gt;|perceives| S[Stench]
+    S --&gt;|causedBy| W[Wumpus]
+    W --&gt;|locatedAt| L12[Location 1,2]
+    L11 --&gt;|adjacentTo| L12
+    L11 --&gt;|adjacentTo| L21[Location 2,1]
+    L12 --&gt;|safe| No
+    L21 --&gt;|visited| No
+    L21 --&gt;|safe| Unknown
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>The knowledge graph would grow as the agent explores the environment:</p>
 <ol type="1">
 <li>The agent starts with general knowledge like “Wumpus causes stench in adjacent cells”</li>
