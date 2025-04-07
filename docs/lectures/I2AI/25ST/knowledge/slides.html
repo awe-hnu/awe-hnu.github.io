@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-fac8255993a23eb3dc7581dc52b617e4.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-4ce94aa83c124612d1ba5854b1414c80.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -846,6 +846,106 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 </div>
 </div>
 <aside></aside></section>
+</section>
+<section>
+<section id="model-checking" class="title-slide slide level1 headline-only" data-background-image="../assets/bg.jpeg">
+<h1>Model checking</h1>
+
+</section>
+<section id="goal" class="title-slide slide level2">
+<h2>Goal</h2>
+<p>We want to determine whether a sentence <span class="math inline">\(\alpha\)</span> is <strong>entailed</strong> by a knowledge base <span class="math inline">\(KB\)</span>. This is written as:</p>
+<p><span class="math inline">\(KB \models \alpha \quad \text{which means} \quad M(KB) \subseteq M(\alpha)\)</span></p>
+<div class="fragment">
+<p>That is, in <strong>every model</strong> where <span class="math inline">\(KB\)</span> is true, <span class="math inline">\(\alpha\)</span> must also be true. One way to check this is by <strong>model checking using a truth table</strong>, which evaluates all possible assignments of truth values to propositional symbols.</p>
+</div>
+</section>
+
+<section id="procedure" class="title-slide slide level2">
+<h2>Procedure</h2>
+<div>
+<ol type="1">
+<li class="fragment"><strong>Identify all propositional symbols</strong> that appear in <span class="math inline">\(KB\)</span> and <span class="math inline">\(\alpha\)</span>.</li>
+<li class="fragment"><strong>Construct a complete truth table</strong>:
+<ol type="a">
+<li class="fragment">List all possible truth value combinations for those symbols.</li>
+<li class="fragment">For <span class="math inline">\(n\)</span> symbols, there are <span class="math inline">\(2^n\)</span> possible models (rows in the table).</li>
+</ol></li>
+<li class="fragment"><strong>Evaluate both <span class="math inline">\(KB\)</span> and <span class="math inline">\(\alpha\)</span> in each row</strong>.</li>
+<li class="fragment"><strong>Select the models where <span class="math inline">\(KB\)</span> is true</strong> (i.e., <span class="math inline">\(M(KB)\)</span>).</li>
+<li class="fragment"><strong>Check if <span class="math inline">\(\alpha\)</span> is also true in all those models</strong>:
+<ol type="a">
+<li class="fragment">If yes: <span class="math inline">\(KB \models \alpha\)</span> (entailment holds).</li>
+<li class="fragment">If not: <span class="math inline">\(KB \not\models \alpha\)</span> (entailment does not hold).</li>
+</ol></li>
+</ol>
+</div>
+</section>
+
+<section id="example" class="title-slide slide level2">
+<h2>Example</h2>
+<p>Let:</p>
+<ul>
+<li><span class="math inline">\(KB = P \implies Q\)</span></li>
+<li><span class="math inline">\(\alpha = Q\)</span></li>
+</ul>
+<p>We want to test whether <span class="math inline">\(KB \models \alpha\)</span>, or:</p>
+<p><span class="math inline">\(M(KB) \subseteq M(\alpha)\)</span></p>
+</section>
+<section class="slide level3">
+
+<p><span class="h4"><strong>Truth table</strong></span></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(P\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(Q\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(P \implies Q\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(KB\)</span> true?</th>
+<th style="text-align: center;"><span class="math inline">\(\alpha = Q\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">F</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">F</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><span class="h4"><strong>Analyze</strong></span></p>
+<p>Rows where <span class="math inline">\(KB\)</span> is true: rows 1, 3, and 4.</p>
+<p>In <em>row 4</em>, <span class="math inline">\(Q\)</span> is false → so <span class="math inline">\(\alpha\)</span> is <em>not</em> true in all models of <span class="math inline">\(KB\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Therefore:</p>
+<p><span class="math inline">\(M(KB) \nsubseteq M(\alpha) \quad \implies \quad KB \not\models \alpha\)</span></p>
+</div>
+</section>
 </section>
 <section>
 <section id="propositional-proofs" class="title-slide slide level1 headline-only" data-background-image="../assets/bg.jpeg">

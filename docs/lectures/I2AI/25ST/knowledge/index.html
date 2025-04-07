@@ -195,7 +195,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Mar 25, 2025</p>
+        <p class="date-modified">Apr 7, 2025</p>
       </div>
     </div>
       
@@ -280,6 +280,7 @@ window.Quarto = {
   <li><a href="#knowledge-based-agents" id="toc-knowledge-based-agents" class="nav-link active" data-scroll-target="#knowledge-based-agents">Knowledge-based agents</a></li>
   <li><a href="#wumpus-world" id="toc-wumpus-world" class="nav-link" data-scroll-target="#wumpus-world">Wumpus World</a></li>
   <li><a href="#propositional-logic" id="toc-propositional-logic" class="nav-link" data-scroll-target="#propositional-logic">Propositional logic</a></li>
+  <li><a href="#model-checking" id="toc-model-checking" class="nav-link" data-scroll-target="#model-checking">Model checking</a></li>
   <li><a href="#propositional-proofs" id="toc-propositional-proofs" class="nav-link" data-scroll-target="#propositional-proofs">Propositional proofs</a></li>
   <li><a href="#knowledge-graph" id="toc-knowledge-graph" class="nav-link" data-scroll-target="#knowledge-graph">Knowledge Graph</a></li>
   <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up">Wrap-up</a></li>
@@ -774,6 +775,92 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <li>So we cannot yet tell whether there is a pit in <span class="math inline">\([2,2]\)</span></li>
 </ul>
 </div>
+</section>
+</section>
+<section id="model-checking" class="level1 headline-only" data-background-image="../assets/bg.jpeg">
+<h1 class="headline-only" data-background-image="../assets/bg.jpeg">Model checking</h1>
+<section id="goal" class="level2">
+<h2 data-anchor-id="goal">Goal</h2>
+<p>We want to determine whether a sentence <span class="math inline">\(\alpha\)</span> is <strong>entailed</strong> by a knowledge base <span class="math inline">\(KB\)</span>. This is written as:</p>
+<p><span class="math inline">\(KB \models \alpha \quad \text{which means} \quad M(KB) \subseteq M(\alpha)\)</span></p>
+<p>That is, in <strong>every model</strong> where <span class="math inline">\(KB\)</span> is true, <span class="math inline">\(\alpha\)</span> must also be true. One way to check this is by <strong>model checking using a truth table</strong>, which evaluates all possible assignments of truth values to propositional symbols.</p>
+<hr>
+</section>
+<section id="procedure" class="level2">
+<h2 data-anchor-id="procedure">Procedure</h2>
+<ol type="1">
+<li><p><strong>Identify all propositional symbols</strong> that appear in <span class="math inline">\(KB\)</span> and <span class="math inline">\(\alpha\)</span>.</p></li>
+<li><p><strong>Construct a complete truth table</strong>:</p>
+<ul>
+<li>List all possible truth value combinations for those symbols.</li>
+<li>For <span class="math inline">\(n\)</span> symbols, there are <span class="math inline">\(2^n\)</span> possible models (rows in the table).</li>
+</ul></li>
+<li><p><strong>Evaluate both <span class="math inline">\(KB\)</span> and <span class="math inline">\(\alpha\)</span> in each row</strong>.</p></li>
+<li><p><strong>Select the models where <span class="math inline">\(KB\)</span> is true</strong> (i.e., <span class="math inline">\(M(KB)\)</span>).</p></li>
+<li><p><strong>Check if <span class="math inline">\(\alpha\)</span> is also true in all those models</strong>:</p>
+<ul>
+<li>If yes: <span class="math inline">\(KB \models \alpha\)</span> (entailment holds).</li>
+<li>If not: <span class="math inline">\(KB \not\models \alpha\)</span> (entailment does not hold).</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="example" class="level2">
+<h2 data-anchor-id="example">Example</h2>
+<p>Let:</p>
+<ul>
+<li><span class="math inline">\(KB = P \implies Q\)</span></li>
+<li><span class="math inline">\(\alpha = Q\)</span></li>
+</ul>
+<p>We want to test whether <span class="math inline">\(KB \models \alpha\)</span>, or:</p>
+<p><span class="math inline">\(M(KB) \subseteq M(\alpha)\)</span></p>
+<p><span class="h4"><strong>Truth table</strong></span></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(P\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(Q\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(P \implies Q\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(KB\)</span> true?</th>
+<th style="text-align: center;"><span class="math inline">\(\alpha = Q\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">F</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">T</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">F</td>
+</tr>
+</tbody>
+</table>
+<p><span class="h4"><strong>Analyze</strong></span></p>
+<p>Rows where <span class="math inline">\(KB\)</span> is true: rows 1, 3, and 4.</p>
+<p>In <strong>row 4</strong>, <span class="math inline">\(Q\)</span> is false → so <span class="math inline">\(\alpha\)</span> is <strong>not</strong> true in all models of <span class="math inline">\(KB\)</span>.</p>
+<p>Therefore:</p>
+<p><span class="math inline">\(M(KB) \nsubseteq M(\alpha) \quad \implies \quad KB \not\models \alpha\)</span></p>
 </section>
 </section>
 <section id="propositional-proofs" class="level1 headline-only page-columns page-full" data-background-image="../assets/bg.jpeg">

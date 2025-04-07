@@ -15,11 +15,7 @@ title-slide-attributes:
   data-background-color: '#0333ff'
   
 format: 
-  html:
-    output-file: index.html
-    margin-header: | 
-      [Slides](slides.html){.btn .btn-primary target="blank"}
-    format-links: false   
+
   presentation-revealjs:
     output-file: slides.html
     include-before-body: ../assets/footer.html    
@@ -484,6 +480,70 @@ Example (the agent has just moved to $[2,1]$):
 [^4]: 7 symbols ($B_{1,1}$, $B_{2,1}$, $P_{1,1}$, $P_{1,2}$, $P_{2,1}$,
     $P_{2,2}$, $P_{3,1}$), two statuses each (true, false); models are
     assignments of *true* or *false* to every proposition symbol
+
+# Model checking {.headline-only background-image="../assets/bg.jpeg"}
+
+## Goal
+
+We want to determine whether a sentence $\alpha$ is **entailed** by a knowledge base $KB$. This is written as:
+
+$KB \models \alpha \quad \text{which means} \quad M(KB) \subseteq M(\alpha)$
+
+. . .
+
+That is, in **every model** where $KB$ is true, $\alpha$ must also be true. One way to check this is by **model checking using a truth table**, which evaluates all possible assignments of truth values to propositional symbols.
+
+## Procedure
+
+:::incremental
+
+1. **Identify all propositional symbols** that appear in $KB$ and $\alpha$.
+2. **Construct a complete truth table**:
+   a. List all possible truth value combinations for those symbols.
+   b. For $n$ symbols, there are $2^n$ possible models (rows in the table).
+3. **Evaluate both $KB$ and $\alpha$ in each row**.
+4. **Select the models where $KB$ is true** (i.e., $M(KB)$).
+5. **Check if $\alpha$ is also true in all those models**:
+   a. If yes: $KB \models \alpha$ (entailment holds).
+   b. If not: $KB \not\models \alpha$ (entailment does not hold).
+
+:::
+
+## Example
+
+Let:
+
+- $KB = P \implies Q$
+- $\alpha = Q$
+
+We want to test whether $KB \models \alpha$, or:
+
+$M(KB) \subseteq M(\alpha)$
+
+----
+
+[**Truth table**]{.h4}
+
+| $P$ | $Q$ | $P \implies Q$ | $KB$ true? | $\alpha = Q$ |
+|:--:|:--:|:----------------:|:----------:|:------------:|
+| T  | T  | T                | yes        | T            |
+| T  | F  | F                | no         | F            |
+| F  | T  | T                | yes        | T            |
+| F  | F  | T                | yes        | F            |
+
+. . .
+
+[**Analyze**]{.h4}
+
+Rows where $KB$ is true: rows 1, 3, and 4.
+
+In *row 4*, $Q$ is false → so $\alpha$ is *not* true in all models of $KB$.
+
+. . .
+
+Therefore:
+
+$M(KB) \nsubseteq M(\alpha) \quad \implies \quad KB \not\models \alpha$
 
 # Propositional proofs {.headline-only background-image="../assets/bg.jpeg"}
 
