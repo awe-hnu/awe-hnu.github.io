@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.40">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2024-02-13">
+  <title>awe.lectures – Probabilities</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-4ce94aa83c124612d1ba5854b1414c80.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Probabilities – awe.lectures">
+<meta property="og:description" content="🧠 Introduction to AI">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V0.4
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Introduction to Artificial Intelligence (AI)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Probabilities</h1>
+  <p class="subtitle">🧠 Introduction to AI</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">February 13, 2024</p>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 vertical-center" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1>Introduction</h1>
+
+</section>
+<section id="discussion" class="title-slide slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
+<h2>Discussion</h2>
+<div class="larger">
+<p>What are challenges related to logic as an approach to <strong>knowledge representation</strong>?</p>
+</div>
+</section>
+
+<section id="qualification-problem" class="title-slide slide level2">
+<h2>Qualification problem</h2>
+<p>Logic is good, but often <strong>conclusions under uncertainty</strong> need to be drawn, as …</p>
+<div>
+<ul>
+<li class="fragment">the agent’s knowledge of the world is incomplete (not enough information) or uncertain (sensors are unreliable);</li>
+<li class="fragment">the agent must consider every possible explanation for its percepts (no matter how unlikely);</li>
+<li class="fragment">this leads to a large belief-state full of unlikely possibilities and arbitrarily large contingent plans; and</li>
+<li class="fragment">rules about the world are often incomplete (e.g., are all preconditions for an action known?) or even incorrect</li>
+</ul>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Qualification problem</strong></p>
+</div>
+<div class="callout-content">
+<p>In philosophy and AI, the qualification problem is concerned with the impossibility of listing all the preconditions required for a real-world action to have its intended effect.</p>
+<p>As we have learned, there is no complete solution within logic. System designers must use good judgment in deciding how much detail to specify in their model and what details to omit. The reason for that is quite simple: often, all the conditions for an action that are necessary to achieve the intended effect can’t be known. Or if they can be known, they often lead to a large belief-state full of unlikely possibilities. This is called the <strong>qualification problem in logic</strong>.</p>
+<p>However, there are good news: probability theory allows all exceptions to be grouped together without explicitly naming them.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="example" class="title-slide slide level2">
+<h2>Example</h2>
+<p><strong>Goal:</strong> Be in Ulm at 8:15 to give a lecture</p>
+<div class="fragment">
+<p>There are several <strong>plans</strong> that achieve the goal:</p>
+<div>
+<ul>
+<li class="fragment"><span class="math inline">\(P_1:\)</span> Get up at 6:00, take the bike, arrive at 7:30, take a shower, …</li>
+<li class="fragment"><span class="math inline">\(P_2:\)</span> Get up at 6:30, take the car at 7:00, arrive at 7:45, …</li>
+<li class="fragment">…</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<p>All these plans are correct, but they imply different <strong>costs</strong> and different <strong>probabilities</strong> of actually achieving the goal.</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(P_2\)</span> eventually is the plan of choice as the success rate of P1 is only 80%</p>
+</div>
+</section>
+
+<section id="uncertainty-in-rules" class="title-slide slide level2">
+<h2>Uncertainty in rules</h2>
+<p>Take an expert dental diagnosis system as an example.</p>
+<p><span class="math inline">\(Toothache \implies Cavity\)</span></p>
+<div class="fragment">
+<p>→ This rule is incorrect, better:</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Toothache \implies Cavity \lor GumProblem \lor Abscess ...\)</span></p>
+</div>
+<div class="fragment">
+<p>→ However, we don’t know all the causes<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a></p>
+</div>
+<div class="fragment">
+<p>Perhaps a causal rule is better?</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Cavity \implies Toothache\)</span></p>
+</div>
+<div class="fragment">
+<p>→ This is still wrong and does not allow to reason from symptoms to causes.</p>
+</div>
+<aside></aside></section>
+
+<section id="discussion-1" class="title-slide slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
+<h2>Discussion</h2>
+<div class="larger">
+<p>What do we learn from that?</p>
+</div>
+</section>
+
+<section id="learnings" class="title-slide slide level2">
+<h2>Learnings</h2>
+<div>
+<ul>
+<li class="fragment">We cannot enumerate all possible causes (i.e., <strong>laziness</strong>)</li>
+<li class="fragment">And even if we could, we do not know how correct the rules are (i.e., <strong>theoretical ignorance</strong><a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a>)</li>
+<li class="fragment">And even if we did there will always be uncertainty about the patient (i.e., <strong>practical ignorance</strong><a href="#/footnotes" class="footnote-ref" id="fnref3" role="doc-noteref" data-footnote-href="#/fn3" onclick=""><sup>3</sup></a>)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>→ Without perfect knowledge (i.e., <em>“the rules of the game”</em>), logical rules do not help much</p>
+</div>
+<aside></aside></section>
+
+<section id="discussion-2" class="title-slide slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
+<h2>Discussion</h2>
+<div class="larger">
+<p>What issues might arise when <strong>localizing a robot</strong>?</p>
+</div>
+</section>
+
+<section id="uncertainty-in-facts" class="title-slide slide level2">
+<h2>Uncertainty in facts</h2>
+<p>Let us suppose we wanted to support the localization of a robot with (constant) landmarks. With the availability of landmarks, we can narrow down on the area.</p>
+<div class="fragment">
+<p>Problem: sensors can be <strong>imprecise</strong></p>
+<div>
+<ul>
+<li class="fragment">From the fact that a landmark was perceived, we cannot conclude with certainty that the robot is at that location</li>
+<li class="fragment">The same is true when no landmark is perceived</li>
+<li class="fragment">Only the probability increases or decreases</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="probability-theory" class="title-slide slide level2">
+<h2>Probability theory</h2>
+<div>
+<ul>
+<li class="fragment">We (and other agents) are convinced by facts and rules only up to a certain degree</li>
+<li class="fragment">One possibility for expressing the degree of belief is to use <strong>probabilities</strong></li>
+<li class="fragment">The agent is 90% (or 0.9) convinced by its sensor information<br>
+<em>(in 9 out of 10 cases, the information is correct–the agent believes)</em></li>
+<li class="fragment">Probabilities sum up the “uncertainty” that stems from lack of knowledge.</li>
+<li class="fragment">Probabilities are not to be confused with vagueness<br>
+<em>The predicate tall is vague; the statement, “A man is 1.75–1.80m tall” is uncertain.</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section>
+<section id="decisions-under-uncertainty" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1>Decisions under uncertainty</h1>
+
+</section>
+<section id="decision-theory" class="title-slide slide level2">
+<h2>Decision theory</h2>
+<div class="html-hidden">
+<p><span class="larger">= utility theory + probability theory`</span></p>
+</div>
+<div>
+<ul>
+<li class="fragment">We have a choice of actions (or plans)</li>
+<li class="fragment">These can lead to different solutions with different <strong>probabilities</strong></li>
+<li class="fragment">The actions have different (subjective) costs</li>
+<li class="fragment">The results have different (subjective) utilities</li>
+</ul>
+</div>
+<div class="fragment">
+<p>It would be rational to choose the action with the <strong>maximum expected utility (MEU)</strong>—the “average”, or “statistical mean” of the outcome utilities minus the costs of the actions leading to the outcome, weighted by the probability of the outcome.</p>
+</div>
+</section>
+
+<section id="unconditional-probabilities" class="title-slide slide level2">
+<h2>Unconditional probabilities</h2>
+<p><span class="math inline">\(P(A)\)</span> denotes the unconditional probability or <strong>prior probability</strong> that <span class="math inline">\(A\)</span> will appear in the absence of any other information, e.g.&nbsp;<span class="math inline">\(P(Cavity) = 0.1\)</span></p>
+<div>
+<ul>
+<li class="fragment">Prior probabilities can be obtained from statistical analysis or general rules</li>
+<li class="fragment">A <strong>random variable</strong><a href="#/footnotes" class="footnote-ref" id="fnref4" role="doc-noteref" data-footnote-href="#/fn4" onclick=""><sup>4</sup></a> can take on some range—the set of possible values (e.g., Numbers, Boolean, arbitary tokens), e.g.&nbsp;<span class="math inline">\(P(Weather=sunny=0.6)\)</span></li>
+<li class="fragment">Logical connectors can be used to build <strong>probabilistic propositions</strong>, e.g.&nbsp;<span class="math inline">\(P(Cavity \land \neg Insured) = 0.06\)</span></li>
+<li class="fragment">Propositions can contain equations over random variables, e.g.&nbsp;<span class="math inline">\(P(NoonTemp=x) = \textrm{Uniform}(x;18C;26C)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref5" role="doc-noteref" data-footnote-href="#/fn5" onclick=""><sup>5</sup></a>, usually called a <strong>probability density function</strong></li>
+</ul>
+</div>
+<aside></aside></section>
+
+<section id="conditional-probabilities" class="title-slide slide level2">
+<h2>Conditional probabilities</h2>
+<p>New information (usually called <strong>evidence</strong>) can change the probability, e.g.&nbsp;the probability of a cavity increases if we know the patient has a toothache</p>
+<div class="fragment">
+<p><span class="math inline">\(P(a|b)\)</span> is the <strong>conditional probability</strong> of <span class="math inline">\(a\)</span> given that all we know is <span class="math inline">\(b\)</span></p>
+</div>
+<div class="fragment">
+<p>Conditional probabilities (or posterior probabilities) are defined in terms of unconditional probabilities as follows:</p>
+<p>For any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(a|b) = \frac{P(a \land b)}{P(b)} = \frac{P(a, b)}{P(b)}&amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Or in a different form as <strong>product rule</strong></p>
+<p><span class="math inline">\(P(a \land b) = P(a,b) = P(a|b)P(b) = P(b|a)P(a)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref6" role="doc-noteref" data-footnote-href="#/fn6" onclick=""><sup>6</sup></a></p>
+</div>
+<aside></aside></section>
+
+<section id="example-1" class="title-slide slide level2">
+<h2>Example</h2>
+<p>The <strong>product rules</strong> for all possible values of <em>Weather</em> and <em>Cavity</em> can be written as a single equation:</p>
+<p><span class="math inline">\(P(Weather,Cavity)=P(Weather|Cavity)P(Cavity)\)</span></p>
+<div class="fragment">
+<p>which corresponds to a system of equations (using abbreviations <em>W</em> and <em>C</em>):</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(P(W=sun,C=true)   =  P(W=sun|C=true)P(C=true)\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(P(W=rain,C=true)  =  P(W=rain|C=true)P(C=true)\)</span></p>
+<p>…</p>
+<p><span class="math inline">\(P(W=snow,C=false) =  P(W=snow|C=false)P(C=false)\)</span></p>
+</div>
+</section>
+
+<section id="marginalization" class="title-slide slide level2">
+<h2>Marginalization</h2>
+<p><strong>Marginalisation</strong> in probability refers to “summing out” the probability of a random variable <em>X</em> given the joint probability distribution of <em>X</em> with other variable(s).</p>
+<div class="fragment">
+<p>For any sets of variables <em>X</em> and <em>Z</em> we have</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X=x) = \sum_Z P(X=x,Z=z) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>To find <span class="math inline">\(P(X=x)\)</span>, we sum all the probability values where <span class="math inline">\(X=x\)</span> occurs with all the possible values of <em>Z</em>.</p>
+<p>We can abbreviate <span class="math inline">\(P(X=x)\)</span> by <span class="math inline">\(P(x)\)</span> and <span class="math inline">\(P(X=x,Z=z)\)</span> by <span class="math inline">\(P(x,z)\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Using the <strong>product rule</strong>, we can replace <span class="math inline">\(P(x,z)\)</span> by <span class="math inline">\(P(X|z)P(z)\)</span>,</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(x) = \sum_Z P(x|z)P(z) &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+
+<section id="probability-axioms" class="title-slide slide level2">
+<h2>Probability axioms</h2>
+<p>The <strong>basic axioms of probability</strong> theory say that every possible world has a probability between 0 and 1 and that the total probability of the set of possible worlds is 1:</p>
+<p><span class="math inline">\(0 \leq P(a) \leq 1 \quad \textrm{for every } \omega \textrm{ and} \sum_{\omega \in \Omega}P(\omega)=1\)</span></p>
+<div class="fragment">
+<p>The probability of a disjunction can be derived by following formula, sometimes called <strong>inclusion-exclusion principle</strong>:</p>
+<p><span class="math inline">\(P(a \lor b) = P(a) + P(b) - P(a \land b)\)</span></p>
+</div>
+<div class="fragment">
+<p>All other properties can be derived from these axioms, e.g.</p>
+<p><span class="math inline">\(P(\neg A) = 1–P(A)\)</span></p>
+</div>
+<div class="fragment">
+<p>follows from <span class="math inline">\(P(A \lor \neg A) = 1\)</span> and <span class="math inline">\(P(A \land \neg A) = 0\)</span></p>
+</div>
+</section>
+
+<section id="joint-probability" class="title-slide slide level2">
+<h2>Joint probability</h2>
+<p>Probabilities can be assigned to every proposition; an <strong>atomic event</strong> is an assignment of values to all random variables (i.e., a complete specification of a state)</p>
+<div class="fragment">
+<p>Example: Let <em>X</em> and <span class="math inline">\(Y\)</span> be boolean variables, leading to following four atomic events: <span class="math inline">\(X \land Y, \neg X \land Y, X \land \neg Y, \neg X \land \neg Y\)</span></p>
+</div>
+<div class="fragment">
+<p>The joint probability distribution <span class="math inline">\(P(x_1,...,x_n)\)</span> assigns a probability to every atomic event.</p>
+</div>
+<div class="fragment">
+<div id="tbl-distribution" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: center;">Toothache</td>
+<td style="text-align: center;">¬Toothache</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Cavity</td>
+<td style="text-align: center;">0.04</td>
+<td style="text-align: center;">0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">¬Cavity</td>
+<td style="text-align: center;">0.01</td>
+<td style="text-align: center;">0.89</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Probabilities of the atomic events (full joint distribution for the <em>Toothache</em>, <em>Cavity</em> world)
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="fragment">
+<p>Since all atomic events are disjoint, the sum of all fields is 1.</p>
+</div>
+</section>
+
+<section id="working-with-joint-probabilities" class="title-slide slide level2">
+<h2>Working with joint probabilities</h2>
+<p>All relevant probabilities can be computed using the joint probability by expressing them as a <strong>disjunction of atomic events</strong>. Example:</p>
+<p><span class="math display">\[
+\begin{align}
+P(Cavity \lor Toothache) &amp; =  P(Cavity \land Toothache) \\
+&amp;+ P(\neg Cavity \land Toothache) \\
+&amp;+ P(Cavity \land \neg Toothache)
+\end{align}
+\]</span></p>
+<div class="fragment">
+<p>Unconditional probabilities are obtained by adding across a row or column:</p>
+<p><span class="math inline">\(P(Cavity) = P(Cavity \land Toothache) + P(Cavity \land \neg Toothache)\)</span></p>
+</div>
+<div class="fragment">
+<p>While conditional probabilities are obtained by using the product rule:</p>
+<p><span class="math inline">\(P(Cavity|Toothache) = \frac{P(Cavity \land Toothache)}{P(Toothache)}=\frac{0.04}{0.04+0.01}=0.80\)</span></p>
+</div>
+</section>
+
+<section id="discussion-3" class="title-slide slide level2 html-hidden discussion-slide unlisted" data-background-color="#efefef">
+<h2>Discussion</h2>
+<div class="larger">
+<p>What challenges arise when dealing with <strong>joint probabilities</strong>?</p>
+</div>
+</section>
+
+<section id="problems-with-joint-probabilities" class="title-slide slide level2">
+<h2>Problems with joint probabilities</h2>
+<p>We can easily obtain all probabilities from the joint probability. The joint probability, however, involves <span class="math inline">\(k^n\)</span> values, if there are <span class="math inline">\(n\)</span> random variables with <span class="math inline">\(k\)</span> values.</p>
+<p>→ Implies difficulties of representation and assessment</p>
+<div class="fragment">
+<p>Questions:</p>
+<ul>
+<li>Is there a more compact way of representing joint probabilities?</li>
+<li>Is there an efficient method to work with this representation?</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Not in general, but it can work in many cases. Modern systems work directly with conditional probabilities and make assumptions on the independence of variables<a href="#/footnotes" class="footnote-ref" id="fnref7" role="doc-noteref" data-footnote-href="#/fn7" onclick=""><sup>7</sup></a> in order to simplify calculations.</p>
+</div>
+<aside></aside></section>
+
+<section id="single-work" class="title-slide slide level2 html-hidden discussion-slide unlisted" data-background-color="#d7d7d7">
+<h2>Single work</h2>
+<div class="larger">
+<p>Work through the <strong>Bayes’ rule</strong> chapter, try to get it and note issues of understanding.</p>
+</div>
+</section>
+</section>
+<section>
+<section id="bayes-rule" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1>Bayes’ rule</h1>
+
+</section>
+<section id="derivation" class="title-slide slide level2">
+<h2>Derivation</h2>
+<p>We already know the product rule that can be written in two forms:</p>
+<p><span class="math inline">\(P(a \land b) = P(a|b) P(b) \quad and \quad P(a \land b) = P(b|a) P(a)\)</span></p>
+<div class="fragment">
+<p>By equating the right-hand sides and dividing by <span class="math inline">\(P(a)\)</span>, we get</p>
+<p><span class="math inline">\(P(b|a) = \frac{P(a|b)P(b)}{P(a)}\quad\)</span> (known as <strong>Bayes’ rule</strong>)</p>
+</div>
+<div class="fragment">
+<p>For multi-valued variables (set of equalities):</p>
+<p><span class="math inline">\(P(Y|X) = \frac{P(X|Y) P(Y)}{P(X)}\)</span></p>
+</div>
+<div class="fragment">
+<p>Generalization (conditioning on background evidence <span class="math inline">\(e\)</span>):</p>
+<p><span class="math inline">\(P(Y|X,e) = \frac{P(X|Y,e) P(Y|e)}{P(X|e)}\)</span></p>
+</div>
+</section>
+
+<section id="value-of-bayes-rule" class="title-slide slide level2">
+<h2>Value of Bayes’ rule</h2>
+<p>Bayes’ rule only allows us to compute the single term <span class="math inline">\(P(b|a)\)</span> in terms of three terms:</p>
+<p><span class="math inline">\(P(a|b)\)</span>, <span class="math inline">\(P(b)\)</span>, and <span class="math inline">\(P(a)\)</span></p>
+<div class="fragment">
+<p>That is useful in practice as there are many cases where we do have good probability estimates for these three numbers and need to compute the fourth</p>
+</div>
+<div class="fragment">
+<p>Often, we perceive as evidence the <em>effect</em> of some known <em>cause</em> and we would like to determine that cause. In that case, Bayes’ rule becomes:</p>
+<p><span class="math inline">\(P(cause|\mathit{effect}) = \frac{P(\mathit{effect}|cause)P(cause)}{P(\mathit{effect})}\)</span></p>
+</div>
+</section>
+
+<section id="example-2" class="title-slide slide level2">
+<h2>Example</h2>
+<p><span class="math display">\[
+\begin{align}
+P(Toothache | Cavity) = {} &amp;  0.04 \\
+P(Cavity) = {} &amp; 0.1 \\
+P(Toothache) = {} &amp; 0.05 \\
+P(Cavity | Toothache) = {} &amp;  \frac{0.04*0.1}{0.05} = 0.8
+\end{align}
+\]</span></p>
+<div>
+<ul>
+<li class="fragment">Here only information that quantifies the relationship between <em>Caviety</em> and <em>Toothache</em> in the <strong>causal direction</strong> is given, the diagnosis is derived by applying Baye’s rule</li>
+<li class="fragment">If there is quantative information in the <strong>diagnostic direction</strong> from symptons to causes, there is no need to use Baye’s rule</li>
+<li class="fragment">However, causal knowledge is more robust than diagnostic knowledge (imagine, e.g., a cavity epidemic<a href="#/footnotes" class="footnote-ref" id="fnref8" role="doc-noteref" data-footnote-href="#/fn8" onclick=""><sup>8</sup></a>)</li>
+</ul>
+</div>
+<aside></aside></section>
+
+<section id="relative-probability" class="title-slide slide level2">
+<h2>Relative probability</h2>
+<p>Often we would consider multiple causes. For example, a dentist would also like to consider the probability that the patient has a gum disease.</p>
+<p><span class="math display">\[\begin{align}
+P(Toothache | GumDisease) = {} &amp;  0.7 \\
+P(GumDisease) = {} &amp; 0.02
+\end{align}\]</span></p>
+<div class="fragment">
+<p>Which diagonsis is more probable?</p>
+<p><span class="math inline">\(P(c|t) = \frac{P(t | c)P(c)}{P(t)} \quad\)</span> or <span class="math inline">\(\quad P(g | t) = \frac{P(t | g)P(g)}{P(t)}\)</span></p>
+</div>
+<div class="fragment">
+<p>If we are only interested in the relative probability, we need not assess <span class="math inline">\(P(T)\)</span>:</p>
+<p><span class="math inline">\(\frac{P(c|t)}{P(g|t)} = \frac{P(t|c)P(c)}{P(t)} \frac{P(t)}{P(t|g)P(g)} = \frac{P(t|c)P(c)}{P(t|g)P(g)} = \frac{0.4*0.1}{0.7*0.02} = 2.857\)</span></p>
+</div>
+<div class="fragment">
+<p>→ Important for excluding possible diagnoses</p>
+</div>
+</section>
+
+<section id="normalization" class="title-slide slide level2">
+<h2>Normalization</h2>
+<p>If we wish to determine the absolute probability of <span class="math inline">\(P(c | t)\)</span> and we do not know <span class="math inline">\(P(t)\)</span>, we can also carry out a complete case analysis (e.g.&nbsp;for <span class="math inline">\(c\)</span> and <span class="math inline">\(\neg c\)</span>)</p>
+<div class="fragment">
+<p>We would use the fact that</p>
+<p><span class="math inline">\(P(c | t) + P(\neg c | t) = 1\)</span> (here <span class="math inline">\(c\)</span> and <span class="math inline">\(t\)</span> are boolean variables)</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(c | t) = {} &amp; \frac{P(t|c)P(c)}{P(t)} &amp;&amp; (1.1) \\
+P(\neg c | t) = {} &amp; \frac{P(t|\neg c)P(\neg c)}{P(t)} &amp;&amp; (1.2) \\
+P(c | t) + P(\neg c | t) = {} &amp; \frac{P(t|c)P(c)}{P(t)} + \frac{P(t|\neg c)P(\neg c)}{P(t)} &amp;&amp; (1.3) \\
+P(t) = {} &amp; P(t|c) P(c) + P(t|\neg c) P(\neg c) &amp;&amp; (1.4)
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+<section class="slide level3">
+
+<p>By substituting equation (1.4) into the first equation (1.1), we get:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(c|t) = {} &amp;  \frac{P(t|c)P(c)}{P(t|c)P(c)+P(t|\neg c)P(\neg c)} &amp;&amp; (1.5)
+\end{flalign}
+\]</span></p>
+</section>
+<section id="example-3" class="slide level3">
+<h3>Example</h3>
+<p>Your doctor tells you that you have tested positive for a serious but rare (1/10000) disease (<span class="math inline">\(D\)</span>). This test (<span class="math inline">\(T\)</span>) is correct to 99% (1% false positive &amp; 1% false negative results). What does this mean for you?</p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(D|T) = \frac{P(T|D) P(D)}{P(T)} = \frac{P(T|D) P(D)}{P(T|D) P(D) + P(T| \neg D) P( \neg D)} &amp;&amp;
+\end{flalign}
+\]</span> <span class="smaller">Applying marginalization to Bayes Law with Boolean variables.</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(D) = 0.0001 \quad P(T|D) = 0.99 \quad P(T | \neg D) = 0.01 &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(D|T) = \frac{0.99 \times 0.0001}{0.99 \times 0.0001 + 0.01 \times 0.9999} = \frac{0.000099}{0.010088} ≈ 0.01 &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Bottom line:</strong> if the inaccuracy of the test is much greater than the frequency of occurrence of the disease, then a positive result is not as threatening as one might think.</p>
+</div>
+</section>
+<section id="normalizing-constant" class="slide level3">
+<h3>Normalizing constant</h3>
+<p>For random variables with multiple values:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Y|X) = {} &amp; \frac{P(X|Y)P(Y)}{P(X)} &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+\alpha = \frac{1}{P(X)} = \sum_i P(X,Y_i)P(Y_i) &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<p>The sum of all possible values of the unknown parameter <span class="math inline">\(P(X)\)</span> is often infinite. Thus, the normalization constant <span class="math inline">\(\alpha\)</span> is often determined approximately. We get:</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Y|X) = {} &amp; \alpha P(X|Y) P(Y) &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+<section class="slide level3">
+
+</section>
+
+
+
+<section id="multiple-evidence" class="title-slide slide level2">
+<h2>Multiple evidence</h2>
+<p>A dentist’s probe catches in the aching tooth of a patient.</p>
+<p>Using Bayes’ rule, we can calculate:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Catch) = 0.95 &amp;&amp;
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p>But how does the combined evidence help?</p>
+</div>
+<div class="fragment">
+<p>With the help of Bayes’ rule, the dentist could conclude:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \frac{P(Toothache \land Catch|Cav)P(Cav)}{P(Toothache \land Catch)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache \land Catch|Cav)P(Cav)} &amp;&amp; (2.0)
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+<section class="slide level3">
+
+<p><strong>Problem:</strong> The dentist needs to know the conditional probabilities of the conjunction <span class="math inline">\(Toothache \land Catch\)</span> for each value of <span class="math inline">\(Cav\)</span>, i.e., <strong>diagnostic knowledge of all combinations of symptoms</strong> in the general case. This might be possible for just two evidence variables, but does not scale up.</p>
+<div class="fragment">
+<p>As it would reduce the complexity of the inference problem, it would be nice if <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> were independent, but they are not: if a probe catches in the tooth, it probably has cavity which probably causes toothache.</p>
+</div>
+<div class="fragment">
+<p>However, <em>given we know whether the tooth has cavity</em>, these variables <em>are</em> independent, as each is directly caused by the cavity, but neither has a direct effect on the other<a href="#/footnotes" class="footnote-ref" id="fnref9" role="doc-noteref" data-footnote-href="#/fn9" onclick=""><sup>9</sup></a>:</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{flalign}
+P(Toothache \land Catch | Cav) = P(Toothache | Cav) P(Catch | Cav) &amp;&amp; (2.1)
+\end{flalign}
+\]</span></p>
+</div>
+<aside></aside></section>
+
+<section id="conditional-independence" class="title-slide slide level2">
+<h2>Conditional independence</h2>
+<p>The general definition of <strong>conditional independence</strong> of two variables <em>X</em> and <span class="math inline">\(Y\)</span> given a third variable <em>Z</em> is:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X,Y|Z) = P(X|Z)P(Y|Z) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<div class="fragment">
+<p>In the dentist example, it seems reasonable to assert conditional independence of the variables <span class="math inline">\(Toothache\)</span> and <span class="math inline">\(Catch\)</span> given <span class="math inline">\(Cav\)</span>, thus we can insert equation (2.1) into (2.0) leading to (2.2)</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache \land Catch|Cav)P(Cav)} &amp;&amp; (2.0)
+\end{flalign}
+\]</span></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Toothache \land Catch | Cav) = P(Toothache | Cav) P(Catch | Cav) &amp;&amp; (2.1)
+\end{flalign}
+\]</span></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cav | Toothache \land Catch) = \alpha{P(Toothache | Cav) P(Catch | Cav)P(Cav)} &amp;&amp; (2.2)
+\end{flalign}
+\]</span></p>
+</div>
+</section>
+</section>
+<section>
+<section id="naive-bayes-models" class="title-slide slide level1 vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1>Naive Bayes models</h1>
+<aside class="notes">
+<p>The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause.</p>
+<p>The full joint distribution can be written as</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cause| \mathit{Effect_1},..., \mathit{Effect_n}) = P(Cause) \prod_{i=1} P(\mathit{Effect_i}|Cause) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Such a probability distribution is called a <strong>naive Bayes model</strong>—“naive” because it is often used (as a simplifying assumption) in cases where the “effect” variables are <em>not</em> strictly independent given the “cause” variable.</p>
+<p>In practice, naive Bayes systems often work very well, even when the <strong>conditional independence assumption</strong> is not strictly true.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="recursive-bayesian-updating" class="title-slide slide level2">
+<h2>Recursive Bayesian updating</h2>
+<p>Multiple evidence can be reduced to prior probabilities and conditional probabilities (assuming conditional independence).</p>
+<div class="fragment">
+<p>The <strong>general combination rule</strong>, if <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> are independent given <em>X</em> is</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(C|Z_1, Z_2) = \alpha P(C) P(Z_1|C) P(Z_2|C) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> is the normalization constant.</p>
+</div>
+<div class="fragment">
+<p>The generalization is called <strong>recursive Bayesian updating:</strong></p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<aside class="notes">
+<p>Reinterpreting this equation in words: for each possible cause, multiply the prior probability of the cause by the product of the conditional probabilities of the observed effects given the cause; then normalize the result.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="types-of-variables" class="title-slide slide level2">
+<h2>Types of variables</h2>
+<p>Variables can be discrete or continuous</p>
+<div class="fragment">
+<p><strong>Discrete variables</strong></p>
+<ul>
+<li><span class="math inline">\(Weather\)</span>: sunny, rain, cloudy, snow</li>
+<li><span class="math inline">\(Cavity\)</span>: true, false (boolean)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Continuous variables</strong></p>
+<ul>
+<li>Tomorrow’s maximum temperature in Berkeley</li>
+<li>Domain can be the entire real line or any subset</li>
+<li>Distributions for continuous variables are typically given by probability density functions</li>
+</ul>
+</div>
+</section>
+
+<section id="text-classification" class="title-slide slide level2">
+<h2>Text classification</h2>
+<p>Imagine following task: given a text, decide which of a predefined set of classes or categories it belongs to.</p>
+<ul>
+<li><em>Cause</em> is the <em>Category</em> variable</li>
+<li><em>Effect</em> variables are the presence or abscence of a certaing key words, <em>HasWord<sub>i</sub></em></li>
+</ul>
+<div class="fragment">
+<p>Example sentences:</p>
+<ul>
+<li>Stock rallied on Monday, with major indexes gaining 1% as optimism persisted over the first quarter earnings season.</li>
+<li>Heavy rain continued to pound much of the east coast on Monday, with flood warnings issued in New York City and other locations</li>
+</ul>
+</div>
+</section>
+<section class="slide level3">
+
+<p>The task is to classify each sentence into a <em>Category</em>—the major sections of the newspaper (<code>[news, sports, business, weather, entertainment]</code>)</p>
+<div class="fragment">
+<p>The naive Bayes model consists of</p>
+<ul>
+<li>the prior probabilities <span class="math inline">\(P(Category)\)</span> and</li>
+<li>the conditional probabilities <span class="math inline">\(P(HasWord_i|Category)\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p>For each category c <span class="math inline">\(P(Category=c)\)</span> is estimated as the fraction of all previously seen documents that are of category c<a href="#/footnotes" class="footnote-ref" id="fnref10" role="doc-noteref" data-footnote-href="#/fn10" onclick=""><sup>10</sup></a>.</p>
+</div>
+<div class="fragment">
+<p>Similarily, <span class="math inline">\(P(HasWord_i|Category)\)</span> is estimated as the fraction of documents of each category that contain word <span class="math inline">\(i\)</span><a href="#/footnotes" class="footnote-ref" id="fnref11" role="doc-noteref" data-footnote-href="#/fn11" onclick=""><sup>11</sup></a>.</p>
+</div>
+<aside></aside></section>
+<section class="slide level3">
+
+<p>To categorize a new document, we check which key words appear in the document and then apply <strong>recursive Bayesian updating</strong> to obtain the posterior probablity distribution over categories:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>The category with the highest posterior probability is taken.</p>
+<aside class="notes">
+<p>The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase “first quarter” occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of “first” and “quarter.” The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate. Naive Bayes models are widely used for language determination, document retrieval, spam filtering, and other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter–for example, in deciding wether to perform an appendoctomy–one would usually prefer to use more sophisticated models such as Bayesian networks <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 422</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section id="summary" class="title-slide slide level1 vertical-center" data-background-color="#0333ff">
+<h1>Summary</h1>
+<div>
+<ul>
+<li class="fragment">Uncertainty is unavoidable in complex, dynamic worlds in which agents are ignorant.</li>
+<li class="fragment">Probabilities express the agent’s inability to reach a definite decision. They summarize the agent’s beliefs.</li>
+<li class="fragment">Conditional and unconditional probabilities can be formulated over propositions.</li>
+<li class="fragment">Bayes’ rule allows us to calculate known probabilities from unknown probabilities.</li>
+<li class="fragment">Multiple evidence (assuming independence) can be effectively incorporated using recursive Bayesian updating.</li>
+</ul>
+</div>
+</section>
+
+<section>
+<section id="exercises" class="title-slide slide level1 vertical-center" data-background-color="black">
+<h1>✏️ Exercises</h1>
+
+</section>
+<section id="conditional-probability" class="title-slide slide level2">
+<h2>Conditional probability</h2>
+<p>Show from the definition of conditional probability that <span class="math inline">\(P(a | b \land a) = 1\)</span>.</p>
+<aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Solution notes</a></li><li><a href="#tabset-1-2">Proof</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-1-2">
+<p>The definition of conditional probability states that the conditional probability of A given B is the probability of the intersection of A and B divided by the probability of B.</p>
+<p>For any propositions <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (if <span class="math inline">\(P(b)&gt;0\)</span>), we have</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(a|b)=\frac{P(a \land b)}{P(b)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Thus:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(a|b \land a) = \frac{P(a\land(b \land a))}{P(b \land a)} &amp;&amp;
+\end{flalign}
+\]</span> Which is equal to</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(a|b \land a) = \frac{P(b \land a)}{P(b \land a)} = 1 &amp;&amp;
+\end{flalign}
+\]</span></p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="beliefs" class="title-slide slide level2">
+<h2>Beliefs</h2>
+<p>Would it be rational for an agent to hold the three beliefs <span class="math inline">\(P(A)=0.4\)</span>, <span class="math inline">\(P(B)=0.3\)</span>, and <span class="math inline">\(P(A \lor B)=0.5\)</span>? If so, what range of probabilities would be rational for the agent to hold for <span class="math inline">\(A \land B\)</span>? Make up a table like the one in <a href="#/tbl-distribution" class="quarto-xref">Table&nbsp;1</a>, and show how it supports your argument about rationality.</p>
+<aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Solution note</a></li><li><a href="#tabset-2-2">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-2-2">
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">¬B</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">A</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: center;">b</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">¬A</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: center;">d</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span class="math inline">\(P(A) = a + b = 0.4\)</span></li>
+<li><span class="math inline">\(P(B) = a + c = 0.3\)</span></li>
+<li><span class="math inline">\(P(A \lor B) = a + b + c = 0.5\)</span></li>
+<li><span class="math inline">\(P(True) = a + b + c + d = 1\)</span></li>
+</ul>
+<p>From these, it is straightforward to infer that a = 0.2, b = 0.2, c = 0.1, and d = 0.5.</p>
+<p>Therefore, <span class="math inline">\(P(A \land B) = a = 0.2\)</span>. Thus the probabilities given are consistent with a rational assignment, and the probability <span class="math inline">\(P(A \land B)\)</span> is exactly determined.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="medical-tests" class="title-slide slide level2">
+<h2>Medical tests</h2>
+<p>Consider two medical tests, A and B, for a virus. Test A is 95% effective at recognizing the virus when it is present, but has a 10% false positive rate (indicating that the virus is present, when it is not). Test B is 90% effective at recognizing the virus, but has a 5% false positive rate. The two tests use independent methods of identifying the virus. The virus is carried by 1% of all people.</p>
+<p>Say that a person is tested for the virus using only one of the tests, and that test comes back positive for carrying the virus. Which test returning positive is more indicative of someone really carrying the virus? Justify your answer mathematically.</p>
+<aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Solution note</a></li><li><a href="#tabset-3-2">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-3-2">
+<p>Let <span class="math inline">\(V\)</span> be the statement that the patient has the virus, and <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> the statements that the medical tests A and B returned positive, respectively. The problem statement gives:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(V ) = 0.01 &amp;&amp; \\
+P(A|V ) = 0.95 &amp;&amp; \\
+P(A| \neg V ) = 0.10 &amp;&amp; \\
+P(B| V ) = 0.90 &amp;&amp; \\
+P(B| \neg V ) = 0.05 &amp;&amp; \\
+\end{flalign}
+\]</span></p>
+<p>The test whose positive result is more indicative of the virus being present is the one whose posterior probability, <span class="math inline">\(P(V |A)\)</span> or <span class="math inline">\(P(V |B)\)</span> is largest.</p>
+<p>One can compute these probabilities directly from the information given, finding that <span class="math inline">\(P(V |A) = 0.0876\)</span> and <span class="math inline">\(P(V |B) = 0.1538\)</span>, so B is more indicative.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="conditional-independence-1" class="title-slide slide level2">
+<h2>Conditional independence</h2>
+<p>Show that the statement of conditional independence</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|C)=P(A|C)P(B|C) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>is equivalent to each of the statements</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A|B,C)=P(A|C) \quad \textrm{and} \quad P(B|A,C)=P(B|C) &amp;&amp;
+\end{flalign}
+\]</span></p>
+<aside class="notes">
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Solution notes</a></li><li><a href="#tabset-4-2">Proof</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<p>Open only if you need help.</p>
+</div>
+<div id="tabset-4-2">
+<p>The key to this exercise is rigorous and frequent application of the definition of conditional probability, <span class="math inline">\(P(X|Y) = \frac{P(X,Y)}{P(Y)}\)</span>.</p>
+<p>The original statement that we are given is:</p>
+<p><span class="math inline">\(P(A,B|C) = P(A|C)P(B|C)\)</span></p>
+<p>We start by applying the definition of conditional probability to two of the terms in this statement:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}{P(C)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Now we substitute the right-hand side of these definitions for the left-hand sides in the original statement to get:</p>
+<p><span class="math display">\[
+\begin{flalign}
+\frac{P(A,B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Now we need the definition of conditional probability once more:</p>
+<p><span class="math display">\[
+\begin{flalign}
+P(X|Y) &amp;= \frac{P(X,Y)}{P(Y)} \\
+= P(X,Y) &amp;= P(X|Y)P(Y) \\
+\text{where } X = A \text{ and } Y &amp;= B,C \\
+P(A,B,C) &amp;= P(A|B,C)P(B,C) \\
+\end{flalign}
+\]</span></p>
+<p>We substitute this right-hand side for P(A,B,C) to get:</p>
+<p><span class="math display">\[
+\begin{flalign}
+\frac{P(A|B,C)P(B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &amp;&amp;
+\end{flalign}
+\]</span></p>
+<p>Finally, we cancel the <span class="math inline">\(P(B,C)\)</span> and <span class="math inline">\(P(C)\)</span>s to get:</p>
+<p><span class="math inline">\(P(A|B,C) = P(A|C)\)</span></p>
+<p>The second part of the exercise follows from by a similar derivation, or by noticing that <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are interchangeable in the original statement (because multiplication is commutative and <span class="math inline">\(A,B\)</span> means the same as <span class="math inline">\(B,A\)</span>).</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="pacman" class="title-slide slide level2">
+<h2>Pacman</h2>
+<p>Pacman has developed a hobby of fishing. Over the years, he has learned that a day can be considered fit or unfit for fishing <span class="math inline">\(Y\)</span> which results in three features: whether or not Ms.&nbsp;Pacman can show up <span class="math inline">\(M\)</span>, the temperature of the day <span class="math inline">\(T\)</span>, and how high the water level is <span class="math inline">\(W\)</span>. Pacman models it as an Naive Bayes classification problem.</p>
+<p>We wish to calculate the probability a day is fit for fishing given features of the day. Consider the conditional probability tables that Pacman has estimated over the years:</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>yes</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>no.</td>
+<td>0.9</td>
+</tr>
+</tbody>
+</table>
+<div class="columns">
+<div class="column">
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(M\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(M|Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>yes</td>
+<td>yes</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>no</td>
+<td>yes</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>yes</td>
+<td>no</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>no</td>
+<td>no</td>
+<td>0.8</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column">
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(W|Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>high</td>
+<td>yes</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>low</td>
+<td>yes</td>
+<td>0.9</td>
+</tr>
+<tr class="odd">
+<td>high</td>
+<td>no</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>low</td>
+<td>no</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(T\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(P(T|Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cold</td>
+<td>yes</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>warm</td>
+<td>yes</td>
+<td>0.3</td>
+</tr>
+<tr class="odd">
+<td>hot</td>
+<td>yes</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>cold</td>
+<td>no</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>warm</td>
+<td>no</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>hot</td>
+<td>no</td>
+<td>0.3</td>
+</tr>
+</tbody>
+</table>
+<p>Using the method of Naive Bayes, if Ms.&nbsp;Pacman is available, the weather is cold, and the water level is high, do we predict that the day is fit for fishing?</p>
+</section>
+</section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Harlow: Pearson Education.
+</div>
+</div>
+
+
+</section>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h3>Footnotes</h3>
+
+<ol>
+<li id="fn1"><p>See qualification problem</p></li>
+<li id="fn2"><p>Medical science has no complete theory for the domain</p></li>
+<li id="fn3"><p>For instance, the coincidence of having a toothache and a cavity that are unrelated, or the fact that not all tests have been run</p></li>
+<li id="fn4"><p>Variables in probability theory are called random variables</p></li>
+<li id="fn5"><p>Represents the belief that the temperature at noon is distributed uniformly between 18 and 26 degrees Celcius</p></li>
+<li id="fn6"><p><span class="math inline">\(P(a \land b) = P(a|b)P(b)\)</span> equals <span class="math inline">\(P(a \land b) = P(b|a)P(a)\)</span></p></li>
+<li id="fn7"><p>Factoring large joint distributions into smaller joint distributions, using absolute indepence. For instance, weather and dental problems are independent, thus, these can be split.</p></li>
+<li id="fn8"><p>If there is a cavity epidemic and <span class="math inline">\(P(Cavity)\)</span> increases, <span class="math inline">\(P(Toothache | Cavity)\)</span> does not change, but <span class="math inline">\(P(Toothache)\)</span> and <span class="math inline">\(P(Cavity | Toothache)\)</span> will change proportionally</p></li>
+<li id="fn9"><p>Toothache depends on the state of the nerves in the tooth, whereas the probe’s accuracy depends primarily on the dentist’s skill, to which the toothache is irrelevant.</p></li>
+<li id="fn10"><p>For example, if 9% of the articles are about weather, we set <span class="math inline">\(P(Category=weather)=0.09\)</span>.</p></li>
+<li id="fn11"><p>For example, if 37% of articles about business contain word 6, “stocks,” so <span class="math inline">\(P(HasWord_6=true|Category=business)\)</span> is set to 0.37</p></li>
+</ol>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
