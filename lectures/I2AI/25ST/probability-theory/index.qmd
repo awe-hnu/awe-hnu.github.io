@@ -829,65 +829,18 @@ This simplifies the calculation dramatically, as we now only need to estimate th
 
 Show from the definition of conditional probability that $P(a | b \land a) = 1$.
 
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-The definition of conditional probability states that the conditional probability of A given B is the probability of the intersection of A and B divided by the probability of B.
-
-For any propositions $a$ and $b$ (if $P(b)>0$), we have
-
-$$
-\begin{flalign}
-P(a|b)=\frac{P(a \land b)}{P(b)} &&
-\end{flalign}
-$$
-
-Thus:
-
-$$
-\begin{flalign}
-P(a|b \land a) = \frac{P(a\land(b \land a))}{P(b \land a)} &&
-\end{flalign}
-$$
-Which is equal to 
-
-$$
-\begin{flalign}
-P(a|b \land a) = \frac{P(b \land a)}{P(b \land a)} = 1 &&
-\end{flalign}
-$$
-
-:::
-
-
 ## Beliefs
 
-Would it be rational for an agent to hold the three beliefs $P(A)=0.4$, $P(B)=0.3$, and $P(A \lor B)=0.5$? If so, what range of probabilities would be rational for the agent to hold for $A \land B$? Make up a table like the one in @tbl-distribution, and show how it supports your argument about rationality. 
+An agent holds the three beliefs: $P(A)=0.4$, $P(B)=0.3$, and $P(A \lor B)=0.5$.
 
+What is the probability of $A \land B$? 
 
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-|   |   |    |
-|--:|:-:|:--:|
-|   | B | ¬B |
-| A | a | b  |
-| ¬A| c | d  |
-
-- $P(A) = a + b = 0.4$
-- $P(B) = a + c = 0.3$
-- $P(A \lor B) = a + b + c = 0.5$
-- $P(True) = a + b + c + d = 1$
-
-From these, it is straightforward to infer that a = 0.2, b = 0.2, c = 0.1, and d = 0.5. 
-
-Therefore, $P(A \land B) = a = 0.2$. Thus the probabilities given are consistent with a rational assignment, and the probability $P(A \land B)$ is exactly determined.
-
-:::
+Make up a table like the one in @tbl-distribution to answer that question. 
 
 ## Medical tests
 
 A medical test is being used to screen for a rare disease that affects 1% of the population. The test has the following characteristics:
+
 - If a person has the disease, the test will correctly identify them as positive 95% of the time (sensitivity).
 - If a person does not have the disease, the test will correctly identify them as negative 98% of the time (specificity).
 
@@ -896,8 +849,8 @@ A random person from the population takes the test and receives a positive resul
 [**Questions**]{.h4}
 
 1. What is the probability that this person actually has the disease?
-2. If the person takes the test a second time and again receives a positive result, what is the updated probability that they have the disease? (Assume that test results are independent for the same person.)
-3. Would you recommend that this person undergo treatment based on these test results? Why or why not? (Consider the reliability of the diagnosis given the test results.)
+2. If the person takes the test a second time and again receives a positive result, what is the updated probability that they have the disease? Assume that test results are independent for the same person.
+3. Would you recommend that this person undergo treatment based on these test results? Why or why not? Consider the reliability of the diagnosis given the test results.
 
 :::{.callout-tip collapse="true"}
 #### Hints
@@ -906,100 +859,18 @@ A random person from the population takes the test and receives a positive resul
   $$P(Disease|Positive) = \frac{P(Positive|Disease) \cdot P(Disease)}{P(Positive)}$$
 
 - For the denominator, remember to use the law of total probability:
-  $$P(Positive) = P(Positive|Disease) \cdot P(Disease) + P(Positive|No Disease) \cdot P(No Disease)$$
+
+$$
+\begin{flalign}
+P(Positive) &= P(Positive|Disease) \cdot P(Disease) \\
+& + P(Positive|No Disease) \cdot P(No Disease)
+\end{flalign}
+$$
+  
 
 - For question 2, use your answer from question 1 as the new prior probability.
 
 :::
-
-:::{.callout-tip collapse="true"}
-#### Solution
-
-[**Question 1: probability of disease given a positive test**]{.h4}
-
-Let's define our notation:
-
-- D = person has the disease
-- ¬D = person does not have the disease
-- + = positive test result
-- - = negative test result
-
-Given information:
-
-- P(D) = 0.01 (prior probability of disease)
-- P(¬D) = 0.99 (prior probability of no disease)
-- P(+|D) = 0.95 (test sensitivity)
-- P(-|¬D) = 0.98 (test specificity)
-- P(+|¬D) = 1 - P(-|¬D) = 0.02 (false positive rate)
-
-Using Bayes' Theorem:
-
-$$P(D|+) = \frac{P(+|D) \cdot P(D)}{P(+)}$$
-
-The denominator P(+) can be calculated using the law of total probability:
-
-$$P(+) = P(+|D) \cdot P(D) + P(+|¬D) \cdot P(¬D)$$
-$$P(+) = 0.95 \times 0.01 + 0.02 \times 0.99$$
-$$P(+) = 0.0095 + 0.0198$$
-$$P(+) = 0.0293$$
-
-Now we can calculate P(D|+):
-
-$$P(D|+) = \frac{0.95 \times 0.01}{0.0293}$$
-$$P(D|+) = \frac{0.0095}{0.0293}$$
-$$P(D|+) = 0.324 \text{ or } 32.4\%$$
-
-Therefore, despite receiving a positive test result, the probability that the person actually has the disease is only about 32.4%. This is a classic example of the "base rate fallacy" - even with a highly accurate test, when testing for a rare condition, many positive results will still be false positives.
-
-[**Question 2: probability after a second positive test**]{.h4}
-
-For the second test, we use our updated probability as the new prior:
-
-- P(D) = 0.324 (updated prior probability of disease after first positive test)
-- P(¬D) = 0.676 (updated prior probability of no disease)
-
-Using Bayes' Theorem again:
-
-$$P(D|+_2) = \frac{P(+_2|D) \cdot P(D)}{P(+_2)}$$
-
-Where P(+₂) is calculated using:
-
-$$P(+_2) = P(+_2|D) \cdot P(D) + P(+_2|¬D) \cdot P(¬D)$$
-$$P(+_2) = 0.95 \times 0.324 + 0.02 \times 0.676$$
-$$P(+_2) = 0.3078 + 0.01352$$
-$$P(+_2) = 0.32132$$
-
-Now we can calculate P(D|+₂):
-
-$$P(D|+_2) = \frac{0.95 \times 0.324}{0.32132}$$
-$$P(D|+_2) = \frac{0.3078}{0.32132}$$
-$P(D|+_2) = 0.958 \text{ or } 95.8\%$
-
-After the second positive test, the probability that the person has the disease increases dramatically to about 95.8%.
-
-[**Question 3: treatment recommendation**]{.h4}
-
-Based on the test results:
-
-- After one positive test: 32.4% probability of disease
-- After two positive tests: 95.8% probability of disease
-
-Treatment recommendation considerations:
-
-After just one positive test, there's only a 32.4% chance the person actually has the disease, meaning there's a 67.6% chance they don't have the disease. This is not reliable enough for most medical interventions, especially if the treatment has significant side effects or risks.
-
-However, after two consecutive positive tests, the probability increases to 95.8%, which provides much stronger evidence that the person has the disease. At this point, treatment would generally be recommended in most medical contexts.
-
-Factors that might influence this recommendation:
-
-1. The severity of the disease and consequences of not treating it
-2. The risks, side effects, and costs of the treatment
-3. The availability of additional confirmatory tests with higher specificity
-
-This example demonstrates why doctors often order multiple tests before beginning treatment for serious conditions - a single test result can be misleading, but multiple independent confirmations greatly increase diagnostic certainty.
-
-:::
-
 
 ## Conditional independence
 
@@ -1018,63 +889,6 @@ $$
 P(A|B,C)=P(A|C) \quad \textrm{and} \quad P(B|A,C)=P(B|C) &&
 \end{flalign}
 $$
-
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-The key to this exercise is rigorous and frequent application of the definition of conditional
-probability, $P(X|Y) = \frac{P(X,Y)}{P(Y)}$.
-
-The original statement that we are given is:
-
-$P(A,B|C) = P(A|C)P(B|C)$
-
-We start by applying the definition of conditional probability to two of the terms in this
-statement:
-
-$$
-\begin{flalign}
-P(A,B|C) = \frac{P(A,B,C)}{P(C)} \quad \textrm{and} \quad P(B|C) = \frac{P(B,C)}{P(C)} &&
-\end{flalign}
-$$
-
-Now we substitute the right-hand side of these definitions for the left-hand sides in the original
-statement to get:
-
-$$
-\begin{flalign}
-\frac{P(A,B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &&
-\end{flalign}
-$$
-
-Now we need the definition of conditional probability once more: 
-
-$$
-\begin{flalign}
-P(X|Y) &= \frac{P(X,Y)}{P(Y)} \\
-= P(X,Y) &= P(X|Y)P(Y) \\
-\text{where } X = A \text{ and } Y &= B,C \\
-P(A,B,C) &= P(A|B,C)P(B,C) \\
-\end{flalign}
-$$
-
-
-We substitute this right-hand side for P(A,B,C) to get:
-
-$$
-\begin{flalign}
-\frac{P(A|B,C)P(B,C)}{P(C)} = P(A|C) \frac{P(B,C)}{P(C)} &&
-\end{flalign}
-$$
-
-Finally, we cancel the $P(B,C)$ and $P(C)$s to get:
-
-$P(A|B,C) = P(A|C)$
-
-The second part of the exercise follows from by a similar derivation, or by noticing that $A$ and $B$ are interchangeable in the original statement (because multiplication is commutative and $A,B$ means the same as $B,A$).
-
-:::
-
 
 ## Pacman
 
@@ -1126,39 +940,7 @@ Determine if a day is fit for fishing given the following conditions:
 :::{.callout-tip collapse="true"}
 #### Hint
 
-Calculate P(Y=yes|M=yes, T=cold, W=high) and P(Y=no|M=yes, T=cold, W=high), then choose the class with the higher probability.
-
-:::
-
-:::{.callout-tip collapse="true"}
-#### Solution
-
-We need to find:
-$$P(Y=yes | M=yes, T=cold, W=high)$$
-
-By Bayes' theorem:
-$$P(Y=yes | M=yes, T=cold, W=high) = \frac{P(M=yes, T=cold, W=high | Y=yes) \times P(Y=yes)}{P(M=yes, T=cold, W=high)}$$
-
-Using the Naive Bayes assumption of conditional independence:
-$$P(M=yes, T=cold, W=high | Y=yes) = P(M=yes | Y=yes) \times P(T=cold | Y=yes) \times P(W=high | Y=yes)$$
-
-For $Y=yes$:
-$$P(Y=yes) \times P(M=yes | Y=yes) \times P(T=cold | Y=yes) \times P(W=high | Y=yes)$$
-$$= 0.1 \times 0.5 \times 0.2 \times 0.1 = 0.001$$
-
-For $Y=no$:
-$$P(Y=no) \times P(M=yes | Y=no) \times P(T=cold | Y=no) \times P(W=high | Y=no)$$
-$$= 0.9 \times 0.2 \times 0.5 \times 0.5 = 0.045$$
-
-[Normalizing to get final probabilities]{.h4}
-
-Total probability = 0.001 + 0.045 = 0.046
-
-Therefore:
-$$P(Y=yes | M=yes, T=cold, W=high) = \frac{0.001}{0.046} \approx 0.0217 \approx 2.17\%$$
-$$P(Y=no | M=yes, T=cold, W=high) = \frac{0.045}{0.046} \approx 0.9783 \approx 97.83\%$$
-
-The probability that the day is fit for fishing given that Ms. Pacman is available, the temperature is cold, and the water level is high is approximately 2.17%.
+Calculate $P(Y=yes|M=yes, T=cold, W=high)$ and $P(Y=no|M=yes, T=cold, W=high)$, then choose the class with the higher probability.
 
 :::
 
