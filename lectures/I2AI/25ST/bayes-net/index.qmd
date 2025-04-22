@@ -604,78 +604,15 @@ The conditional probability tables are:
 
 What is the joint probability $P(C=\text{true}, R=\text{true})$?
 
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-Using the chain rule for Bayesian networks:
-
-$$P(C=\text{true}, R=\text{true}) = P(R=\text{true} \mid C=\text{true}) \cdot P(C=\text{true}) = 0.8 \cdot 0.3 = 0.24$$
-
-The probability of it being both cloudy and rainy is 0.24 or 24%.
-:::
-
 What is the marginal probability $P(R=\text{true})$?
 
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-To find the marginal probability, we need to marginalize over all possible values of $C$:
-
-$$
-\begin{flalign}
-P(R=\text{true}) &= P(R=\text{true} \mid C=\text{true}) \cdot P(C=\text{true}) \\
-& + P(R=\text{true} \mid C=\text{false}) \cdot P(C=\text{false})
-\end{flalign}
-$$
-$$
-\begin{flalign}
-P(R=\text{true}) &= 0.8 \cdot 0.3 + 0.1 \cdot 0.7 \\
-&= 0.24 + 0.07 = 0.31
-\end{flalign}
-$$
-
-The probability of rain, regardless of cloudiness, is 0.31 or 31%.
-:::
-
 Using the weather network from Questions 1 and 2, what is the probability that it's cloudy given that it's raining? That is, calculate $P(C=\text{true} \mid R=\text{true})$.
-
-::: {.callout-tip collapse="true"}
-#### Solution notes
-
-We use Bayes' rule:
-
-$P(C=\text{true} \mid R=\text{true}) = \frac{P(R=\text{true} \mid C=\text{true}) \cdot P(C=\text{true})}{P(R=\text{true})}$
-
-We already calculated:
-
-$P(R=\text{true} \mid C=\text{true}) = 0.8$
-$P(C=\text{true}) = 0.3$
-$P(R=\text{true}) = 0.31$
-
-So:
-$P(C=\text{true} \mid R=\text{true}) = \frac{0.8 \cdot 0.3}{0.31} = \frac{0.24}{0.31} \approx 0.774$
-
-There's about a 77.4% chance it's cloudy, given that it's raining.
-:::
 
 ## Conditional independence
 
 Consider a Bayesian network with three binary variables: Season ($S$), Temperature ($T$), and Ice Cream Sales ($I$), structured as $S \rightarrow T \rightarrow I$ (Season affects Temperature, which affects Ice Cream Sales).
 
 Are Season ($S$) and Ice Cream Sales ($I$) conditionally independent given Temperature ($T$)? Explain your answer.
-
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-Yes, Season ($S$) and Ice Cream Sales ($I$) are conditionally independent given Temperature ($T$).
-
-In a Bayesian network, a variable is conditionally independent of its non-descendants given its parents. Looking at the structure $S \rightarrow T \rightarrow I$, when we know the value of Temperature ($T$), the value of Season ($S$) provides no additional information about Ice Cream Sales ($I$). This is because all the influence of Season on Ice Cream Sales flows through Temperature.
-
-Mathematically, this means: $P(I \mid T, S) = P(I \mid T)$
-
-For example, if we know it's hot (high Temperature), then Ice Cream Sales are likely high regardless of whether it's summer or winter. The season only affects ice cream sales by affecting temperature.
-:::
-
 
 ## D-Separation
 
@@ -689,102 +626,9 @@ graph LR
 
 Are variables $A$ and $B$ independent? What about if we condition on $C$?
 
-::: {.callout-tip collapse="true"}
-#### Solution notes
-
-$A$ and $B$ are marginally independent (unconditionally independent) because there's no direct path between them and no common cause. This means $P(A,B) = P(A) \cdot P(B)$.
-
-However, $A$ and $B$ become conditionally dependent when we condition on their common effect $C$. This is known as "explaining away" - once we know the value of the effect $C$, knowing the value of one cause provides information about the other cause. This means $P(A \mid B, C) \neq P(A \mid C)$.
-
-For example, if $A$ represents "Sprinkler On", $B$ represents "Rain", and $C$ represents "Grass is Wet", then Sprinkler and Rain are independent events. But if we know the grass is wet, learning the sprinkler was off increases the probability that it rained (explaining away).
-:::
-
 ## Pacman
 
 Please use the given [JPD](#tbl-pacman) to answer the questions raised [here](#example-pacman).
-
-::: notes
-
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-**What's the probability of encountering a ghost during gameplay? $P(G)$?**
-
-To find $P(G)$, we need to sum all probabilities where $G$ is True:
-
-$$P(G) = P(G,P,L) + P(G,P,\neg L) + P(G,\neg P,L) + P(G,\neg P,\neg L)$$
-$$P(G) = 0.15 + 0.05 + 0.05 + 0.25$$
-$$P(G) = 0.50$$
-
-So there's a 50% chance of encountering a ghost during gameplay.
-
-**What's the probability of both encountering a ghost and eating a power pellet? $P(G,P)$?**
-
-To find $P(G,P)$, we need to sum all probabilities where both $G$ and $P$ are True:
-
-$$P(G,P) = P(G,P,L) + P(G,P,\neg L)$$
-$$P(G,P) = 0.15 + 0.05$$
-$$P(G,P) = 0.20$$
-
-So there's a 20% chance of both encountering a ghost and eating a power pellet.
-
-**If a player encounters a ghost, what's the probability they'll complete the level? $P(L|G)$?**
-
-This is a conditional probability, calculated as:
-
-$$P(L|G) = \frac{P(L,G)}{P(G)}$$
-
-$$P(L,G) = P(G,P,L) + P(G,\neg P,L) = 0.15 + 0.05 = 0.20$$
-$$P(G) = 0.50$$
-
-Therefore:
-
-$$P(L|G) = \frac{0.20}{0.50} = 0.40$$
-
-So if a player encounters a ghost, there's a 40% chance they'll complete the level.
-
-**If a player eats a power pellet, what's the probability they'll encounter a ghost? $P(G|P)$?**
-
-This conditional probability is:
-
-$$P(G|P) = \frac{P(G,P)}{P(P)}$$
-
-$$P(G,P) = 0.20$$
-
-$$
-\begin{flalign}
-P(P) &= P(G,P,L) + P(G,P,\neg L) + P(\neg G,P,L) + P(\neg G,P,\neg L) \\
-&= 0.15 + 0.05 + 0.20 + 0.10 = 0.50
-\end{flalign}
-$$
-
-Therefore:
-
-$$P(G|P) = \frac{0.20}{0.50} = 0.40$$
-
-So if a player eats a power pellet, there's a 40% chance they'll encounter a ghost.
-
-<hr />
-
-**If a player encounters a ghost and eats a power pellet, what's the probability they'll complete the level? $P(L|G,P)$?**
-
-This conditional probability is:
-
-$$P(L|G,P) = \frac{P(L,G,P)}{P(G,P)}$$
-
-$$P(L,G,P) = 0.15$$
-$$P(G,P) = 0.20$$
-
-Therefore:
-
-$$P(L|G,P) = \frac{0.15}{0.20} = 0.75$$
-
-So if a player both encounters a ghost and eats a power pellet, there's a 75% chance they'll complete the level.
-
-
-:::
-
-:::
 
 ## Medical diagnosis
 
@@ -849,114 +693,6 @@ $$
 
 But $P(B=l|T=t1)$ and $P(B=h|T=t1)$ are not directly available in the CPTs and require marginalization over Age.
 :::
-
-
-::: {.callout-tip collapse="true"}
-#### Solution notes
-
-[**Task 1: Calculate $P(B=h)$**]{.h4}
-
-The parents of variable *HbA1c Level (B)* are *Age (A)* and *Diabetes Type (T)*. Therefore we must marginalize over the values of these two parent variables:
-
-$$\begin{align}
-P(B=h) &= P(B=h,T=t1,A=y) + P(B=h,T=t2,A=y) \\
-       &+ P(B=h,T=t1,A=m) + P(B=h,T=t2,A=m) \\
-       &+ P(B=h,T=t1,A=o) + P(B=h,T=t2,A=o)
-\end{align}$$
-
-To simplify notation, we'll omit the variable names and keep only the values:
-
-$$\begin{align}
-P(h) &= P(h,t1,y) + P(h,t2,y) \\
-     &+ P(h,t1,m) + P(h,t2,m) \\
-     &+ P(h,t1,o) + P(h,t2,o)
-\end{align}$$
-
-Converting joint probabilities to conditional probabilities:
-
-$$\begin{align}
-P(h) &= P(h \mid t1,y) \cdot P(t1,y) + P(h \mid t2,y) \cdot P(t2,y) \\
-     &+ P(h \mid t1,m) \cdot P(t1,m) + P(h \mid t2,m) \cdot P(t2,m) \\
-     &+ P(h \mid t1,o) \cdot P(t1,o) + P(h \mid t2,o) \cdot P(t2,o)
-\end{align}$$
-
-Since Age and Diabetes Type are independent:
-
-$$\begin{align}
-P(h) &= P(h \mid t1,y) \cdot P(t1) \cdot P(y) + P(h \mid t2,y) \cdot P(t2) \cdot P(y) \\
-     &+ P(h \mid t1,m) \cdot P(t1) \cdot P(m) + P(h \mid t2,m) \cdot P(t2) \cdot P(m) \\
-     &+ P(h \mid t1,o) \cdot P(t1) \cdot P(o) + P(h \mid t2,o) \cdot P(t2) \cdot P(o)
-\end{align}$$
-
-Substituting the values from the CPTs:
-
-$$\begin{align}
-P(h) &= 0.1 \cdot 0.3 \cdot 0.2 + 0.3 \cdot 0.7 \cdot 0.2 \\
-     &+ 0.6 \cdot 0.3 \cdot 0.4 + 0.5 \cdot 0.7 \cdot 0.4 \\
-     &+ 0.7 \cdot 0.3 \cdot 0.4 + 0.9 \cdot 0.7 \cdot 0.4 \\
-     &= 0.006 + 0.042 + 0.072 + 0.14 + 0.084 + 0.252 \\
-     &= 0.596
-\end{align}$$
-
-Therefore, the probability of a patient having a high HbA1c level is 59.6%.
-
-[**Task 2: Calculate $P(A=o,T=t1,B=h,R=True)$**]{.h4}
-
-According to the chain rule of probability applied to the Bayesian network structure (as introduced in the section [calculating joint probabilities](#calculating-joint-probabilities)), we can calculate this joint probability as:
-
-$$\begin{align}
-P(o,t1,h,r) &= P(r \mid h) \cdot P(h \mid o,t1) \cdot P(o) \cdot P(t1) \\
-&= 0.7 \cdot 0.7 \cdot 0.4 \cdot 0.3 \\
-&= 0.0588
-\end{align}$$
-
-Therefore, the probability of an older patient with Type 1 diabetes who has a high HbA1c level and requires insulin treatment is 5.88%.
-
-[**Task 3: Calculate $P(A=o,B=h,R=True)$**]{.h4}
-
-In this case, we don't know the value of Diabetes Type, so we need to marginalize over it:
-
-$$\begin{align}
-P(o,h,r) &= P(r \mid h) \cdot \left[ P(h \mid o,t1) \cdot P(o) \cdot P(t1) + P(h \mid o,t2) \cdot P(o) \cdot P(t2)\right] \\
-&= 0.7 \cdot \left[ 0.7 \cdot 0.4 \cdot 0.3 + 0.9 \cdot 0.4 \cdot 0.7 \right] \\
-&= 0.7 \cdot [0.084 + 0.252] \\
-&= 0.7 \cdot 0.336 \\
-&= 0.2352
-\end{align}$$
-
-Therefore, the probability of an older patient with a high HbA1c level who requires insulin treatment is 23.52%.
-
-[**Task 4: Calculate $P(R=True \mid T=t1)$**]{.h4}
-
-Looking at the Bayesian network structure, we can determine that $R$ and $T$ are conditionally independent given $B$, as explained in the conditional independence section of the lecture. Therefore, we can apply the law of total probability (which follows from the marginalization process we've learned):
-
-$$P(r \mid t1) = P(r\mid l) \cdot P(l \mid t1) + P(r \mid h) \cdot P(h \mid t1)$$
-
-We know $P(r\mid l) = 0.1$ and $P(r \mid h) = 0.7$ from the CPTs, but we need to calculate $P(l \mid t1)$ and $P(h \mid t1)$.
-
-Since $B$ depends on both $T$ and $A$, we need to marginalize over $A$:
-
-$$\begin{align}
-P(h \mid t1) &= P(h\mid t1,y) \cdot P(y) + P(h\mid t1,m) \cdot P(m) + P(h\mid t1,o) \cdot P(o) \\
-&= 0.1 \cdot 0.2 + 0.6 \cdot 0.4 + 0.7 \cdot 0.4 \\
-&= 0.02 + 0.24 + 0.28 \\
-&= 0.54
-\end{align}$$
-
-Since $P(l \mid t1) = 1 - P(h \mid t1) = 1 - 0.54 = 0.46$
-
-Now we can calculate $P(r \mid t1)$:
-
-$$\begin{align}
-P(r \mid t1) &= 0.1 \cdot 0.46 + 0.7 \cdot 0.54 \\
-&= 0.046 + 0.378 \\
-&= 0.424
-\end{align}$$
-
-Therefore, the probability that a patient with Type 1 diabetes requires insulin treatment is 42.4%.
-
-:::
-
 
 # Literature
 ::: {#refs}

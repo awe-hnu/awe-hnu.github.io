@@ -792,7 +792,24 @@ The naive independence assumption states that:
 
 $$P(X|Y) = P(x_1|Y) \cdot P(x_2|Y) \cdot ... \cdot P(x_n|Y)$$
 
-This simplifies the calculation dramatically, as we now only need to estimate these simpler conditional probabilities from the training data.
+This gives us:
+
+$$
+\begin{flalign}
+P(Y|X) &= \frac{P(X|Y) \cdot P(Y)}{P(X)}\\
+&= \frac{P(x_1|Y) \cdot P(x_2|Y) \cdot ... \cdot P(x_n|Y) \cdot P(Y)}{P(x_1, x_2, \ldots, x_n)}\\
+\end{flalign}
+$$
+
+In practice, when calculating Naive Bayes, often the unnormalized probabilities are calculated for each class:
+
+$$P(x_1|Y) \cdot P(x_2|Y) \cdot ... \cdot P(x_n|Y) \cdot P(Y)$$
+
+And then normalized by dividing by the total probability:
+
+$$P(x_1, x_2, \ldots, x_n) = \sum_{j=1}^{m} \left[\prod_{i=1}^{n} P(x_i|Y=y_j)\right] \cdot P(Y=y_j)$$
+
+Overall, Naive Bayes simplify the calculation dramatically, as we now only need to estimate these simpler conditional probabilities from the training data.
 
 [**Types of Naive Bayes classifiers**]{.h4}
 

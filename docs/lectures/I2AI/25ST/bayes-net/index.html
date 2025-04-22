@@ -191,7 +191,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Apr 15, 2025</p>
+        <p class="date-modified">Apr 22, 2025</p>
       </div>
     </div>
       
@@ -979,99 +979,13 @@ P(R=True \mid T=t1) &amp;= P(R=True \mid B=h) \cdot P(B=h \mid T=t1) \\
 <li><span class="math inline">\(P(R=\text{true} \mid C=\text{false}) = 0.1\)</span></li>
 </ul>
 <p>What is the joint probability <span class="math inline">\(P(C=\text{true}, R=\text{true})\)</span>?</p>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Using the chain rule for Bayesian networks:</p>
-<p><span class="math display">\[P(C=\text{true}, R=\text{true}) = P(R=\text{true} \mid C=\text{true}) \cdot P(C=\text{true}) = 0.8 \cdot 0.3 = 0.24\]</span></p>
-<p>The probability of it being both cloudy and rainy is 0.24 or 24%.</p>
-</div>
-</div>
-</div>
 <p>What is the marginal probability <span class="math inline">\(P(R=\text{true})\)</span>?</p>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>To find the marginal probability, we need to marginalize over all possible values of <span class="math inline">\(C\)</span>:</p>
-<p><span class="math display">\[
-\begin{flalign}
-P(R=\text{true}) &amp;= P(R=\text{true} \mid C=\text{true}) \cdot P(C=\text{true}) \\
-&amp; + P(R=\text{true} \mid C=\text{false}) \cdot P(C=\text{false})
-\end{flalign}
-\]</span> <span class="math display">\[
-\begin{flalign}
-P(R=\text{true}) &amp;= 0.8 \cdot 0.3 + 0.1 \cdot 0.7 \\
-&amp;= 0.24 + 0.07 = 0.31
-\end{flalign}
-\]</span></p>
-<p>The probability of rain, regardless of cloudiness, is 0.31 or 31%.</p>
-</div>
-</div>
-</div>
 <p>Using the weather network from Questions 1 and 2, what is the probability that it’s cloudy given that it’s raining? That is, calculate <span class="math inline">\(P(C=\text{true} \mid R=\text{true})\)</span>.</p>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>We use Bayes’ rule:</p>
-<p><span class="math inline">\(P(C=\text{true} \mid R=\text{true}) = \frac{P(R=\text{true} \mid C=\text{true}) \cdot P(C=\text{true})}{P(R=\text{true})}\)</span></p>
-<p>We already calculated:</p>
-<p><span class="math inline">\(P(R=\text{true} \mid C=\text{true}) = 0.8\)</span> <span class="math inline">\(P(C=\text{true}) = 0.3\)</span> <span class="math inline">\(P(R=\text{true}) = 0.31\)</span></p>
-<p>So: <span class="math inline">\(P(C=\text{true} \mid R=\text{true}) = \frac{0.8 \cdot 0.3}{0.31} = \frac{0.24}{0.31} \approx 0.774\)</span></p>
-<p>There’s about a 77.4% chance it’s cloudy, given that it’s raining.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="conditional-independence" class="level2">
 <h2 data-anchor-id="conditional-independence">Conditional independence</h2>
 <p>Consider a Bayesian network with three binary variables: Season (<span class="math inline">\(S\)</span>), Temperature (<span class="math inline">\(T\)</span>), and Ice Cream Sales (<span class="math inline">\(I\)</span>), structured as <span class="math inline">\(S \rightarrow T \rightarrow I\)</span> (Season affects Temperature, which affects Ice Cream Sales).</p>
 <p>Are Season (<span class="math inline">\(S\)</span>) and Ice Cream Sales (<span class="math inline">\(I\)</span>) conditionally independent given Temperature (<span class="math inline">\(T\)</span>)? Explain your answer.</p>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Yes, Season (<span class="math inline">\(S\)</span>) and Ice Cream Sales (<span class="math inline">\(I\)</span>) are conditionally independent given Temperature (<span class="math inline">\(T\)</span>).</p>
-<p>In a Bayesian network, a variable is conditionally independent of its non-descendants given its parents. Looking at the structure <span class="math inline">\(S \rightarrow T \rightarrow I\)</span>, when we know the value of Temperature (<span class="math inline">\(T\)</span>), the value of Season (<span class="math inline">\(S\)</span>) provides no additional information about Ice Cream Sales (<span class="math inline">\(I\)</span>). This is because all the influence of Season on Ice Cream Sales flows through Temperature.</p>
-<p>Mathematically, this means: <span class="math inline">\(P(I \mid T, S) = P(I \mid T)\)</span></p>
-<p>For example, if we know it’s hot (high Temperature), then Ice Cream Sales are likely high regardless of whether it’s summer or winter. The season only affects ice cream sales by affecting temperature.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="d-separation-1" class="level2">
 <h2 data-anchor-id="d-separation-1">D-Separation</h2>
@@ -1091,81 +1005,10 @@ Solution notes
 </div>
 </div>
 <p>Are variables <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> independent? What about if we condition on <span class="math inline">\(C\)</span>?</p>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are marginally independent (unconditionally independent) because there’s no direct path between them and no common cause. This means <span class="math inline">\(P(A,B) = P(A) \cdot P(B)\)</span>.</p>
-<p>However, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> become conditionally dependent when we condition on their common effect <span class="math inline">\(C\)</span>. This is known as “explaining away” - once we know the value of the effect <span class="math inline">\(C\)</span>, knowing the value of one cause provides information about the other cause. This means <span class="math inline">\(P(A \mid B, C) \neq P(A \mid C)\)</span>.</p>
-<p>For example, if <span class="math inline">\(A\)</span> represents “Sprinkler On”, <span class="math inline">\(B\)</span> represents “Rain”, and <span class="math inline">\(C\)</span> represents “Grass is Wet”, then Sprinkler and Rain are independent events. But if we know the grass is wet, learning the sprinkler was off increases the probability that it rained (explaining away).</p>
-</div>
-</div>
-</div>
 </section>
 <section id="pacman" class="level2">
 <h2 data-anchor-id="pacman">Pacman</h2>
 <p>Please use the given <a href="#tbl-pacman">JPD</a> to answer the questions raised <a href="#example-pacman">here</a>.</p>
-<div class="notes">
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>What’s the probability of encountering a ghost during gameplay? <span class="math inline">\(P(G)\)</span>?</strong></p>
-<p>To find <span class="math inline">\(P(G)\)</span>, we need to sum all probabilities where <span class="math inline">\(G\)</span> is True:</p>
-<p><span class="math display">\[P(G) = P(G,P,L) + P(G,P,\neg L) + P(G,\neg P,L) + P(G,\neg P,\neg L)\]</span> <span class="math display">\[P(G) = 0.15 + 0.05 + 0.05 + 0.25\]</span> <span class="math display">\[P(G) = 0.50\]</span></p>
-<p>So there’s a 50% chance of encountering a ghost during gameplay.</p>
-<p><strong>What’s the probability of both encountering a ghost and eating a power pellet? <span class="math inline">\(P(G,P)\)</span>?</strong></p>
-<p>To find <span class="math inline">\(P(G,P)\)</span>, we need to sum all probabilities where both <span class="math inline">\(G\)</span> and <span class="math inline">\(P\)</span> are True:</p>
-<p><span class="math display">\[P(G,P) = P(G,P,L) + P(G,P,\neg L)\]</span> <span class="math display">\[P(G,P) = 0.15 + 0.05\]</span> <span class="math display">\[P(G,P) = 0.20\]</span></p>
-<p>So there’s a 20% chance of both encountering a ghost and eating a power pellet.</p>
-<p><strong>If a player encounters a ghost, what’s the probability they’ll complete the level? <span class="math inline">\(P(L|G)\)</span>?</strong></p>
-<p>This is a conditional probability, calculated as:</p>
-<p><span class="math display">\[P(L|G) = \frac{P(L,G)}{P(G)}\]</span></p>
-<p><span class="math display">\[P(L,G) = P(G,P,L) + P(G,\neg P,L) = 0.15 + 0.05 = 0.20\]</span> <span class="math display">\[P(G) = 0.50\]</span></p>
-<p>Therefore:</p>
-<p><span class="math display">\[P(L|G) = \frac{0.20}{0.50} = 0.40\]</span></p>
-<p>So if a player encounters a ghost, there’s a 40% chance they’ll complete the level.</p>
-<p><strong>If a player eats a power pellet, what’s the probability they’ll encounter a ghost? <span class="math inline">\(P(G|P)\)</span>?</strong></p>
-<p>This conditional probability is:</p>
-<p><span class="math display">\[P(G|P) = \frac{P(G,P)}{P(P)}\]</span></p>
-<p><span class="math display">\[P(G,P) = 0.20\]</span></p>
-<p><span class="math display">\[
-\begin{flalign}
-P(P) &amp;= P(G,P,L) + P(G,P,\neg L) + P(\neg G,P,L) + P(\neg G,P,\neg L) \\
-&amp;= 0.15 + 0.05 + 0.20 + 0.10 = 0.50
-\end{flalign}
-\]</span></p>
-<p>Therefore:</p>
-<p><span class="math display">\[P(G|P) = \frac{0.20}{0.50} = 0.40\]</span></p>
-<p>So if a player eats a power pellet, there’s a 40% chance they’ll encounter a ghost.</p>
-<hr>
-<p><strong>If a player encounters a ghost and eats a power pellet, what’s the probability they’ll complete the level? <span class="math inline">\(P(L|G,P)\)</span>?</strong></p>
-<p>This conditional probability is:</p>
-<p><span class="math display">\[P(L|G,P) = \frac{P(L,G,P)}{P(G,P)}\]</span></p>
-<p><span class="math display">\[P(L,G,P) = 0.15\]</span> <span class="math display">\[P(G,P) = 0.20\]</span></p>
-<p>Therefore:</p>
-<p><span class="math display">\[P(L|G,P) = \frac{0.15}{0.20} = 0.75\]</span></p>
-<p>So if a player both encounters a ghost and eats a power pellet, there’s a 75% chance they’ll complete the level.</p>
-</div>
-</div>
-</div>
-</div>
 </section>
 <section id="medical-diagnosis" class="level2">
 <h2 data-anchor-id="medical-diagnosis">Medical diagnosis</h2>
@@ -1229,7 +1072,7 @@ P(P) &amp;= P(G,P,L) + P(G,P,\neg L) + P(\neg G,P,L) + P(\neg G,P,\neg L) \\
 <li>Calculate the conditional probability <span class="math inline">\(P(R=True|T=t1)\)</span>, i.e., the probability that a patient with Type 1 diabetes requires insulin treatment.</li>
 </ol>
 <div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1238,14 +1081,14 @@ Hint for Task 1
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Remember to marginalize over all possible combinations of parent variables (Age and Diabetes Type). Start by writing out the full marginalization equation, then convert joint probabilities to conditional probabilities using the chain rule.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1254,7 +1097,7 @@ Hint for Task 4
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This requires application of the total probability theorem. Since <span class="math inline">\(R\)</span> and <span class="math inline">\(T\)</span> are conditionally independent given <span class="math inline">\(B\)</span>, you’ll need to compute:</p>
 <p><span class="math display">\[
@@ -1264,92 +1107,6 @@ P(R=True|T=t1) &amp;= P(R=True|B=l) \cdot P(B=l|T=t1) \\
 \end{flalign}
 \]</span></p>
 <p>But <span class="math inline">\(P(B=l|T=t1)\)</span> and <span class="math inline">\(P(B=h|T=t1)\)</span> are not directly available in the CPTs and require marginalization over Age.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution notes
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><span class="h4"><strong>Task 1: Calculate <span class="math inline">\(P(B=h)\)</span></strong></span></p>
-<p>The parents of variable <em>HbA1c Level (B)</em> are <em>Age (A)</em> and <em>Diabetes Type (T)</em>. Therefore we must marginalize over the values of these two parent variables:</p>
-<p><span class="math display">\[\begin{align}
-P(B=h) &amp;= P(B=h,T=t1,A=y) + P(B=h,T=t2,A=y) \\
-       &amp;+ P(B=h,T=t1,A=m) + P(B=h,T=t2,A=m) \\
-       &amp;+ P(B=h,T=t1,A=o) + P(B=h,T=t2,A=o)
-\end{align}\]</span></p>
-<p>To simplify notation, we’ll omit the variable names and keep only the values:</p>
-<p><span class="math display">\[\begin{align}
-P(h) &amp;= P(h,t1,y) + P(h,t2,y) \\
-     &amp;+ P(h,t1,m) + P(h,t2,m) \\
-     &amp;+ P(h,t1,o) + P(h,t2,o)
-\end{align}\]</span></p>
-<p>Converting joint probabilities to conditional probabilities:</p>
-<p><span class="math display">\[\begin{align}
-P(h) &amp;= P(h \mid t1,y) \cdot P(t1,y) + P(h \mid t2,y) \cdot P(t2,y) \\
-     &amp;+ P(h \mid t1,m) \cdot P(t1,m) + P(h \mid t2,m) \cdot P(t2,m) \\
-     &amp;+ P(h \mid t1,o) \cdot P(t1,o) + P(h \mid t2,o) \cdot P(t2,o)
-\end{align}\]</span></p>
-<p>Since Age and Diabetes Type are independent:</p>
-<p><span class="math display">\[\begin{align}
-P(h) &amp;= P(h \mid t1,y) \cdot P(t1) \cdot P(y) + P(h \mid t2,y) \cdot P(t2) \cdot P(y) \\
-     &amp;+ P(h \mid t1,m) \cdot P(t1) \cdot P(m) + P(h \mid t2,m) \cdot P(t2) \cdot P(m) \\
-     &amp;+ P(h \mid t1,o) \cdot P(t1) \cdot P(o) + P(h \mid t2,o) \cdot P(t2) \cdot P(o)
-\end{align}\]</span></p>
-<p>Substituting the values from the CPTs:</p>
-<p><span class="math display">\[\begin{align}
-P(h) &amp;= 0.1 \cdot 0.3 \cdot 0.2 + 0.3 \cdot 0.7 \cdot 0.2 \\
-     &amp;+ 0.6 \cdot 0.3 \cdot 0.4 + 0.5 \cdot 0.7 \cdot 0.4 \\
-     &amp;+ 0.7 \cdot 0.3 \cdot 0.4 + 0.9 \cdot 0.7 \cdot 0.4 \\
-     &amp;= 0.006 + 0.042 + 0.072 + 0.14 + 0.084 + 0.252 \\
-     &amp;= 0.596
-\end{align}\]</span></p>
-<p>Therefore, the probability of a patient having a high HbA1c level is 59.6%.</p>
-<p><span class="h4"><strong>Task 2: Calculate <span class="math inline">\(P(A=o,T=t1,B=h,R=True)\)</span></strong></span></p>
-<p>According to the chain rule of probability applied to the Bayesian network structure (as introduced in the section <a href="#calculating-joint-probabilities">calculating joint probabilities</a>), we can calculate this joint probability as:</p>
-<p><span class="math display">\[\begin{align}
-P(o,t1,h,r) &amp;= P(r \mid h) \cdot P(h \mid o,t1) \cdot P(o) \cdot P(t1) \\
-&amp;= 0.7 \cdot 0.7 \cdot 0.4 \cdot 0.3 \\
-&amp;= 0.0588
-\end{align}\]</span></p>
-<p>Therefore, the probability of an older patient with Type 1 diabetes who has a high HbA1c level and requires insulin treatment is 5.88%.</p>
-<p><span class="h4"><strong>Task 3: Calculate <span class="math inline">\(P(A=o,B=h,R=True)\)</span></strong></span></p>
-<p>In this case, we don’t know the value of Diabetes Type, so we need to marginalize over it:</p>
-<p><span class="math display">\[\begin{align}
-P(o,h,r) &amp;= P(r \mid h) \cdot \left[ P(h \mid o,t1) \cdot P(o) \cdot P(t1) + P(h \mid o,t2) \cdot P(o) \cdot P(t2)\right] \\
-&amp;= 0.7 \cdot \left[ 0.7 \cdot 0.4 \cdot 0.3 + 0.9 \cdot 0.4 \cdot 0.7 \right] \\
-&amp;= 0.7 \cdot [0.084 + 0.252] \\
-&amp;= 0.7 \cdot 0.336 \\
-&amp;= 0.2352
-\end{align}\]</span></p>
-<p>Therefore, the probability of an older patient with a high HbA1c level who requires insulin treatment is 23.52%.</p>
-<p><span class="h4"><strong>Task 4: Calculate <span class="math inline">\(P(R=True \mid T=t1)\)</span></strong></span></p>
-<p>Looking at the Bayesian network structure, we can determine that <span class="math inline">\(R\)</span> and <span class="math inline">\(T\)</span> are conditionally independent given <span class="math inline">\(B\)</span>, as explained in the conditional independence section of the lecture. Therefore, we can apply the law of total probability (which follows from the marginalization process we’ve learned):</p>
-<p><span class="math display">\[P(r \mid t1) = P(r\mid l) \cdot P(l \mid t1) + P(r \mid h) \cdot P(h \mid t1)\]</span></p>
-<p>We know <span class="math inline">\(P(r\mid l) = 0.1\)</span> and <span class="math inline">\(P(r \mid h) = 0.7\)</span> from the CPTs, but we need to calculate <span class="math inline">\(P(l \mid t1)\)</span> and <span class="math inline">\(P(h \mid t1)\)</span>.</p>
-<p>Since <span class="math inline">\(B\)</span> depends on both <span class="math inline">\(T\)</span> and <span class="math inline">\(A\)</span>, we need to marginalize over <span class="math inline">\(A\)</span>:</p>
-<p><span class="math display">\[\begin{align}
-P(h \mid t1) &amp;= P(h\mid t1,y) \cdot P(y) + P(h\mid t1,m) \cdot P(m) + P(h\mid t1,o) \cdot P(o) \\
-&amp;= 0.1 \cdot 0.2 + 0.6 \cdot 0.4 + 0.7 \cdot 0.4 \\
-&amp;= 0.02 + 0.24 + 0.28 \\
-&amp;= 0.54
-\end{align}\]</span></p>
-<p>Since <span class="math inline">\(P(l \mid t1) = 1 - P(h \mid t1) = 1 - 0.54 = 0.46\)</span></p>
-<p>Now we can calculate <span class="math inline">\(P(r \mid t1)\)</span>:</p>
-<p><span class="math display">\[\begin{align}
-P(r \mid t1) &amp;= 0.1 \cdot 0.46 + 0.7 \cdot 0.54 \\
-&amp;= 0.046 + 0.378 \\
-&amp;= 0.424
-\end{align}\]</span></p>
-<p>Therefore, the probability that a patient with Type 1 diabetes requires insulin treatment is 42.4%.</p>
 </div>
 </div>
 </div>
