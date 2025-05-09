@@ -67,7 +67,7 @@ Particularly explainability is crucial in fields requiring transparency such as 
 A decision tree is a representation of a function that maps a vector of attribute values to a single output value (i.e., a "decision").
 :::
 
-:::{.incremental}
+:::incremental
 - An **internal node** represents a test of a property
 - **Branches** are labeled with possible values of the test
 - Each **leaf node** specifies the value to be returned if that leaf is reached
@@ -93,8 +93,8 @@ The output $y$ is a Boolean variable $WillWait$.
 
 The input $x$ is a vector of ten attributes with discrete values:
 
-::::{.smaller}
-:::{.incremental}
+::::smaller
+:::incremental
 - **Alternate** -- Is there an alternative? (T/F)
 - **Bar** -- Does the restaurant have a bar to wait in? (T/F)
 - **Fri** -- Is it Friday or Saturday? (T/F)
@@ -316,10 +316,6 @@ How can we find a tree that is:
 . . .
 
 It's __intractable__ to find the smallest consistent tree, but __decision tree learning__ algorithms use greedy heuristics to efficiently find a reasonably small tree.
-
-:::{.notes}
-This introduces the core problem in decision tree learning: we want to generalize from examples, not just memorize them. The smallest consistent tree would likely generalize better, but finding it is computationally infeasible. This is why we need heuristic approaches.
-:::
 
 ## Divide-and-Conquer Strategy
 
@@ -659,7 +655,7 @@ In this example, *Snow Depth* ≤ 10 cm provides the same information gain (0.44
 
 In each recursive step of decision tree learning, there are four cases to consider:
 
-::::{.incremental}
+::::incremental
 1. **Mixed examples (positive and negative)**: Choose the best attribute and split
 2. **Pure node** (all examples have same class): Create a leaf node with that class
 3. **No examples**: Create a leaf with the majority class from the parent node
@@ -670,7 +666,7 @@ In each recursive step of decision tree learning, there are four cases to consid
 
 This process continues until all branches end in leaf nodes.
 
-:::{.notes}
+:::notes
 These four cases cover all possible scenarios during tree construction. Cases 3 and 4 are important for handling edge cases that might arise, particularly with small or noisy datasets. The algorithm is robust because it always has a way to proceed regardless of the data configuration.
 :::
 
@@ -722,10 +718,6 @@ Build the full tree, then remove sections
 
 Both approaches improve generalization by reducing model complexity.
 
-:::{.notes}
-Pruning is the primary technique for preventing overfitting in decision trees. Pre-pruning is simple but might stop too early. Post-pruning allows the tree to fully grow before simplifying it, which often produces better results but is more computationally expensive. Most implementations provide parameters to control both approaches.
-:::
-
 ## Performance Assessment
 
 To properly evaluate a decision tree model:
@@ -755,7 +747,7 @@ As the training set grows, prediction quality usually increases, then plateaus.
 
 Decision trees are used across many domains:
 
-:::{.incremental}
+:::incremental
 - **Finance**: Credit scoring, fraud detection
 - **Healthcare**: Disease diagnosis, treatment planning
 - **Marketing**: Customer segmentation, churn prediction
@@ -766,7 +758,7 @@ Decision trees are used across many domains:
 
 Their simplicity and interpretability make them particularly valuable when decisions need to be explained to stakeholders.
 
-:::{.notes}
+:::notes
 The practical applications of decision trees are numerous. Their interpretability makes them especially valuable in domains where explanation is important, such as healthcare and finance. Even when more complex models are used for prediction, decision trees are often used to explain those predictions.
 :::
 
@@ -774,7 +766,7 @@ The practical applications of decision trees are numerous. Their interpretabilit
 
 Ensemble methods address the limitations of single decision trees by combining multiple trees.
 
-:::{.incremental}
+:::incremental
 - **Random Forests**: Build many trees on random subsets of data and features, then average their predictions
 - **Gradient Boosting**: Build trees sequentially, with each tree correcting errors made by previous trees
 - **AdaBoost**: Weight samples based on classification difficulty
@@ -801,7 +793,7 @@ Understanding these trade-offs helps in choosing when to use decision trees.
 
 # Summary
 
-:::{.incremental}
+:::incremental
 - Decision trees represent functions by sequencing attribute tests
 - They excel at explainability but can struggle with certain function types
 - Tree learning algorithms use information gain to select the most informative attributes
