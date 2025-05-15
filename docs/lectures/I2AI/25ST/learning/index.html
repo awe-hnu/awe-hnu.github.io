@@ -192,7 +192,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">May 13, 2025</p>
+        <p class="date-modified">May 15, 2025</p>
       </div>
     </div>
       
@@ -1368,10 +1368,14 @@ Figure&nbsp;6: Reinforcement learning
 </div>
 </div>
 <p>Machine learning projects follow a systematic workflow with distinct phases, each serving a critical purpose in developing reliable and effective models. Understanding these phases helps ensure robust model development and deployment.</p>
-<p><span class="h4"><strong>Training phase</strong></span> During the training phase, we apply a carefully selected dataset to learn a general model. The nature of this model varies by learning paradigm — in unsupervised learning, it describes the inherent structure of the data (such as clusters or reduced dimensions), while in supervised and reinforcement learning, it captures functional relationships that map inputs to outputs or states to actions. This phase involves iterative optimization of model parameters to minimize error or maximize reward according to a specific objective function. The choice of training algorithm significantly impacts both computational efficiency and the quality of the resulting model. While the model aims to fit training data well, excessive focus on perfect training performance often leads to overfitting — a critical pitfall where the model essentially memorizes training examples rather than learning generalizable patterns.</p>
-<p><span class="h4"><strong>Validation phase</strong></span> The validation phase addresses a fundamental challenge in machine learning: we don’t simply want models that excel on training data; we need models that generalize well to new, unseen data. To assess generalization capacity, we apply the model to a validation dataset that remains completely separate from training data. For each input in the validation set, we calculate the model’s prediction and compare it against the true output (for supervised learning) or evaluate its performance under defined metrics (for unsupervised and reinforcement learning). This creates an error statistic or performance measure that serves multiple crucial purposes: evaluating individual models, comparing different approaches, tuning hyperparameters, and ultimately selecting the most promising candidate. The validation phase essentially simulates real-world performance in a controlled environment, helping identify issues like overfitting or underfitting before deployment.</p>
-<p><span class="h4"><strong>Test phase</strong></span> The test phase provides the final performance assessment before real-world deployment. After model selection and tuning in the validation phase, we evaluate the chosen model on a completely separate test dataset — one that hasn’t influenced any aspect of model development. This rigorous separation ensures an unbiased estimate of operational performance. The test dataset should closely mirror the distribution of data the model will encounter in production, making test results a reliable predictor of real-world effectiveness. Lower performance on test data compared to validation data often signals potential distribution shifts or overfitting to the validation set itself — critical issues to address before deployment. The test phase represents our last opportunity to detect problems in a controlled environment, making it an essential safeguard against deploying underperforming models.</p>
-<p><span class="h4"><strong>Operational mode</strong></span> Once a model demonstrates satisfactory performance in the test phase, it transitions to operational mode — deployment in real-world environments to fulfill its intended purpose. In this phase, the model processes new inputs to generate outputs (classifications, predictions, actions) that drive decision-making or insights. Operational deployment introduces new considerations beyond accuracy: computational efficiency, latency requirements, integration with existing systems, and monitoring mechanisms all become crucial factors. Even after deployment, the learning process doesn’t end; production models require ongoing monitoring for performance degradation, which often occurs as real-world data distributions gradually shift away from training distributions. Many sophisticated deployments incorporate feedback loops that capture new operational data, enabling periodic retraining to maintain or improve performance over time. This continuous improvement cycle helps ensure models remain effective as the environments they operate in evolve.</p>
+<p><span class="h4"><strong>Training phase</strong></span></p>
+<p>During the training phase, we apply a carefully selected dataset to learn a general model. The nature of this model varies by learning paradigm — in unsupervised learning, it describes the inherent structure of the data (such as clusters or reduced dimensions), while in supervised and reinforcement learning, it captures functional relationships that map inputs to outputs or states to actions. This phase involves iterative optimization of model parameters to minimize error or maximize reward according to a specific objective function. The choice of training algorithm significantly impacts both computational efficiency and the quality of the resulting model. While the model aims to fit training data well, excessive focus on perfect training performance often leads to overfitting — a critical pitfall where the model essentially memorizes training examples rather than learning generalizable patterns.</p>
+<p><span class="h4"><strong>Validation phase</strong></span></p>
+<p>The validation phase addresses a fundamental challenge in machine learning: we don’t simply want models that excel on training data; we need models that generalize well to new, unseen data. To assess generalization capacity, we apply the model to a validation dataset that remains completely separate from training data. For each input in the validation set, we calculate the model’s prediction and compare it against the true output (for supervised learning) or evaluate its performance under defined metrics (for unsupervised and reinforcement learning). This creates an error statistic or performance measure that serves multiple crucial purposes: evaluating individual models, comparing different approaches, tuning hyperparameters, and ultimately selecting the most promising candidate. The validation phase essentially simulates real-world performance in a controlled environment, helping identify issues like overfitting or underfitting before deployment.</p>
+<p><span class="h4"><strong>Test phase</strong></span></p>
+<p>The test phase provides the final performance assessment before real-world deployment. After model selection and tuning in the validation phase, we evaluate the chosen model on a completely separate test dataset — one that hasn’t influenced any aspect of model development. This rigorous separation ensures an unbiased estimate of operational performance. The test dataset should closely mirror the distribution of data the model will encounter in production, making test results a reliable predictor of real-world effectiveness. Lower performance on test data compared to validation data often signals potential distribution shifts or overfitting to the validation set itself — critical issues to address before deployment. The test phase represents our last opportunity to detect problems in a controlled environment, making it an essential safeguard against deploying underperforming models.</p>
+<p><span class="h4"><strong>Operational mode</strong></span></p>
+<p>Once a model demonstrates satisfactory performance in the test phase, it transitions to operational mode — deployment in real-world environments to fulfill its intended purpose. In this phase, the model processes new inputs to generate outputs (classifications, predictions, actions) that drive decision-making or insights. Operational deployment introduces new considerations beyond accuracy: computational efficiency, latency requirements, integration with existing systems, and monitoring mechanisms all become crucial factors. Even after deployment, the learning process doesn’t end; production models require ongoing monitoring for performance degradation, which often occurs as real-world data distributions gradually shift away from training distributions. Many sophisticated deployments incorporate feedback loops that capture new operational data, enabling periodic retraining to maintain or improve performance over time. This continuous improvement cycle helps ensure models remain effective as the environments they operate in evolve.</p>
 </div>
 </section>
 </section>
@@ -1419,8 +1423,8 @@ Figure&nbsp;7: Comparison of linear underfitting, quadratic good fit, and high-d
 </div>
 </div>
 </div>
-<section id="underfitting" class="level3">
-<h3 data-anchor-id="underfitting">Underfitting</h3>
+<section id="underfitting" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="underfitting">Underfitting</h3>
 <p>The linear model (blue line) is too simple to capture the underlying pattern. It has:</p>
 <ul>
 <li><strong>High bias</strong>:<br>
@@ -1431,8 +1435,8 @@ Different training sets would produce similar models</li>
 The model fails to capture the fundamental pattern</li>
 </ul>
 </section>
-<section id="good-fit" class="level3">
-<h3 data-anchor-id="good-fit">Good fit</h3>
+<section id="good-fit" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="good-fit">Good fit</h3>
 <p>The quadratic model (purple line) captures the underlying pattern well. It has:</p>
 <ul>
 <li><strong>Balanced bias and variance</strong>:<br>
@@ -1443,8 +1447,8 @@ Performs well on both seen and unseen data</li>
 Likely to predict new data points accurately</li>
 </ul>
 </section>
-<section id="overfitting" class="level3">
-<h3 data-anchor-id="overfitting">Overfitting</h3>
+<section id="overfitting" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="overfitting">Overfitting</h3>
 <p>The high-degree polynomial (red line) fits training data closely but wiggles excessively. It has:</p>
 <ul>
 <li><strong>Low bias</strong>:<br>
