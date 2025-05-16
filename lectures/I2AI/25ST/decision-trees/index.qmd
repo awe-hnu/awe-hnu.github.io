@@ -310,7 +310,7 @@ How can we find a tree that is:
 
 :::incremental
 1. __Consistent__ with the training set, and
-2. ss __small as possible__ to promote generalization?
+2. __small as possible__ to promote generalization?
 :::
 
 . . .
@@ -928,20 +928,20 @@ Consider the following decision tree trained on a small dataset:
 %%| fig-cap: "Unpruned decision tree"
 
 graph TD
-    A[Age ≤ 30?] -->|Yes| B[Income ≤ 40K?]
-    A -->|No| C[Income ≤ 60K?]
+    A[Age ≤ 30?] -->|Yes| B[B; Income ≤ 40K?]
+    A -->|No| C[C; Income ≤ 60K?]
     
-    B -->|Yes| D[Buy = No<br>3/4 correct]
-    B -->|No| E[Education?]
+    B -->|Yes| D[D; Buy = No<br>3/4 correct]
+    B -->|No| E[E; Education?]
     
-    C -->|Yes| F[Education?]
-    C -->|No| G[Buy = Yes<br>5/6 correct]
+    C -->|Yes| F[F; Education?]
+    C -->|No| G[G; Buy = Yes<br>5/6 correct]
     
-    E -->|High| H[Buy = Yes<br>2/2 correct]
-    E -->|Low| I[Buy = No<br>1/1 correct]
+    E -->|High| H[H; Buy = Yes<br>2/2 correct]
+    E -->|Low| I[I; Buy = No<br>1/1 correct]
     
-    F -->|High| J[Buy = Yes<br>3/4 correct]
-    F -->|Low| K[Buy = No<br>2/3 correct]
+    F -->|High| J[J; Buy = Yes<br>3/4 correct]
+    F -->|Low| K[K; Buy = No<br>2/3 correct]
 ```
 
 The tree makes some errors on the training data, as indicated by the fractions (e.g., "3/4 correct" means the node correctly classifies 3 out of 4 training examples that reach that node).
@@ -959,59 +959,15 @@ You also have a validation set with the following distribution:
 
 
 1. Calculate the classification accuracy of the unpruned tree on the validation set.
-2. Apply reduced error pruning to the tree. Identify which nodes, if any, should be pruned.
-3. Draw the resulting pruned tree.
-4. Calculate the classification accuracy of the pruned tree on the validation set.
-5. Explain why pruning improved or worsened the performance.
+2. Identify which nodes, if any, should be pruned.
+3. Explain why pruning improved or worsened the performance.
 
 :::{.callout-tip collapse="true"}
 ### Hint
 
 In reduced error pruning, replace a node with its most common class if doing so doesn't decrease accuracy on the validation set. Start with the leaf nodes and work your way up. For each non-leaf node, calculate the accuracy before and after replacing it with a leaf.
-:::
 
-## Gini Index vs. Entropy
-
-Consider the following dataset for customer churn prediction:
-
-| Customer | Age      | Usage   | Contract Length | Churn |
-|----------|----------|---------|-----------------|-------|
-| 1        | Young    | Low     | Month-to-month  | Yes   |
-| 2        | Young    | Medium  | Year            | No    |
-| 3        | Young    | High    | Month-to-month  | No    |
-| 4        | Middle   | Low     | Month-to-month  | Yes   |
-| 5        | Middle   | Medium  | Year            | Yes   |
-| 6        | Middle   | High    | Month-to-month  | No    |
-| 7        | Senior   | Low     | Month-to-month  | Yes   |
-| 8        | Senior   | Medium  | Year            | No    |
-| 9        | Senior   | High    | Year            | No    |
-| 10       | Senior   | High    | Month-to-month  | Yes   |
-
-
-1. Calculate the Gini index for the entire dataset with respect to the *Churn* attribute.
-2. For the *Contract Length* attribute, calculate:
-   a. The Gini index for each split
-   b. The weighted Gini index after splitting
-   c. The Gini gain (reduction in impurity)
-3. For the same *Contract Length* attribute, calculate:
-   a. The entropy for each split
-   b. The weighted entropy after splitting
-   c. The information gain
-4. Which measure (Gini or entropy) indicates *Contract Length* is more useful for splitting?
-5. Explain a scenario where Gini index and entropy might lead to different tree structures.
-
-:::{.callout-tip collapse="true"}
-### Hint
-
-The Gini index for a node with class distribution $(p_1, p_2, ..., p_k)$ is calculated as:
-
-$$Gini(D) = 1 - \sum_{i=1}^{k} p_i^2$$
-
-For a binary classification like "Churn" (Yes/No), this simplifies to:
-
-$$Gini(D) = 1 - (p_{yes}^2 + p_{no}^2)$$
-
-The Gini gain is similar to information gain: it's the difference between the parent node's Gini index and the weighted average of the children nodes' Gini indices.
+No subtree pruning improves accuracy, so no pruning should be applied.
 :::
 
 # Literature

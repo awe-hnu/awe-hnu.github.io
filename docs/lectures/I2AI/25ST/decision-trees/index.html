@@ -193,7 +193,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">May 13, 2025</p>
+        <p class="date-modified">May 16, 2025</p>
       </div>
     </div>
       
@@ -688,7 +688,7 @@ Table&nbsp;1: Examples for the restaurant domain
 <div class="incremental">
 <ol class="incremental" type="1">
 <li><strong>Consistent</strong> with the training set, and</li>
-<li>ss <strong>small as possible</strong> to promote generalization?</li>
+<li><strong>small as possible</strong> to promote generalization?</li>
 </ol>
 </div>
 <p>It’s <strong>intractable</strong> to find the smallest consistent tree, but <strong>decision tree learning</strong> algorithms use greedy heuristics to efficiently find a reasonably small tree.</p>
@@ -1619,20 +1619,20 @@ Hint
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph TD
-    A[Age ≤ 30?] --&gt;|Yes| B[Income ≤ 40K?]
-    A --&gt;|No| C[Income ≤ 60K?]
+    A[Age ≤ 30?] --&gt;|Yes| B[B; Income ≤ 40K?]
+    A --&gt;|No| C[C; Income ≤ 60K?]
     
-    B --&gt;|Yes| D[Buy = No&lt;br&gt;3/4 correct]
-    B --&gt;|No| E[Education?]
+    B --&gt;|Yes| D[D; Buy = No&lt;br&gt;3/4 correct]
+    B --&gt;|No| E[E; Education?]
     
-    C --&gt;|Yes| F[Education?]
-    C --&gt;|No| G[Buy = Yes&lt;br&gt;5/6 correct]
+    C --&gt;|Yes| F[F; Education?]
+    C --&gt;|No| G[G; Buy = Yes&lt;br&gt;5/6 correct]
     
-    E --&gt;|High| H[Buy = Yes&lt;br&gt;2/2 correct]
-    E --&gt;|Low| I[Buy = No&lt;br&gt;1/1 correct]
+    E --&gt;|High| H[H; Buy = Yes&lt;br&gt;2/2 correct]
+    E --&gt;|Low| I[I; Buy = No&lt;br&gt;1/1 correct]
     
-    F --&gt;|High| J[Buy = Yes&lt;br&gt;3/4 correct]
-    F --&gt;|Low| K[Buy = No&lt;br&gt;2/3 correct]
+    F --&gt;|High| J[J; Buy = Yes&lt;br&gt;3/4 correct]
+    F --&gt;|Low| K[K; Buy = No&lt;br&gt;2/3 correct]
 </pre>
 </div>
 <p></p><figcaption> Unpruned decision tree</figcaption> </figure><p></p>
@@ -1684,9 +1684,7 @@ Hint
 </table>
 <ol type="1">
 <li>Calculate the classification accuracy of the unpruned tree on the validation set.</li>
-<li>Apply reduced error pruning to the tree. Identify which nodes, if any, should be pruned.</li>
-<li>Draw the resulting pruned tree.</li>
-<li>Calculate the classification accuracy of the pruned tree on the validation set.</li>
+<li>Identify which nodes, if any, should be pruned.</li>
 <li>Explain why pruning improved or worsened the performance.</li>
 </ol>
 <div class="callout callout-style-simple callout-tip callout-titled">
@@ -1702,130 +1700,7 @@ Hint
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In reduced error pruning, replace a node with its most common class if doing so doesn’t decrease accuracy on the validation set. Start with the leaf nodes and work your way up. For each non-leaf node, calculate the accuracy before and after replacing it with a leaf.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="gini-index-vs.-entropy" class="level2">
-<h2 data-anchor-id="gini-index-vs.-entropy">Gini Index vs.&nbsp;Entropy</h2>
-<p>Consider the following dataset for customer churn prediction:</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Customer</th>
-<th>Age</th>
-<th>Usage</th>
-<th>Contract Length</th>
-<th>Churn</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>Young</td>
-<td>Low</td>
-<td>Month-to-month</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Young</td>
-<td>Medium</td>
-<td>Year</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Young</td>
-<td>High</td>
-<td>Month-to-month</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Middle</td>
-<td>Low</td>
-<td>Month-to-month</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Middle</td>
-<td>Medium</td>
-<td>Year</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>Middle</td>
-<td>High</td>
-<td>Month-to-month</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>Senior</td>
-<td>Low</td>
-<td>Month-to-month</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>Senior</td>
-<td>Medium</td>
-<td>Year</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>Senior</td>
-<td>High</td>
-<td>Year</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>Senior</td>
-<td>High</td>
-<td>Month-to-month</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<ol type="1">
-<li>Calculate the Gini index for the entire dataset with respect to the <em>Churn</em> attribute.</li>
-<li>For the <em>Contract Length</em> attribute, calculate:
-<ol type="a">
-<li>The Gini index for each split</li>
-<li>The weighted Gini index after splitting</li>
-<li>The Gini gain (reduction in impurity)</li>
-</ol></li>
-<li>For the same <em>Contract Length</em> attribute, calculate:
-<ol type="a">
-<li>The entropy for each split</li>
-<li>The weighted entropy after splitting</li>
-<li>The information gain</li>
-</ol></li>
-<li>Which measure (Gini or entropy) indicates <em>Contract Length</em> is more useful for splitting?</li>
-<li>Explain a scenario where Gini index and entropy might lead to different tree structures.</li>
-</ol>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The Gini index for a node with class distribution <span class="math inline">\((p_1, p_2, ..., p_k)\)</span> is calculated as:</p>
-<p><span class="math display">\[Gini(D) = 1 - \sum_{i=1}^{k} p_i^2\]</span></p>
-<p>For a binary classification like “Churn” (Yes/No), this simplifies to:</p>
-<p><span class="math display">\[Gini(D) = 1 - (p_{yes}^2 + p_{no}^2)\]</span></p>
-<p>The Gini gain is similar to information gain: it’s the difference between the parent node’s Gini index and the weighted average of the children nodes’ Gini indices.</p>
+<p>No subtree pruning improves accuracy, so no pruning should be applied.</p>
 </div>
 </div>
 </div>
