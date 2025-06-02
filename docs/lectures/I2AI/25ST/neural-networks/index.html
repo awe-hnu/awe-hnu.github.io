@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Neural Networks – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-31becd6d1b3a73c6d3562fda64300ee8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Neural Networks – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/I2AI/25ST/neural-networks/images/neural-network-architecture.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Neural Networks</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Neural Networks</h1>
+            <p class="subtitle lead">Introduction to AI (I2AI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Jun 1, 2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Jun 2, 2025</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=21594" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/agents/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environments &amp; Agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search &amp; Planning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/knowledge/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knowledge &amp; Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/probability-theory/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/bayes-net/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/learning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/decision-trees/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Decision Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/neural-networks/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Neural Networks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks">Neural networks</a></li>
+  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning">Learning</a></li>
+  <li><a href="#transformers" id="toc-transformers" class="nav-link" data-scroll-target="#transformers">Transformers</a></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training">Training</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1 headline-only">
+<h1 class="headline-only">Introduction</h1>
+<section id="limits-of-traditional-programming" class="level2">
+<h2 data-anchor-id="limits-of-traditional-programming">Limits of traditional programming</h2>
+<div class="large">
+<p>Traditional programming approaches fail at tasks that humans find effortless.</p>
+</div>
+<p>For instance:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Recognizing handwritten digits</strong>: Each “3” looks different, yet we instantly recognize the pattern</li>
+<li><strong>Understanding context</strong>: “The bank” could refer to a financial institution or a river’s edge</li>
+<li><strong>Learning from examples</strong>: We don’t need explicit rules to recognize new instances</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The intelligence paradox
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Traditional programming relies on explicit rules and algorithms. For image recognition, you’d need to write code that handles every possible variation of how a digit could be drawn - different angles, sizes, writing styles, and lighting conditions. This quickly becomes intractable.</p>
+<p>Human brains, however, excel at pattern recognition through learning from examples. We see many instances of the digit “3” and somehow extract the underlying pattern without being given explicit rules about what makes a “3” a “3”.</p>
+<p>This paradox - tasks that are trivial for biological intelligence but nearly impossible for traditional programming - led to the development of neural networks and machine learning approaches that attempt to mimic how biological systems learn from data.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="recap-machine-learning" class="level2">
+<h2 data-anchor-id="recap-machine-learning">Recap: machine learning</h2>
+<div class="columns">
+<div class="column">
+<div class="fragment">
+<p><strong>Traditional programming:</strong></p>
+<p><span class="math inline">\(Input + Program \rightarrow Output\)</span></p>
+</div>
+</div><div class="column">
+<div class="fragment">
+<p><strong>Machine learning:</strong></p>
+<p><span class="math inline">\(Input + Output \rightarrow Program\)</span></p>
+</div>
+</div>
+</div>
+<p><span class="h4"><strong>Differences</strong></span></p>
+<div class="incremental">
+<ul class="incremental">
+<li>Instead of writing explicit rules, we provide <strong>examples</strong> (training data)</li>
+<li>The machine <strong>learns patterns</strong> from these examples</li>
+<li>The resulting model can then make <strong>predictions</strong> on new, unseen data</li>
+</ul>
+</div>
+<div class="notes">
+<p>Traditional programming requires us to understand and explicitly code the relationship between inputs and outputs. For complex tasks like image recognition, this becomes impossible because we can’t enumerate all the rules.</p>
+<p>Machine learning flips this paradigm: we provide many examples of inputs paired with their correct outputs, and let the algorithm discover the underlying patterns. This is particularly powerful for tasks where the rules are too complex to code explicitly or where we don’t fully understand the underlying mechanisms ourselves.</p>
+<p>The key insight is that many intelligent behaviors can emerge from relatively simple learning rules applied to large amounts of data, rather than requiring explicit programming of complex behaviors. This observation connects to the foundational work on neural networks by <span class="citation" data-cites="rumelhart1986learning">Rumelhart, Hinton, and Williams (<a href="#ref-rumelhart1986learning" role="doc-biblioref">1986</a>)</span> and the theoretical foundations of universal approximation <span class="citation" data-cites="cybenko1989approximation hornik1989multilayer">(<a href="#ref-cybenko1989approximation" role="doc-biblioref">Cybenko 1989</a>; <a href="#ref-hornik1989multilayer" role="doc-biblioref">Hornik, Stinchcombe, and White 1989</a>)</span>.</p>
+</div>
+</section>
+</section>
+<section id="neural-networks" class="level1 headline-only">
+<h1 class="headline-only">Neural networks</h1>
+<section id="introduction-1" class="level2">
+<h2 data-anchor-id="introduction-1">Introduction</h2>
+<p>Neural networks solve problems that traditional programming cannot handle:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Pattern recognition</strong> in noisy, variable data</li>
+<li><strong>Decision making</strong> with incomplete information<br>
+</li>
+<li><strong>Automation</strong> of complex cognitive tasks</li>
+<li><strong>Scaling</strong> human-like judgment to massive datasets</li>
+</ul>
+</div>
+<div class="notes">
+<p>The beauty of neural networks lies in their universality - the same basic architecture that recognizes handwritten digits can be adapted to recognize faces, translate languages, or play games. This is because they learn to detect increasingly complex patterns through multiple layers of simple operations.</p>
+<p>Understanding neural networks isn’t about memorizing mathematical formulas — it’s about recognizing when and how this technology can create business value. Neural networks excel in situations where:</p>
+<ol type="1">
+<li><p><strong>Rules are hard to specify</strong>: Try writing explicit rules for recognizing the digit “3” across thousands of different handwriting styles. Traditional programming would require an impossibly complex set of if-then statements.</p></li>
+<li><p><strong>Human expertise is expensive to scale</strong>: A human can easily recognize digits, but hiring humans to process millions of documents isn’t feasible. Neural networks can replicate human-like pattern recognition at machine speed and scale.</p></li>
+<li><p><strong>Data is abundant but messy</strong>: Real-world data rarely fits neat categories. Neural networks can find patterns in noisy, incomplete, or variable data that would break traditional algorithms.</p></li>
+<li><p><strong>Adaptability is crucial</strong>: Business environments change constantly. Neural networks can be retrained on new data, allowing systems to adapt to changing conditions without complete reprogramming.</p></li>
+</ol>
+</div>
+</section>
+<section id="what-is-a-neuron" class="level2">
+<h2 data-anchor-id="what-is-a-neuron">What is a neuron?</h2>
+<div class="medium">
+<p>A neuron<br>
+<strong>receives inputs</strong> → <strong>weights them</strong> → <strong>sums up</strong> → <strong>activates</strong></p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>This number is called the <strong>activation</strong> of the neuron</li>
+<li>High activation (close to 1.0) = neuron is “firing” or “lit up”</li>
+<li>Low activation (close to 0.0) = neuron is inactive</li>
+<li>Think of it as <strong>how excited</strong> the neuron is about a particular feature</li>
+</ul>
+</div>
+<div class="notes">
+<div class="notes">
+<p>The neuron is the fundamental computational unit that makes neural networks possible. While inspired by biological neurons, artificial neurons are much simpler mathematical functions. Understanding this building block is crucial because the entire network’s behavior emerges from millions of these simple operations.</p>
+<ol type="1">
+<li><p><strong>Receiving inputs</strong>: Each neuron receives numerical values from the previous layer. In the first layer, these might be pixel intensities (0 for black, 1 for white). In deeper layers, these are the outputs of neurons from the previous layer.</p></li>
+<li><p><strong>Weighting inputs</strong>: Each connection has a “weight” - a number that determines how much influence that input has. Positive weights amplify the signal, negative weights suppress it, and weights near zero essentially ignore that input. These weights are the “knowledge” the network learns.</p></li>
+<li><p><strong>Summing</strong>: The neuron calculates a weighted sum: (input₁ × weight₁) + (input₂ × weight₂) + … + bias. The bias is like a threshold - it shifts the activation point of the neuron.</p></li>
+<li><p><strong>Activation function</strong>: The sum gets passed through a function (like sigmoid or ReLU) that determines the neuron’s output. This introduces non-linearity, allowing the network to learn complex patterns rather than just linear relationships.</p></li>
+</ol>
+<p><span class="h4"><strong>Why this design works:</strong></span></p>
+<ul>
+<li><strong>Simplicity</strong>: Each neuron does something very simple, making the system robust and parallelizable</li>
+<li><strong>Composability</strong>: Simple operations combine to create complex behaviors</li>
+<li><strong>Differentiability</strong>: The mathematical smoothness allows for efficient learning algorithms</li>
+<li><strong>Biological inspiration</strong>: While simplified, this captures key aspects of how biological neurons process information</li>
+</ul>
+<p>The magic happens when thousands of these simple units work together in layers, each learning to detect different aspects of the input pattern.</p>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Biological inspiration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Real neurons in the brain can be in various states of activation - they can fire action potentials at different rates, or remain quiet. The artificial neuron is a dramatic simplification, reducing this complex behavior to a single number between 0 and 1.</p>
+<p>This simplification is intentional: by abstracting away the biological complexity, we can focus on the computational principles. The key insight is that neurons can represent information through their level of activation, and that these activations can be combined and transformed through networks to process complex information.</p>
+<p>While the biological brain is vastly more complex, this simplified model has proven remarkably effective for a wide range of tasks, suggesting that some aspects of intelligence can emerge from relatively simple computational units arranged in the right structure.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="network-architecture" class="level2">
+<h2 data-anchor-id="network-architecture">Network architecture</h2>
+<div class="notes">
+<div id="fig-nna-1" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nna-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/neural-network-architecture.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nna-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Basic neural network structure
+</figcaption>
+</figure>
+</div>
+<p>The hierarchical organization of neural networks mirrors how human visual processing works, and this parallel isn’t coincidental — it’s one of the key insights that makes deep learning so powerful.</p>
+</div>
+</section>
+<section id="connections-between-neurons" class="level2">
+<h2 data-anchor-id="connections-between-neurons">Connections between neurons</h2>
+<div class="columns">
+<div class="column">
+<p>Each connection between neurons has a <strong>weight</strong> (positive or negative) — a number that gets adusted during learning.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Positive weight</strong>: If the first neuron fires, it encourages the second neuron to fire</li>
+<li><strong>Negative weight</strong>: If the first neuron fires, it discourages the second neuron from firing</li>
+<li><strong>Bias</strong>: A constant added to shift when the neuron should activate</li>
+</ul>
+</div>
+</div><div class="column">
+<div id="fig-nnweights" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nnweights-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/weights.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nnweights-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Weights in a neural network
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p><span class="h4"><strong>Weight mechanics</strong></span></p>
+<p><strong>Positive vs.&nbsp;negative weights:</strong></p>
+<ul>
+<li><strong>Positive weights</strong> act like “encouragers” - when the input neuron is active (high value), it pushes the receiving neuron toward activation</li>
+<li><strong>Negative weights</strong> act like “inhibitors” - when the input neuron is active, it pushes the receiving neuron toward inactivity</li>
+<li><strong>Zero weights</strong> mean the connection is effectively ignored</li>
+</ul>
+<p><strong>Weight magnitude:</strong></p>
+<ul>
+<li><strong>Large positive weights</strong> create strong encouraging connections</li>
+<li><strong>Large negative weights</strong> create strong inhibitory connections<br>
+</li>
+<li><strong>Small weights</strong> (near zero) have minimal influence</li>
+<li>The network learns which connections should be strong and which should be weak</li>
+</ul>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The mathematical foundation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This weighted sum with bias is the fundamental computation in neural networks. The weights determine how much influence each input has on the output, while the bias determines the baseline level of activation.</p>
+<p>The sigmoid function <span class="math inline">\(\sigma(x) = \frac{1}{1 + e^{-x}}\)</span> serves as a “squashing” function that ensures the output stays between 0 and 1, regardless of how large or small the weighted sum becomes. This is crucial for maintaining the “activation” interpretation of neuron outputs. Other <em>activation functions</em> commonly used are tanh, relu, and leaky relu.</p>
+<p>The <em>bias</em> is particularly important because it allows the neuron to fire even when all inputs are zero, or to require a higher threshold before firing. Without bias, neurons could only learn patterns that pass through the origin, severely limiting the network’s expressiveness.</p>
+<p>Understanding this computation is key to grasping how neural networks work: each neuron computes a weighted combination of its inputs, adds a bias, and applies a nonlinear function to produce its output. This forms the basis of the <strong>backpropagation algorithm</strong> developed by <span class="citation" data-cites="rumelhart1986learning">Rumelhart, Hinton, and Williams (<a href="#ref-rumelhart1986learning" role="doc-biblioref">1986</a>)</span>.</p>
+<p>This perspective - viewing neural networks as complex mathematical functions - is crucial for understanding their power and limitations. The <strong>Universal Approximation Theorem</strong> <span class="citation" data-cites="cybenko1989approximation hornik1989multilayer">(<a href="#ref-cybenko1989approximation" role="doc-biblioref">Cybenko 1989</a>; <a href="#ref-hornik1989multilayer" role="doc-biblioref">Hornik, Stinchcombe, and White 1989</a>)</span> tells us that neural networks with sufficient hidden units can approximate any continuous function to arbitrary accuracy.</p>
+<p>The weights and biases represent the “knobs and dials” that can be adjusted to make the network compute any function we want (within the constraints of the architecture). Training is the process of finding the right setting for these parameters.</p>
+<p>The power of neural networks comes from this massive number of adjustable parameters, which allows them to learn complex patterns in data. However, this also presents challenges: how do we find the right values for all these parameters? This is where the learning algorithms come in.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-digit-recognition" class="level2">
+<h2 data-anchor-id="example-digit-recognition">Example: digit recognition</h2>
+<div class="columns">
+<div class="column">
+<p>Example architecture for detecting digits of the MNIST dataset<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<p><em>28×28 pixels</em> → <em>Neural Network</em> → <em>10 probabilities</em></p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Input layer:</strong> 784 neurons (28×28 pixels)<br>
+Each neuron represents one pixel’s brightness (0.0 = black, 1.0 = white)</li>
+<li><strong>Hidden layers:</strong> 2 layers, 16 neurons each<br>
+These learn to detect patterns and features</li>
+<li><strong>Output layer:</strong> 10 neurons Each represents confidence for digits 0-9</li>
+</ul>
+</div>
+</div><div class="column">
+<div id="fig-MNIST-4" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-MNIST-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/MNIST-4.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MNIST-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Network architecture for digit recognition
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The architecture of our digit recognition network represents a carefully designed pipeline for transforming raw pixel data into digit classifications. Let’s understand why this specific structure makes sense:</p>
+<p><strong>Input layer (784 neurons):</strong></p>
+<ul>
+<li>Each neuron represents one pixel in the 28×28 image</li>
+<li>Values range from 0 (black) to 1 (white), representing grayscale intensity</li>
+<li>This layer doesn’t perform computation - it just holds the input data</li>
+<li>784 inputs might seem like a lot, but images require this level of detail to preserve important patterns</li>
+</ul>
+<p><strong>Hidden layer 1 (16 neurons):</strong></p>
+<ul>
+<li>This is where the real pattern detection begins</li>
+<li>Each of these 16 neurons receives input from all 784 pixels</li>
+<li>With 784 inputs × 16 neurons = 12,544 weights (plus 16 biases)</li>
+<li>These neurons learn to detect fundamental features like edges, curves, and basic shapes</li>
+<li>16 neurons is relatively small - real networks often use hundreds or thousands</li>
+</ul>
+<p><strong>Hidden layer 2 (16 neurons):</strong></p>
+<ul>
+<li>Each neuron connects to all 16 neurons from the previous layer</li>
+<li>16 inputs × 16 neurons = 256 weights (plus 16 biases)</li>
+<li>These neurons combine the basic features into more complex patterns</li>
+<li>They might detect things like “loop at top” or “vertical line on left”</li>
+</ul>
+<p><strong>Output layer (10 neurons):</strong></p>
+<ul>
+<li>One neuron for each possible digit (0, 1, 2, …, 9)</li>
+<li>16 inputs × 10 neurons = 160 weights (plus 10 biases)</li>
+<li>Each neuron’s activation represents the network’s confidence that the input image shows that particular digit</li>
+<li>The highest activation typically indicates the network’s “guess”</li>
+</ul>
+<p><strong>Total Parameters:</strong></p>
+<ul>
+<li>Weights: 12,544 + 256 + 160 = 12,960</li>
+<li>Biases: 16 + 16 + 10 = 42</li>
+<li><strong>Total: 13,002 adjustable parameters</strong></li>
+</ul>
+<p>This seems like a lot, but it’s actually quite modest by modern standards. Large language models can have billions of parameters. The key insight is that all these parameters work together to create a flexible function that can map any 28×28 image to a probability distribution over the 10 digit classes.</p>
+</div>
+</section>
+</section>
+<section id="learning" class="level1 headline-only">
+<h1 class="headline-only">Learning</h1>
+<section id="the-learning-problem" class="level2">
+<h2 data-anchor-id="the-learning-problem">The learning problem</h2>
+<div class="medium">
+<p><strong>Goal</strong>: Find the values of all <em>k</em> parameters that make the network classify digits correctly.</p>
+</div>
+<p><strong>Challenge</strong>: This is a <em>k</em>-dimensional optimization problem!<br>
+<span class="smaller">(In our digit example it is 13,002-dimensional)</span></p>
+<p>We need a systematic way to:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Measure how “wrong” the network currently is</li>
+<li>Determine which parameters to adjust</li>
+<li>Make small improvements iteratively</li>
+</ul>
+</div>
+<div class="notes">
+<p>Optimizing in 13,002 dimensions is conceptually challenging for humans to visualize, but mathematically tractable. Each dimension represents one parameter (weight or bias) in the network.</p>
+<p>The challenge is immense: with 13,002 parameters, there are potentially infinite ways to set these values. Most combinations will perform poorly, and we need to find the tiny subset that actually works well for digit recognition.</p>
+<p>Traditional optimization approaches (like trying random combinations or exhaustive search) would take longer than the age of the universe. We need smarter approaches that can navigate this high-dimensional space efficiently.</p>
+<p>The key insight is that we can use calculus — specifically derivatives — to determine the direction of steepest improvement. This allows us to make educated guesses about how to adjust parameters rather than random exploration.</p>
+</div>
+</section>
+<section id="cost-functions" class="level2">
+<h2 data-anchor-id="cost-functions">Cost functions</h2>
+<p>For a single training example, if the network outputs <span class="math inline">\((a_0, a_1, ..., a_9)\)</span> but the correct answer is digit <span class="math inline">\(k\)</span>:</p>
+<p><strong>Desired output</strong>: <span class="math inline">\((0, 0, ..., 1, ..., 0)\)</span> (1 in position <span class="math inline">\(k\)</span>, 0 elsewhere)</p>
+<p><strong>Cost for this example</strong>:</p>
+<p><span class="math inline">\(C = \sum_{j=0}^{9} (a_j - y_j)^2\)</span></p>
+<p>where <span class="math inline">\(y_j\)</span> is the desired output for neuron <span class="math inline">\(j\)</span>.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why squared differences?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The squared error cost function has several nice properties:</p>
+<ol type="1">
+<li><strong>Always positive</strong>: Squared terms ensure the cost is never negative</li>
+<li><strong>Smooth and differentiable</strong>: We can compute gradients needed for optimization</li>
+<li><strong>Penalizes large errors more</strong>: A network that’s very wrong gets penalized more than one that’s slightly wrong</li>
+<li><strong>Zero when perfect</strong>: Cost is exactly 0 when the network output matches the desired output perfectly</li>
+</ol>
+<p>For digit recognition, if the correct answer is “3”, we want:</p>
+<ul>
+<li>Output neuron 3 to have activation close to 1.0</li>
+<li>All other output neurons to have activation close to 0.0</li>
+</ul>
+<p>The cost function measures how far we are from this ideal. When the network is confident and correct, the cost is low. When the network is uncertain or wrong, the cost is high.</p>
+<p>Alternative cost functions exist (like cross-entropy), but squared error is conceptually simpler and works well for educational purposes.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="gradient-descent" class="level2">
+<h2 data-anchor-id="gradient-descent">Gradient descent</h2>
+<div class="medium">
+<p><strong>Intuition</strong>: Imagine the cost function as a landscape with hills and valleys. We want to find the lowest valley (minimum cost).</p>
+</div>
+<p><strong>Gradient descent algorithm</strong>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Compute the <strong>gradient</strong> (direction of steepest increase in cost)</li>
+<li>Move in the <strong>opposite direction</strong> (direction of steepest decrease)</li>
+<li>Take small steps to avoid overshooting</li>
+<li>Repeat until you reach a minimum</li>
+</ol>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The geography of optimization
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The landscape metaphor is powerful but limited. In 13,002 dimensions, we can’t visualize the actual landscape, but the mathematical principles remain the same.</p>
+<p>Key insights about gradient descent:</p>
+<ol type="1">
+<li><p><strong>Local vs global minima</strong>: Like a real landscape, the cost function may have multiple valleys. Gradient descent finds a local minimum (nearby valley) but might miss the global minimum (deepest valley overall).</p></li>
+<li><p><strong>Learning rate</strong>: This is a crucial hyperparameter:</p>
+<ul>
+<li>Too large: We might overshoot and oscillate around the minimum</li>
+<li>Too small: Progress is very slow, and we might get stuck</li>
+<li>Just right: Steady progress toward a minimum</li>
+</ul></li>
+<li><p><strong>High-dimensional intuition</strong>: In high dimensions, most points are neither maxima nor minima, but saddle points. This actually helps optimization because there are usually many directions that lead downhill.</p></li>
+<li><p><strong>Why it works</strong>: Even though we can’t visualize 13,002-dimensional space, the mathematical guarantee is that moving in the negative gradient direction will decrease the cost (at least for small steps).</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="backpropagation" class="level2">
+<h2 data-anchor-id="backpropagation">Backpropagation</h2>
+<div class="medium">
+<p><strong>Challenge</strong>: How do we compute the gradient of the cost function with respect to all <em>k</em> parameters efficiently?</p>
+</div>
+<p><strong>Backpropagation algorithm</strong>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Forward pass</strong>: Run the network on a training example to get predictions</li>
+<li><strong>Compute cost</strong>: Compare predictions to correct answers</li>
+<li><strong>Backward pass</strong>: Use the chain rule<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> to compute how each parameter affects the cost</li>
+<li><strong>Update parameters</strong>: Adjust each parameter in the direction that reduces cost</li>
+</ol>
+</div>
+<div class="smaller">
+<p>This elegant algorithm, formalized by <span class="citation" data-cites="rumelhart1986learning">Rumelhart, Hinton, and Williams (<a href="#ref-rumelhart1986learning" role="doc-biblioref">1986</a>)</span>, makes training deep networks computationally feasible <span class="citation" data-cites="sanderson2017backprop">(<a href="#ref-sanderson2017backprop" role="doc-biblioref">Sanderson 2017b</a>)</span>.</p>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The mathematical elegance of backpropagation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Backpropagation is essentially an efficient application of the chain rule from calculus. The key insight is that we can compute gradients by working backwards through the network.</p>
+<p><strong>Forward Pass Example</strong>: Input → Layer 1 → Layer 2 → Output → Cost</p>
+<p><strong>Backward Pass</strong>: Cost → ∂Cost/∂Output → ∂Cost/∂Layer2 → ∂Cost/∂Layer1 → ∂Cost/∂Weights</p>
+<p>For each parameter, we ask: “If I change this parameter by a tiny amount, how much does the cost change?” The chain rule lets us compute this efficiently by decomposing the influence into steps.</p>
+<p>Think of it as tracing cause and effect:</p>
+<ul>
+<li>How did weight <em>W</em> affect neuron <em>N</em>?</li>
+<li>How did neuron <em>N</em> affect the layer’s output?</li>
+<li>How did the layer’s output affect the final prediction?</li>
+<li>How did the final prediction contribute to the error?</li>
+</ul>
+<p><strong>Why “Backpropagation”?</strong>: We propagate the error backwards through the network. Starting from the final cost, we compute how much each layer contributed to that cost, then how much each neuron contributed, and finally how much each weight contributed.</p>
+<p>This algorithm is remarkably efficient: computing the gradient for all parameters takes roughly the same computational time as computing the network’s output itself. This efficiency made training deep networks practical <span class="citation" data-cites="sanderson2017backprop">(<a href="#ref-sanderson2017backprop" role="doc-biblioref">Sanderson 2017b</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="learning-loop" class="level2">
+<h2 data-anchor-id="learning-loop">Learning loop</h2>
+<div class="medium">
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Start with random weights</li>
+<li>Make a prediction (forward pass)</li>
+<li>Measure the error</li>
+<li>Trace back to find responsible weights (backpropagation)</li>
+<li>Adjust weights to reduce error</li>
+<li>Repeat with the next example</li>
+</ol>
+</div>
+</div>
+<p>Through millions cycles, the network gradually learns to recognize even complex patterns.</p>
+<div class="notes">
+<p>The remarkable thing is that complex behaviors (like recognizing handwriting) emerge from this simple process of error correction.</p>
+<p>This transformation from random guesses to intelligent recognition happens purely through this iterative process of prediction, error measurement, and weight adjustment. No human explicitly programs the features - the network discovers these patterns automatically through experience.</p>
+</div>
+</section>
+<section id="using-mini-batches-for-training" class="level2">
+<h2 data-anchor-id="using-mini-batches-for-training">Using mini-batches for training</h2>
+<div class="notes">
+<p>There are three main approaches to gradient descent:</p>
+<p><strong>Batch Gradient Descent</strong>: Use all training examples to compute gradient</p>
+<ul>
+<li>Pros: Most accurate gradient estimate</li>
+<li>Cons: Very slow for large datasets, memory intensive</li>
+</ul>
+<p><strong>Stochastic Gradient Descent (SGD)</strong>: Use one example at a time</p>
+<ul>
+<li>Pros: Fast updates, can escape local minima due to noise</li>
+<li>Cons: Very noisy, unstable convergence</li>
+</ul>
+<p><strong>Mini-batch SGD</strong>: Use small batches (typically 16-256 examples)</p>
+<ul>
+<li>Pros: Good balance of speed and stability</li>
+<li>Cons: Requires tuning batch size</li>
+</ul>
+<p>Mini-batches provide several advantages:</p>
+<ul>
+<li><strong>Computational efficiency</strong>: Modern hardware (GPUs) is optimized for parallel processing of batches</li>
+<li><strong>Better gradient estimates</strong>: Averaging over multiple examples reduces noise</li>
+<li><strong>Memory efficiency</strong>: Process data in chunks rather than loading everything</li>
+<li><strong>Regularization effect</strong>: The noise from mini-batching can help escape poor local minima</li>
+</ul>
+<p>The choice of batch size is another hyperparameter that affects training dynamics and final performance <span class="citation" data-cites="sanderson2017gradient">(<a href="#ref-sanderson2017gradient" role="doc-biblioref">Sanderson 2017a</a>)</span>.</p>
+</div>
+<p><strong>Mini-batch stochastic gradient descent</strong>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Shuffle</strong> the training data randomly</li>
+<li><strong>Divide</strong> into small batches (e.g., 32 examples per batch)</li>
+<li>For each batch:
+<ul class="incremental">
+<li>Compute gradients for all examples in the batch</li>
+<li><strong>Average</strong> the gradients across the batch</li>
+<li><strong>Update</strong> parameters using the averaged gradient</li>
+</ul></li>
+<li><strong>Repeat</strong> for many epochs<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+</ul>
+</div>
+</section>
+<section id="key-insights" class="level2">
+<h2 data-anchor-id="key-insights">Key insights</h2>
+<div class="notes">
+<ol type="1">
+<li>Neural networks excel when the data has many features and complex relationships between them (e.g., images, text, customer behavior, financial markets).</li>
+<li>Neural networks can find patterns in this complexity that would be impossible to detect manually or with simpler algorithms.</li>
+<li>Neural networks are remarkably robust to noisy, imperfect data (e.g., missing values, measurement errors, outliers) because they learn statistical patterns rather than requiring perfect data.</li>
+<li>Neural networks often improve with more data, unlike many traditional methods that plateau.</li>
+<li>Business environments change constantly. Neural networks can be retrained on new data to.</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="transformers" class="level1 headline-only page-columns page-full">
+<h1 class="headline-only">Transformers</h1>
+<div class="medium">
+<p>From images to language</p>
+</div>
+<section id="the-challenge" class="level2">
+<h2 data-anchor-id="the-challenge">The challenge</h2>
+<p>Key differences between images and text:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Images</strong> has <em>fixed size</em> (e.g., 28×28 pixels) and <em>spatial relationships</em> matter</li>
+<li><strong>Text</strong> has <em>variable length</em>, <em>sequential relationships</em> matter, and <em>context</em> is crucial</li>
+<li><strong>Word meaning</strong> depends heavily on surrounding words
+<ul class="incremental">
+<li>“The bank was flooded” vs “I went to the bank”</li>
+<li>“model” in “machine learning model” vs “fashion model”</li>
+</ul></li>
+</ul>
+</div>
+<div class="medium">
+<p>We need architectures designed specifically for <strong>sequential data</strong> with <strong>long-range dependencies</strong>.</p>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Standard neural networks x language
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Standard neural networks, like our digit classifier, have limitations for language:</p>
+<ol type="1">
+<li><strong>Fixed Input Size</strong>: Traditional networks expect fixed-size inputs, but sentences have varying lengths</li>
+<li><strong>No Sequential Understanding</strong>: Standard networks treat input positions independently - they can’t understand that word order matters</li>
+<li><strong>No Long-Range Dependencies</strong>: Information from early in a sentence might be crucial for understanding words much later</li>
+</ol>
+<p>Early attempts to solve this included:</p>
+<ul>
+<li><strong>Recurrent Neural Networks (RNNs)</strong>: Process sequences one word at a time, but suffer from vanishing gradients for long sequences</li>
+<li><strong>Convolutional Networks</strong>: Good for local patterns but struggle with long-range dependencies</li>
+<li><strong>LSTM/GRU</strong>: Better than RNNs but still fundamentally sequential and slow to train</li>
+</ul>
+<p>The breakthrough came with <strong>Transformers</strong> <span class="citation" data-cites="vaswani2017attention">(<a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>, which solved these problems through a fundamentally different approach: <strong>attention mechanisms</strong> that allow every word to directly interact with every other word in the sequence.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-a-transformer" class="level2">
+<h2 data-anchor-id="what-is-a-transformer">What is a Transformer?</h2>
+<div class="medium">
+<p>A transformer is a neural network architecture specifically designed for processing sequences.</p>
+</div>
+<p>The <strong>attention mechanism</strong> is the key innovation — it allows every element in the sequence to “attend to” every other element.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Transformer architecture
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Transformer architecture, introduced in the landmark 2017 paper “Attention Is All You Need” <span class="citation" data-cites="vaswani2017attention">(<a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>, revolutionized natural language processing. The key insight was that attention mechanisms could replace recurrent and convolutional layers entirely.</p>
+<p>Before transformers, most language models were based on RNNs or CNNs, which processed sequences step-by-step or with limited context windows. This made them slow to train and limited in their ability to capture long-range dependencies.</p>
+<p>The attention mechanism allows for:</p>
+<ul>
+<li><strong>Parallel processing</strong>: All positions in a sequence can be processed simultaneously</li>
+<li><strong>Long-range dependencies</strong>: Any word can directly attend to any other word, regardless of distance</li>
+<li><strong>Interpretability</strong>: We can visualize what the model is “paying attention to”</li>
+</ul>
+<p>The impact has been enormous:</p>
+<ul>
+<li>GPT (Generative Pre-trained Transformer) family: GPT-1, GPT-2, GPT-3, GPT-4</li>
+<li>BERT: Bidirectional transformer for understanding tasks</li>
+<li>T5: Text-to-text transfer transformer</li>
+<li>and hundreds of other transformer-based models</li>
+</ul>
+<p>The name “Transformer” comes from its ability to transform input sequences into output sequences through the attention mechanism.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="context-is-everything" class="level2">
+<h2 data-anchor-id="context-is-everything">Context is everything</h2>
+<p>Consider these sentences:</p>
+<ul>
+<li>“The <em>tower</em> was very tall”</li>
+<li>“The <em>Eiffel tower</em> was very tall”</li>
+</ul>
+<p>The word “tower” should mean different things in different contexts:</p>
+<ul>
+<li>First case: Generic tower</li>
+<li>Second case: Specific famous landmark in Paris</li>
+</ul>
+<p><strong>Attention mechanism</strong> allow context words to <em>update</em> the meaning of other words.</p>
+</section>
+<section id="tokens-and-embeddings" class="level2">
+<h2 data-anchor-id="tokens-and-embeddings">Tokens and embeddings</h2>
+<p><strong>Tokenization</strong> means that text is broken down into small chunks called <em>tokens</em> — a crucial preprocessing step that bridges human language and machine processing.</p>
+<ul>
+<li>“To date, the cleverest thinker of all time was…”</li>
+<li>Becomes: [“To”, “date”, “,”, “the”, “cle”, “ve”, “rest”, “thinker”, “of”, “all”, “time”, “was”, “…”]</li>
+</ul>
+<p>Each token gets converted to a <em>high-dimensional vector</em> (e.g., 12,288 dimensions for GPT-3) — so called <strong>embedding vectors</strong></p>
+<ul>
+<li>Similar tokens get <strong>similar vectors</strong></li>
+<li>These vectors capture <strong>semantic meaning</strong></li>
+</ul>
+<p>This vector representation is what the transformer actually processes - it never sees raw text, only these numerical vectors <span class="citation" data-cites="sanderson2024gpt">(<a href="#ref-sanderson2024gpt" role="doc-biblioref">Sanderson 2024a</a>)</span>.</p>
+</section>
+<section id="word-embeddings" class="level2">
+<h2 data-anchor-id="word-embeddings">Word Embeddings</h2>
+<div class="medium">
+<p>Directions in embedding space can encode <strong>semantic relationships</strong>.</p>
+</div>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li>Gender direction: <em>“king” - “man” + “woman” ≈ “queen”</em></li>
+<li>Plurality direction: <em>“cat” - “cats”</em> captures singular vs plural</li>
+<li>Country-capital: <em>“Germany” - “Berlin” + “France” ≈ “Paris”</em></li>
+</ul>
+<p>The embedding layer learns to place semantically related words <strong>close together</strong> in the vector space.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The geometry of meaning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Word embeddings reveal that meaning has geometric structure. This isn’t just a mathematical curiosity - it reflects how language itself is structured:</p>
+<p><strong>Analogical reasoning</strong> — the famous “king - man + woman = queen” example shows that semantic relationships can be captured as vector operations. This suggests that certain directions in the embedding space consistently encode specific semantic properties.</p>
+<p><strong>Semantic clusters</strong> — words with similar meanings cluster together:</p>
+<ul>
+<li>Animals: “dog”, “cat”, “horse” are close to each other</li>
+<li>Colors: “red”, “blue”, “green” form another cluster<br>
+</li>
+<li>Countries: “France”, “Germany”, “Italy” cluster together</li>
+</ul>
+<p><strong>Hierarchical structure</strong> — the space can capture hierarchies:</p>
+<ul>
+<li>“Animal” might be close to “Dog”, “Cat”, etc.</li>
+<li>“Mammal” might be between “Animal” and “Dog”</li>
+</ul>
+<p><strong>Cultural and linguistic biases</strong> — embeddings can capture societal biases present in training data:</p>
+<ul>
+<li>Occupational gender stereotypes</li>
+<li>Racial or cultural associations</li>
+<li>This is both a feature (capturing human-like associations) and a bug (perpetuating unfair biases)</li>
+</ul>
+<p><strong>Training process</strong> — These embeddings aren’t hand-crafted but learned from data. The model discovers these geometric relationships by seeing how words are used together in context <span class="citation" data-cites="sanderson2024gpt">(<a href="#ref-sanderson2024gpt" role="doc-biblioref">Sanderson 2024a</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="attention" class="level2 page-columns page-full">
+<h2 data-anchor-id="attention">Attention</h2>
+<div class="medium">
+<p>Rather than having fixed embeddings for each word, attention allows the embedding to be <strong>dynamically updated</strong> based on what other words are present in the context. This creates <strong>context-sensitive representations</strong> that can capture these nuanced meanings.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><span class="citation" data-cites="sanderson2024attention">(<a href="#ref-sanderson2024attention" role="doc-biblioref">Sanderson 2024b</a>)</span></p>
+</div></div><section id="single-head-attention" class="level3">
+<h3 data-anchor-id="single-head-attention">Single-head attention</h3>
+<div class="medium">
+<p><strong>Goal</strong>: Update the embedding of some word on the context of that word.</p>
+</div>
+<p><strong>Three key matrices</strong> (learned during training)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</p>
+<ul>
+<li><strong>Query matrix</strong> <span class="math inline">\(W_Q\)</span> indicates what types of context each word typically needs</li>
+<li><strong>Key matrix</strong> <span class="math inline">\(W_K\)</span> indicates what types of context each word can provide</li>
+<li><strong>Value matrix</strong> <span class="math inline">\(W_V\)</span> indicates what information to actually pass</li>
+</ul>
+<p><strong>Process</strong>:</p>
+<ol type="1">
+<li>Compute <strong>attention scores</strong> between words</li>
+<li>Create <strong>weighted combinations</strong> of information</li>
+<li><strong>Update</strong> embeddings based on relevant context</li>
+</ol>
+</section>
+<section id="example" class="level3">
+<h3 data-anchor-id="example">Example</h3>
+<div class="notes">
+<p>Let’s trace how attention helps resolve the ambiguity of “bank” (financial institution vs.&nbsp;riverbank).</p>
+</div>
+<p>The target word is “bank” (needs contextual disambiguation), the context word is “flooded”</p>
+<p><span class="h4"><strong>The attention process</strong></span></p>
+<div class="incremental">
+<ul class="incremental">
+<li>Step 1: <strong>attention score:</strong><br>
+“bank’s” query vector × “flooded’s” key vector = high similarity score<br>
+(the model has learned that water-related words are highly relevant for disambiguating “bank”)</li>
+<li>Step 2: <strong>weighted information:</strong><br>
+high attention score × “flooded’s” value vector = strong water/geography signal</li>
+<li>Step 3: <strong>contextualized embedding:</strong><br>
+original “bank” embedding + weighted “flooded” information = “riverbank” meaning</li>
+</ul>
+</div>
+<p>The ambiguity is resolved: we’re talking about a riverbank, not a financial institution</p>
+</section>
+<section id="multi-head-attention" class="level3">
+<h3 data-anchor-id="multi-head-attention">Multi-head attention</h3>
+<p>In reality different types of relationships matter simultaneously, such as</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Head 1</strong> might focus on <strong>grammatical relationships</strong> (subject-verb agreement)</li>
+<li><strong>Head 2</strong> might focus on <strong>semantic relationships</strong> (synonyms, antonyms)</li>
+<li><strong>Head 3</strong> might focus on <strong>coreference</strong> (pronouns to their referents)</li>
+<li><strong>Head 4</strong> might focus on <strong>long-range dependencies</strong> (cause and effect)</li>
+</ul>
+</div>
+<p>Each head learns to specialize in different types of patterns and relationships.</p>
+<div class="small fragment">
+<p><strong>GPT-3 example</strong>: 96 attention heads per layer × 96 layers = <strong>9,216 total attention heads</strong></p>
+</div>
+</section>
+</section>
+<section id="feed-forward-networks-ffn" class="level2">
+<h2 data-anchor-id="feed-forward-networks-ffn">Feed-forward networks (FFN)</h2>
+<div class="medium">
+<p>After attention, each token passes through a FFN.</p>
+</div>
+<p>FFNs are the “thinking” components that sit between attention layers in transformers. While attention figures out what information to gather, FFNs decide what to do with that information.</p>
+<p>Example:</p>
+<ol type="1">
+<li><strong>Attention:</strong> <em>Given ‘bank’ and ‘flooded,’ I should focus on the flooding information</em></li>
+<li><strong>FFN:</strong> <em>Now that I know this is a flooded riverbank, I should activate concepts related to environmental damage and strengthen connections to geographic features</em></li>
+</ol>
+<div class="notes">
+<p>Following residual connections and layer normalization make deep transformers stable and trainable.</p>
+<p>A residual connection means you add the input back to the output of a layer:</p>
+<p><code>output = Layer(input) + input</code></p>
+<p>Or more specific:</p>
+<ul>
+<li>After attention layer: <code>contextualized_embedding = attention(original_embedding) + original_embedding</code></li>
+<li>After FFN layer: <code>final_output = ffn(contextualized_embedding) + contextualized_embedding</code></li>
+</ul>
+<p>Without residual connections: Information can get “lost” or distorted as it passes through many layers With residual connections: The original information is always preserved and combined with the processed version.</p>
+<p>Layer normalization standardizes the values within each embedding vector to have mean close to 0 and standard deviation close to 1.</p>
+</div>
+</section>
+<section id="unembedding" class="level2">
+<h2 data-anchor-id="unembedding">Unembedding</h2>
+<div class="medium">
+<p>From vectors back to text.</p>
+</div>
+<p>The unembedding process is how transformers convert their internal vector representations back into text predictions. It’s the crucial final step that makes language generation possible.</p>
+<div class="columns">
+<div class="column">
+<p><span class="h4"><strong>Process</strong></span></p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Unembedding matrix</strong> <span class="math inline">\(W_U\)</span> maps from embedding dimension<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> to vocabulary size<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>
+<ul class="incremental">
+<li>One row per token in the vocabulary</li>
+<li>Produces raw scores possible next tokens</li>
+</ul></li>
+<li><strong>Softmax function</strong> converts raw scores to probability distribution</li>
+<li><strong>Temperature</strong>: Controls randomness in sampling<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
+</ul>
+</div>
+</div><div class="column">
+<div class="fragment">
+<p><span class="h4"><strong>Example</strong></span></p>
+<ol type="1">
+<li><strong>Context processing:</strong> “The capital of France is” → final vector</li>
+<li><strong>Unembedding:</strong> Vector × W_U → raw scores for all 50,257 tokens</li>
+<li><strong>Temperature scaling:</strong> Divide scores by temperature</li>
+<li><strong>Softmax:</strong> Convert to probability distribution</li>
+<li><strong>Sampling:</strong> Choose next token based on probabilities</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="transformer-architecture-overview" class="level2">
+<h2 data-anchor-id="transformer-architecture-overview">Transformer architecture overview</h2>
+<div class="medium">
+<p><strong>Key principle</strong>: Information flows through many layers of attention and processing (i.e., built through deep learning), allowing complex reasoning to emerge.</p>
+</div>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Tokenization + embedding</strong>: Text → Vectors<br>
+</li>
+<li><strong>Attention blocks</strong>: Vectors communicate and update based on context</li>
+<li><strong>Feed-Forward layers</strong>: Independent processing of each vector</li>
+<li><strong>Many layers</strong>: Alternate attention and feed-forward (e.g., 96 layers in GPT-3)</li>
+<li><strong>Unembedding</strong>: Final vector → Probability distribution over next tokens</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="training" class="level1 headline-only">
+<h1 class="headline-only">Training</h1>
+<section id="training-process" class="level2">
+<h2 data-anchor-id="training-process">Training process</h2>
+<div class="medium">
+<p>No explicit labels needed — the text itself provides the training signal.</p>
+</div>
+<p>Next-token prediction seems simple but is remarkably powerful <span class="citation" data-cites="radford2019language">(<a href="#ref-radford2019language" role="doc-biblioref">Radford et al. 2019</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Implicit learnings</strong> comprise grammar, facts, reasoning, coding and patterns</li>
+<li>More training data exposes the model to more patterns and knowledge (<strong>scale effects</strong>)</li>
+<li>More training time allows better optimization of the massive parameter space</li>
+<li>Training requires immense training infrastructure (GPT-3 training cost ~$4.6 million in compute)</li>
+</ul>
+</div>
+</section>
+<section id="emergent-capabilities" class="level2">
+<h2 data-anchor-id="emergent-capabilities">Emergent capabilities</h2>
+<p>As models scale up, they develop capabilities that weren’t explicitly programmed:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Few-shot learning</strong>: Learn new tasks from just a few examples</li>
+<li><strong>Chain-of-thought reasoning</strong>: Break complex problems into steps</li>
+<li><strong>Code generation</strong>: Write and debug programs</li>
+<li><strong>Mathematical reasoning</strong>: Solve word problems and equations</li>
+<li><strong>Creative writing</strong>: Generate stories, poems, and scripts</li>
+<li><strong>Instruction following</strong>: Understand and execute complex commands</li>
+</ul>
+</div>
+<p>Complex intelligence seem to emerge from the simple objective of predicting the next word.</p>
+</section>
+<section id="limitations-and-challenges" class="level2">
+<h2 data-anchor-id="limitations-and-challenges">Limitations and Challenges</h2>
+<div class="medium">
+<p>Despite their impressive capabilities, current language models have significant limitations:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Hallucination</strong>: Generate plausible-sounding but false information</li>
+<li><strong>Lack of true understanding</strong>: May memorize patterns without genuine comprehension</li>
+<li><strong>Inconsistency</strong>: May give different answers to the same question</li>
+<li><strong>Training data bias</strong>: Reflect biases present in internet text</li>
+<li><strong>No learning from interaction</strong>: Can’t update their knowledge from conversations</li>
+<li><strong>Computational requirements</strong>: Expensive to train and run</li>
+</ul>
+</div>
+</section>
+<section id="further-reads" class="level2">
+<h2 data-anchor-id="further-reads">Further reads</h2>
+<p>Please check the resources provided by 3Blue1Brown on <a href="https://www.3blue1brown.com/topics/neural-networks">the basics of neural networks, and the math behind how they learn</a>.</p>
+</section>
+</section>
+<section id="exercises" class="level1 headline-only">
+<h1 class="headline-only">Exercises</h1>
+<section id="neural-network-architecture" class="level2">
+<h2 data-anchor-id="neural-network-architecture">Neural network architecture</h2>
+<p>Design a neural network for classifying emails as spam or not spam. Specify:</p>
+<ol type="1">
+<li><strong>Input representation</strong>: How would you convert an email into numbers?</li>
+<li><strong>Output</strong>: How would you interpret the network’s output?</li>
+<li><strong>Training data</strong>: What kind of examples would you need?</li>
+</ol>
+<p>Discuss the advantages and challenges of this approach compared to rule-based spam filtering.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Input representation options</strong></p>
+<ul>
+<li><strong>Bag of words</strong>: Count frequency of each word in vocabulary (e.g., 10,000 input neurons)</li>
+<li><strong>TF-IDF</strong>: Weight word frequencies by inverse document frequency</li>
+<li><strong>Word embeddings</strong>: Use pre-trained embeddings and average/pool them</li>
+<li><strong>Character-level</strong>: Represent emails as sequences of characters</li>
+</ul>
+<p><strong>Output interpretation</strong></p>
+<ul>
+<li>Single output neuron with sigmoid activation</li>
+<li>Value close to 1 = spam, close to 0 = not spam</li>
+<li>Use threshold (e.g., 0.5) for binary classification</li>
+</ul>
+<p><strong>Training data requirements</strong></p>
+<ul>
+<li>Thousands of labeled emails (spam/not spam)</li>
+<li>Balanced dataset or careful handling of class imbalance</li>
+<li>Diverse examples covering different types of spam</li>
+<li>Regular updates as spam techniques evolve</li>
+</ul>
+<p><strong>Advantages over rules</strong></p>
+<ul>
+<li>Automatically learns patterns from data</li>
+<li>Adapts to new spam techniques</li>
+<li>Can detect subtle combinations of features</li>
+<li>Less manual maintenance required</li>
+</ul>
+<p><strong>Challenges</strong></p>
+<ul>
+<li>Requires large labeled datasets</li>
+<li>Can be fooled by adversarial examples</li>
+<li>Black box - hard to understand why decisions are made</li>
+<li>May learn biases from training data</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="attention-mechanism" class="level2">
+<h2 data-anchor-id="attention-mechanism">Attention mechanism</h2>
+<p>Consider the sentence: “The red car that John bought yesterday broke down on the highway.”</p>
+<ol type="1">
+<li><strong>Identify relationships</strong>: What words should attend to each other strongly?</li>
+<li><strong>Multiple heads</strong>: Design 3 different attention heads that focus on different types of relationships.</li>
+<li><strong>Context update</strong>: How should the embedding of “car” change after processing this sentence?</li>
+</ol>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Strong attention relationships</strong></p>
+<ul>
+<li>“red” → “car” (adjective modifies noun)</li>
+<li>“car” → “broke” (subject-verb relationship)</li>
+<li>“that” → “car” (relative pronoun reference)</li>
+<li>“John” → “bought” (subject-verb)</li>
+<li>“bought” → “car” (verb-object)</li>
+<li>“yesterday” → “bought” (temporal modifier)</li>
+<li>“broke” → “highway” (location context)</li>
+</ul>
+<p><strong>Three attention head types</strong></p>
+<ul>
+<li>Grammatical relationships
+<ul>
+<li>Focus on syntactic dependencies</li>
+<li>“car” attends to “broke” (subject-verb)</li>
+<li>“John” attends to “bought” (subject-verb)</li>
+<li>Helps with grammatical consistency</li>
+</ul></li>
+<li>Modification relationships
+<ul>
+<li>Focus on descriptive relationships</li>
+<li>“red” attends to “car”</li>
+<li>“yesterday” attends to “bought”</li>
+<li>Captures qualitative and temporal information Coreference and long-range</li>
+<li>Focus on pronoun resolution and distant relationships</li>
+<li>“that” attends to “car”</li>
+<li>“broke” attends back to “car” (long-range subject)</li>
+<li>Handles complex sentence structure</li>
+</ul></li>
+</ul>
+<p><strong>Car embedding updates</strong></p>
+<ul>
+<li><strong>Initial</strong>: Generic car concept</li>
+<li><strong>After “red”</strong>: Specific colored vehicle</li>
+<li><strong>After “John bought”</strong>: Particular car owned by John</li>
+<li><strong>After “yesterday”</strong>: Recently purchased car</li>
+<li><strong>After “broke”</strong>: Problematic/unreliable vehicle</li>
+<li><strong>Final representation</strong>: John’s recently-purchased red car with reliability issues</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="transformer-training" class="level2">
+<h2 data-anchor-id="transformer-training">Transformer training</h2>
+<p>You’re training a small transformer to complete simple mathematical expressions like “2 + 3 = ?”</p>
+<ol type="1">
+<li><strong>Tokenization</strong>: How would you represent mathematical expressions as tokens?</li>
+<li><strong>Training objective</strong>: What would be your training data and loss function?</li>
+<li><strong>Challenges</strong>: What difficulties might arise, and how would you address them?</li>
+<li><strong>Evaluation</strong>: How would you test if the model truly “understands” arithmetic?</li>
+</ol>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Tokenization strategies</strong></p>
+<ul>
+<li><strong>Character-level</strong>: [‘2’, ‘+’, ‘3’, ‘=’, ‘?’] - simple but may struggle with multi-digit numbers</li>
+<li><strong>Number tokens</strong>: [‘2’, ‘+’, ‘3’, ‘=’, ‘?’] - treat each number as atomic token</li>
+<li><strong>BPE encoding</strong>: Learn subword patterns for larger numbers</li>
+<li><strong>Special tokens</strong>: [NUM_2, OP_PLUS, NUM_3, OP_EQUALS, MASK]</li>
+</ul>
+<p><strong>Training data and objective</strong></p>
+<ul>
+<li><strong>Data generation</strong>: Automatically generate arithmetic problems
+<ul>
+<li>Simple: “1 + 1 = 2”, “5 - 3 = 2”</li>
+<li>Complex: “12 × 7 = 84”, “100 ÷ 4 = 25”</li>
+</ul></li>
+<li><strong>Objective</strong>: Next token prediction
+<ul>
+<li>Input: “2 + 3 =”</li>
+<li>Target: “5”</li>
+</ul></li>
+<li><strong>Loss function</strong>: Cross-entropy loss on predicted vs.&nbsp;true next token</li>
+</ul>
+<p><strong>Challenges and solutions</strong></p>
+<ul>
+<li><strong>Out-of-distribution numbers</strong>: Train on wide range, test generalization</li>
+<li><strong>Order of operations</strong>: Include parentheses: “(2 + 3) × 4 = 20”</li>
+<li><strong>Digit-by-digit vs.&nbsp;holistic</strong>:
+<ul>
+<li>Problem: Might predict “1” then “2” for “12” without understanding the full number</li>
+<li>Solution: Use single tokens for numbers or special training techniques</li>
+</ul></li>
+<li><strong>Systematic vs.&nbsp;memorization</strong>: Risk of memorizing rather than learning arithmetic</li>
+</ul>
+<p><strong>Evaluation strategies</strong></p>
+<ul>
+<li><strong>Held-out test set</strong>: Numbers and operations not seen in training</li>
+<li><strong>Systematic generalization</strong>: Can model handle larger numbers than in training?</li>
+<li><strong>Error analysis</strong>: Do mistakes follow patterns that suggest understanding vs.&nbsp;memorization?</li>
+<li><strong>Compositional tests</strong>: Can model handle combinations like “2 + 3 × 4”?</li>
+<li><strong>Ablation studies</strong>: How does performance vary with model size, training data size?</li>
+</ul>
+<p><strong>Evidence of understanding</strong></p>
+<ul>
+<li><strong>Generalization</strong>: Correct answers on unseen number combinations</li>
+<li><strong>Consistency</strong>: Same answer for equivalent expressions (“2+3” vs “3+2”)</li>
+<li><strong>Error patterns</strong>: Mistakes that make mathematical sense (off by one) vs.&nbsp;random errors</li>
+<li><strong>Intermediate reasoning</strong>: Model generating step-by-step solutions</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ethics-and-ai-safety" class="level2">
+<h2 data-anchor-id="ethics-and-ai-safety">Ethics and AI safety</h2>
+<p>A company wants to deploy a large language model for automated customer service. Consider the following scenario:</p>
+<p><strong>Situation</strong>: The AI occasionally provides incorrect information about product returns, leading to customer frustration and potential financial losses.</p>
+<ol type="1">
+<li><strong>Identify risks</strong>: What are the potential harms from this deployment?</li>
+<li><strong>Mitigation strategies</strong>: How could the company reduce these risks?</li>
+<li><strong>Monitoring</strong>: What metrics should they track to ensure safe operation?</li>
+<li><strong>Human oversight</strong>: When should humans intervene in the AI’s responses?</li>
+</ol>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Potential risks and harms</strong>:</p>
+<ul>
+<li><strong>Customer harm</strong>: Incorrect return information could cost customers money</li>
+<li><strong>Brand damage</strong>: Poor AI interactions damage company reputation</li>
+<li><strong>Legal liability</strong>: Company might be liable for AI’s incorrect advice</li>
+<li><strong>Bias amplification</strong>: AI might treat different customer groups unfairly</li>
+<li><strong>Escalation</strong>: Frustrated customers might become abusive toward human agents</li>
+<li><strong>Over-reliance</strong>: Customers might trust AI advice over written policies</li>
+</ul>
+<p><strong>Mitigation strategies</strong>:</p>
+<ul>
+<li><strong>Knowledge grounding</strong>: Connect AI to authoritative policy databases</li>
+<li><strong>Confidence thresholds</strong>: Route uncertain queries to human agents</li>
+<li><strong>Response templates</strong>: Limit AI to pre-approved response patterns for critical information</li>
+<li><strong>Fact verification</strong>: Cross-check AI responses against official policies</li>
+<li><strong>User education</strong>: Clearly indicate when users are interacting with AI</li>
+<li><strong>Fallback mechanisms</strong>: Easy escalation path to human support</li>
+</ul>
+<p><strong>Monitoring metrics</strong>:</p>
+<ul>
+<li><strong>Accuracy rates</strong>: Percentage of correct responses on return policy queries</li>
+<li><strong>Customer satisfaction</strong>: Post-interaction surveys and ratings</li>
+<li><strong>Escalation rates</strong>: How often customers request human assistance</li>
+<li><strong>Error types</strong>: Categorize and track different kinds of mistakes</li>
+<li><strong>Bias metrics</strong>: Performance across different customer demographics</li>
+<li><strong>Business impact</strong>: Track correlation between AI interactions and returns/complaints</li>
+</ul>
+<p><strong>Human oversight triggers</strong>:</p>
+<ul>
+<li><strong>High-stakes queries</strong>: Expensive items, complex return situations</li>
+<li><strong>Uncertainty indicators</strong>: When AI confidence scores are low</li>
+<li><strong>Customer frustration</strong>: Detecting anger or confusion in customer messages</li>
+<li><strong>Policy exceptions</strong>: Cases requiring</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cybenko1989approximation" class="csl-entry" role="listitem">
+Cybenko, George. 1989. <span>“Approximation by Superpositions of a Sigmoidal Function.”</span> <em>Mathematics of Control, Signals, and Systems</em> 2 (4): 303–14.
+</div>
+<div id="ref-hornik1989multilayer" class="csl-entry" role="listitem">
+Hornik, Kurt, Maxwell Stinchcombe, and Halbert White. 1989. <span>“Multilayer Feedforward Networks Are Universal Approximators.”</span> <em>Neural Networks</em> 2 (5): 359–66.
+</div>
+<div id="ref-radford2019language" class="csl-entry" role="listitem">
+Radford, Alec, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. <span>“Language Models Are Unsupervised Multitask Learners.”</span> <em>OpenAI Blog</em> 1 (8): 9.
+</div>
+<div id="ref-rumelhart1986learning" class="csl-entry" role="listitem">
+Rumelhart, David E, Geoffrey E Hinton, and Ronald J Williams. 1986. <span>“Learning Representations by Back-Propagating Errors.”</span> <em>Nature</em> 323 (6088): 533–36.
+</div>
+<div id="ref-sanderson2017gradient" class="csl-entry" role="listitem">
+Sanderson, Grant. 2017a. <span>“Gradient Descent, How Neural Networks Learn.”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/gradient-descent">https://www.3blue1brown.com/lessons/gradient-descent</a>.
+</div>
+<div id="ref-sanderson2017backprop" class="csl-entry" role="listitem">
+———. 2017b. <span>“What Is Backpropagation Really Doing?”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/backpropagation">https://www.3blue1brown.com/lessons/backpropagation</a>.
+</div>
+<div id="ref-sanderson2024gpt" class="csl-entry" role="listitem">
+———. 2024a. <span>“But What Is a GPT? Visual Intro to Transformers.”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/gpt">https://www.3blue1brown.com/lessons/gpt</a>.
+</div>
+<div id="ref-sanderson2024attention" class="csl-entry" role="listitem">
+———. 2024b. <span>“Visualizing Attention, a Transformer’s Heart.”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/attention">https://www.3blue1brown.com/lessons/attention</a>.
+</div>
+<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The MNIST (Modified National Institute of Standards and Technology) dataset is a popular dataset used for training and testing image classification systems, especially in the world of machine learning. It contains 60,000 training images and 10,000 test images of handwritten digits.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For a visual explanation see <a href="https://www.3blue1brown.com/lessons/chain-rule-and-product-rule">3blue1brown — Visualizing the chain rule and product rule</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>An epoch is one complete pass through the entire training dataset. During one epoch, the model sees every training example exactly once. Training might stop after a certain number of epochs or when performance plateaus.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>During training by means of backpropagation, the attention matrices <span class="math inline">\(W_Q\)</span>, <span class="math inline">\(W_K\)</span>, and <span class="math inline">\(W_V\)</span> learn patterns. Thus, these are essentially weights in the neural network — they’re learned parameters just like weights in any other layer.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>An embedding dimension of 12,288 means each word/token is represented as a vector with 12,288 numbers. Each position captures some aspect of meaning - though not interpretable to humans.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>A vocabulary size of 50,257 tokens means the model knows 50,257 different tokens (words, word pieces, punctuation, etc.).<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>High temperature → more random/creative; low temperature → more focused/deterministic<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2025, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

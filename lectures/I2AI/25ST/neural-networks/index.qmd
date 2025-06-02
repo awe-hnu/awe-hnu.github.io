@@ -1,0 +1,1226 @@
+---
+title: "Neural Networks"
+subtitle: "Introduction to AI (I2AI)"
+lang: en
+categories: ["Lecture Notes"]
+
+bibliography: ../assets/literature.bib
+
+date: "06.01.2025"
+
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#0333ff'
+
+format:
+  html:
+    output-file: index.html
+    margin-header: | 
+      [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false       
+  presentation-revealjs:
+    output-file: slides.html
+    include-before-body: ../assets/footer.html   
+---
+
+# Introduction {.headline-only}
+
+## Discussion {.html-hidden .discussion-slide .unlisted}
+
+::: larger
+What makes handwritten digit recognition **trivial for humans** but **extremely difficult for traditional programming**?
+:::
+
+## Limits of traditional programming
+
+:::large
+Traditional programming approaches fail at tasks that humans find effortless.
+:::
+
+. . .
+
+For instance:
+
+:::incremental
+- **Recognizing handwritten digits**: Each "3" looks different, yet we instantly recognize the pattern
+- **Understanding context**: "The bank" could refer to a financial institution or a river's edge
+- **Learning from examples**: We don't need explicit rules to recognize new instances
+:::
+
+:::notes
+:::callout-note
+#### The intelligence paradox
+
+Traditional programming relies on explicit rules and algorithms. For image recognition, you'd need to write code that handles every possible variation of how a digit could be drawn - different angles, sizes, writing styles, and lighting conditions. This quickly becomes intractable.
+
+Human brains, however, excel at pattern recognition through learning from examples. We see many instances of the digit "3" and somehow extract the underlying pattern without being given explicit rules about what makes a "3" a "3".
+
+This paradox - tasks that are trivial for biological intelligence but nearly impossible for traditional programming - led to the development of neural networks and machine learning approaches that attempt to mimic how biological systems learn from data.
+:::
+:::
+
+## Recap: machine learning
+
+:::columns
+:::column
+:::fragment
+**Traditional programming:**
+
+$Input + Program \rightarrow Output$
+:::
+:::
+
+:::column
+:::fragment
+
+**Machine learning:**
+
+$Input + Output \rightarrow Program$
+
+:::
+:::
+:::
+
+. . .
+
+[**Differences**]{.h4}
+
+:::incremental
+- Instead of writing explicit rules, we provide **examples** (training data)
+- The machine **learns patterns** from these examples
+- The resulting model can then make **predictions** on new, unseen data
+:::
+
+:::notes
+Traditional programming requires us to understand and explicitly code the relationship between inputs and outputs. For complex tasks like image recognition, this becomes impossible because we can't enumerate all the rules.
+
+Machine learning flips this paradigm: we provide many examples of inputs paired with their correct outputs, and let the algorithm discover the underlying patterns. This is particularly powerful for tasks where the rules are too complex to code explicitly or where we don't fully understand the underlying mechanisms ourselves.
+
+The key insight is that many intelligent behaviors can emerge from relatively simple learning rules applied to large amounts of data, rather than requiring explicit programming of complex behaviors. This observation connects to the foundational work on neural networks by @rumelhart1986learning and the theoretical foundations of universal approximation [@cybenko1989approximation; @hornik1989multilayer].
+:::
+
+# Neural networks {.headline-only}
+
+## Introduction
+
+Neural networks solve problems that traditional programming cannot handle:
+
+:::incremental
+- **Pattern recognition** in noisy, variable data
+- **Decision making** with incomplete information  
+- **Automation** of complex cognitive tasks
+- **Scaling** human-like judgment to massive datasets
+:::
+
+:::notes
+The beauty of neural networks lies in their universality - the same basic architecture that recognizes handwritten digits can be adapted to recognize faces, translate languages, or play games. This is because they learn to detect increasingly complex patterns through multiple layers of simple operations.
+
+Understanding neural networks isn't about memorizing mathematical formulas — it's about recognizing when and how this technology can create business value. Neural networks excel in situations where:
+
+1. **Rules are hard to specify**: Try writing explicit rules for recognizing the digit "3" across thousands of different handwriting styles. Traditional programming would require an impossibly complex set of if-then statements.
+
+2. **Human expertise is expensive to scale**: A human can easily recognize digits, but hiring humans to process millions of documents isn't feasible. Neural networks can replicate human-like pattern recognition at machine speed and scale.
+
+3. **Data is abundant but messy**: Real-world data rarely fits neat categories. Neural networks can find patterns in noisy, incomplete, or variable data that would break traditional algorithms.
+
+4. **Adaptability is crucial**: Business environments change constantly. Neural networks can be retrained on new data, allowing systems to adapt to changing conditions without complete reprogramming.
+
+:::
+
+## Discussion {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
+
+:::large
+If you had to **design a learning system** inspired by the brain, what key components would you include?
+:::
+
+## What is a neuron?
+
+:::medium
+A neuron\
+**receives inputs** → **weights them** → **sums up** → **activates**
+:::
+
+:::incremental
+- This number is called the **activation** of the neuron
+- High activation (close to 1.0) = neuron is "firing" or "lit up"
+- Low activation (close to 0.0) = neuron is inactive
+- Think of it as **how excited** the neuron is about a particular feature
+:::
+
+:::notes
+
+:::notes
+
+The neuron is the fundamental computational unit that makes neural networks possible. While inspired by biological neurons, artificial neurons are much simpler mathematical functions. Understanding this building block is crucial because the entire network's behavior emerges from millions of these simple operations.
+
+1. **Receiving inputs**: Each neuron receives numerical values from the previous layer. In the first layer, these might be pixel intensities (0 for black, 1 for white). In deeper layers, these are the outputs of neurons from the previous layer.
+
+2. **Weighting inputs**: Each connection has a "weight" - a number that determines how much influence that input has. Positive weights amplify the signal, negative weights suppress it, and weights near zero essentially ignore that input. These weights are the "knowledge" the network learns.
+
+3. **Summing**: The neuron calculates a weighted sum: (input₁ × weight₁) + (input₂ × weight₂) + ... + bias. The bias is like a threshold - it shifts the activation point of the neuron.
+
+4. **Activation function**: The sum gets passed through a function (like sigmoid or ReLU) that determines the neuron's output. This introduces non-linearity, allowing the network to learn complex patterns rather than just linear relationships.
+
+[**Why this design works:**]{.h4}
+
+- **Simplicity**: Each neuron does something very simple, making the system robust and parallelizable
+- **Composability**: Simple operations combine to create complex behaviors
+- **Differentiability**: The mathematical smoothness allows for efficient learning algorithms
+- **Biological inspiration**: While simplified, this captures key aspects of how biological neurons process information
+
+The magic happens when thousands of these simple units work together in layers, each learning to detect different aspects of the input pattern.
+:::
+
+
+:::callout-note
+#### Biological inspiration
+
+Real neurons in the brain can be in various states of activation - they can fire action potentials at different rates, or remain quiet. The artificial neuron is a dramatic simplification, reducing this complex behavior to a single number between 0 and 1.
+
+This simplification is intentional: by abstracting away the biological complexity, we can focus on the computational principles. The key insight is that neurons can represent information through their level of activation, and that these activations can be combined and transformed through networks to process complex information.
+
+While the biological brain is vastly more complex, this simplified model has proven remarkably effective for a wide range of tasks, suggesting that some aspects of intelligence can emerge from relatively simple computational units arranged in the right structure.
+:::
+:::
+
+## Network architecture
+
+:::html-hidden
+:::r-stack
+
+![Basic neural network structure](images/neural-network-architecture-1.svg){#fig-nna-1}
+
+![&#8202;](images/neural-network-architecture-2.svg){.fragment}
+
+![&#8202;](images/neural-network-architecture.svg){.fragment}
+
+
+
+:::
+:::
+
+:::notes
+
+![Basic neural network structure](images/neural-network-architecture.svg){#fig-nna-1}
+
+The hierarchical organization of neural networks mirrors how human visual processing works, and this parallel isn't coincidental — it's one of the key insights that makes deep learning so powerful. 
+
+:::
+
+## Connections between neurons
+
+:::columns
+:::column
+
+Each connection between neurons has a **weight** (positive or negative) — a number that gets adusted during learning.
+
+:::incremental
+- **Positive weight**: If the first neuron fires, it encourages the second neuron to fire
+- **Negative weight**: If the first neuron fires, it discourages the second neuron from firing
+- **Bias**: A constant added to shift when the neuron should activate
+:::
+
+:::
+
+:::column
+
+![Weights in a neural network](images/weights.svg){#fig-nnweights}
+
+:::
+:::
+
+
+:::notes
+
+
+[**Weight mechanics**]{.h4}
+
+**Positive vs. negative weights:**
+
+- **Positive weights** act like "encouragers" - when the input neuron is active (high value), it pushes the receiving neuron toward activation
+- **Negative weights** act like "inhibitors" - when the input neuron is active, it pushes the receiving neuron toward inactivity
+- **Zero weights** mean the connection is effectively ignored
+
+**Weight magnitude:**
+
+- **Large positive weights** create strong encouraging connections
+- **Large negative weights** create strong inhibitory connections  
+- **Small weights** (near zero) have minimal influence
+- The network learns which connections should be strong and which should be weak
+
+:::callout-note
+#### The mathematical foundation
+
+This weighted sum with bias is the fundamental computation in neural networks. The weights determine how much influence each input has on the output, while the bias determines the baseline level of activation.
+
+The sigmoid function $\sigma(x) = \frac{1}{1 + e^{-x}}$ serves as a "squashing" function that ensures the output stays between 0 and 1, regardless of how large or small the weighted sum becomes. This is crucial for maintaining the "activation" interpretation of neuron outputs. Other *activation functions* commonly used are tanh, relu, and leaky relu.
+
+The *bias* is particularly important because it allows the neuron to fire even when all inputs are zero, or to require a higher threshold before firing. Without bias, neurons could only learn patterns that pass through the origin, severely limiting the network's expressiveness.
+
+Understanding this computation is key to grasping how neural networks work: each neuron computes a weighted combination of its inputs, adds a bias, and applies a nonlinear function to produce its output. This forms the basis of the **backpropagation algorithm** developed by @rumelhart1986learning.
+
+This perspective - viewing neural networks as complex mathematical functions - is crucial for understanding their power and limitations. The **Universal Approximation Theorem** [@cybenko1989approximation; @hornik1989multilayer] tells us that neural networks with sufficient hidden units can approximate any continuous function to arbitrary accuracy.
+
+The weights and biases represent the "knobs and dials" that can be adjusted to make the network compute any function we want (within the constraints of the architecture). Training is the process of finding the right setting for these parameters.
+
+The power of neural networks comes from this massive number of adjustable parameters, which allows them to learn complex patterns in data. However, this also presents challenges: how do we find the right values for all these parameters? This is where the learning algorithms come in.
+
+:::
+:::
+
+## Example: digit recognition
+
+:::columns
+:::column
+
+Example architecture for detecting digits of the MNIST dataset[^MNIST]:
+
+*28×28 pixels* → *Neural Network* → *10 probabilities*
+
+:::incremental
+- **Input layer:** 784 neurons (28×28 pixels)\
+  Each neuron represents one pixel's brightness (0.0 = black, 1.0 = white)
+- **Hidden layers:** 2 layers, 16 neurons each\
+  These learn to detect patterns and features
+- **Output layer:** 10 neurons
+  Each represents confidence for digits 0-9
+:::
+
+[Let's play a bit ...](https://www.3blue1brown.com/lessons/neural-network-analysis){.fragment .small .html-hidden}
+
+:::
+
+:::column
+
+![Network architecture for digit recognition](images/MNIST-4.png){#fig-MNIST-4}
+
+:::
+
+:::
+
+[^MNIST]: The MNIST (Modified National Institute of Standards and Technology) dataset is a popular dataset used for training and testing image classification systems, especially in the world of machine learning. It contains 60,000 training images and 10,000 test images of handwritten digits. 
+
+:::notes
+
+The architecture of our digit recognition network represents a carefully designed pipeline for transforming raw pixel data into digit classifications. Let's understand why this specific structure makes sense:
+
+**Input layer (784 neurons):**
+
+- Each neuron represents one pixel in the 28×28 image
+- Values range from 0 (black) to 1 (white), representing grayscale intensity
+- This layer doesn't perform computation - it just holds the input data
+- 784 inputs might seem like a lot, but images require this level of detail to preserve important patterns
+
+**Hidden layer 1 (16 neurons):**
+
+- This is where the real pattern detection begins
+- Each of these 16 neurons receives input from all 784 pixels
+- With 784 inputs × 16 neurons = 12,544 weights (plus 16 biases)
+- These neurons learn to detect fundamental features like edges, curves, and basic shapes
+- 16 neurons is relatively small - real networks often use hundreds or thousands
+
+**Hidden layer 2 (16 neurons):**
+
+- Each neuron connects to all 16 neurons from the previous layer
+- 16 inputs × 16 neurons = 256 weights (plus 16 biases)
+- These neurons combine the basic features into more complex patterns
+- They might detect things like "loop at top" or "vertical line on left"
+
+**Output layer (10 neurons):**
+
+- One neuron for each possible digit (0, 1, 2, ..., 9)
+- 16 inputs × 10 neurons = 160 weights (plus 10 biases)
+- Each neuron's activation represents the network's confidence that the input image shows that particular digit
+- The highest activation typically indicates the network's "guess"
+
+**Total Parameters:**
+
+- Weights: 12,544 + 256 + 160 = 12,960
+- Biases: 16 + 16 + 10 = 42
+- **Total: 13,002 adjustable parameters**
+
+This seems like a lot, but it's actually quite modest by modern standards. Large language models can have billions of parameters. The key insight is that all these parameters work together to create a flexible function that can map any 28×28 image to a probability distribution over the 10 digit classes.
+
+:::
+
+
+# Learning {.headline-only}
+
+## The learning problem
+
+:::medium
+**Goal**: Find the values of all *k* parameters that make the network classify digits correctly.
+:::
+
+**Challenge**: This is a *k*-dimensional optimization problem!\
+[(In our digit example it is 13,002-dimensional)]{.smaller}
+
+. . .
+
+We need a systematic way to:
+
+:::incremental
+- Measure how "wrong" the network currently is
+- Determine which parameters to adjust
+- Make small improvements iteratively
+:::
+
+:::notes
+Optimizing in 13,002 dimensions is conceptually challenging for humans to visualize, but mathematically tractable. Each dimension represents one parameter (weight or bias) in the network.
+
+The challenge is immense: with 13,002 parameters, there are potentially infinite ways to set these values. Most combinations will perform poorly, and we need to find the tiny subset that actually works well for digit recognition.
+
+Traditional optimization approaches (like trying random combinations or exhaustive search) would take longer than the age of the universe. We need smarter approaches that can navigate this high-dimensional space efficiently.
+
+The key insight is that we can use calculus — specifically derivatives — to determine the direction of steepest improvement. This allows us to make educated guesses about how to adjust parameters rather than random exploration.
+:::
+
+## Cost functions
+
+:::html-hidden
+:::medium
+Let's measure "wrongness"
+:::
+:::
+
+For a single training example, if the network outputs $(a_0, a_1, ..., a_9)$ but the correct answer is digit $k$:
+
+**Desired output**: $(0, 0, ..., 1, ..., 0)$ (1 in position $k$, 0 elsewhere)
+
+**Cost for this example**: 
+
+$C = \sum_{j=0}^{9} (a_j - y_j)^2$
+
+where $y_j$ is the desired output for neuron $j$.
+
+:::notes
+:::callout-note
+#### Why squared differences?
+
+The squared error cost function has several nice properties:
+
+1. **Always positive**: Squared terms ensure the cost is never negative
+2. **Smooth and differentiable**: We can compute gradients needed for optimization
+3. **Penalizes large errors more**: A network that's very wrong gets penalized more than one that's slightly wrong
+4. **Zero when perfect**: Cost is exactly 0 when the network output matches the desired output perfectly
+
+For digit recognition, if the correct answer is "3", we want:
+
+- Output neuron 3 to have activation close to 1.0
+- All other output neurons to have activation close to 0.0
+
+The cost function measures how far we are from this ideal. When the network is confident and correct, the cost is low. When the network is uncertain or wrong, the cost is high.
+
+Alternative cost functions exist (like cross-entropy), but squared error is conceptually simpler and works well for educational purposes.
+:::
+:::
+
+## Gradient descent
+
+:::medium
+**Intuition**: Imagine the cost function as a landscape with hills and valleys. We want to find the lowest valley (minimum cost).
+:::
+
+. . .
+
+**Gradient descent algorithm**:
+
+:::incremental
+1. Compute the **gradient** (direction of steepest increase in cost)
+2. Move in the **opposite direction** (direction of steepest decrease)
+3. Take small steps to avoid overshooting
+4. Repeat until you reach a minimum
+:::
+
+:::notes
+:::callout-note
+#### The geography of optimization
+
+The landscape metaphor is powerful but limited. In 13,002 dimensions, we can't visualize the actual landscape, but the mathematical principles remain the same.
+
+Key insights about gradient descent:
+
+1. **Local vs global minima**: Like a real landscape, the cost function may have multiple valleys. Gradient descent finds a local minimum (nearby valley) but might miss the global minimum (deepest valley overall).
+
+2. **Learning rate**: This is a crucial hyperparameter:
+   - Too large: We might overshoot and oscillate around the minimum
+   - Too small: Progress is very slow, and we might get stuck
+   - Just right: Steady progress toward a minimum
+
+3. **High-dimensional intuition**: In high dimensions, most points are neither maxima nor minima, but saddle points. This actually helps optimization because there are usually many directions that lead downhill.
+
+4. **Why it works**: Even though we can't visualize 13,002-dimensional space, the mathematical guarantee is that moving in the negative gradient direction will decrease the cost (at least for small steps).
+:::
+:::
+
+## Backpropagation
+
+:::medium
+**Challenge**: How do we compute the gradient of the cost function with respect to all *k* parameters efficiently?
+:::
+
+. . .
+
+**Backpropagation algorithm**:
+
+:::incremental
+1. **Forward pass**: Run the network on a training example to get predictions
+2. **Compute cost**: Compare predictions to correct answers
+3. **Backward pass**: Use the chain rule[^chainRule] to compute how each parameter affects the cost
+4. **Update parameters**: Adjust each parameter in the direction that reduces cost
+:::
+
+[^chainRule]: For a visual explanation see [3blue1brown — Visualizing the chain rule and product rule](https://www.3blue1brown.com/lessons/chain-rule-and-product-rule)
+
+. . .
+
+:::smaller
+This elegant algorithm, formalized by @rumelhart1986learning, makes training deep networks computationally feasible [@sanderson2017backprop].
+:::
+
+:::notes
+
+:::callout-note
+#### The mathematical elegance of backpropagation
+
+Backpropagation is essentially an efficient application of the chain rule from calculus. The key insight is that we can compute gradients by working backwards through the network.
+
+**Forward Pass Example**:
+Input → Layer 1 → Layer 2 → Output → Cost
+
+**Backward Pass**:
+Cost → ∂Cost/∂Output → ∂Cost/∂Layer2 → ∂Cost/∂Layer1 → ∂Cost/∂Weights
+
+For each parameter, we ask: "If I change this parameter by a tiny amount, how much does the cost change?" The chain rule lets us compute this efficiently by decomposing the influence into steps.
+
+Think of it as tracing cause and effect:
+
+- How did weight *W* affect neuron *N*?
+- How did neuron *N* affect the layer's output?
+- How did the layer's output affect the final prediction?
+- How did the final prediction contribute to the error?
+
+**Why "Backpropagation"?**: We propagate the error backwards through the network. Starting from the final cost, we compute how much each layer contributed to that cost, then how much each neuron contributed, and finally how much each weight contributed.
+
+This algorithm is remarkably efficient: computing the gradient for all parameters takes roughly the same computational time as computing the network's output itself. This efficiency made training deep networks practical [@sanderson2017backprop].
+:::
+:::
+
+## Learning loop
+
+:::medium
+:::incremental
+1. Start with random weights
+1. Make a prediction (forward pass)
+2. Measure the error
+3. Trace back to find responsible weights (backpropagation)
+4. Adjust weights to reduce error
+5. Repeat with the next example
+:::
+:::
+
+. . .
+
+Through millions cycles, the network gradually learns to recognize even complex patterns. 
+
+:::notes
+The remarkable thing is that complex behaviors (like recognizing handwriting) emerge from this simple process of error correction.
+
+This transformation from random guesses to intelligent recognition happens purely through this iterative process of prediction, error measurement, and weight adjustment. No human explicitly programs the features - the network discovers these patterns automatically through experience.
+:::
+
+## Using mini-batches for training
+
+:::notes
+
+There are three main approaches to gradient descent:
+
+**Batch Gradient Descent**: Use all training examples to compute gradient
+
+- Pros: Most accurate gradient estimate
+- Cons: Very slow for large datasets, memory intensive
+
+**Stochastic Gradient Descent (SGD)**: Use one example at a time
+
+- Pros: Fast updates, can escape local minima due to noise
+- Cons: Very noisy, unstable convergence
+
+**Mini-batch SGD**: Use small batches (typically 16-256 examples)
+
+- Pros: Good balance of speed and stability
+- Cons: Requires tuning batch size
+
+Mini-batches provide several advantages:
+
+- **Computational efficiency**: Modern hardware (GPUs) is optimized for parallel processing of batches
+- **Better gradient estimates**: Averaging over multiple examples reduces noise
+- **Memory efficiency**: Process data in chunks rather than loading everything
+- **Regularization effect**: The noise from mini-batching can help escape poor local minima
+
+The choice of batch size is another hyperparameter that affects training dynamics and final performance [@sanderson2017gradient].
+
+:::
+
+**Mini-batch stochastic gradient descent**:
+
+:::incremental
+- **Shuffle** the training data randomly
+- **Divide** into small batches (e.g., 32 examples per batch)
+- For each batch:
+  - Compute gradients for all examples in the batch
+  - **Average** the gradients across the batch
+  - **Update** parameters using the averaged gradient
+- **Repeat** for many epochs[^epoch]
+:::
+
+[^epoch]: An epoch is one complete pass through the entire training dataset. During one epoch, the model sees every training example exactly once. Training might stop after a certain number of epochs or when performance plateaus.
+
+## Key insights
+
+:::html-hidden
+Neural networks excel at
+
+:::medium
+:::incremental
+1. **Pattern recognition** in high-dimensional data  
+2. **Learning from examples** rather than explicit rules  
+3. **Handling noisy, imperfect data**  
+4. **Scaling to massive datasets**  
+5. **Adapting to new data** through retraining
+:::
+:::
+:::
+
+:::notes
+1. Neural networks excel when the data has many features and complex relationships between them (e.g., images, text, customer behavior, financial markets).
+2. Neural networks can find patterns in this complexity that would be impossible to detect manually or with simpler algorithms.
+3. Neural networks are remarkably robust to noisy, imperfect data (e.g., missing values, measurement errors, outliers) because they learn statistical patterns rather than requiring perfect data.
+4. Neural networks often improve with more data, unlike many traditional methods that plateau.
+5. Business environments change constantly. Neural networks can be retrained on new data to.
+:::
+
+
+## Discussion {.html-hidden .discussion-slide .unlisted background-color="#efefef"}
+
+::: larger
+We've learned how neural networks can recognize digits. How might we **extend this approach** to understand and generate **language**?
+:::
+
+# Transformers {.headline-only}
+
+:::medium
+From images to language
+:::
+
+## The challenge
+
+Key differences between images and text:
+
+:::incremental
+- **Images** has *fixed size* (e.g., 28×28 pixels) and *spatial relationships* matter
+- **Text** has *variable length*, *sequential relationships* matter, and *context* is crucial
+- **Word meaning** depends heavily on surrounding words
+  - "The bank was flooded" vs "I went to the bank"
+  - "model" in "machine learning model" vs "fashion model"
+:::
+
+. . .
+
+:::medium
+We need architectures designed specifically for **sequential data** with **long-range dependencies**.
+:::
+
+:::notes
+:::callout-note
+#### Standard neural networks x language
+
+Standard neural networks, like our digit classifier, have limitations for language:
+
+1. **Fixed Input Size**: Traditional networks expect fixed-size inputs, but sentences have varying lengths
+2. **No Sequential Understanding**: Standard networks treat input positions independently - they can't understand that word order matters
+3. **No Long-Range Dependencies**: Information from early in a sentence might be crucial for understanding words much later
+
+Early attempts to solve this included:
+
+- **Recurrent Neural Networks (RNNs)**: Process sequences one word at a time, but suffer from vanishing gradients for long sequences
+- **Convolutional Networks**: Good for local patterns but struggle with long-range dependencies
+- **LSTM/GRU**: Better than RNNs but still fundamentally sequential and slow to train
+
+The breakthrough came with **Transformers** [@vaswani2017attention], which solved these problems through a fundamentally different approach: **attention mechanisms** that allow every word to directly interact with every other word in the sequence.
+:::
+:::
+
+## Transformers (how LLMs work) {.html-hidden}
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/wjZofJX0v4M?si=1G9AAspb6KBZ3pkv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## What is a Transformer?
+
+:::medium
+A transformer is a neural network architecture specifically designed for processing sequences.
+:::
+
+. . .
+
+The **attention mechanism** is the key innovation — it allows every element in the sequence to "attend to" every other element.
+
+
+:::notes
+:::callout-note
+#### Transformer architecture
+
+The Transformer architecture, introduced in the landmark 2017 paper "Attention Is All You Need" [@vaswani2017attention], revolutionized natural language processing. The key insight was that attention mechanisms could replace recurrent and convolutional layers entirely.
+
+Before transformers, most language models were based on RNNs or CNNs, which processed sequences step-by-step or with limited context windows. This made them slow to train and limited in their ability to capture long-range dependencies.
+
+The attention mechanism allows for:
+
+- **Parallel processing**: All positions in a sequence can be processed simultaneously
+- **Long-range dependencies**: Any word can directly attend to any other word, regardless of distance
+- **Interpretability**: We can visualize what the model is "paying attention to"
+
+The impact has been enormous:
+
+- GPT (Generative Pre-trained Transformer) family: GPT-1, GPT-2, GPT-3, GPT-4
+- BERT: Bidirectional transformer for understanding tasks
+- T5: Text-to-text transfer transformer
+- and hundreds of other transformer-based models
+
+The name "Transformer" comes from its ability to transform input sequences into output sequences through the attention mechanism.
+:::
+:::
+
+## Context is everything
+
+Consider these sentences:
+
+- "The *tower* was very tall" 
+- "The *Eiffel tower* was very tall"
+
+. . .
+
+The word "tower" should mean different things in different contexts:
+
+- First case: Generic tower
+- Second case: Specific famous landmark in Paris
+
+. . .
+
+**Attention mechanism** allow context words to *update* the meaning of other words.
+
+## Tokens and embeddings
+
+**Tokenization** means that text is broken down into small chunks called *tokens* — a crucial preprocessing step that bridges human language and machine processing.
+
+- "To date, the cleverest thinker of all time was..."
+- Becomes: ["To", "date", ",", "the", "cle", "ve", "rest", "thinker", "of", "all", "time", "was", "..."]
+
+. . .
+
+Each token gets converted to a *high-dimensional vector* (e.g., 12,288 dimensions for GPT-3) — so called **embedding vectors** 
+
+- Similar tokens get **similar vectors**
+- These vectors capture **semantic meaning** 
+
+. . .
+
+This vector representation is what the transformer actually processes - it never sees raw text, only these numerical vectors [@sanderson2024gpt].
+
+## Word Embeddings
+
+:::medium
+Directions in embedding space can encode **semantic relationships**.
+:::
+
+. . .
+
+**Examples**:
+
+- Gender direction: *"king" - "man" + "woman" ≈ "queen"*
+- Plurality direction: *"cat" - "cats"* captures singular vs plural
+- Country-capital: *"Germany" - "Berlin" + "France" ≈ "Paris"*
+
+. . .
+
+The embedding layer learns to place semantically related words **close together** in the vector space.
+
+:::notes
+:::callout-note
+#### The geometry of meaning
+
+Word embeddings reveal that meaning has geometric structure. This isn't just a mathematical curiosity - it reflects how language itself is structured:
+
+**Analogical reasoning** — the famous "king - man + woman = queen" example shows that semantic relationships can be captured as vector operations. This suggests that certain directions in the embedding space consistently encode specific semantic properties.
+
+**Semantic clusters** — words with similar meanings cluster together:
+
+- Animals: "dog", "cat", "horse" are close to each other
+- Colors: "red", "blue", "green" form another cluster  
+- Countries: "France", "Germany", "Italy" cluster together
+
+**Hierarchical structure** — the space can capture hierarchies:
+
+- "Animal" might be close to "Dog", "Cat", etc.
+- "Mammal" might be between "Animal" and "Dog"
+
+**Cultural and linguistic biases** — embeddings can capture societal biases present in training data:
+
+- Occupational gender stereotypes
+- Racial or cultural associations
+- This is both a feature (capturing human-like associations) and a bug (perpetuating unfair biases)
+
+**Training process** — These embeddings aren't hand-crafted but learned from data. The model discovers these geometric relationships by seeing how words are used together in context [@sanderson2024gpt].
+
+:::
+:::
+
+## Attention
+
+:::medium
+Rather than having fixed embeddings for each word, attention allows the embedding to be **dynamically updated** based on what other words are present in the context. This creates **context-sensitive representations** that can capture these nuanced meanings.
+:::
+
+:::aside
+[@sanderson2024attention]
+:::
+
+### Single-head attention
+
+:::medium
+**Goal**: Update the embedding of some word on the context of that word.
+:::
+
+. . .
+
+**Three key matrices** (learned during training)[^attentionMatrices]:
+
+- **Query matrix** $W_Q$ indicates what types of context each word typically needs
+- **Key matrix** $W_K$ indicates what types of context each word can provide
+- **Value matrix** $W_V$ indicates what information to actually pass
+
+[^attentionMatrices]: During training by means of backpropagation, the attention matrices $W_Q$, $W_K$, and $W_V$ learn patterns. Thus, these are essentially weights in the neural network — they're learned parameters just like weights in any other layer.
+
+. . .
+
+**Process**:
+
+1. Compute **attention scores** between words
+2. Create **weighted combinations** of information
+3. **Update** embeddings based on relevant context
+
+### Example
+
+:::notes
+Let's trace how attention helps resolve the ambiguity of "bank" (financial institution vs. riverbank).
+:::
+
+The target word is "bank" (needs contextual disambiguation), the context word is "flooded"
+
+. . .
+
+[**The attention process**]{.h4}
+
+:::incremental
+- Step 1: **attention score:**\
+  "bank's" query vector × "flooded's" key vector = high similarity score\
+  (the model has learned that water-related words are highly relevant for disambiguating "bank")
+- Step 2: **weighted information:**\
+  high attention score × "flooded's" value vector = strong water/geography signal
+- Step 3: **contextualized embedding:**\
+  original "bank" embedding + weighted "flooded" information = "riverbank" meaning
+:::
+
+. . .
+
+The ambiguity is resolved: we're talking about a riverbank, not a financial institution
+
+### Multi-head attention
+
+In reality different types of relationships matter simultaneously, such as
+
+:::incremental
+- **Head 1** might focus on **grammatical relationships** (subject-verb agreement)
+- **Head 2** might focus on **semantic relationships** (synonyms, antonyms)
+- **Head 3** might focus on **coreference** (pronouns to their referents)
+- **Head 4** might focus on **long-range dependencies** (cause and effect)
+:::
+
+. . .
+
+Each head learns to specialize in different types of patterns and relationships.
+
+:::{.small .fragment}
+**GPT-3 example**: 96 attention heads per layer × 96 layers = **9,216 total attention heads**
+:::
+
+## Feed-forward networks (FFN)
+
+:::medium
+After attention, each token passes through a FFN.
+::::
+
+. . .
+
+FFNs are the "thinking" components that sit between attention layers in transformers. While attention figures out what information to gather, FFNs decide what to do with that information.
+
+. . .
+
+Example:
+
+1. **Attention:** *Given 'bank' and 'flooded,' I should focus on the flooding information*
+2. **FFN:** *Now that I know this is a flooded riverbank, I should activate concepts related to environmental damage and strengthen connections to geographic features*
+
+:::notes
+
+Following residual connections and layer normalization make deep transformers stable and trainable.
+
+A residual connection means you add the input back to the output of a layer:
+
+`output = Layer(input) + input`
+
+Or more specific:
+
+- After attention layer: `contextualized_embedding = attention(original_embedding) + original_embedding`
+- After FFN layer: `final_output = ffn(contextualized_embedding) + contextualized_embedding`
+
+Without residual connections: Information can get "lost" or distorted as it passes through many layers
+With residual connections: The original information is always preserved and combined with the processed version.
+
+
+Layer normalization standardizes the values within each embedding vector to have mean close to 0 and standard deviation close to 1.
+
+:::
+
+## Unembedding
+
+:::medium
+From vectors back to text.
+:::
+
+. . .
+
+The unembedding process is how transformers convert their internal vector representations back into text predictions. It's the crucial final step that makes language generation possible.
+
+:::columns
+:::column
+
+[**Process**]{.h4}
+
+:::incremental
+- **Unembedding matrix** $W_U$ maps from embedding dimension[^embeddingDimension] to vocabulary size[^vocabSize]
+  - One row per token in the vocabulary
+  - Produces raw scores possible next tokens
+- **Softmax function** converts raw scores to probability distribution
+- **Temperature**: Controls randomness in sampling[^Temp]
+:::
+
+[^embeddingDimension]: An embedding dimension of 12,288 means each word/token is represented as a vector with 12,288 numbers. Each position captures some aspect of meaning - though not interpretable to humans.
+
+[^vocabSize]: A vocabulary size of 50,257 tokens means the model knows 50,257 different tokens (words, word pieces, punctuation, etc.).
+
+[^Temp]: High temperature → more random/creative; low temperature → more focused/deterministic
+
+:::
+:::column
+
+:::fragment
+[**Example**]{.h4}
+
+1. **Context processing:** "The capital of France is" → final vector
+2. **Unembedding:** Vector × W_U → raw scores for all 50,257 tokens
+3. **Temperature scaling:** Divide scores by temperature
+4. **Softmax:** Convert to probability distribution
+5. **Sampling:** Choose next token based on probabilities
+
+:::
+:::
+:::
+
+## Transformer architecture overview
+
+:::medium
+**Key principle**: Information flows through many layers of attention and processing (i.e., built through deep learning), allowing complex reasoning to emerge.
+:::
+
+:::incremental
+1. **Tokenization + embedding**: Text → Vectors  
+2. **Attention blocks**: Vectors communicate and update based on context
+3. **Feed-Forward layers**: Independent processing of each vector
+4. **Many layers**: Alternate attention and feed-forward (e.g., 96 layers in GPT-3)
+5. **Unembedding**: Final vector → Probability distribution over next tokens
+:::
+
+# Training {.headline-only}
+
+## Training process
+
+:::medium
+No explicit labels needed — the text itself provides the training signal.
+:::
+
+Next-token prediction seems simple but is remarkably powerful [@radford2019language]:
+
+:::incremental
+- **Implicit learnings** comprise grammar, facts, reasoning, coding and patterns
+- More training data exposes the model to more patterns and knowledge (**scale effects**)
+- More training time allows better optimization of the massive parameter space
+- Training requires immense training infrastructure (GPT-3 training cost ~$4.6 million in compute)
+:::
+
+## Emergent capabilities
+
+As models scale up, they develop capabilities that weren't explicitly programmed:
+
+:::incremental
+- **Few-shot learning**: Learn new tasks from just a few examples
+- **Chain-of-thought reasoning**: Break complex problems into steps
+- **Code generation**: Write and debug programs
+- **Mathematical reasoning**: Solve word problems and equations
+- **Creative writing**: Generate stories, poems, and scripts
+- **Instruction following**: Understand and execute complex commands
+:::
+
+. . .
+
+Complex intelligence seem to emerge from the simple objective of predicting the next word.
+
+## Limitations and Challenges
+
+:::medium
+Despite their impressive capabilities, current language models have significant limitations:
+:::
+
+:::incremental
+- **Hallucination**: Generate plausible-sounding but false information
+- **Lack of true understanding**: May memorize patterns without genuine comprehension
+- **Inconsistency**: May give different answers to the same question
+- **Training data bias**: Reflect biases present in internet text
+- **No learning from interaction**: Can't update their knowledge from conversations
+- **Computational requirements**: Expensive to train and run
+:::
+
+## Further reads
+
+Please check the resources provided by 3Blue1Brown on [the basics of neural networks, and the math behind how they learn](https://www.3blue1brown.com/topics/neural-networks).
+
+## Discussion {.html-hidden .discussion-slide .no-headline .unlisted}
+
+::: larger
+Given what we've learned about neural networks and transformers, what do you think are the **most important challenges** we need to solve to make AI systems more **reliable and beneficial**?
+:::
+
+# Exercises {.headline-only}
+
+## Neural network architecture
+
+Design a neural network for classifying emails as spam or not spam. Specify:
+
+1. **Input representation**: How would you convert an email into numbers?
+3. **Output**: How would you interpret the network's output?
+4. **Training data**: What kind of examples would you need?
+
+Discuss the advantages and challenges of this approach compared to rule-based spam filtering.
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+**Input representation options**
+
+- **Bag of words**: Count frequency of each word in vocabulary (e.g., 10,000 input neurons)
+- **TF-IDF**: Weight word frequencies by inverse document frequency
+- **Word embeddings**: Use pre-trained embeddings and average/pool them
+- **Character-level**: Represent emails as sequences of characters
+
+**Output interpretation**
+
+- Single output neuron with sigmoid activation
+- Value close to 1 = spam, close to 0 = not spam
+- Use threshold (e.g., 0.5) for binary classification
+
+**Training data requirements**
+
+- Thousands of labeled emails (spam/not spam)
+- Balanced dataset or careful handling of class imbalance
+- Diverse examples covering different types of spam
+- Regular updates as spam techniques evolve
+
+**Advantages over rules**
+
+- Automatically learns patterns from data
+- Adapts to new spam techniques
+- Can detect subtle combinations of features
+- Less manual maintenance required
+
+**Challenges**
+
+- Requires large labeled datasets
+- Can be fooled by adversarial examples
+- Black box - hard to understand why decisions are made
+- May learn biases from training data
+:::
+:::
+
+## Attention mechanism
+
+Consider the sentence: "The red car that John bought yesterday broke down on the highway."
+
+1. **Identify relationships**: What words should attend to each other strongly?
+2. **Multiple heads**: Design 3 different attention heads that focus on different types of relationships.
+3. **Context update**: How should the embedding of "car" change after processing this sentence?
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+**Strong attention relationships**
+
+- "red" → "car" (adjective modifies noun)
+- "car" → "broke" (subject-verb relationship)
+- "that" → "car" (relative pronoun reference)
+- "John" → "bought" (subject-verb)
+- "bought" → "car" (verb-object)
+- "yesterday" → "bought" (temporal modifier)
+- "broke" → "highway" (location context)
+
+**Three attention head types**
+
+- Grammatical relationships
+  - Focus on syntactic dependencies
+  - "car" attends to "broke" (subject-verb)
+  - "John" attends to "bought" (subject-verb)
+  - Helps with grammatical consistency
+- Modification relationships
+  - Focus on descriptive relationships
+  - "red" attends to "car"
+  - "yesterday" attends to "bought"
+  - Captures qualitative and temporal information
+Coreference and long-range
+  - Focus on pronoun resolution and distant relationships
+  - "that" attends to "car"
+  - "broke" attends back to "car" (long-range subject)
+  - Handles complex sentence structure
+
+**Car embedding updates**
+
+- **Initial**: Generic car concept
+- **After "red"**: Specific colored vehicle
+- **After "John bought"**: Particular car owned by John
+- **After "yesterday"**: Recently purchased car
+- **After "broke"**: Problematic/unreliable vehicle
+- **Final representation**: John's recently-purchased red car with reliability issues
+:::
+:::
+
+## Transformer training
+
+You're training a small transformer to complete simple mathematical expressions like "2 + 3 = ?"
+
+1. **Tokenization**: How would you represent mathematical expressions as tokens?
+2. **Training objective**: What would be your training data and loss function?
+3. **Challenges**: What difficulties might arise, and how would you address them?
+4. **Evaluation**: How would you test if the model truly "understands" arithmetic?
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+**Tokenization strategies**
+
+- **Character-level**: ['2', '+', '3', '=', '?'] - simple but may struggle with multi-digit numbers
+- **Number tokens**: ['2', '+', '3', '=', '?'] - treat each number as atomic token
+- **BPE encoding**: Learn subword patterns for larger numbers
+- **Special tokens**: [NUM_2, OP_PLUS, NUM_3, OP_EQUALS, MASK]
+
+**Training data and objective**
+
+- **Data generation**: Automatically generate arithmetic problems
+  - Simple: "1 + 1 = 2", "5 - 3 = 2"
+  - Complex: "12 × 7 = 84", "100 ÷ 4 = 25"
+- **Objective**: Next token prediction
+  - Input: "2 + 3 = "
+  - Target: "5"
+- **Loss function**: Cross-entropy loss on predicted vs. true next token
+
+**Challenges and solutions**
+
+- **Out-of-distribution numbers**: Train on wide range, test generalization
+- **Order of operations**: Include parentheses: "(2 + 3) × 4 = 20"
+- **Digit-by-digit vs. holistic**: 
+  - Problem: Might predict "1" then "2" for "12" without understanding the full number
+  - Solution: Use single tokens for numbers or special training techniques
+- **Systematic vs. memorization**: Risk of memorizing rather than learning arithmetic
+
+**Evaluation strategies**
+
+- **Held-out test set**: Numbers and operations not seen in training
+- **Systematic generalization**: Can model handle larger numbers than in training?
+- **Error analysis**: Do mistakes follow patterns that suggest understanding vs. memorization?
+- **Compositional tests**: Can model handle combinations like "2 + 3 × 4"?
+- **Ablation studies**: How does performance vary with model size, training data size?
+
+**Evidence of understanding**
+
+- **Generalization**: Correct answers on unseen number combinations
+- **Consistency**: Same answer for equivalent expressions ("2+3" vs "3+2")
+- **Error patterns**: Mistakes that make mathematical sense (off by one) vs. random errors
+- **Intermediate reasoning**: Model generating step-by-step solutions
+:::
+:::
+
+## Ethics and AI safety
+
+A company wants to deploy a large language model for automated customer service. Consider the following scenario:
+
+**Situation**: The AI occasionally provides incorrect information about product returns, leading to customer frustration and potential financial losses.
+
+1. **Identify risks**: What are the potential harms from this deployment?
+2. **Mitigation strategies**: How could the company reduce these risks?
+3. **Monitoring**: What metrics should they track to ensure safe operation?
+4. **Human oversight**: When should humans intervene in the AI's responses?
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+**Potential risks and harms**:
+
+- **Customer harm**: Incorrect return information could cost customers money
+- **Brand damage**: Poor AI interactions damage company reputation
+- **Legal liability**: Company might be liable for AI's incorrect advice
+- **Bias amplification**: AI might treat different customer groups unfairly
+- **Escalation**: Frustrated customers might become abusive toward human agents
+- **Over-reliance**: Customers might trust AI advice over written policies
+
+**Mitigation strategies**:
+
+- **Knowledge grounding**: Connect AI to authoritative policy databases
+- **Confidence thresholds**: Route uncertain queries to human agents
+- **Response templates**: Limit AI to pre-approved response patterns for critical information
+- **Fact verification**: Cross-check AI responses against official policies
+- **User education**: Clearly indicate when users are interacting with AI
+- **Fallback mechanisms**: Easy escalation path to human support
+
+**Monitoring metrics**:
+
+- **Accuracy rates**: Percentage of correct responses on return policy queries
+- **Customer satisfaction**: Post-interaction surveys and ratings
+- **Escalation rates**: How often customers request human assistance
+- **Error types**: Categorize and track different kinds of mistakes
+- **Bias metrics**: Performance across different customer demographics
+- **Business impact**: Track correlation between AI interactions and returns/complaints
+
+**Human oversight triggers**:
+
+- **High-stakes queries**: Expensive items, complex return situations
+- **Uncertainty indicators**: When AI confidence scores are low
+- **Customer frustration**: Detecting anger or confusion in customer messages
+- **Policy exceptions**: Cases requiring
+:::
+:::
+
+# Literature
+::: {#refs}
+:::
