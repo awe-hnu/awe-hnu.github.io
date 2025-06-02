@@ -1359,7 +1359,7 @@ original “bank” embedding + weighted “flooded” information = “riverban
 <li class="fragment"><strong>Tokenization + embedding</strong>: Text → Vectors<br>
 </li>
 <li class="fragment"><strong>Attention blocks</strong>: Vectors communicate and update based on context</li>
-<li class="fragment"><strong>Feed-Forward layers</strong>: Independent processing of each vector</li>
+<li class="fragment"><strong>Feed-forward layers</strong>: Independent processing of each vector</li>
 <li class="fragment"><strong>Many layers</strong>: Alternate attention and feed-forward (e.g., 96 layers in GPT-3)</li>
 <li class="fragment"><strong>Unembedding</strong>: Final vector → Probability distribution over next tokens</li>
 </ol>
@@ -1717,6 +1717,110 @@ original “bank” embedding + weighted “flooded” information = “riverban
 <li><strong>Uncertainty indicators</strong>: When AI confidence scores are low</li>
 <li><strong>Customer frustration</strong>: Detecting anger or confusion in customer messages</li>
 <li><strong>Policy exceptions</strong>: Cases requiring</li>
+</ul>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="temperature-and-text-generation" class="title-slide slide level2">
+<h2>Temperature and text generation</h2>
+<p>You are working with a language model that produces the following raw scores (logits) for the next token after the prompt “The weather today is”:</p>
+<p><strong>Raw scores</strong>: [sunny: 2.0, cloudy: 1.8, rainy: 1.2, snowy: 0.8, windy: 0.6]</p>
+<ol type="1">
+<li><strong>Calculate probabilities</strong>: compute the probability distribution using softmax for temperatures T = 0.5, T = 1.0, and T = 2.0.</li>
+</ol>
+<p><span class="math inline">\(P(token_i) = \frac{e^{score_i/T}}{\sum_j e^{score_j/T}}\)</span></p>
+<ol start="2" type="1">
+<li><strong>Analyze the effects</strong>:
+<ul>
+<li>Which temperature setting would be best for a <strong>weather report</strong> (factual, reliable)?</li>
+<li>Which would be best for <strong>creative writing</strong> (varied, interesting)?</li>
+<li>What happens as temperature approaches 0? As it approaches infinity?</li>
+</ul></li>
+<li><strong>Practical implications</strong>:
+<ul>
+<li>If you were building a <strong>chatbot for customer service</strong>, what temperature would you choose and why?</li>
+<li>How might you <strong>dynamically adjust</strong> temperature based on the type of response needed?</li>
+</ul></li>
+</ol>
+<aside class="notes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution Notes</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="h4"><strong>Probabilities</strong></span></p>
+<p><span class="math inline">\(P(token_i) = \frac{e^{score_i/T}}{\sum_j e^{score_j/T}}\)</span></p>
+<p><strong>T = 0.5 (low/focused)</strong></p>
+<ul>
+<li>sunny: <span class="math inline">\(e^{2.0/0.5} = e^4 = 54.6\)</span></li>
+<li>cloudy: <span class="math inline">\(e^{1.8/0.5} = e^{3.6} = 36.6\)</span></li>
+<li>rainy: <span class="math inline">\(e^{1.2/0.5} = e^{2.4} = 11.0\)</span></li>
+<li>snowy: <span class="math inline">\(e^{0.8/0.5} = e^{1.6} = 5.0\)</span></li>
+<li>windy: <span class="math inline">\(e^{0.6/0.5} = e^{1.2} = 3.3\)</span></li>
+</ul>
+<p>Sum = 110.5<br>
+Probabilities: [0.49, 0.33, 0.10, 0.05, 0.03]</p>
+<p><strong>T = 1.0 (balanced)</strong></p>
+<ul>
+<li>sunny: <span class="math inline">\(e^{2.0} = 7.4\)</span></li>
+<li>cloudy: <span class="math inline">\(e^{1.8} = 6.0\)</span></li>
+<li>rainy: <span class="math inline">\(e^{1.2} = 3.3\)</span></li>
+<li>snowy: <span class="math inline">\(e^{0.8} = 2.2\)</span></li>
+<li>windy: <span class="math inline">\(e^{0.6} = 1.8\)</span></li>
+</ul>
+<p>Sum = 20.7<br>
+Probabilities: [0.36, 0.29, 0.16, 0.11, 0.09]</p>
+<p><strong>T = 2.0 (high/creative)</strong></p>
+<ul>
+<li>sunny: <span class="math inline">\(e^{1.0} = 2.7\)</span></li>
+<li>cloudy: <span class="math inline">\(e^{0.9} = 2.5\)</span></li>
+<li>rainy: <span class="math inline">\(e^{0.6} = 1.8\)</span></li>
+<li>snowy: <span class="math inline">\(e^{0.4} = 1.5\)</span></li>
+<li>windy: <span class="math inline">\(e^{0.3} = 1.3\)</span></li>
+</ul>
+<p>Sum = 9.8<br>
+Probabilities: [0.28, 0.25, 0.18, 0.15, 0.13]</p>
+<p><span class="h4"><strong>Analysis of effects</strong></span></p>
+<ul>
+<li><strong>Weather report</strong>: T = 0.5 (focused on most likely/accurate predictions)</li>
+<li><strong>Creative writing</strong>: T = 2.0 (more variety and unexpected choices)</li>
+<li><strong>As T → 0</strong>: Distribution becomes deterministic (always picks highest score)</li>
+<li><strong>As T → ∞</strong>: Distribution becomes uniform (all choices equally likely)</li>
+</ul>
+<p><span class="h4"><strong>Practical implications</strong></span></p>
+<ul>
+<li><strong>Customer service chatbot</strong>: T = 0.3-0.7 (reliable, helpful responses)</li>
+<li><strong>Dynamic adjustment</strong>:
+<ul>
+<li>Factual questions: Low temperature</li>
+<li>Creative requests: High temperature</li>
+<li>Could analyze prompt content to auto-adjust</li>
+</ul></li>
+</ul>
+<p><span class="h4"><strong>Key Insights</strong></span></p>
+<ul>
+<li>Temperature is a crucial hyperparameter for controlling creativity vs.&nbsp;reliability</li>
+<li>Lower temperature = more predictable, higher accuracy</li>
+<li>Higher temperature = more diverse, creative outputs</li>
+<li>The choice depends entirely on the application and desired behavior</li>
+<li>Dynamic adjustment based on context can optimize user experience</li>
 </ul>
 </div>
 </div>
