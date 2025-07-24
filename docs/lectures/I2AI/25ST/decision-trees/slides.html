@@ -9,8 +9,8 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2025-05-09">
@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bcefe2d09215085bbf591c744dc9b0ae.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-fb524229476ab4fb76794864796ae2ba.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -223,13 +223,11 @@ Andy Weeger
 <div class="medium">
 <p>Decision trees are a <strong>fundamental concept in knowledge-based AI agents</strong> as they …</p>
 </div>
-<div>
 <ul>
 <li class="fragment">represent a function that maps attribute values to a decision (i.e., transition model),</li>
 <li class="fragment">use search to find a decision through a sequence of tests, and</li>
 <li class="fragment">create a model that is inherently explainable.</li>
 </ul>
-</div>
 <div class="fragment">
 <p>They constitute a critical part of the AI toolkit by offering both <strong>predictive power</strong> and <strong>interpretability</strong>.</p>
 <aside class="notes">
@@ -255,13 +253,11 @@ Andy Weeger
 <div class="medium">
 <p>A decision tree is a representation of a function that maps a vector of attribute values to a single output value (i.e., a “decision”).</p>
 </div>
-<div>
 <ul>
 <li class="fragment">An <strong>internal node</strong> represents a test of a property</li>
 <li class="fragment"><strong>Branches</strong> are labeled with possible values of the test</li>
 <li class="fragment">Each <strong>leaf node</strong> specifies the value to be returned if that leaf is reached</li>
 </ul>
-</div>
 <div class="fragment">
 <p>In Boolean decision trees, the input is a set of vector of input attributes <em>X</em> and a single Boolean output value <em>y</em>.</p>
 <aside class="notes">
@@ -289,7 +285,6 @@ Andy Weeger
 <div class="fragment">
 <p>The input <span class="math inline">\(x\)</span> is a vector of ten attributes with discrete values:</p>
 <div class="smaller">
-<div>
 <ul>
 <li class="fragment"><strong>Alternate</strong> – Is there an alternative? (T/F)</li>
 <li class="fragment"><strong>Bar</strong> – Does the restaurant have a bar to wait in? (T/F)</li>
@@ -302,7 +297,6 @@ Andy Weeger
 <li class="fragment"><strong>Raining</strong> – Is it raining outside? (T/F)</li>
 <li class="fragment"><strong>Type</strong> – What kind of restaurant is it? (French, Italian, Thai, Burger)</li>
 </ul>
-</div>
 </div>
 </div>
 </section>
@@ -559,22 +553,18 @@ Table&nbsp;1: Examples for the restaurant domain
 <div class="fragment">
 <p><span class="h4"><strong>Binary Decision Trees</strong></span></p>
 <p>Each node has exactly two branches (True/False)</p>
-<div>
 <ul>
 <li class="fragment">For numeric features: “Is X ≤ threshold?” (e.g., “Pages Viewed ≤ 20?”)</li>
 <li class="fragment">For categorical features: “Is X = value?” (e.g., “Referrer = Slashdot?”)</li>
 </ul>
 </div>
-</div>
 <div class="fragment">
 <p><span class="h4"><strong>Non-Binary Decision Trees</strong></span></p>
 <p>Categorical nodes can have multiple branches</p>
-<div>
 <ul>
 <li class="fragment">Each branch corresponds to one possible value</li>
 <li class="fragment">Often visually simpler but computationally less efficient</li>
 </ul>
-</div>
 <aside class="notes">
 <p>Binary trees are usually more efficient in implementation since they map directly to if-then-else statements in code. Non-binary trees require switch-case logic which can be less efficient. However, non-binary trees can be more intuitive for categorical features with many values.</p>
 <hr>
@@ -679,21 +669,17 @@ Figure&nbsp;2: Training data points with three classes (red, green, blue)
 <section id="inducing-trees" class="title-slide slide level2">
 <h2>Inducing Trees</h2>
 <p>To get a <strong>naive solution</strong>, we could simply construct a tree with one path to a leaf for each example.</p>
-<div>
 <ul>
 <li class="fragment">We test all the attributes along the path and attach the classification of the example to the leaf</li>
 <li class="fragment">This correctly classifies all examples but doesn’t generalize</li>
 <li class="fragment">It just memorizes the observations</li>
 </ul>
-</div>
 <div class="fragment">
 <p>How can we find a tree that is:</p>
-<div>
 <ol type="1">
 <li class="fragment"><strong>Consistent</strong> with the training set, and</li>
 <li class="fragment"><strong>small as possible</strong> to promote generalization?</li>
 </ol>
-</div>
 </div>
 <div class="fragment">
 <p>It’s <strong>intractable</strong> to find the smallest consistent tree, but <strong>decision tree learning</strong> algorithms use greedy heuristics to efficiently find a reasonably small tree.</p>
@@ -703,13 +689,11 @@ Figure&nbsp;2: Training data points with three classes (red, green, blue)
 <section id="divide-and-conquer-strategy" class="title-slide slide level2">
 <h2>Divide-and-Conquer Strategy</h2>
 <p>Decision tree learning adopts a greedy divide-and-conquer approach:</p>
-<div>
 <ol type="1">
 <li class="fragment">Select the <em>most important</em> attribute to test at the root</li>
 <li class="fragment">Divide the training set into subsets corresponding to each value of that attribute</li>
 <li class="fragment">Recursively apply the same process to each subset</li>
 </ol>
-</div>
 <div class="fragment">
 <p>The goal is to reach the <strong>correct classification</strong> with a <strong>small number of tests</strong>, creating a tree that is both <strong>accurate</strong> and <strong>shallow</strong>.</p>
 </div>
@@ -738,13 +722,11 @@ Figure&nbsp;2: Training data points with three classes (red, green, blue)
 <p>Formal: For a random variable <span class="math inline">\(X\)</span> with possible values <span class="math inline">\(V(X)\)</span>:</p>
 <p><span class="math display">\[H(X) = - \sum\limits_{x \in V(X)} p_x \cdot \log_2 (p_x)\]</span></p>
 <p>where <span class="math inline">\(p_x\)</span> is the probability that <span class="math inline">\(X\)</span> has value <span class="math inline">\(x\)</span>.</p>
-<div>
 <ul>
 <li class="fragment"><span class="math inline">\(0 \leq H(X) \leq \log_2 (|V(X)|)\)</span><a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a></li>
 <li class="fragment"><span class="math inline">\(H(X) = 0\)</span> means complete certainty</li>
 <li class="fragment">Maximum value occurs when all outcomes are equally likely</li>
 </ul>
-</div>
 <aside class="notes">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -951,14 +933,12 @@ Table&nbsp;2: Data from his past decisions
 This is a pure node, so we’re done with this branch</p>
 <div class="fragment">
 <p>For <span class="math inline">\(D_{no}\)</span> (mixed yes and no):</p>
-<div>
 <ul>
 <li class="fragment">Calculate information gain for remaining attributes on this subset</li>
 <li class="fragment"><em>Weekend</em> has higher gain (0.292) than <em>Sun</em> (0.169)</li>
 <li class="fragment">Split on <em>Weekend</em></li>
 <li class="fragment">Continue recursively …</li>
 </ul>
-</div>
 </div>
 </section>
 <section class="slide level3">
@@ -1036,14 +1016,12 @@ graph TD
 <section id="numerical-attributes" class="title-slide slide level2">
 <h2>Numerical Attributes</h2>
 <p>For numerical attributes:</p>
-<div>
 <ol type="1">
 <li class="fragment">Sort the values of the attribute in the training set</li>
 <li class="fragment">Consider all possible thresholds between adjacent values</li>
 <li class="fragment">Calculate information gain for each threshold</li>
 <li class="fragment">Select the threshold with the highest information gain</li>
 </ol>
-</div>
 <aside class="notes">
 <p>Handling numerical attributes is a key extension to the basic algorithm. Rather than treating each unique numeric value as a separate category, we find the optimal binary split point. This is done by sorting the values and testing each potential threshold between adjacent values. The threshold that maximizes information gain is selected.</p>
 <style type="text/css">
@@ -1063,14 +1041,12 @@ graph TD
 <section id="recursive-learning-process" class="title-slide slide level2">
 <h2>Recursive Learning Process</h2>
 <p>In each recursive step of decision tree learning, there are four cases to consider:</p>
-<div>
 <ol type="1">
 <li class="fragment"><strong>Mixed examples (positive and negative)</strong>: Choose the best attribute and split</li>
 <li class="fragment"><strong>Pure node</strong> (all examples have same class): Create a leaf node with that class</li>
 <li class="fragment"><strong>No examples</strong>: Create a leaf with the majority class from the parent node</li>
 <li class="fragment"><strong>No attributes left but mixed classes</strong>: Create a leaf with the majority class (handles noisy data)</li>
 </ol>
-</div>
 <div class="fragment">
 <p>This process continues until all branches end in leaf nodes.</p>
 <aside class="notes">
@@ -1099,13 +1075,11 @@ graph TD
 <div class="medium">
 <p>Decision trees face a fundamental trade-off between data fit and generalization.</p>
 </div>
-<div>
 <ul>
 <li class="fragment">A deeper tree can fit the training data more perfectly</li>
 <li class="fragment">But a tree that’s too deep might capture noise rather than true patterns</li>
 <li class="fragment">This results in poor generalization to new data</li>
 </ul>
-</div>
 <aside class="notes">
 <p>Overfitting is a critical concept in machine learning. A decision tree that perfectly fits the training data might have learned the noise in the data rather than the underlying pattern. This results in poor performance on new data. Recognizing and preventing overfitting is essential for building useful models.</p>
 <style type="text/css">
@@ -1127,22 +1101,18 @@ graph TD
 <div class="fragment">
 <p><span class="h4"><strong>Pre-pruning</strong></span></p>
 <p>Stop growing the tree while building to limit maximum depth.</p>
-<div>
 <ul>
 <li class="fragment">Require minimum samples per node</li>
 <li class="fragment">Set minimum information gain threshold</li>
 </ul>
 </div>
-</div>
 <div class="fragment">
 <p><span class="h4"><strong>Post-pruning</strong></span></p>
 <p>Build the full tree, then remove sections</p>
-<div>
 <ul>
 <li class="fragment">Reduced error pruning — replace nodes with their most common class if it doesn’t increase error on a validation set</li>
 <li class="fragment">Cost-complexity pruning — balance accuracy against tree size using a penalty parameter</li>
 </ul>
-</div>
 </div>
 <div class="fragment">
 <p>Both approaches improve generalization by reducing model complexity.</p>
@@ -1153,13 +1123,11 @@ graph TD
 <h2>Performance Assessment</h2>
 <p>To properly evaluate a decision tree model:</p>
 <p><span class="h4 fragment">1. Divide your data into separate sets</span></p>
-<div>
 <ul>
 <li class="fragment">Training set (e.g., 70%) — used to build the tree</li>
 <li class="fragment">Validation set (e.g., 10%) — used for pruning decisions</li>
 <li class="fragment">Test set (e.g., 20%) — used only for final evaluation</li>
 </ul>
-</div>
 <p><span class="h4 fragment">2. Measure accuracy on the test set</span></p>
 <p><span class="h4 fragment">3. Use <strong>cross-validation<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a></strong> for more robust assessment</span></p>
 <div class="fragment">
@@ -1175,14 +1143,12 @@ graph TD
 <section id="real-world-applications" class="title-slide slide level2">
 <h2>Real-World Applications</h2>
 <p>Decision trees are used across many domains:</p>
-<div>
 <ul>
 <li class="fragment"><strong>Finance</strong>: Credit scoring, fraud detection</li>
 <li class="fragment"><strong>Healthcare</strong>: Disease diagnosis, treatment planning</li>
 <li class="fragment"><strong>Marketing</strong>: Customer segmentation, churn prediction</li>
 <li class="fragment"><strong>Operations</strong>: Quality control, maintenance scheduling</li>
 </ul>
-</div>
 <div class="fragment">
 <p>Their simplicity and interpretability make them particularly valuable when decisions need to be explained to stakeholders.</p>
 <aside class="notes">
@@ -1204,13 +1170,11 @@ graph TD
 <section id="ensemble-methods" class="title-slide slide level2">
 <h2>Ensemble Methods</h2>
 <p>Ensemble methods address the limitations of single decision trees by combining multiple trees.</p>
-<div>
 <ul>
 <li class="fragment"><strong>Random Forests</strong>: Build many trees on random subsets of data and features, then average their predictions</li>
 <li class="fragment"><strong>Gradient Boosting</strong>: Build trees sequentially, with each tree correcting errors made by previous trees</li>
 <li class="fragment"><strong>AdaBoost</strong>: Weight samples based on classification difficulty</li>
 </ul>
-</div>
 <div class="fragment">
 <p>These ensemble approaches often dramatically outperform single decision trees while retaining some interpretability.</p>
 </div>
@@ -1259,7 +1223,6 @@ graph TD
 </section>
 <section id="summary" class="title-slide slide level1">
 <h1>Summary</h1>
-<div>
 <ul>
 <li class="fragment">Decision trees represent functions by sequencing attribute tests</li>
 <li class="fragment">They excel at explainability but can struggle with certain function types</li>
@@ -1267,7 +1230,6 @@ graph TD
 <li class="fragment">Pruning techniques help prevent overfitting</li>
 <li class="fragment">While simple, decision trees form the foundation for powerful ensemble methods</li>
 </ul>
-</div>
 <div class="fragment">
 <p>Decision trees balance performance and interpretability, making them a valuable tool in any data scientist’s toolkit.</p>
 </div>
@@ -2075,190 +2037,172 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>

@@ -9,8 +9,8 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2025-04-15">
@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bcefe2d09215085bbf591c744dc9b0ae.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-fb524229476ab4fb76794864796ae2ba.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -225,14 +225,12 @@ Andy Weeger
 </blockquote>
 <div class="fragment">
 <p>At its core, a learning agent (LA):</p>
-<div>
 <ul>
 <li class="fragment">Uses <strong>machine learning</strong> (ML) when it’s a computer system</li>
 <li class="fragment">Improves performance based on experience (observations)</li>
 <li class="fragment">Is necessary when designers lack complete knowledge of environments</li>
 <li class="fragment">Solves problems that are difficult to program explicitly (e.g., face recognition)</li>
 </ul>
-</div>
 <aside class="notes">
 <p>This definition from <span class="citation" data-cites="RusselNorvig2022AIMA">Russel and Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span> emphasizes the key aspect of learning: <strong>improvement through experience</strong>.</p>
 <style type="text/css">
@@ -256,13 +254,11 @@ Andy Weeger
 </blockquote>
 <div class="fragment">
 <p>Any ML project needs to clearly specify:</p>
-<div>
 <ul>
 <li class="fragment">The <strong>task T</strong> (what problem are we solving?)</li>
 <li class="fragment">The <strong>experience E</strong> (what data will the system learn from?)</li>
 <li class="fragment">The <strong>performance measure P</strong> (how will we evaluate success?)</li>
 </ul>
-</div>
 <aside class="notes">
 <p>The <strong>performance measure</strong> component is arguably the most critical component to define correctly. Poorly defined performance measures lead to misaligned systems that optimize for the wrong objectives, creating several serious problems:</p>
 <ul>
@@ -450,14 +446,12 @@ Figure&nbsp;1: A learning agent based on <span class="citation" data-cites="Russ
 <section id="the-learning-element" class="title-slide slide level2">
 <h2>The learning element</h2>
 <p>The design of the learning element is influenced by four important aspects:</p>
-<div>
 <ul>
 <li class="fragment">Which <strong>component</strong> of the performance element is to be improved?</li>
 <li class="fragment">What <strong>representation</strong> should be chosen (i.e., model type)?</li>
 <li class="fragment">What <strong>prior information</strong> is available (i.e., prior knowledge that influences the model)?</li>
 <li class="fragment">What form of <strong>feedback</strong> is available?</li>
 </ul>
-</div>
 </section>
 
 
@@ -511,14 +505,12 @@ Figure&nbsp;3: Application phase of supervised learning
 <section id="key-challenges" class="title-slide slide level2">
 <h2>Key challenges</h2>
 <div class="medium">
-<div>
 <ul>
 <li class="fragment">Getting enough labeled data</li>
 <li class="fragment">Ensuring labels are accurate</li>
 <li class="fragment">Dealing with imbalanced data classes</li>
 <li class="fragment">Feature selection and engineering</li>
 </ul>
-</div>
 </div>
 <aside class="notes">
 <p>“Garbage in, garbage out” is especially relevant in supervised learning. Your training data quality directly determines the ceiling of your model’s performance — no algorithm can overcome fundamentally flawed data. This creates several critical considerations: data must be representative of real-world applications; inconsistent labels introduce confusion into the learning process; and edge cases must be adequately represented. The process of collecting, cleaning, and verifying training data often consumes the majority of time in practical ML projects. When evaluating supervised learning results, always consider whether performance limitations stem from the algorithm or from the underlying data quality.</p>
@@ -556,14 +548,12 @@ Figure&nbsp;3: Application phase of supervised learning
           display:block!important;
       }</style></aside>
 <div class="medium">
-<div>
 <ul>
 <li class="fragment">Sentiment analysis</li>
 <li class="fragment">Spam detection</li>
 <li class="fragment">Loan approval prediction</li>
 <li class="fragment"><span class="html-hidden">Image classification</span></li>
 </ul>
-</div>
 </div>
 </section>
 </section>
@@ -616,14 +606,12 @@ Figure&nbsp;5: Application phase of unsupervised learning
 <section id="key-challenges-1" class="title-slide slide level2">
 <h2>Key challenges</h2>
 <div class="medium">
-<div>
 <ul>
 <li class="fragment">Evaluating the quality of results without ground truth</li>
 <li class="fragment">Determining the optimal number of groups or patterns</li>
 <li class="fragment">Interpreting the discovered patterns meaningfully</li>
 <li class="fragment">Dealing with high-dimensional data</li>
 </ul>
-</div>
 </div>
 <aside class="notes">
 <p>The open-ended nature of unsupervised learning creates unique considerations. Without labeled examples to guide the process, these algorithms must rely on inherent data properties like density, distance metrics, or statistical distributions. This raises fundamental questions: How do we know if discovered patterns are meaningful rather than arbitrary? What makes one clustering better than another? The absence of clear right or wrong answers means evaluation often relies on domain expertise and business context. Additionally, many unsupervised techniques struggle with the “curse of dimensionality”<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a> — a phenomenon where data becomes increasingly sparse as dimensions increase. In high-dimensional spaces, points become nearly equidistant from each other, making similarity measures less meaningful. For example, in a 1,000-dimensional space, the difference between the closest and farthest points becomes negligible, undermining the foundation of distance-based clustering. This dramatically impacts algorithms that rely on distance metrics, as the concept of proximity becomes less informative. Even with large datasets, the available data points become insufficient to adequately represent the vastly increased volume of the feature space.</p>
@@ -648,7 +636,6 @@ Figure&nbsp;5: Application phase of unsupervised learning
 <h2>Practical applications</h2>
 <p><strong>Computer vision</strong> — when shown millions of images, a computer vision system could identify large cluster of similar images (without “knowing” what is shown on these).</p>
 <div class="medium">
-<div>
 <ul>
 <li class="fragment">Customer segmentation</li>
 <li class="fragment">Anomaly detection</li>
@@ -656,7 +643,6 @@ Figure&nbsp;5: Application phase of unsupervised learning
 <li class="fragment">Recommender systems</li>
 <li class="fragment">Image compression</li>
 </ul>
-</div>
 </div>
 <aside class="notes">
 <div class="column-page-inset-right">
@@ -1266,7 +1252,6 @@ Figure&nbsp;6: Reinforcement learning
 <section id="key-challenges-2" class="title-slide slide level2">
 <h2>Key challenges</h2>
 <div class="medium">
-<div>
 <ul>
 <li class="fragment">Designing appropriate reward functions</li>
 <li class="fragment">Balancing exploration vs.&nbsp;exploitation</li>
@@ -1274,7 +1259,6 @@ Figure&nbsp;6: Reinforcement learning
 <li class="fragment">Sample efficiency in real-world applications</li>
 <li class="fragment">Transferring learning across different environments</li>
 </ul>
-</div>
 </div>
 <aside class="notes">
 <p>The reward-driven nature of reinforcement learning presents unique complexities. Since the agent learns entirely from environmental feedback, the design of reward signals fundamentally shapes what is learned. An improperly specified reward function can lead to unexpected or undesired behaviors — a phenomenon known as “reward hacking<a href="#/footnotes" class="footnote-ref" id="fnref4" role="doc-noteref" data-footnote-href="#/fn4" onclick=""><sup>4</sup></a>.” Additionally, reinforcement learning algorithms must decide when to explore new possibilities versus when to exploit known effective strategies. Too much exploration wastes resources; too little risks getting stuck in suboptimal solutions. Perhaps most challenging is the temporal credit assignment problem: when a positive outcome follows a long sequence of actions, how do we determine which actions were responsible? This difficulty increases with longer time horizons and more complex action spaces.</p>
@@ -1299,14 +1283,12 @@ Figure&nbsp;6: Reinforcement learning
 <h2>Practical applications</h2>
 <p>Game playing — imagine, it is told at the end of a game that it has won (a reward) or lost (a punishment). Based on that feedback, it has to decide which of the actions prior to the reinforcement were most responsible for it, and to alter its actions to aim towards more rewards in future.</p>
 <div class="medium">
-<div>
 <ul>
 <li class="fragment">Game playing (Chess, Go, video games)</li>
 <li class="fragment">Robotics and control systems</li>
 <li class="fragment">Resource management and scheduling</li>
 <li class="fragment">Recommendation systems</li>
 </ul>
-</div>
 </div>
 </section>
 </section>
@@ -1391,12 +1373,10 @@ Figure&nbsp;6: Reinforcement learning
 <p>In ML, selecting the appropriate model complexity is a fundamental challenge. Here this principle is demonstrated through polynomial curve fitting – one of the simplest yet most illustrative examples of the bias-variance tradeoff.</p>
 <div class="fragment">
 <p>When building a machine learning model, we must balance two competing concerns:</p>
-<div>
 <ol type="1">
 <li class="fragment"><strong>Bias</strong>: The error from erroneous assumptions in the learning algorithm. High bias can cause an algorithm to miss relevant relations between features and outputs (underfitting).</li>
 <li class="fragment"><strong>Variance</strong>: The error from sensitivity to small fluctuations in the training set. High variance models can fit the training data very well but perform poorly on new, unseen data (overfitting).</li>
 </ol>
-</div>
 </div>
 </section>
 
@@ -1457,7 +1437,6 @@ Figure&nbsp;7: Comparison of linear underfitting, quadratic good fit, and high-d
 </section>
 <section id="conclusion" class="title-slide slide level1">
 <h1>Conclusion</h1>
-<div>
 <ul>
 <li class="fragment">Machine learning fundamentally changes how we approach problem-solving with computers</li>
 <li class="fragment">Instead of explicit programming, we design systems that learn from data and experience</li>
@@ -1471,7 +1450,6 @@ Figure&nbsp;7: Comparison of linear underfitting, quadratic good fit, and high-d
 <li class="fragment">Accuracy vs.&nbsp;interpretability</li>
 </ul></li>
 </ul>
-</div>
 </section>
 
 <section>
@@ -1955,190 +1933,172 @@ Lift &lt; 1: Negative correlation (products appear together less than expected b
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>

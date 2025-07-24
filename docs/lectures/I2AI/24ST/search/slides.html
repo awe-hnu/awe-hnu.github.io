@@ -9,8 +9,8 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2024-02-12">
@@ -33,8 +33,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -45,7 +46,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -118,7 +119,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-82aa99fe8e1626a062df6b7b72bc0f37.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-fb524229476ab4fb76794864796ae2ba.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -312,13 +313,11 @@ Andy Weeger
 <section id="agents" class="title-slide slide level2">
 <h2>Agents</h2>
 <p>Agents that plan ahead by considering a sequence of actions that form a path to a goal state are called <strong>problem-solving agents</strong> <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 81</a>)</span></p>
-<div>
 <ul>
 <li class="fragment">The computational process it undertakes is <strong>search</strong></li>
 <li class="fragment">The representations the agents use are <strong>atomic</strong> representations<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a></li>
 <li class="fragment">There are search algorithms for several environments</li>
 </ul>
-</div>
 <div class="fragment">
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
 </div>
@@ -343,14 +342,12 @@ Andy Weeger
 <section id="process" class="title-slide slide level2">
 <h2>Process</h2>
 <p>In simple environments, agents can follow a four-phase-problem-solving process <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 81–82</a>)</span>:</p>
-<div>
 <ol type="1">
 <li class="fragment"><strong>Goal formulation:</strong> goals organize behavior by limiting the objectives and hence the actions to be considered</li>
 <li class="fragment"><strong>Problem formulation:</strong> the agents devices a description of the states and actions necessary to reach the goal—an abstract model of the relevant part of the environment</li>
 <li class="fragment"><strong>Search:</strong> the agent simulates sequences of actions in its model, searching until it finds a sequence that reaches the goal (i.e., the solution)</li>
 <li class="fragment"><strong>Execution:</strong> the agent executes the actions in the solution, one at a time</li>
 </ol>
-</div>
 <aside class="notes">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -387,7 +384,6 @@ Andy Weeger
 <section id="definition" class="title-slide slide level2">
 <h2>Definition</h2>
 <p>A search problem can be defined formally as <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 83</a>)</span>:</p>
-<div>
 <ul>
 <li class="fragment">The <strong>state space:</strong> a set of possible states<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a> the environment can be in<a href="#/footnotes" class="footnote-ref" id="fnref3" role="doc-noteref" data-footnote-href="#/fn3" onclick=""><sup>3</sup></a></li>
 <li class="fragment">The <strong>initial state:</strong> the state that the agent starts</li>
@@ -398,7 +394,6 @@ Andy Weeger
 <li class="fragment">A <strong>path:</strong> a sequence of actions</li>
 <li class="fragment">A <strong>solution:</strong> a path from the initial state to the goal state</li>
 </ul>
-</div>
 <aside></aside></section>
 
 <section id="modelling" class="title-slide slide level2">
@@ -561,21 +556,17 @@ Figure&nbsp;2: Example: A partial search tree for finding a route from Arad to B
 <section id="definition-1" class="title-slide slide level2">
 <h2>Definition</h2>
 <p><strong>Search algorithms</strong> take a search problem as input and return a solution, or an indication of failure <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 89</a>)</span>.</p>
-<div>
 <ul>
 <li class="fragment">They superimpose a search tree over the state-space graph,</li>
 <li class="fragment">form various paths from the initial state, and</li>
 <li class="fragment">try to find a path that reaches a goal state</li>
 </ul>
-</div>
 <div class="fragment">
 <p>They can implement</p>
-<div>
 <ul>
 <li class="fragment"><strong>uninformed search</strong> methods, which only have access to the problem definition but not clue about how close a state is to the goal(s).</li>
 <li class="fragment"><strong>informed search</strong> methods, which have access to a heuristic function that gives domain-specific hints about how close a state is to the goal(s) <em>(e.g., using straight-line distance in route-finding problems)</em></li>
 </ul>
-</div>
 </div>
 </section>
 
@@ -796,13 +787,11 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <p>The agents considered so far use <strong>offline search</strong> algorithm. They compute a complete solution before taking their first action. They are not helpful in unknown environments.</p>
 <div class="fragment">
 <p><strong>Online search</strong> agents interleaves computation and action:</p>
-<div>
 <ul>
 <li class="fragment">Takes action,</li>
 <li class="fragment">observes the environment, and</li>
 <li class="fragment">computes the next action,</li>
 </ul>
-</div>
 </div>
 <div class="fragment">
 <p>These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)</p>
@@ -844,13 +833,11 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <div class="fragment">
 <p>The AI community is particularly interested in games of a simplified nature (e.g., chess, go, and poker), as in such games</p>
 </div>
-<div>
 <ul>
 <li class="fragment">the state of a game is easy to represent,</li>
 <li class="fragment">agents are restricted to a few actions, and</li>
 <li class="fragment">effects of actions are defined by precise rules.</li>
 </ul>
-</div>
 </section>
 
 <section id="deterministic-games" class="title-slide slide level2">
@@ -858,7 +845,6 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <p>The games most commonly studied within AI are deterministic <em>(two-player, turn-taking, fully observable, zero-sum<a href="#/footnotes" class="footnote-ref" id="fnref8" role="doc-noteref" data-footnote-href="#/fn8" onclick=""><sup>8</sup></a>)</em> <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 192</a>)</span>.</p>
 <div class="fragment">
 <p><strong>Possible formalization</strong></p>
-<div>
 <ul>
 <li class="fragment"><strong>States</strong>: <span class="math inline">\(S\)</span> (start at <span class="math inline">\(S_0\)</span>)</li>
 <li class="fragment"><strong>Player</strong>: <span class="math inline">\(\textrm{TO-MOVE}(s)\)</span> (defines which player has the move in state <span class="math inline">\(s\)</span>)</li>
@@ -867,7 +853,6 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <li class="fragment"><strong>Terminal test</strong>: <span class="math inline">\(\textrm{IS-TERMINAL}(s)\)</span> (is true when the game is over<a href="#/footnotes" class="footnote-ref" id="fnref9" role="doc-noteref" data-footnote-href="#/fn9" onclick=""><sup>9</sup></a>)</li>
 <li class="fragment"><strong>Utility function</strong>: <span class="math inline">\(\textrm{UTILITY}(s,p)\)</span> (defines the final numeric value to player <span class="math inline">\(p\)</span> when the game ends in terminal state <span class="math inline">\(s\)</span>)</li>
 </ul>
-</div>
 </div>
 <aside class="notes">
 <p>The initial state, <span class="math inline">\(\textrm{ACTIONS}(s)\)</span>, and <span class="math inline">\(\textrm{RESULT}(s,a)\)</span> define the <strong>state space graph</strong>, where the vertices are states, the edges are moves and the state might be reached by multiple paths.</p>
@@ -887,13 +872,11 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <section id="optimal-decisions" class="title-slide slide level2">
 <h2>Optimal decisions</h2>
 <p>Players (here <code>MIN</code> and <code>MAX</code>, alternate turns) need to have a conditional plan—a contingent strategy specifying a response to each move of the opponent.</p>
-<div>
 <ul>
 <li class="fragment">For games with binary outcomes (win or lose), <em>AND-OR</em><a href="#/footnotes" class="footnote-ref" id="fnref10" role="doc-noteref" data-footnote-href="#/fn10" onclick=""><sup>10</sup></a> search tree can be used<br>
 <span class="citation" data-cites="RusselNorvig2022AIMA">(see <a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 143</a>)</span></li>
 <li class="fragment">For games with multiple outcome scores, the <strong>minimax search</strong> algorithm is used</li>
 </ul>
-</div>
 <aside></aside></section>
 </section>
 <section>
@@ -906,14 +889,12 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <p>Given a state-space search tree, each node’s <strong>minimax value</strong> is calculated.</p>
 <div class="fragment">
 <p>The minimax value is the best achievable utility of being in a given sate (against a rational adversary).</p>
-<div>
 <ul>
 <li class="fragment"><code>MAX</code> prefers to move to a state of maximum value<br>
 </li>
 <li class="fragment"><code>MIN</code> prefers to move to a state of minimum value<br>
 </li>
 </ul>
-</div>
 </div>
 </section>
 
@@ -947,7 +928,6 @@ Figure&nbsp;4: Example: A adversarial game tree
 <section id="minimax-search-algorithm" class="title-slide slide level2">
 <h2>Minimax search algorithm</h2>
 <p>The <strong>minimax algorithm</strong> performs a complete depth-first exploration of the game tree <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 196–96</a>)</span>.</p>
-<div>
 <ul>
 <li class="fragment">Assumes that the adversary plays optimal</li>
 <li class="fragment">Returns action whose terminal state has the optimal <span class="math inline">\(\textrm{MINIMAX}\)</span> value
@@ -957,7 +937,6 @@ return the state’s utility (<span class="math inline">\(\textrm{UTILITY}(s,p)\
 <li class="fragment">If the next agent is <span class="math inline">\(\textrm{MAX}\)</span> (<span class="math inline">\(\textrm{TO-MOVE}(s) = MAX\)</span>): return <span class="math inline">\(\textrm{MAX-VALUE}(s)\)</span></li>
 </ul></li>
 </ul>
-</div>
 <div class="fragment">
 <p>The exponential complexity makes the miminmax algorithm impractical for complex games (even with alpha-beta pruning applied; chess game tree size &gt; atoms in the universe).</p>
 </div>
@@ -1011,14 +990,12 @@ return the state’s utility (<span class="math inline">\(\textrm{UTILITY}(s,p)\
 <p><strong>Monte Carlo tree search</strong> (MCTS)<a href="#/footnotes" class="footnote-ref" id="fnref11" role="doc-noteref" data-footnote-href="#/fn11" onclick=""><sup>11</sup></a> does estimate the value of a state as the <strong>average utility</strong><a href="#/footnotes" class="footnote-ref" id="fnref12" role="doc-noteref" data-footnote-href="#/fn12" onclick=""><sup>12</sup></a> over a number of simulations of complete games starting from the current state <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel and Norvig 2022, 207–9</a>)</span>.</p>
 <div class="fragment">
 <p>Each iteration follows four steps:</p>
-<div>
 <ul>
 <li class="fragment"><strong>Selection</strong> (choosing a move<a href="#/footnotes" class="footnote-ref" id="fnref13" role="doc-noteref" data-footnote-href="#/fn13" onclick=""><sup>13</sup></a>, leading to a successor node, and repeat that process, moving down the tree to a leaf)</li>
 <li class="fragment"><strong>Expansion</strong> (one to several new children are created for the selected node)</li>
 <li class="fragment"><strong>Simulation</strong> (a simulation for the newly generated child node is performed)</li>
 <li class="fragment"><strong>Back-propagation</strong> (the result of the simulation is used to update all the search tree nodes going up to the root)</li>
 </ul>
-</div>
 </div>
 <div class="fragment">
 <p>Repeats for a set number of iterations or until a given time is over. At the end the successor with the hightest utily is chosen.</p>
@@ -1056,7 +1033,6 @@ Figure&nbsp;5: Example: MCTS — selection
 </div><div class="column">
 <div class="fragment">
 <p><a href="#/fig-mcts-selection" class="quarto-xref">Figure&nbsp;5</a> shows a tree with the root representing a state where <code>P-A</code> has won 37/100 playouts done</p>
-<div>
 <ul>
 <li class="fragment"><code>P-A</code> has just moved to the root node</li>
 <li class="fragment"><code>P-B</code> selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves</li>
@@ -1064,7 +1040,6 @@ Figure&nbsp;5: Example: MCTS — selection
 <li class="fragment"><code>P-B</code> then continues on the leaf node marked 27/35</li>
 <li class="fragment">… until a terminal state is reached</li>
 </ul>
-</div>
 </div>
 </div></div>
 <aside class="notes">
@@ -1089,7 +1064,6 @@ Figure&nbsp;5: Example: MCTS — selection
 <p><span class="math display">\[
 \textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 \]</span></p>
-<div>
 <ul>
 <li class="fragment"><span class="math inline">\(\textrm{U}(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>
 <li class="fragment"><span class="math inline">\(\textrm{N}(n)\)</span> is the number of playouts through node <span class="math inline">\(n\)</span></li>
@@ -1099,7 +1073,6 @@ Figure&nbsp;5: Example: MCTS — selection
 <em>(exploration term, “how much has the child be ‘ignored’?”)</em></li>
 <li class="fragment"><span class="math inline">\(C\)</span> is a constant that balance exploitation and exploration (theoretically <span class="math inline">\(\sqrt{2}\)</span>)</li>
 </ul>
-</div>
 </div>
 <aside class="notes">
 <p>With <span class="math inline">\(C=1.4\)</span>, the 60/79 node in <a href="#/fig-mcts-selection" class="quarto-xref">Figure&nbsp;5</a> has the highest UCB1 score, but with <span class="math inline">\(C=1.5\)</span>, it would be the 2/11 node.</p>
@@ -1149,13 +1122,11 @@ Figure&nbsp;6: Example: MCTS — expansion and simulation
 </div>
 <div class="fragment">
 <p>A playout for the newly generated child node is performed <em>(simulation)</em>.</p>
-<div>
 <ul>
 <li class="fragment">Moves for both players according the playout policy<a href="#/footnotes" class="footnote-ref" id="fnref15" role="doc-noteref" data-footnote-href="#/fn15" onclick=""><sup>15</sup></a> are chosen</li>
 <li class="fragment">The moves are not recorded in the search tree</li>
 <li class="fragment">In <a href="#/fig-mcts-expansion" class="quarto-xref">Figure&nbsp;6</a>, the simulation results in a win for <code>P-B</code></li>
 </ul>
-</div>
 </div>
 </div></div>
 <aside></aside></section>
@@ -1177,12 +1148,10 @@ Figure&nbsp;7: Example: MCTS — selection
 </div><div class="column">
 <div class="fragment">
 <p>The result of the simulation is used to update all the search tree nodes going up to the root.</p>
-<div>
 <ul>
 <li class="fragment"><code>P-B's</code> nodes are incremented in both the number of wins and the number of playouts</li>
 <li class="fragment"><code>P-A's</code> nodes are incremented in the number of playouts only</li>
 </ul>
-</div>
 </div>
 </div></div>
 </section>
@@ -1195,24 +1164,20 @@ Figure&nbsp;7: Example: MCTS — selection
 <section id="search-1" class="title-slide slide level2 vertical-center" data-background-color="#0333ff" data-background-image="images/bg.jpeg">
 <h2>Search</h2>
 <p>Search operates over models of the world (which might be observed <em>online</em>)</p>
-<div>
 <ul>
 <li class="fragment">Agents do not try all possible plans</li>
 <li class="fragment">Planning is all “in simulation”</li>
 <li class="fragment">Search is only as good as the models are</li>
 </ul>
-</div>
 </section>
 
 <section id="adversarial-search-1" class="title-slide slide level2">
 <h2>Adversarial search</h2>
-<div>
 <ul>
 <li class="fragment">In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the <strong>minimax algorithm</strong> can select optimal moves by a depth-first search in the game tree</li>
 <li class="fragment">Efficiency can be improved by using the <strong>alpha-beta</strong> search algorithm, which eliminates subtrees that are shown to be irrelevant.</li>
 <li class="fragment"><strong>Monte Carlo tree search</strong> evaluates states by playing out the game all the way to the end to see who won. This playout <strong>simulation</strong> is repeated multiple times. The evaluation is an average of the results.</li>
 </ul>
-</div>
 </section>
 
 <section id="xkcd" class="title-slide slide level2">
@@ -1742,190 +1707,172 @@ Russel, Stuart, and Peter Norvig. 2022. <em>Artificial Intelligence: A Modern Ap
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>
