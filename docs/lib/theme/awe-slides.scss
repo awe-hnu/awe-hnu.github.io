@@ -582,6 +582,7 @@ $panel-sidebar-padding: 0.5em;
 .reveal .callout.callout-style-simple div.callout-caption,
 .reveal .callout.callout-style-default div.callout-caption {
   font-size: inherit;
+  background: #fff;
 }
 
 .reveal .callout.callout-style-default .callout-icon::before {
@@ -1103,13 +1104,17 @@ $progress-height: 5px;
   }
   
   .medium {
+
+    .smaller {
+      font-size: $presentation-font-size-root;
+    }
+
     p:first-child {
       font-size: $revealjs-medium-font-size;
       line-height: 1.2;
       margin: $blockMargin*2 0;
       
       .smaller {
-        font-size: $revealjs-font-size-root;
         &:before {
           content:"\a";
           white-space: pre;
@@ -1436,6 +1441,17 @@ html.print-pdf {
   p {
     margin: 1rem 0;
   }
+
+  &.dense {
+
+  table {
+    width: unset;
+    th,
+    td {
+      padding: 0.1em !important;
+    }
+  }
+}
 }
 
 .reveal .slides>section.stack.present {
@@ -1558,8 +1574,18 @@ ol {
   list-style-type: none;
 }
 
-.reveal .callout-title {
+.reveal .callout .callout-title,
+.reveal div.callout.callout-note.callout-style-default .callout-title {
   line-height: 1em;
+  background-color: $link-color;
+  
+  p strong {
+    color: #fff;
+    text-decoration: none;
+  }
+  .callout-icon-container {
+    display: none !important;
+  }
 }
 
 .callout {
@@ -1610,4 +1636,9 @@ ol {
 
 .figHeight {
   height: 250px;
+}
+
+
+.inline table {
+  display: inline;
 }
