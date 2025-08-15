@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-fb524229476ab4fb76794864796ae2ba.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-ef41f16d5b323e48234c5e92b72f7012.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -287,7 +287,7 @@ Andy Weeger
 <aside class="notes">
 <p>Traditional programming requires us to understand and explicitly code the relationship between inputs and outputs. For complex tasks like image recognition, this becomes impossible because we can’t enumerate all the rules.</p>
 <p>Machine learning flips this paradigm: we provide many examples of inputs paired with their correct outputs, and let the algorithm discover the underlying patterns. This is particularly powerful for tasks where the rules are too complex to code explicitly or where we don’t fully understand the underlying mechanisms ourselves.</p>
-<p>The key insight is that many intelligent behaviors can emerge from relatively simple learning rules applied to large amounts of data, rather than requiring explicit programming of complex behaviors. This observation connects to the foundational work on neural networks by <span class="citation" data-cites="rumelhart1986learning">Rumelhart, Hinton, and Williams (<a href="#/literature" role="doc-biblioref" onclick="">1986</a>)</span> and the theoretical foundations of universal approximation <span class="citation" data-cites="cybenko1989approximation hornik1989multilayer">(<a href="#/literature" role="doc-biblioref" onclick="">Cybenko 1989</a>; <a href="#/literature" role="doc-biblioref" onclick="">Hornik, Stinchcombe, and White 1989</a>)</span>.</p>
+<p>The key insight is that many intelligent behaviors can emerge from relatively simple learning rules applied to large amounts of data, rather than requiring explicit programming of complex behaviors. This observation connects to the foundational work on neural networks by <span class="citation" data-cites="rumelhart1986learning">Rumelhart et al. (<a href="#/literature" role="doc-biblioref" onclick="">1986</a>)</span> and the theoretical foundations of universal approximation <span class="citation" data-cites="cybenko1989approximation hornik1989multilayer">(<a href="#/literature" role="doc-biblioref" onclick="">Cybenko, 1989</a>; <a href="#/literature" role="doc-biblioref" onclick="">Hornik et al., 1989</a>)</span>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -517,8 +517,8 @@ Figure&nbsp;3: Weights in a neural network
 <p>This weighted sum with bias is the fundamental computation in neural networks. The weights determine how much influence each input has on the output, while the bias determines the baseline level of activation.</p>
 <p>The sigmoid function <span class="math inline">\(\sigma(x) = \frac{1}{1 + e^{-x}}\)</span> serves as a “squashing” function that ensures the output stays between 0 and 1, regardless of how large or small the weighted sum becomes. This is crucial for maintaining the “activation” interpretation of neuron outputs. Other <em>activation functions</em> commonly used are tanh, relu, and leaky relu.</p>
 <p>The <em>bias</em> is particularly important because it allows the neuron to fire even when all inputs are zero, or to require a higher threshold before firing. Without bias, neurons could only learn patterns that pass through the origin, severely limiting the network’s expressiveness.</p>
-<p>Understanding this computation is key to grasping how neural networks work: each neuron computes a weighted combination of its inputs, adds a bias, and applies a nonlinear function to produce its output. This forms the basis of the <strong>backpropagation algorithm</strong> developed by <span class="citation" data-cites="rumelhart1986learning">Rumelhart, Hinton, and Williams (<a href="#/literature" role="doc-biblioref" onclick="">1986</a>)</span>.</p>
-<p>This perspective - viewing neural networks as complex mathematical functions - is crucial for understanding their power and limitations. The <strong>Universal Approximation Theorem</strong> <span class="citation" data-cites="cybenko1989approximation hornik1989multilayer">(<a href="#/literature" role="doc-biblioref" onclick="">Cybenko 1989</a>; <a href="#/literature" role="doc-biblioref" onclick="">Hornik, Stinchcombe, and White 1989</a>)</span> tells us that neural networks with sufficient hidden units can approximate any continuous function to arbitrary accuracy.</p>
+<p>Understanding this computation is key to grasping how neural networks work: each neuron computes a weighted combination of its inputs, adds a bias, and applies a nonlinear function to produce its output. This forms the basis of the <strong>backpropagation algorithm</strong> developed by <span class="citation" data-cites="rumelhart1986learning">Rumelhart et al. (<a href="#/literature" role="doc-biblioref" onclick="">1986</a>)</span>.</p>
+<p>This perspective - viewing neural networks as complex mathematical functions - is crucial for understanding their power and limitations. The <strong>Universal Approximation Theorem</strong> <span class="citation" data-cites="cybenko1989approximation hornik1989multilayer">(<a href="#/literature" role="doc-biblioref" onclick="">Cybenko, 1989</a>; <a href="#/literature" role="doc-biblioref" onclick="">Hornik et al., 1989</a>)</span> tells us that neural networks with sufficient hidden units can approximate any continuous function to arbitrary accuracy.</p>
 <p>The weights and biases represent the “knobs and dials” that can be adjusted to make the network compute any function we want (within the constraints of the architecture). Training is the process of finding the right setting for these parameters.</p>
 <p>The power of neural networks comes from this massive number of adjustable parameters, which allows them to learn complex patterns in data. However, this also presents challenges: how do we find the right values for all these parameters? This is where the learning algorithms come in.</p>
 </div>
@@ -773,7 +773,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 </div>
 <div class="fragment">
 <div class="smaller">
-<p>This elegant algorithm, formalized by <span class="citation" data-cites="rumelhart1986learning">Rumelhart, Hinton, and Williams (<a href="#/literature" role="doc-biblioref" onclick="">1986</a>)</span>, makes training deep networks computationally feasible <span class="citation" data-cites="sanderson2017backprop">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson 2017b</a>)</span>.</p>
+<p>This elegant algorithm, formalized by <span class="citation" data-cites="rumelhart1986learning">Rumelhart et al. (<a href="#/literature" role="doc-biblioref" onclick="">1986</a>)</span>, makes training deep networks computationally feasible <span class="citation" data-cites="sanderson2017backprop">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2017b</a>)</span>.</p>
 </div>
 <aside class="notes">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -797,7 +797,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 <li>How did the final prediction contribute to the error?</li>
 </ul>
 <p><strong>Why “Backpropagation”?</strong>: We propagate the error backwards through the network. Starting from the final cost, we compute how much each layer contributed to that cost, then how much each neuron contributed, and finally how much each weight contributed.</p>
-<p>This algorithm is remarkably efficient: computing the gradient for all parameters takes roughly the same computational time as computing the network’s output itself. This efficiency made training deep networks practical <span class="citation" data-cites="sanderson2017backprop">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson 2017b</a>)</span>.</p>
+<p>This algorithm is remarkably efficient: computing the gradient for all parameters takes roughly the same computational time as computing the network’s output itself. This efficiency made training deep networks practical <span class="citation" data-cites="sanderson2017backprop">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2017b</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -872,7 +872,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 <li><strong>Memory efficiency</strong>: Process data in chunks rather than loading everything</li>
 <li><strong>Regularization effect</strong>: The noise from mini-batching can help escape poor local minima</li>
 </ul>
-<p>The choice of batch size is another hyperparameter that affects training dynamics and final performance <span class="citation" data-cites="sanderson2017gradient">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson 2017a</a>)</span>.</p>
+<p>The choice of batch size is another hyperparameter that affects training dynamics and final performance <span class="citation" data-cites="sanderson2017gradient">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2017a</a>)</span>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -989,7 +989,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 <li><strong>Convolutional Networks</strong>: Good for local patterns but struggle with long-range dependencies</li>
 <li><strong>LSTM/GRU</strong>: Better than RNNs but still fundamentally sequential and slow to train</li>
 </ul>
-<p>The breakthrough came with <strong>Transformers</strong> <span class="citation" data-cites="vaswani2017attention">(<a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al. 2017</a>)</span>, which solved these problems through a fundamentally different approach: <strong>attention mechanisms</strong> that allow every word to directly interact with every other word in the sequence.</p>
+<p>The breakthrough came with <strong>Transformers</strong> <span class="citation" data-cites="vaswani2017attention">(<a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al., 2017</a>)</span>, which solved these problems through a fundamentally different approach: <strong>attention mechanisms</strong> that allow every word to directly interact with every other word in the sequence.</p>
 </div>
 </div>
 </div>
@@ -1030,7 +1030,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 <p><strong>Transformer architecture</strong></p>
 </div>
 <div class="callout-content">
-<p>The Transformer architecture, introduced in the landmark 2017 paper “Attention Is All You Need” <span class="citation" data-cites="vaswani2017attention">(<a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al. 2017</a>)</span>, revolutionized natural language processing. The key insight was that attention mechanisms could replace recurrent and convolutional layers entirely.</p>
+<p>The Transformer architecture, introduced in the landmark 2017 paper “Attention Is All You Need” <span class="citation" data-cites="vaswani2017attention">(<a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al., 2017</a>)</span>, revolutionized natural language processing. The key insight was that attention mechanisms could replace recurrent and convolutional layers entirely.</p>
 <p>Before transformers, most language models were based on RNNs or CNNs, which processed sequences step-by-step or with limited context windows. This made them slow to train and limited in their ability to capture long-range dependencies.</p>
 <p>The attention mechanism allows for:</p>
 <ul>
@@ -1097,7 +1097,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 </ul>
 </div>
 <div class="fragment">
-<p>This vector representation is what the transformer actually processes - it never sees raw text, only these numerical vectors <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson 2024a</a>)</span>.</p>
+<p>This vector representation is what the transformer actually processes - it never sees raw text, only these numerical vectors <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2024a</a>)</span>.</p>
 </div>
 </section>
 
@@ -1146,7 +1146,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 <li>Racial or cultural associations</li>
 <li>This is both a feature (capturing human-like associations) and a bug (perpetuating unfair biases)</li>
 </ul>
-<p><strong>Training process</strong> — These embeddings aren’t hand-crafted but learned from data. The model discovers these geometric relationships by seeing how words are used together in context <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson 2024a</a>)</span>.</p>
+<p><strong>Training process</strong> — These embeddings aren’t hand-crafted but learned from data. The model discovers these geometric relationships by seeing how words are used together in context <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2024a</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -1171,7 +1171,7 @@ Figure&nbsp;4: Network architecture for digit recognition
 </div>
 
 <aside><div>
-<p><span class="citation" data-cites="sanderson2024attention">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson 2024b</a>)</span></p>
+<p><span class="citation" data-cites="sanderson2024attention">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2024b</a>)</span></p>
 </div></aside></section>
 <section id="single-head-attention" class="slide level3">
 <h3>Single-head attention</h3>
@@ -1342,7 +1342,7 @@ original “bank” embedding + weighted “flooded” information = “riverban
 <div class="medium">
 <p>No explicit labels needed — the text itself provides the training signal.</p>
 </div>
-<p>Next-token prediction seems simple but is remarkably powerful <span class="citation" data-cites="radford2019language">(<a href="#/literature" role="doc-biblioref" onclick="">Radford et al. 2019</a>)</span>:</p>
+<p>Next-token prediction seems simple but is remarkably powerful <span class="citation" data-cites="radford2019language">(<a href="#/literature" role="doc-biblioref" onclick="">Radford et al., 2019</a>)</span>:</p>
 <ul>
 <li class="fragment"><strong>Implicit learnings</strong> comprise grammar, facts, reasoning, coding and patterns</li>
 <li class="fragment">More training data exposes the model to more patterns and knowledge (<strong>scale effects</strong>)</li>
@@ -1800,33 +1800,33 @@ Probabilities: [0.28, 0.25, 0.18, 0.15, 0.13]</p>
 </section>
 <section id="literature" class="title-slide slide level1 smaller scrollable">
 <h1>Literature</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-cybenko1989approximation" class="csl-entry" role="listitem">
-Cybenko, George. 1989. <span>“Approximation by Superpositions of a Sigmoidal Function.”</span> <em>Mathematics of Control, Signals, and Systems</em> 2 (4): 303–14.
+Cybenko, G. (1989). Approximation by superpositions of a sigmoidal function. <em>Mathematics of Control, Signals, and Systems</em>, <em>2</em>(4), 303–314.
 </div>
 <div id="ref-hornik1989multilayer" class="csl-entry" role="listitem">
-Hornik, Kurt, Maxwell Stinchcombe, and Halbert White. 1989. <span>“Multilayer Feedforward Networks Are Universal Approximators.”</span> <em>Neural Networks</em> 2 (5): 359–66.
+Hornik, K., Stinchcombe, M., &amp; White, H. (1989). Multilayer feedforward networks are universal approximators. <em>Neural Networks</em>, <em>2</em>(5), 359–366.
 </div>
 <div id="ref-radford2019language" class="csl-entry" role="listitem">
-Radford, Alec, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. <span>“Language Models Are Unsupervised Multitask Learners.”</span> <em>OpenAI Blog</em> 1 (8): 9.
+Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., &amp; Sutskever, I. (2019). Language models are unsupervised multitask learners. <em>OpenAI Blog</em>, <em>1</em>(8), 9.
 </div>
 <div id="ref-rumelhart1986learning" class="csl-entry" role="listitem">
-Rumelhart, David E, Geoffrey E Hinton, and Ronald J Williams. 1986. <span>“Learning Representations by Back-Propagating Errors.”</span> <em>Nature</em> 323 (6088): 533–36.
+Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. <em>Nature</em>, <em>323</em>(6088), 533–536.
 </div>
 <div id="ref-sanderson2017gradient" class="csl-entry" role="listitem">
-Sanderson, Grant. 2017a. <span>“Gradient Descent, How Neural Networks Learn.”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/gradient-descent">https://www.3blue1brown.com/lessons/gradient-descent</a>.
+Sanderson, G. (2017a). <em>Gradient descent, how neural networks learn</em>. 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/gradient-descent">https://www.3blue1brown.com/lessons/gradient-descent</a>
 </div>
 <div id="ref-sanderson2017backprop" class="csl-entry" role="listitem">
-———. 2017b. <span>“What Is Backpropagation Really Doing?”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/backpropagation">https://www.3blue1brown.com/lessons/backpropagation</a>.
+Sanderson, G. (2017b). <em>What is backpropagation really doing?</em> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/backpropagation">https://www.3blue1brown.com/lessons/backpropagation</a>
 </div>
 <div id="ref-sanderson2024gpt" class="csl-entry" role="listitem">
-———. 2024a. <span>“But What Is a GPT? Visual Intro to Transformers.”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/gpt">https://www.3blue1brown.com/lessons/gpt</a>.
+Sanderson, G. (2024a). <em>But what is a GPT? Visual intro to transformers</em>. 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/gpt">https://www.3blue1brown.com/lessons/gpt</a>
 </div>
 <div id="ref-sanderson2024attention" class="csl-entry" role="listitem">
-———. 2024b. <span>“Visualizing Attention, a Transformer’s Heart.”</span> 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/attention">https://www.3blue1brown.com/lessons/attention</a>.
+Sanderson, G. (2024b). <em>Visualizing attention, a transformer’s heart</em>. 3Blue1Brown. <a href="https://www.3blue1brown.com/lessons/attention">https://www.3blue1brown.com/lessons/attention</a>
 </div>
 <div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. <em>Advances in Neural Information Processing Systems</em>, <em>30</em>.
 </div>
 </div>
 
