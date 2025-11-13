@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Quantitative methods – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-4048a7a1c451e68da5a5a8d3e4150794.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en-US"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="Quantitative methods – awe.lectures">
+<meta property="og:description" content="Approach phenomena through quantifiable evidence">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/ISR/25WT/quantitative/images/quantitative-process.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Quantitative methods</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Quantitative methods</h1>
+            <p class="subtitle lead">Approach phenomena through quantifiable evidence</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Aug 15, 2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Sep 12, 2025</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=22062" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/introduction/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/theory/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/process/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Process</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/design/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research design</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/quantitative/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Quantitative methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/qualitative/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qualitative methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/DSR/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Design science</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exam</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/ISR/25WT/assignment/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignments</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#opening-remarks" id="toc-opening-remarks" class="nav-link active" data-scroll-target="#opening-remarks">Opening remarks</a></li>
+  <li><a href="#process" id="toc-process" class="nav-link" data-scroll-target="#process">Process</a></li>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data collection</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="opening-remarks" class="level1 headline-only" data-background-color="#0333ff">
+<h1 class="headline-only" data-background-color="#0333ff">Opening remarks</h1>
+<section id="overview" class="level2">
+<h2 data-anchor-id="overview">Overview</h2>
+<div class="notes">
+<p>A set of methods and techniques to answer questions, with an emphasis on quantitative data.</p>
+<ul>
+<li>Based on the idea that theories can be proposed that can be falsified by comparing theory to carefully collected empirical data.</li>
+<li>They, thus, focus on quantifiable evidence (i.e., “numbers”)—data is collected about quantities of something, and where numbers represent values and levels of constructs and concepts.</li>
+<li>Analysis often rely on statistical analysis of many cases (or across intentionally designed treatments in an experiment) to create <strong>valid</strong> and <strong>reliable</strong> general claims.</li>
+<li>We interpret numbers as evidence of how a particular phenomenon works.</li>
+</ul>
+<section id="popular-quantitative-research-methods" class="level4">
+<h4 data-anchor-id="popular-quantitative-research-methods">Popular quantitative research methods</h4>
+<ul>
+<li>Field experiment</li>
+<li>Lab experiment</li>
+<li>Simulation</li>
+<li>Survey</li>
+</ul>
+</section>
+</div>
+</section>
+</section>
+<section id="process" class="level1 headline-only" data-background-color="#0333ff">
+<h1 class="headline-only" data-background-color="#0333ff">Process</h1>
+<section id="overview-1" class="level2">
+<h2 data-anchor-id="overview-1">Overview</h2>
+<div class="notes">
+<p>The research process has a focus on correct measurement and statistical analysis. Large amounts of responses to analyze relationships are required.</p>
+<div id="fig-quant-process" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-quant-process-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/quantitative-process.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quant-process-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The process of quantitative research based on <span class="citation" data-cites="recker2021research">Recker (<a href="#ref-recker2021research" role="doc-biblioref">2021</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="operationalization" class="level2">
+<h2 data-anchor-id="operationalization">Operationalization</h2>
+<div class="notes">
+<p>Quantitative research begins by creating a theory to explain real-world phenomena. The theory is then tested using measures that represent variables, and data is collected from real-world phenomena. <a href="#fig-operationalization" class="quarto-xref">Figure&nbsp;3</a> points to two main challenges in this process.</p>
+<ul>
+<li><strong>Shared meaning:</strong> If the connection between theoretical concepts and measures is unclear, measuring the constructs accurately becomes difficult. Ensuring accurate measurements minimizes data problems. However, without shared meaning, even accurate measurements won’t reflect the intended constructs. For instance, if you’re studying emotions related to technology and you confuse “compassion” with a similar concept like “empathy,” issues arise.</li>
+<li><strong>Aaccuracy of measurement:</strong> Researchers need accurate data to draw valid conclusions. No matter the analysis, conclusions are unreliable without data reliability.</li>
+</ul>
+<div id="fig-operationalization" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-operationalization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/operationalization.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-operationalization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Measures and measurements based on <span class="citation" data-cites="burton2017thinking">Burton-Jones &amp; Lee (<a href="#ref-burton2017thinking" role="doc-biblioref">2017</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+<section id="phases-and-outcomes" class="level3">
+<h3 data-anchor-id="phases-and-outcomes">Phases and outcomes</h3>
+<div class="notes">
+<section id="conceptualization" class="level4">
+<h4 data-anchor-id="conceptualization">Conceptualization</h4>
+<p>Conceptualization refers to the definition of fuzzy and imprecise, vague and ambiguous constructs of social science in concrete and precise terms. It aims at ensuring shared meaning about the constructs at the theoretical level. It often requires to separate related constructs conceptually (i.e., providing clear definitions)</p>
+<p>Construct conceptualization involves identifying and defining what the construct is intended to represent or capture conceptually, discussing how the construct differs from other related constructs, and defining any dimensions or content domains that are relevant to grasping and defining the conceptual theme of the construct it its entirety. Each construct should have (1) a label, (2) a definition, (3) ideally one or more examples that demonstrate its meaning (as a demonstration of face validity), and (4) a discussion of related constructs in the literature. Papers and theses often use construct definition tables for this purpose, where each of the four points becomes a column and each construct in the study has its own row <span class="citation" data-cites="recker2021research">(<a href="#ref-recker2021research" role="doc-biblioref">Recker, 2021, p. 100</a>)</span>.</p>
+</section>
+<section id="nature-of-constructs" class="level4">
+<h4 data-anchor-id="nature-of-constructs">Nature of constructs</h4>
+<p>Constructs can be unidimensional or multidimensional <span class="citation" data-cites="wright2012operationalizing">(<a href="#ref-wright2012operationalizing" role="doc-biblioref">Wright et al., 2012</a>)</span>.</p>
+<ul>
+<li>Unidimensional constructs are expected to have a single underlying dimension. They can be measured using a single measure or test. For instance, a person’s weight and age are simple unidimensional constructs.</li>
+<li>Multidimensional constructs consist of two or more underlying dimensions. Each dimension must be measured separately (either reflective or formative). For instance, a persons’ academic ability can be conceptualized as consisting of two dimensions: mathematical and verbal ability.</li>
+</ul>
+</section>
+<section id="from-the-theoretical-to-the-empirical-dimension" class="level4">
+<h4 data-anchor-id="from-the-theoretical-to-the-empirical-dimension">From the theoretical to the empirical dimension</h4>
+<p>Operationalization refers to the development of indicators or items for measuring theoretically defined constructs at the empirical level. For instance, the unobservable theoretical construct “socioeconomic status” could be defined as the ‘level of family income’ and thus operationalized using an indicator (interchangeably used terms: indicator question, item) that asks respondents for the annual family income</p>
+<p>The combination of indicators at the empirical level representing a given construct is called a variable. Variables may be independent, dependent, mediating or moderating (i.e., the cause, the outcome, the underlying mechanism or condition)</p>
+</section>
+<section id="scales" class="level4">
+<h4 data-anchor-id="scales">Scales</h4>
+<p>Each indicator may have several attributes (or levels) and each attribute represent a value (e.g., a gender variable may have two attributes).</p>
+<p>Common rating scales are</p>
+<ul>
+<li>Nominal scales for categorial data (e.g., gender)</li>
+<li>Likert-type scales for latent constructs, measuring ordinal data by simply-worded statements to which respondents can indicate their extent of agreement (e.g., using Excel would improve my job performance.)</li>
+</ul>
+</section>
+</div>
+</section>
+<section id="reliability-and-validity" class="level3">
+<h3 data-anchor-id="reliability-and-validity">Reliability and validity</h3>
+<div class="notes">
+<div id="fig-operationalization" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-operationalization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/reliability-validity.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-operationalization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Meeting requirements for validity and reliability <span class="citation" data-cites="recker2021research">(<a href="#ref-recker2021research" role="doc-biblioref">Recker, 2021, p. 93</a>)</span>
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Validity and reliability in research
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Internal validity</strong> (causality) examines whether the observed change in a dependent variable is indeed caused by a corresponding change in independent variable, and not by variables outside the research context. Different research designs vary considerably in their respective level of internal validity (e.g., experiments vs.&nbsp;field surveys).</p>
+<p><strong>External validity</strong> (generalizability) refers to whether the observed associations can be generalized from the sample to the population, or to other people, organizations, contexts, or time (ecological validity).</p>
+<p><strong>Reliability</strong> refers to the consistency, stability, and reproducibility of measurement or data collection methods. It reflects the extent to which a measurement or research instrument produces consistent results when applied repeatedly under the same conditions.</p>
+</div>
+</div>
+<p><strong>Validity</strong> of measurements represent the essence or content upon which the construct is focused, i.e., valid measurements measure what they intend to measure.</p>
+<ul>
+<li>Theoretical assessments assess how well an operationalization fits the conceptual definition of the relevant theoretical construct.
+<ul>
+<li>Face validity: The indicator seems to be a reasonable measure of its underlying construct (“on its face”). Example: Is annual salary a good measure of job satisfaction? No.</li>
+<li>Content validity: A set of measurement items matches the content domain of the construct.</li>
+</ul></li>
+<li>Empirical (statistical) assessments of validity, which assess how well a measurement behaves in correspondence to the theoretical predictions. Tests include convergent validity and discriminant validity; see <span class="citation" data-cites="straub2004validation">Straub et al. (<a href="#ref-straub2004validation" role="doc-biblioref">2004</a>)</span>.</li>
+</ul>
+<p><strong>Reliability</strong> describes the extent to which a variable or set of indicators is consistent in what it is intended to measure. If multiple measurements are taken, the reliable measurements will all be very consistent in their values.</p>
+<ul>
+<li>The operations of a study can be repeated in equal settings with the same results</li>
+<li>Reliability tries to decrease dependency on researcher’s subjectivity</li>
+<li>There is a wide range of statistical reliability tests such as internal consistency (Cronbach’s alpha) and composite reliability; see @<span class="citation" data-cites="straub2004validation">Straub et al. (<a href="#ref-straub2004validation" role="doc-biblioref">2004</a>)</span></li>
+</ul>
+</div>
+</section>
+<section id="examples" class="level3 smaller scrollable">
+<h3 class="smaller scrollable" data-anchor-id="examples">Examples</h3>
+<div id="tbl-tam-scales" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-tam-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 23%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Construct</th>
+<th>Definition</th>
+<th>Indicators</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Behavioral Intention</strong></td>
+<td><em>Participant’s intentions<br>
+to use a particular system<br>
+in the future</em></td>
+<td><p>- I intend to use the system in the next <n> months</n></p>
+<p>- I predict I would use the system in the next <n> months</n></p>
+<p>- I plan to use the system in the next <n> months</n></p></td>
+</tr>
+<tr class="even">
+<td><strong>Attitude towards Behavior</strong></td>
+<td><em>An individual’s positive<br>
+or negative feelings about<br>
+performing the target behavior.</em></td>
+<td><p>- Using the system is a bad/good idea</p>
+<p>- Using the system is a foolish/wise idea</p>
+<p>- I dislike/like the idea of using the system</p>
+<p>- Using the system is unpleasant/ pleasant</p></td>
+</tr>
+<tr class="odd">
+<td><strong>Perceived Usefulness</strong></td>
+<td><em>The degree to which a<br>
+person believes that using<br>
+a particular system would<br>
+enhance his or her job<br>
+performance.</em></td>
+<td><p>- Using the system in my job would enable me to accomplish tasks more quickly</p>
+<p>- Using the system would improve my job performance</p>
+<p>- Using the system in my job would increase my productivity</p>
+<p>- Using the system would enhance my effectiveness on the job</p>
+<p>- Using the system would make it easier to do my job</p>
+<p>- I would find the system useful in my job</p></td>
+</tr>
+<tr class="even">
+<td><strong>Perceived Ease of Use</strong></td>
+<td><em>The degree to which a person<br>
+believes that using a system<br>
+would be free of effort.</em></td>
+<td><p>- Learning to operate the system would be easy for me</p>
+<p>- I would find it easy to get the system to do what I want it to do</p>
+<p>- My interaction with the system would be clear and understandable</p>
+<p>- I would find the system to be flexible to interact with</p>
+<p>- It would be easy for me to become skillful at using the system</p>
+<p>- I would find the system easy to use</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-tam-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Scales from TAM <span class="citation" data-cites="venkatesh2003user">(<a href="#ref-venkatesh2003user" role="doc-biblioref">Venkatesh et al., 2003</a>)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="measurement-development" class="level2">
+<h2 data-anchor-id="measurement-development">Measurement development</h2>
+<p>After having developed a conceptual definition of the construct, the first step is to identify and to develop potential items for the construct <span class="citation" data-cites="recker2021research">(<a href="#ref-recker2021research" role="doc-biblioref">Recker, 2021</a>)</span>.</p>
+<p>Because developing and assessing measures and measurement is time-consuming and challenging, the first rule should always be to identify and re-use (wherepossible) measures and measurements that have already been developed and assessed.</p>
+<p><strong>Existing items</strong>—best case, you rely on established measures. Look for measurements reported in papers or use a measurement database such as <a href="http://theoryon.org">TheoryOn</a> or the <a href="https://en.wikibooks.org/wiki/Handbook_of_Management_Scales">Handbook of Management Scales</a>.</p>
+<p><strong>New items</strong>—follow one of the guidelines published. You might start with <span class="citation" data-cites="recker2021research">Recker (<a href="#ref-recker2021research" role="doc-biblioref">2021</a>)</span>’s procedural model to create new measurement instruments for conceptually defined theory constructs.</p>
+<div class="notes">
+<p>If you need to adapt existing items, you should take multiple steps to evaluate and optimize content validity of the items selected/created:</p>
+<ul>
+<li><strong>Expert panel: </strong> people with experience about the domain judge whether items appropriately describe the construct</li>
+<li><strong>Card-sorting:</strong> experts are asked to sort/rank the items to the constructs of interest. If items are consistently assigned to the intended construct, then there is confidence for ‘content validity’</li>
+<li><strong>Revision:</strong> items that are not consistently assigned to the intended construct, need to be rephrased or eliminated. Re-evaluate the items until sufficient ‘content validity’ is achieved</li>
+</ul>
+<p>After data collection (or best case a pre-study) you need to validate the instrument by statistically check reliability and validity.</p>
+<ul>
+<li><strong>Exploratory factor analysis (EFA):</strong> a method to uncover the underlying structure (constructs) within variables/items – to ‘explore’ the relationships between items. Usually done with the software ‘SPSS’.</li>
+<li><strong>Confirmatory factor analysis (CFA):</strong> a method to ‘confirm’ that the items measure the target construct and nothing else. Can be done with software like ‘SmartPLS’.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="data-collection" class="level1 headline-only" data-background-color="#0333ff">
+<h1 class="headline-only" data-background-color="#0333ff">Data collection</h1>
+<section id="process-1" class="level2">
+<h2 data-anchor-id="process-1">Process</h2>
+<div class="notes">
+<div id="fig-data-collection" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-data-collection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/data-collection.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-data-collection-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: The process of data collection
+</figcaption>
+</figure>
+</div>
+<section id="sampling" class="level4">
+<h4 data-anchor-id="sampling">Sampling</h4>
+<ul>
+<li>Defining the unit of analysis such as person, group, organization with the characteristics that you wish to study</li>
+<li>Choosing a sampling frame. Based on e.g., accessible section of the target population, determines the scope of generalizability</li>
+<li>Choosing a sample from the sampling frame by means of a sampling technique.
+<ul>
+<li>Probability sampling secures that every unit in the population has a chance of being selected in the sample, and this chance can be accurately determined (emphasis on generalizability)</li>
+<li>Nonprobability sampling is a sampling technique in which some units of the population have zero chance of selection or where the probability of selection cannot be accurately determined (e.g., convenience sampling)</li>
+</ul></li>
+</ul>
+</section>
+<section id="instrument-creation" class="level4">
+<h4 data-anchor-id="instrument-creation">Instrument creation</h4>
+<ul>
+<li>Decide on the data collection instrument</li>
+<li>Ensure that questions flow logically from one to the next
+<ul>
+<li>From the least sensitive to the most sensitive; from the more general to the specific</li>
+<li>Start with easy non-threatening questions</li>
+<li>Ask about one topic at a time; when switching topics, use a transition</li>
+</ul></li>
+<li>Be respectful of the time of respondents and keep your survey as short as possible</li>
+<li>Always assure respondents about the confidentiality of their responses and how you will use their data and how the results will be reported</li>
+</ul>
+</section>
+<section id="instrument-testing" class="level4">
+<h4 data-anchor-id="instrument-testing">Instrument testing</h4>
+<ul>
+<li>Evaluate the instruments (pre-tests) with a subset of the sample to identify and rectify problems up-front</li>
+<li>Observation of the pre-test participants during questionnaire completion and follow-up interviews to uncover ambiguity, lack of clarity, or biases in question wording, evaluate the survey interface and layout, establish how much time it takes on average to fill the survey, identify ways to increase response rates, etc.</li>
+</ul>
+</section>
+</div>
+</section>
+<section id="biases" class="level2">
+<h2 data-anchor-id="biases">Biases</h2>
+<div class="notes">
+<p>In research, bias refers to systematic errors or distortions in the collection, analysis, interpretation, or reporting of data that can lead to inaccurate or misleading conclusions. Bias can arise from various sources and impact different stages of the research process, potentially compromising the validity, reliability, and generalizability of study findings.</p>
+<p>There are several types of bias that are relevant to quantitative research and you should be aware of, e.g.:</p>
+<ul>
+<li>Sampling bias (unrepresentative sample)</li>
+<li>Non-response bias (low response rates may indicate that non-respondents are not responding due to a systematic reason)</li>
+<li>Social desirability bias (many respondents tend to avoid negative opinions or uneasy comments about themselves, their employers, etc.)</li>
+<li>Common method bias (using the same instruments for independent and dependent variables)</li>
+</ul>
+</div>
+</section>
+<section id="reporting-requirements" class="level2">
+<h2 data-anchor-id="reporting-requirements">Reporting requirements</h2>
+<div class="notes">
+<p>Report your <strong>sampling method</strong> and the <strong>resulting sample</strong>:</p>
+<ul>
+<li>The approach used to randomize or select samples (indicates validity and representativeness of the sample frame and ultimately the survey results)</li>
+<li>A profile of the sample frame and characteristics of respondents (indicates how the sample is adequately corresponding to the target population)</li>
+<li>The response rate (the number of people who answered the survey divided by the number of people in the sample – indicates non-response bias)</li>
+</ul>
+<p>Report the <strong>survey instrument</strong> (exact wording of questions)</p>
+<p>Report <strong>evidence on validity and reliability</strong> of the survey instrument</p>
+</div>
+</section>
+</section>
+<section id="data-analysis" class="level1 headline-only" data-background-color="#0333ff">
+<h1 class="headline-only" data-background-color="#0333ff">Data analysis</h1>
+<section id="overview-2" class="level2">
+<h2 data-anchor-id="overview-2">Overview</h2>
+<p>Data analysis can take the form of simple descriptive statistics or of more sophisticated statistical inferences such as</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Univariate analysis:</strong> methods that analyze one variable (e.g., analysis of single-variable distributions)</li>
+<li><strong>Bivariate analysis:</strong> methods that analyze two variables (e.g., analysis of correlation)</li>
+<li><strong>Multivariate analysis:</strong> methods that simultaneously analyze multiple measurements on each individual or object under investigation (e.g., structural equation techniques such as LISREL or PLS)</li>
+</ul>
+</div>
+</section>
+<section id="pls-sem" class="level2">
+<h2 data-anchor-id="pls-sem">PLS-SEM</h2>
+<p><strong>Partial Least Squares Structural Equation Modeling</strong> (PLS-SEM) is a statistical technique used for analyzing relationships between variables in empirical research. It combines elements of both structural equation modeling (SEM) and regression analysis.</p>
+<div class="notes">
+<p>PLS-SEM is particularly well-suited for situations where the relationships among variables are complex, the sample size is relatively small, or the data does not meet the assumptions of traditional linear regression. It is often used in disciplines such as management, marketing, information systems, and social sciences to test and validate theoretical models.</p>
+<p>Key features <span class="citation" data-cites="hair2019use">(see e.g., <a href="#ref-hair2019use" role="doc-biblioref">Hair et al., 2019</a>)</span>:</p>
+<ul>
+<li>Latent variables: Like traditional SEM, PLS-SEM can handle latent variables, which are constructs that cannot be directly observed but are inferred from multiple observed indicators (variables).</li>
+<li>Path modeling: PLS-SEM allows researchers to assess both the measurement model (relationships between latent variables and their indicators) and the structural model (relationships among latent variables). It’s used to test hypotheses about these relationships.</li>
+<li>Small sample sizes: PLS-SEM is particularly useful when dealing with small sample sizes, as it is more robust to violations of normality and distribution assumptions.</li>
+<li>Prediction-oriented: PLS-SEM can be used for predictive purposes, making it suitable for applications where the primary goal is to predict an outcome or estimate relationships, rather than explain complex underlying processes.</li>
+<li>Reflective and formative constructs: PLS-SEM can handle both reflective (indicators represent different facets of the same construct) and formative (indicators collectively define the construct) measurement models.</li>
+<li>Non-normal data: PLS-SEM is less sensitive to assumptions of multivariate normality, making it suitable for data that do not follow a normal distribution.</li>
+</ul>
+</div>
+</section>
+<section id="smartpls" class="level2">
+<h2 data-anchor-id="smartpls">SmartPLS</h2>
+<p>SmartPLS <span class="citation" data-cites="SmartPLS4">(<a href="#ref-SmartPLS4" role="doc-biblioref">Ringle et al., 2022</a>)</span> is a popular software tool used for conducting PLS-SEM analyses.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>It provides researchers with a user-friendly interface to specify, estimate, and evaluate complex models involving latent variables and observed indicators.</li>
+<li>It is widely used in research fields such as business, management, marketing, information systems, and social sciences.</li>
+<li>It offers an approachable platform for researchers who are new to PLS-SEM, as well as advanced functionalities for more experienced users.</li>
+</ul>
+</div>
+<div class="large">
+<p><a href="https://www.smartpls.com/">Software</a> &amp; <a href="https://www.youtube.com/watch?v=duZ_m-G_hlU">tutorial</a></p>
+</div>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-burton2017thinking" class="csl-entry" role="listitem">
+Burton-Jones, A., &amp; Lee, A. S. (2017). Thinking about measures and measurement in positivist research: A proposal for refocusing on fundamentals. <em>Information Systems Research</em>, <em>28</em>(3), 451–467.
+</div>
+<div id="ref-hair2019use" class="csl-entry" role="listitem">
+Hair, J. F., Risher, J. J., Sarstedt, M., &amp; Ringle, C. M. (2019). When to use and how to report the results of PLS-SEM. <em>European Business Review</em>, <em>31</em>(1), 2–24.
+</div>
+<div id="ref-recker2021research" class="csl-entry" role="listitem">
+Recker, J. (2021). The research process. <em>Scientific Research in Information Systems: A Beginner’s Guide</em>.
+</div>
+<div id="ref-SmartPLS4" class="csl-entry" role="listitem">
+Ringle, C. M., Wende, S., &amp; Becker, J.-M. (2022). <em>SmartPLS 4</em> [Computer Program]. SmartPLS. <a href="https://www.smartpls.com/">https://www.smartpls.com/</a>
+</div>
+<div id="ref-straub2004validation" class="csl-entry" role="listitem">
+Straub, D., Boudreau, M.-C., &amp; Gefen, D. (2004). Validation guidelines for IS positivist research. <em>Communications of the Association for Information Systems</em>, <em>13</em>(1), 24.
+</div>
+<div id="ref-venkatesh2003user" class="csl-entry" role="listitem">
+Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance of information technology: Toward a unified view. <em>MIS Quarterly</em>, 425–478.
+</div>
+<div id="ref-wright2012operationalizing" class="csl-entry" role="listitem">
+Wright, R. T., Campbell, D. E., Thatcher, J. B., &amp; Roberts, N. (2012). Operationalizing multidimensional constructs in structural equation modeling: Recommendations for IS research. <em>Communications of the Association for Information Systems</em>, <em>30</em>(1), 23.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2025, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

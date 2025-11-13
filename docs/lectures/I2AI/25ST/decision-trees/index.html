@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+<meta name="dcterms.date" content="2025-05-09">
+
+<title>Decision Trees – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-4048a7a1c451e68da5a5a8d3e4150794.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="mermaid-theme" content="neutral">
+<script src="../../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<meta name="robots" content="noindex">   
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Decision Trees – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/I2AI/25ST/decision-trees/images/decision-tree.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Decision Trees</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Decision Trees</h1>
+            <p class="subtitle lead">Introduction to AI (I2AI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 9, 2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">May 16, 2025</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=21594" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/agents/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environments &amp; Agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search &amp; Planning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/knowledge/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knowledge &amp; Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/probability-theory/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/bayes-net/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/learning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/decision-trees/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Decision Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/neural-networks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/25ST/ethics/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ethics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#learning-decision-trees" id="toc-learning-decision-trees" class="nav-link" data-scroll-target="#learning-decision-trees">Learning Decision Trees</a></li>
+  <li><a href="#preventing-overfitting" id="toc-preventing-overfitting" class="nav-link" data-scroll-target="#preventing-overfitting">Preventing Overfitting</a></li>
+  <li><a href="#usage-extensions" id="toc-usage-extensions" class="nav-link" data-scroll-target="#usage-extensions">Usage &amp; Extensions</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1 vertical-center headline-only page-columns page-full" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">
+<h1 class="vertical-center headline-only" data-background-color="#564ac6" data-background-image="../assets/bg.jpeg">Introduction</h1>
+<section id="importance" class="level2">
+<h2 data-anchor-id="importance">Importance</h2>
+<div class="medium">
+<p>Decision trees are a <strong>fundamental concept in knowledge-based AI agents</strong> as they …</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>represent a function that maps attribute values to a decision (i.e., transition model),</li>
+<li>use search to find a decision through a sequence of tests, and</li>
+<li>create a model that is inherently explainable.</li>
+</ul>
+</div>
+<p>They constitute a critical part of the AI toolkit by offering both <strong>predictive power</strong> and <strong>interpretability</strong>.</p>
+<div class="notes">
+<p>Decision trees represent one of the earliest successful machine learning algorithms. Despite newer approaches like deep learning, they remain important due to their explainability and simplicity. Further, decision trees form the foundation of more advanced ensemble methods like Random Forests and Gradient Boosting.</p>
+</div>
+</section>
+<section id="advantages" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="advantages">Advantages</h2>
+<p>Despite being older than many modern ML algorithms, decision trees remain popular due to two key advantages:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Simplicity</strong>: Easy to understand and implement</li>
+<li><strong>Explainability</strong>: For a given input, the model not only outputs a decision but explains <em>why</em> this decision was made</li>
+</ul>
+</div>
+<div class="notes">
+<p>Particularly explainability is crucial in fields requiring transparency such as medical diagnosis, financial decision-making, insurance risk assessment, and autonomous driving systems. Here “black box” models are problematic. A decision tree can show exactly which features led to a particular decision, making it easier to validate, audit, and explain to stakeholders or regulators.</p>
+</div>
+</section>
+<section id="recap-structure" class="level2">
+<h2 data-anchor-id="recap-structure">Recap: Structure</h2>
+<div class="medium">
+<p>A decision tree is a representation of a function that maps a vector of attribute values to a single output value (i.e., a “decision”).</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>An <strong>internal node</strong> represents a test of a property</li>
+<li><strong>Branches</strong> are labeled with possible values of the test</li>
+<li>Each <strong>leaf node</strong> specifies the value to be returned if that leaf is reached</li>
+</ul>
+</div>
+<p>In Boolean decision trees, the input is a set of vector of input attributes <em>X</em> and a single Boolean output value <em>y</em>.</p>
+<div class="notes">
+<p>Decision trees can handle both classification (discrete output) and regression (continuous output) tasks, though they are more commonly used for classification. The structure naturally leads to “if-then-else” rule sets that are easy to follow.</p>
+</div>
+</section>
+<section id="example-restaurant-decision" class="level2 page-columns page-full">
+<h2 data-anchor-id="example-restaurant-decision">Example: Restaurant Decision</h2>
+<p>Consider deciding whether to wait for a table at a restaurant <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 668</a>)</span>.</p>
+<p>The output <span class="math inline">\(y\)</span> is a Boolean variable <span class="math inline">\(WillWait\)</span>.</p>
+<p>The input <span class="math inline">\(x\)</span> is a vector of ten attributes with discrete values:</p>
+<div class="smaller">
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Alternate</strong> – Is there an alternative? (T/F)</li>
+<li><strong>Bar</strong> – Does the restaurant have a bar to wait in? (T/F)</li>
+<li><strong>Fri</strong> – Is it Friday or Saturday? (T/F)</li>
+<li><strong>Hungry</strong> – Am I hungry? (T/F)</li>
+<li><strong>Patrons</strong> – How many guests are there? (none, some, full)</li>
+<li><strong>Price</strong> – How expensive is the food? (€, €€, €€€)</li>
+<li><strong>WaitEstimate</strong> – How long do we have to wait? (0-10, 10-30, 30-60, &gt;60)</li>
+<li><strong>Reservation</strong> – Have I made a reservation? (T/F)</li>
+<li><strong>Raining</strong> – Is it raining outside? (T/F)</li>
+<li><strong>Type</strong> – What kind of restaurant is it? (French, Italian, Thai, Burger)</li>
+</ul>
+</div>
+</div>
+<hr>
+<p><span class="h4"><strong>Example decision tree</strong></span></p>
+<div id="fig-tree" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/decision-tree.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Decision tree restaurant example based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, p. 674</a>)</span>
+</figcaption>
+</figure>
+</div>
+<hr>
+<p><span class="h4"><strong>Underlying training set</strong></span></p>
+<div class="smaller page-columns page-full">
+<div class="column-page-inset-right">
+<div id="tbl-res-ts" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-res-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Example</th>
+<th style="text-align: center;">Alt</th>
+<th style="text-align: center;">Bar</th>
+<th style="text-align: center;">Fri</th>
+<th style="text-align: center;">Hun</th>
+<th style="text-align: center;">Pat</th>
+<th style="text-align: center;">Price</th>
+<th style="text-align: center;">Rain</th>
+<th style="text-align: center;">Res</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Est</th>
+<th style="text-align: center;">WillWait</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_1\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€€€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">French</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: center;"><span class="math inline">\(y_1 =\)</span> Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_2\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">30-60</td>
+<td style="text-align: center;"><span class="math inline">\(y_2 =\)</span> No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_3\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: center;"><span class="math inline">\(y_3 =\)</span> Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_4\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">10-30</td>
+<td style="text-align: center;"><span class="math inline">\(y_4 =\)</span> Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_5\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€€€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">French</td>
+<td style="text-align: center;">&gt;60</td>
+<td style="text-align: center;"><span class="math inline">\(y_5 =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_6\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Italian</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: center;"><span class="math inline">\(y_6 =\)</span> Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_7\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: center;"><span class="math inline">\(y_7 =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_8\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Some</td>
+<td style="text-align: center;">€€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: center;"><span class="math inline">\(y_8 =\)</span> Yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_9\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">&gt;60</td>
+<td style="text-align: center;"><span class="math inline">\(y_9 =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_{10}\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€€€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Italian</td>
+<td style="text-align: center;">10-30</td>
+<td style="text-align: center;"><span class="math inline">\(y_{10}=\)</span> No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(x_{11}\)</span></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">None</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Thai</td>
+<td style="text-align: center;">0-10</td>
+<td style="text-align: center;"><span class="math inline">\(y_{11} =\)</span> No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x_{12}\)</span></td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Full</td>
+<td style="text-align: center;">€</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Burger</td>
+<td style="text-align: center;">30-60</td>
+<td style="text-align: center;"><span class="math inline">\(y_{12} =\)</span> Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-res-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Examples for the restaurant domain
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Note how even with just 12 training examples, we can create a meaningful decision tree. The table shows various scenarios with their attributes and whether the person decided to wait. The decision tree we’ll learn will try to capture the patterns in this data.</p>
+</div>
+</section>
+<section id="decision-tree-types" class="level2">
+<h2 data-anchor-id="decision-tree-types">Decision-Tree Types</h2>
+<p>Decision trees can be structured in two ways:</p>
+<p><span class="h4"><strong>Binary Decision Trees</strong></span></p>
+<p>Each node has exactly two branches (True/False)</p>
+<div class="incremental">
+<ul class="incremental">
+<li>For numeric features: “Is X ≤ threshold?” (e.g., “Pages Viewed ≤ 20?”)</li>
+<li>For categorical features: “Is X = value?” (e.g., “Referrer = Slashdot?”)</li>
+</ul>
+</div>
+<p><span class="h4"><strong>Non-Binary Decision Trees</strong></span></p>
+<p>Categorical nodes can have multiple branches</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Each branch corresponds to one possible value</li>
+<li>Often visually simpler but computationally less efficient</li>
+</ul>
+</div>
+<div class="notes">
+<p>Binary trees are usually more efficient in implementation since they map directly to if-then-else statements in code. Non-binary trees require switch-case logic which can be less efficient. However, non-binary trees can be more intuitive for categorical features with many values.</p>
+<hr>
+<div class="cell" data-fig-width="6" data-fig-height="2" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    %% Binary Decision Tree
+    B1[Color?] --&gt; B2[Red?]
+    B2 --&gt;|Yes| B5[Red]
+    B2 --&gt;|No| B3[Green?]
+    B3 --&gt;|Yes| B6[Green]
+    B3 --&gt;|No| B7[Other]
+    
+    %% Non-Binary Decision Tree
+    N1[Color?] --&gt;|Red| N2[Red]
+    N1 --&gt;|Green| N3[Green]
+    N1 --&gt;|Blue| N4[Blue]
+    N1 --&gt;|Other| N5[Other]
+    
+    %% Styling
+    classDef default font-family:Arial,font-size:10px;
+    linkStyle default stroke-width:1px,font-family:Arial,font-size:8px;
+</pre>
+</div>
+<p></p><figcaption> Comparison of binary and non-binary decision trees</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="learning-decision-trees" class="level1 headline-only">
+<h1 class="headline-only">Learning Decision Trees</h1>
+<section id="inducing-trees" class="level2">
+<h2 data-anchor-id="inducing-trees">Inducing Trees</h2>
+<p>To get a <strong>naive solution</strong>, we could simply construct a tree with one path to a leaf for each example.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>We test all the attributes along the path and attach the classification of the example to the leaf</li>
+<li>This correctly classifies all examples but doesn’t generalize</li>
+<li>It just memorizes the observations</li>
+</ul>
+</div>
+<p>How can we find a tree that is:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Consistent</strong> with the training set, and</li>
+<li><strong>small as possible</strong> to promote generalization?</li>
+</ol>
+</div>
+<p>It’s <strong>intractable</strong> to find the smallest consistent tree, but <strong>decision tree learning</strong> algorithms use greedy heuristics to efficiently find a reasonably small tree.</p>
+</section>
+<section id="divide-and-conquer-strategy" class="level2">
+<h2 data-anchor-id="divide-and-conquer-strategy">Divide-and-Conquer Strategy</h2>
+<p>Decision tree learning adopts a greedy divide-and-conquer approach:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Select the <em>most important</em> attribute to test at the root</li>
+<li>Divide the training set into subsets corresponding to each value of that attribute</li>
+<li>Recursively apply the same process to each subset</li>
+</ol>
+</div>
+<p>The goal is to reach the <strong>correct classification</strong> with a <strong>small number of tests</strong>, creating a tree that is both <strong>accurate</strong> and <strong>shallow</strong>.</p>
+<p>But how do we determine which attribute is <em>most important</em>?</p>
+<div class="notes">
+<p>The divide-and-conquer strategy is how we avoid the exponential complexity of finding the optimal tree. By making locally optimal choices at each step, we hope to get a globally good (if not optimal) solution.</p>
+</div>
+</section>
+<section id="entropy" class="level2">
+<h2 data-anchor-id="entropy">Entropy</h2>
+<p>Entropy comes from information theory and measures the unpredictability of a random variable. In the context of decision trees, we’re interested in the entropy of the class label. When entropy is high, the classes are mixed. When entropy is zero, we have a pure node with only one class present.</p>
+<p>Formal: For a random variable <span class="math inline">\(X\)</span> with possible values <span class="math inline">\(V(X)\)</span>:</p>
+<p><span class="math display">\[H(X) = - \sum\limits_{x \in V(X)} p_x \cdot \log_2 (p_x)\]</span></p>
+<p>where <span class="math inline">\(p_x\)</span> is the probability that <span class="math inline">\(X\)</span> has value <span class="math inline">\(x\)</span>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><span class="math inline">\(0 \leq H(X) \leq \log_2 (|V(X)|)\)</span><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li><span class="math inline">\(H(X) = 0\)</span> means complete certainty</li>
+<li>Maximum value occurs when all outcomes are equally likely</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Examples of maximum entropy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For different random variables, the maximum entropy depends on how many values they can take:</p>
+<ul>
+<li>Binary variable (e.g., yes/no decision):<br>
+<span class="math inline">\(\max H(X) = \log_2(2) = 1\)</span> bit<br>
+Achieved when <span class="math inline">\(P(X=\text{yes}) = P(X=\text{no}) = 0.5\)</span></li>
+<li>Variable with 4 possible values (e.g., suit of a card):<br>
+<span class="math inline">\(\max H(X) = \log_2(4) = 2\)</span> bits<br>
+Achieved when each value has probability 0.25</li>
+<li>Variable with 8 possible values:<br>
+<span class="math inline">\(\max H(X) = \log_2(8) = 3\)</span> bits</li>
+</ul>
+<p>This upper bound is significant in decision tree learning because:</p>
+<ul>
+<li>It tells us the maximum uncertainty possible in a node given the number of classes</li>
+<li>It provides a reference point for measuring information gain</li>
+<li>It helps us understand when a split is most effective (high reduction from maximum entropy)</li>
+</ul>
+<p>The difference between the actual entropy and this maximum value indicates how much “structure” or “information” is already present in the data.</p>
+</div>
+</div>
+</div>
+<section id="example" class="level3 scrollable">
+<h3 class="scrollable" data-anchor-id="example">Example</h3>
+<p>Bob is deciding whether to go skiing based on three factors:<br>
+<em>snow nearby</em>, <em>weekend</em>, and <em>sunny day</em>.</p>
+<div id="tbl-data" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Snow near</strong></th>
+<th style="text-align: center;"><strong>Weekend</strong></th>
+<th style="text-align: center;"><strong>Sun</strong></th>
+<th style="text-align: center;"><strong>Go Skiing</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Data from his past decisions
+</figcaption>
+</figure>
+</div>
+<p>What is the entropy of the class label <em>Go Skiing</em>?</p>
+<hr>
+<p>The entropy of the class label <em>Go Skiing</em> is:</p>
+<p><span class="math display">\[H(D) = -(\frac{6}{11} \cdot \log_2(\frac{6}{11}) +  \frac{5}{11} \cdot \log_2(\frac{5}{11})) = 0.994\]</span></p>
+<p>The class label <em>Go Skiing</em> has probability 6/11 for <em>yes</em> and 5/11 for <em>no</em>. The resulting entropy is close to 1, indicating high uncertainty (the maximum entropy for a binary variable is 1).</p>
+</section>
+</section>
+<section id="information-gain" class="level2">
+<h2 data-anchor-id="information-gain">Information Gain</h2>
+<p><strong>Information gain</strong> measures how much the entropy decreases when we split the data based on a particular attribute.</p>
+<p>Formal: for a dataset <span class="math inline">\(D\)</span> and attribute <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[G(D,X) = H(D) - \sum\limits_{x \in V(X)} \frac{|D_x|}{|D|} H(D_x)\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(H(D)\)</span> is the entropy of the original dataset</li>
+<li><span class="math inline">\(D_x\)</span> is the subset of <span class="math inline">\(D\)</span> where attribute <span class="math inline">\(X\)</span> has value <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(|D_x|\)</span> is the size of subset <span class="math inline">\(D_x\)</span></li>
+<li><span class="math inline">\(H(D_x)\)</span> is the entropy of subset <span class="math inline">\(D_x\)</span></li>
+</ul>
+<p>The attribute with the highest information gain is the <em>most important</em> attribute.</p>
+<section id="example-1" class="level3">
+<h3 data-anchor-id="example-1">Example</h3>
+<p>For Bob’s skiing data, let’s calculate the information gain for the <em>Snow near</em> attribute.</p>
+<p>First, split the data based on <em>Snow near”</em>:</p>
+<ul>
+<li><span class="math inline">\(D_{yes}\)</span> (4 examples, all <em>Go Skiing</em> = yes, entropy = 0)</li>
+<li><span class="math inline">\(D_{no}\)</span> (7 examples, 2 yes and 5 no, entropy = 0.863)</li>
+</ul>
+<p>The information gain is:</p>
+<p><span class="math inline">\(G(D,\text{Snow near}) = 0.994 - \frac{4}{11} \cdot 0 - \frac{7}{11} \cdot 0.863 = 0.445\)</span></p>
+<p>Similarly, we can calculate:</p>
+<ul>
+<li><span class="math inline">\(G(D,\text{Weekend}) = 0.150\)</span></li>
+<li><span class="math inline">\(G(D,\text{Sun}) = 0.049\)</span></li>
+</ul>
+<p>Since “Snow near” has the highest information gain, we select it as the root node.</p>
+<div class="notes">
+<p>This example shows the complete information gain calculation for one attribute. We first split the data based on whether there is snow nearby, calculate the entropy of each subset, and then determine how much entropy decreased overall. We do the same for the other attributes and select the one with the highest gain.</p>
+</div>
+</section>
+</section>
+<section id="building-the-tree" class="level2">
+<h2 data-anchor-id="building-the-tree">Building the Tree</h2>
+<p>After selecting <em>Snow near</em> as our root, we continue the process recursively for each subset.</p>
+<p>For <span class="math inline">\(D_{yes}\)</span> (all examples have <em>Go Skiing</em> = yes):<br>
+This is a pure node, so we’re done with this branch</p>
+<p>For <span class="math inline">\(D_{no}\)</span> (mixed yes and no):</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Calculate information gain for remaining attributes on this subset</li>
+<li><em>Weekend</em> has higher gain (0.292) than <em>Sun</em> (0.169)</li>
+<li>Split on <em>Weekend</em></li>
+<li>Continue recursively …</li>
+</ul>
+</div>
+<hr>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%| fig-cap: "Decision tree for Bob's skiing decisions"
+%%| fig-width: 8
+%%| fig-height: 6
+
+graph TD
+    A["Snow near?"] --&gt;|Yes| B["Yes"]
+    A --&gt;|No| C["Weekend?"]
+    C --&gt;|Yes| D["Sun?"]
+    C --&gt;|No| E["No"]
+    D --&gt;|Yes| F["(2 Yes, 1 No)"]
+    D --&gt;|No| G["No"]
+    
+    %% Apply Arial font to all elements including edges
+    classDef default font-family:Arial,font-size:14px;
+    linkStyle default font-family:Arial,font-size:12px,fill:none,stroke-width:1px;
+    
+    %% Node styling
+    classDef decision fill:#f9f9f9,stroke:#333,stroke-width:1px,font-family:Arial;
+    classDef yes fill:#d4f4d4,stroke:#060,stroke-width:1px,color:#060,font-family:Arial;
+    classDef no fill:#f4d4d4,stroke:#600,stroke-width:1px,color:#600,font-family:Arial;
+    classDef mixed fill:#f4f4d4,stroke:#660,stroke-width:1px,color:#660,font-family:Arial;
+    
+    class A,C,D decision;
+    class B,F yes;
+    class E,G no;
+    class F mixed;
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="gini-impurity" class="level2">
+<h2 data-anchor-id="gini-impurity">Gini Impurity</h2>
+<p>Instead of information gain, the <strong>Gini impurity</strong> is another common criterion that measures the probability of incorrectly classifying a randomly chosen element if it were randomly labeled according to the class distribution in a subset:</p>
+<p><span class="math display">\[\text{Gini}(X) = \sum\limits_{x \in V(X)} p_x(1-p_x)\]</span></p>
+<p>Where <span class="math inline">\(V(X)\)</span> are the class values in node <span class="math inline">\(X\)</span> and <span class="math inline">\(p_x\)</span> is the probability of class <span class="math inline">\(x\)</span>.</p>
+<p>Properties:</p>
+<ul>
+<li>Measures the probability of misclassifying a randomly chosen element</li>
+<li>0 means all elements belong to the same class</li>
+<li>Maximum value occurs when classes are equally likely</li>
+<li>A lower Gini value indicates a “purer” node (more homogeneous)</li>
+<li>Often used in CART (Classification and Regression Trees) algorithm</li>
+</ul>
+<div class="notes">
+<p>Gini impurity is another common splitting criterion, especially in the CART algorithm. While entropy measures uncertainty, Gini measures the expected error rate if we randomly classify according to the distribution in the node. In practice, both metrics often yield similar trees, though Gini can be computationally more efficient since it doesn’t use logarithms.</p>
+</div>
+</section>
+<section id="numerical-attributes" class="level2">
+<h2 data-anchor-id="numerical-attributes">Numerical Attributes</h2>
+<p>For numerical attributes:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Sort the values of the attribute in the training set</li>
+<li>Consider all possible thresholds between adjacent values</li>
+<li>Calculate information gain for each threshold</li>
+<li>Select the threshold with the highest information gain</li>
+</ol>
+</div>
+<div class="notes">
+<p>Handling numerical attributes is a key extension to the basic algorithm. Rather than treating each unique numeric value as a separate category, we find the optimal binary split point. This is done by sorting the values and testing each potential threshold between adjacent values. The threshold that maximizes information gain is selected.</p>
+</div>
+<section id="example-2" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="example-2">Example</h3>
+<p>Let’s extend Bob’s skiing decision scenario by adding a numerical attribute: <strong>Snow Depth</strong> (in cm).</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Snow Depth</strong></th>
+<th style="text-align: center;"><strong>Weekend</strong></th>
+<th style="text-align: center;"><strong>Sun</strong></th>
+<th style="text-align: center;"><strong>Go Skiing</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">35</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">no</td>
+</tr>
+</tbody>
+</table>
+<section id="finding-the-optimal-split-for-snow-depth" class="level4">
+<h4 data-anchor-id="finding-the-optimal-split-for-snow-depth">Finding the Optimal Split for <em>Snow Depth</em></h4>
+<p>For numerical attributes like <em>Snow Depth</em>, we need to:</p>
+<ol type="1">
+<li><strong>Sort the values</strong>: 0, 0, 1, 2, 3, 5, 8, 15, 25, 30, 35</li>
+<li><strong>Consider all possible thresholds</strong> between adjacent values</li>
+<li><strong>Calculate information gain</strong> for each threshold</li>
+<li><strong>Select the threshold</strong> with the highest information gain</li>
+</ol>
+<p>For simplicity, let’s calculate the information gain for just one threshold: <strong><em>Snow Depth</em> ≤ 10 cm</strong></p>
+<p>This splits our data into:</p>
+<ul>
+<li><strong>Snow Depth ≤ 10 cm</strong>: 7 examples (2 “yes”, 5 “no”)</li>
+<li><strong>Snow Depth &gt; 10 cm</strong>: 4 examples (4 “yes”, 0 “no”)</li>
+</ul>
+</section>
+<section id="calculating-information-gain" class="level4">
+<h4 data-anchor-id="calculating-information-gain">Calculating Information Gain</h4>
+<ol type="1">
+<li><p><strong>Original entropy</strong>: <span class="math inline">\(H(D) = - \left( \frac{6}{11} \log_2 \frac{6}{11} +  \frac{5}{11} \log_2 \frac{5}{11} \right) = 0.994\)</span></p></li>
+<li><p><strong>Entropy after splitting on Snow Depth ≤ 10 cm</strong>:</p>
+<ul>
+<li><span class="math inline">\(H(D_{\leq 10}) = - \left( \frac{2}{7} \log_2 \frac{2}{7} +  \frac{5}{7} \log_2 \frac{5}{7} \right) = 0.863\)</span></li>
+<li><span class="math inline">\(H(D_{&gt; 10}) = - \left( \frac{4}{4} \log_2 \frac{4}{4} +  \frac{0}{4} \log_2 \frac{0}{4} \right) = 0\)</span> (Note: <span class="math inline">\(0 \log_2 0\)</span> is defined as 0 in entropy calculations)</li>
+</ul></li>
+<li><p><strong>Weighted average entropy after split</strong>: <span class="math inline">\(\frac{7}{11} \cdot 0.863 + \frac{4}{11} \cdot 0 = 0.549\)</span></p></li>
+<li><p><strong>Information gain</strong>: <span class="math inline">\(G(D, \text{Snow Depth} \leq 10) = 0.994 - 0.549 = 0.445\)</span></p></li>
+</ol>
+</section>
+<section id="resulting-decision-tree" class="level4">
+<h4 data-anchor-id="resulting-decision-tree">Resulting Decision Tree</h4>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A["Snow Depth ≤ 10 cm?"] --&gt;|Yes| B["Weekend?"]
+    A --&gt;|No| C["Go Skiing: Yes"]
+    B --&gt;|Yes| D["Sun?"]
+    B --&gt;|No| E["Go Skiing: No"]
+    D --&gt;|Yes| F["Go Skiing: Yes/No&lt;br&gt;(2 Yes, 1 No)"]
+    D --&gt;|No| G["Go Skiing: No"]
+    
+
+    classDef default font-family:Arial,font-size:14px;
+    linkStyle default font-family:Arial,font-size:12px,fill:none,stroke-width:1px;
+    
+    classDef decision fill:#f9f9f9,stroke:#333,font-familiy:arial;
+    classDef yes fill:#d4f4d4,stroke:#060,color:#060,font-familiy:arial;
+    classDef no fill:#f4d4d4,stroke:#600,color:#600,font-familiy:arial;
+    classDef mixed fill:#f4f4d4,stroke:#660,color:#660,font-familiy:arial;
+    
+    class A,B,D decision;
+    class C yes;
+    class E,G no;
+    class F mixed;
+</pre>
+</div>
+<p></p><figcaption> Decision tree with numerical attribute (Snow Depth)</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="key-insights" class="level4">
+<h4 data-anchor-id="key-insights">Key Insights</h4>
+<ol type="1">
+<li><strong>Continuous range to binary decision</strong>:<br>
+The numerical attribute <em>Snow Depth</em> has been converted into a binary decision (≤10 cm or &gt;10 cm)</li>
+<li><strong>Threshold selection</strong>:<br>
+We would typically calculate information gain for all possible thresholds and select the one with the highest gain. For example, we might also check <em>Snow Depth</em> ≤ 4 cm or <em>Snow Depth</em> ≤ 20 cm</li>
+<li><strong>Multiple splits possible</strong>:<br>
+The same numerical attribute can be used multiple times in a decision tree with different thresholds (e.g., first split on <em>Snow Depth</em> ≤ 10 cm and later split on <em>Snow Depth</em> ≤ 5 cm)</li>
+</ol>
+<p>In this example, <em>Snow Depth</em> ≤ 10 cm provides the same information gain (0.445) as the original <em>Snow near</em> attribute, making it an equally good choice for the root node.</p>
+</section>
+</section>
+</section>
+<section id="recursive-learning-process" class="level2">
+<h2 data-anchor-id="recursive-learning-process">Recursive Learning Process</h2>
+<p>In each recursive step of decision tree learning, there are four cases to consider:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Mixed examples (positive and negative)</strong>: Choose the best attribute and split</li>
+<li><strong>Pure node</strong> (all examples have same class): Create a leaf node with that class</li>
+<li><strong>No examples</strong>: Create a leaf with the majority class from the parent node</li>
+<li><strong>No attributes left but mixed classes</strong>: Create a leaf with the majority class (handles noisy data)</li>
+</ol>
+</div>
+<p>This process continues until all branches end in leaf nodes.</p>
+<div class="notes">
+<p>These four cases cover all possible scenarios during tree construction. Cases 3 and 4 are important for handling edge cases that might arise, particularly with small or noisy datasets. The algorithm is robust because it always has a way to proceed regardless of the data configuration.</p>
+</div>
+</section>
+</section>
+<section id="preventing-overfitting" class="level1 headline-only">
+<h1 class="headline-only">Preventing Overfitting</h1>
+<section id="the-overfitting-problem" class="level2">
+<h2 data-anchor-id="the-overfitting-problem">The Overfitting Problem</h2>
+<div class="medium">
+<p>Decision trees face a fundamental trade-off between data fit and generalization.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>A deeper tree can fit the training data more perfectly</li>
+<li>But a tree that’s too deep might capture noise rather than true patterns</li>
+<li>This results in poor generalization to new data</li>
+</ul>
+</div>
+<div class="notes">
+<p>Overfitting is a critical concept in machine learning. A decision tree that perfectly fits the training data might have learned the noise in the data rather than the underlying pattern. This results in poor performance on new data. Recognizing and preventing overfitting is essential for building useful models.</p>
+</div>
+</section>
+<section id="pruning-techniques" class="level2">
+<h2 data-anchor-id="pruning-techniques">Pruning Techniques</h2>
+<p><strong>Pruning</strong> reduces the size of decision trees to prevent overfitting.</p>
+<p><span class="h4"><strong>Pre-pruning</strong></span></p>
+<p>Stop growing the tree while building to limit maximum depth.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Require minimum samples per node</li>
+<li>Set minimum information gain threshold</li>
+</ul>
+</div>
+<p><span class="h4"><strong>Post-pruning</strong></span></p>
+<p>Build the full tree, then remove sections</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Reduced error pruning — replace nodes with their most common class if it doesn’t increase error on a validation set</li>
+<li>Cost-complexity pruning — balance accuracy against tree size using a penalty parameter</li>
+</ul>
+</div>
+<p>Both approaches improve generalization by reducing model complexity.</p>
+</section>
+<section id="performance-assessment" class="level2">
+<h2 data-anchor-id="performance-assessment">Performance Assessment</h2>
+<p>To properly evaluate a decision tree model:</p>
+<p><span class="h4 fragment">1. Divide your data into separate sets</span></p>
+<div class="incremental">
+<ul class="incremental">
+<li>Training set (e.g., 70%) — used to build the tree</li>
+<li>Validation set (e.g., 10%) — used for pruning decisions</li>
+<li>Test set (e.g., 20%) — used only for final evaluation</li>
+</ul>
+</div>
+<p><span class="h4 fragment">2. Measure accuracy on the test set</span></p>
+<p><span class="h4 fragment">3. Use <strong>cross-validation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></strong> for more robust assessment</span></p>
+<p>As the training set grows, prediction quality usually increases, then plateaus.</p>
+</section>
+</section>
+<section id="usage-extensions" class="level1 headline-only">
+<h1 class="headline-only">Usage &amp; Extensions</h1>
+<section id="real-world-applications" class="level2">
+<h2 data-anchor-id="real-world-applications">Real-World Applications</h2>
+<p>Decision trees are used across many domains:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Finance</strong>: Credit scoring, fraud detection</li>
+<li><strong>Healthcare</strong>: Disease diagnosis, treatment planning</li>
+<li><strong>Marketing</strong>: Customer segmentation, churn prediction</li>
+<li><strong>Operations</strong>: Quality control, maintenance scheduling</li>
+</ul>
+</div>
+<p>Their simplicity and interpretability make them particularly valuable when decisions need to be explained to stakeholders.</p>
+<div class="notes">
+<p>The practical applications of decision trees are numerous. Their interpretability makes them especially valuable in domains where explanation is important, such as healthcare and finance. Even when more complex models are used for prediction, decision trees are often used to explain those predictions.</p>
+</div>
+</section>
+<section id="ensemble-methods" class="level2">
+<h2 data-anchor-id="ensemble-methods">Ensemble Methods</h2>
+<p>Ensemble methods address the limitations of single decision trees by combining multiple trees.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Random Forests</strong>: Build many trees on random subsets of data and features, then average their predictions</li>
+<li><strong>Gradient Boosting</strong>: Build trees sequentially, with each tree correcting errors made by previous trees</li>
+<li><strong>AdaBoost</strong>: Weight samples based on classification difficulty</li>
+</ul>
+</div>
+<p>These ensemble approaches often dramatically outperform single decision trees while retaining some interpretability.</p>
+</section>
+<section id="strengths-and-weaknesses" class="level2">
+<h2 data-anchor-id="strengths-and-weaknesses">Strengths and Weaknesses</h2>
+<table class="table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Strengths</th>
+<th>Weaknesses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Easy to understand and interpret</td>
+<td>Can create overly complex trees that don’t generalize well</td>
+</tr>
+<tr class="even">
+<td>Minimal data preparation required</td>
+<td>Small changes in data can result in a very different tree</td>
+</tr>
+<tr class="odd">
+<td>Handles both numerical and categorical data</td>
+<td>Biased toward attributes with more levels</td>
+</tr>
+<tr class="even">
+<td>Handles missing values well</td>
+<td>Struggles with diagonal decision boundaries</td>
+</tr>
+<tr class="odd">
+<td>Computationally inexpensive</td>
+<td>Generally lower accuracy than ensemble methods</td>
+</tr>
+</tbody>
+</table>
+<p>Understanding these trade-offs helps in choosing when to use decision trees.</p>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<div class="incremental">
+<ul class="incremental">
+<li>Decision trees represent functions by sequencing attribute tests</li>
+<li>They excel at explainability but can struggle with certain function types</li>
+<li>Tree learning algorithms use information gain to select the most informative attributes</li>
+<li>Pruning techniques help prevent overfitting</li>
+<li>While simple, decision trees form the foundation for powerful ensemble methods</li>
+</ul>
+</div>
+<p>Decision trees balance performance and interpretability, making them a valuable tool in any data scientist’s toolkit.</p>
+</section>
+<section id="exercises" class="level1 vertical-center" data-background-color="black" data-visibility="hidden">
+<h1 class="vertical-center" data-background-color="black" data-visibility="hidden">Exercises</h1>
+<section id="divide-and-conquer" class="level2">
+<h2 data-anchor-id="divide-and-conquer">Divide-and-conquer</h2>
+<p>Create the decision tree by applying the divide-and-conquer approach on the restaurant examples.</p>
+<p>Compare the naive tree with the tree gained by applying the divide-and-conquer heuristic. What differences do you see?.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="fig-l-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/divide-and-conquer.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Splitting the examples by testing on attributes, based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, p. 677</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p>At each node, we show the positive (light boxes) and negative (dark boxes) examples remaining. (a) Splitting on <em>Type</em> brings us no nearer to distinguishing between positive and negative examples. <em>Type</em> is a <strong>poor attribute</strong> (b) Splitting on <em>Patrons</em> does a good job of separating positive and negative examples. After splitting on <em>Patrons</em>, <em>Hungry</em> is a fairly good selection test. The full tree would be <em>Patrons</em>, <em>Hungry</em>, <em>Type</em> and <em>Fri</em>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree" class="level2">
+<h2 data-anchor-id="decision-tree">Decision tree</h2>
+<p>Explain how decision trees can be used to create a learning agent. Relate your answers to the components outlined in the lecture notes.</p>
+<p>We never test the same attribute twice along one path in a decision tree. Why not?</p>
+</section>
+<section id="information-gain-1" class="level2">
+<h2 data-anchor-id="information-gain-1">Information Gain</h2>
+<p>Consider the following dataset about weather conditions and whether tennis matches were played:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Day</th>
+<th>Outlook</th>
+<th>Temperature</th>
+<th>Humidity</th>
+<th>Windy</th>
+<th>Play Tennis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Sunny</td>
+<td>Hot</td>
+<td>High</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Sunny</td>
+<td>Hot</td>
+<td>High</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Overcast</td>
+<td>Hot</td>
+<td>High</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Rain</td>
+<td>Mild</td>
+<td>High</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Rain</td>
+<td>Cool</td>
+<td>Normal</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Rain</td>
+<td>Cool</td>
+<td>Normal</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Overcast</td>
+<td>Cool</td>
+<td>Normal</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Sunny</td>
+<td>Mild</td>
+<td>High</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Sunny</td>
+<td>Cool</td>
+<td>Normal</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Rain</td>
+<td>Mild</td>
+<td>Normal</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Sunny</td>
+<td>Mild</td>
+<td>Normal</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Overcast</td>
+<td>Mild</td>
+<td>High</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Overcast</td>
+<td>Hot</td>
+<td>Normal</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Rain</td>
+<td>Mild</td>
+<td>High</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Calculate the entropy of the <em>Play Tennis</em> attribute for the entire dataset.</li>
+<li>Calculate the information gain for each of the four attributes (Outlook, Temperature, Humidity, Windy).</li>
+<li>Which attribute should be selected as the root node of the decision tree?</li>
+<li>Draw the first level of the decision tree.</li>
+<li>For the <em>Outlook</em> = Sunny branch, calculate which attribute should be tested next.</li>
+</ol>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the entropy calculation, count how many <em>Yes</em> and <em>No</em> instances there are in the <em>Play Tennis</em> column. Remember that the entropy formula is:</p>
+<p><span class="math display">\[H(X) = - \sum\limits_{x \in V(X)} p_x \cdot \log_2 (p_x)\]</span></p>
+<p>For information gain, you’ll need to split the data based on each attribute value and calculate the weighted entropy.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="numeric-attributes" class="level2">
+<h2 data-anchor-id="numeric-attributes">Numeric Attributes</h2>
+<p>Consider the following dataset for predicting credit risk based on income and debt levels:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Customer ID</th>
+<th>Income (1000€)</th>
+<th>Debt (1000€)</th>
+<th>Credit Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>45</td>
+<td>10</td>
+<td>Low</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>32</td>
+<td>12</td>
+<td>Low</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>85</td>
+<td>15</td>
+<td>Low</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>38</td>
+<td>20</td>
+<td>High</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>48</td>
+<td>28</td>
+<td>High</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>29</td>
+<td>18</td>
+<td>High</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>56</td>
+<td>5</td>
+<td>Low</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>22</td>
+<td>10</td>
+<td>High</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>70</td>
+<td>8</td>
+<td>Low</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>35</td>
+<td>25</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>List all potential splitting thresholds that should be considered for the <em>Income</em> attribute.</li>
+<li>Calculate the information gain for the threshold <em>Income</em> ≤ 40.</li>
+<li>List all potential splitting thresholds for the <em>Debt</em> attribute.</li>
+<li>Calculate the information gain for the threshold <em>Debt</em> ≤ 15.</li>
+<li>Which numerical split would be chosen for the root node of the decision tree?</li>
+</ol>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For numerical attributes, consider threshold values that are midpoints between adjacent values in the sorted list of values. For example, if you have values 10, 15, and 20, the potential thresholds would be 12.5 and 17.5.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-boundaries" class="level2">
+<h2 data-anchor-id="decision-boundaries">Decision Boundaries</h2>
+<p>Consider a two-dimensional feature space with two attributes: x₁ and x₂. The following points represent different classes:</p>
+<ul>
+<li>Class A: (2,3), (3,2), (3,3), (4,3)</li>
+<li>Class B: (1,1), (2,1), (2,2)</li>
+<li>Class C: (4,1), (4,2), (5,1), (5,2)</li>
+</ul>
+<ol type="1">
+<li>Visualize these points in a 2D coordinate system.</li>
+<li>Construct a decision tree with a maximum depth of 2 (counting the root as depth 0) that separates the classes as well as possible.</li>
+<li>Draw the decision boundaries created by your tree on the 2D plot.</li>
+<li>What is the classification accuracy of your tree on the training data?</li>
+<li>If a new point (3,1) is encountered, how would your tree classify it?</li>
+</ol>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Start by identifying the best horizontal or vertical split that separates the classes. Then, apply the same process to each resulting region. The decision boundaries will form axis-parallel lines in the 2D space.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pruning" class="level2">
+<h2 data-anchor-id="pruning">Pruning</h2>
+<p>Consider the following decision tree trained on a small dataset:</p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Age ≤ 30?] --&gt;|Yes| B[B; Income ≤ 40K?]
+    A --&gt;|No| C[C; Income ≤ 60K?]
+    
+    B --&gt;|Yes| D[D; Buy = No&lt;br&gt;3/4 correct]
+    B --&gt;|No| E[E; Education?]
+    
+    C --&gt;|Yes| F[F; Education?]
+    C --&gt;|No| G[G; Buy = Yes&lt;br&gt;5/6 correct]
+    
+    E --&gt;|High| H[H; Buy = Yes&lt;br&gt;2/2 correct]
+    E --&gt;|Low| I[I; Buy = No&lt;br&gt;1/1 correct]
+    
+    F --&gt;|High| J[J; Buy = Yes&lt;br&gt;3/4 correct]
+    F --&gt;|Low| K[K; Buy = No&lt;br&gt;2/3 correct]
+</pre>
+</div>
+<p></p><figcaption> Unpruned decision tree</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>The tree makes some errors on the training data, as indicated by the fractions (e.g., “3/4 correct” means the node correctly classifies 3 out of 4 training examples that reach that node).</p>
+<p>You also have a validation set with the following distribution:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Node</th>
+<th>Validation examples</th>
+<th>Correctly classified</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D</td>
+<td>8</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>I</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>J</td>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>K</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>G</td>
+<td>10</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Calculate the classification accuracy of the unpruned tree on the validation set.</li>
+<li>Identify which nodes, if any, should be pruned.</li>
+<li>Explain why pruning improved or worsened the performance.</li>
+</ol>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In reduced error pruning, replace a node with its most common class if doing so doesn’t decrease accuracy on the validation set. Start with the leaf nodes and work your way up. For each non-leaf node, calculate the accuracy before and after replacing it with a leaf.</p>
+<p>No subtree pruning improves accuracy, so no pruning should be applied.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern approach</em>. Pearson Education.
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><span class="math inline">\(\log_2 (|V(X)|)\)</span> describes the upper bound of entropy — the maximum possible entropy for a random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\log_2 (|V(X)|)\)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Multiple train-test splits are created and averaged.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2025, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
