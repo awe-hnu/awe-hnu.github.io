@@ -9,8 +9,8 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2024-03-04">
@@ -53,7 +53,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-d8fd79fd234f6d2080570d7c1a008f47.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-1af2943b3f72ac25449b4229b66bf258.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -240,23 +240,29 @@ Andy Weeger
 <section id="generative-mechanisms" class="title-slide slide level2">
 <h2>Generative mechanisms</h2>
 <div class="r-stack html-hidden">
+<div class="fragment">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="images/mechanisms-1.svg" class="fragment" height="360"></p>
+<p><img data-src="images/mechanisms-1.svg" height="360"></p>
 <figcaption>Generative mechanisms according to <span class="citation" data-cites="henfridsson2013generative">Henfridsson &amp; Bygstad (<a href="#/literature" role="doc-biblioref" onclick="">2013</a>)</span></figcaption>
 </figure>
 </div>
+</div>
+<div class="fragment">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="images/mechanisms-2.svg" class="fragment" height="360"></p>
+<p><img data-src="images/mechanisms-2.svg" height="360"></p>
 <figcaption>&nbsp;</figcaption>
 </figure>
 </div>
+</div>
+<div class="fragment">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="images/mechanisms.svg" class="fragment" height="360"></p>
+<p><img data-src="images/mechanisms.svg" height="360"></p>
 <figcaption>&nbsp;</figcaption>
 </figure>
+</div>
 </div>
 </div>
 <aside class="notes">
@@ -923,13 +929,14 @@ Zittrain, J. (2006). The generative internet. Harvard law review. <em>Oxford Leg
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
