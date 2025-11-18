@@ -9,7 +9,9 @@
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="Andy Weeger">
@@ -162,6 +164,8 @@
       margin-right: 0; 
     }
   </style>
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
 <meta property="og:title" content="Integration (E6) – awe.lectures">
 <meta property="og:description" content="Was ist integrierte Informationsverarbeitung?">
 <meta property="og:site_name" content="awe.lectures">
@@ -284,35 +288,27 @@ Andy Weeger
 <dl>
 <dt>Datenintegration</dt>
 <dd>
-Die Daten von mehreren Anwendungssystemen werden so verwaltet, dass jedes Datum (bspw. die Kundenadresse) nur einmal gespeichert ist. Tritt ein Datum mehrfach auf, werden die Kopien konsistent gehalten. Das wird in der Regel mittels <a href="#/datenbanksysteme">Datenbanksystemen</a> oder automatisierten Abgleichen realisiert.
+Die Datenintegration zielt auf eine einheitliche und konsistente Bereitstellung von Daten über verschiedene Anwendungssysteme hinweg ab. Jedes Datum (z.B. die Kundenadresse) wird idealerweise nur einmal gespeichert (Single Source of Truth). Bei mehrfacher Datenhaltung werden die Kopien konsistent gehalten. Zentrale Aspekte sind die Vermeidung von Datenredundanzen, die Sicherstellung der Datenkonsistenz sowie die Schaffung einer gemeinsamen Datenbasis (bspw. mittels <a href="#/datenbanksysteme">Datenbanksystemen</a>).
 </dd>
-</dl>
-<div class="fragment">
-<dl>
 <dt>Funktionsintegration</dt>
 <dd>
-Die Funktionsintegration hat zum Ziel, verschiedene Abteilungen oder Funktionen eines Unternehmens zu verbinden, sodass sie auf eine gemeinsame Datenbasis zugreifen und effizient zusammenarbeiten können. Ein Enterprise Resource Planning (ERP) System integriert beispielsweise die Funktionen von Finanzwesen, Personalwesen, Produktion und Logistik in einem Anwendungssystem.
+Die Funktionsintegration verbindet verschiedene betriebliche Funktionsbereiche wie Beschaffung, Produktion, Vertrieb, Rechnungswesen und Personalwesen. Ziel ist es, dass diese Bereiche auf eine gemeinsame Datenbasis zugreifen und effizient zusammenarbeiten können. Dadurch werden bereichsübergreifende Auswertungen ermöglicht und Datenredundanzen vermieden. Ein Enterprise Resource Planning (ERP) System integriert beispielsweise alle Funktionsbereiche in einem gemeinsamen Anwendungssystem.
 </dd>
-</dl>
-</div>
-<div class="fragment">
-<dl>
 <dt>Prozessintegration</dt>
 <dd>
-Die Prozessintegration hat zum Ziel, Abläufe oder Prozesse, die oft abteilungs- und oder unternehmensübergreifend sind, zu verzahnen. Es geht darum, diese Prozesse zu automatisieren und zu optimieren, um die Effizienz zu steigern. Ein ERP-System integriert Prozesse wie Bestellabwicklung, Rechnungsstellung und Lieferkettenmanagement. Der Fokus liegt auf der Integration der Prozesse, um einen nahtlosen Ablauf zu gewährleisten.
+Die Prozessintegration zielt auf die durchgängige systemseitige Unterstützung von Geschäftsprozessen ab, die über mehrere Funktionsbereiche hinweg verlaufen. Im Fokus steht der gesamte Ablauf eines Prozesses vom Anfang bis zum Ende – unabhängig davon, welche Abteilungen oder Unternehmensbereiche beteiligt sind. Durch die Automatisierung und Optimierung dieser bereichsübergreifenden Prozesse entlang der Wertschöpfungskette wird ein nahtloser Ablauf gewährleistet. Beispiele sind Order-to-Cash, Purchase-to-Pay oder die durchgängige Bestellabwicklung mit Rechnungsstellung und Lieferkettenmanagement.
 </dd>
 </dl>
-</div>
 </section>
 
 <section id="voraussetzungen" class="title-slide slide level2">
 <h2>Voraussetzungen</h2>
 <p>Voraussetzung für eine gelingende Integration ist ein gutes Verständnis von und eine gute Übersicht über die zu integrierenden Gegenstände (Daten, Funktionen, Prozesse) sowie die eingesetzten Anwendungssysteme <span class="citation" data-cites="mertens2016grundzuge">(<a href="#/literatur" role="doc-biblioref" onclick="">Mertens et al., 2016</a>, p.&nbsp;173)</span>.</p>
 <div class="fragment">
-<p><strong><a href="../6/#datenmodellierung">Unternehmensdatenmodelle</a></strong> beschreiben die Datenbestände eines Unternehmens und deren Struktur (<strong>Datenarchitektur</strong>). In diesem Modell werden unter anderem Mindestanforderungen an Datensätze definiert, die von jedem Anwendungssystem implementiert werden müssen (bspw. Struktur der Kundennummer). Diese erleichtern unter anderem den automatischen Abgleich von Daten.</p>
+<p><strong>Unternehmensdatenmodelle</strong> beschreiben die Datenbestände eines Unternehmens und deren Struktur (<strong>Datenarchitektur</strong>). In diesem Modell werden unter anderem Mindestanforderungen an Datensätze definiert, die von jedem Anwendungssystem implementiert werden müssen (bspw. Struktur der Kundennummer). Diese erleichtern unter anderem den automatischen Abgleich von Daten.</p>
 </div>
 <div class="fragment">
-<p><strong><a href="../5/#Prozessmodellierung">Prozessmodelle</a></strong> und <strong>Organigrammen</strong> beschreiben die Funktionen und Abläufe eines Unternehmens (<strong>Organisationsarchitektur</strong>) und welche Informationssysteme für welche Aufgaben eingesetzt werden.</p>
+<p><strong><a href="../prozesse/#prozessmodellierung">Prozessmodelle</a></strong> und <strong>Organigramme</strong> beschreiben die Funktionen und Abläufe eines Unternehmens (<strong>Organisationsarchitektur</strong>) und welche Informationssysteme für welche Aufgaben eingesetzt werden.</p>
 </div>
 </section>
 
@@ -323,7 +319,7 @@ Die Prozessintegration hat zum Ziel, Abläufe oder Prozesse, die oft abteilungs-
 <dl>
 <dt>Vertikale Integration</dt>
 <dd>
-Versorgung von Informationssystemen zur Entscheidungsunterstützung (<a href="../8/#betriebliche-anwendungssysteme">analytische Systeme</a>) mit Daten aus den Systemen, die das Tagesgeschäft ermöglichen bzw. abbilden (<a href="../8/#betriebliche-anwendungssysteme">operative Systeme</a>). Diese Daten werden verdichtet und verknüpft, um daraus Informationen zu gewinnen.
+Versorgung von Informationssystemen zur Entscheidungsunterstützung (<a href="../anwendungssysteme/#betriebliche-anwendungssysteme">analytische Systeme</a>) mit Daten aus den Systemen, die das Tagesgeschäft ermöglichen bzw. abbilden (<a href="../anwendungssysteme/#betriebliche-anwendungssysteme">operative Systeme</a>). Diese Daten werden verdichtet und verknüpft, um daraus Informationen zu gewinnen.
 </dd>
 </dl>
 </div>
@@ -354,25 +350,17 @@ Abbildung&nbsp;1: Horizontale und vertikale Integrationsorientierung
 <section id="integrationsreichweite" class="title-slide slide level2">
 <h2>Integrationsreichweite</h2>
 <p>Hinsichtlich der Reichweite der Integration unterscheidet man zwischen der innerbetrieblichen und der zwischenbetrieblichen Integration <span class="citation" data-cites="laudon2016wirtschaftsinformatik">(<a href="#/literatur" role="doc-biblioref" onclick="">Laudon et al., 2016</a>, p.&nbsp;437)</span>:</p>
-<div class="fragment">
 <dl>
 <dt>Innerbetriebliche Integration</dt>
 <dd>
-Integrierte Anwendungssysteme verbinden unterschiedliche Unternehmensbereiche entlang der Wertschöpfungskette. <a href="../8/#crm-systeme">Customer Relationship Management (CRM) Systeme</a> verbinden bspw. Marketing, Vertrieb und Kundendienst.
+Integrierte Anwendungssysteme verbinden unterschiedliche Unternehmensbereiche entlang der Wertschöpfungskette. <a href="../anwendungssysteme/#crm-systeme">Customer Relationship Management (CRM) Systeme</a> verbinden bspw. Marketing, Vertrieb und Kundendienst.
 </dd>
-</dl>
-</div>
-<div class="fragment">
-<dl>
 <dt>Zwischenbetriebliche Integration</dt>
 <dd>
 Anwendungssysteme von zwei oder mehr Unternehmen sind so aufeinander abgestimmt, dass Daten (bspw. Angebote, Aufträge, Lieferscheine, Rechnungen) zwischen Unternehmen und/oder Endkunden über unternehmensübergreifende Systeme digital ausgetauscht werden und so Prozesse weitestgehend automatisiert werden können (bspw. Auftragsabwicklung).
 </dd>
 </dl>
-</div>
-<div class="fragment">
-<p>Unternehmensübergreifende Informationssysteme gewinnen mit der zunehmenden Digitalisierung immer mehr Bedeutung.</p>
-</div>
+<p>Unternehmensübergreifende Informationssysteme gewinnen mit der zunehmenden Digitalisierung immer mehr Bedeutung.</p>
 </section>
 
 <section id="integrationszeitpunkt" class="title-slide slide level2">
@@ -516,61 +504,625 @@ Abbildung&nbsp;3: Einsatz eines zentralen Datenbanksystems
 </section>
 </section>
 <section>
-<section id="übungen" class="title-slide slide level1 vertical-center" data-background-color="blue">
+<section id="übungen" class="title-slide slide level1 headline-only">
 <h1>Übungen ✏️</h1>
 
 </section>
-<section id="integration-1" class="title-slide slide level2">
-<h2>Integration</h2>
-<p>Finden Sie <strong>jeweils ein konkretes Beispiel für Daten-, Funktions- und Prozessintegration</strong> in einem Unternehmen und beantworten Sie jeweils folgende Fragen:</p>
+<section id="fallstudie-sportactive" class="title-slide slide level2 smaller">
+<h2>Fallstudie: SportActive</h2>
+<p>Die <strong>SportActive GmbH</strong> ist ein mittelständisches Unternehmen, das Sportbekleidung und -ausrüstung verkauft.</p>
+<p><span class="h4">Vertriebskanäle</span></p>
 <ul>
-<li>Weshalb ist die Integration wichtig/notwendig?</li>
-<li>Wie wird die Integration erreicht?</li>
-<li>Was ist die Integrationsrichtung?</li>
-<li>Was ist der Integrationszeitpunkt?</li>
+<li>Online-Shop</li>
+<li>Drei Filialen in süddeutschen Städten</li>
+<li>45 Mitarbeiter</li>
 </ul>
+<p><span class="h4">Aktuelle IT-Landschaft</span></p>
+<ul>
+<li><strong>Online-Shop:</strong> Eigene Kundendatenbank</li>
+<li><strong>Filialen:</strong> Lokale Kundendatenbank je Filiale</li>
+<li><strong>Lager:</strong> Excel-basiertes Bestandsmanagement</li>
+<li><strong>Einkauf:</strong> Access-Lieferantendatenbank</li>
+<li><strong>Buchhaltung:</strong> DATEV mit eigenem Kundenstamm</li>
+<li><strong>Marketing:</strong> Newsletter-Tool mit Kontaktdatenbank</li>
+</ul>
+<p><strong>Typische Probleme:</strong> Falsche Rechnungsadressen, inkorrekte Lagerbestände, fehlende Kundeninfos bei Retouren, verspätete Nachbestellungen, ineffiziente Marketing-Kampagnen</p>
+<aside class="notes">
+<div class="smaller">
+<p>Diese Fallstudie wird uns durch die gesamte Übungseinheit begleiten. Sie arbeiten in Gruppen und analysieren verschiedene Aspekte der Integration.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 
-<section id="stammdaten" class="title-slide slide level2">
-<h2>Stammdaten</h2>
-<p>Identifizieren und beschreiben Sie drei unterschiedliche Stammdatenobjekte eines produzierenden Unternehmens, also Daten, die Grundinformationen über betrieblich relevante Objekte enthalten (bspw. Kunde).</p>
-<p>Beantworten Sie zu jedem Stammdatenobjekt (bspw. Kunde) folgende Fragen:</p>
+<section id="aufgabe-1a-prozessmodellierung" class="title-slide slide level2 smaller">
+<h2>Aufgabe 1a: Prozessmodellierung</h2>
+<p>Wählen Sie <em>einen</em> der folgenden Prozesse und erstellen Sie eine <em>eEPK</em> für SportActive in der <em>aktuellen, nicht-integrierten Situation</em>:</p>
+<div class="columns">
+<div class="column">
+<p><span class="h4">Option 1: Einkaufsprozess (Nachbestellung)</span></p>
 <ul>
-<li>Wie kann ein Stammdatensatz eindeutig identifiziert werden (bspw. ein spezifischer Kunde)?</li>
-<li>Welche Attribute beschreiben das Stammdatenobjekt?</li>
-<li>In welchen Prozessen werden diese Stammdaten wozu benötigt?</li>
-<li>Benötigen die Prozesse unterschiedliche Daten des Objekts? Falls ja, wie unterscheiden dich die Sichten?</li>
+<li>Bedarf wird festgestellt (Lagerbestand niedrig)</li>
+<li>Einkauf holt Angebote von drei Lieferanten ein</li>
+<li>Angebote werden verglichen, Lieferant ausgewählt</li>
+<li>Bestellung wird verschickt</li>
+<li>Ware wird geliefert und kontrolliert</li>
+<li>Bei korrekter Lieferung: Annahme, Lagerbestand aktualisieren</li>
+<li>Rechnung prüfen und Zahlung anweisen</li>
 </ul>
+</div><div class="column">
+<p><span class="h4">Option 2: Reklamationsprozess (Online-Shop)</span></p>
+<ul>
+<li>Kunde meldet Reklamation per E-Mail</li>
+<li>Kundenservice prüft Berechtigung</li>
+<li>Bei Berechtigung: Rücksendeetikett erstellen</li>
+<li>Ware trifft ein und wird geprüft</li>
+<li>Bei Annahme: Gutschrift erstellen</li>
+<li>Kunde erhält Erstattung</li>
+<li>Lagerbestand aktualisieren</li>
+</ul>
+</div></div>
+<p>Ergänzen Sie: <strong>Organisationseinheiten</strong>, <strong>Anwendungssysteme</strong>, <strong>Informationsobjekte</strong></p>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nutzen Sie <a href="https://www.yworks.com/yed-live">yEd Live</a> oder Papier.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+
+Aufgabe 1a/b:   10 + 10 + ~10 Min Vorstellung   = 30 Min
+Aufgabe 2a/b/c: 10 + 8 + 7 + ~15 Min Diskussion = 40 Min
+Aufgabe 3:      8 + ~7 Min Diskussion           = 15 Min 
+Aufgabe 4:      4 + ~6 Min Diskussion           = 10 Min
+Aufgabe 5:      8 + ~7 Min Diskussion           = 15 Min
+Aufgabe 6:      8 + ~7 Min Diskussion           = 15 Min
+
+-->
 </section>
 
-<section id="datenintegration" class="title-slide slide level2">
-<h2>Datenintegration</h2>
-<p>Stammdaten und andere Daten werden in Unternehmen oft in zentralen Datenbanksystemen gehalten.</p>
+<section id="aufgabe-1b-ist-analyse" class="title-slide slide level2">
+<h2>Aufgabe 1b: Ist-Analyse</h2>
+<p>Analysieren Sie Ihr Prozessmodell und identifizieren Sie Medienbrüche und sich daraus ergebende Probleme.</p>
+<p><span class="h4">Medienbrüche</span></p>
 <ul>
-<li>Beschreiben Sie, was ein Datenbanksystem ist und aus welchen Komponenten es besteht.</li>
-<li>Welche Voraussetzungen müssen gegeben sein, damit verschiedene Anwendungssysteme dieselbe Datenbank nutzen können?</li>
-<li>Was sind Vor- und Nachteile eines zentralen Datenbanksystems.</li>
-<li>(Wozu) nutzen Sie persönlich ein zentrales Datenbanksystem?</li>
+<li>Markieren Sie alle Stellen mit manueller Dateneingabe.</li>
+<li>Wo entstehen Ausdrucke und Neueingaben?</li>
 </ul>
+<p><span class="h4">Probleme</span></p>
+<ul>
+<li>Wo entstehen durch die fragmentierte IT-Landschaft <strong>Verzögerungen</strong>?</li>
+<li>Wo entstehen <strong>Fehlerquellen</strong>?</li>
+<li>Welche Daten müssen <strong>mehrfach erfasst</strong> werden?</li>
+</ul>
+<p>Dokumentieren Sie mindestens 3 konkrete Probleme aus Ihrem Prozess.</p>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 25 Minuten (gesamt) stellen 2-3 Gruppen ihre Prozessmodelle und ihre Analyse kurz vor (je 2 Min).</p>
+<p>In der Diskussion erkennen wir die Stärke von Prozessmodelle (Verständigung, Analyse) sowie häufige Probleme und deren Ursachen.</p>
+<p>Wir werden sehen, dass die fehlende Integration der Systeme zu erheblichen Ineffizienzen, Fehlerquellen und Verzögerungen führt – und dass beide Prozesse unter ähnlichen Problemen leiden.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung Einkaufsprozess:
+
+Medienbrüche:
+- Lagerbestand in Excel muss manuell geprüft werden
+- Lieferantenangebote (E-Mail) müssen manuell in Vergleichstabelle eingegeben werden
+- Bestellung wird in Access erstellt, aber auch als E-Mail verschickt
+- Lieferschein muss mit Bestellung und Lagerbestand manuell abgeglichen werden
+- Rechnung in DATEV muss manuell mit Bestellung abgeglichen werden
+
+Probleme:
+1. Verzögerung: Lagerbestand wird nur täglich aktualisiert → verspätete Bedarfserkennung
+2. Fehlerquelle: Manuelle Eingabe von Lieferantendaten kann zu Tippfehlern führen
+3. Redundanz: Artikeldaten existieren in Excel (Lager), Access (Einkauf) und DATEV (Buchhaltung)
+4. Inkonsistenz: Verschiedene Preise in unterschiedlichen Systemen
+
+Musterlösung Reklamationsprozess:
+
+Medienbrüche:
+- E-Mail-Reklamation muss manuell in System übertragen werden
+- Kundendaten müssen zwischen Online-Shop und Kundenservice-System abgeglichen werden
+- Lagerbestand (Excel) muss manuell aktualisiert werden
+- Gutschrift muss in DATEV manuell erstellt werden
+
+Probleme:
+1. Verzögerung: Kundenservice muss Kundendaten aus mehreren Systemen zusammensuchen
+2. Fehlerquelle: Falsche Kundenadresse führt zu falscher Erstattung
+3. Redundanz: Kundeninformationen in Online-Shop, Kundenservice-System und DATEV
+4. Inkonsistenz: Lagerbestand im Online-Shop stimmt nicht mit Excel-Datei überein
+-->
 </section>
 
-<section id="prozessintegration" class="title-slide slide level2">
-<h2>Prozessintegration</h2>
-<p>Über Cloud-Systeme wie <a href="https://ifttt.com/">IFTTT</a> (<em>If</em> <em>T</em>his <em>T</em>hen <em>T</em>hat) können Sie Anwendungssysteme (Apps) die Sie verwenden integrieren und so wiederkehrende Aufgaben/Tätigkeiten nahtlos automatisieren.</p>
-<p>Schauen Sie sich die Plattform an und beantworten Sie folgende Fragen.</p>
-<p><strong>Wiederholung:</strong></p>
+<section id="aufgabe-2a-datenintegration" class="title-slide slide level2">
+<h2>Aufgabe 2a: Datenintegration</h2>
+<p>Analysieren Sie die Integration der <strong>Daten</strong> in dem von Ihnen gewählten und modellierten Prozess:</p>
+<ol type="1">
+<li>Identifizieren Sie Redundanzen (ca. 5 Datenobjekte).</li>
+<li>Bewerten Sie die Kritikalität der Datenobjekte.<br>
+<em>Welches Objekt ist für den Prozess am wichtigsten?</em></li>
+<li>Beschreiben Sie, wo im Prozess <strong>Inkonsistenzen</strong> entstehen (können).<br>
+Welche Folgen haben diese?</li>
+<li>Skizzieren Sie eine mögliche Lösung.</li>
+</ol>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 10 Minuten tragen wir die Erkenntnisse je Prozess zusammen.</p>
+<p>Wir werden sehen, dass Datenredundanz und -inkonsistenz zentrale Probleme sind, die durch eine gemeinsame Datenbasis systematisch gelöst werden können.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung (Beispiele):
+
+Redundante Datenobjekte:
+1. Kundendaten (Online-Shop, Filialen, DATEV, Marketing)
+2. Artikeldaten (Online-Shop, Lager-Excel, Access-Einkauf, Filialen)
+3. Lieferantendaten (Access-Einkauf, DATEV)
+4. Bestandsdaten (Excel-Lager, Online-Shop, Filialen)
+5. Preisdaten (Online-Shop, Filialen, Einkauf, Buchhaltung)
+
+Am kritischsten: Bestandsdaten
+- Führt zu Überverkäufen im Online-Shop
+- Kunden bestellen nicht verfügbare Ware
+- Hohe Kosten durch Retouren und Unzufriedenheit
+
+Inkonsistenzen:
+- Kunde ändert Adresse im Online-Shop → Rechnung geht an alte Adresse (DATEV nicht aktualisiert)
+- Artikel wird verkauft → Online-Shop zeigt noch Verfügbarkeit (Excel nicht synchronisiert)
+- Preis ändert sich → unterschiedliche Preise in verschiedenen Systemen
+
+Lösung durch zentrale Datenbank:
+- Alle Systeme greifen auf dieselben Daten zu
+- Änderungen sind sofort für alle sichtbar
+- Single Source of Truth
+- Datenqualität und -konsistenz steigen
+-->
+</section>
+
+<section id="aufgabe-2b-funktionsintegration" class="title-slide slide level2">
+<h2>Aufgabe 2b: Funktionsintegration</h2>
+<p>Analysieren Sie die Integration von <strong>Funktionen</strong> der SportActive:</p>
+<ol type="1">
+<li>Identifizieren Sie beteiligte Funktionsbereiche.</li>
+<li>Leiten Sie die gemeinsame Datenbasis ab.<br>
+<em>Welche Bereiche müssten auf gemeinsame Daten zugreifen?</em></li>
+<li>Welche Vorteile hätte ein System, dass die Funktionen auf einer gemeinsamen Datenbasis verbindet?</li>
+</ol>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 8 Minuten tragen wir die Erkenntnisse je Prozess zusammen.</p>
+<p>Wir werden sehen, dass ein integriertes Anwendungssystem verschiedene Funktionsbereiche auf einer gemeinsamen Datenbasis verbindet und so bereichsübergreifende Auswertungen und effiziente Zusammenarbeit ermöglicht.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung:
+
+Beteiligte Funktionsbereiche:
+- Vertrieb (Online-Shop, Filialen)
+- Lager/Logistik
+- Einkauf
+- Buchhaltung/Finanzen
+- Marketing
+
+Gemeinsame Datenbasis notwendig für:
+- Vertrieb ↔ Lager: Bestandsinformationen
+- Vertrieb ↔ Buchhaltung: Kundendaten, Rechnungen
+- Einkauf ↔ Lager: Bestellungen, Wareneingänge
+- Alle ↔ Alle: Artikelstammdaten
+
+Vorteile ERP-System:
+1. Durchgängige Prozesse: Bestellung → Lieferung → Rechnung ohne Medienbrüche
+2. Echtzeit-Transparenz: Alle Bereiche sehen aktuelle Daten
+3. Bereichsübergreifende Auswertungen: z.B. Umsatz pro Artikel über alle Kanäle
+4. Reduzierte Fehlerquellen: Keine mehrfache Dateneingabe
+5. Effiziente Zusammenarbeit: Gemeinsame Plattform für alle Bereiche
+-->
+</section>
+
+<section id="aufgabe-2c-prozessintegration" class="title-slide slide level2">
+<h2>Aufgabe 2c: Prozessintegration</h2>
+<p>Analysieren Sie den Integrationsgrad des Prozesses.</p>
+<ol type="1">
+<li>Identifizieren Sie Schnittstellen. <em>Wo unterbrechen Systemwechsel den Prozessfluss?</em></li>
+<li>Analysieren Sie Automatisierungspotenzial. <em>Welche Aktivitäten könnten bei Integration automatisiert werden?</em></li>
+<li>Beschreiben Sie den Soll-Prozess.</li>
+</ol>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 7 Minuten tragen wir die Erkenntnisse je Prozess zusammen.</p>
+<p>Welche Automatisierungspotenziale sind in beiden Prozessen ähnlich?</p>
+<p>Wir werden sehen, dass Prozessintegration Medienbrüche eliminiert, manuelle Schritte automatisiert und die Durchlaufzeit drastisch verkürzt – der Prozess wird durchgängig unterstützt.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung Einkaufsprozess:
+
+Systemschnittstellen (Ist):
+- Excel (Lager) → E-Mail → Einkauf (Access)
+- Access (Einkauf) → E-Mail → Lieferant
+- Lieferant → Papier (Lieferschein) → Excel (Lager)
+- Lieferant → E-Mail (Rechnung) → DATEV (Buchhaltung)
+
+Automatisierungspotenzial:
+- Automatische Bedarfserkennung bei Unterschreitung Mindestbestand
+- Automatischer Angebotsvergleich
+- Automatische Bestellauslösung
+- Automatische Wareneingangsbuchung nach Kontrolle
+- Automatische Rechnungsprüfung (3-Wege-Abgleich: Bestellung-Lieferschein-Rechnung)
+
+Soll-Prozess (integriert):
+1. System erkennt niedrigen Lagerbestand automatisch
+2. Bedarfsmeldung wird an Einkauf gesendet
+3. System holt automatisch Angebote über Schnittstellen ein (oder nutzt Rahmenverträge)
+4. Einkäufer wählt Lieferant aus, System erstellt Bestellung
+5. Bei Wareneingang: Scannen des Lieferscheins, System bucht automatisch ein
+6. Rechnung kommt elektronisch, System gleicht automatisch ab (Bestellung-Lieferung-Rechnung)
+7. Bei Übereinstimmung: Automatische Freigabe zur Zahlung
+
+Hauptunterschiede:
+- Keine Medienbrüche
+- Automatische Datenflüsse zwischen Bereichen
+- Echtzeit-Aktualisierung aller Daten
+- Durchlaufzeit reduziert von Tagen auf Stunden
+- Fehlerquote sinkt drastisch
+-->
+</section>
+
+<section id="aufgabe-3-integrationsrichtung" class="title-slide slide level2">
+<h2>Aufgabe 3: Integrationsrichtung</h2>
+<p>Die Geschäftsführung von SportActive benötigt täglich aktuelle Auswertungen:</p>
 <ul>
-<li>Welches Service- und Bereitstellungsmodell nutzt IFTTT?</li>
-<li>Erläutern Sie anhand dieses Angebots die Eigenschaften von Cloud-Computing.</li>
-<li>Stellen Sie sich vor, Sie würden IFTTT intensiv nutzen. Welche Vor- und Nachteile ergeben sich aus dem Cloud-Betriebsmodell für Sie?</li>
+<li>Welche Produkte verkaufen sich am besten?</li>
+<li>Wie entwickeln sich die Umsätze im Vergleich zum Vorjahr?</li>
+<li>Gibt es kritische Lagerbestände?</li>
+<li>Welche Kunden kaufen am häufigsten?</li>
 </ul>
-<p><strong>Integration:</strong></p>
+<p>Dafür sollen Daten aus dem Tagesgeschäft (Online-Shop, Filialen, Lager, Einkauf) automatisch verdichtet, verknüpft und in übersichtlichen Berichten bereitgestellt werden.</p>
+<p><span class="h4">Aufgaben</span></p>
+<ol type="1">
+<li>Welche Art der Integration ist dies (horizontal/vertikal)?</li>
+<li>Aus welchen Systemen kommen die Daten?</li>
+<li>Wie müssen die Daten für die Berichte verändert werden (verdichten, verknüpfen, …)?</li>
+<li>Auf welcher Hierarchieebene arbeiten die Quellsysteme und das Berichtssystem?</li>
+</ol>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 8 Minuten tragen wir die Erkenntnisse zusammen.</p>
+<p>Wir werden sehen, dass dies ein Beispiel für vertikale Integration ist: Daten fließen von der operativen zur strategischen Ebene und werden dabei verdichtet und aufbereitet.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung:
+
+1. Art der Integration: **Vertikale Integration**
+   - Begründung: Daten aus operativen Systemen (Tagesgeschäft) werden zu analytischen Systemen (Entscheidungsunterstützung) übertragen
+   - Von unterer (operativ) zu oberer (strategisch/analytisch) Hierarchieebene
+   - Daten werden verdichtet und aggregiert
+
+2. Quellsysteme:
+   - Online-Shop (Verkaufsdaten)
+   - Kassensysteme Filialen (Verkaufsdaten)
+   - Lager-System (Bestandsdaten)
+   - Einkauf-System (Beschaffungsdaten)
+   - DATEV (Finanzdaten)
+
+3. Datenaufbereitung:
+   - Verdichtung: Einzelne Transaktionen → Tagesumsätze, Monatsumsätze
+   - Verknüpfung: Verkaufsdaten + Artikeldaten + Kundendaten
+   - Aggregation: Summen, Durchschnitte, Top-10-Listen
+   - Zeitvergleiche: Vorjahr, Vormonat
+   - KPIs berechnen: Lagerumschlag, Deckungsbeitrag pro Artikel
+
+4. Hierarchieebenen:
+   - Quellsysteme: Operative Ebene (Tagesgeschäft)
+   - Zielsystem: Analytische/Strategische Ebene (Management-Entscheidungen)
+-->
+</section>
+
+<section id="aufgabe-4-integrationszeitpunkt" class="title-slide slide level2">
+<h2>Aufgabe 4: Integrationszeitpunkt</h2>
+<p>Bewerten Sie für folgende Szenarien, ob <em>Stapelverarbeitung</em> oder <em>Ereignisorientierung</em> sinnvoller ist. Begründen Sie jeweils:</p>
+<ol type="1">
+<li>Aktualisierung Lagerbestände nach Verkauf im Online-Shop</li>
+<li>Abgleich Kundendaten zwischen verschiedenen Systemen</li>
+<li>Bereitstellung Verkaufsstatistiken für Geschäftsführung</li>
+<li>Synchronisation Produktpreise bei Preisaktion zwischen Online-Shop und Filialen</li>
+</ol>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 4 Minuten tragen wir die Erkenntnisse zusammen.</p>
+<p>Wir werden sehen, dass die Wahl zwischen Stapelverarbeitung und Ereignisorientierung von der Zeitkritikalität abhängt: Ereignisorientierung bei direkter Kundeninteraktion und kritischen Prozessen, Stapelverarbeitung bei periodischen Auswertungen.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung:
+
+1. Lagerbestände nach Verkauf: **Ereignisorientierung**
+   - Begründung: Echtzeit-Aktualisierung verhindert Überverkäufe
+   - Kritisch für Kundenzufriedenheit
+   - Vermeidet Bestellungen nicht verfügbarer Ware
+
+2. Kundendaten-Abgleich: **Stapelverarbeitung**
+   - Begründung: Nächtlicher Abgleich ausreichend
+   - Nicht zeitkritisch für tägliches Geschäft
+   - Reduziert Systemlast
+
+3. Verkaufsstatistiken: **Stapelverarbeitung**
+   - Begründung: Tägliche Berichte ausreichend
+   - Kann nachts generiert werden
+   - Keine Echtzeit-Anforderung für strategische Entscheidungen
+
+4. Produktpreise bei Preisaktion: **Ereignisorientierung**
+   - Begründung: Alle Kanäle müssen zeitgleich aktuelle Preise haben
+   - Verhindert Inkonsistenzen zwischen Online und Filiale
+   - Rechtliche Relevanz (gleiche Preise)
+-->
+</section>
+
+<section id="aufgabe-5-stammdaten" class="title-slide slide level2">
+<h2>Aufgabe 5: Stammdaten</h2>
+<p>Analysieren Sie die <em>Stammdaten</em> in Ihrem modellierten Prozess:</p>
+<ol type="1">
+<li>Benennen Sie die Stammdatenobjekte (min. 4 Beispiele)</li>
+<li>Analysieren Sie eines der Stammdatenobjekte:</li>
+</ol>
 <ul>
-<li>Welcher Ihrer privaten Prozesse (Tätigkeitsketten) kann IFTTT unterstützen?</li>
-<li>Welche <a href="#/Integrationsgegenstände">Gegenstände</a> werden integriert?</li>
-<li>Was ist die Integrationsrichtung?</li>
+<li>Wie wird es identifiziert?</li>
+<li>Welche Informationen (Attribute) sind notwendig?</li>
+<li>In welchen Systemen/Prozessschritten werden die Daten benötigt?</li>
+<li>Benötigen verschiedene Bereiche unterschiedliche Sichten?</li>
 </ul>
-<p>Bonus: Erstellen Sie sich einen eigenen Account und erstellen Sie ein eigenes Integrationsszenario.</p>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 8 Minuten tragen wir die Erkenntnisse je Prozess zusammen.</p>
+<p>Welche konkreten Probleme in Ihrem Prozess würde ein Stammdatenmanagementsystem lösen?</p>
+<p>Wir werden sehen, dass Stammdaten die Grunddaten eines Unternehmens sind, die in verschiedenen Prozessen und Systemen benötigt werden – und dass verschiedene Bereiche unterschiedliche Sichten auf dieselben Daten brauchen.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="aufgabe-6-reflexion" class="title-slide slide level2">
+<h2>Aufgabe 6: Reflexion</h2>
+<p>Schauen Sie sich die <a href="../prozesse/#verbesserung">Grundformen der Prozessverbesserung</a> aus der Vorwoche an: <em>Weglassen, Auslagern, Zusammenfassen, Parallelisieren, Verlagern, Beschleunigen, Schleifen vermeiden, Ergänzen</em></p>
+<ul>
+<li>Welche dieser Verbesserungen könnten durch <em>Integration</em> in Ihrem Prozess umgesetzt werden? Nennen Sie mindestens 3 Beispiele.</li>
+<li>Wie würde sich die Integration auf das <em>magische Dreieck</em> (Zeit, Qualität, Kosten) auswirken?</li>
+<li>Würden Sie SportActive empfehlen, die Integration <em>schrittweise</em> oder als <em>“Big Bang”</em> durchzuführen?</li>
+</ul>
+<div id="timer_f06ecb441a9ab0a02140d49521d490a08c28b3ec" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<div class="smaller">
+<p>Nach ca. 8 Minuten tragen wir die Erkenntnisse zusammen und reflektieren gemeinsam.</p>
+<p>Welche Dimensionen des magischen Dreiecks verbessern sich durch Integration? Gibt es auch Nachteile?</p>
+<p>Wir werden sehen, dass Integration vielfältige Prozessverbesserungen ermöglicht, alle drei Dimensionen des magischen Dreiecks mittelfristig verbessert werden – und dass eine schrittweise Implementierung für die meisten Unternehmen sinnvoller ist als ein Big Bang.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!--
+Musterlösung:
+
+a) Prozessverbesserungen durch Integration:
+
+Einkaufsprozess:
+1. **Weglassen:** Manuelle Dateneingaben entfallen (Medienbrüche eliminiert)
+2. **Beschleunigen:** Automatische Bedarfserkennung, keine Wartezeiten auf Genehmigungen
+3. **Schleifen vermeiden:** 3-Wege-Abgleich automatisch, keine manuelle Nachbearbeitung
+4. **Zusammenfassen:** Ein Mitarbeiter kann ganzen Prozess betreuen (kein Bereichswechsel)
+
+Reklamationsprozess:
+1. **Weglassen:** Keine manuelle Suche nach Kundendaten in verschiedenen Systemen
+2. **Beschleunigen:** Automatische Gutschrift bei Wareneingang
+3. **Verlagern:** Kunde kann Reklamation selbst online erfassen (Self-Service)
+4. **Parallelisieren:** Gutschrift und Lagereinbuchung parallel
+
+b) Auswirkungen auf magisches Dreieck:
+
+Zeit:
+- ✅ Deutlich verkürzt: Prozessdurchlaufzeit von Tagen auf Stunden
+- ✅ Keine Wartezeiten durch Medienbrüche
+- ✅ Echtzeit-Daten verfügbar
+
+Qualität:
+- ✅ Höher: Weniger Fehler durch Automatisierung
+- ✅ Konsistente Daten
+- ✅ Bessere Kundenzufriedenheit
+
+Kosten:
+- ⚠️ Kurzfristig: Hohe Investitionen in System, Schulung
+- ✅ Mittelfristig: Einsparungen durch Effizienz, weniger Fehlerkosten
+- ✅ Langfristig: ROI positiv
+
+→ Alle drei Dimensionen verbessern sich mittelfristig!
+
+c) Implementierungsstrategie:
+
+**Empfehlung: Schrittweise Integration**
+
+Pro schrittweise:
+- Geringeres Risiko bei Problemen
+- Mitarbeiter können sich schrittweise anpassen
+- Lernen aus frühen Phasen möglich
+- Cashflow-schonender
+- Geschäftsbetrieb läuft weiter
+
+Mögliche Phasen:
+1. Phase: Stammdatenmanagement (Kunden, Artikel)
+2. Phase: Integration Vertrieb-Lager (Bestandsmanagement)
+3. Phase: Integration Einkauf-Lager
+4. Phase: Integration Buchhaltung
+5. Phase: Analytische Systeme (BI)
+
+Contra Big Bang:
+- Zu hohes Risiko für mittelständisches Unternehmen
+- Gefahr: Geschäftsbetrieb steht still
+- Überforderung der Mitarbeiter
+- Schwer, alle Probleme im Voraus zu erkennen
+
+Aber: Big Bang könnte sinnvoll sein, wenn:
+- Altsysteme nicht mehr wartbar
+- Zeitdruck (z.B. regulatorische Anforderungen)
+- Sehr erfahrener Implementierungspartner
+-->
 </section>
 </section>
 

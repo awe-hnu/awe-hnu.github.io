@@ -8,15 +8,15 @@ bibliography: ../assets/literature.bib
 date: "08.15.2025"
 
 format: 
-  html:
-    output-file: index.html
-    margin-header: | 
-      [Big Picture](assets/big-picture.pdf){.btn .btn-light target="blank"}  
-      [Slides](slides.html){.btn .btn-primary target="blank"}
-    format-links: false       
   presentation-revealjs:
     output-file: slides.html 
     include-before-body: ../assets/footer.html
+  html:
+    output-file: index.html
+    margin-header: |
+      [Big Picture](assets/big-picture.pdf){.btn .btn-light target="blank"}  
+      [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false       
 ---
 
 # Motivation {.vertical-center background-color="blue"}
@@ -72,17 +72,14 @@ Für die Integration bieten sich drei Ansatzpunkte bzw. **Gegenstände** an:
 ## Integrationsgegenstände
 
 Datenintegration
-:   Die Daten von mehreren Anwendungssystemen werden so verwaltet, dass jedes Datum (bspw. die Kundenadresse) nur einmal gespeichert ist. Tritt ein Datum mehrfach auf, werden die Kopien konsistent gehalten. Das wird in der Regel mittels [Datenbanksystemen](#datenbanksysteme) oder automatisierten Abgleichen realisiert.
-
-. . .
+:   Die Datenintegration zielt auf eine einheitliche und konsistente Bereitstellung von Daten über verschiedene Anwendungssysteme hinweg ab. Jedes Datum (z.B. die Kundenadresse) wird idealerweise nur einmal gespeichert (Single Source of Truth). Bei mehrfacher Datenhaltung werden die Kopien konsistent gehalten. Zentrale Aspekte sind die Vermeidung von Datenredundanzen, die Sicherstellung der Datenkonsistenz sowie die Schaffung einer gemeinsamen Datenbasis (bspw. mittels [Datenbanksystemen](#datenbanksysteme)).
 
 Funktionsintegration
-: Die Funktionsintegration hat zum Ziel, verschiedene Abteilungen oder Funktionen eines Unternehmens zu verbinden, sodass sie auf eine gemeinsame Datenbasis zugreifen und effizient zusammenarbeiten können. Ein Enterprise Resource Planning (ERP) System integriert beispielsweise die Funktionen von Finanzwesen, Personalwesen, Produktion und Logistik in einem Anwendungssystem.
-
-. . .
+:   Die Funktionsintegration verbindet verschiedene betriebliche Funktionsbereiche wie Beschaffung, Produktion, Vertrieb, Rechnungswesen und Personalwesen. Ziel ist es, dass diese Bereiche auf eine gemeinsame Datenbasis zugreifen und effizient zusammenarbeiten können. Dadurch werden bereichsübergreifende Auswertungen ermöglicht und Datenredundanzen vermieden. Ein Enterprise Resource Planning (ERP) System integriert beispielsweise alle Funktionsbereiche in einem gemeinsamen Anwendungssystem.
 
 Prozessintegration
-:   Die Prozessintegration hat zum Ziel, Abläufe oder Prozesse, die oft abteilungs- und oder unternehmensübergreifend sind, zu verzahnen. Es geht darum, diese Prozesse zu automatisieren und zu optimieren, um die Effizienz zu steigern. Ein ERP-System integriert Prozesse wie Bestellabwicklung, Rechnungsstellung und Lieferkettenmanagement. Der Fokus liegt auf der Integration der Prozesse, um einen nahtlosen Ablauf zu gewährleisten.
+:   Die Prozessintegration zielt auf die durchgängige systemseitige Unterstützung von Geschäftsprozessen ab, die über mehrere Funktionsbereiche hinweg verlaufen. Im Fokus steht der gesamte Ablauf eines Prozesses vom Anfang bis zum Ende – unabhängig davon, welche Abteilungen oder Unternehmensbereiche beteiligt sind. Durch die Automatisierung und Optimierung dieser bereichsübergreifenden Prozesse entlang der Wertschöpfungskette wird ein nahtloser Ablauf gewährleistet. Beispiele sind Order-to-Cash, Purchase-to-Pay oder die durchgängige Bestellabwicklung mit Rechnungsstellung und Lieferkettenmanagement.
+
 
 ## Voraussetzungen
 
@@ -90,11 +87,11 @@ Voraussetzung für eine gelingende Integration ist ein gutes Verständnis von un
 
 . . .
 
-**[Unternehmensdatenmodelle](../6/#datenmodellierung)** beschreiben die Datenbestände eines Unternehmens und deren Struktur (**Datenarchitektur**). In diesem Modell werden unter anderem Mindestanforderungen an Datensätze definiert, die von jedem Anwendungssystem implementiert werden müssen (bspw. Struktur der Kundennummer). Diese erleichtern unter anderem den automatischen Abgleich von Daten.
+**Unternehmensdatenmodelle** beschreiben die Datenbestände eines Unternehmens und deren Struktur (**Datenarchitektur**). In diesem Modell werden unter anderem Mindestanforderungen an Datensätze definiert, die von jedem Anwendungssystem implementiert werden müssen (bspw. Struktur der Kundennummer). Diese erleichtern unter anderem den automatischen Abgleich von Daten.
 
 . . .
 
-**[Prozessmodelle](../5/#Prozessmodellierung)** und **Organigrammen** beschreiben die Funktionen und Abläufe eines Unternehmens (**Organisationsarchitektur**) und welche Informationssysteme für welche Aufgaben eingesetzt werden.
+**[Prozessmodelle](../prozesse/#prozessmodellierung)** und **Organigramme** beschreiben die Funktionen und Abläufe eines Unternehmens (**Organisationsarchitektur**) und welche Informationssysteme für welche Aufgaben eingesetzt werden.
 
 ## Integrationsrichtung
 
@@ -103,7 +100,7 @@ Die Integrationsrichtung beschreibt die Orientierung der Integration innerhalb u
 . . .
 
 Vertikale Integration
-:   Versorgung von Informationssystemen zur Entscheidungsunterstützung ([analytische Systeme](../8/#betriebliche-anwendungssysteme)) mit Daten aus den Systemen, die das Tagesgeschäft ermöglichen bzw. abbilden ([operative Systeme](../8/#betriebliche-anwendungssysteme)). Diese Daten werden verdichtet und verknüpft, um daraus Informationen zu gewinnen. 
+:   Versorgung von Informationssystemen zur Entscheidungsunterstützung ([analytische Systeme](../anwendungssysteme/#betriebliche-anwendungssysteme)) mit Daten aus den Systemen, die das Tagesgeschäft ermöglichen bzw. abbilden ([operative Systeme](../anwendungssysteme/#betriebliche-anwendungssysteme)). Diese Daten werden verdichtet und verknüpft, um daraus Informationen zu gewinnen. 
 
 . . .
 
@@ -118,19 +115,13 @@ Horizontale Integration
 
 Hinsichtlich der Reichweite der Integration unterscheidet man zwischen der innerbetrieblichen und der zwischenbetrieblichen Integration [@laudon2016wirtschaftsinformatik, p. 437]:
 
-. . .
-
 Innerbetriebliche Integration
-:   Integrierte Anwendungssysteme verbinden unterschiedliche Unternehmensbereiche entlang der Wertschöpfungskette. [Customer Relationship Management (CRM) Systeme](../8/#crm-systeme) verbinden bspw. Marketing, Vertrieb und Kundendienst.
-
-. . .
+:   Integrierte Anwendungssysteme verbinden unterschiedliche Unternehmensbereiche entlang der Wertschöpfungskette. [Customer Relationship Management (CRM) Systeme](../anwendungssysteme/#crm-systeme) verbinden bspw. Marketing, Vertrieb und Kundendienst.
 
 Zwischenbetriebliche Integration
 :   Anwendungssysteme von zwei oder mehr Unternehmen sind so aufeinander abgestimmt, dass Daten (bspw. Angebote, Aufträge, Lieferscheine, Rechnungen) zwischen Unternehmen und/oder Endkunden über unternehmensübergreifende Systeme digital ausgetauscht werden und so Prozesse weitestgehend automatisiert werden können (bspw. Auftragsabwicklung).
 
-. . .
-
-Unternehmensübergreifende Informationssysteme gewinnen mit der zunehmenden Digitalisierung immer mehr Bedeutung.
+Unternehmensübergreifende Informationssysteme gewinnen mit der zunehmenden Digitalisierung immer mehr Bedeutung.
 
 ## Integrationszeitpunkt
 
@@ -235,56 +226,500 @@ Nach @mertens2016grundzuge [S. 42] müssen DBMS folgende Anforderungen erfüllen
 
 ![Einsatz eines zentralen Datenbanksystems](images/dbms.svg){#fig-DBMS}
 
-# Übungen ✏️ {.vertical-center background-color="blue"}
+# Übungen ✏️ {.headline-only}
 
-## Integration
+## Fallstudie: SportActive {.smaller}
 
-Finden Sie **jeweils ein konkretes Beispiel für Daten-, Funktions- und Prozessintegration** in einem Unternehmen und beantworten Sie jeweils folgende Fragen:
+Die **SportActive GmbH** ist ein mittelständisches Unternehmen, das Sportbekleidung und -ausrüstung verkauft.
 
-- Weshalb ist die Integration wichtig/notwendig?
-- Wie wird die Integration erreicht?
-- Was ist die Integrationsrichtung?
-- Was ist der Integrationszeitpunkt?
+[Vertriebskanäle]{.h4}
 
-## Stammdaten
+- Online-Shop
+- Drei Filialen in süddeutschen Städten
+- 45 Mitarbeiter
 
-Identifizieren und beschreiben Sie drei unterschiedliche Stammdatenobjekte eines produzierenden Unternehmens, also Daten, die Grundinformationen über betrieblich relevante Objekte enthalten (bspw. Kunde). 
+[Aktuelle IT-Landschaft]{.h4}
 
-Beantworten Sie zu jedem Stammdatenobjekt (bspw. Kunde) folgende Fragen:
+- **Online-Shop:** Eigene Kundendatenbank
+- **Filialen:** Lokale Kundendatenbank je Filiale
+- **Lager:** Excel-basiertes Bestandsmanagement
+- **Einkauf:** Access-Lieferantendatenbank
+- **Buchhaltung:** DATEV mit eigenem Kundenstamm
+- **Marketing:** Newsletter-Tool mit Kontaktdatenbank
 
-- Wie kann ein Stammdatensatz eindeutig identifiziert werden (bspw. ein spezifischer Kunde)? 
-- Welche Attribute beschreiben das Stammdatenobjekt?
-- In welchen Prozessen werden diese Stammdaten wozu benötigt?
-- Benötigen die Prozesse unterschiedliche Daten des Objekts? Falls ja, wie unterscheiden dich die Sichten?
+**Typische Probleme:** Falsche Rechnungsadressen, inkorrekte Lagerbestände, fehlende Kundeninfos bei Retouren, verspätete Nachbestellungen, ineffiziente Marketing-Kampagnen
 
-## Datenintegration
+:::notes
+:::smaller
+Diese Fallstudie wird uns durch die gesamte Übungseinheit begleiten. Sie arbeiten in Gruppen und analysieren verschiedene Aspekte der Integration.
+:::
+:::
 
-Stammdaten und andere Daten werden in Unternehmen oft in zentralen Datenbanksystemen gehalten.
+## Aufgabe 1a: Prozessmodellierung {.smaller}
 
-- Beschreiben Sie, was ein Datenbanksystem ist und aus welchen Komponenten es besteht.
-- Welche Voraussetzungen müssen gegeben sein, damit verschiedene Anwendungssysteme dieselbe Datenbank nutzen können?
-- Was sind Vor- und Nachteile eines zentralen Datenbanksystems.
-- (Wozu) nutzen Sie persönlich ein zentrales Datenbanksystem?
+Wählen Sie *einen* der folgenden Prozesse und erstellen Sie eine *eEPK* für SportActive in der *aktuellen, nicht-integrierten Situation*:
 
-## Prozessintegration
+:::columns
+:::column
+[Option 1: Einkaufsprozess (Nachbestellung)]{.h4}
 
-Über Cloud-Systeme wie [IFTTT](https://ifttt.com/) (*If* *T*his *T*hen *T*hat) können Sie Anwendungssysteme (Apps) die Sie verwenden integrieren und so wiederkehrende Aufgaben/Tätigkeiten nahtlos automatisieren.
+- Bedarf wird festgestellt (Lagerbestand niedrig)
+- Einkauf holt Angebote von drei Lieferanten ein
+- Angebote werden verglichen, Lieferant ausgewählt
+- Bestellung wird verschickt
+- Ware wird geliefert und kontrolliert
+- Bei korrekter Lieferung: Annahme, Lagerbestand aktualisieren
+- Rechnung prüfen und Zahlung anweisen
+:::
+:::column
+[Option 2: Reklamationsprozess (Online-Shop)]{.h4}
 
-Schauen Sie sich die Plattform an und beantworten Sie folgende Fragen.
+- Kunde meldet Reklamation per E-Mail
+- Kundenservice prüft Berechtigung
+- Bei Berechtigung: Rücksendeetikett erstellen
+- Ware trifft ein und wird geprüft
+- Bei Annahme: Gutschrift erstellen
+- Kunde erhält Erstattung
+- Lagerbestand aktualisieren
+:::
+:::
 
-**Wiederholung:**
+Ergänzen Sie: **Organisationseinheiten**, **Anwendungssysteme**, **Informationsobjekte**
 
-- Welches Service- und Bereitstellungsmodell nutzt IFTTT?
-- Erläutern Sie anhand dieses Angebots die Eigenschaften von Cloud-Computing.
-- Stellen Sie sich vor, Sie würden IFTTT intensiv nutzen. Welche Vor- und  Nachteile ergeben sich aus dem Cloud-Betriebsmodell für Sie?
+{{< countdown "10:00" top="0">}}
 
-**Integration:**
+:::notes
+:::smaller
+Nutzen Sie [yEd Live](https://www.yworks.com/yed-live) oder Papier.
+:::
+:::
 
-- Welcher Ihrer privaten Prozesse (Tätigkeitsketten) kann IFTTT unterstützen?
-- Welche [Gegenstände](#Integrationsgegenstände) werden integriert? 
-- Was ist die Integrationsrichtung?
+<!--
 
-Bonus: Erstellen Sie sich einen eigenen Account und erstellen Sie ein eigenes Integrationsszenario.
+Aufgabe 1a/b:   10 + 10 + ~10 Min Vorstellung   = 30 Min
+Aufgabe 2a/b/c: 10 + 8 + 7 + ~15 Min Diskussion = 40 Min
+Aufgabe 3:      8 + ~7 Min Diskussion           = 15 Min 
+Aufgabe 4:      4 + ~6 Min Diskussion           = 10 Min
+Aufgabe 5:      8 + ~7 Min Diskussion           = 15 Min
+Aufgabe 6:      8 + ~7 Min Diskussion           = 15 Min
+
+-->
+
+## Aufgabe 1b: Ist-Analyse
+
+Analysieren Sie Ihr Prozessmodell und identifizieren Sie Medienbrüche und sich daraus ergebende Probleme.
+
+[Medienbrüche]{.h4}
+
+- Markieren Sie alle Stellen mit manueller Dateneingabe.
+- Wo entstehen Ausdrucke und Neueingaben?
+
+[Probleme]{.h4}
+
+- Wo entstehen durch die fragmentierte IT-Landschaft **Verzögerungen**?
+- Wo entstehen **Fehlerquellen**?
+- Welche Daten müssen **mehrfach erfasst** werden?
+
+Dokumentieren Sie mindestens 3 konkrete Probleme aus Ihrem Prozess.
+
+{{< countdown "10:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 25 Minuten (gesamt) stellen 2-3 Gruppen ihre Prozessmodelle und ihre Analyse kurz vor (je 2 Min).
+
+In der Diskussion erkennen wir die Stärke von Prozessmodelle (Verständigung, Analyse) sowie häufige Probleme und deren Ursachen.
+
+Wir werden sehen, dass die fehlende Integration der Systeme zu erheblichen Ineffizienzen, Fehlerquellen und Verzögerungen führt – und dass beide Prozesse unter ähnlichen Problemen leiden.
+:::
+:::
+
+<!--
+Musterlösung Einkaufsprozess:
+
+Medienbrüche:
+- Lagerbestand in Excel muss manuell geprüft werden
+- Lieferantenangebote (E-Mail) müssen manuell in Vergleichstabelle eingegeben werden
+- Bestellung wird in Access erstellt, aber auch als E-Mail verschickt
+- Lieferschein muss mit Bestellung und Lagerbestand manuell abgeglichen werden
+- Rechnung in DATEV muss manuell mit Bestellung abgeglichen werden
+
+Probleme:
+1. Verzögerung: Lagerbestand wird nur täglich aktualisiert → verspätete Bedarfserkennung
+2. Fehlerquelle: Manuelle Eingabe von Lieferantendaten kann zu Tippfehlern führen
+3. Redundanz: Artikeldaten existieren in Excel (Lager), Access (Einkauf) und DATEV (Buchhaltung)
+4. Inkonsistenz: Verschiedene Preise in unterschiedlichen Systemen
+
+Musterlösung Reklamationsprozess:
+
+Medienbrüche:
+- E-Mail-Reklamation muss manuell in System übertragen werden
+- Kundendaten müssen zwischen Online-Shop und Kundenservice-System abgeglichen werden
+- Lagerbestand (Excel) muss manuell aktualisiert werden
+- Gutschrift muss in DATEV manuell erstellt werden
+
+Probleme:
+1. Verzögerung: Kundenservice muss Kundendaten aus mehreren Systemen zusammensuchen
+2. Fehlerquelle: Falsche Kundenadresse führt zu falscher Erstattung
+3. Redundanz: Kundeninformationen in Online-Shop, Kundenservice-System und DATEV
+4. Inkonsistenz: Lagerbestand im Online-Shop stimmt nicht mit Excel-Datei überein
+-->
+
+## Aufgabe 2a: Datenintegration
+
+Analysieren Sie die Integration der **Daten** in dem von Ihnen gewählten und modellierten Prozess:
+
+1. Identifizieren Sie Redundanzen (ca. 5 Datenobjekte).
+2. Bewerten Sie die Kritikalität der Datenobjekte.\
+   *Welches Objekt ist für den Prozess am wichtigsten?*
+3. Beschreiben Sie, wo im Prozess **Inkonsistenzen** entstehen (können).\
+   Welche Folgen haben diese?
+4. Skizzieren Sie eine mögliche Lösung.
+
+{{< countdown "10:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 10 Minuten tragen wir die Erkenntnisse je Prozess zusammen.
+
+Wir werden sehen, dass Datenredundanz und -inkonsistenz zentrale Probleme sind, die durch eine gemeinsame Datenbasis systematisch gelöst werden können.
+:::
+:::
+
+<!--
+Musterlösung (Beispiele):
+
+Redundante Datenobjekte:
+1. Kundendaten (Online-Shop, Filialen, DATEV, Marketing)
+2. Artikeldaten (Online-Shop, Lager-Excel, Access-Einkauf, Filialen)
+3. Lieferantendaten (Access-Einkauf, DATEV)
+4. Bestandsdaten (Excel-Lager, Online-Shop, Filialen)
+5. Preisdaten (Online-Shop, Filialen, Einkauf, Buchhaltung)
+
+Am kritischsten: Bestandsdaten
+- Führt zu Überverkäufen im Online-Shop
+- Kunden bestellen nicht verfügbare Ware
+- Hohe Kosten durch Retouren und Unzufriedenheit
+
+Inkonsistenzen:
+- Kunde ändert Adresse im Online-Shop → Rechnung geht an alte Adresse (DATEV nicht aktualisiert)
+- Artikel wird verkauft → Online-Shop zeigt noch Verfügbarkeit (Excel nicht synchronisiert)
+- Preis ändert sich → unterschiedliche Preise in verschiedenen Systemen
+
+Lösung durch zentrale Datenbank:
+- Alle Systeme greifen auf dieselben Daten zu
+- Änderungen sind sofort für alle sichtbar
+- Single Source of Truth
+- Datenqualität und -konsistenz steigen
+-->
+
+## Aufgabe 2b: Funktionsintegration
+
+Analysieren Sie die Integration von **Funktionen** der SportActive:
+
+1. Identifizieren Sie beteiligte Funktionsbereiche.
+2. Leiten Sie die gemeinsame Datenbasis ab.\
+   *Welche Bereiche müssten auf gemeinsame Daten zugreifen?*
+3. Welche Vorteile hätte ein System, dass die Funktionen auf einer gemeinsamen Datenbasis verbindet?
+
+{{< countdown "8:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 8 Minuten tragen wir die Erkenntnisse je Prozess zusammen.
+
+Wir werden sehen, dass ein integriertes Anwendungssystem verschiedene Funktionsbereiche auf einer gemeinsamen Datenbasis verbindet und so bereichsübergreifende Auswertungen und effiziente Zusammenarbeit ermöglicht.
+:::
+:::
+
+<!--
+Musterlösung:
+
+Beteiligte Funktionsbereiche:
+- Vertrieb (Online-Shop, Filialen)
+- Lager/Logistik
+- Einkauf
+- Buchhaltung/Finanzen
+- Marketing
+
+Gemeinsame Datenbasis notwendig für:
+- Vertrieb ↔ Lager: Bestandsinformationen
+- Vertrieb ↔ Buchhaltung: Kundendaten, Rechnungen
+- Einkauf ↔ Lager: Bestellungen, Wareneingänge
+- Alle ↔ Alle: Artikelstammdaten
+
+Vorteile ERP-System:
+1. Durchgängige Prozesse: Bestellung → Lieferung → Rechnung ohne Medienbrüche
+2. Echtzeit-Transparenz: Alle Bereiche sehen aktuelle Daten
+3. Bereichsübergreifende Auswertungen: z.B. Umsatz pro Artikel über alle Kanäle
+4. Reduzierte Fehlerquellen: Keine mehrfache Dateneingabe
+5. Effiziente Zusammenarbeit: Gemeinsame Plattform für alle Bereiche
+-->
+
+## Aufgabe 2c: Prozessintegration
+
+Analysieren Sie den Integrationsgrad des Prozesses.
+
+1. Identifizieren Sie Schnittstellen.
+   *Wo unterbrechen Systemwechsel den Prozessfluss?*
+2. Analysieren Sie Automatisierungspotenzial.
+   *Welche Aktivitäten könnten bei Integration automatisiert werden?*
+3. Beschreiben Sie den Soll-Prozess.
+
+{{< countdown "7:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 7 Minuten tragen wir die Erkenntnisse je Prozess zusammen.
+
+Welche Automatisierungspotenziale sind in beiden Prozessen ähnlich?
+
+Wir werden sehen, dass Prozessintegration Medienbrüche eliminiert, manuelle Schritte automatisiert und die Durchlaufzeit drastisch verkürzt – der Prozess wird durchgängig unterstützt.
+:::
+:::
+
+<!--
+Musterlösung Einkaufsprozess:
+
+Systemschnittstellen (Ist):
+- Excel (Lager) → E-Mail → Einkauf (Access)
+- Access (Einkauf) → E-Mail → Lieferant
+- Lieferant → Papier (Lieferschein) → Excel (Lager)
+- Lieferant → E-Mail (Rechnung) → DATEV (Buchhaltung)
+
+Automatisierungspotenzial:
+- Automatische Bedarfserkennung bei Unterschreitung Mindestbestand
+- Automatischer Angebotsvergleich
+- Automatische Bestellauslösung
+- Automatische Wareneingangsbuchung nach Kontrolle
+- Automatische Rechnungsprüfung (3-Wege-Abgleich: Bestellung-Lieferschein-Rechnung)
+
+Soll-Prozess (integriert):
+1. System erkennt niedrigen Lagerbestand automatisch
+2. Bedarfsmeldung wird an Einkauf gesendet
+3. System holt automatisch Angebote über Schnittstellen ein (oder nutzt Rahmenverträge)
+4. Einkäufer wählt Lieferant aus, System erstellt Bestellung
+5. Bei Wareneingang: Scannen des Lieferscheins, System bucht automatisch ein
+6. Rechnung kommt elektronisch, System gleicht automatisch ab (Bestellung-Lieferung-Rechnung)
+7. Bei Übereinstimmung: Automatische Freigabe zur Zahlung
+
+Hauptunterschiede:
+- Keine Medienbrüche
+- Automatische Datenflüsse zwischen Bereichen
+- Echtzeit-Aktualisierung aller Daten
+- Durchlaufzeit reduziert von Tagen auf Stunden
+- Fehlerquote sinkt drastisch
+-->
+
+## Aufgabe 3: Integrationsrichtung
+
+Die Geschäftsführung von SportActive benötigt täglich aktuelle Auswertungen:
+
+- Welche Produkte verkaufen sich am besten?
+- Wie entwickeln sich die Umsätze im Vergleich zum Vorjahr?
+- Gibt es kritische Lagerbestände?
+- Welche Kunden kaufen am häufigsten?
+
+Dafür sollen Daten aus dem Tagesgeschäft (Online-Shop, Filialen, Lager, Einkauf) automatisch verdichtet, verknüpft und in übersichtlichen Berichten bereitgestellt werden.
+
+[Aufgaben]{.h4}
+
+1. Welche Art der Integration ist dies (horizontal/vertikal)?
+2. Aus welchen Systemen kommen die Daten?
+3. Wie müssen die Daten für die Berichte verändert werden (verdichten, verknüpfen, ...)? 
+4. Auf welcher Hierarchieebene arbeiten die Quellsysteme und das Berichtssystem?
+
+{{< countdown "8:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 8 Minuten tragen wir die Erkenntnisse zusammen.
+
+Wir werden sehen, dass dies ein Beispiel für vertikale Integration ist: Daten fließen von der operativen zur strategischen Ebene und werden dabei verdichtet und aufbereitet.
+:::
+:::
+
+<!--
+Musterlösung:
+
+1. Art der Integration: **Vertikale Integration**
+   - Begründung: Daten aus operativen Systemen (Tagesgeschäft) werden zu analytischen Systemen (Entscheidungsunterstützung) übertragen
+   - Von unterer (operativ) zu oberer (strategisch/analytisch) Hierarchieebene
+   - Daten werden verdichtet und aggregiert
+
+2. Quellsysteme:
+   - Online-Shop (Verkaufsdaten)
+   - Kassensysteme Filialen (Verkaufsdaten)
+   - Lager-System (Bestandsdaten)
+   - Einkauf-System (Beschaffungsdaten)
+   - DATEV (Finanzdaten)
+
+3. Datenaufbereitung:
+   - Verdichtung: Einzelne Transaktionen → Tagesumsätze, Monatsumsätze
+   - Verknüpfung: Verkaufsdaten + Artikeldaten + Kundendaten
+   - Aggregation: Summen, Durchschnitte, Top-10-Listen
+   - Zeitvergleiche: Vorjahr, Vormonat
+   - KPIs berechnen: Lagerumschlag, Deckungsbeitrag pro Artikel
+
+4. Hierarchieebenen:
+   - Quellsysteme: Operative Ebene (Tagesgeschäft)
+   - Zielsystem: Analytische/Strategische Ebene (Management-Entscheidungen)
+-->
+
+## Aufgabe 4: Integrationszeitpunkt
+
+Bewerten Sie für folgende Szenarien, ob *Stapelverarbeitung* oder *Ereignisorientierung* sinnvoller ist. Begründen Sie jeweils:
+
+1. Aktualisierung Lagerbestände nach Verkauf im Online-Shop
+2. Abgleich Kundendaten zwischen verschiedenen Systemen
+3. Bereitstellung Verkaufsstatistiken für Geschäftsführung
+4. Synchronisation Produktpreise bei Preisaktion zwischen Online-Shop und Filialen
+
+{{< countdown "4:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 4 Minuten tragen wir die Erkenntnisse zusammen.
+
+Wir werden sehen, dass die Wahl zwischen Stapelverarbeitung und Ereignisorientierung von der Zeitkritikalität abhängt: Ereignisorientierung bei direkter Kundeninteraktion und kritischen Prozessen, Stapelverarbeitung bei periodischen Auswertungen.
+:::
+:::
+
+<!--
+Musterlösung:
+
+1. Lagerbestände nach Verkauf: **Ereignisorientierung**
+   - Begründung: Echtzeit-Aktualisierung verhindert Überverkäufe
+   - Kritisch für Kundenzufriedenheit
+   - Vermeidet Bestellungen nicht verfügbarer Ware
+
+2. Kundendaten-Abgleich: **Stapelverarbeitung**
+   - Begründung: Nächtlicher Abgleich ausreichend
+   - Nicht zeitkritisch für tägliches Geschäft
+   - Reduziert Systemlast
+
+3. Verkaufsstatistiken: **Stapelverarbeitung**
+   - Begründung: Tägliche Berichte ausreichend
+   - Kann nachts generiert werden
+   - Keine Echtzeit-Anforderung für strategische Entscheidungen
+
+4. Produktpreise bei Preisaktion: **Ereignisorientierung**
+   - Begründung: Alle Kanäle müssen zeitgleich aktuelle Preise haben
+   - Verhindert Inkonsistenzen zwischen Online und Filiale
+   - Rechtliche Relevanz (gleiche Preise)
+-->
+
+## Aufgabe 5: Stammdaten
+
+Analysieren Sie die *Stammdaten* in Ihrem modellierten Prozess:
+
+1. Benennen Sie die Stammdatenobjekte (min. 4 Beispiele)
+2. Analysieren Sie eines der Stammdatenobjekte:
+
+- Wie wird es identifiziert?
+- Welche Informationen (Attribute) sind notwendig?
+- In welchen Systemen/Prozessschritten werden die Daten benötigt?
+- Benötigen verschiedene Bereiche unterschiedliche Sichten?
+
+{{< countdown "8:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 8 Minuten tragen wir die Erkenntnisse je Prozess zusammen.
+
+Welche konkreten Probleme in Ihrem Prozess würde ein Stammdatenmanagementsystem lösen?
+
+Wir werden sehen, dass Stammdaten die Grunddaten eines Unternehmens sind, die in verschiedenen Prozessen und Systemen benötigt werden – und dass verschiedene Bereiche unterschiedliche Sichten auf dieselben Daten brauchen.
+:::
+:::
+
+## Aufgabe 6: Reflexion
+
+Schauen Sie sich die [Grundformen der Prozessverbesserung](../prozesse/#verbesserung) aus der Vorwoche an:
+*Weglassen, Auslagern, Zusammenfassen, Parallelisieren, Verlagern, Beschleunigen, Schleifen vermeiden, Ergänzen*
+
+- Welche dieser Verbesserungen könnten durch *Integration* in Ihrem Prozess umgesetzt werden? Nennen Sie mindestens 3 Beispiele.
+- Wie würde sich die Integration auf das *magische Dreieck* (Zeit, Qualität, Kosten) auswirken?
+- Würden Sie SportActive empfehlen, die Integration *schrittweise* oder als *"Big Bang"* durchzuführen?
+
+{{< countdown "8:00" top="0">}}
+
+:::notes
+:::smaller
+Nach ca. 8 Minuten tragen wir die Erkenntnisse zusammen und reflektieren gemeinsam.
+
+Welche Dimensionen des magischen Dreiecks verbessern sich durch Integration? Gibt es auch Nachteile?
+
+Wir werden sehen, dass Integration vielfältige Prozessverbesserungen ermöglicht, alle drei Dimensionen des magischen Dreiecks mittelfristig verbessert werden – und dass eine schrittweise Implementierung für die meisten Unternehmen sinnvoller ist als ein Big Bang.
+:::
+:::
+
+<!--
+Musterlösung:
+
+a) Prozessverbesserungen durch Integration:
+
+Einkaufsprozess:
+1. **Weglassen:** Manuelle Dateneingaben entfallen (Medienbrüche eliminiert)
+2. **Beschleunigen:** Automatische Bedarfserkennung, keine Wartezeiten auf Genehmigungen
+3. **Schleifen vermeiden:** 3-Wege-Abgleich automatisch, keine manuelle Nachbearbeitung
+4. **Zusammenfassen:** Ein Mitarbeiter kann ganzen Prozess betreuen (kein Bereichswechsel)
+
+Reklamationsprozess:
+1. **Weglassen:** Keine manuelle Suche nach Kundendaten in verschiedenen Systemen
+2. **Beschleunigen:** Automatische Gutschrift bei Wareneingang
+3. **Verlagern:** Kunde kann Reklamation selbst online erfassen (Self-Service)
+4. **Parallelisieren:** Gutschrift und Lagereinbuchung parallel
+
+b) Auswirkungen auf magisches Dreieck:
+
+Zeit:
+- ✅ Deutlich verkürzt: Prozessdurchlaufzeit von Tagen auf Stunden
+- ✅ Keine Wartezeiten durch Medienbrüche
+- ✅ Echtzeit-Daten verfügbar
+
+Qualität:
+- ✅ Höher: Weniger Fehler durch Automatisierung
+- ✅ Konsistente Daten
+- ✅ Bessere Kundenzufriedenheit
+
+Kosten:
+- ⚠️ Kurzfristig: Hohe Investitionen in System, Schulung
+- ✅ Mittelfristig: Einsparungen durch Effizienz, weniger Fehlerkosten
+- ✅ Langfristig: ROI positiv
+
+→ Alle drei Dimensionen verbessern sich mittelfristig!
+
+c) Implementierungsstrategie:
+
+**Empfehlung: Schrittweise Integration**
+
+Pro schrittweise:
+- Geringeres Risiko bei Problemen
+- Mitarbeiter können sich schrittweise anpassen
+- Lernen aus frühen Phasen möglich
+- Cashflow-schonender
+- Geschäftsbetrieb läuft weiter
+
+Mögliche Phasen:
+1. Phase: Stammdatenmanagement (Kunden, Artikel)
+2. Phase: Integration Vertrieb-Lager (Bestandsmanagement)
+3. Phase: Integration Einkauf-Lager
+4. Phase: Integration Buchhaltung
+5. Phase: Analytische Systeme (BI)
+
+Contra Big Bang:
+- Zu hohes Risiko für mittelständisches Unternehmen
+- Gefahr: Geschäftsbetrieb steht still
+- Überforderung der Mitarbeiter
+- Schwer, alle Probleme im Voraus zu erkennen
+
+Aber: Big Bang könnte sinnvoll sein, wenn:
+- Altsysteme nicht mehr wartbar
+- Zeitdruck (z.B. regulatorische Anforderungen)
+- Sehr erfahrener Implementierungspartner
+-->
+
 
 # Lernkontrolle 🧐 {visibility="hidden"}
 
