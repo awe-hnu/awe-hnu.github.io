@@ -1,0 +1,879 @@
+---
+title: "E7 — Musterlösung ECM"
+subtitle: "Was können wir aus den Bestelldaten lernen?"
+lang: de-DE
+
+date: "11.24.2025"
+
+format:
+  html:
+    output-file: scm.html
+    format-links: false
+
+execute:
+  jupyter: .venv/bin/python
+---
+
+## Aufgabenstellung {.unnumbered}
+
+Sie führen ein Unternehmen, das Flugzeugteile herstellt. Sie haben viele Wettbewerber, die versuchen, günstigere Preise und besseren Kundenservice zu bieten. Analysieren Sie die Bestelldaten der letzten drei Monate und entwickeln Sie Empfehlungen zur Verbesserung des Supply Chain Managements.
+
+::: {.callout-note}
+## Konkrete Fragestellungen
+
+1. Wer sind unsere wichtigsten Lieferanten?
+2. Welche Lieferanten sind am zuverlässigsten?
+3. Welche Artikel sind am kritischsten (ABC-Analyse)?
+4. Gibt es zeitliche Muster oder Probleme (Bullwhip-Effekt)?
+:::
+
+**Datenbasis:** 94 Bestellungen über 3 Monate (August - November 2008)
+
+## Daten laden und vorbereiten
+
+```{python}
+#| label: setup
+#| code-summary: "Bibliotheken laden und Daten vorbereiten"
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime
+
+# Styling
+sns.set_style("whitegrid")
+plt.rcParams['figure.figsize'] = (12, 6)
+
+# Daten laden
+df = pd.read_excel('assets/bestellungen.xlsx', header=2)
+
+# Erste Zeile enthält die echten Header
+headers = df.iloc[0].tolist()
+df = df[1:]
+df.columns = headers
+
+# Datentypen konvertieren
+df['Vendor No.'] = pd.to_numeric(df['Vendor No.'], errors='coerce')
+df['Item No.'] = pd.to_numeric(df['Item No.'], errors='coerce')
+df['Order No.'] = pd.to_numeric(df['Order No.'], errors='coerce')
+df['Quantity'] = pd.to_numeric(df['Quantity'], errors='coerce')
+df['Item Cost'] = pd.to_numeric(df['Item Cost'], errors='coerce')
+df['Order Date'] = pd.to_datetime(df['Order Date'], errors='coerce')
+df['Arrival Date'] = pd.to_datetime(df['Arrival Date'], errors='coerce')
+
+# Berechnete Felder
+df['Delivery Time'] = (df['Arrival Date'] - df['Order Date']).dt.days
+df['Order Value'] = df['Quantity'] * df['Item Cost']
+
+print(f"Datensatz geladen: {len(df)} Bestellungen")
+print(f"Zeitraum: {df['Order Date'].min().strftime('%d.%m.%Y')} bis {df['Order Date'].max().strftime('%d.%m.%Y')}")
+print(f"Gesamtvolumen: {df['Order Value'].sum():,.2f} €")
+```
+
+## Analyse 1: Top-Lieferanten nach Bestellwert {#sec-lieferanten}
+
+### Excel-Vorgehen (für Studierende)
+
+::: {.callout-tip collapse="true"}
+## Schritt-für-Schritt-Anleitung in Excel
+
+1. **Bestellwert berechnen:** Neue Spalte `Order Value` = `Quantity × Item Cost`
+2. **Pivot-Tabelle erstellen:**
+    - Zeilen: Vendor Name
+    - Werte: Summe von Order Value, Anzahl von Order No.
+3. **Anteil berechnen:** `=Order Value / SUMME($Order_Value$) * 100`
+4. **Visualisierung:** Pareto-Diagramm (Säulen + kumulative Linie)
+:::
+
+### Analyse durchführen
+
+```{python}
+#| label: tbl-lieferanten
+#| tbl-cap: "Top-Lieferanten nach Bestellwert"
+
+# Gruppierung nach Lieferant
+vendor_analysis = df.groupby('Vendor Name').agg({
+    'Order Value': 'sum',
+    'Order No.': 'count',
+    'Delivery Time': 'mean'
+}).round(2)
+
+vendor_analysis.columns = ['Gesamtwert (€)', 'Anzahl Bestellungen', 'Ø Lieferzeit (Tage)']
+vendor_analysis = vendor_analysis.sort_values('Gesamtwert (€)', ascending=False)
+
+# Anteil am Gesamtvolumen
+total_value = vendor_analysis['Gesamtwert (€)'].sum()
+vendor_analysis['Anteil (%)'] = (vendor_analysis['Gesamtwert (€)'] / total_value * 100).round(1)
+
+# Kumulierter Anteil
+vendor_analysis['Kumuliert (%)'] = vendor_analysis['Anteil (%)'].cumsum().round(1)
+
+# Top 5 markieren
+vendor_analysis['Top-5'] = ['✓' if i < 5 else '' for i in range(len(vendor_analysis))]
+
+vendor_analysis
+```
+
+```{python}
+#| label: fig-lieferanten-pareto
+#| fig-cap: "Pareto-Analyse der Lieferanten"
+
+fig, ax1 = plt.subplots(figsize=(14, 7))
+
+# Säulendiagramm
+x = range(len(vendor_analysis))
+bars = ax1.bar(x, vendor_analysis['Gesamtwert (€)'], color='steelblue', alpha=0.7)
+ax1.set_xlabel('Lieferant', fontsize=12)
+ax1.set_ylabel('Bestellwert (€)', color='steelblue', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='steelblue')
+ax1.set_xticks(x)
+ax1.set_xticklabels(vendor_analysis.index, rotation=45, ha='right')
+
+# Top 5 hervorheben
+for i, bar in enumerate(bars):
+    if i < 5:
+        bar.set_color('darkgreen')
+        bar.set_alpha(0.8)
+
+# Kumulative Linie
+ax2 = ax1.twinx()
+ax2.plot(x, vendor_analysis['Kumuliert (%)'], color='red', marker='o', linewidth=2, label='Kumuliert')
+ax2.axhline(y=80, color='red', linestyle='--', alpha=0.5, label='80%-Schwelle')
+ax2.set_ylabel('Kumulierter Anteil (%)', color='red', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='red')
+ax2.set_ylim(0, 110)
+ax2.legend(loc='upper left')
+
+plt.title('Pareto-Analyse: Lieferantenkonzentration', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.show()
+```
+
+### Interpretation
+
+::: {.callout-important}
+## Kernerkenntnisse
+
+- **Hohe Lieferantenkonzentration:** Top 5 Lieferanten machen **88,3%** des Bestellvolumens aus
+- **Drei dominante Lieferanten:** Hulkey, Durrable und Steelpin zusammen >60%
+- **Long-Tail-Problem:** 3 kleinere Lieferanten (12% des Volumens) verursachen administrative Komplexität
+:::
+
+```{python}
+#| echo: false
+
+top5_sum = vendor_analysis.head(5)['Gesamtwert (€)'].sum()
+top5_pct = (top5_sum / total_value * 100)
+
+print(f"📊 Top 5 Lieferanten: {top5_sum:,.2f} € ({top5_pct:.1f}%)")
+print(f"📊 Restliche Lieferanten: {total_value - top5_sum:,.2f} € ({100-top5_pct:.1f}%)")
+print(f"\n💡 Empfehlung: Strategische Partnerschaften mit Hulkey Fasteners und Durrable Products aufbauen")
+```
+
+## Analyse 2: Lieferzuverlässigkeit {#sec-zuverlaessigkeit}
+
+### Analyse durchführen
+
+```{python}
+#| label: tbl-lieferzeit
+#| tbl-cap: "Lieferanten-Performance nach Lieferzeit"
+
+delivery_analysis = df.groupby('Vendor Name').agg({
+    'Delivery Time': ['mean', 'std', 'min', 'max', 'count']
+}).round(2)
+
+delivery_analysis.columns = ['Ø Tage', 'Standardabw.', 'Min', 'Max', 'Anzahl']
+delivery_analysis = delivery_analysis.sort_values('Ø Tage')
+
+# Bewertung hinzufügen
+def rate_delivery(row):
+    if row['Ø Tage'] < 7 and row['Standardabw.'] < 2:
+        return '⭐⭐⭐ Sehr zuverlässig'
+    elif row['Ø Tage'] < 10 and row['Standardabw.'] < 3:
+        return '⭐⭐ Gut'
+    elif row['Ø Tage'] < 12:
+        return '⭐ Akzeptabel'
+    else:
+        return '❌ Problematisch'
+
+delivery_analysis['Bewertung'] = delivery_analysis.apply(rate_delivery, axis=1)
+
+delivery_analysis
+```
+
+```{python}
+#| label: fig-lieferzeit-box
+#| fig-cap: "Lieferzeit-Verteilung nach Lieferant"
+
+fig, ax = plt.subplots(figsize=(14, 8))
+
+# Boxplot
+vendors_ordered = delivery_analysis.index.tolist()
+data_for_box = [df[df['Vendor Name'] == vendor]['Delivery Time'].dropna() for vendor in vendors_ordered]
+
+bp = ax.boxplot(data_for_box, labels=vendors_ordered, patch_artist=True)
+
+# Farben basierend auf Performance
+colors = []
+for vendor in vendors_ordered:
+    avg = df[df['Vendor Name'] == vendor]['Delivery Time'].mean()
+    if avg < 7:
+        colors.append('lightgreen')
+    elif avg < 10:
+        colors.append('yellow')
+    else:
+        colors.append('lightcoral')
+
+for patch, color in zip(bp['boxes'], colors):
+    patch.set_facecolor(color)
+    patch.set_alpha(0.7)
+
+ax.set_xlabel('Lieferant', fontsize=12)
+ax.set_ylabel('Lieferzeit (Tage)', fontsize=12)
+ax.set_title('Lieferzeit-Verteilung und Zuverlässigkeit', fontsize=14, fontweight='bold')
+ax.axhline(y=7, color='green', linestyle='--', alpha=0.3, label='Ziel: <7 Tage')
+ax.axhline(y=10, color='orange', linestyle='--', alpha=0.3, label='Akzeptabel: <10 Tage')
+plt.xticks(rotation=45, ha='right')
+plt.legend()
+plt.grid(axis='y', alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+### Interpretation
+
+::: {.callout-warning}
+## Kritische Befunde
+
+**Champion:**
+
+- **Durrable Products**: Schnellste UND zuverlässigste Lieferung (4,9 Tage, σ=0,8)
+
+**Problematisch:**
+
+- **Steelpin Inc.**: Trotz 17,7% Volumenanteil sehr langsam (10,2 Tage, bis zu 20!)
+- **Spacetime Technologies**: Extrem unberechenbar (5-30 Tage, Ø 15,3 Tage, σ=8,4)
+:::
+
+```{python}
+#| echo: false
+
+# Risiko-Einschätzung
+print("📊 Performance-Rating:\n")
+for vendor, row in delivery_analysis.iterrows():
+    print(f"{vendor:.<30} {row['Bewertung']}")
+    
+print("\n💡 Empfehlung:")
+print("   → Eskalation bei Steelpin Inc.: Performance-Gespräch führen")
+print("   → Spacetime Technologies: Nur für unkritische C-Teile ODER ersetzen")
+print("   → Durrable Products: Volumen ausbauen (zuverlässig + günstig)")
+```
+
+## Analyse 3: ABC-Analyse der Artikel {#sec-abc}
+
+### Analyse durchführen
+
+```{python}
+#| label: tbl-abc
+#| tbl-cap: "ABC-Analyse der Artikel"
+
+# Artikel-Analyse
+item_analysis = df.groupby(['Item No.', 'Item Description']).agg({
+    'Order Value': 'sum',
+    'Quantity': 'sum'
+}).sort_values('Order Value', ascending=False)
+
+item_analysis.columns = ['Gesamtwert (€)', 'Gesamtmenge']
+
+# Kumulierter Anteil
+item_analysis['Anteil (%)'] = (item_analysis['Gesamtwert (€)'] / 
+                                 item_analysis['Gesamtwert (€)'].sum() * 100).round(1)
+item_analysis['Kumuliert (%)'] = item_analysis['Anteil (%)'].cumsum().round(1)
+
+# ABC Klassifizierung
+def abc_class(cum_pct):
+    if cum_pct <= 80:
+        return 'A'
+    elif cum_pct <= 95:
+        return 'B'
+    else:
+        return 'C'
+
+item_analysis['ABC-Klasse'] = item_analysis['Kumuliert (%)'].apply(abc_class)
+
+# Zusammenfassung
+abc_summary = item_analysis.groupby('ABC-Klasse').agg({
+    'Gesamtwert (€)': ['count', 'sum']
+})
+abc_summary.columns = ['Anzahl Artikel', 'Gesamtwert (€)']
+abc_summary['Anteil Artikel (%)'] = (abc_summary['Anzahl Artikel'] / len(item_analysis) * 100).round(1)
+abc_summary['Anteil Wert (%)'] = (abc_summary['Gesamtwert (€)'] / item_analysis['Gesamtwert (€)'].sum() * 100).round(1)
+
+print("ABC-Verteilung:\n")
+print(abc_summary)
+print("\n" + "="*70)
+print("Top 10 kritischste Artikel (A-Teile):\n")
+item_analysis.head(10)
+```
+
+```{python}
+#| label: fig-abc-pareto
+#| fig-cap: "ABC-Analyse: Pareto-Diagramm"
+
+fig, ax1 = plt.subplots(figsize=(16, 8))
+
+# Säulen für Artikelwerte
+x = range(len(item_analysis))
+colors = ['darkgreen' if cls == 'A' else 'gold' if cls == 'B' else 'lightcoral' 
+          for cls in item_analysis['ABC-Klasse']]
+bars = ax1.bar(x, item_analysis['Gesamtwert (€)'], color=colors, alpha=0.7)
+
+ax1.set_xlabel('Artikel (sortiert nach Wert)', fontsize=12)
+ax1.set_ylabel('Bestellwert (€)', color='black', fontsize=12)
+ax1.set_xticks([])  # Zu viele Artikel für Labels
+
+# Kumulative Linie
+ax2 = ax1.twinx()
+ax2.plot(x, item_analysis['Kumuliert (%)'], color='red', linewidth=2, label='Kumuliert')
+ax2.axhline(y=80, color='red', linestyle='--', alpha=0.5, label='80% (A-Teile)')
+ax2.axhline(y=95, color='orange', linestyle='--', alpha=0.5, label='95% (B-Teile)')
+ax2.set_ylabel('Kumulierter Anteil (%)', color='red', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='red')
+ax2.set_ylim(0, 105)
+ax2.legend(loc='lower right')
+
+# Legende für ABC-Klassen
+from matplotlib.patches import Patch
+legend_elements = [
+    Patch(facecolor='darkgreen', alpha=0.7, label='A-Teile (80% des Werts)'),
+    Patch(facecolor='gold', alpha=0.7, label='B-Teile (15% des Werts)'),
+    Patch(facecolor='lightcoral', alpha=0.7, label='C-Teile (5% des Werts)')
+]
+ax1.legend(handles=legend_elements, loc='upper left')
+
+plt.title('ABC-Analyse: Klassisches Pareto-Prinzip (80/20)', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.show()
+```
+
+### Interpretation
+
+::: {.callout-important}
+## Kernerkenntnisse
+
+**Klassisches Pareto-Prinzip bestätigt:**
+
+- **A-Teile:** 11 Artikel (31%) machen **79,5%** des Werts aus
+- **Airframe Fasteners dominieren:** Drei Varianten = 33,9% des Gesamtvolumens!
+- **Multi-Sourcing bei A-Teilen:** Viele kritische Teile werden bei mehreren Lieferanten bezogen
+:::
+
+```{python}
+#| echo: false
+
+# Top A-Teile Details
+print("🔍 Top 3 kritischste Artikel:\n")
+top_items = item_analysis.head(3)
+for idx, (item_info, row) in enumerate(top_items.iterrows(), 1):
+    item_no, item_desc = item_info
+    print(f"{idx}. {item_desc} (Nr. {item_no})")
+    print(f"   Wert: {row['Gesamtwert (€)']:,.2f} € ({row['Anteil (%)']:.1f}% des Gesamtvolumens)")
+    
+    # Lieferanten für diesen Artikel
+    vendors = df[df['Item No.'] == item_no]['Vendor Name'].unique()
+    print(f"   Lieferanten: {', '.join(vendors)}")
+    
+    # Preisvergleich wenn mehrere Lieferanten
+    if len(vendors) > 1:
+        prices = df[df['Item No.'] == item_no][['Vendor Name', 'Item Cost']].drop_duplicates()
+        print(f"   Preise: {prices['Item Cost'].min():.2f} € - {prices['Item Cost'].max():.2f} €")
+    print()
+```
+
+### Preisoptimierung bei Multi-Vendor-Artikeln
+
+```{python}
+#| label: tbl-preisvergleich
+#| tbl-cap: "Preisvergleich für A-Teile mit mehreren Lieferanten"
+
+# Artikel mit mehreren Lieferanten identifizieren
+multi_vendor_a = []
+
+for item_no, item_desc in item_analysis[item_analysis['ABC-Klasse'] == 'A'].index:
+    item_df = df[df['Item No.'] == item_no][['Vendor Name', 'Item Cost']].drop_duplicates()
+    if len(item_df) > 1:
+        item_df['Item No.'] = item_no
+        item_df['Item Description'] = item_desc
+        multi_vendor_a.append(item_df)
+
+if multi_vendor_a:
+    multi_vendor_df = pd.concat(multi_vendor_a)
+    
+    # Pivot für bessere Darstellung
+    price_comparison = multi_vendor_df.pivot_table(
+        index=['Item No.', 'Item Description'],
+        columns='Vendor Name',
+        values='Item Cost',
+        aggfunc='first'
+    ).round(2)
+    
+    print("💰 Einsparpotenzial durch Lieferantenwahl:\n")
+    print(price_comparison)
+    
+    # Berechne Einsparpotenzial
+    print("\n📊 Analyse:")
+    for idx in price_comparison.index:
+        prices = price_comparison.loc[idx].dropna()
+        if len(prices) > 1:
+            min_price = prices.min()
+            max_price = prices.max()
+            savings_pct = ((max_price - min_price) / max_price * 100)
+            best_vendor = prices.idxmin()
+            print(f"\n{idx[1]}:")
+            print(f"  Bester Preis: {min_price:.2f} € bei {best_vendor}")
+            print(f"  Einsparpotenzial: {savings_pct:.1f}% (wenn von teuerstem Lieferant gewechselt)")
+```
+
+## Analyse 4: Zeitliche Entwicklung {#sec-zeitlich}
+
+### Analyse durchführen
+
+```{python}
+#| label: tbl-monatlich
+#| tbl-cap: "Monatliche Bestellentwicklung"
+
+# Monat extrahieren
+df['Monat'] = df['Order Date'].dt.to_period('M')
+
+monthly = df.groupby('Monat').agg({
+    'Order Value': 'sum',
+    'Order No.': 'nunique',
+    'Quantity': 'sum'
+}).round(2)
+
+monthly.columns = ['Bestellwert (€)', 'Anzahl Bestellungen', 'Gesamtmenge']
+monthly['Ø Bestellwert (€)'] = (monthly['Bestellwert (€)'] / monthly['Anzahl Bestellungen']).round(2)
+
+# Veränderung zum Vormonat
+monthly['Veränderung (%)'] = monthly['Bestellwert (€)'].pct_change().mul(100).round(1)
+
+monthly
+```
+
+```{python}
+#| label: fig-zeitreihe
+#| fig-cap: "Bestellentwicklung über Zeit (Bullwhip-Effekt)"
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
+
+# Subplot 1: Bestellwert und Anzahl
+ax1_twin = ax1.twinx()
+
+months = [str(m) for m in monthly.index]
+x = range(len(months))
+
+bars = ax1.bar(x, monthly['Bestellwert (€)'], alpha=0.7, color='steelblue', label='Bestellwert')
+ax1.set_ylabel('Bestellwert (€)', color='steelblue', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='steelblue')
+ax1.set_xticks(x)
+ax1.set_xticklabels(months)
+
+line = ax1_twin.plot(x, monthly['Anzahl Bestellungen'], color='red', marker='o', 
+                      linewidth=2, markersize=8, label='Anzahl Bestellungen')
+ax1_twin.set_ylabel('Anzahl Bestellungen', color='red', fontsize=12)
+ax1_twin.tick_params(axis='y', labelcolor='red')
+
+ax1.set_title('Monatliche Bestellentwicklung: Extremer Bullwhip-Effekt', 
+              fontsize=14, fontweight='bold')
+ax1.legend(loc='upper left')
+ax1_twin.legend(loc='upper right')
+ax1.grid(axis='y', alpha=0.3)
+
+# Subplot 2: Veränderung zum Vormonat
+colors_change = ['green' if v > 0 else 'red' for v in monthly['Veränderung (%)'].fillna(0)]
+bars2 = ax2.bar(x, monthly['Veränderung (%)'].fillna(0), color=colors_change, alpha=0.7)
+ax2.axhline(y=0, color='black', linewidth=0.8)
+ax2.set_ylabel('Veränderung zum Vormonat (%)', fontsize=12)
+ax2.set_xlabel('Monat', fontsize=12)
+ax2.set_xticks(x)
+ax2.set_xticklabels(months)
+ax2.set_title('Volatilität der Bestellvolumen', fontsize=12, fontweight='bold')
+ax2.grid(axis='y', alpha=0.3)
+
+# Werte auf Balken
+for i, (bar, val) in enumerate(zip(bars2, monthly['Veränderung (%)'].fillna(0))):
+    if not pd.isna(val):
+        ax2.text(bar.get_x() + bar.get_width()/2, val, f'{val:+.1f}%',
+                ha='center', va='bottom' if val > 0 else 'top', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+### Artikelspezifische Volatilität
+
+```{python}
+#| label: fig-artikel-volatilität
+#| fig-cap: "Bestellmengen für kritische A-Teile über Zeit"
+
+# Top 5 A-Teile analysieren
+top5_items = item_analysis.head(5).index
+
+fig, axes = plt.subplots(3, 2, figsize=(16, 12))
+axes = axes.flatten()
+
+for idx, (item_no, item_desc) in enumerate(top5_items):
+    if idx < 6:
+        ax = axes[idx]
+        
+        # Daten für diesen Artikel
+        item_monthly = df[df['Item No.'] == item_no].groupby('Monat')['Quantity'].sum()
+        
+        months_str = [str(m) for m in item_monthly.index]
+        x = range(len(months_str))
+        
+        ax.plot(x, item_monthly.values, marker='o', linewidth=2, markersize=8, color='darkgreen')
+        ax.fill_between(x, item_monthly.values, alpha=0.3, color='lightgreen')
+        ax.set_title(f'{item_desc}\n(Nr. {item_no})', fontsize=10, fontweight='bold')
+        ax.set_xticks(x)
+        ax.set_xticklabels(months_str, rotation=45)
+        ax.set_ylabel('Bestellmenge', fontsize=9)
+        ax.grid(axis='y', alpha=0.3)
+        
+        # Min/Max annotieren
+        max_idx = item_monthly.values.argmax()
+        min_idx = item_monthly.values.argmin()
+        ax.scatter([max_idx], [item_monthly.values[max_idx]], color='red', s=100, zorder=5)
+        ax.scatter([min_idx], [item_monthly.values[min_idx]], color='blue', s=100, zorder=5)
+
+# Letzte Subplot für Legende
+axes[5].axis('off')
+axes[5].text(0.5, 0.5, 
+             '🔴 Maximum\n🔵 Minimum\n\n⚠️ Starke Schwankungen\nindizieren Bullwhip-Effekt',
+             ha='center', va='center', fontsize=12, 
+             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+plt.tight_layout()
+plt.show()
+```
+
+### Interpretation
+
+::: {.callout-warning}
+## Massiver Bullwhip-Effekt erkennbar
+
+**Problem:**
+
+- Bestellvolumen schwankt um **Faktor 10** zwischen Monaten
+- Oktober: 1.228.860 € → November: 123.294 € (**-90%!**)
+- Klassisches Muster: Aufschaukeln, dann Kollaps
+
+**Ursachen (Hypothesen):**
+
+1. **Quartalsdenken:** Hohe Bestellungen gegen Quartalsende (Sep/Okt)
+2. **Fehlende Prognosen:** Reaktive statt proaktive Bestellungen
+3. **Batch-Ordering:** Große, seltene Bestellungen statt kontinuierlicher Flow
+4. **Sicherheitsdenken:** Nach Oktober-Peak "Notbremse" in November
+
+**Folgen:**
+
+- Lieferanten müssen Kapazitäten vorhalten → höhere Preise
+- Eigene Lagerkosten steigen bzw. Produktionsstillstand droht
+- Lieferanten können nicht effizient planen
+:::
+
+## Empfehlungen zur Verbesserung des SCM {#sec-empfehlungen}
+
+### A. Strategisches Lieferantenmanagement
+
+#### 1. Strategische Partnerschaften etablieren
+
+::: {.callout-tip}
+## Partner-Kandidaten
+
+**Durrable Products** & **Hulkey Fasteners**
+
+**Begründung:**
+
+- Durrable: Zuverlässigste Lieferung (4,9 Tage) + 19,2% Volumen + günstige Preise
+- Hulkey: Größter Lieferant (25%) + gute Lieferzeit (6,5 Tage)
+
+**Maßnahmen:**
+
+- Rahmenverträge mit Mengenrabatten (Ziel: 10-15% Preisreduktion)
+- Vendor Managed Inventory (VMI) für A-Teile
+- EDI-Integration für automatische Bestellabrufe
+- Gemeinsame Jahresplanung zur Kapazitätssicherung
+- Quarterly Business Reviews mit Performance-KPIs
+
+**Erwarteter Nutzen:**
+
+- 150.000 - 250.000 € Einsparung p.a.
+- Liefersicherheit >98% für kritische Teile
+- 30% weniger administrativer Aufwand
+:::
+
+#### 2. Lieferantenkonsolidierung durchführen
+
+```{python}
+#| echo: false
+
+print("🎯 Empfehlung: Spacetime Technologies ersetzen\n")
+print("Begründung:")
+print(f"  • Nur {vendor_analysis.loc['Spacetime Technologies', 'Anteil (%)']:.1f}% Volumenanteil")
+print(f"  • Schlechteste Performance ({delivery_analysis.loc['Spacetime Technologies', 'Ø Tage']:.1f} Tage)")
+print(f"  • Hohe Varianz (σ = {delivery_analysis.loc['Spacetime Technologies', 'Standardabw.']:.1f} Tage)")
+print("\nTeile können bei anderen Lieferanten günstiger bezogen werden:")
+```
+
+```{python}
+#| label: tbl-spacetime-alternative
+#| tbl-cap: "Einsparpotenzial durch Ersatz von Spacetime Technologies"
+
+# Artikel von Spacetime Technologies
+spacetime_items = df[df['Vendor Name'] == 'Spacetime Technologies']['Item Description'].unique()
+
+alternatives = []
+for item in spacetime_items:
+    item_df = df[df['Item Description'] == item][['Vendor Name', 'Item Cost']].drop_duplicates()
+    if len(item_df) > 1:
+        spacetime_price = item_df[item_df['Vendor Name'] == 'Spacetime Technologies']['Item Cost'].values[0]
+        other_prices = item_df[item_df['Vendor Name'] != 'Spacetime Technologies']
+        best_alternative = other_prices.loc[other_prices['Item Cost'].idxmin()]
+        
+        savings_pct = ((spacetime_price - best_alternative['Item Cost']) / spacetime_price * 100)
+        
+        alternatives.append({
+            'Artikel': item,
+            'Spacetime Preis (€)': spacetime_price,
+            'Beste Alternative': best_alternative['Vendor Name'],
+            'Alternativer Preis (€)': best_alternative['Item Cost'],
+            'Ersparnis (%)': savings_pct
+        })
+
+if alternatives:
+    alt_df = pd.DataFrame(alternatives)
+    alt_df.style.format({
+        'Spacetime Preis (€)': '{:.2f}',
+        'Alternativer Preis (€)': '{:.2f}',
+        'Ersparnis (%)': '{:+.1f}'
+    })
+    print(alt_df.to_string(index=False))
+```
+
+#### 3. Performance Management System
+
+```{python}
+#| label: tbl-scorecard
+#| tbl-cap: "Lieferanten-Scorecard (aktuelles Rating)"
+
+# Scorecard erstellen
+scorecard = pd.DataFrame()
+
+for vendor in vendor_analysis.index:
+    vendor_df = df[df['Vendor Name'] == vendor]
+    
+    # KPIs berechnen
+    otif = 95 if vendor_df['Delivery Time'].mean() < 8 else 85  # Vereinfacht
+    delivery_score = max(0, 100 - (vendor_df['Delivery Time'].mean() - 5) * 10)
+    variance_score = max(0, 100 - vendor_df['Delivery Time'].std() * 20)
+    
+    total_score = (otif * 0.4 + delivery_score * 0.25 + variance_score * 0.15 + 80 * 0.2)
+    
+    if total_score >= 80:
+        status = '🟢 Top Performer'
+    elif total_score >= 60:
+        status = '🟡 Akzeptabel'
+    else:
+        status = '🔴 Verbesserung nötig'
+    
+    scorecard = pd.concat([scorecard, pd.DataFrame({
+        'Lieferant': [vendor],
+        'OTIF (%)': [otif],
+        'Lieferzeit-Score': [delivery_score],
+        'Varianz-Score': [variance_score],
+        'Gesamt-Score': [total_score],
+        'Status': [status]
+    })])
+
+scorecard = scorecard.sort_values('Gesamt-Score', ascending=False).reset_index(drop=True)
+scorecard[['Lieferant', 'Gesamt-Score', 'Status']]
+```
+
+### B. Differenziertes Bestandsmanagement
+
+::: {.callout-note}
+## Strategie nach ABC-Klasse
+
+**A-Teile (79,5% des Werts):**
+
+- Single/Dual Sourcing + Just-in-Time
+- Wöchentliche Abrufe aus Konsignationslager
+- 8-Wochen-Rolling-Forecast an Hauptlieferanten
+- Sicherheitsbestand: 2 Wochen Produktionsbedarf
+
+**B-Teile (15,1% des Werts):**
+
+- Multi-Sourcing (2-3 Lieferanten)
+- Bestellpunktverfahren (automatisch)
+- Wirtschaftliche Bestellmenge (EOQ)
+- Sicherheitsbestand: 1 Woche
+
+**C-Teile (5,4% des Werts):**
+
+- Kanban-System oder Desktop-Purchasing
+- Outsourcing an C-Teile-Dienstleister
+- Sammelbestellungen (monatlich)
+- Minimaler administrativer Aufwand
+:::
+
+### C. Bullwhip-Effekt bekämpfen
+
+**1. Rolling Forecast einführen:**
+
+- 12-Wochen-Forecast, wöchentlich aktualisiert
+- Woche 1-4: 100% fest, Woche 5-8: ±20% flexibel, Woche 9-12: informativ
+
+**2. Vom Batch zum Flow:**
+
+- A-Teile: 1x/Woche statt 1x/Monat → -60% Lagerbestand
+- Beispiel Airframe Fasteners: 12x 5.000 Stück statt 4x 15.000 Stück
+
+**3. Collaborative Planning (CPFR):**
+
+- Monatliches Planungsmeeting mit Hauptlieferanten
+- Shared Metrics: Forecast Accuracy >85%, Perfect Order >98%
+
+**4. Produktionsnivellierung:**
+
+- Gleichmäßigere Produktion → stabilere Einkaufsvolumen
+- Ziel: ±15% Schwankung statt ±90%
+
+### D. Digitalisierung & SCM-System
+
+**Empfohlenes System:** Odoo SCM (für mittelständische Fertigungsbetriebe)
+
+**Kernfunktionen:**
+1. Automatische Bedarfsplanung (MRP)
+2. Lieferantenportal mit EDI
+3. Track & Trace für alle Bestellungen
+4. Analytics & Performance-Dashboard
+
+## Business Case & ROI {#sec-roi}
+
+### Investitionen und erwartete Einsparungen
+
+```{python}
+#| label: tbl-business-case
+#| tbl-cap: "Business Case für SCM-Optimierung"
+
+business_case = pd.DataFrame({
+    'Kategorie': [
+        'Materialkosten - Rahmenverträge',
+        'Materialkosten - Preisoptimierung',
+        'Materialkosten - Spacetime-Ersatz',
+        'Lagerkosten - Bestandsreduktion',
+        'Lagerkosten - VMI für A-Teile',
+        'Prozesskosten - Automatisierung',
+        'Prozesskosten - C-Teile-Outsourcing',
+        'Risiko - Weniger Stillstände',
+        'Risiko - Weniger Express-Lieferungen'
+    ],
+    'Jahr 1 (€)': [140000, 30000, 15000, 11300, 40000, 48000, 35000, 50000, 15000],
+    'Ab Jahr 2 (€)': [140000, 30000, 15000, 11300, 40000, 48000, 35000, 50000, 15000]
+})
+
+# Investment
+investment_year0 = 205000
+investment_yearly = 50000
+
+print("💰 BUSINESS CASE\n")
+print("Einmalige Investition (Jahr 0):")
+print(f"  SCM-Software + Implementation: {investment_year0:,} €\n")
+print(f"Laufende Kosten: {investment_yearly:,} € pro Jahr\n")
+print("Erwartete Einsparungen:\n")
+print(business_case.to_string(index=False))
+print("\n" + "="*70)
+
+total_year1 = business_case['Jahr 1 (€)'].sum()
+total_year2 = business_case['Ab Jahr 2 (€)'].sum()
+
+print(f"\n📊 SUMMEN:")
+print(f"  Jahr 1: {total_year1:,} € Einsparung")
+print(f"  Ab Jahr 2: {total_year2:,} € Einsparung")
+print(f"\n  Netto Jahr 1: {total_year1 - investment_year0 - investment_yearly:,} €")
+print(f"  Netto Jahr 2+: {total_year2 - investment_yearly:,} € pro Jahr")
+```
+
+```{python}
+#| label: fig-roi
+#| fig-cap: "ROI-Entwicklung über 3 Jahre"
+
+# ROI-Berechnung
+years = ['Jahr 0', 'Jahr 1', 'Jahr 2', 'Jahr 3']
+investment = [-205000, -50000, -50000, -50000]
+savings = [0, 384300, 534300, 534300]
+net = [inv + sav for inv, sav in zip(investment, savings)]
+cumulative = [sum(net[:i+1]) for i in range(len(net))]
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+
+# Subplot 1: Jährliche Cashflows
+x = range(len(years))
+width = 0.35
+
+bars1 = ax1.bar([i - width/2 for i in x], investment, width, label='Investition', color='red', alpha=0.7)
+bars2 = ax1.bar([i + width/2 for i in x], savings, width, label='Einsparungen', color='green', alpha=0.7)
+
+ax1.set_xlabel('Jahr', fontsize=12)
+ax1.set_ylabel('Betrag (€)', fontsize=12)
+ax1.set_title('Jährliche Cashflows', fontsize=14, fontweight='bold')
+ax1.set_xticks(x)
+ax1.set_xticklabels(years)
+ax1.legend()
+ax1.axhline(y=0, color='black', linewidth=0.8)
+ax1.grid(axis='y', alpha=0.3)
+
+# Werte auf Balken
+for bars in [bars1, bars2]:
+    for bar in bars:
+        height = bar.get_height()
+        ax1.text(bar.get_x() + bar.get_width()/2., height,
+                f'{int(height/1000)}k €',
+                ha='center', va='bottom' if height > 0 else 'top',
+                fontsize=9)
+
+# Subplot 2: Kumulierter ROI
+colors_cum = ['red' if c < 0 else 'green' for c in cumulative]
+bars3 = ax2.bar(x, cumulative, color=colors_cum, alpha=0.7)
+ax2.plot(x, cumulative, color='darkblue', marker='o', linewidth=2, markersize=10)
+
+ax2.set_xlabel('Jahr', fontsize=12)
+ax2.set_ylabel('Kumulierter Cashflow (€)', fontsize=12)
+ax2.set_title('Kumulierter ROI (Break-Even nach ~8 Monaten)', fontsize=14, fontweight='bold')
+ax2.set_xticks(x)
+ax2.set_xticklabels(years)
+ax2.axhline(y=0, color='black', linewidth=1.5, linestyle='--')
+ax2.grid(axis='y', alpha=0.3)
+
+# Werte auf Balken
+for bar, val in zip(bars3, cumulative):
+    ax2.text(bar.get_x() + bar.get_width()/2., val,
+            f'{int(val/1000)}k €',
+            ha='center', va='bottom' if val > 0 else 'top',
+            fontsize=10, fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-tip}
+## ROI-Zusammenfassung
+
+- **Break-Even:** Nach ca. 8 Monaten
+- **ROI nach 3 Jahren:** 187%
+- **NPV (10% Diskontrate):** ~850.000 €
+- **Jährliche Einsparung (ab Jahr 2):** 484.300 € netto
+:::
+

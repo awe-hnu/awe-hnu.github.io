@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>E7 — Musterlösung ECM – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-4048a7a1c451e68da5a5a8d3e4150794.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"de-DE"
+  });
+});
+</script> 
+  
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="E7 — Musterlösung ECM – awe.lectures">
+<meta property="og:description" content="Was können wir aus den Bestelldaten lernen?">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/DE1/25WT/anwendungssysteme/scm_files/figure-html/fig-lieferanten-pareto-output-1.png">
+<meta property="og:site_name" content="awe.lectures">
+<meta property="og:image:height" content="1320">
+<meta property="og:image:width" content="2666">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">E7 — Musterlösung ECM</h1>
+            <p class="subtitle lead">Was können wir aus den Bestelldaten lernen?</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor:in</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">24.11.2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Geändert</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">24.11.2025</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+
+
+
+
+
+<section id="aufgabenstellung" class="level2 unnumbered">
+<h2 class="unnumbered" data-anchor-id="aufgabenstellung">Aufgabenstellung</h2>
+<p>Sie führen ein Unternehmen, das Flugzeugteile herstellt. Sie haben viele Wettbewerber, die versuchen, günstigere Preise und besseren Kundenservice zu bieten. Analysieren Sie die Bestelldaten der letzten drei Monate und entwickeln Sie Empfehlungen zur Verbesserung des Supply Chain Managements.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>Konkrete Fragestellungen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Wer sind unsere wichtigsten Lieferanten?</li>
+<li>Welche Lieferanten sind am zuverlässigsten?</li>
+<li>Welche Artikel sind am kritischsten (ABC-Analyse)?</li>
+<li>Gibt es zeitliche Muster oder Probleme (Bullwhip-Effekt)?</li>
+</ol>
+</div>
+</div>
+<p><strong>Datenbasis:</strong> 94 Bestellungen über 3 Monate (August - November 2008)</p>
+</section>
+<section id="daten-laden-und-vorbereiten" class="level2">
+<h2 data-anchor-id="daten-laden-und-vorbereiten">Daten laden und vorbereiten</h2>
+<div id="setup" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Styling</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">6</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">'assets/bestellungen.xlsx'</span>, header<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Erste Zeile enthält die echten Header</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> df.iloc[<span class="dv">0</span>].tolist()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="dv">1</span>:]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> headers</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Datentypen konvertieren</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Vendor No.'</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">'Vendor No.'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Item No.'</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">'Item No.'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Order No.'</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">'Order No.'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Quantity'</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">'Quantity'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Item Cost'</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">'Item Cost'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Order Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Order Date'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Arrival Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Arrival Date'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnete Felder</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Delivery Time'</span>] <span class="op">=</span> (df[<span class="st">'Arrival Date'</span>] <span class="op">-</span> df[<span class="st">'Order Date'</span>]).dt.days</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Order Value'</span>] <span class="op">=</span> df[<span class="st">'Quantity'</span>] <span class="op">*</span> df[<span class="st">'Item Cost'</span>]</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Datensatz geladen: </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss"> Bestellungen"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zeitraum: </span><span class="sc">{</span>df[<span class="st">'Order Date'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">.</span>strftime(<span class="st">'</span><span class="sc">%d</span><span class="st">.%m.%Y'</span>)<span class="sc">}</span><span class="ss"> bis </span><span class="sc">{</span>df[<span class="st">'Order Date'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">.</span>strftime(<span class="st">'</span><span class="sc">%d</span><span class="st">.%m.%Y'</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gesamtvolumen: </span><span class="sc">{</span>df[<span class="st">'Order Value'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:,.2f}</span><span class="ss"> €"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Datensatz geladen: 94 Bestellungen
+Zeitraum: 05.08.2008 bis 05.11.2008
+Gesamtvolumen: 2,471,760.00 €</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-lieferanten" class="level2">
+<h2 data-anchor-id="sec-lieferanten">Analyse 1: Top-Lieferanten nach Bestellwert</h2>
+<section id="excel-vorgehen-für-studierende" class="level3">
+<h3 data-anchor-id="excel-vorgehen-für-studierende">Excel-Vorgehen (für Studierende)</h3>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>Schritt-für-Schritt-Anleitung in Excel
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Bestellwert berechnen:</strong> Neue Spalte <code>Order Value</code> = <code>Quantity × Item Cost</code></li>
+<li><strong>Pivot-Tabelle erstellen:</strong>
+<ul>
+<li>Zeilen: Vendor Name</li>
+<li>Werte: Summe von Order Value, Anzahl von Order No.</li>
+</ul></li>
+<li><strong>Anteil berechnen:</strong> <code>=Order Value / SUMME($Order_Value$) * 100</code></li>
+<li><strong>Visualisierung:</strong> Pareto-Diagramm (Säulen + kumulative Linie)</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="analyse-durchführen" class="level3">
+<h3 data-anchor-id="analyse-durchführen">Analyse durchführen</h3>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gruppierung nach Lieferant</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vendor_analysis <span class="op">=</span> df.groupby(<span class="st">'Vendor Name'</span>).agg({</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Value'</span>: <span class="st">'sum'</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order No.'</span>: <span class="st">'count'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Delivery Time'</span>: <span class="st">'mean'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>vendor_analysis.columns <span class="op">=</span> [<span class="st">'Gesamtwert (€)'</span>, <span class="st">'Anzahl Bestellungen'</span>, <span class="st">'Ø Lieferzeit (Tage)'</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>vendor_analysis <span class="op">=</span> vendor_analysis.sort_values(<span class="st">'Gesamtwert (€)'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Anteil am Gesamtvolumen</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>total_value <span class="op">=</span> vendor_analysis[<span class="st">'Gesamtwert (€)'</span>].<span class="bu">sum</span>()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>vendor_analysis[<span class="st">'Anteil (%)'</span>] <span class="op">=</span> (vendor_analysis[<span class="st">'Gesamtwert (€)'</span>] <span class="op">/</span> total_value <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Kumulierter Anteil</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>vendor_analysis[<span class="st">'Kumuliert (%)'</span>] <span class="op">=</span> vendor_analysis[<span class="st">'Anteil (%)'</span>].cumsum().<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 5 markieren</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>vendor_analysis[<span class="st">'Top-5'</span>] <span class="op">=</span> [<span class="st">'✓'</span> <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span> <span class="cf">else</span> <span class="st">''</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(vendor_analysis))]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>vendor_analysis</span></code></pre></div>
+<div id="tbl-lieferanten" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="2">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-lieferanten-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Gesamtwert (€)</th>
+<th data-quarto-table-cell-role="th">Anzahl Bestellungen</th>
+<th data-quarto-table-cell-role="th">Ø Lieferzeit (Tage)</th>
+<th data-quarto-table-cell-role="th">Anteil (%)</th>
+<th data-quarto-table-cell-role="th">Kumuliert (%)</th>
+<th data-quarto-table-cell-role="th">Top-5</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Vendor Name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Hulkey Fasteners</th>
+<td>618843.75</td>
+<td>0</td>
+<td>6.47</td>
+<td>25.0</td>
+<td>25.0</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Durrable Products</th>
+<td>475715.75</td>
+<td>0</td>
+<td>4.92</td>
+<td>19.2</td>
+<td>44.2</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Steelpin Inc.</th>
+<td>436675.00</td>
+<td>0</td>
+<td>10.20</td>
+<td>17.7</td>
+<td>61.9</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Alum Sheeting</th>
+<td>427830.00</td>
+<td>0</td>
+<td>7.00</td>
+<td>17.3</td>
+<td>79.2</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Fast-Tie Aerospace</th>
+<td>224450.00</td>
+<td>0</td>
+<td>8.47</td>
+<td>9.1</td>
+<td>88.3</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Spacetime Technologies</th>
+<td>133306.75</td>
+<td>0</td>
+<td>15.25</td>
+<td>5.4</td>
+<td>93.7</td>
+<td></td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Manley Valve</th>
+<td>122838.75</td>
+<td>0</td>
+<td>6.45</td>
+<td>5.0</td>
+<td>98.7</td>
+<td></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Pylon Accessories</th>
+<td>32100.00</td>
+<td>0</td>
+<td>8.00</td>
+<td>1.3</td>
+<td>100.0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-lieferanten-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;1: Top-Lieferanten nach Bestellwert
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="cell-fig-lieferanten-pareto" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">7</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Säulendiagramm</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(vendor_analysis))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax1.bar(x, vendor_analysis[<span class="st">'Gesamtwert (€)'</span>], color<span class="op">=</span><span class="st">'steelblue'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Lieferant'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Bestellwert (€)'</span>, color<span class="op">=</span><span class="st">'steelblue'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span><span class="st">'steelblue'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks(x)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>ax1.set_xticklabels(vendor_analysis.index, rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 5 hervorheben</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, bar <span class="kw">in</span> <span class="bu">enumerate</span>(bars):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        bar.set_color(<span class="st">'darkgreen'</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        bar.set_alpha(<span class="fl">0.8</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Kumulative Linie</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, vendor_analysis[<span class="st">'Kumuliert (%)'</span>], color<span class="op">=</span><span class="st">'red'</span>, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Kumuliert'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>ax2.axhline(y<span class="op">=</span><span class="dv">80</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'80%-Schwelle'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Kumulierter Anteil (%)'</span>, color<span class="op">=</span><span class="st">'red'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim(<span class="dv">0</span>, <span class="dv">110</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>ax2.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Pareto-Analyse: Lieferantenkonzentration'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-lieferanten-pareto" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lieferanten-pareto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scm_files/figure-html/fig-lieferanten-pareto-output-1.png" width="1333" height="660" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lieferanten-pareto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;1: Pareto-Analyse der Lieferanten
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation" class="level3">
+<h3 data-anchor-id="interpretation">Interpretation</h3>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Wichtig</span>Kernerkenntnisse
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Hohe Lieferantenkonzentration:</strong> Top 5 Lieferanten machen <strong>88,3%</strong> des Bestellvolumens aus</li>
+<li><strong>Drei dominante Lieferanten:</strong> Hulkey, Durrable und Steelpin zusammen &gt;60%</li>
+<li><strong>Long-Tail-Problem:</strong> 3 kleinere Lieferanten (12% des Volumens) verursachen administrative Komplexität</li>
+</ul>
+</div>
+</div>
+<div id="bf4250d7" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-stdout">
+<pre><code>📊 Top 5 Lieferanten: 2,183,514.50 € (88.3%)
+📊 Restliche Lieferanten: 288,245.50 € (11.7%)
+
+💡 Empfehlung: Strategische Partnerschaften mit Hulkey Fasteners und Durrable Products aufbauen</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-zuverlaessigkeit" class="level2">
+<h2 data-anchor-id="sec-zuverlaessigkeit">Analyse 2: Lieferzuverlässigkeit</h2>
+<section id="analyse-durchführen-1" class="level3">
+<h3 data-anchor-id="analyse-durchführen-1">Analyse durchführen</h3>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>delivery_analysis <span class="op">=</span> df.groupby(<span class="st">'Vendor Name'</span>).agg({</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Delivery Time'</span>: [<span class="st">'mean'</span>, <span class="st">'std'</span>, <span class="st">'min'</span>, <span class="st">'max'</span>, <span class="st">'count'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>delivery_analysis.columns <span class="op">=</span> [<span class="st">'Ø Tage'</span>, <span class="st">'Standardabw.'</span>, <span class="st">'Min'</span>, <span class="st">'Max'</span>, <span class="st">'Anzahl'</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>delivery_analysis <span class="op">=</span> delivery_analysis.sort_values(<span class="st">'Ø Tage'</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Bewertung hinzufügen</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rate_delivery(row):</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="st">'Ø Tage'</span>] <span class="op">&lt;</span> <span class="dv">7</span> <span class="kw">and</span> row[<span class="st">'Standardabw.'</span>] <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'⭐⭐⭐ Sehr zuverlässig'</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> row[<span class="st">'Ø Tage'</span>] <span class="op">&lt;</span> <span class="dv">10</span> <span class="kw">and</span> row[<span class="st">'Standardabw.'</span>] <span class="op">&lt;</span> <span class="dv">3</span>:</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'⭐⭐ Gut'</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> row[<span class="st">'Ø Tage'</span>] <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'⭐ Akzeptabel'</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'❌ Problematisch'</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>delivery_analysis[<span class="st">'Bewertung'</span>] <span class="op">=</span> delivery_analysis.<span class="bu">apply</span>(rate_delivery, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>delivery_analysis</span></code></pre></div>
+<div id="tbl-lieferzeit" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="5">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-lieferzeit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Ø Tage</th>
+<th data-quarto-table-cell-role="th">Standardabw.</th>
+<th data-quarto-table-cell-role="th">Min</th>
+<th data-quarto-table-cell-role="th">Max</th>
+<th data-quarto-table-cell-role="th">Anzahl</th>
+<th data-quarto-table-cell-role="th">Bewertung</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Vendor Name</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Durrable Products</th>
+<td>4.92</td>
+<td>0.76</td>
+<td>3</td>
+<td>6</td>
+<td>13</td>
+<td>⭐⭐⭐ Sehr zuverlässig</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Manley Valve</th>
+<td>6.45</td>
+<td>1.44</td>
+<td>5</td>
+<td>9</td>
+<td>11</td>
+<td>⭐⭐⭐ Sehr zuverlässig</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Hulkey Fasteners</th>
+<td>6.47</td>
+<td>1.46</td>
+<td>4</td>
+<td>9</td>
+<td>15</td>
+<td>⭐⭐⭐ Sehr zuverlässig</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Alum Sheeting</th>
+<td>7.00</td>
+<td>1.41</td>
+<td>5</td>
+<td>9</td>
+<td>8</td>
+<td>⭐⭐ Gut</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Pylon Accessories</th>
+<td>8.00</td>
+<td>2.00</td>
+<td>5</td>
+<td>10</td>
+<td>5</td>
+<td>⭐⭐ Gut</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Fast-Tie Aerospace</th>
+<td>8.47</td>
+<td>2.03</td>
+<td>5</td>
+<td>11</td>
+<td>15</td>
+<td>⭐⭐ Gut</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Steelpin Inc.</th>
+<td>10.20</td>
+<td>3.17</td>
+<td>7</td>
+<td>20</td>
+<td>15</td>
+<td>⭐ Akzeptabel</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Spacetime Technologies</th>
+<td>15.25</td>
+<td>8.44</td>
+<td>5</td>
+<td>30</td>
+<td>12</td>
+<td>❌ Problematisch</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-lieferzeit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;2: Lieferanten-Performance nach Lieferzeit
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="cell-fig-lieferzeit-box" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>vendors_ordered <span class="op">=</span> delivery_analysis.index.tolist()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>data_for_box <span class="op">=</span> [df[df[<span class="st">'Vendor Name'</span>] <span class="op">==</span> vendor][<span class="st">'Delivery Time'</span>].dropna() <span class="cf">for</span> vendor <span class="kw">in</span> vendors_ordered]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>bp <span class="op">=</span> ax.boxplot(data_for_box, labels<span class="op">=</span>vendors_ordered, patch_artist<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Farben basierend auf Performance</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> []</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> vendor <span class="kw">in</span> vendors_ordered:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    avg <span class="op">=</span> df[df[<span class="st">'Vendor Name'</span>] <span class="op">==</span> vendor][<span class="st">'Delivery Time'</span>].mean()</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> avg <span class="op">&lt;</span> <span class="dv">7</span>:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'lightgreen'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> avg <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'yellow'</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        colors.append(<span class="st">'lightcoral'</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> patch, color <span class="kw">in</span> <span class="bu">zip</span>(bp[<span class="st">'boxes'</span>], colors):</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    patch.set_facecolor(color)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    patch.set_alpha(<span class="fl">0.7</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Lieferant'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Lieferzeit (Tage)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Lieferzeit-Verteilung und Zuverlässigkeit'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="dv">7</span>, color<span class="op">=</span><span class="st">'green'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, label<span class="op">=</span><span class="st">'Ziel: &lt;7 Tage'</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, label<span class="op">=</span><span class="st">'Akzeptabel: &lt;10 Tage'</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/1x/dpnqzkv55jzbrbhpb_jrm7v40000gn/T/ipykernel_75593/259222617.py:7: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  bp = ax.boxplot(data_for_box, labels=vendors_ordered, patch_artist=True)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-lieferzeit-box" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lieferzeit-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scm_files/figure-html/fig-lieferzeit-box-output-2.png" width="1334" height="756" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lieferzeit-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;2: Lieferzeit-Verteilung nach Lieferant
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation-1" class="level3">
+<h3 data-anchor-id="interpretation-1">Interpretation</h3>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warnung</span>Kritische Befunde
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Champion:</strong></p>
+<ul>
+<li><strong>Durrable Products</strong>: Schnellste UND zuverlässigste Lieferung (4,9 Tage, σ=0,8)</li>
+</ul>
+<p><strong>Problematisch:</strong></p>
+<ul>
+<li><strong>Steelpin Inc.</strong>: Trotz 17,7% Volumenanteil sehr langsam (10,2 Tage, bis zu 20!)</li>
+<li><strong>Spacetime Technologies</strong>: Extrem unberechenbar (5-30 Tage, Ø 15,3 Tage, σ=8,4)</li>
+</ul>
+</div>
+</div>
+<div id="62c4ed4d" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-stdout">
+<pre><code>📊 Performance-Rating:
+
+Durrable Products............. ⭐⭐⭐ Sehr zuverlässig
+Manley Valve.................. ⭐⭐⭐ Sehr zuverlässig
+Hulkey Fasteners.............. ⭐⭐⭐ Sehr zuverlässig
+Alum Sheeting................. ⭐⭐ Gut
+Pylon Accessories............. ⭐⭐ Gut
+Fast-Tie Aerospace............ ⭐⭐ Gut
+Steelpin Inc.................. ⭐ Akzeptabel
+Spacetime Technologies........ ❌ Problematisch
+
+💡 Empfehlung:
+   → Eskalation bei Steelpin Inc.: Performance-Gespräch führen
+   → Spacetime Technologies: Nur für unkritische C-Teile ODER ersetzen
+   → Durrable Products: Volumen ausbauen (zuverlässig + günstig)</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-abc" class="level2">
+<h2 data-anchor-id="sec-abc">Analyse 3: ABC-Analyse der Artikel</h2>
+<section id="analyse-durchführen-2" class="level3">
+<h3 data-anchor-id="analyse-durchführen-2">Analyse durchführen</h3>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Artikel-Analyse</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>item_analysis <span class="op">=</span> df.groupby([<span class="st">'Item No.'</span>, <span class="st">'Item Description'</span>]).agg({</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Value'</span>: <span class="st">'sum'</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Quantity'</span>: <span class="st">'sum'</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}).sort_values(<span class="st">'Order Value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>item_analysis.columns <span class="op">=</span> [<span class="st">'Gesamtwert (€)'</span>, <span class="st">'Gesamtmenge'</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Kumulierter Anteil</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>item_analysis[<span class="st">'Anteil (%)'</span>] <span class="op">=</span> (item_analysis[<span class="st">'Gesamtwert (€)'</span>] <span class="op">/</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                                 item_analysis[<span class="st">'Gesamtwert (€)'</span>].<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>item_analysis[<span class="st">'Kumuliert (%)'</span>] <span class="op">=</span> item_analysis[<span class="st">'Anteil (%)'</span>].cumsum().<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ABC Klassifizierung</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> abc_class(cum_pct):</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cum_pct <span class="op">&lt;=</span> <span class="dv">80</span>:</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'A'</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> cum_pct <span class="op">&lt;=</span> <span class="dv">95</span>:</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'B'</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'C'</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>item_analysis[<span class="st">'ABC-Klasse'</span>] <span class="op">=</span> item_analysis[<span class="st">'Kumuliert (%)'</span>].<span class="bu">apply</span>(abc_class)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Zusammenfassung</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>abc_summary <span class="op">=</span> item_analysis.groupby(<span class="st">'ABC-Klasse'</span>).agg({</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Gesamtwert (€)'</span>: [<span class="st">'count'</span>, <span class="st">'sum'</span>]</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>abc_summary.columns <span class="op">=</span> [<span class="st">'Anzahl Artikel'</span>, <span class="st">'Gesamtwert (€)'</span>]</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>abc_summary[<span class="st">'Anteil Artikel (%)'</span>] <span class="op">=</span> (abc_summary[<span class="st">'Anzahl Artikel'</span>] <span class="op">/</span> <span class="bu">len</span>(item_analysis) <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>abc_summary[<span class="st">'Anteil Wert (%)'</span>] <span class="op">=</span> (abc_summary[<span class="st">'Gesamtwert (€)'</span>] <span class="op">/</span> item_analysis[<span class="st">'Gesamtwert (€)'</span>].<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ABC-Verteilung:</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(abc_summary)</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Top 10 kritischste Artikel (A-Teile):</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>item_analysis.head(<span class="dv">10</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ABC-Verteilung:
+
+            Anzahl Artikel  Gesamtwert (€)  Anteil Artikel (%)  \
+ABC-Klasse                                                       
+A                       11      1964896.75                31.4   
+B                       10       373152.00                28.6   
+C                       14       133711.25                40.0   
+
+            Anteil Wert (%)  
+ABC-Klasse                   
+A                      79.5  
+B                      15.1  
+C                       5.4  
+
+======================================================================
+Top 10 kritischste Artikel (A-Teile):
+</code></pre>
+</div>
+<div id="tbl-abc" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="8">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-abc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Gesamtwert (€)</th>
+<th data-quarto-table-cell-role="th">Gesamtmenge</th>
+<th data-quarto-table-cell-role="th">Anteil (%)</th>
+<th data-quarto-table-cell-role="th">Kumuliert (%)</th>
+<th data-quarto-table-cell-role="th">ABC-Klasse</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Item No.</th>
+<th data-quarto-table-cell-role="th">Item Description</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1122</th>
+<th data-quarto-table-cell-role="th">Airframe fasteners</th>
+<td>550375.00</td>
+<td>129500</td>
+<td>22.3</td>
+<td>22.3</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8008</th>
+<th data-quarto-table-cell-role="th">Machined Valve</th>
+<td>238650.00</td>
+<td>370</td>
+<td>9.7</td>
+<td>32.0</td>
+<td>A</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5417</th>
+<th data-quarto-table-cell-role="th">Control Panel</th>
+<td>231030.00</td>
+<td>906</td>
+<td>9.3</td>
+<td>41.3</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5454</th>
+<th data-quarto-table-cell-role="th">Control Panel</th>
+<td>231000.00</td>
+<td>1050</td>
+<td>9.3</td>
+<td>50.6</td>
+<td>A</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1369</th>
+<th data-quarto-table-cell-role="th">Airframe fasteners</th>
+<td>163800.00</td>
+<td>39000</td>
+<td>6.6</td>
+<td>57.2</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1243</th>
+<th data-quarto-table-cell-role="th">Airframe fasteners</th>
+<td>125375.00</td>
+<td>29500</td>
+<td>5.1</td>
+<td>62.3</td>
+<td>A</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4111</th>
+<th data-quarto-table-cell-role="th">Bolt-nut package</th>
+<td>94554.25</td>
+<td>26635</td>
+<td>3.8</td>
+<td>66.1</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5462</th>
+<th data-quarto-table-cell-role="th">Shielded Cable/ft.</th>
+<td>93975.00</td>
+<td>89500</td>
+<td>3.8</td>
+<td>69.9</td>
+<td>A</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5689</th>
+<th data-quarto-table-cell-role="th">Side Panel</th>
+<td>84000.00</td>
+<td>480</td>
+<td>3.4</td>
+<td>73.3</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8148</th>
+<th data-quarto-table-cell-role="th">Machined Valve</th>
+<td>81937.50</td>
+<td>125</td>
+<td>3.3</td>
+<td>76.6</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-abc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;3: ABC-Analyse der Artikel
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="cell-fig-abc-pareto" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">8</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Säulen für Artikelwerte</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(item_analysis))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'darkgreen'</span> <span class="cf">if</span> cls <span class="op">==</span> <span class="st">'A'</span> <span class="cf">else</span> <span class="st">'gold'</span> <span class="cf">if</span> cls <span class="op">==</span> <span class="st">'B'</span> <span class="cf">else</span> <span class="st">'lightcoral'</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>          <span class="cf">for</span> cls <span class="kw">in</span> item_analysis[<span class="st">'ABC-Klasse'</span>]]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax1.bar(x, item_analysis[<span class="st">'Gesamtwert (€)'</span>], color<span class="op">=</span>colors, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Artikel (sortiert nach Wert)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Bestellwert (€)'</span>, color<span class="op">=</span><span class="st">'black'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([])  <span class="co"># Zu viele Artikel für Labels</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Kumulative Linie</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, item_analysis[<span class="st">'Kumuliert (%)'</span>], color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Kumuliert'</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax2.axhline(y<span class="op">=</span><span class="dv">80</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'80% (A-Teile)'</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax2.axhline(y<span class="op">=</span><span class="dv">95</span>, color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'95% (B-Teile)'</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Kumulierter Anteil (%)'</span>, color<span class="op">=</span><span class="st">'red'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim(<span class="dv">0</span>, <span class="dv">105</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>ax2.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Legende für ABC-Klassen</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    Patch(facecolor<span class="op">=</span><span class="st">'darkgreen'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'A-Teile (80</span><span class="sc">% d</span><span class="st">es Werts)'</span>),</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    Patch(facecolor<span class="op">=</span><span class="st">'gold'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'B-Teile (15</span><span class="sc">% d</span><span class="st">es Werts)'</span>),</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    Patch(facecolor<span class="op">=</span><span class="st">'lightcoral'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'C-Teile (5</span><span class="sc">% d</span><span class="st">es Werts)'</span>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>ax1.legend(handles<span class="op">=</span>legend_elements, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'ABC-Analyse: Klassisches Pareto-Prinzip (80/20)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-abc-pareto" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-abc-pareto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scm_files/figure-html/fig-abc-pareto-output-1.png" width="1525" height="757" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-abc-pareto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;3: ABC-Analyse: Pareto-Diagramm
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation-2" class="level3">
+<h3 data-anchor-id="interpretation-2">Interpretation</h3>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Wichtig</span>Kernerkenntnisse
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Klassisches Pareto-Prinzip bestätigt:</strong></p>
+<ul>
+<li><strong>A-Teile:</strong> 11 Artikel (31%) machen <strong>79,5%</strong> des Werts aus</li>
+<li><strong>Airframe Fasteners dominieren:</strong> Drei Varianten = 33,9% des Gesamtvolumens!</li>
+<li><strong>Multi-Sourcing bei A-Teilen:</strong> Viele kritische Teile werden bei mehreren Lieferanten bezogen</li>
+</ul>
+</div>
+</div>
+<div id="1cb6f34b" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-stdout">
+<pre><code>🔍 Top 3 kritischste Artikel:
+
+1. Airframe fasteners (Nr. 1122)
+   Wert: 550,375.00 € (22.3% des Gesamtvolumens)
+   Lieferanten: Hulkey Fasteners
+
+2. Machined Valve (Nr. 8008)
+   Wert: 238,650.00 € (9.7% des Gesamtvolumens)
+   Lieferanten: Steelpin Inc.
+
+3. Control Panel (Nr. 5417)
+   Wert: 231,030.00 € (9.3% des Gesamtvolumens)
+   Lieferanten: Alum Sheeting
+</code></pre>
+</div>
+</div>
+</section>
+<section id="preisoptimierung-bei-multi-vendor-artikeln" class="level3">
+<h3 data-anchor-id="preisoptimierung-bei-multi-vendor-artikeln">Preisoptimierung bei Multi-Vendor-Artikeln</h3>
+<div id="tbl-preisvergleich" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="11">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-preisvergleich-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Artikel mit mehreren Lieferanten identifizieren</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>multi_vendor_a <span class="op">=</span> []</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item_no, item_desc <span class="kw">in</span> item_analysis[item_analysis[<span class="st">'ABC-Klasse'</span>] <span class="op">==</span> <span class="st">'A'</span>].index:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    item_df <span class="op">=</span> df[df[<span class="st">'Item No.'</span>] <span class="op">==</span> item_no][[<span class="st">'Vendor Name'</span>, <span class="st">'Item Cost'</span>]].drop_duplicates()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(item_df) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        item_df[<span class="st">'Item No.'</span>] <span class="op">=</span> item_no</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        item_df[<span class="st">'Item Description'</span>] <span class="op">=</span> item_desc</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        multi_vendor_a.append(item_df)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> multi_vendor_a:</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    multi_vendor_df <span class="op">=</span> pd.concat(multi_vendor_a)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pivot für bessere Darstellung</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    price_comparison <span class="op">=</span> multi_vendor_df.pivot_table(</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>[<span class="st">'Item No.'</span>, <span class="st">'Item Description'</span>],</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span><span class="st">'Vendor Name'</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        values<span class="op">=</span><span class="st">'Item Cost'</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        aggfunc<span class="op">=</span><span class="st">'first'</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    ).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"💰 Einsparpotenzial durch Lieferantenwahl:</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(price_comparison)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Berechne Einsparpotenzial</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">📊 Analyse:"</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx <span class="kw">in</span> price_comparison.index:</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>        prices <span class="op">=</span> price_comparison.loc[idx].dropna()</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(prices) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>            min_price <span class="op">=</span> prices.<span class="bu">min</span>()</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>            max_price <span class="op">=</span> prices.<span class="bu">max</span>()</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>            savings_pct <span class="op">=</span> ((max_price <span class="op">-</span> min_price) <span class="op">/</span> max_price <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>            best_vendor <span class="op">=</span> prices.idxmin()</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>idx[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  Bester Preis: </span><span class="sc">{</span>min_price<span class="sc">:.2f}</span><span class="ss"> € bei </span><span class="sc">{</span>best_vendor<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  Einsparpotenzial: </span><span class="sc">{</span>savings_pct<span class="sc">:.1f}</span><span class="ss">% (wenn von teuerstem Lieferant gewechselt)"</span>)</span></code></pre></div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-preisvergleich-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;4: Preisvergleich für A-Teile mit mehreren Lieferanten
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-zeitlich" class="level2">
+<h2 data-anchor-id="sec-zeitlich">Analyse 4: Zeitliche Entwicklung</h2>
+<section id="analyse-durchführen-3" class="level3">
+<h3 data-anchor-id="analyse-durchführen-3">Analyse durchführen</h3>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Monat extrahieren</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Monat'</span>] <span class="op">=</span> df[<span class="st">'Order Date'</span>].dt.to_period(<span class="st">'M'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>monthly <span class="op">=</span> df.groupby(<span class="st">'Monat'</span>).agg({</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Value'</span>: <span class="st">'sum'</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order No.'</span>: <span class="st">'nunique'</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Quantity'</span>: <span class="st">'sum'</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>}).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>monthly.columns <span class="op">=</span> [<span class="st">'Bestellwert (€)'</span>, <span class="st">'Anzahl Bestellungen'</span>, <span class="st">'Gesamtmenge'</span>]</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>monthly[<span class="st">'Ø Bestellwert (€)'</span>] <span class="op">=</span> (monthly[<span class="st">'Bestellwert (€)'</span>] <span class="op">/</span> monthly[<span class="st">'Anzahl Bestellungen'</span>]).<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Veränderung zum Vormonat</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>monthly[<span class="st">'Veränderung (%)'</span>] <span class="op">=</span> monthly[<span class="st">'Bestellwert (€)'</span>].pct_change().mul(<span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>monthly</span></code></pre></div>
+<div id="tbl-monatlich" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="12">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-monatlich-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Bestellwert (€)</th>
+<th data-quarto-table-cell-role="th">Anzahl Bestellungen</th>
+<th data-quarto-table-cell-role="th">Gesamtmenge</th>
+<th data-quarto-table-cell-role="th">Ø Bestellwert (€)</th>
+<th data-quarto-table-cell-role="th">Veränderung (%)</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Monat</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2008-08</th>
+<td>301432.50</td>
+<td>0</td>
+<td>170850</td>
+<td>inf</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2008-09</th>
+<td>818173.00</td>
+<td>0</td>
+<td>237016</td>
+<td>inf</td>
+<td>171.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2008-10</th>
+<td>1228860.75</td>
+<td>0</td>
+<td>140610</td>
+<td>inf</td>
+<td>50.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2008-11</th>
+<td>123293.75</td>
+<td>0</td>
+<td>2120</td>
+<td>inf</td>
+<td>-90.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-monatlich-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;5: Monatliche Bestellentwicklung
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="cell-fig-zeitreihe" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">10</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 1: Bestellwert und Anzahl</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>ax1_twin <span class="op">=</span> ax1.twinx()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>months <span class="op">=</span> [<span class="bu">str</span>(m) <span class="cf">for</span> m <span class="kw">in</span> monthly.index]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(months))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax1.bar(x, monthly[<span class="st">'Bestellwert (€)'</span>], alpha<span class="op">=</span><span class="fl">0.7</span>, color<span class="op">=</span><span class="st">'steelblue'</span>, label<span class="op">=</span><span class="st">'Bestellwert'</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Bestellwert (€)'</span>, color<span class="op">=</span><span class="st">'steelblue'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>ax1.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span><span class="st">'steelblue'</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks(x)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>ax1.set_xticklabels(months)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> ax1_twin.plot(x, monthly[<span class="st">'Anzahl Bestellungen'</span>], color<span class="op">=</span><span class="st">'red'</span>, marker<span class="op">=</span><span class="st">'o'</span>, </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>                      linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">'Anzahl Bestellungen'</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>ax1_twin.set_ylabel(<span class="st">'Anzahl Bestellungen'</span>, color<span class="op">=</span><span class="st">'red'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>ax1_twin.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelcolor<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Monatliche Bestellentwicklung: Extremer Bullwhip-Effekt'</span>, </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>              fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>ax1.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>ax1_twin.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>ax1.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 2: Veränderung zum Vormonat</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>colors_change <span class="op">=</span> [<span class="st">'green'</span> <span class="cf">if</span> v <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'red'</span> <span class="cf">for</span> v <span class="kw">in</span> monthly[<span class="st">'Veränderung (%)'</span>].fillna(<span class="dv">0</span>)]</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> ax2.bar(x, monthly[<span class="st">'Veränderung (%)'</span>].fillna(<span class="dv">0</span>), color<span class="op">=</span>colors_change, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>ax2.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Veränderung zum Vormonat (%)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Monat'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>ax2.set_xticks(x)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>ax2.set_xticklabels(months)</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Volatilität der Bestellvolumen'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>ax2.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Werte auf Balken</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (bar, val) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(bars2, monthly[<span class="st">'Veränderung (%)'</span>].fillna(<span class="dv">0</span>))):</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> pd.isna(val):</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>        ax2.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, val, <span class="ss">f'</span><span class="sc">{</span>val<span class="sc">:+.1f}</span><span class="ss">%'</span>,</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>                ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span> <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'top'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-zeitreihe" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-zeitreihe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scm_files/figure-html/fig-zeitreihe-output-1.png" width="1333" height="949" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-zeitreihe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;4: Bestellentwicklung über Zeit (Bullwhip-Effekt)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="artikelspezifische-volatilität" class="level3">
+<h3 data-anchor-id="artikelspezifische-volatilität">Artikelspezifische Volatilität</h3>
+<div id="cell-fig-artikel-volatilität" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 5 A-Teile analysieren</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>top5_items <span class="op">=</span> item_analysis.head(<span class="dv">5</span>).index</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">12</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (item_no, item_desc) <span class="kw">in</span> <span class="bu">enumerate</span>(top5_items):</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> idx <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> axes[idx]</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Daten für diesen Artikel</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        item_monthly <span class="op">=</span> df[df[<span class="st">'Item No.'</span>] <span class="op">==</span> item_no].groupby(<span class="st">'Monat'</span>)[<span class="st">'Quantity'</span>].<span class="bu">sum</span>()</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        months_str <span class="op">=</span> [<span class="bu">str</span>(m) <span class="cf">for</span> m <span class="kw">in</span> item_monthly.index]</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(months_str))</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        ax.plot(x, item_monthly.values, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">'darkgreen'</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>        ax.fill_between(x, item_monthly.values, alpha<span class="op">=</span><span class="fl">0.3</span>, color<span class="op">=</span><span class="st">'lightgreen'</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="ss">f'</span><span class="sc">{</span>item_desc<span class="sc">}</span><span class="ch">\n</span><span class="ss">(Nr. </span><span class="sc">{</span>item_no<span class="sc">}</span><span class="ss">)'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        ax.set_xticks(x)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        ax.set_xticklabels(months_str, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="st">'Bestellmenge'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        ax.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Min/Max annotieren</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>        max_idx <span class="op">=</span> item_monthly.values.argmax()</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>        min_idx <span class="op">=</span> item_monthly.values.argmin()</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>        ax.scatter([max_idx], [item_monthly.values[max_idx]], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, zorder<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>        ax.scatter([min_idx], [item_monthly.values[min_idx]], color<span class="op">=</span><span class="st">'blue'</span>, s<span class="op">=</span><span class="dv">100</span>, zorder<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Letzte Subplot für Legende</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">5</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">5</span>].text(<span class="fl">0.5</span>, <span class="fl">0.5</span>, </span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>             <span class="st">'🔴 Maximum</span><span class="ch">\n</span><span class="st">🔵 Minimum</span><span class="ch">\n\n</span><span class="st">⚠️ Starke Schwankungen</span><span class="ch">\n</span><span class="st">indizieren Bullwhip-Effekt'</span>,</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>             ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, </span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>             bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">'round'</span>, facecolor<span class="op">=</span><span class="st">'wheat'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>))</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/1x/dpnqzkv55jzbrbhpb_jrm7v40000gn/T/ipykernel_75593/2730569120.py:38: UserWarning: Glyph 128308 (\N{LARGE RED CIRCLE}) missing from font(s) Arial.
+  plt.tight_layout()
+/var/folders/1x/dpnqzkv55jzbrbhpb_jrm7v40000gn/T/ipykernel_75593/2730569120.py:38: UserWarning: Glyph 128309 (\N{LARGE BLUE CIRCLE}) missing from font(s) Arial.
+  plt.tight_layout()
+/var/folders/1x/dpnqzkv55jzbrbhpb_jrm7v40000gn/T/ipykernel_75593/2730569120.py:38: UserWarning: Glyph 9888 (\N{WARNING SIGN}) missing from font(s) Arial.
+  plt.tight_layout()
+/var/folders/1x/dpnqzkv55jzbrbhpb_jrm7v40000gn/T/ipykernel_75593/2730569120.py:38: UserWarning: Glyph 65039 (\N{VARIATION SELECTOR-16}) missing from font(s) Arial.
+  plt.tight_layout()
+/Users/awe/WebDev/awe-hnu.github.io/.venv/lib/python3.13/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 128308 (\N{LARGE RED CIRCLE}) missing from font(s) Arial.
+  fig.canvas.print_figure(bytes_io, **kw)
+/Users/awe/WebDev/awe-hnu.github.io/.venv/lib/python3.13/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 128309 (\N{LARGE BLUE CIRCLE}) missing from font(s) Arial.
+  fig.canvas.print_figure(bytes_io, **kw)
+/Users/awe/WebDev/awe-hnu.github.io/.venv/lib/python3.13/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 9888 (\N{WARNING SIGN}) missing from font(s) Arial.
+  fig.canvas.print_figure(bytes_io, **kw)
+/Users/awe/WebDev/awe-hnu.github.io/.venv/lib/python3.13/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 65039 (\N{VARIATION SELECTOR-16}) missing from font(s) Arial.
+  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-artikel-volatilität" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-artikel-volatilität-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scm_files/figure-html/fig-artikel-volatilitat-output-2.png" width="1528" height="1143" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-artikel-volatilität-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;5: Bestellmengen für kritische A-Teile über Zeit
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation-3" class="level3">
+<h3 data-anchor-id="interpretation-3">Interpretation</h3>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warnung</span>Massiver Bullwhip-Effekt erkennbar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Problem:</strong></p>
+<ul>
+<li>Bestellvolumen schwankt um <strong>Faktor 10</strong> zwischen Monaten</li>
+<li>Oktober: 1.228.860 € → November: 123.294 € (<strong>-90%!</strong>)</li>
+<li>Klassisches Muster: Aufschaukeln, dann Kollaps</li>
+</ul>
+<p><strong>Ursachen (Hypothesen):</strong></p>
+<ol type="1">
+<li><strong>Quartalsdenken:</strong> Hohe Bestellungen gegen Quartalsende (Sep/Okt)</li>
+<li><strong>Fehlende Prognosen:</strong> Reaktive statt proaktive Bestellungen</li>
+<li><strong>Batch-Ordering:</strong> Große, seltene Bestellungen statt kontinuierlicher Flow</li>
+<li><strong>Sicherheitsdenken:</strong> Nach Oktober-Peak “Notbremse” in November</li>
+</ol>
+<p><strong>Folgen:</strong></p>
+<ul>
+<li>Lieferanten müssen Kapazitäten vorhalten → höhere Preise</li>
+<li>Eigene Lagerkosten steigen bzw. Produktionsstillstand droht</li>
+<li>Lieferanten können nicht effizient planen</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-empfehlungen" class="level2">
+<h2 data-anchor-id="sec-empfehlungen">Empfehlungen zur Verbesserung des SCM</h2>
+<section id="a.-strategisches-lieferantenmanagement" class="level3">
+<h3 data-anchor-id="a.-strategisches-lieferantenmanagement">A. Strategisches Lieferantenmanagement</h3>
+<section id="strategische-partnerschaften-etablieren" class="level4">
+<h4 data-anchor-id="strategische-partnerschaften-etablieren">1. Strategische Partnerschaften etablieren</h4>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>Partner-Kandidaten
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Durrable Products</strong> &amp; <strong>Hulkey Fasteners</strong></p>
+<p><strong>Begründung:</strong></p>
+<ul>
+<li>Durrable: Zuverlässigste Lieferung (4,9 Tage) + 19,2% Volumen + günstige Preise</li>
+<li>Hulkey: Größter Lieferant (25%) + gute Lieferzeit (6,5 Tage)</li>
+</ul>
+<p><strong>Maßnahmen:</strong></p>
+<ul>
+<li>Rahmenverträge mit Mengenrabatten (Ziel: 10-15% Preisreduktion)</li>
+<li>Vendor Managed Inventory (VMI) für A-Teile</li>
+<li>EDI-Integration für automatische Bestellabrufe</li>
+<li>Gemeinsame Jahresplanung zur Kapazitätssicherung</li>
+<li>Quarterly Business Reviews mit Performance-KPIs</li>
+</ul>
+<p><strong>Erwarteter Nutzen:</strong></p>
+<ul>
+<li>150.000 - 250.000 € Einsparung p.a.</li>
+<li>Liefersicherheit &gt;98% für kritische Teile</li>
+<li>30% weniger administrativer Aufwand</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="lieferantenkonsolidierung-durchführen" class="level4">
+<h4 data-anchor-id="lieferantenkonsolidierung-durchführen">2. Lieferantenkonsolidierung durchführen</h4>
+<div id="f7b05415" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-stdout">
+<pre><code>🎯 Empfehlung: Spacetime Technologies ersetzen
+
+Begründung:
+  • Nur 5.4% Volumenanteil
+  • Schlechteste Performance (15.2 Tage)
+  • Hohe Varianz (σ = 8.4 Tage)
+
+Teile können bei anderen Lieferanten günstiger bezogen werden:</code></pre>
+</div>
+</div>
+<div id="tbl-spacetime-alternative" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="16">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-spacetime-alternative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Artikel von Spacetime Technologies</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>spacetime_items <span class="op">=</span> df[df[<span class="st">'Vendor Name'</span>] <span class="op">==</span> <span class="st">'Spacetime Technologies'</span>][<span class="st">'Item Description'</span>].unique()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>alternatives <span class="op">=</span> []</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> spacetime_items:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    item_df <span class="op">=</span> df[df[<span class="st">'Item Description'</span>] <span class="op">==</span> item][[<span class="st">'Vendor Name'</span>, <span class="st">'Item Cost'</span>]].drop_duplicates()</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(item_df) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        spacetime_price <span class="op">=</span> item_df[item_df[<span class="st">'Vendor Name'</span>] <span class="op">==</span> <span class="st">'Spacetime Technologies'</span>][<span class="st">'Item Cost'</span>].values[<span class="dv">0</span>]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        other_prices <span class="op">=</span> item_df[item_df[<span class="st">'Vendor Name'</span>] <span class="op">!=</span> <span class="st">'Spacetime Technologies'</span>]</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        best_alternative <span class="op">=</span> other_prices.loc[other_prices[<span class="st">'Item Cost'</span>].idxmin()]</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        savings_pct <span class="op">=</span> ((spacetime_price <span class="op">-</span> best_alternative[<span class="st">'Item Cost'</span>]) <span class="op">/</span> spacetime_price <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        alternatives.append({</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Artikel'</span>: item,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Spacetime Preis (€)'</span>: spacetime_price,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Beste Alternative'</span>: best_alternative[<span class="st">'Vendor Name'</span>],</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Alternativer Preis (€)'</span>: best_alternative[<span class="st">'Item Cost'</span>],</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Ersparnis (%)'</span>: savings_pct</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> alternatives:</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    alt_df <span class="op">=</span> pd.DataFrame(alternatives)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    alt_df.style.<span class="bu">format</span>({</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Spacetime Preis (€)'</span>: <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">'</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Alternativer Preis (€)'</span>: <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">'</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Ersparnis (%)'</span>: <span class="st">'</span><span class="sc">{:+.1f}</span><span class="st">'</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(alt_df.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Artikel  Spacetime Preis (€)  Beste Alternative  Alternativer Preis (€)  Ersparnis (%)
+            O-Ring                 3.00 Fast-Tie Aerospace                    2.45      18.333333
+            Gasket                 4.05  Durrable Products                    3.65       9.876543
+Shielded Cable/ft.                 1.15   Hulkey Fasteners                    0.95      17.391304
+  Bolt-nut package                 3.55  Durrable Products                    3.50       1.408451</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-spacetime-alternative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;6: Einsparpotenzial durch Ersatz von Spacetime Technologies
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="performance-management-system" class="level4">
+<h4 data-anchor-id="performance-management-system">3. Performance Management System</h4>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scorecard erstellen</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>scorecard <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> vendor <span class="kw">in</span> vendor_analysis.index:</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    vendor_df <span class="op">=</span> df[df[<span class="st">'Vendor Name'</span>] <span class="op">==</span> vendor]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># KPIs berechnen</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    otif <span class="op">=</span> <span class="dv">95</span> <span class="cf">if</span> vendor_df[<span class="st">'Delivery Time'</span>].mean() <span class="op">&lt;</span> <span class="dv">8</span> <span class="cf">else</span> <span class="dv">85</span>  <span class="co"># Vereinfacht</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    delivery_score <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, <span class="dv">100</span> <span class="op">-</span> (vendor_df[<span class="st">'Delivery Time'</span>].mean() <span class="op">-</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">10</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    variance_score <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, <span class="dv">100</span> <span class="op">-</span> vendor_df[<span class="st">'Delivery Time'</span>].std() <span class="op">*</span> <span class="dv">20</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    total_score <span class="op">=</span> (otif <span class="op">*</span> <span class="fl">0.4</span> <span class="op">+</span> delivery_score <span class="op">*</span> <span class="fl">0.25</span> <span class="op">+</span> variance_score <span class="op">*</span> <span class="fl">0.15</span> <span class="op">+</span> <span class="dv">80</span> <span class="op">*</span> <span class="fl">0.2</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> total_score <span class="op">&gt;=</span> <span class="dv">80</span>:</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">'🟢 Top Performer'</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> total_score <span class="op">&gt;=</span> <span class="dv">60</span>:</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">'🟡 Akzeptabel'</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">'🔴 Verbesserung nötig'</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    scorecard <span class="op">=</span> pd.concat([scorecard, pd.DataFrame({</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Lieferant'</span>: [vendor],</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">'OTIF (%)'</span>: [otif],</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Lieferzeit-Score'</span>: [delivery_score],</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Varianz-Score'</span>: [variance_score],</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Gesamt-Score'</span>: [total_score],</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Status'</span>: [status]</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    })])</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>scorecard <span class="op">=</span> scorecard.sort_values(<span class="st">'Gesamt-Score'</span>, ascending<span class="op">=</span><span class="va">False</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>scorecard[[<span class="st">'Lieferant'</span>, <span class="st">'Gesamt-Score'</span>, <span class="st">'Status'</span>]]</span></code></pre></div>
+<div id="tbl-scorecard" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="17">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-scorecard-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Lieferant</th>
+<th data-quarto-table-cell-role="th">Gesamt-Score</th>
+<th data-quarto-table-cell-role="th">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Durrable Products</td>
+<td>91.913644</td>
+<td>🟢 Top Performer</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Manley Valve</td>
+<td>86.044546</td>
+<td>🟢 Top Performer</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Hulkey Fasteners</td>
+<td>85.961345</td>
+<td>🟢 Top Performer</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Alum Sheeting</td>
+<td>84.757359</td>
+<td>🟢 Top Performer</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Pylon Accessories</td>
+<td>76.500000</td>
+<td>🟡 Akzeptabel</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>Fast-Tie Aerospace</td>
+<td>75.241184</td>
+<td>🟡 Akzeptabel</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>Steelpin Inc.</td>
+<td>67.499624</td>
+<td>🟡 Akzeptabel</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>Spacetime Technologies</td>
+<td>50.000000</td>
+<td>🔴 Verbesserung nötig</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-scorecard-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;7: Lieferanten-Scorecard (aktuelles Rating)
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="b.-differenziertes-bestandsmanagement" class="level3">
+<h3 data-anchor-id="b.-differenziertes-bestandsmanagement">B. Differenziertes Bestandsmanagement</h3>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>Strategie nach ABC-Klasse
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>A-Teile (79,5% des Werts):</strong></p>
+<ul>
+<li>Single/Dual Sourcing + Just-in-Time</li>
+<li>Wöchentliche Abrufe aus Konsignationslager</li>
+<li>8-Wochen-Rolling-Forecast an Hauptlieferanten</li>
+<li>Sicherheitsbestand: 2 Wochen Produktionsbedarf</li>
+</ul>
+<p><strong>B-Teile (15,1% des Werts):</strong></p>
+<ul>
+<li>Multi-Sourcing (2-3 Lieferanten)</li>
+<li>Bestellpunktverfahren (automatisch)</li>
+<li>Wirtschaftliche Bestellmenge (EOQ)</li>
+<li>Sicherheitsbestand: 1 Woche</li>
+</ul>
+<p><strong>C-Teile (5,4% des Werts):</strong></p>
+<ul>
+<li>Kanban-System oder Desktop-Purchasing</li>
+<li>Outsourcing an C-Teile-Dienstleister</li>
+<li>Sammelbestellungen (monatlich)</li>
+<li>Minimaler administrativer Aufwand</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="c.-bullwhip-effekt-bekämpfen" class="level3">
+<h3 data-anchor-id="c.-bullwhip-effekt-bekämpfen">C. Bullwhip-Effekt bekämpfen</h3>
+<p><strong>1. Rolling Forecast einführen:</strong></p>
+<ul>
+<li>12-Wochen-Forecast, wöchentlich aktualisiert</li>
+<li>Woche 1-4: 100% fest, Woche 5-8: ±20% flexibel, Woche 9-12: informativ</li>
+</ul>
+<p><strong>2. Vom Batch zum Flow:</strong></p>
+<ul>
+<li>A-Teile: 1x/Woche statt 1x/Monat → -60% Lagerbestand</li>
+<li>Beispiel Airframe Fasteners: 12x 5.000 Stück statt 4x 15.000 Stück</li>
+</ul>
+<p><strong>3. Collaborative Planning (CPFR):</strong></p>
+<ul>
+<li>Monatliches Planungsmeeting mit Hauptlieferanten</li>
+<li>Shared Metrics: Forecast Accuracy &gt;85%, Perfect Order &gt;98%</li>
+</ul>
+<p><strong>4. Produktionsnivellierung:</strong></p>
+<ul>
+<li>Gleichmäßigere Produktion → stabilere Einkaufsvolumen</li>
+<li>Ziel: ±15% Schwankung statt ±90%</li>
+</ul>
+</section>
+<section id="d.-digitalisierung-scm-system" class="level3">
+<h3 data-anchor-id="d.-digitalisierung-scm-system">D. Digitalisierung &amp; SCM-System</h3>
+<p><strong>Empfohlenes System:</strong> Odoo SCM (für mittelständische Fertigungsbetriebe)</p>
+<p><strong>Kernfunktionen:</strong> 1. Automatische Bedarfsplanung (MRP) 2. Lieferantenportal mit EDI 3. Track &amp; Trace für alle Bestellungen 4. Analytics &amp; Performance-Dashboard</p>
+</section>
+</section>
+<section id="sec-roi" class="level2">
+<h2 data-anchor-id="sec-roi">Business Case &amp; ROI</h2>
+<section id="investitionen-und-erwartete-einsparungen" class="level3">
+<h3 data-anchor-id="investitionen-und-erwartete-einsparungen">Investitionen und erwartete Einsparungen</h3>
+<div id="tbl-business-case" class="cell quarto-float quarto-figure quarto-figure-left" data-execution_count="18">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-business-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>business_case <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Kategorie'</span>: [</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Materialkosten - Rahmenverträge'</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Materialkosten - Preisoptimierung'</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Materialkosten - Spacetime-Ersatz'</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Lagerkosten - Bestandsreduktion'</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Lagerkosten - VMI für A-Teile'</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Prozesskosten - Automatisierung'</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Prozesskosten - C-Teile-Outsourcing'</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Risiko - Weniger Stillstände'</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Risiko - Weniger Express-Lieferungen'</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Jahr 1 (€)'</span>: [<span class="dv">140000</span>, <span class="dv">30000</span>, <span class="dv">15000</span>, <span class="dv">11300</span>, <span class="dv">40000</span>, <span class="dv">48000</span>, <span class="dv">35000</span>, <span class="dv">50000</span>, <span class="dv">15000</span>],</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ab Jahr 2 (€)'</span>: [<span class="dv">140000</span>, <span class="dv">30000</span>, <span class="dv">15000</span>, <span class="dv">11300</span>, <span class="dv">40000</span>, <span class="dv">48000</span>, <span class="dv">35000</span>, <span class="dv">50000</span>, <span class="dv">15000</span>]</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Investment</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>investment_year0 <span class="op">=</span> <span class="dv">205000</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>investment_yearly <span class="op">=</span> <span class="dv">50000</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"💰 BUSINESS CASE</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Einmalige Investition (Jahr 0):"</span>)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  SCM-Software + Implementation: </span><span class="sc">{</span>investment_year0<span class="sc">:,}</span><span class="ss"> €</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Laufende Kosten: </span><span class="sc">{</span>investment_yearly<span class="sc">:,}</span><span class="ss"> € pro Jahr</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Erwartete Einsparungen:</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(business_case.to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">70</span>)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>total_year1 <span class="op">=</span> business_case[<span class="st">'Jahr 1 (€)'</span>].<span class="bu">sum</span>()</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>total_year2 <span class="op">=</span> business_case[<span class="st">'Ab Jahr 2 (€)'</span>].<span class="bu">sum</span>()</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">📊 SUMMEN:"</span>)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Jahr 1: </span><span class="sc">{</span>total_year1<span class="sc">:,}</span><span class="ss"> € Einsparung"</span>)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Ab Jahr 2: </span><span class="sc">{</span>total_year2<span class="sc">:,}</span><span class="ss"> € Einsparung"</span>)</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">  Netto Jahr 1: </span><span class="sc">{</span>total_year1 <span class="op">-</span> investment_year0 <span class="op">-</span> investment_yearly<span class="sc">:,}</span><span class="ss"> €"</span>)</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Netto Jahr 2+: </span><span class="sc">{</span>total_year2 <span class="op">-</span> investment_yearly<span class="sc">:,}</span><span class="ss"> € pro Jahr"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>💰 BUSINESS CASE
+
+Einmalige Investition (Jahr 0):
+  SCM-Software + Implementation: 205,000 €
+
+Laufende Kosten: 50,000 € pro Jahr
+
+Erwartete Einsparungen:
+
+                           Kategorie  Jahr 1 (€)  Ab Jahr 2 (€)
+     Materialkosten - Rahmenverträge      140000         140000
+   Materialkosten - Preisoptimierung       30000          30000
+   Materialkosten - Spacetime-Ersatz       15000          15000
+     Lagerkosten - Bestandsreduktion       11300          11300
+       Lagerkosten - VMI für A-Teile       40000          40000
+     Prozesskosten - Automatisierung       48000          48000
+ Prozesskosten - C-Teile-Outsourcing       35000          35000
+        Risiko - Weniger Stillstände       50000          50000
+Risiko - Weniger Express-Lieferungen       15000          15000
+
+======================================================================
+
+📊 SUMMEN:
+  Jahr 1: 384,300 € Einsparung
+  Ab Jahr 2: 384,300 € Einsparung
+
+  Netto Jahr 1: 129,300 €
+  Netto Jahr 2+: 334,300 € pro Jahr</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-business-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;8: Business Case für SCM-Optimierung
+</figcaption>
+</figure>
+</div>
+<div id="cell-fig-roi" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ROI-Berechnung</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> [<span class="st">'Jahr 0'</span>, <span class="st">'Jahr 1'</span>, <span class="st">'Jahr 2'</span>, <span class="st">'Jahr 3'</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>investment <span class="op">=</span> [<span class="op">-</span><span class="dv">205000</span>, <span class="op">-</span><span class="dv">50000</span>, <span class="op">-</span><span class="dv">50000</span>, <span class="op">-</span><span class="dv">50000</span>]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>savings <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">384300</span>, <span class="dv">534300</span>, <span class="dv">534300</span>]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> [inv <span class="op">+</span> sav <span class="cf">for</span> inv, sav <span class="kw">in</span> <span class="bu">zip</span>(investment, savings)]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>cumulative <span class="op">=</span> [<span class="bu">sum</span>(net[:i<span class="op">+</span><span class="dv">1</span>]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(net))]</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">6</span>))</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 1: Jährliche Cashflows</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(years))</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.35</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>bars1 <span class="op">=</span> ax1.bar([i <span class="op">-</span> width<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> x], investment, width, label<span class="op">=</span><span class="st">'Investition'</span>, color<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> ax1.bar([i <span class="op">+</span> width<span class="op">/</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> x], savings, width, label<span class="op">=</span><span class="st">'Einsparungen'</span>, color<span class="op">=</span><span class="st">'green'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Jahr'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Betrag (€)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Jährliche Cashflows'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks(x)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>ax1.set_xticklabels(years)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>ax1.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>ax1.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Werte auf Balken</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bars <span class="kw">in</span> [bars1, bars2]:</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> bar <span class="kw">in</span> bars:</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        height <span class="op">=</span> bar.get_height()</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>        ax1.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="fl">2.</span>, height,</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f'</span><span class="sc">{</span><span class="bu">int</span>(height<span class="op">/</span><span class="dv">1000</span>)<span class="sc">}</span><span class="ss">k €'</span>,</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>                ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span> <span class="cf">if</span> height <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'top'</span>,</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>                fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 2: Kumulierter ROI</span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>colors_cum <span class="op">=</span> [<span class="st">'red'</span> <span class="cf">if</span> c <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'green'</span> <span class="cf">for</span> c <span class="kw">in</span> cumulative]</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>bars3 <span class="op">=</span> ax2.bar(x, cumulative, color<span class="op">=</span>colors_cum, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, cumulative, color<span class="op">=</span><span class="st">'darkblue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Jahr'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Kumulierter Cashflow (€)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Kumulierter ROI (Break-Even nach ~8 Monaten)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>ax2.set_xticks(x)</span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a>ax2.set_xticklabels(years)</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>ax2.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>ax2.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Werte auf Balken</span></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars3, cumulative):</span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a>    ax2.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="fl">2.</span>, val,</span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span><span class="bu">int</span>(val<span class="op">/</span><span class="dv">1000</span>)<span class="sc">}</span><span class="ss">k €'</span>,</span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span> <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'top'</span>,</span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a>            fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-roi" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scm_files/figure-html/fig-roi-output-1.png" width="1526" height="565" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;6: ROI-Entwicklung über 3 Jahre
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>ROI-Zusammenfassung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Break-Even:</strong> Nach ca. 8 Monaten</li>
+<li><strong>ROI nach 3 Jahren:</strong> 187%</li>
+<li><strong>NPV (10% Diskontrate):</strong> ~850.000 €</li>
+<li><strong>Jährliche Einsparung (ab Jahr 2):</strong> 484.300 € netto</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2025, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
