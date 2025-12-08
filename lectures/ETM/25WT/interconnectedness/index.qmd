@@ -253,16 +253,12 @@ POP = Point of Presence, IXP = Internet Exchange Point, ISP = Internet Service P
 - **High capacity:** Tier-1 networks are built to handle massive amounts of internet traffic. They have robust infrastructure with high bandwidth capabilities to ensure smooth data flow.
 - **Independent routing:** Because they don't rely on other providers for transit, Tier-1 networks have more control over how they route traffic. This can lead to faster and more reliable connections for users.
 
-**Analogy:** Think of Tier-1 networks as the major highways of the internet. They are the primary routes that carry most of the internet traffic directly between the major destinations. Other ISPs, like regional or local providers, might connect to these highways or even have their own smaller roads, but for long-distance travel, the Tier-1 networks are the crucial infrastructure.
-
 **Tier-2 networks** are the workhorses of the internet, providing internet access to a large portion of users. Unlike Tier-1 networks, they don't have the same level of global reach and independence, but they play a vital role in connecting users to the broader internet. Here's how they function:
 
 - **Regional or national reach:** Tier-2 networks typically operate within a specific region or country. They have their own infrastructure but might not have the extensive global reach of Tier-1 providers.
 - **Hybrid approach to traffic routing:** Tier-2 networks use a combination of methods to reach the wider internet:
   - **Peering:** They establish peering agreements with other networks, including Tier-1s and other Tier-2s, to directly exchange traffic for specific destinations. This helps reduce reliance on expensive transit fees.
   - **Transit:** In some cases, Tier-2 networks might purchase transit services from Tier-1 providers to reach parts of the internet that they don't have direct peering connections with.
-
-**Analogy:** Imagine Tier-2 networks as the regional highways and major roads that connect to the main highways (Tier-1 networks). They play a crucial role in funneling traffic to the major routes and distributing it within a specific region.
 
 :::
 
@@ -377,6 +373,35 @@ routing data from a source host to a destination host
 - is the lowest layer because TCP/IP is designed to be hardware independent. As a result TCP/IP
 - may be implemented on top of any networking technology
 - includes all protocols used to describe network topology and to move data between two different hosts (e.g., Ethernet)
+
+**Scalability**
+
+- Decentralized design - No central control; each router makes autonomous decisions
+- Hierarchical addressing (IP) - Enables efficient routing in massive networks
+- Statelessness at IP level - Routers don't need to store connection states
+- Packet switching - Dynamic load distribution across different paths
+
+**Flexibility**
+
+- Layering principle - Each layer can be developed independently (each layer provides services to the layer above and uses services from the layer below, but doesn't need to know how those services work internally)
+- Technology independence - Runs over any physical medium (Ethernet, WiFi, fiber optic, etc.)
+- End-to-end principle - Complexity resides at endpoints, not in the network
+- Modular protocols - TCP for reliability, UDP for speed - choose as needed
+
+
+192.168.x.x is one of the private IP address ranges reserved specifically for internal networks like home networks, office LANs, etc.
+
+**Private IP ranges (RFC 1918)**
+
+- 10.0.0.0 - 10.255.255.255 (large organizations)
+- 172.16.0.0 - 172.31.255.255 (medium networks)
+- 192.168.0.0 - 192.168.255.255 (home/small office - most common)
+
+**Key characteristics**
+
+- Not routable on the public Internet - Your router blocks these from going out
+- Reusable - Millions of homes can use 192.168.1.1 simultaneously without conflict
+- NAT (Network Address Translation) converts them to your public IP when accessing the Internet (a clever workaround for IPv4's limited address space)
 
 :::
 
@@ -563,19 +588,18 @@ A “maximally useful public information network aspires to treat all content, s
 That usually means that ISPs charge consumers [only once for Internet access]{.highlight}, [do not favor one content provider
 over another]{.highlight}, and [do not charge content providers for sending information]{.highlight} over broadband lines to end users.
 
-## Group work {.discussion-slide}
+## Exercise {.discussion-slide}
 
 Form small groups to work on following tasks:
 
-- Do additional research on the net neutrality debate.
-- Assign each student one of the following stakeholder groups: ISPs, content providers, consumers, government.
-- Research your assigned stakeholder group, focusing on interests, arguments for net neutrality, and arguments against net neutrality. 
-- Reconvene as a team, share your findings and discuss the commonalities and differences in arguments across stakeholder groups.
-- Summarize the arguments for net neutrality and against net neutrality.
-- Identify areas of compromise or solutions that address the concerns of various stakeholders.
-- Prepare a brief presentation (max. 5 minutes).
+- Select one stakeholder group: ISPs, content providers, consumers, or government.
+- Research your assigned stakeholder group and summarize their arguments for net neutrality and against net neutrality.
 
-{{< countdown "15:00" top="0">}}
+After individual research, each student presents their assigned stakeholder perspective.
+
+We then discuss potential compromises or solutions that address the concerns of the various stakeholders.
+
+{{< countdown "10:00" top="0">}}
 
 # Distributivity {.headline-only}
 
