@@ -8,15 +8,16 @@ bibliography: ../assets/literature.bib
 date: "08.15.2025"
 
 format: 
-  html:
-    output-file: index.html
-    margin-header: | 
-      [Big Picture](assets/big-picture.pdf){.btn .btn-light target="blank"}  
-      [Slides](slides.html){.btn .btn-primary target="blank"}
-    format-links: false     
+
   presentation-revealjs:
     output-file: slides.html 
     include-before-body: ../assets/footer.html
+  html:
+    output-file: index.html
+    margin-header: |
+      [Big Picture](assets/big-picture.pdf){.btn .btn-light target="blank"}  
+      [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false     
 ---
 
 # Motivation {.vertical-center background-color="#0333ff"}
@@ -329,51 +330,208 @@ Die in der Praxis vorkommenden Lizenzmodelle für kommerzielle Anwendungssystem
 - **Infrastrukturbezogene Modelle**—Bezugsgröße ist das Ausmaß der Nutzung der Infrastruktur (bspw. IaaS nach Prozessor- oder Speichernutzung, Lizenzkosten pro Gerät)
 :::
 
-# Übungen ✏️ {.vertical-center background-color="#0333ff"}
 
-## Anforderungserhebung
+# Übungen ✏️ {.headline-only}
 
-Stellen Sie sich vor, Sie sind an der HNU angestellt und leiten das Projekt zur Einführung einer neuen E-Learning-Plattform. Ihre erste Aufgabe ist die Erstellung eines Grobkonzeptes.
+## Konzept-Speed-Dating
 
-Starten Sie mit der Erhebung der Anforderungen und erstellen Sie eine Liste der wichtigsten Anforderungen an eine E-Learning-Plattform:
+In dieser Übung vertiefen Sie zentrale Konzepte aus Softwareentwicklung und Anforderungsmanagement spielerisch.
 
-Wie würden Sie vorgehen und wen würden Sie einbinden?
+Bilden Sie Paare und **erklären** Sie sich rundenweise untenstehende Begriffspaare. Nach der Erläuterung **diskutieren Sie gemeinsam**, vergleichen Vor- und Nachteile oder Einsatzszenarien.
 
-Anforderungserhebung: 
+1. Standard- *vs.* Individualsoftware
+2. Funktionale *vs.* nicht-funktionale Anforderungen
+3. Wasserfall *vs.* Agile (SCRUM)
+4. Einführung-Phase *vs* Sättigung-/Reife-Phase
 
-- Wer könnte welche Anforderungen an das System haben? Listen Sie Anforderungen inkl. Anforderer.
-- Markieren Sie funktionale und nicht-funktionale Anforderungen in der Liste.
-- Bewerten Sie die Anforderungen auf Ihrer Liste nach Wichtigkeit. 
-- Analysieren Sie die Liste hinsichtlich möglicher Probleme/Zielkonflikte.
+{{< countdown "1:30" top="0">}}
 
-Wägen Sie dann zwischen den Optionen Make or Buy ab:
+## Mini-Fallstudie: HNU Campus-App {.headline-only}
 
-- Würden Sie sich für die Einführung einer Standard- oder einer Individualsoftware entscheiden? Warum?
-- Welche speziellen Anforderungen gäbe es bei der Entwicklung einer Individualsoftware zu berücksichtigen?
-- Welche Lizenzmodelle würden Sie bei einer Standardsoftware bevorzugen?
+### Phase 1: Anforderungsmanagement
 
-## Agile Vorgehensmodelle
+Die HNU plant eine neue **Campus-App**. Ihre Aufgabe ist es, die Anforderungen für die App zu erfassen.
 
-Um die Nachteile des Wasserfallmodells zu vermeiden, werden in vielen Unternehmen mittlerweile verstärkt **agile Vorgehensmodelle** eingesetzt. Diese sind als Gegenentwurf zu den traditionellen Vorgehensmodellen entstanden und zielen unter anderem darauf ab, auf Anforderungsänderungen schnell reagieren zu können. Die verschiedenen agilen Vorgehensmodelle basieren auf denselben Prinzipien und weisen Gemeinsamkeiten im Vorgehen auf.
+Bilden Sie Gruppen und arbeiten Sie an folgenden Aufgaben:
 
-- Recherchieren Sie zu einem dieser Vorgehensmodelle (bspw. SCRUM). 
-- Fassen Sie die **wesentlichen Prinzipien** in eigenen Worten zusammen. 
-- Leiten Sie aus den Prinzipien Vorteile gegenüber linearer Phasenmodelle (bspw. Wasserfallmodell) ab. Berücksichtigen Sie inbesondere die Charakteristika des digitalen Zeitalters.
+1. **Stakeholder identifizieren** (Wer ist betroffen?)
+2. **Anforderungen sammeln** (je 5 funktionale und nicht-funktionale Anforderungen)
+3. **Priorisieren** (verwenden Sie die *MoSCoW-Methode* — Must / Should / Could / Won't)
+4. **Zielkonflikte erkennen** (bspw. Datenschutz vs. Personalisierung)
 
-:::{.notes}
-Folgende Quellen könnten nützlich sein:
-- @bächle2018einführung [S. 53ff]
-- @abts2017grundkurs [S. 439ff]
-- [Agile Essentials der Agile Alliance](https://www.agilealliance.org/agile-essentials)
+{{< countdown "10:00" top="0">}}
+
+:::notes
+:::smaller
+Denken Sie zunächst für sich nach (ca. 10 Minuten) und sammeln Sie Ideen zu Stakeholdern und Anforderungen. Danach diskutieren Sie Ihre Erkenntnisse in der Gruppe und 
+
+- Dokumentieren die wesentlichen Anforderungen übersichtlich
+- Diskutieren Sie gemeinsam, welche Anforderungen besonders kritisch sind
+
+Wir werden sehen: Das **Erfassen und Priorisieren von Anforderungen** ist die Grundlage für alle weiteren Phasen.
+:::
 :::
 
-## Kosten von Anwendungssystemen
+<!--
 
-Recherchieren Sie die Kosten für die Entwicklung der deutschen "Corona Warn App".
+Musterlösung – Stakeholder:
 
-- Listen Sie die Kosten (jährlich oder für einen definierten Zeitraum)
-- Wie ist das Verhältnis von Entwicklungskosten zu Betriebs-und Wartungskosten?
-- Welche Konsequenzen können Sie daraus für die Entwicklung von Individualsoftware ableiten?
+- Studierende (Nutzer)
+- Dozenten (Integration von Stundenplan & Kursinfos)
+- Verwaltung (Zugang zu Studierendendaten, Reporting)
+- Mensa-Personal (Menüanzeigen, Zahlungen)
+- IT-Abteilung (Betrieb & Wartung)
+
+Musterlösung – Anforderungen:
+
+**Funktional:**
+- Stundenplan einsehen
+- Mensa-Menü anzeigen
+- Push-Benachrichtigungen für Termine
+- Druckaufträge verwalten
+- Raumbuchungen einsehen
+
+**Nicht-funktional:**
+- DSGVO-konform
+- hohe Verfügbarkeit (7/24)
+- einfache Bedienung (Usability)
+- kurze Ladezeiten
+- Plattformübergreifend (iOS/Android/Web)
+-->
+
+### Phase 2: Anforderungsspezifikation
+
+Anforderungen werden iterativ auf drei Ebenen spezifiziert:
+
+- **Grobe Anforderung:** Was soll grundsätzlich erreicht werden?
+- **Fachliche Anforderung:** Was soll die App konkret leisten?
+- **Technische Anforderung:** Wie wird es technisch umgesetzt?
+
+Aufgabe:
+
+- Führen Sie die Strukturierung für eine funktionale Anforderung durch (Einzelarbeit)
+- Diskutieren Sie anschließend Ihre Spezifikation in der Gruppe: 
+  - Was fiel leicht, womit hatten Sie Probleme?
+  - Welche Ebene ist für welche Stakeholder besonders relevant?
+
+{{< countdown "15:00" top="0">}}
+
+:::notes
+:::smaller
+| Ebene              | Leitfrage                         | Beispiel                                                     |
+|--------------------|-----------------------------------|--------------------------------------------------------------|
+| Grob-Konzept       | Was soll erreicht werden?         | Studierende sollen ihren Stundenplan einsehen können         |
+| Fach-Konzept       | Was soll die App konkret leisten? | Anzeige persönlicher Stundenplan inkl. Änderungen aus Moodle |
+| Technisches Design | Wie wird es umgesetzt?            | REST-API, täglicher Datenabgleich, Frontend React            |
+
+: Anforderungsspezifikation {#tbl-anforderungsspezifikation}
+
+Wir werden sehen: **Drei-Ebenen-Spezifikationen** helfen, Anforderungen nach und nach präzise zu beschreiben und Missverständnisse zu vermeiden.
+:::
+:::
+
+<!--
+
+Musterlösung (Beispiel):
+
+| Ebene              | Leitfrage                         | Beispiel                                                     | Relevant für       |
+|--------------------|-----------------------------------|--------------------------------------------------------------|------------------|
+| Grob-Konzept       | Was soll erreicht werden?         | Studierende sollen ihren Stundenplan einsehen können         | Management       |
+| Fach-Konzept       | Was soll die App konkret leisten? | Anzeige persönlicher Stundenplan inkl. Änderungen aus Moodle | Nutzer, Fachbereich|
+| Technisches Design | Wie wird es umgesetzt?            | REST-API, täglicher Datenabgleich, Frontend React            | Entwickler       |
+-->
+
+### Phase 3: Make-or-Buy-Entscheidung
+
+Für die Campus-App müssen Sie entscheiden: **Eigenentwicklung** oder **Standardsoftware?**
+
+Bilden Sie Gruppen und bearbeiten Sie folgende Aufgaben:
+
+1. Erstellen Sie eine Bewertungsmatrix mit den wesentlichen Kriterien.
+2. Diskutieren Sie Vor- und Nachteile der Optionen und treffen Sie eine Entscheidung.
+3. Falls Sie sich für „Buy“ entscheiden: Überlegen Sie ein für Hochschule und Anbieter sinnvolles Lizenzmodell (nutzer-/zeit-/infrastrukturbezogen)
+
+{{< countdown "15:00" top="0">}}
+
+:::notes
+:::smaller
+
+| Kriterium      | Gewichtung  | Eigenentwicklung   | Standardsoftware |
+|----------------|-------------|--------------------|------------------|
+| Kosten         | Hoch        | Hoch               | Niedrig          |
+| Zeit           | Hoch        | Lang               | Kurz             |
+| Individualität | Mittel      | Hoch               | Mittel           |
+| Wartung        | Mittel      | Eigenverantwortung | Anbieter         |
+| Risiko         | Hoch        | Hoch               | Mittel           |
+
+: Beispielhafte Make-or-Buy Entscheidungsmatrix {#tbl-anforderungsspezifikation}
+
+Begründung: Standardsoftware ist günstiger und schneller verfügbar, aber weniger individuell. Eigenentwicklung bietet maximale Anpassung, ist aber teuer und riskant.
+
+Wir werden sehen: **Eine strukturierte Bewertungsmatrix** macht Entscheidungen transparent und nachvollziehbar.
+:::
+:::
+
+### Phase 4a: Make — Vorgehensmodell wählen
+
+Sie haben sich für eine **Individualsoftware** entschieden. Für die Implementierung müssen Sie ein Vorgehensmodell auswählen.
+
+- Bilden Sie zwei Fraktionen: *Wasserfall-Verfechter* und *Agile-Verfechter*
+- Diskutieren Sie, welches Modell besser für die Campus-App passt.
+- Definieren Sie ein **MVP (Minimum Viable Product)** für einen agilen Start:
+    - Welche Funktionen müssen im ersten Release enthalten sein?
+    - Welche Funktionen können später ergänzt werden? 4.
+- Diskutieren Sie, wie das MVP **Risiken reduziert** und welche **Stakeholder davon profitieren**
+
+{{< countdown "10:00" top="0">}}
+
+:::notes
+:::smaller
+Wir werden sehen: **Vorgehensmodelle beeinflussen Entwicklungsstrategie, Zeitplan und Stakeholder-Zufriedenheit.**
+:::
+:::
+
+<!--
+
+Musterlösung (Beispiel):
+
+- **Wasserfall:** geeignet bei klaren Anforderungen, weniger flexibel
+- **Agile/SCRUM:** geeignet bei sich ändernden Anforderungen, frühes Feedback
+- **MVP:** Stundenplananzeige + Push-Benachrichtigungen; spätere Funktionen: Mensa-Integration, Raumbuchungen
+-->
+
+### Phase 4b: Buy — Auswahl & Einführung
+
+Sie haben sich für eine **Standardsoftware** entschieden. Planen Sie nun den **Auswahlprozess** entlang des 4-Phasen-Modells.
+
+- Gehen Sie **jede Phase nacheinander durch** (Long List → RfI → Short List → RfP/Entscheidung).
+- Überlegen Sie **selbst die Leitfragen**, die Sie in jeder Phase beantworten müssen.
+- Diskutieren Sie in der Gruppe:
+    - Welche Risiken könnten auftreten?
+    - Welche Zielkonflikte müssen berücksichtigt werden?
+    - Welche Anforderungsebene (Grob / Fachlich / Technisch) ist für die Auswahl am wichtigsten?
+- Reflektieren Sie, wie klar spezifizierte Anforderungen den Auswahlprozess erleichtern.
+
+{{< countdown "15:00" top="0">}}
+
+:::notes
+:::smaller
+Wir werden sehen: **Die Qualität der Anforderungsspezifikation bestimmt, wie effektiv die Auswahl und Einführung einer Standardsoftware verläuft.**
+:::
+:::
+
+
+<!--
+
+Musterlösung (Beispiel für Leitfragen):
+
+**Long List:** Welche Anbieter kommen grundsätzlich in Frage? Unterstützen sie die Kernfunktionen?  
+**RfI:** Welche Schnittstellen/API sind verfügbar? Unterstützt die Lösung die wichtigsten Anforderungen?  
+**Short List:** Welche Anbieter erfüllen die priorisierten Anforderungen? Welche Risiken bestehen?  
+**RfP / Entscheidung:** Kosten, Lizenzmodell, Einführungszeit, Zielkonflikte, technische Machbarkeit prüfen  
+
+**Anforderungsebene:** Fachlich am wichtigsten (Kernfunktionen & Benutzerbedürfnisse)
+-->
 
 # Lernkontrolle 🧐 {visibility="hidden"}
 
