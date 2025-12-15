@@ -325,17 +325,20 @@ It enables different, independent networks (i.e., *Autonomous Systems*) to [exch
 
 ## TCP/IP
 
-:::medium
-The protocols are based on the principles of [independency]{.highlight}^[Independency refers to the fact that there are no specific hardware and software requirements] and [robustness]{.highlight}^[Refers to the a built in failure recovery mechanism that provides reliable end to end communication].
-:::
+[TCP/IP enables [open networks]{.highlight} ]{.fragment}
+[by providing a [universal, layered language]{.highlight} for diverse devices to communicate, ]{.fragment}
+[breaking data into flexible packets that find the best route, ]{.fragment}
+[ensuring reliability with error-checking (TCP) (i.e., robustness^[Robustness refers to the a built in failure recovery mechanism that provides reliable end to end communication]), ]{.fragment}
+[and operating on [open, non-proprietary standards,]{.highlight} making it a common, accessible foundation for the internet, ]{.fragment}
+[[independent of specific hardware or software]{.highlight}^[Independency refers to the fact that there are no specific hardware and software requirements]).]{.fragment}
+
 
 :::fragment
-While IP handles actual delivery of the data, TCP keeps track of the data.
+In essence, TCP/IP acts like a universal postal system for data, where everyone uses the same addressing (IP) and delivery rules (TCP), allowing any sender to reach any recipient, making the internet an [open platform]{.highlight}.
 :::
 
 :::incremental
-- IP is responsible for addressing host interfaces, encapsulating data into datagrams and
-routing data from a source host to a destination host
+- IP is responsible for addressing host interfaces, encapsulating data into datagrams and routing data from a source host to a destination host
 - TCP guarantees that all bytes are received in the right order by using positive acknowledgements (ACK) with re-transmission^[The receiver responds with an positive acknowledgements (ACK) for ever data packet received, sender retransmits packets for missing ACKs after a given time]
 ::::
 
@@ -463,67 +466,6 @@ TCP/IP is a modular protocol suite, meaning it consists of independent protocols
 
 :::
 
-## Homework  
-
-Listen to the Decoder podcast episode with [Google CEO Sundar Pichai on AI-powered search and the future of the web](https://www.theverge.com/24158374/google-ceo-sundar-pichai-ai-search-gemini-future-of-the-internet-web-openai-decoder-interview) and reflect on the problems with the Internet and responses discussed. 
-
-Research what [Content Delivery Networks (CDN)]{.highlight} are and why they gained increasing importance in recent years.
-
-## CDNs {.discussion-slide}
-
-:::medium
-Let's discuss your insights:
-:::
-
-1. How does a CDN's architecture differ from a single centralized server?
-2. How does increased interconnectedness in CDNs create both resilience and new vulnerabilities? What happens when one node fails versus when the coordination mechanism fails?
-
-:::notes
-
-[Key architectural differences]{.h4}
-
-- Data replication vs. centralization: CDNs replicate content across nodes; centralized systems maintain one canonical copy
-- Request routing intelligence: CDNs use DNS-based or Anycast routing to direct requests; centralized systems have fixed IP addresses
-- Coordination overhead: CDNs need mechanisms to synchronize content, invalidate caches, and route traffic; centralized systems avoid this complexity
-- Network topology: CDNs create a mesh or hub-spoke network of servers; centralized systems create a star topology with all clients connecting to one point
-
-[Resilience benefits]{.h4}
-
-When one node fails:
-
-- Traffic automatically reroutes to other healthy nodes
-- Only users served by that specific node experience disruption (temporary)
-- DNS TTLs expire, and subsequent requests route around the failed node
-- Content remains available because it's replicated elsewhere
-- Geographic isolation: a power outage in Europe doesn't affect Asian users
-
-[New vulnerabilities]{.h4}
-
-When one node fails:
-
-- Cascade risk: sudden traffic surge to remaining nodes can overload them
-- Stale routing: DNS caching means some users may still try failed node until TTL expires
-- Inconsistent user experience: some users see degraded performance while others don't
-
-When coordination mechanisms fail_
-
-- More catastrophic: the "brain" of the system is damaged
-- Cache invalidation breaks: stale content persists, or new content doesn't propagate
-- Routing logic fails: requests go to wrong nodes or load balancing breaks
-- DNS resolution issues: users can't find any nodes, even though they're functional
-- Content synchronization stops: nodes diverge, creating inconsistent versions
-
-[The paradox]{.h4}
-
-- Interconnectedness creates resilience through redundancy but introduces complexity
-- More interconnections = more communication pathways that can fail
-- Centralized coordination systems (like DNS, control planes) become single points of failure in distributed architectures
-- The very protocols that enable distribution (BGP routing, DNS) become attack surfaces
-
-**Real-world example:** The 2021 Fastly outage showed this perfectly—edge nodes were healthy, but a configuration bug in the coordination layer took down major websites globally. The distributed infrastructure was working, but the centralized control mechanism failed.
-
-:::
-
 ## Summary
 
 Emergent digital technologies facilitate more strongly interconnected systems, as they enhance
@@ -564,13 +506,46 @@ What challenges arise from increasingly interconnected systems?
 
 :::
 
-# Excursus:\ Net Neutrality {.headline-only}
+## Governance challenge
+
+One challenge example relates to the governance of interconnected systems:
+
+:::fragment
+:::medium
+Who controls the connections?
+:::
+:::
+
+:::fragment 
+Interconnected systems raise questions about power and control:
+:::
+
+[E.g., ISPs can influence traffic flow, when they act as [gatekeepers]{.highlight}]{.fragment} [and they can decide how data flows through their networks, and 
+[prioritize certain traffic]{.highlight}.]{.fragment}
 
 
-## Motivation {.no-headline .vertical-center}
+:::notes
+This brings us to a critical debate: Net Neutrality
+:::
 
-:::large
-The net neutrality movement aims to keep the internet [free and open]{.highlight}.
+# Case Study: Net Neutrality and Network Control {.headline-only}
+
+## Motivation
+
+We have seen how the internet—[the most important interconnected system today]{.fragment}[— is conceptualized as a [free and open network of networks]{.highlight}]{.fragment} [built on [open, non-proprietary standards]{.highlight} like TCP/IP and BGP.]{.fragment}
+
+:::fragment
+Yet it relies on [ISPs and Tier-1/Tier-2 networks as gatekeepers]{.highlight}.
+:::
+
+:::medium
+:::fragment
+So who actually has power in this interconnected system?
+:::
+:::
+
+:::fragment
+Net neutrality addresses this fundamental tension in network architecture, aiming to keep the internet [free and open]{.highlight}.
 :::
 
 ## Concept
@@ -619,32 +594,89 @@ The independent computers, also known as nodes, communicate and coordinate their
 @andrew2002distributed
 :::
 
+## CDNs {.discussion-slide}
+
+:::medium
+Let's discuss your insights:
+:::
+
+1. How does a CDN's architecture differ from a single centralized server?
+2. What are the main benefits of such an architecture?
+
+:::notes
+
+[Key architectural differences]{.h4}
+
+- Data replication vs. centralization: CDNs replicate content across nodes; centralized systems maintain one canonical copy
+- Request routing intelligence: CDNs use DNS-based or Anycast routing to direct requests; centralized systems have fixed IP addresses
+- Coordination overhead: CDNs need mechanisms to synchronize content, invalidate caches, and route traffic; centralized systems avoid this complexity
+- Network topology: CDNs create a mesh or hub-spoke network of servers; centralized systems create a star topology with all clients connecting to one point
+
+[Resilience benefits]{.h4}
+
+When one node fails:
+
+- Traffic automatically reroutes to other healthy nodes
+- Only users served by that specific node experience disruption (temporary)
+- DNS TTLs expire, and subsequent requests route around the failed node
+- Content remains available because it's replicated elsewhere
+- Geographic isolation: a power outage in Europe doesn't affect Asian users
+
+[New vulnerabilities]{.h4}
+
+When one node fails:
+
+- Cascade risk: sudden traffic surge to remaining nodes can overload them
+- Stale routing: DNS caching means some users may still try failed node until TTL expires
+- Inconsistent user experience: some users see degraded performance while others don't
+
+When coordination mechanisms fail_
+
+- More catastrophic: the "brain" of the system is damaged
+- Cache invalidation breaks: stale content persists, or new content doesn't propagate
+- Routing logic fails: requests go to wrong nodes or load balancing breaks
+- DNS resolution issues: users can't find any nodes, even though they're functional
+- Content synchronization stops: nodes diverge, creating inconsistent versions
+
+[The paradox]{.h4}
+
+- Interconnectedness creates resilience through redundancy but introduces complexity
+- More interconnections = more communication pathways that can fail
+- Centralized coordination systems (like DNS, control planes) become single points of failure in distributed architectures
+- The very protocols that enable distribution (BGP routing, DNS) become attack surfaces
+
+**Real-world example:** The 2021 Fastly outage showed this perfectly—edge nodes were healthy, but a configuration bug in the coordination layer took down major websites globally. The distributed infrastructure was working, but the centralized control mechanism failed.
+
+:::
+
+
 ## Key characteristics
 
 Key characteristics of distributed systems include:
 
 :::large
 [[autonomy]{.fragment .highlight-current-blue fragment-index=1},]{.fragment .fade-in  fragment-index=1}
-[[transparency]{.fragment .highlight-current-blue fragment-index=2},]{.fragment .fade-in  fragment-index=2}
+[[hidden complexity]{.fragment .highlight-current-blue fragment-index=2} (transparency),]{.fragment .fade-in  fragment-index=2}
 [[reliability]{.fragment .highlight-current-blue fragment-index=3},]{.fragment .fade-in  fragment-index=3}
 [[scalability]{.fragment .highlight-current-blue fragment-index=4}, and]{.fragment .fade-in  fragment-index=4}
 [[efficiency]{.fragment .highlight-current-blue fragment-index=5}.]{.fragment .fade-in  fragment-index=5}
 :::
 
-. . .
-
+:::fragment
 [Open distributed system]{.highlight} are further characterized by their ability to integrate and interoperate with heterogeneous components, achieved through [standardized interfaces and protocols]{.highlight} that ensure different components can communicate and function together seamlessly.
+:::
 
 :::aside
 @attiya2004distributed
 :::
 
 :::notes
+
 Autonomy
 : Each node operates independently and has its own local memory. Distributed systems can be composed of different types of hardware and software components. 
 
 Transparency
-: A distributed system that is able to present itself to users and applications as it were only a single computer system is said to be transparent.
+: Transparency means hiding the complexity of distribution from users and applications. A distributed system that is able to present itself to users and applications as it were only a single computer system is said to be transparent.
 
 Reliability
 : Distributed systems are designed to be fault-tolerant. This means that even if one or more nodes fail, the system can continue to operate with minimal disruption. 
@@ -702,7 +734,7 @@ Key characteristics of decentralized systems
 
 - No central authority: There is no single point of control; each node operates independently.
 - Equal authority: Every node has equal authority and decision-making capability.
-- Consensus-based decision making: Decisions are made by consensus among the nodes.
+- Consensus-based decision-making: Decisions are made by consensus among the nodes.
 - Fault tolerance: The system is resilient to failures because there is no single point of failure.
 - Scalability: The system can scale by adding more nodes, similar to distributed systems
 
@@ -815,14 +847,21 @@ Cost-effectiveness
 
 :::
 
-# Excursus: The Decentralized Web {.headline-only}
+# Case Study: The Decentralized Web {.headline-only}
 
 ## Problem statement
 
-. . .
-
+:::fragment
 :::medium
-The internet as it is today^[The internet as of today is often termed Web 2.0] is increasingly dominated by a few large platforms^[Dominant internet players are the large platforms for e.g., social media, marketplaces, and CDN] and cloud service providers^[The internet big five, also known as GAFAM, are Google, Amazon, Meta (formerly Facebook), Apple, and Microsoft] — [counteracting the original decentralized nature of the internet]{.highlight}.
+The internet as it is today^[The internet as of today is often termed Web 2.0] 
+is increasingly dominated by a few large platforms^[Dominant internet players are the large platforms for e.g., social media, marketplaces, and CDN] 
+and cloud service providers^[The internet big five, also known as GAFAM, are Google, Amazon, Meta (formerly Facebook), Apple, and Microsoft]
+[— [counteracting the original decentralized nature of the internet]{.highlight}.]{.fragment}
+:::
+
+:::fragment
+What has driven this development?
+:::
 :::
 
 :::notes
@@ -846,14 +885,10 @@ Regulations and laws
 
 :::
 
-## AI Overviews in Search
-
-<iframe width="750" height="420" src="https://www.youtube.com/embed/s4InWsd-J6g?si=jeEwCMEPctxd3lDF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
 ## Discussion {.discussion-slide}
 
 :::large
-Do developments like AI overview in search worsen the problem?
+Do developments like AI overview and AI mode in search worsen the problem?
 :::
 
 What is your opinion regarding the problems and responses discussed in the Decoder episode ["Google CEO Sundar Pichai on AI-powered search and the future of the web"](https://www.theverge.com/24158374/google-ceo-sundar-pichai-ai-search-gemini-future-of-the-internet-web-openai-decoder-interview)?
@@ -916,15 +951,13 @@ DAOs (Decentralized Autonomous Organizations)
 : Online communities with shared goals, governed by rules encoded on a blockchain (a secure digital ledger).  Decisions are made collectively by members through voting with tokens they own. DAOs could be a way to govern online communities and manage resources within Web3 projects. For instance, a DAO could oversee a virtual world within the Metaverse.
 :::
 
-## Exercise {.discussion-slide}
+## Homework {.discussion-slide}
 
 :::medium
-**Mastodon** — a good example of the future of social media in Web3?
+[Mastodon]{.highlight} — a good example of the future of social media in Web3?
 :::
 
 Research on Mastodon. Try to make up your mind if Mastodon is an interesting case in relation to Web 3.0 and how well it fits the Web 3.0 mold.
-
-{{< countdown "15:00" top="0">}}
 
 # Example: Cloud Computing {.headline-only}
 
@@ -940,6 +973,12 @@ Cloud Computing is a model which enables
 
 :::aside
 @mell2011nist
+:::
+
+## Discussion {.discussion-slide}
+
+:::large
+How do the characteristics of [distributed systems]{.highlight} apply to Cloud Computing? 
 :::
 
 ## Emergence
@@ -963,15 +1002,15 @@ The arrival of the cloud computing era can be seen as an [evolutionary developme
 
 ## Importance
 
-. . .
-
+:::fragment
 :::medium
 Cloud computing provides the infrastructure that fuels the digital transformation.
 :::
+:::
 
-. . .
-
+:::fragment
 Enabled by the Internet and distributed computing, cloud computing
+:::
 
 :::incremental
 - powers digital trends such as mobile computing, IoT, Digital Twins, and AI;
