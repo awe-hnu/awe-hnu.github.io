@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Environments &amp; Agents – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-58977f975ce4fb9f23873c5269492814.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="Environments &amp; Agents – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/I2AI/26ST/agents/images/actor.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Environments &amp; Agents</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Environments &amp; Agents</h1>
+            <p class="subtitle lead">Introduction to AI (I2AI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Mar 12, 2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Jun 1, 2025</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=21594" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/agents/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Environments &amp; Agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search &amp; Planning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/knowledge/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knowledge &amp; Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/probability-theory/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/bayes-net/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/learning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/decision-trees/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Decision Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Networks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#agents" id="toc-agents" class="nav-link active" data-scroll-target="#agents">Agents</a></li>
+  <li><a href="#environments" id="toc-environments" class="nav-link" data-scroll-target="#environments">Environments</a></li>
+  <li><a href="#agent-types" id="toc-agent-types" class="nav-link" data-scroll-target="#agent-types">Agent types</a></li>
+  <li><a href="#agentic-ai" id="toc-agentic-ai" class="nav-link" data-scroll-target="#agentic-ai">Agentic AI</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="agents" class="level1 headline-only">
+<h1 class="headline-only">Agents</h1>
+<section id="rational-agents" class="level2">
+<h2 data-anchor-id="rational-agents">Rational agents</h2>
+<div id="fig-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/actor.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Rational agents interact with environments through sensors and actuators
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>A rational agent is anything that is</p>
+<ul>
+<li>perceiving its environment through <strong>sensors</strong>,</li>
+<li>thinking and deciding on the next actions<br>
+(mapping given percepts to actions),</li>
+<li>and acting through <strong>actuators</strong></li>
+</ul>
+<p>Rational means, that the agent acts in a way that is expected to maximize its performance measure, given it’s</p>
+<ul>
+<li>built-in knowledge (i.e., the agent function<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>),</li>
+<li>perceived experience (i.e., the percep sequence<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>),</li>
+<li>and acting capabilities</li>
+</ul>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A robotic vacuum cleaner moves around a grid of squares, some of which are dirty and some of which are clean. The vacuum cleaner <em>perceives</em> where it is and if there is dirt there. It’s <em>actions</em> are move to the right or left, suck up the dirt, or do nothing. The <em>agent function</em> prescribes that if the current square is dirty, it should suck up the dirt; otherwise, it should move to the other square.</p>
+<p>Under following circumstances, the vacuum cleaning agent is rational <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022</a>)</span>:</p>
+<ul>
+<li>The <em>performance measure</em> of the vacuum cleaner awards one point for each clean square at each time step</li>
+<li>The only available actions are <em>right</em>, <em>left</em>, and <em>suck</em>.</li>
+<li>The “geography” of the environment is known <em>a priori</em> but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square.</li>
+<li>The <em>right</em> and <em>left</em> actions move the agent one square except when this would take the agent outside the environment. Then it remains where it is.</li>
+<li>The robot correctly perceives its location and whether the square is dirty.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="performance-measure" class="level2">
+<h2 data-anchor-id="performance-measure">Performance measure</h2>
+<blockquote class="blockquote">
+<p>If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it […] we had better be quite sure that the purpose built into the machine is the purpose which we really desire <em><span class="citation" data-cites="Wiener1960Some">Wiener (<a href="#ref-Wiener1960Some" role="doc-biblioref">1960, p. 1358</a>)</span></em></p>
+</blockquote>
+<div class="medium">
+<p>It is difficult to formulate a performance measure correctly.<br>
+<strong>This is a reason to be careful.</strong></p>
+</div>
+</section>
+<section id="rationality-vs.-perfection" class="level2">
+<h2 data-anchor-id="rationality-vs.-perfection">Rationality vs.&nbsp;perfection</h2>
+<div class="large">
+<p>Rationality is not the same as perfection.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>Rationality maximizes <em>expected</em> performance.</li>
+<li>Perfection maximizes <em>actual</em> performance.</li>
+<li>Perfection requires omniscience.</li>
+<li>Rational choice depends only on the percept sequence <em>to date</em>.</li>
+</ul>
+</div>
+<div class="notes">
+<p>As the environment is usually not completely known <em>a priori</em> and completely predictable (or stable), information gathering and learning are important parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 59</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="environments" class="level1 headline-only">
+<h1 class="headline-only">Environments</h1>
+<section id="components" class="level2">
+<h2 data-anchor-id="components">Components</h2>
+<p>Before designing an agent (i.e., <em>the solution</em>), the task environment (i.e., <em>the problem</em>) must be specified as fully as possible, including</p>
+<div class="medium">
+<div class="incremental">
+<ul class="incremental">
+<li>the <strong>p</strong>erformance measure,</li>
+<li>the <strong>e</strong>nvironment,</li>
+<li>the <strong>a</strong>ctuators, and</li>
+<li>the <strong>s</strong>ensors</li>
+</ul>
+</div>
+</div>
+<p><span class="smaller"><span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span> uses the short form PEAS to describe these parts of the task environment.</span></p>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example of an PEAS description
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Task environment of a taxi driver agent:</p>
+<ul>
+<li><strong>P</strong>: Safe, fast, legal, comfortable, maximize profits, minimize impact on other road users</li>
+<li><strong>E</strong>: Roads, other road users, police, pedestrians, customers, weather</li>
+<li><strong>A</strong>: Steering, accelerator, brake, signal horn, display, speech</li>
+<li><strong>S</strong>: Cameras, radar, speedometer, GPS, engine, sensors, accelerometer, microphones, touchscreen</li>
+</ul>
+<p>Source: <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022, p. 61</a>)</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="properties" class="level2">
+<h2 data-anchor-id="properties">Properties</h2>
+<p>Task environments can be categorized along following dimensions:</p>
+<div class="hmtl-hidden">
+<div class="incremental">
+<ul class="incremental">
+<li>Fully observable ↔︎ partially observable</li>
+<li>Single agent ↔︎ multi-agent</li>
+<li>Deterministic ↔︎ nondeterministic</li>
+<li>Episodic ↔︎ sequential</li>
+<li>Static ↔︎ dynamic</li>
+<li>Discrete ↔︎ continuous</li>
+<li>Known ↔︎ unknown</li>
+</ul>
+</div>
+</div>
+<div class="notes">
+<dl>
+<dt>Fully observable ↔︎ partially observable</dt>
+<dd>
+In a <em>fully observable</em> task environment, the agent has access to the complete state of the environment at all times. There is no hidden information, and the agent can make decisions based on full knowledge of the current state (e.g., chess). In a partially observable task environment, the agent does not have access to the complete state of the environment. Some information is hidden or uncertain, and the agent must make decisions based on incomplete or noisy data (e.g., poker).
+</dd>
+<dt>Single agent ↔︎ multi-agent</dt>
+<dd>
+In a <em>single-agent</em> task environment, there is only one agent interacting with the environment. The agent’s actions are solely based on its own goals and perceptions (e.g., crossword puzzles). In a multi-agent task environment, multiple agents interact with each other and the environment. The agents may cooperate, compete, or have mixed interactions.
+</dd>
+<dt>Deterministic ↔︎ nondeterministic</dt>
+<dd>
+When the environment is completely determined by the current state and the actions performed by the agent(s), it is called a <em>deterministic</em> environment (e.g., crossword puzzle). When a model of the environment explicitly uses probabilities, it is called a <em>stochastic</em> environment (e.g., poker).
+</dd>
+<dt>Episodic ↔︎ sequential</dt>
+<dd>
+In an <em>episodic</em> task environment, each task or episode is independent of the others. The agent’s actions in one episode do not affect future episodes (e.g., spam email filtering). In a sequential task environment, the current task is dependent on previous tasks. The agent’s actions have long-term consequences and affect future states (e.g., chess game).
+</dd>
+<dt>Static ↔︎ dynamic</dt>
+<dd>
+In a <em>static</em> task environment, the environment does not change while the agent is deliberating. The agent can take its time to make decisions without worrying about the environment changing (e.g., chess game). In a <em>dynamic</em> task environment, the environment can change while the agent is deliberating. The agent must account for changes and adapt its actions accordingly (e.g., stock-trading).
+</dd>
+<dt>Discrete ↔︎ continuous</dt>
+<dd>
+In a <em>discrete</em> task environment, the state space, actions, and time are all distinct and separate. The environment can be broken down into a finite number of states and actions. (e.g., chess). In a continuous task environment, the state space, actions, and time are continuous. The environment cannot be broken down into a finite number of states and actions (e.g., driving).
+</dd>
+<dt>Known ↔︎ unknown</dt>
+<dd>
+In a <em>known</em> task environment, the agent has complete information about the environment and the outcomes of its actions. The rules, states, and effects of actions are fully understood. (e.g., solitaire card game). In an <em>unknown</em> task environment, the agent lacks complete information about the environment or the outcomes of its actions. The agent must learn or infer the rules and effects through interaction.
+</dd>
+</dl>
+</div>
+<p>The hardest case is partially observable, multi-agent, nondeterministic, sequential, dynamic, and continuous <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, pp. 62–64</a>)</span>.</p>
+</section>
+</section>
+<section id="agent-types" class="level1 headline-only">
+<h1 class="headline-only">Agent types</h1>
+<section id="simple-reflex-agents" class="level2">
+<h2 data-anchor-id="simple-reflex-agents">Simple reflex agents</h2>
+<div id="fig-sr-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/simple-reflex-agent.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A simple reflex agent<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Simple reflex agents select actions on the basis of the <em>current</em> percept, ignoring the rest of the percept history. Thus, these agents work only if the correct decision can be made on the basis of just the current percept. The environment needs to be fully observable <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 68</a>)</span>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>thermostat</strong> makes decisions based solely on the current temperature reading, without considering past temperatures or future predictions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="model-based-reflex-agents" class="level2">
+<h2 data-anchor-id="model-based-reflex-agents">Model-based reflex agents</h2>
+<div id="fig-mr-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/model-based-reflex-agent.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: A model-based reflex agent
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Model-based reflex agents maintain an internal models of the world, which helps them keep track of the current state and make decisions based on this model. This allows them to handle partially observable environments more effectively <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 70</a>)</span>.</p>
+<ul>
+<li>The <strong>transition model</strong> reflects how the world evolves (a) independently of the agent and (b) depending on the agent’s actions.</li>
+<li>The <strong>sensor model</strong> reflects how the state of the world is reflected in the agent’s percepts (i.e., by its sensors).</li>
+</ul>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>self-driving car</strong> uses its transition model to predict the state of the environment reflected in the sensor model and make decisions accordingly.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Types of representation of states
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The representations of states can be placed along an axis of increasing complexity and expressive power <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, pp. 76–77</a>)</span>:</p>
+<ul>
+<li>An <strong>atomic representation</strong> is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you’re looking for. In a sliding tile puzzle, for instance, you either have the correct alignment of tiles or you do not.</li>
+<li>A <strong>factored representation</strong> is one in which the states are defined by set of features (e.g., Boolean, real-valued, or one of a fixed set of symbols). In a sliding puzzle, this might be a simple heuristic like “number of tiles out of place”.</li>
+<li>A <strong>structured representation</strong> is one in which the states are expressed in form of objects and relations between them (e.g., expressed by logic or probability). Such knowledge about relations called facts.</li>
+</ul>
+<p>The more expressive language is much more concise, but makes reasoning and learning more complex.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="goal-based-agents" class="level2">
+<h2 data-anchor-id="goal-based-agents">Goal-based agents</h2>
+<div id="fig-gb-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gb-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/goal-based-agent.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gb-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: A model-based, goal-based agent
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Goal-based agents make decisions based on a set of goals they aim to achieve. They consider the current state, possible actions, and the outcomes of these actions to determine the best path to reach their goals <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 72</a>)</span>.</p>
+<p>Goal-based agents often use search and planning algorithms to find the optimal sequence of actions to achieve their goals, best-case considering both immediate and long-term consequences.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>delivery robot</strong> is designed to navigate from a starting point to a destination within an environment, often avoiding obstacles and optimizing its route.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="utility-based-agents" class="level2">
+<h2 data-anchor-id="utility-based-agents">Utility-based agents</h2>
+<div id="fig-ub-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ub-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/utility-based-agent.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ub-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: A model-based, utility-based agent
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Utility-based agents make decisions by evaluating the utility (or value) of different possible actions and choosing the one that maximizes their overall utility. These agents consider not only the goals but also the trade-offs and preferences to achieve the best possible outcome <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 73</a>)</span>.</p>
+<p>The <strong>utility function</strong> is a mathematical function that calculates <strong>expected utility</strong> for all possible states, weighted by the probability of the outcome. The agent evaluates the utility of different actions and selects the one that <strong>maximizes its expected utility</strong>.</p>
+<p>A utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism. In addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes:</p>
+<ul>
+<li>When there are conflicting goals, the utility function specifies the appropriate tradeoff.</li>
+<li>Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals</li>
+</ul>
+<p>Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity. There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any “understanding” of its impact on the environment (e.g., based on reinforcement learning).</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>smart thermostat</strong> continuously evaluates the utility of different temperature settings and adjusts accordingly to maximize overall utility, balancing comfort and energy savings.</p>
+</div>
+</div>
+</div>
+<section id="main-differences" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="main-differences">Main differences</h3>
+<p>The main difference between <strong>simple reflex agents</strong> and <strong>model-based reflex agents</strong> is that the latter keep track of the state of the world. Model-based reflex agents generate knowledge about how the world evolves independently of the agent and how actions of the agent change the world (i.e., they have knowledge about “how the world works”). This knowledge is “stored” in the transition model of the world. A model-based reflex agents still decides on condition-action rules which action to take (i.e., the codified reflexes).</p>
+<p>The main difference between <strong>model-based reflex agents</strong> and <strong>goal-based agents</strong> is that it does not act on fixed condition-action rules, but on some sort of goal information that describes situations that are desirable (e.g., in the case of route-finding the destination). Based on the goal, the best possible action (based on the knowledge of the world), needs to be selected. Goal-based decision making involves consideration of the future based on the transition model (i.e., “what will happen if I do such-and-such?”) and how it helps to achieve the goal. In reflex agents designs, this information I not explicitly represented, because the built rules map directly from the percepts to actions, without considering/knowing the future state.</p>
+<p>The main difference between <strong>goal-based agents</strong> and <strong>utility-based agents</strong> is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).</p>
+<p>Example: A goal-based agent for routing just selects actions based on a single, binary goal — reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.</p>
+</section>
+</section>
+<section id="learning-agents" class="level2">
+<h2 data-anchor-id="learning-agents">Learning agents</h2>
+<div id="fig-l-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/learning-agent.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: A learning agent
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Learning agents are AI systems designed to improve their performance over time by learning from their environment and experiences. Unlike traditional AI systems that operate with fixed programming, learning agents adapt, evolve, and refine their actions based on feedback and data. Thus, learning agents have greater <strong>autonony</strong>.</p>
+<p>A learning agent consists of four conceptual components <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022</a>, p- 74-75)</span>, as shown in <a href="#fig-l-agent" class="quarto-xref">Figure&nbsp;6</a>:</p>
+<ul>
+<li><strong>Learning element</strong>: Acquires knowledge and improves performance by analyzing data, interactions, and feedback. Uses techniques such as supervised, unsupervised, and reinforcement learning.</li>
+<li><strong>Performance element</strong>: Executes tasks based on the knowledge acquired by the learning element.</li>
+<li><strong>Performance standard</strong> or critic: Evaluates the actions taken by the performance element and provides feedback.</li>
+<li><strong>Problem generator</strong>: Identifies opportunities for further learning and exploration. Exploratory actions may be suboptimal in the short term, but can lead to the discovery of better actions in the long term.</li>
+</ul>
+</div>
+</section>
+<section id="on-rationality" class="level2">
+<h2 data-anchor-id="on-rationality">On rationality</h2>
+<p>Utility-based learning agents are rational agents as they act so as to achieve the best outcome or, when there is uncertainty, <strong>the best expected outcome</strong>. <span class="fragment">This means that for each possible percept sequence,</span> <span class="fragment">a rational agent should select an <strong>action</strong> that is expected to maximize its <strong>performance measure</strong>,</span> <span class="fragment">given the evidence provided by the <strong>percept sequence</strong></span> <span class="fragment">and whatever built-in <strong>knowledge</strong> the agent has,</span> <span class="fragment">which evolves over time <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 58</a>)</span>.</span></p>
+</section>
+<section id="evolution-of-agents" class="level2">
+<h2 data-anchor-id="evolution-of-agents">Evolution of agents</h2>
+<div class="notes">
+<div id="fig-evolution" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/evolution.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-evolution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: The evolution of AI agents
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="agentic-ai" class="level1 headline-only">
+<h1 class="headline-only">Agentic AI</h1>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
+<div class="medium">
+<blockquote class="blockquote">
+<p>Agentic AI is an emerging paradigm in AI that refers to <strong>autonomous systems</strong> designed to pursue complex goals with <strong>minimal human intervention.</strong> <em><span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025, p. 18912</a>)</span></em></p>
+</blockquote>
+</div>
+<p>Core characteristics of Agentic AI are</p>
+<div class="notes">
+<ul>
+<li><strong>Autonomy and goal complexity</strong>, as agentic AI systems
+<ul>
+<li>can handle multiple complex goals simultaneously,</li>
+<li>can operate independently over extended periods,</li>
+<li>can shift between tasks to achieve higher-order objectives, and</li>
+<li>makes decisions with minimal human supervision</li>
+</ul></li>
+<li><strong>Environmental and situational adaptability</strong>, as agentic AI systems
+<ul>
+<li>opperate effectively in dynamic and unpredictable environments</li>
+<li>adapt to changing conditions in real-time</li>
+<li>make decisions with incomplete information</li>
+<li>handle uncertainty effectively</li>
+</ul></li>
+<li><strong>Independent decision-making</strong>, as agentic AI systems
+<ul>
+<li>can learn from experience and improve over time</li>
+<li>use reinforcement learning and meta-learning</li>
+<li>demonstrate flexibility in strategy selection</li>
+<li>reconceptualizes approaches based on new information</li>
+</ul></li>
+</ul>
+<p>Agentic AI systems need to have the ability to</p>
+<ul>
+<li>gather information from the environment,</li>
+<li>maintaining the execution context over long periods,</li>
+<li>develop strategies to achieve goals (i.e, independent decision-making),</li>
+<li>communicate plans and goals at appropriate abstraction levels,</li>
+<li>perform operations that can influence the environment’s state,</li>
+<li>learn and adapt to their environment, and</li>
+<li>coordinate with other agents or humans in response to current situations <span class="citation" data-cites="agenticAI2024">(<a href="#ref-agenticAI2024" role="doc-biblioref">Anthrophic, 2024</a>)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="agentic-ai-vs.-traditional-ai" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="agentic-ai-vs.-traditional-ai">Agentic AI vs.&nbsp;traditional AI</h2>
+<p><span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span> identify three key technical foundations for Agentic AI:</p>
+<ol type="1">
+<li><strong>Reinforcement learning</strong> enables systems to learn through trial and error, continuously refining strategies based on feedback.</li>
+<li><strong>Goal-Oriented architectures</strong> provide frameworks for managing complex objectives, breaking larger goals into manageable sub-goals.</li>
+<li><strong>Adaptive control mechanisms</strong> allow agents to adjust to changing environments, recalibrating parameters in response to external variations.</li>
+</ol>
+</section>
+<section id="comparison-with-traditional-ai" class="level2">
+<h2 data-anchor-id="comparison-with-traditional-ai">Comparison with traditional AI</h2>
+<table class="table">
+<caption>Comparison of traditional AI and Agentic AI based on <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span></caption>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 33%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Traditional AI</th>
+<th>Agentic AI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primary purpose</td>
+<td>Task-specific automation</td>
+<td>Goal-oriented autonomy</td>
+</tr>
+<tr class="even">
+<td>Human intervention</td>
+<td>High (predefined parameters)</td>
+<td>Low (autonomous adaptability)</td>
+</tr>
+<tr class="odd">
+<td>Adaptability</td>
+<td>Limited</td>
+<td>High</td>
+</tr>
+<tr class="even">
+<td>Environment interaction</td>
+<td>Static or limited context</td>
+<td>Dynamic and context-aware</td>
+</tr>
+<tr class="odd">
+<td>Learning type</td>
+<td>Primarily supervised</td>
+<td>Reinforcement and self-supervised</td>
+</tr>
+<tr class="even">
+<td>Decision-making</td>
+<td>Data-driven, static rules</td>
+<td>Autonomous, contextual reasoning</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="comparison-of-agent-types" class="level2">
+<h2 data-anchor-id="comparison-of-agent-types">Comparison of agent types</h2>
+<table class="table">
+<caption>Comparison between classical agents, reinforcement learning agents, and agentic AI based on <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span></caption>
+<colgroup>
+<col style="width: 17%">
+<col style="width: 22%">
+<col style="width: 27%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Classical Agents</th>
+<th>Learning Agents</th>
+<th>Agentic AI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Primary Purpose</strong></td>
+<td>Fixed-task automation</td>
+<td>Reward-driven optimization</td>
+<td>Goal-oriented autonomy</td>
+</tr>
+<tr class="even">
+<td><strong>Adaptability</strong></td>
+<td>Low</td>
+<td>Moderate</td>
+<td>High</td>
+</tr>
+<tr class="odd">
+<td><strong>Learning Type</strong></td>
+<td>Supervised</td>
+<td>Reinforcement Learning</td>
+<td>Hybrid, including RAG and Memory</td>
+</tr>
+<tr class="even">
+<td><strong>Applications</strong></td>
+<td>Static systems</td>
+<td>Dynamic environments</td>
+<td>Complex, multi-objective tasks</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="exercises" class="level1 headline-only" data-background-color="black">
+<h1 class="headline-only" data-background-color="black">Exercises</h1>
+<section id="concepts" class="level2">
+<h2 data-anchor-id="concepts">Concepts</h2>
+<p>Define in your own words the following terms:</p>
+<ul>
+<li>Rationality</li>
+<li>Autonomy</li>
+<li>Agent</li>
+<li>Environment</li>
+<li>Sensor</li>
+<li>Actuator</li>
+<li>Percept</li>
+<li>Agent function</li>
+<li>Agent program</li>
+</ul>
+</section>
+<section id="agent-types-1" class="level2">
+<h2 data-anchor-id="agent-types-1">Agent types</h2>
+<p>Explain the differences between the following agent types in your own words. Describe the component(s) that is/are specific for each type.</p>
+<ul>
+<li>Reflex agent</li>
+<li>Model-based agent</li>
+<li>Goal-based agent</li>
+<li>Utility-based agent</li>
+<li>Learning agent</li>
+</ul>
+</section>
+<section id="vacuum-cleaner" class="level2">
+<h2 data-anchor-id="vacuum-cleaner">Vacuum cleaner</h2>
+<p>Under which circumstances does a <strong>robotic vacuum cleaner</strong> act rational?</p>
+<p>Describe the task environment of such an agent.</p>
+</section>
+<section id="peas" class="level2">
+<h2 data-anchor-id="peas">PEAS</h2>
+<p>For each of the following agents, specify the performance measure, the environment, the actuators, and the sensors.</p>
+<ul>
+<li>Microwave oven</li>
+<li>Chess program</li>
+<li>Autonomous supply delivery</li>
+</ul>
+</section>
+<section id="performance-measure-1" class="level2">
+<h2 data-anchor-id="performance-measure-1">Performance measure</h2>
+<p>Describe a task environment in which the performance measure is easy to specify completely and correctly, and a in which it is not.</p>
+</section>
+<section id="assertions" class="level2">
+<h2 data-anchor-id="assertions">Assertions</h2>
+<p>For each of the following assertions, say whether it is true or false and support your answer with examples or counterexamples where appropriate.</p>
+<ol type="1">
+<li>An agent that senses only partial information about the state cannot be perfectly rational.</li>
+<li>There exist task environments in which no pure reflex agent can behave rationally.</li>
+<li>There exists a task environment in which every agent is rational.</li>
+<li>Every agent is rational in an unobservable environment.</li>
+<li>A perfectly rational poker-playing agent never loses.</li>
+</ol>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>False.</strong> Perfect rationality refers to the ability to make gooddecisions given the sensor information received.</li>
+<li><strong>True.</strong> A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment</li>
+<li><strong>True.</strong> For example, in an environment with a single state, such that all actions have the same reward, it does not matter which action is taken.</li>
+<li><strong>False.</strong> Some actions are stupid (and the agent may know this if it has a model) even if it has no environment input.</li>
+<li><strong>False.</strong> Unless it draws the perfect hand, the agent can lose if an opponent has better cards.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-environment" class="level2">
+<h2 data-anchor-id="task-environment">Task environment</h2>
+<p>For each of the following activities characterize the task environment it in terms of the properties discussed in the lecture notes.</p>
+<ul>
+<li>Playing soccer</li>
+<li>Exploring the subsurface oceans of Titan</li>
+<li>Shopping for used AI books on the internet</li>
+<li>Playing a tennis match</li>
+</ul>
+</section>
+<section id="task-environment-2" class="level2">
+<h2 data-anchor-id="task-environment-2">Task environment #2</h2>
+<p>For each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property.</p>
+<p>Lay out any assumptions you make to reach your conclusions.</p>
+<ol type="a">
+<li>Fully observable: driving; document classification; tutoring a student in calculus; skin cancer diagnosis from images</li>
+<li>Continuous: driving; spoken conversation; written conversation; climate engineering by stratospheric aerosol injection</li>
+<li>Stochastic: driving; sudoku; poker; soccer</li>
+<li>Static: chat room; checkers; tax planning; tennis</li>
+</ol>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-acharya2025agentic" class="csl-entry" role="listitem">
+Acharya, D. B., Kuppan, K., &amp; Divya, B. (2025). Agentic AI: Autonomous intelligence for complex goals–a comprehensive survey. <em>IEEE Access</em>.
+</div>
+<div id="ref-agenticAI2024" class="csl-entry" role="listitem">
+Anthrophic. (2024). <em>Building effective agents</em>. Anthropic Research Team; <a href="https://www.anthropic.com/engineering/building-effective-agents" class="uri">https://www.anthropic.com/engineering/building-effective-agents</a>.
+</div>
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern approach</em>. Pearson Education.
+</div>
+<div id="ref-Wiener1960Some" class="csl-entry" role="listitem">
+Wiener, N. (1960). Some moral and technical consequences of automation. <em>Science</em>, <em>131</em>(3410), 1355–1358.
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The <strong>agent function</strong> maps any given percept sequence to an action (an abstract mathematical description).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The term <strong>percept</strong> refers to the content an agent’s sensors are perceiving. The <strong>percept sequence</strong> is the complete history of everything an agent has ever perceived.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2025, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

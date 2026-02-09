@@ -1,0 +1,1051 @@
+---
+title: "Search & Planning"
+subtitle: "Introduction to AI (I2AI)"
+lang: en
+categories: ["Lecture Notes"]
+
+bibliography: ../assets/literature.bib
+
+date: "03.12.2025"
+
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#0333ff'
+
+format: 
+  html:
+    output-file: index.html
+    margin-header: | 
+      [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false        
+  presentation-revealjs:
+    output-file: slides.html 
+    include-before-body: ../assets/footer.html    
+---
+
+# Introduction {.headline-only}
+
+## Planning agents
+
+:::html-hidden
+:::medium
+Rational agents select actions to maximize performance across time.
+:::
+
+[Planning involves mapping action sequences from current to goal states.]{.fragment}
+
+[Solutions for search problems are efficient action sequences reaching goal states.]{.fragment}
+
+[Optimization differs from planning—focuses on finding optimal states, not paths.]{.fragment}
+
+:::
+
+:::notes
+Rational agents perceive environmental states and choose actions to maximize long-term performance. When optimal actions aren't obvious, agents must plan ahead by determining action sequences that efficiently move from current states to goal states.
+
+Planning agents (including [goal-based](../agents/#goal-based-agents) and [utility-based variants](../agents/#utility-based-agents)) seek solutions for search problems—action sequences leading from start to goal states. Closely related to planning is optimization, where only finding the optimal state matters, not the path to reach it.
+:::
+
+## Examples
+
+::: {.r-stack .html-hidden}
+
+![](images/routing.jpeg){.fragment height="420"}
+
+![](images/vacuum.jpeg){.fragment height="390"}
+
+![](images/robot.jpeg){.fragment height="360"}
+
+![](images/puzzle.jpeg){.fragment height="320"}
+
+:::
+
+:::notes
+Examples for search problems are [@RusselNorvig2022AIMA, p. 87-88]:
+
+- Route-finding problems (e.g., car navigation, airline travel-planning)
+- Touring problems (e.g., the traveling salesperson problem)
+- VLSI layout problems (positioning millions of components and connections on a chip)
+- Robot navigation (e.g., vacuum robots)
+- Automatic assembly sequencing of complex objects (e.g., protein design)
+:::
+
+## Terms
+
+Agents that plan by considering a sequence of actions that form a path to a goal are called **planning agents** [@RusselNorvig2022AIMA, p.81].
+
+:::incremental
+- The computational process it undertakes is **search**.
+- The representations the agents use are **atomic representations**^[An **atomic representation** is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you're looking for.].
+- The **search algrotihms** can be uninformed and informed.
+:::
+
+. . .
+
+Here only **simple environments** are considered *(episodic, single agent, fully observable, deterministic, static, discrete, and known)*.  
+
+. . .
+
+We assume that information about the environment are given (e.g., a map)
+
+:::notes
+:::small
+There are also search algorithms for problems in *partially observable, nondeterministic, unknown, and continuous environments* (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see @RusselNorvig2022AIMA.
+:::
+:::
+
+## Problem-solving process
+
+In simple environments, agents can follow a four-phase-problem-solving process [@RusselNorvig2022AIMA, p.81-82]:
+
+:::incremental
+1. **Goal formulation**: Identifying the objectives to be achieved based on the current situation and agent's purpose
+2. **Problem formulation**: Deciding what states and actions to consider to achieve the goal[^problem_formulation]
+3. **Search**: Systematically exploring possible sequences of actions to find a solution path from initial state to goal state
+4. **Execution**: Carrying out the solution actions in the environment
+:::
+
+[^problem_formulation]: Problem formulation is specifically about defining the formal components of a search problem (state space, initial state, goal state, actions, etc.) — it's about translating a real-world problem into the specific mathematical structure needed for search algorithms.
+
+:::notes
+:::callout-note
+### Problem formulation must follow goal formulation
+In goal formulation, we decide which aspects of the world we are interested in, and which can be ignored or abstracted away. Then in problem formulation we decide how to manipulate the important aspects (and ignore the others). If we did problem formulation first we would not know what to include and what to leave out.
+
+It can happen that there is a cycle of iterations between goal formulation, problem formulation, and problem-solving until one arrives at a sufficiently useful and efficient solution.
+:::
+:::
+
+# Search problem {.headline-only}
+
+## Definition
+
+A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
+
+:::incremental
+- **State space:** a set of possible states[^1] the environment can be in[^2]
+- **Initial state:** the state that the agent starts
+- **Goal state(s):** a state that the agent is trying to reach[^3]
+- **Transition model:** $\textrm{RESULT}(s,a)$ — returns the state $s'$ that results from performing action $a$ in state $s$
+- **Successor function:** $\textrm{ACTIONS}(s)$ — returns a set of (action, state) pairs for node $s$, where the state is the state reachable by taking the action $a$
+- **Action cost function:** $\textrm{ACTION-COST}(s,a,s')$ — gives the numeric cost of performing action $a$ in state $s$ to reach state $s'$
+- **Path:** a sequence of actions
+- **Solution:** a path from the initial state to the goal state
+:::
+
+[^1]: A state is a situation that an agent can find itself in.
+[^2]: Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another
+[^3]: Can be a single goal state, a small set of alternative goal states, or a property that applies to many states (e.g, no dirt in any location)
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Examples
+
+**Navigation**
+
+- **State space:** All possible waypoints (intersections, landmarks) in the road network
+- **Initial state:** Starting waypoint of the agent (e.g., home intersection, current street position)
+- **Goal state(s):** Destination waypoint(s) the agent wants to reach (e.g., store intersection, airport terminal entrance)
+- **Transition model:** Model that returns the new waypoint after traveling along a specific road segment
+- **Successor function:** Model that returns available road segments (streets, highways) and resulting waypoints connected to current waypoint
+- **Action cost function:** Model that returns the distance, time, or fuel consumption for traveling between waypoints (maybe influenced by speed limits, traffic, road conditions)
+- **Path:** A sequence of road segments through the network
+- **Solution:** A sequence of road segments from starting waypoint to destination waypoint
+
+**8-Puzzle**
+
+- **State space:** All possible configurations of the 8 numbered tiles in a 3×3 grid (with one empty space)
+- **Initial state:** Starting arrangement of tiles (a specific configuration of the 8 tiles and empty space)
+- **Goal state(s):** Target arrangement of tiles (typically tiles in numerical order with empty space in a specific position)
+- **Transition model:** Model that returns the new configuration after sliding a tile into the empty space
+- **Successor function:** AModel that returns possible slides (up, down, left, right) of adjacent tiles into the empty space and resulting configurations
+- **Action cost function:** Typically uniform cost of 1 per move
+- **Path:** A sequence of tile slides
+- **Solution:** A sequence of tile slides from initial configuration to goal configuration
+
+**Chess**
+
+- **State space:** All possible legal board configurations of chess pieces
+- **Initial state:** Standard starting position with all pieces in their traditional positions
+- **Goal state(s):** Any board configuration where the opponent's king is in checkmate
+- **Transition model:** Model that returns the new board configuration after making a specific move
+- **Successor function:** AModel that returns all legal moves and resulting board configurations from current position
+- **Action cost function:** Typically uniform cost of 1 per move
+- **Path:** A sequence of chess moves
+- **Solution:** A sequence of moves from the initial position to a checkmate position
+
+:::
+:::
+
+## Problem formulation (modelling)
+
+![Example: A simplified map of Romania, with road distances in miles; based on @RusselNorvig2022AIMA [p. 84]](images/search-problem.svg){#fig-search-problem}
+
+:::notes
+@fig-search-problem depicts the search problem as model, the state space graph:
+
+- **State space:** cities (vertices, each state occurs only once)
+- **Initial state:** Arad
+- **Goal state:** Bucharest (goal test: $Is state == Bucharest?$)
+- **Actions:** directed edges between the vertices (paths)
+- **Action costs:** numbers on the paths
+
+:::callout-note
+### Modelling & abstraction
+
+The **model** is an abstract mathematical description, here a simple atomic state description. The model is an **abstraction** as it ignores many details of the reality (e.g., weather and scenery).
+
+**Modeling** as a process includes:
+
+- Deciding which aspects of the real-world problem are relevant
+- Choosing appropriate abstractions and simplifications
+- Determining the right level of granularity (e.g., waypoints vs. coordinates)
+- Making assumptions about the problem domain
+- Selecting the suitable problem-solving paradigm (search, constraint satisfaction, optimization, etc.)
+
+A good problem formulation has the right level of detail (i.e., an appropriate **level of abstraction**).
+
+The choice of a good abstraction involves removing as much detail as possible while retaining validity and ensuring that the abstract actions are easy to carry out. An abstraction is *valid* if any abstract solution can be elaborated into a solution in the more detailed world.
+:::
+:::
+
+# Search trees {.headline-only}
+
+## Definition
+
+The formulation of a search problem, encompassing the definition of state space, initial state, goal states, transition model, and other pertinent elements, effectively constitutes the blueprint for a search tree:
+
+:::incremental
+- The **root node** of the tree corresponds to your initial state
+- The **branches** represent actions defined by your transition model
+- The **child nodes** are states resulting from taking those actions
+- **Leaf nodes** are states with no successors (or states we choose not to expand)
+- **Goal nodes** are states that satisfy your goal condition
+:::
+
+. . .
+
+The search tree is the computational manifestation of your problem formulation. 
+
+:::notes
+The quality of your your problem formulation directly affects:
+
+- The structure of the tree (branching factor, depth)
+- The efficiency of search algorithms traversing it
+- The quality of solutions found
+
+For example, in the 8-puzzle problem, a poor modeling choice might represent the entire board as a single entity, while a better model would represent each tile position individually, resulting in a more manageable search tree.
+
+:::{.callout-tip collapse="true"}
+
+#### Modelling choice examples
+
+**Continuous coordinate system modeling approach**
+
+If we model navigation using precise GPS coordinates (latitude/longitude):
+- States would be exact positions: `(37.7749, -122.4194)`
+- Actions would be small movements in any direction
+- Transition model would calculate new coordinates based on direction and distance
+
+This approach creates problems:
+
+1. **Enormous state space**: infinite possible positions
+2. **Unrealistic movement model**: doesn't account for road constraints
+3. **Inefficient search**: most coordinates don't correspond to valid paths
+4. **Complex cost calculation**: difficult to determine if movement between coordinates is even possible
+
+**Waypoint graph modeling approach**
+
+A better approach models the problem as a graph of waypoints:
+
+- **States**: discrete locations (intersections, landmarks): `node_123`
+- **Actions**: road segments connecting waypoints: `take_main_street`
+- **Transition model**: graph edges showing direct connections
+- **Cost function**: actual road distances, travel times, or other metrics
+
+Benefits of this approach:
+
+1. **Drastically reduced state space**: only meaningful locations are represented
+2. **Realistic movement model**: only follows actual roads
+3. **Efficient search**: branching factor limited to connected roads
+4. **Accurate cost calculation**: based on real road metrics (distance, speed limits, traffic)
+
+The waypoint model transforms an infinite continuous problem into a finite discrete one, making the search tree dramatically smaller and focused only on relevant states. This allows standard search algorithms like A* to efficiently find optimal routes in reasonable time frames, even for large maps. 
+
+:::
+
+:::
+
+## Frontier
+
+The frontier (sometimes called the "open list" or "fringe") is the collection of nodes that have been generated but not yet expanded or evaluated.
+
+. . .
+
+The frontier serves as the boundary between explored and unexplored parts of the search space. It contains all the nodes that are immediate candidates for expansion.
+
+:::medium
+You might also call the frontier the "to-do list" of nodes that the search algorithm maintains.
+:::
+
+
+## Example
+
+![Example: A partial search tree for finding a route from Arad to Bucharest; based on @RusselNorvig2022AIMA](images/search-tree.svg){#fig-search-tree}
+
+:::notes
+@fig-search-tree visualizes a partial search tree: the first few steps in finding a path from *Arad* (initial state) to *Bucharest* (goal). 
+
+- The **root node** of the search tree is the initial state $s$ *(Arad)*
+- The available actions per state can be queried using $ACTIONS(s)$
+- The current node is **expanded** by generating **child nodes** or **successor nodes** using the available actions and $RESULT(s,a)$
+- Each resulting child node has *Arad* as its **parent node**
+- The **frontier** contains all not yet expanded nodes
+- The child node to be considered next is selected by the minimum value of some **evaluation function** $f(n)$
+
+:::smaller
+In @fig-search-tree, nodes that have been expanded are white with bold letters; nodes on the **frontier** that have been generated but not yet expanded are in white and regular letters; the set of states corresponding to these two types of nodes are said to have been **reached**. Nodes that could be generated next are shown in faint dashed lines.
+:::
+
+:::callout-note
+
+### Definition of search trees
+
+A search tree is a “what if” tree of plans and their outcomes.
+
+- The start state is the root node,
+- children correspond to successors, 
+- nodes show states, but correspond to PLANS that achieve those states
+
+There are lots of repeated structure in the search tree. Thus, for most problems, the whole tree can never be actually built. In practice, both state space graphs and search trees are constructed on demand and as little as possible [@RusselNorvig2022AIMA].
+:::
+
+Search algorithms require a data structure to keep track of the **search tree**. A node in the tree is represented by a data structure with four components [@RusselNorvig2022AIMA, p. 91]:
+
+- *node.STATE*: the state to which the node corresponds
+- *node.PARENT*: the node in the tree that generated this node
+- *node.ACTION*: the action that was applied to the parent's state to generate this node
+- *node.PATH-COST*: the total cost of the path from the initial state to generate this node
+
+Following the PARENT pointers back from a node allows to revocer the states and actions along the path to that node. Doing this from a goal node generates the solution.
+
+:::{.callout-tip collapse="true"}
+#### Example data structure in pseudo code
+
+```{.javascript}
+var searchTree = {
+  node.STATE: "Bucharest"
+  node.PARENT: {
+    node.STATE: "Pitesti"
+    node.PARENT: {
+      node.STATE: "Rimmicu Vilcea"
+      node.PARENT: {
+        node.STATE: "Sibiu"
+        node.PARENT: {
+          node.STATE: "Arad"
+          node.PARENT: NULL
+          node.ACTION: NULL
+          node.PATH-COST: 0
+        }
+        node.ACTION: "Arad to Sibiu"
+        node.PATH-COST: 140
+      }
+      node.ACTION: "Sibiu to Rimmicu Vilcea"
+      node.PATH-COST: 220
+    }
+    node.ACTION: "Rimmicu Vilcea to Pitesti"
+    node.PATH-COST: 317
+  }
+  node.ACTION: "Pitesti to Bucharest"
+  node.PATH-COST: 418
+}
+```
+
+:::
+
+In addition, a data structure to store the **frontier** is neded. Usually this is realized using a **queue** with following functions [@RusselNorvig2022AIMA, p. 91]:
+
+- *IS-EMPTY(frontier)*: returns true only if there are no nodes in the frontier
+- *POP(frontier)*: removes the top node from the frontier and returns it
+- *TOP(frontier)*: returns (but does not remove) the top node from the frontier
+- *ADD(node,frontier)*: inserts node into its proper place in the queue
+
+
+:::
+
+
+# Search algorithms {.headline-only}
+
+## Definition
+
+**Search algorithms** take a search problem as input and return a solution, or an indication of failure [@RusselNorvig2022AIMA, p.89].
+
+:::incremental
+- They superimpose a search tree over the state-space graph,
+- form various paths from the initial state, and 
+- try to find a path that reaches a goal state.
+:::
+
+. . .
+
+Depending on the problem formulation, they can implement different methods:
+
+:::incremental
+- **Uninformed search**, which only have access to the problem definition but not clue about how close a state is to the goal(s).
+- **Informed search**, which have access to a heuristic function that gives domain-specific hints about how close a state is to the goal(s) *(e.g., using straight-line distance in route-finding problems)*
+:::
+
+## Performance metrics
+
+Performance metrics guide the choice of algorithms based on problem requirements, help predict computational demands, and establish clear expectations about what an algorithm can and cannot do.
+
+:::html-hidden
+:::incremental
+- **Completeness** refers to an algorithm's guarantee to find a solution.
+- **Optimality** refers to the algorithm's capability to find the optimal solution.
+- **Complexity** determines time and memory/space requirements.
+- **Global solutions** (path) vs. **local solutions** (optimal or satisfactory state only).
+:::
+:::
+
+:::notes
+**Completeness** refers to an algorithm's guarantee to find a solution if one exists, ensuring that no potential solution path is overlooked during the search process. This property is crucial in critical applications where finding any viable solution is mandatory, such as medical diagnosis systems or emergency response planning, as it provides certainty that the algorithm won't fail by getting stuck in infinite loops or dead ends.
+
+**Optimality** ensures that an algorithm will find not just any solution, but the best possible one according to a defined cost function, whether that's shortest distance, minimum time, lowest energy consumption, or other metrics. This property is essential in resource-constrained environments where efficiency matters significantly, such as route planning, supply chain optimization, or bandwidth allocation, as it guarantees maximum value from available resources.
+
+**Complexity** measures how an algorithm's resource requirements (time and memory) scale with increasing problem size, typically expressed using big O notation in terms of factors like branching factor and solution depth. Understanding complexity helps predict whether an algorithm will be practically usable for real-world problems or if it will exceed available computational resources, making it a critical consideration when deploying algorithms in time-sensitive applications or on hardware with limited capabilities.
+
+**Global solutions** provide a complete path from initial state to goal state, offering step-by-step instructions for transitioning between states, whereas **local solutions** focus only on finding an optimal or good state without specifying how to reach it. This distinction is important because global solution algorithms (like A* or BFS) are essential for navigation and planning tasks requiring explicit paths, while local solution approaches (like hill climbing or genetic algorithms) can be more efficient for optimization problems where only the final configuration matters, not the route taken to achieve it.
+:::
+
+## Uninformed search
+
+![Overview of uninformed search strategies](images/strategies.svg){#fig-search-strategies}
+
+### Breadth-first search {visibility=hidden}
+
+1. Start from the initial node.
+2. Expand node by applying all available actions of this state and obtain the corresponding sucessor states.
+3. Select next state to expand, which is the topmost not yet expanded node.
+4. `If` the selected node is the goal-state, terminate and return path from initial to goal-state; `Else` continue with step 2.
+
+**Characteristics:**
+
+- Is complete and optimal for unit action costs.
+- Exponential space complexity — all generated nodes have to be stored until the solution is found.
+- **FIFO queue[^FIFO]**
+
+### Depth-first search {visibility=hidden}
+
+1. Start from the initial node.
+2. Expand node by applying all available actions of this state and obtain the corresponding sucessor states.
+3. Select next state to expand, which is the deepest not yet expanded node.
+4. `If` the selected node is the goal-state, terminate and return path from initial to goal-state; `Else` continue with step 2.
+
+**Characteristics:**
+
+- Is neither complete (in infinite state spaces, it can get stock going down an infinite path) nor optimal.
+- A depth bound can be added.
+- Linear space complexity — the frontier is very small as subtrees, which have been traversed completely without finding a solution, can be removed, before new subtrees are generated.
+- **LIFO queue[^LIFO]**
+
+### Uniform-cost search {visibility=hidden}
+
+1. Start from the initial node.
+2. Expand node by applying all available actions of this state and obtain the corresponding sucessor states.
+3. Select next state to expand, which is the not yet expanded node, with the lowest accumulated costs.
+4. `If` the selected node is the goal-state, terminate and return path from initial to goal-state; `Else` continue with step 2
+
+**Characteristics:**
+
+- Is complete, optimal for general action costs.
+- **Priority queue[^priority]** using cumulative cost.
+
+[^priority]:First pops the node with the minimum costs according to $f(n)$
+[^FIFO]: First-in-first-out (FIFO) queue first pops the node that was added to the queue first 
+[^LIFO]: Last-in-first-out queue (LIFO; also known as a stack) pops first the most recently added node
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Illustration of strategies
+
+[Breadth-first]{.h4}
+
+**General process**
+
+1. Add the start node to the frontier using $ADD(node,frontier)$
+2. Get the top node from the frontier using $POP(frontier)$
+3. Get all the actions avaible for the top node via $ACTIONS(s)$
+4. Get the child nodes for the retreived actions via $RESULT(s,a)$
+5. Check if one child nodes is a goal state; if yes return the search tree; if not go ahead
+6. Add the child nodes to the frontier $ADD(node,frontier)$
+7. Repeat steps 2 to 6 as long as no solution is found and $IS-EMPTY(frontier)$ is not true 
+
+**Example**
+
+Example using the tree depicted in @fig-search-tree, assuming that the goal is not included:
+
+:::small
+
+- Add *0* to the frontier
+- Get the top node from the frontier (*0*)
+- Get the actions avaiable from *0* (*to 1* and *to 2*)
+- Get the child nodes for the retrieved actions (*1* and *2*)
+- Check if *1* is a goal state (*false*)
+- Add *1* to the frontier
+- Check if *2* is a goald state (*false*)
+- Add *2* to the frontier
+- Get the top node from the frontier, here using the FIFO (*1*)
+- Get the actions avaiable from *1* (*to 3* and *to 4*)
+- Get the child nodes for the retrieved actions (*3* and *4*)
+- Check if *3* is a goal state (*false*)
+- Add *3* to the frontier
+- Check if *4* is a goal state (*false*)
+- Add *4* to the frontier
+- Get the top node from the frontier (*2*)
+- Get the actions avaiable from *2* (*to 5* and *to 6*)
+- Get the child nodes for the retrieved actions (*5* and *6*)
+- Check if *5* is a goal state (*false*)
+- Add *5* to the frontier
+- Check if *6* is a goal state (*false*)
+- Add *6* to the frontier
+- Get the top node from the frontier (*3*)
+- ...
+
+:::
+
+[Depth-first]{.h4}
+
+**General process**
+
+The overall process is the same, only the frontier queue returns the node that was added last.
+
+[Uniform-cost]{.h4}
+
+**General process**
+
+The overall process is the same, only the frontier queue returns the node in the queue with the minimum : cost-paths.
+
+**Example**
+
+Example using the tree depicted in @fig-search-problem:
+
+:::small
+- Add *Arad* to the frontier
+- Get the top node from the frontier (*Arad*)
+- Get the actions avaiable from *Arad* (*to Zerind*, *to Timisoara*, *to Sibiu*)
+- Get the child nodes for the retrieved actions (*Zerind*, *Timisoara*, *Sibiu*)
+- Add *Zerind*, *Timisoara*, and *Sibiu* to the frontier
+- Get the node from the frontier with the lowest path cost (*Zerind*)
+- Check if *Zerind* is a goal state (*false*)
+- Get the actions avaiable from *Zerind* (*to Oradea*)
+- Get the child nodes for the retrieved actions (*Oradea*)
+- Add *Oradea* to the frontier
+- Get the node from the frontier with the lowest path cost (*Timisoara*)
+- Check if *Timisoara* is a goal state (*false*)
+- Get the actions avaiable from *Timisoara* (*to Lugoj*)
+- Get the child nodes for the retrieved actions (*Lugoj*)
+- Add *Lugoj* the frontier
+- Get the node from the frontier with the lowest path cost (*Sibiu*)
+- Check if *Sibiu* is a goal state (*false*)
+- Get the actions avaiable from *Sibiu* (*to Fagaras*, *to Rimmicu Vilcea*)
+- Get the child nodes for the retrieved actions (*Fagaras*, *Rimmicu Vilcea*)
+- Add *Fagaras* and *Rimmicu Vilcea* to the frontier
+- Get the node from the frontier with the lowest path cost (*Rimmicu Vilcea*)
+- Check if *Rimmicu Vilcea* is a goal state (*false*)
+- Get the actions avaiable from *Rimmicu Vilcea* (*to Pitesti*, *to Craiova*)
+- Get the child nodes for the retrieved actions (*Pitesti*, *Craiova*)
+- Add *Pitesti* and *Craiova* to the frontier
+- Get the node from the frontier with the lowest path cost (*Lugoj*)
+- Check if *Lugoj* is a goal state (*false*)
+- Get the actions avaiable from *Lugoj* (*to Mehadia*)
+- Get the child nodes for the retrieved actions (*Mehadia*)
+- Add *Mehadia* to the frontier
+- Get the node from the frontier with the lowest path cost (*Fagaras*)
+- Check if *Fagaras* is a goal state (*false*)
+- Get the actions avaiable from *Fagaras* (*to Bucharest*)
+- Get the child nodes for the retrieved actions (*Bucharest*)
+- Add *Bucharest* to the frontier
+- Get the node from the frontier with the lowest path cost (*Mehadia*)
+- Check if *Mehadia* is a goal state (*false*)
+- Get the actions avaiable from *Mehadia* (*to Drobeta*)
+- Get the child nodes for the retrieved actions (*Drobeta*)
+- Add *Drobeta* to the frontier
+- Get the node from the frontier with the lowest path cost (*Pitesti*)
+- Check if *Pitesti* is a goal state (*false*)
+- Get the actions avaiable from *Pitesti* (*to Bucharest*, *to Craiova*)
+- Get the child nodes for the retrieved actions (*Bucharest*, *Craiova*)
+- Add *Bucharest* and *Craiova* to the frontier
+- Get the node from the frontier with the lowest path cost (*Drobeta*)
+- Check if *Drobeta* is a goal state (*false*)
+- Get the actions avaiable from *Drobeta* (*to Craiova*)
+- Get the child nodes for the retrieved actions (*Craiova*)
+- Add *Craiova* to the frontier
+- Get the node from the frontier with the lowest path cost (*Bucharest*)
+- Check if *Drobeta* is a goal state (*true*)
+- Return solution
+
+Note if we had checked for a goald upon generating a node rather than when expanding the lowest-cost node, then we would have returned a higher-cost path (the one through Fagaras)
+
+:::
+
+:::
+:::
+
+
+## Informed search {visibility="hidden"}
+
+Informed (heuristic) search strategies use domain-specific hints about the location of goals [@RusselNorvig2022AIMA, p. 102]. These strategies can find solutions **more efficiently** than uninformed strategies. The hints are generated by a **heuristic function** $h(n)$
+
+### Greedy best-first search
+
+The Greedy best-first search uses the evlation function $f(n) = h(n)$ 
+
+. . .
+
+It expands the first node with the lowest $h(n)$ value in the queue. 
+
+. . .
+
+In route finding problems, the straight-line distance heuristic is used as $h(n)$.
+
+. . .
+
+Greedy best-first graph search is complete in finite state spaces, but not in infinite ones.
+
+### A* Search
+
+The A* search (pronounced "A-star search") uses the evaluation function $f(n) = g(n) + h(n)$.
+
+:::incremental
+- $g(n)$ is the path cost from the initial state to node $n$ (e.g., computed by using the action-cost function).
+- $h(n)$ is the *estimated cost* of the shortes path from $n$ to a goal state.
+:::
+
+. . .
+
+A* search is complete, if it is cost-optimal depends on the heuristic.
+
+## Online search
+
+The agents considered so far use **offline search** algorithm. They compute a complete solution before taking their first action. They are not helpful in unknown environments.
+
+. . .
+
+**Online search** agents interleaves computation and action:
+
+:::incremental
+- Takes action,
+- observes the environment, and
+- computes the next action,
+:::
+
+. . .
+
+These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)
+
+. . . 
+
+Online search is a good idea in dynamic or semi-dynamic environments.
+
+# 2-Player games {.headline-only}
+
+## Example: AlphaGo {background-color="#0333ff" background-image="images/alphaGo.jpeg"}
+
+:::notes
+AlphaGo is a computer program that plays the board game Go, which is considered much more difficult for computers to win than other games such as chess because its strategic and aesthetic nature makes it difficult to construct a direct scoring function. AlphaGo was developed by the London-based DeepMind Technologies, an acquired subsidiary of Alphabet Inc. 
+
+![A human trying to beat AlphaGo](images/alphaGo.jpeg){#fig-alphaGo}
+
+AlphaGo use a **Monte Carlo tree search algorithm** to find their moves based on knowledge previously acquired through machine learning, specifically an artificial neural network (a deep learning method) through extensive training, both from human and computer games. A neural network is trained to recognize the best moves and the winning rates of those moves. This neural network improves the strength of the tree search, leading to stronger move selection in the next iteration. It is used to decide on
+
+- the next action to choose in the selection-phase,
+- which leaf-node to extend in the expansion phase, and
+- which actions to choose in the simulation phase
+
+A nice summary of MCTS and AlphaGo can be found [here](https://www.analyticsvidhya.com/blog/2019/01/monte-carlo-tree-search-introduction-algorithm-deepmind-alphago/).
+:::
+
+## Adversarial search
+
+In **competitive** environments, two or more agents have conflicting goals, which gives rise to **adversarial search** problems.
+
+The algorithm described in this section is applicable for all games with the following characteristics:
+
+:::medium
+[2 players]{.fragment} &nbsp; [fully observable]{.fragment} &nbsp; [deterministic]{.fragment} &nbsp; [zero-sum]{.fragment}
+:::
+
+. . .
+
+As in such games [the state of a game is easy to represent,]{.fragment} [agents are restricted to a few actions]{.fragment} [and effects of actions are defined by precise rules [@RusselNorvig2022AIMA, p.192].]{.fragment}
+
+
+## MinMax value
+
+Given a state-space search tree, each node's **MinMax value** is calculated.
+
+. . .
+
+The MinMax value is the best achievable utility of being in a given sate (against a rational adversary).
+
+:::incremental
+- `MAX` prefers to move to a state of maximum value  
+- `MIN` prefers to move to a state of minimum value  
+:::
+
+## Adversarial game tree
+
+![Example: A adversarial game tree](images/adversarial-game-tree.svg){#fig-adversarial-game-tree}
+
+:::notes
+The △ nodes are "`MAX` nodes", in which it is `MAX's` turn to move; the ▽ nodes are "`MIN` nodes". `MAX's` best move at the root is α₁ (the highest MinMax value achievable at level 3), `MIN's` best move is β₁ (the lowest minimax value).
+:::
+
+## MinMax algorithm
+
+The **MinMax algorithm** performs a complete depth-first exploration of the game tree [@RusselNorvig2022AIMA, p.196-196].
+
+:::incremental
+- Assumes that the adversary plays optimal.
+- Returns action whose terminal state has the optimal **MinMax value**.
+- The tree is calculated down to a maximum depth $L$ (i.e., the planning horizon).
+- If level $L-1$ belongs to `Min` MinMax will choose in each state the action, which leads to a successor of minimum utility — since minimum utility for `Max` is maximum utility of `Min`. Therefore, to each node in level $L-1$, the minimum utility of it’s successor nodes is assigned.
+- In the same way to each node in level $L-2$, the maximum utility of it’s successor nodes in level $L-1$ is assigned.
+- This process is repeated up to the root node. `Max` then knows his next action — the one, which yields to a successor with maximum utility-value.
+:::
+
+:::notes
+The exponential complexity makes the miminmax algorithm impractical for complex games (even with [Alpha-Beta Pruning](#Alpha-Beta-Pruning) applied; chess game tree size > atoms in the universe).
+:::
+
+## Alpha-Beta Pruning
+
+Alpha-Beta Pruning is an improvement of the MinMax algorithm in the sense that it reduces the number of nodes, that have to be evaluated and generated by applying a simple logic [@RusselNorvig2022AIMA, p.198-199]. The process is as follows:
+
+:::incremental
+- Alpha-beta pruning maintains two values during the tree traversal:
+  - α — The minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)
+  - β — The maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)
+- As the algorithm explores the tree:
+  - At maximizing nodes ($L-2$), we update alpha if we find a better value
+  - At minimizing nodes ($L-1$), we update beta if we find a better value
+If at any node $k$ α ≥ β, we can stop exploring the current node's remaining children (this is the pruning)
+:::
+
+:::notes
+
+A nice simulation of MinMax- and AlphaBeta-Pruning can be found [here](https://raphsilva.github.io/utilities/minimax_simulator/#).
+
+:::callout-note
+### Why Alpha-Beta
+
+Pruning stops the search at the moment when it is determined that the value of a subtree is worse than the best solution already identified. Alpha-beta pruning gets its name from the two extra parameters in *MAX-VALUE(state,α,β)* that describe the bounds on the backed-up values that appear anywhere along the path:
+
+- α = the value of the best choice for `MAX` found so far ("at least")
+- β = the value of the bast choice for `MIN` found so far ("at most")
+
+Alpha-beta search updates the values of α and β as it goes along and prunes the remaining branches at a node as soon as the value of the current node is known to be worse than the current α and β for `MAX`  or `MIN`, respectively [@RusselNorvig2022AIMA, p.198].
+
+:::
+:::
+
+# Monte Carlo tree search  {.headline-only}
+
+## Introduction
+
+The concept of a limited planning horizon, as applied in the MinMax-algorithm is one way to handle complex problems, which can not be planned to the goal-state in one step.
+
+. . .
+
+Another concept is to construct a tree until a final state in such a way that in each state only promising actions and corresponding successors are generated. This concept is applied by Monte Carlo tree search.
+
+## Functioning
+
+**Monte Carlo tree search** (MCTS)^[[Reading recommendation](https://jonathan-hui.medium.com/monte-carlo-tree-search-mcts-in-alphago-zero-8a403588276a)] does estimate the value of a state as the **average utility**[^averageUtility] over a number of simulations of complete games starting from the current state [@RusselNorvig2022AIMA, p.207-209].
+
+[^averageUtility]: The average utility is guided by the **selection policy**.
+
+. . .
+
+Each iteration follows four steps:
+
+:::incremental
+- **Selection:** starting from the root node, apply tree policy in order to select next action (e.g., based on average utility[^5]).
+- **Expansion:** in a leaf-node select an arbitrary action and generate the corresponding new child-node.
+- **Simulation:** simulate the game, starting from the new child-node. At the end of each simulation the game is won or lost.
+- **Backpropagation:** the result of the simulation is used to update all the search tree nodes going up to the root.
+:::
+
+[^5]: For games with binary outcomes, **average utility** equals *win percentage*
+
+. . .
+
+If the computational budget is reached, MCTS returns with the best action a for the given root node.
+
+## Example: selection
+
+:::columns
+
+::::column
+![Example: MCTS — selection](images/mcts-selection.svg){#fig-mcts-selection}
+
+::::
+
+::::column
+
+@fig-mcts-selection shows a tree with the root representing a state where `P-A` has won 37/100 playouts done
+
+:::incremental
+- `P-A` has just moved to the root node
+- `P-B` selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves
+- `P-A` will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)
+- `P-B` then continues on the leaf node marked 27/35
+- ... until a terminal state is reached
+:::
+
+::::
+:::
+
+
+:::notes
+It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained. So it makes sense to use a selection policy that balances exploitation and exploration.
+:::
+
+
+## Example: selection policy (UCT)
+
+**Upper confidence bounds applied to trees** (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)
+
+. . .
+
+$$ 
+\textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
+$$
+
+:::incremental
+- $\textrm{U}(n)$ is the total utility of all playouts that went through node $n$
+- $\textrm{N}(n)$ is the number of playouts through node $n$
+- $\textrm{PARENT}(n)$ is the parent node of $n$ in the tree
+- $\frac{\textrm{U}(n)}{\textrm{N}(n)}$ is the average utility of $n$ *(exploitation term, "how good are the stats?")*
+- $\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}$ is higher for $n$ only explored a few times  
+  *(exploration term, "how much has the child be 'ignored'?")*
+- $C$ is a constant that balance exploitation and exploration (theoretically $\sqrt{2}$)
+:::
+
+:::notes
+With $C=1.4$, the 60/79 node in @fig-mcts-selection has the highest UCB1 score, but with $C=1.5$, it would be the 2/11 node.
+:::
+
+## Example: expansion and simulation
+
+::::columns
+:::column
+![Example: MCTS — expansion and simulation](images/mcts-expansion-simulation.svg){#fig-mcts-expansion}
+
+:::
+:::column
+
+@fig-mcts-expansion shows a tree where a new child of the selected node is generated and marked with `0/0` *(expansion)*.
+
+A playout for the newly generated child node is performed *(simulation)*.
+
+:::incremental
+- Moves for both players according the playout policy[^7] are chosen
+- The moves are not recorded in the search tree
+- In @fig-mcts-expansion, the simulation results in a win for `P-B`
+:::
+
+:::
+::::
+
+[^7]: Playout policies biases the moves toward good ones. For Go and other games, playout policies have been successfully learned from self-play by using neural networks. Sometimes also game-specific heuristics are used (e.g., take the corner square in Othello)
+
+
+## Example: back-propagation
+
+::::columns
+:::column
+![Example: MCTS — selection](images/mcts-back-propagation.svg){#fig-mcts-propagation}
+
+:::
+:::column
+
+
+The result of the simulation is used to update all the search tree nodes going up to the root.
+
+:::incremental
+- `P-B's` nodes are incremented in both the number of wins and the number of playouts
+- `P-A's` nodes are incremented in the number of playouts only
+:::
+
+
+:::
+::::
+
+# Wrap-up {.headline-only}
+
+## Search
+
+Search operates over models of the world (which might be observed *online*)
+
+:::incremental
+- Agents do not try all possible plans
+- Planning is all "in simulation"
+- Search is only as good as the models are
+:::
+
+## Adversarial search
+
+:::incremental
+- In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the **minimax algorithm** can select optimal moves by a depth-first search in the game tree
+- Efficiency can be improved by using the **alpha-beta** search algorithm, which eliminates subtrees that are shown to be irrelevant.
+- **Monte Carlo tree search** evaluates states by playing out the game all the way to the end to see who won. This playout **simulation** is repeated multiple times. The evaluation is an average of the results.
+:::
+
+## xkcd
+
+![xkcd 1263: reassuring](images/xkcd.png){#fig-xkcd}
+
+# Q&A {.html-hidden .unlisted .headline-only}
+
+# Exercises {.headline-only background-color=black}
+
+## Definition sequence
+
+> Problem formulation must follow goal formulation.
+
+Discuss that statement. Is it true or false? Why?
+
+## Problem formulation
+
+Give a complete problem formulation for each of the following problems. Choose a formulation that is precise enough to be implemented.
+
+- There are six glass boxes in a row, each with a lock. Each of the first five boxes holds a key unlocking the next box in line; the last box holds a banana. You have the key to the first box, and you want the banana.
+- There is an *n x n* grid of squares, each square initially being either unpainted floor or a bottomless pit. You start standing on an unpainted floor square, and can either paint the square under you or move into an adjacent unpainted floor square. You want the whole floor painted.
+
+## Maze
+
+Your goal is to navigate a robot out of a maze. It starts in the center of the maze facing north. You can turn the robot to face north, east, south, or west; direct the robot to move forward a certain distance (it will stop before a wall). 
+
+a. Formally define this problem as a search problem. How large is the state space?
+b. In navigating a maze, the only place we need to turn is at the intersection of two or more corridors. Reformulate this problem using this observation. How large is the state space now?
+c. From each point in the maze, we can move in any of the four directions until we reach a turning point, and this is the only action we need to do. Reformulate the problem using these actions. Do we need to keep track of the robot’s orientation now?
+d. In our initial description of the problem we already abstracted from the real world. Name three such simplifications we made.
+
+:::notes
+
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+![Solution note for the maze exercise](images/maze.svg){#fig-maze}
+
+[Problem statement]{.h4}
+
+- The center of the maze is at (0; 0), and the maze itself is a square from (-1;-1) to (1; 1).
+- __Initial state:__ robot at coordinate (0; 0), facing North.
+- __Goal test:__ either jxj > 1 or jyj > 1 where (x; y) is the current location.
+- __Successor function:__ move forwards any distance d; change direction robot it facing.
+- __Cost function:__ total distance moved.
+
+The state space is infinitely large, since the robot’s position is continuous.
+
+[Reformulated problem statement]{.h4}
+
+The state will record the intersection the robot is currently at, along with the direction it’s facing. At the end of each corridor leaving the maze we will have an exit node. We’ll assume some node corresponds to the center of the maze.
+
+- __Initial state:__ at the center of the maze facing North.
+- __Goal test:__ at an exit node.
+- __Successor function:__ move to the next intersection in front of us, if there is one; turn to face a new direction.
+- __Cost function:__ total distance moved.
+
+There are 4n states, where n is the number of intersections.
+
+[Reformulated problem statement #2]{.h4}
+
+- __Initial state:__ at the center of the maze.
+- __Goal test:__ at an exit node.
+- __Successor function:__ move to next intersection to the North, South, East, or West.
+- __Cost function:__ total distance moved.
+
+We no longer need to keep track of the robot’s orientation since it is irrelevant to predicting the outcome of our actions, and not part of the goal test. The motor system that executes this plan will need to keep track of the robot’s current orientation, to know when to rotate the robot.
+
+[Abstractions]{.h4}
+
+**State:**
+
+- Ignoring the height of the robot off the ground, whether it is tilted off the vertical.
+-  The robot can face in only four directions.
+- Other parts of the world ignored: possibility of other robots in the maze, the weather in the Caribbean.
+
+**Action:**
+
+- We assumed all positions we safely accessible: the robot couldn’t get stuck or damaged.
+- The robot can move as far as it wants, without having to recharge its batteries.
+- Simplified movement system: moving forwards a certain distance, rather than controlled each individual motor and watching the sensors to detect collisions.
+
+:::
+:::
+
+## Concepts
+
+Explain in your own words the following terms: 
+
+- Zero-sum
+- Terminal test
+- Minimax value
+- Selection policy
+- Playout policy
+- Monte Carlo tree
+- Back-propagation
+
+## MINIMAX
+
+Explain if the `MINIMAX` algorithm is complete and optimal. 
+
+Can it be beaten by an opponent playing suboptimally? Why (not)?
+
+Come up with a game tree in which MAX will beat a suboptimal MIN.
+
+:::notes
+
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+**Completeness**
+
+In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the `MINIMAX` algorithm can select optimal moves by a depth-first emuration, the algorithm is also guaranteed to find a solution when there is one.
+
+The algorithm performs a complete depth-first exploration of the game tree. If the maximum depth of the tree is $m$ and there are $b$ legal moves at each point, then the time complexity is $O(b^m)$ for an algorithm that generates all actions at once, or $O(m)$ for an algorithm that generates actions on at a time. The exponential complexity makes `MINIMAX` impractical for complex games. `MINIMAX` does, however, serve as a basis for the mathematical analysis for games. By approximating the minimax analysis in various ways, we can derive more practical algorithms.
+
+**Suboptimally play**
+
+If *MIN* does not play optimally, then *MAX* will do at least as well as against an optimal player, possibly better.
+
+:::
+:::
+
+## Pruning
+
+Read the note about pruning (and consult @RusselNorvig2022AIMA if necessary). 
+
+Explain in your own words, under what conditions a subtree is skipped using Alpha-beta pruning.
+
+Draw an example (game search tree, 3 levels depth).
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+![Example for pruning](images/pruning.svg){#fig-pruning}
+
+@fig-pruning: There is no point in looking at the other successor states of *C*, thus it can be skipped.
+
+:::
+:::
+
+# Literature
+::: {#refs}
+:::
