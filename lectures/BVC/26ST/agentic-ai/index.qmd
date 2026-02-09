@@ -1,0 +1,506 @@
+---
+title: "Agentic AI"  
+subtitle: "Business Value Creation with IT (BVC)"
+categories: ["Lecture Notes"]
+
+date: "03.10.2025"
+
+bibliography: ../assets/literature.bib
+
+format: 
+  html:
+    output-file: index.html
+    margin-header: | 
+      [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false  
+  presentation-revealjs:
+    output-file: slides.html
+    include-before-body: ../assets/footer.html    
+---
+
+# Agents {.headline-only}
+
+## Rational agents
+
+![Rational agents interact with environments through sensors and actuators](images/actor.svg){#fig-agent}
+
+:::notes
+
+
+A rational agent is anything that is
+
+- perceiving its environment through **sensors**,
+- thinking and deciding on the next actions\
+  (mapping given percepts to actions),
+- and acting through **actuators**
+
+Rational means, that the agent acts in a way that is expected to maximize its performance measure, given it’s
+
+- built-in knowledge (i.e., the agent function[^agent_function]),
+- perceived experience (i.e., the percep sequence[^percept_sequence]),
+- and acting capabilities
+
+[^percept_sequence]: The term **percept** refers to the content an agent's sensors are perceiving. The __percept sequence__ is the complete history of everything an agent has ever perceived.
+
+[^agent_function]: The **agent function** maps any given percept sequence to an action (an abstract mathematical description). 
+
+:::callout-note
+### Example
+
+To illustrate these ideas @RusselNorvig2022AIMA [p. 55] use a simple example—the vacuum-cleaner world, which consists of a robotic vacuum-cleaning agent in a world consisting of squares that can be either dirty or clean. The vacuum agent **perceives** which square it is in and whether there is dirt in the square. The agent starts in square A. The available **actions** are to move to the right, move to the left, suck up the dirt, or do nothing. One very simple **agent function** is the following: if the current square is dirty, then suck; otherwise, move to the other square. 
+
+Under following circumstances, the vacuum cleaning agent is rational:
+
+- The performance measure of the vacuum cleaner might award one point for each clean square at each time step, over a "lifetime" of 1,000 time steps (to prevent the cleaner to oscillate needlessly back and forth).
+- The "geography" of the environment is known *a priori* but the dirt distribution and the initial location of the agent are not. Clean squares stay clean and sucking cleans the current square. The *Right* and *Left* actions move the agent one square except when this would take the agent outside the environment in which case the agent remains where it is.
+- The only available action is *Right*, *Left*, and *Suck*.
+- The agent correctly perceives its location and whether that location contains dirt.
+
+:::
+:::
+
+## Exercise {.html-hidden .unlisted .discussion-slide}
+
+:::large
+Under which circumstances does a **vacuum cleaning agent** act rational?
+:::
+
+## Performance measure
+
+> If we use, to achieve our purposes, a mechanical agency with those operation we cannot interfere once we have started it [...] we had better be quite sure that the purpose built into the machine is the purpose which we really desire *@Wiener1960Some [p. 1358]*
+
+. . .
+
+:::medium
+It is difficult to formulate a performance measure correctly. This is a reason to be careful.
+:::
+
+
+## Rationality vs. perfecteion
+
+:::large
+Rationality is not the same as perfection. 
+:::
+
+:::incremental
+- Rationality maximizes *expected* performance
+- Perfection maximizes *actual* performance
+- Perfection requires omniscience
+- Rational choice depends only on the percept sequence *to date*
+:::
+
+:::notes
+
+As the environment is usually not completely known *a priori* and completely predictable (or stable), information gathering and learning are important parts of rationality [@RusselNorvig2022AIMA, p.59].
+
+:::callout-note
+### Example
+
+The vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.
+
+:::
+:::
+
+# Agent types {.headline-only}
+
+## Simple reflex agents
+
+![A simple reflex agent[^legend]](images/simple-reflex-agent.svg){#fig-sr-agent}
+
+:::notes
+
+[^legend]: Rectangles are used to denote the current internal state of the agent's decision process, rectangles with rounded corners to represent the background information used in the process.
+
+Simple reflex agents select actions on the basis of the *current* percept, ignoring the rest of the percept history. Thus, these agents work only if the correct decision can be made on the basis of just the current percept. The environment needs to be fully observable [@RusselNorvig2022AIMA, p.68].
+
+Example: A **thermostat** makes decisions based solely on the current temperature reading, without considering past temperatures or future predictions.
+
+:::
+
+## Model-based reflex agents
+
+![A model-based reflex agent](images/model-based-reflex-agent.svg){#fig-mr-agent}
+
+::: notes
+Model-based reflex agents maintain an internal models of the world, which helps them keep track of the current state and make decisions based on this model. This allows them to handle partially observable environments more effectively [@RusselNorvig2022AIMA, p.70].
+
+- The __transition model__ reflects how the world evolves (a) independently of the agent and (b) depending on the agent's actions.
+- The __sensor model__ reflects how the state of the world is reflected in the agent's percepts (i.e., by its sensors).
+
+Eample: A **self-driving car** uses its transition model to predict the state of the environment reflected in the sensor model and make decisions accordingly.
+
+:::callout-note
+### Types of representation of states
+
+The representations of states can be placed along an axis of increasing complexity and expressive power [@RusselNorvig2022AIMA p. 76-77]:
+
+- An __atomic representation__ is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you're looking for. In a sliding tile puzz_le, for instance, you either have the correct alignment of tiles or you do not.
+- A __factored representation__ is one in which the states are defined by set of features (e.g., Boolean, real-valued, or one of a fixed set of symbols). In a sliding puzzle, this might be a simple heuristic like "number of tiles out of place".
+- A __structured representation__ is one in which the states are expressed in form of objects and relations between them (e.g., expressed by logic or probability). Such knowledge about relations called facts.
+
+The more expressive language is much more concise, but makes reasoning and learning more complex.
+
+:::
+:::
+
+## Goal-based agents
+
+![A model-based, goal-based agent](images/goal-based-agent.svg){#fig-gb-agent}
+
+:::notes
+Goal-based agents make decisions based on a set of goals they aim to achieve. They consider the current state, possible actions, and the outcomes of these actions to determine the best path to reach their goals [@RusselNorvig2022AIMA, p. 72].
+
+Goal-based agents often use search and planning algorithms to find the optimal sequence of actions to achieve their goals, best-case considering both immediate and long-term consequences.
+
+Example: A **delivery robot** is designed to navigate from a starting point to a destination within an environment, often avoiding obstacles and optimizing its route.
+:::
+
+## Utility-based agents
+
+![A model-based, utility-based agent](images/utility-based-agent.svg){#fig-ub-agent}
+
+
+:::notes
+Utility-based agents make decisions by evaluating the utility (or value) of different possible actions and choosing the one that maximizes their overall utility. These agents consider not only the goals but also the trade-offs and preferences to achieve the best possible outcome [@RusselNorvig2022AIMA, p. 73].
+
+The **utility function** is a mathematical function that calculates **expected utility** for all possible states, weighted by the probability of the outcome. The agent evaluates the utility of different actions and selects the one that **maximizes its expected utility**.
+
+A utility-based agent has many advantages in terms of flexibility and learning, which are particularly helpful in environments characterized by partial observability and nondeterminism. In addition, there are cases where the goals are insufficient but a utility-based agent can still make rational decisions based on the probabilities and the utilities of the outcomes: 
+
+- When there are conflicting goals, the utility function specifies the appropriate tradeoff.
+- Likelihood of success (i.e., goal achievement) can be weighed against the importance of the goals
+
+Model- and utility-based agents are difficult to implement. They need to model and keep track of the task environment, which requires ingenious sensors, sophisticated algorithms, and a high computational complexity. There are also utility-based agents that are not model-based. These agents just learn what action is best in a particular situation without any "understanding" of its impact on the environment (e.g., based on reinforcement learning).
+
+:::callout-note
+### Example
+
+A **smart thermostat** continuously evaluates the utility of different temperature settings and adjusts accordingly to maximize overall utility, balancing comfort and energy savings.
+:::
+
+:::
+
+### Main differences {visibility=hidden}
+
+The main difference between __simple reflex agents__ and __model-based reflex agents__ is that the latter keep track of the state of the world. Model-based reflex agents generate knowledge about how the world evolves independently of the agent and how actions of the agent change the world (i.e., they have knowledge about “how the world works”). This knowledge is “stored” in the transition model of the world. A model-based reflex agents still decides on condition-action rules which action to take (i.e., the codified reflexes).
+
+The main difference between __model-based reflex agents__ and __goal-based agents__ is that it does not act on fixed condition-action rules, but on some sort of goal information that describes situations that are desirable (e.g., in the case of route-finding the destination). Based on the goal, the best possible action (based on the knowledge of the world), needs to be selected. Goal-based decision making involves consideration of the future based on the transition model (i.e., “what will happen if I do such-and-such?”) and how it helps to achieve the goal. In reflex agents designs, this information I not explicitly represented, because the built rules map directly from the percepts to actions, without considering/knowing the future state.
+
+The main difference between __goal-based agents__ and __utility-based agents__ is that the performance measure is more general. It does not only consider a binary distinction between “goal achieved” and “goal not achieved” but allows comparing different world states according to their relative utility or expected utility, respectively (i.e., how happy the agent is with the resulting state). Utility-based agents can still make rational decisions when there are conflicting goals for which only one can be achieved (here the utility function needs to specify a trade-off) and when there are several goals that the agent can aim for, none of which can be achieved with certainty (here the utility function provides a which in which the likelihood of success can be weighed against the importance of the goals, e.g., speed and energy consumption in routing).
+
+Example: A goal-based agent for routing just selects actions based on a single, binary goal — reaching the destination; a utility-based agents also considers additional goals like spending as less time as possible on the road, spending as less money as possible, having the best scenery on the trip, etc. and tries to maximize overall utility across these goals. In this example, reaching the destiny is the ultimate goal, without achieving that utility would be zero. However, utility will increase or decrease related to how the actions chosen impact the achievement of the other goals, which importance need to be weighed.
+
+
+## Recap {.html-hidden .unlisted .discussion-slide}
+
+:::large
+What are the **main differences** between the agents?
+:::
+
+## Learning agents
+
+![A learning agent](images/learning-agent.svg){#fig-l-agent}
+
+:::notes
+
+Learning agents are AI systems designed to improve their performance over time by learning from their environment and experiences. Unlike traditional AI systems that operate with fixed programming, learning agents adapt, evolve, and refine their actions based on feedback and data. Thus, learning agents have greater **autonony**.
+
+A learning agent consists of four conceptual components [@RusselNorvig2022AIMA, p- 74-75], as shown in @fig-l-agent:
+
+- **Learning element**: Acquires knowledge and improves performance by analyzing data, interactions, and feedback. Uses techniques such as supervised, unsupervised, and reinforcement learning.
+- **Performance element**: Executes tasks based on the knowledge acquired by the learning element.
+- **Performance standard** or critic: Evaluates the actions taken by the performance element and provides feedback.
+- **Problem generator**: Identifies opportunities for further learning and exploration. Exploratory actions may be suboptimal in the short term, but can lead to the discovery of better actions in the long term.
+
+:::
+
+## Rational agents
+
+:::html-hidden
+:::large
+A rational agent is one\
+that does **the right thing**.
+:::
+:::
+
+. . .
+
+Utility-based learning agents are rational agents as they act so as to achieve the best outcome or, when there is uncertainty, **the best expected outcome**. [This means that for each possible percept sequence,]{.fragment} [a rational agent should select an __action__ that is expected to maximize its __performance measure__,]{.fragment} [given the evidence provided by the __percept sequence__]{.fragment} [and whatever built-in __knowledge__ the agent has, ]{.fragment} [which evolves over time [@RusselNorvig2022AIMA, p.58].]{.fragment}
+
+## Evolution of agents
+
+:::html-hidden
+:::r-stack
+
+![The evolution of AI agents](images/evolution-1.svg){.fragment height="420"}
+
+![&nbsp;](images/evolution-2.svg){.fragment height="420"}
+
+![&nbsp;](images/evolution-3.svg){.fragment height="420"}
+
+![&nbsp;](images/evolution.svg){.fragment height="420"}
+
+:::
+:::
+
+:::notes
+
+![The evolution of AI agents](images/evolution.svg){#fig-evolution}
+
+:::
+
+# Agentic AI {.headline-only}
+
+## Definition
+
+:::medium
+> Agentic AI is an emerging paradigm in AI that refers to **autonomous systems** designed to pursue complex goals with **minimal human intervention.** *@acharya2025agentic [p. 18912]*
+:::
+
+. . .
+
+Core characteristics of Agentic AI are
+
+:::html-hidden
+:::incremental
+- Higher autonomy and goal complexity
+- Ability to adapt to environmental and situational unpredictabilities
+- Independent decision-making
+:::
+:::
+
+:::notes
+
+- **Autonomy and goal complexity**, as agentic AI systems
+  - can handle multiple complex goals simultaneously,
+  - can operate independently over extended periods,
+  - can shift between tasks to achieve higher-order objectives, and
+  - makes decisions with minimal human supervision
+- **Environmental and situational adaptability**, as agentic AI systems
+  - opperate effectively in dynamic and unpredictable environments
+  - adapt to changing conditions in real-time
+  - make decisions with incomplete information
+  - handle uncertainty effectively
+- **Independent decision-making**, as agentic AI systems
+  - can learn from experience and improve over time
+  - use reinforcement learning and meta-learning
+  - demonstrate flexibility in strategy selection
+  - reconceptualizes approaches based on new information
+
+
+Agentic AI systems need to have the ability to
+
+- gather information from the environment,
+- maintaining the execution context over long periods,
+- develop strategies to achieve goals (i.e, independent decision-making),
+- communicate plans and goals at appropriate abstraction levels, 
+- perform operations that can influence the environment's state,
+- learn and adapt to their environment, and
+- coordinate with other agents or humans in response to current situations [@agenticAI2024].
+
+:::
+
+## Agentic AI vs. traditional AI {visibility=hidden}
+
+@acharya2025agentic identify three key technical foundations for Agentic AI:
+
+1. **Reinforcement learning** enables systems to learn through trial and error, continuously refining strategies based on feedback.
+2. **Goal-Oriented architectures** provide frameworks for managing complex objectives, breaking larger goals into manageable sub-goals.
+3. **Adaptive control mechanisms** allow agents to adjust to changing environments, recalibrating parameters in response to external variations.
+
+## Comparison with traditional AI
+
+| Feature                 | Traditional AI               | Agentic AI                        |
+|-------------------------|------------------------------|-----------------------------------|
+| Primary purpose         | Task-specific automation     | Goal-oriented autonomy            |
+| Human intervention      | High (predefined parameters) | Low (autonomous adaptability)     |
+| Adaptability            | Limited                      | High                              |
+| Environment interaction | Static or limited context    | Dynamic and context-aware         |
+| Learning type           | Primarily supervised         | Reinforcement and self-supervised |
+| Decision-making         | Data-driven, static rules    | Autonomous, contextual reasoning  |
+
+: Comparison of traditional AI and Agentic AI based on @acharya2025agentic
+
+## Comparison of agent types
+
+| Feature             | Classical Agents         | Learning Agents                | Agentic AI                           |
+|---------------------|--------------------------|--------------------------------|--------------------------------------|
+| **Primary Purpose** | Fixed-task automation    | Reward-driven optimization     | Goal-oriented autonomy               |
+| **Adaptability**    | Low                      | Moderate                       | High                                 |
+| **Learning Type**   | Supervised               | Reinforcement Learning         | Hybrid, including RAG and Memory     |
+| **Applications**    | Static systems           | Dynamic environments           | Complex, multi-objective tasks       |
+
+: Comparison between classical agents, reinforcement learning agents, and agentic AI based on @acharya2025agentic
+
+
+## Applications
+
+Key application areas of Agentic AI are, for instance:
+
+:::incremental
+- **Healthcare** — patient monitoring, early warning systems, personalized care management
+- **Finance** — algorithmic trading, fraud detection, personalized financial advice
+- **Manufacturing** — predictive maintenance, optimization of production processes
+- **Education** — assisting learners by tailoring educational content
+- **Software Engineering** — from code completion to autonomous problem-solving
+:::
+
+:::aside
+Source: @acharya2025agentic
+:::
+
+## Workflow patterns
+
+@agenticAI2024 discusses five key workflow patterns that can be implemented when designing agentic AI systems:
+
+:::html-hidden
+:::incremental
+  1. **Prompt chaining** — sequentially connecting prompts; outputs become inputs; creates complex reasoning flows and multi-step processes
+  2. **Routing** — directs tasks to specialized components based on task type; improves efficiency through targeted processing
+  3. **Parallelization** — processes multiple subtasks simultaneously; increases throughput and handles independent workstreams
+  4. **Orchestrator-workers** — central orchestrator delegates to specialized worker agents; manages coordination, integration, and quality control
+  5. **Evaluator-optimizer** — separate components to generate, evaluate, and refine solutions; enables iterative improvement and higher quality outputs
+:::
+:::
+
+:::notes
+
+1. **Prompt Chaining**: This pattern connects multiple prompts in sequence, where the output of one prompt becomes the input to the next. This creates a pipeline for complex reasoning or multi-step tasks. For example, an agent might first analyze requirements, then generate a solution, then check for errors, with each step building on the previous one. This approach is effective for breaking down complex tasks into manageable steps with clear dependencies.
+
+2. **Routing**: In this pattern, incoming tasks are analyzed and directed to specialized components based on their type or requirements. A router component determines which specialized agent or module should handle a particular subtask. For instance, a general assistant might route code-related questions to a specialized coding agent, research questions to a research agent, and creative tasks to a creative agent. This improves efficiency by ensuring tasks are handled by the most appropriate components.
+
+3. **Parallelization**: This workflow processes multiple subtasks simultaneously rather than sequentially. It's particularly valuable when subtasks are independent of each other or when processing large volumes of similar items. For example, an agent might analyze multiple documents in parallel, or generate several different creative options simultaneously. Parallelization increases throughput and can significantly reduce total processing time.
+
+4. **Orchestrator-Workers**: This pattern involves a central orchestrator agent that delegates tasks to specialized worker agents, then integrates their outputs. The orchestrator manages the overall process, coordinates between workers, and ensures consistent quality across outputs. For example, in a content creation system, an orchestrator might delegate research to one worker, writing to another, and fact-checking to a third, then integrate their work into a cohesive final product.
+
+5. **Evaluator-Optimizer**: In this workflow, separate components generate solutions, evaluate their quality, and refine them based on that evaluation. This creates a feedback loop that enables iterative improvement. For instance, one component might generate code, another would test it for bugs or efficiency, and a third would refine the code based on the evaluation results. This pattern is especially valuable for tasks where quality can be objectively measured and incremental improvement is possible.
+
+These workflow patterns can be combined and adapted to suit different applications. The choice of pattern depends on factors like task complexity, quality requirements, available compute resources, and time constraints. Effective agent systems often incorporate multiple patterns to handle different aspects of their operation.
+:::
+
+# Governance and accountability
+
+:::medium
+As agentic AI systems act autonomously, safety and accountability are critical aspects [@shavit2023practices].
+:::
+
+:::notes
+With the increasing autonomy of AI systems, the need to develop mechanisms for their governance and assignment of responsibility also grows. @shavit2023practices proposes a series of practices aimed at ensuring the safe and responsible use of such systems. These range from careful selection of application areas to limiting freedom of action to the ability to monitor agent behavior and intervene when necessary.
+
+Proposed practices for safe and responsible operation:
+:::
+
+:::incremental
+- Suitability assessment of the agent for the specific task
+- Limitation of scope and potentially approval requirements for certain actions
+- Establishment of default behaviors for agents
+- Ensuring traceability of agent activities
+- Implementation of automatic monitoring
+- Possibility of attributability of actions
+- Interruptibility of the agent and maintenance of human control
+:::
+
+
+# Human-AI interaction {.headline-only}
+
+## From tools to teammates
+
+@seeber2020machines highlight a fundamental shift in how we think about AI systems.
+
+. . .
+
+| Traditional AI                        | AI as Teammates                            |
+|---------------------------------------|--------------------------------------------|
+| **Role**: Tool to be used             | **Role**: Active collaboration partner     |
+| **Interaction**: Responds to commands | **Interaction**: Engages proactively       |
+| **Function**: Task automation         | **Function**: Complex problem-solving      |
+| **Agency**: Limited/directed          | **Agency**: Autonomous with initiative     |
+| **Integration**: System integration   | **Integration**: Social & team integration |
+
+:::notes
+Traditional AI has been positioned as tools that enhance human capabilities through automation and augmentation, but the relationship remains primarily that of user and tool.
+
+AI teammates represent a new paradigm where AI systems as they ...
+
+- actively participate in defining problems and generating solutions;
+- can take initiative in collaborative processes without explicit prompting;
+- engage in multiple steps of complex problem solving (defining problems, identifying causes, proposing solutions, planning, etc.);
+- learn from interactions and potentially participate in after-action reviews; and
+- may have different roles in teams based on capabilities
+  
+This shift requires new frameworks for understanding the collaborative relationship between humans and AI systems.
+:::
+
+## Critical design areas
+
+@seeber2020machines identify three interconnected design areas that must be considered when developing AI agents as teammates:
+
+:::hmtl-hidden
+:::medium
+:::incremental
+1. **Machine artifact design** 
+2. **Collaboration design** 
+3. **Institution design**
+:::
+:::
+:::
+
+:::notes
+
+1. **Machine artifact design** focuses on the AI system itself — its appearance, capabilities, and how it interacts.
+2. **Collaboration design** addresses how humans and AI work together — team composition, task allocation, and workflows.
+3. **Institution design** considers the broader organizational and societal context — including responsibility frameworks, liability issues, and training requirements.
+
+These areas do not exist in isolation but influence each other. Decisions in one area affect the others, requiring a holistic approach to designing effective human-AI collaborative systems.
+
+:::
+
+
+## Role of AI in teams
+
+According to @dennis2023ai, AI agents can support human teams in various aspects. 
+
+. . .
+
+Three fundamental affordances that AI team members provide:
+
+:::html-hidden
+:::incremental
+- **Communication support** — enables coordination and reminders, review and feedback, delegation
+- **Information processing support** — includes data cataloging, information search and retrieval, information analysis, organization, creation and management of content indexes
+- **Process structuring and appropriation** — involves planning and scheduling, task breakdown structures, task tracking and delivery, quality assurance and checking
+:::
+:::
+
+:::notes
+
+**Communication support**
+
+- Natural language speech capabilities
+- Delegation and supervision functions
+- Coordination and reminder capabilities
+- Review and feedback functions
+
+**Information processing support**
+
+- Data cataloging
+- Information search and retrieval
+- Information analysis
+- Information organization
+- Creation and management of content repositories
+
+**Process structuring and appropriation support***
+
+- Planning and scheduling
+- Task breakdown structures
+- Task tracking and delivery
+- Quality assurance and testing
+
+These affordances enable AI team members to contribute to team processes in specific ways that complement human team members. The researchers conceptualized an AI team member that supports team processes through text-based natural language interactions, operates autonomously, and co-delegates work with other team members.
+:::
+
+# Q&A {.html-hidden .unlisted .headline-only}
+
+# Literature
+::: {#refs}
+:::
