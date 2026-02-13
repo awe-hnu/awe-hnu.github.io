@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Andy Weeger">
+  <title>awe.lectures – Environments</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-adf365e546eec8854d1491265b259140.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Environments – awe.lectures">
+<meta property="og:description" content="How can leaders create conditions for high performance?">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V1.1
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Digital Leadership
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Environments</h1>
+  <p class="subtitle">How can leaders create conditions for high performance?</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="learning-objectives" class="title-slide slide level2">
+<h2>Learning objectives</h2>
+<p>After completing this unit, you will be able to:</p>
+<ol type="1">
+<li class="fragment"><strong>Explain</strong> Path-Goal Theory and how leaders clarify the path to follower goal achievement</li>
+<li class="fragment"><strong>Compare</strong> extrinsic and intrinsic motivation using Self-Determination Theory’s need framework</li>
+<li class="fragment"><strong>Describe</strong> engaging leadership and how it operationalises SDT’s basic psychological needs</li>
+<li class="fragment"><strong>Contrast</strong> engaging and disengaging leadership and their effects on work engagement</li>
+</ol>
+</section>
+
+<section>
+<section id="latticework-check-in" class="title-slide slide level1 headline-only">
+<h1>Latticework check-in</h1>
+
+</section>
+<section id="opening-reflection" class="title-slide slide level2 no-headline vertical-center">
+<h2>Opening reflection</h2>
+<div class="medium">
+<p>Which mental models are at play when we think about motivation?</p>
+</div>
+<div class="fragment">
+<p>Consider: <strong>Incentive structures</strong> — how do rewards and punishments shape follower behavior? And <strong>feedback loops</strong> — how does engagement create performance which reinforces engagement?</p>
+</div>
+</section>
+</section>
+<section>
+<section id="path-goal-theory" class="title-slide slide level1 headline-only">
+<h1>Path-goal theory</h1>
+
+</section>
+<section id="a-path-to-what" class="title-slide slide level2 html-hidden unlisted" data-background-color="black">
+<h2>A path to what?</h2>
+<div id="fig-dilbert" class="quarto-float quarto-figure quarto-figure-left" data-fig-align="left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-dilbert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/dilbert.gif" class="img-fluid quarto-figure quarto-figure-left">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dilbert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Dilbert comic strip on goal setting
+</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="discussion" class="title-slide slide level2 html-hidden unlisted" data-background-color="black">
+<h2>Discussion</h2>
+<div class="large">
+<p>What have you learned about the path-goal theory?</p>
+</div>
+<p>What is the <strong>essence of the theory</strong> and<br>
+what <strong>classes of leader behavior</strong> does it specify?</p>
+<aside class="notes">
+<p>This discussion checks homework completion. Students should be able to articulate that the theory is about leaders adapting their behavior to complement follower abilities and environmental conditions. Encourage them to name at least three of the seven behavior classes before the formal introduction.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="opening-remarks" class="title-slide slide level2">
+<h2>Opening remarks</h2>
+<div class="large">
+<p>Leaders must guide and support their followers along the path to achieving their goals <span class="smaller"><span class="citation" data-cites="house1996path">(<a href="#/literature" role="doc-biblioref" onclick="">House, 1996</a>)</span>.</span></p>
+</div>
+<aside class="notes">
+<p>A leader is “one or more people who selects, equips, trains, and influences one or more follower(s) who have diverse gifts, abilities, and skills and focuses the follower(s) to the organization’s mission and objectives causing the follower(s) to willingly and enthusiastically expend spiritual, emotional, and physical energy in a concerted coordinated effort <strong>to achieve the organizational mission and objectives</strong>” <span class="citation" data-cites="winston2006integrative">(<a href="#/literature" role="doc-biblioref" onclick="">Winston &amp; Patterson, 2006, p. 8</a>)</span>.</p>
+<p>Path-goal theory emphasizes that leaders need to <strong>clarify the paths to goals</strong>, remove obstacles, and provide necessary support to help followers reach their objectives efficiently. It highlights the importance of <strong>adapting leadership behaviors</strong> to suit the needs of followers and the situation they are working in. Ultimately, the theory reminds leaders that their primary role is to coach and guide followers towards goal achievement by <strong>selecting behaviors that best fit followers’ needs and the working environment.</strong></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="path-goal-clarifying-behaviors" class="title-slide slide level2">
+<h2>Path-goal clarifying behaviors</h2>
+<p>The path-goal theory assumes that under conditions <span class="link-color">role and task demands that are ambiguous and intrinsically satisfying</span>, goal-oriented behavior by superiors is helpful and instrumental to task performance.</p>
+<div class="fragment">
+<p>Leaders who are goal-oriented must clarify the following things:</p>
+<ul>
+<li class="fragment">subordinates <strong>performance goals</strong>,</li>
+<li class="fragment">the <strong>means</strong> by which they can effectively carry out tasks,</li>
+<li class="fragment">the <strong>standards</strong> by which their performance will be judged,</li>
+<li class="fragment"><strong>expectancies</strong> that others have of them and how to respond appropriately, and</li>
+<li class="fragment">how to use <strong>rewards and punishment</strong> in an intelligent manner, contingent on performance.</li>
+</ul>
+</div>
+</section>
+
+<section id="main-propositions" class="title-slide slide level2">
+<h2>Main propositions</h2>
+<div class="html-hidden">
+<div class="large">
+<p><span class="fragment fade-in-then-semi-out">Leaders’ behavior complements subordinates’ environments and abilities</span> <span class="fragment fade-in-then-semi-out">and leaders’ path-goal clarifying behavior adapts to different situations.</span></p>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Leaders’ behavior complements subordinates’ environments and abilities</strong> — effective leaders engage in behaviors that align with and support their subordinates’ environments and abilities. The higher the degree of subordinates self-perceived ability relative to task demands, the less subordinates will view path-goal clarifying behavior as acceptable (motivational) <span class="citation" data-cites="house1996path">(<a href="#/literature" role="doc-biblioref" onclick="">House, 1996</a>)</span>.</p>
+<p><strong>Leaders’ path-goal clarifying behavior adapts to different situations</strong> — effective leaders adjust their behavior based on the specific circumstances, tasks (e.g., ambiguity), and characteristics of their followers (e.g., preference for independence). This adaptability ensures that leaders can effectively guide and motivate their subordinates towards achieving goals <span class="citation" data-cites="house1996path">(<a href="#/literature" role="doc-biblioref" onclick="">House, 1996</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="leader-behavior-classes" class="title-slide slide level2">
+<h2>Leader behavior classes</h2>
+<div class="html-hidden">
+<div class="large">
+<p><span class="fragment fade-in-then-semi-out">Achievement-oriented,</span><br>
+<span class="fragment fade-in-then-semi-out">work facilitation/ supportive,</span><br>
+<span class="fragment fade-in-then-semi-out">interaction facilitation,</span><br>
+<span class="fragment fade-in-then-semi-out">group oriented decision process,</span><br>
+<span class="fragment fade-in-then-semi-out">representation and networking,</span><br>
+<span class="fragment fade-in-then-semi-out">value-based, and</span> <span class="fragment fade-in-then-semi-out">shared leadership</span></p>
+</div>
+</div>
+<aside class="notes">
+<p>Leadership behavior classes refers to types of actions and conduct that leaders incorporate into their management styles in order to effectively lead their teams, motivate them, and achieve their goals <span class="citation" data-cites="house1996path">(<a href="#/literature" role="doc-biblioref" onclick="">House, 1996</a>)</span>.</p>
+<dl>
+<dt>Achievement-oriented leader behavior</dt>
+<dd>
+sets challenging goals, emphasize excellence, and demonstrate confidence in employees’ abilities.
+</dd>
+<dt>Work facilitation/supportive leader behavior</dt>
+<dd>
+plans, schedules, organizes, and coordinates the work; provides mentoring, coaching, counseling, and feedback to assist employees in developing their skills.
+</dd>
+<dt>Interaction facilitation</dt>
+<dd>
+collaboratively removes obstacles that prevent interaction, including dispute resolution, facilitation of communication, and listening to all voices.
+</dd>
+<dt>Group oriented decision process</dt>
+<dd>
+focus on decisions that affect group dynamics and production and on increasing acceptance of such decisions.
+</dd>
+<dt>Representation and networking</dt>
+<dd>
+address the need of leaders to network and actively represent the function of the work unit (e.g., to establish the legitimacy of the work unit)
+</dd>
+<dt>Value-based leader behavior</dt>
+<dd>
+helps establish extraordinary follower commitment by appealing to values and sentiments held dear by subordinates (requires an ideological goal)
+</dd>
+<dt>Shared leadership</dt>
+<dd>
+shares responsibility for leadership to increase unit cohesiveness (functions best in an interdependent environment)
+</dd>
+</dl>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="group-work" class="title-slide slide level2 html-hidden discussion-slide">
+<h2>Group work</h2>
+<div class="medium">
+<p>Think about situations where you have either led or been led, whether formally or informally. Analyse how these situations can be characterised and explain why they were or weren’t effective.</p>
+</div>
+<p>Take about 10 minutes for reflection and discussion with your neighbour(s).</p>
+</section>
+</section>
+<section>
+<section id="from-path-goal-to-motivation" class="title-slide slide level1 headline-only">
+<h1>From path-goal to motivation</h1>
+
+</section>
+<section id="bridging-the-theories" class="title-slide slide level2">
+<h2>Bridging the theories</h2>
+<p>Path-goal theory tells leaders <em>what to clarify</em> — goals, means, standards, expectancies, and rewards. But how do you create the conditions where followers are <strong>intrinsically motivated</strong> to walk the path?</p>
+<div class="fragment">
+<div class="medium">
+<p>Self-Determination Theory and engaging leadership address exactly this: the <em>psychological mechanisms</em> that turn external guidance into internal drive.</p>
+</div>
+</div>
+</section>
+
+<section id="expectancy-theory" class="title-slide slide level2">
+<h2>Expectancy theory</h2>
+<p>Before we explore intrinsic motivation, a brief look at <strong>expectancy theory</strong> — a complementary lens on motivation.</p>
+<div class="fragment">
+<p><span class="citation" data-cites="vroom1964work">Vroom (<a href="#/literature" role="doc-biblioref" onclick="">1964</a>)</span> proposed that motivation is a function of three beliefs:</p>
+<ul>
+<li class="fragment"><strong>Expectancy</strong> — “If I try, can I perform?” (effort → performance)</li>
+<li class="fragment"><strong>Instrumentality</strong> — “If I perform, will I be rewarded?” (performance → outcome)</li>
+<li class="fragment"><strong>Valence</strong> — “Do I value the reward?” (outcome attractiveness)</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="medium">
+<p>Motivation = Expectancy × Instrumentality × Valence</p>
+</div>
+<aside class="notes">
+<p>Expectancy theory connects naturally to path-goal theory: a leader who clarifies goals and removes obstacles is directly increasing followers’ <em>expectancy</em> beliefs (“I can do this”). A leader who links performance to meaningful outcomes is increasing <em>instrumentality</em>. And a leader who understands what followers value can ensure that rewards have high <em>valence</em>.</p>
+<p>However, expectancy theory primarily explains <em>extrinsic</em> motivation — motivation driven by external outcomes. What about the deeper drive that comes from the work itself? This is where Self-Determination Theory enters.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+</section>
+<section>
+<section id="self-determination-theory" class="title-slide slide level1 headline-only">
+<h1>Self-Determination Theory</h1>
+
+</section>
+<section id="three-basic-psychological-needs" class="title-slide slide level2">
+<h2>Three basic psychological needs</h2>
+<p>Self-Determination Theory [SDT; <span class="citation" data-cites="deci2000what">Deci &amp; Ryan (<a href="#/literature" role="doc-biblioref" onclick="">2000</a>)</span>] proposes that humans have three <strong>basic psychological needs</strong> that, when satisfied, fuel intrinsic motivation and well-being:</p>
+<ul>
+<li class="fragment"><strong>Autonomy</strong> — the need to feel volitional and self-directed, to experience choice and psychological freedom in one’s actions</li>
+<li class="fragment"><strong>Competence</strong> — the need to feel effective and capable, to master challenges and experience a sense of growth</li>
+<li class="fragment"><strong>Relatedness</strong> — the need to feel connected to others, to experience belonging, care, and mutual respect</li>
+</ul>
+<aside class="notes">
+<p>SDT distinguishes between different types of motivation along a continuum from <em>extrinsic</em> to <em>intrinsic</em>:</p>
+<ul>
+<li><strong>External regulation</strong> — behavior driven by external rewards or punishments (“I do it because I’ll be paid”)</li>
+<li><strong>Introjected regulation</strong> — behavior driven by internal pressure like guilt or ego (“I do it because I’d feel bad if I didn’t”)</li>
+<li><strong>Identified regulation</strong> — behavior driven by personal importance (“I do it because it matters to me”)</li>
+<li><strong>Intrinsic motivation</strong> — behavior driven by inherent interest and enjoyment (“I do it because I find it fascinating”)</li>
+</ul>
+<p>As motivation moves along this continuum from external to intrinsic, it becomes more autonomous, more sustained, and more associated with well-being and performance. Leaders play a critical role in creating environments that support this internalization process.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="sdt-in-the-workplace" class="title-slide slide level2">
+<h2>SDT in the workplace</h2>
+<div class="medium">
+<p>Why does SDT matter for leaders?</p>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>When needs are satisfied:</strong></p>
+<ul>
+<li>Greater intrinsic motivation</li>
+<li>Higher quality performance</li>
+<li>More creativity and innovation</li>
+<li>Stronger well-being and resilience</li>
+<li>Lower turnover intention</li>
+</ul>
+</div><div class="column" style="width:48%;">
+<p><strong>When needs are thwarted:</strong></p>
+<ul>
+<li>Reliance on external incentives</li>
+<li>Compliance without commitment</li>
+<li>Disengagement and burnout</li>
+<li>Higher absenteeism and turnover</li>
+<li>Resistance to change</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Consider common leadership practices through the SDT lens:</p>
+<ul>
+<li><strong>Micromanagement</strong> thwarts autonomy — when every decision must be approved, followers lose the sense of psychological freedom that fuels intrinsic motivation.</li>
+<li><strong>Unchallenging work</strong> thwarts competence — when tasks are trivial or repetitive, followers cannot experience the mastery that drives engagement.</li>
+<li><strong>Isolation and competition</strong> thwart relatedness — when team members are pitted against each other or work in silos, the sense of belonging erodes.</li>
+</ul>
+<p>Conversely, leaders who delegate meaningful responsibility (autonomy), provide stretch assignments with support (competence), and build genuine team connections (relatedness) create the conditions for sustained high performance.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="from-sdt-to-engaging-leadership" class="title-slide slide level2">
+<h2>From SDT to engaging leadership</h2>
+<p>SDT provides the <strong>motivational logic</strong>; engaging leadership provides the <strong>leadership operationalization</strong>.</p>
+<div class="fragment">
+<div class="medium">
+<p>How do leaders translate SDT’s three needs into concrete behaviors? This is precisely what engaging leadership theory addresses.</p>
+</div>
+</div>
+</section>
+</section>
+<section>
+<section id="engaging-leadership" class="title-slide slide level1 headline-only">
+<h1>Engaging leadership</h1>
+
+</section>
+<section class="slide level3">
+
+<div class="large">
+<blockquote>
+<p>One of the principal responsibilities of leaders is to motivate their followers so that they will perform well. <em><span class="citation" data-cites="schaufeli2021engaging">Schaufeli (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span></em></p>
+</blockquote>
+</div>
+<div class="fragment">
+<div class="html-hidden">
+<p>Engaged employees invest highly in their job because they enjoy it,<br>
+nevertheless they know when to stop <span class="citation" data-cites="schaufeli2021engaging">(<a href="#/literature" role="doc-biblioref" onclick="">Schaufeli, 2021</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="work-engagement" class="title-slide slide level2">
+<h2>Work engagement</h2>
+<div class="fragment">
+<p>Work engagement refers to “a positive, fulfilling, work related state of mind that is characterized by <em>vigor</em>, <em>dedication</em>, and <em>absorption</em>” <span class="citation" data-cites="schaufeli2002measurement">(<a href="#/literature" role="doc-biblioref" onclick="">Schaufeli et al., 2002, p. 74</a>)</span></p>
+<ul>
+<li class="fragment"><strong>Vigor</strong> refers to high levels of energy and mental resilience while working, the willingness to invest effort in one’s work, and persistence even in the face of difficulties.</li>
+<li class="fragment"><strong>Dedication</strong> refers to being strongly involved in one’s work, and experiencing a sense of significance, enthusiasm, inspiration, pride, and challenge.</li>
+<li class="fragment"><strong>Absorption</strong> refers to being fully concentrated and happily engrossed in one’s work, whereby time passes quickly and one has difficulties with detaching oneself from work.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Work engagement differs from <strong>work addiction</strong>. Workaholics are driven by an irresistible inner need to work, and when they don’t, they feel useless, nervous, uneasy, restless and guilty.</p>
+<aside class="notes">
+<p><span class="citation" data-cites="taris2014beauty">Taris et al. (<a href="#/literature" role="doc-biblioref" onclick="">2014</a>)</span> argue that engaged employees have a positive (approach) motivation and workaholics a negative (avoidance) motivation. The former are attracted by work because it is fun, whereas the latter are driven to work in an attempt to avoid the negative thoughts and feelings that are associated with not working.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="effects-of-work-engagement" class="title-slide slide level2">
+<h2>Effects of work engagement</h2>
+<p>Research shows that work engagement is good for employees as well as for the organizations they work for <span class="citation" data-cites="schaufeli2013engagement">(see e.g., <a href="#/literature" role="doc-biblioref" onclick="">W. B. Schaufeli, 2013</a>)</span>.</p>
+<ul>
+<li class="fragment">Engaged employees <strong>suffer less from all kinds of stress complaints</strong> (e.g., depression).</li>
+<li class="fragment">They run a <strong>lower risk of cardiovascular disease</strong> and, hence, they show <strong>lower sickness absenteeism</strong>.</li>
+<li class="fragment">Engaged employees also feel strongly committed to their organization and therefore show <strong>lower turnover intentions</strong>.</li>
+<li class="fragment">They often show a <strong>growth mindset</strong> (e.g., like to learn and develop themselves, take personal initiative, and are innovative).</li>
+<li class="fragment">Engaged employees <strong>perform better</strong> (e.g., make fewer mistakes).</li>
+</ul>
+</section>
+
+<section id="engaging-leadership-1" class="title-slide slide level2">
+<h2>Engaging leadership</h2>
+<p><strong>Engaging leadership</strong> is defined as leadership behavior that facilitates, strengthens, connects and inspires employees in order to increase their work engagement <span class="citation" data-cites="schaufeli2021engaging">(<a href="#/literature" role="doc-biblioref" onclick="">Schaufeli, 2021, p. 4</a>)</span></p>
+<ul>
+<li class="fragment"><strong>Facilitating</strong> team-members satisfies the need for <em>autonomy</em> by giving them the feeling that they are psychologically free to make their own decisions.</li>
+<li class="fragment"><strong>Strengthening</strong> team-members satisfies the need for <em>competence</em>, e.g., by delegating tasks and responsibilities, giving them challenging jobs and stimulating their talents.</li>
+<li class="fragment"><strong>Connecting</strong> team-members satisfies the need for <em>relatedness</em>, e.g., by encouraging collaboration and creating a good team spirit.</li>
+<li class="fragment"><strong>Inspiring</strong> team-members satisfies the need for <em>meaning</em>, e.g., by enthusing them about a particular vision, mission, idea or plan and recognising their personal contribution to the overall goal of the team or organisation.</li>
+</ul>
+<div class="fragment">
+<div class="smaller">
+<p>Engaging leadership builds on the principles of <strong>Self-determination Theory (SDT)</strong> <span class="citation" data-cites="deci2008self">(<a href="#/literature" role="doc-biblioref" onclick="">Deci &amp; Ryan, 2008</a>)</span>, which focuses on three core psychological needs that drive human motivation: autonomy, competence, and relatedness. When these needs are satisfied, people experience greater intrinsic motivation and well-being.</p>
+</div>
+</div>
+</section>
+
+<section id="effects-of-engaging-leadership" class="title-slide slide level2">
+<h2>Effects of engaging leadership</h2>
+<p>Engaging leadership is expected to lead to the satisfaction of <strong>basic psychological needs</strong>.</p>
+<div class="fragment">
+<p>Satisfying basic psychological needs subsequently leads to</p>
+<ul>
+<li class="fragment">strengthened personal <strong>job resources</strong> (e.g., autonomy, task variety, role clarity, social support),</li>
+<li class="fragment">an increased effect of HR policies (e.g., regarding training and education) on well-being,</li>
+<li class="fragment">an increase in <strong>work engagement</strong> of employees,</li>
+<li class="fragment">decrease of <strong>boredom</strong>, and</li>
+<li class="fragment">increase in <strong>individual performance</strong> and <strong>team performance</strong>.</li>
+</ul>
+</div>
+</section>
+
+<section id="disengaging-leadership" class="title-slide slide level2">
+<h2>Disengaging leadership</h2>
+<p>According to <span class="citation" data-cites="schaufeli2021engaging">Schaufeli (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span>, engaging leadership can be contrasted with its opposite <strong>disengaging leadership</strong>.</p>
+<div class="fragment">
+<p>Disengaging leadership is characterized by:</p>
+<div class="html-hidden">
+<div class="large">
+<p><span class="fragment fade-in-then-semi-out">coercive behavior,</span> <span class="fragment fade-in-then-semi-out">eroding behavior,</span> <span class="fragment fade-in-then-semi-out">isolating behavior,</span> <span class="fragment fade-in-then-semi-out">and demotivating behavior.</span></p>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li><strong>Coercive behavior</strong>, which refers to authoritarian behaviour that restricts and controls employees.</li>
+<li><strong>Eroding behavior</strong> that aims to hinder staff members’ professional development and diminish their sense of competence</li>
+<li><strong>Isolating behavior</strong> that disconnects staff from the rest of the team and pits them against each other</li>
+<li><strong>Demotivating behavior</strong> that aims to create the impression that employees’ work is meaningless and that their work does not contribute to anything important.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+<div class="fragment">
+<p>People that exhibit these behaviors thwart the basic needs for autonomy, competence, relatedness, and meaning.</p>
+</div>
+</section>
+
+<section id="discussion-1" class="title-slide slide level2 html-hidden unlisted" data-background-color="black">
+<h2>Discussion</h2>
+<div class="large">
+<p>The digital x disengaging leadership</p>
+</div>
+<ul>
+<li>How might “the digital” promote disengaging leadership, albeit unnoticed?</li>
+<li>How can leaders prevent those they lead from disengaging?</li>
+</ul>
+<aside class="notes">
+<p>Steer the conversation toward examples such as surveillance software that thwarts autonomy, algorithmic task assignment that erodes competence, and remote work isolation that undermines relatedness. Ask students to connect these to the four disengaging behaviors (coercive, eroding, isolating, demotivating) and propose counter-strategies using the engaging leadership framework.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="conclusion" class="title-slide slide level1 headline-only">
+<h1>Conclusion</h1>
+
+</section>
+<section class="slide level3">
+
+<div class="medium">
+<blockquote>
+<p>Leaders, to be effective, engage in behaviors that <span class="link-color">complement</span> subordinate’s environments and abilities in a manner that <span class="link-color">compensates</span> for deficiencies and is instrumental to subordinate <span class="link-color">satisfaction</span> and individual and work unit <span class="link-color">performance.</span> <em><span class="citation" data-cites="house1996path">House (<a href="#/literature" role="doc-biblioref" onclick="">1996, p. 348</a>)</span></em></p>
+</blockquote>
+</div>
+</section>
+<section id="latticework-update" class="title-slide slide level2 no-headline vertical-center">
+<h2>Latticework update</h2>
+<div class="medium">
+<p><strong>New models added to your latticework:</strong></p>
+<ul>
+<li>Intrinsic vs.&nbsp;extrinsic motivation continuum</li>
+<li>Path-goal contingency thinking</li>
+<li>Feedback loops: engagement → performance → engagement</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only">
+<h1>Q&amp;A</h1>
+
+</section>
+
+<section id="homework" class="title-slide slide level1">
+<h1>Homework</h1>
+<p>Read <span class="citation" data-cites="nahapiet1998social">Nahapiet &amp; Ghoshal (<a href="#/literature" role="doc-biblioref" onclick="">1998</a>)</span> and answer following questions:</p>
+<ul>
+<li>What is social capital?</li>
+<li>What advantages does social capital bring?</li>
+<li>How does social capital relate to leadership?</li>
+</ul>
+<aside class="notes">
+<p>This reading prepares you for Unit 7 on stakeholder management and coalition building, where social capital theory becomes the theoretical backbone for understanding how leaders build and leverage networks.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-deci2000what" class="csl-entry" role="listitem">
+Deci, E. L., &amp; Ryan, R. M. (2000). The <span>“what”</span> and <span>“why”</span> of goal pursuits: Human needs and the self-determination of behavior. <em>Psychological Inquiry</em>, <em>11</em>(4), 227–268.
+</div>
+<div id="ref-deci2008self" class="csl-entry" role="listitem">
+Deci, E. L., &amp; Ryan, R. M. (2008). Self-determination theory: A macrotheory of human motivation, development, and health. <em>Canadian Psychology/Psychologie Canadienne</em>, <em>49</em>(3), 182.
+</div>
+<div id="ref-house1996path" class="csl-entry" role="listitem">
+House, R. J. (1996). Path-goal theory of leadership: Lessons, legacy, and a reformulated theory. <em>The Leadership Quarterly</em>, <em>7</em>(3), 323–352.
+</div>
+<div id="ref-nahapiet1998social" class="csl-entry" role="listitem">
+Nahapiet, J., &amp; Ghoshal, S. (1998). Social capital, intellectual capital, and the organizational advantage. <em>Academy of Management Review</em>, <em>23</em>(2), 242–266.
+</div>
+<div id="ref-schaufeli2021engaging" class="csl-entry" role="listitem">
+Schaufeli, W. (2021). Engaging leadership: How to promote work engagement? <em>Frontiers in Psychology</em>, <em>12</em>, 754556.
+</div>
+<div id="ref-schaufeli2013engagement" class="csl-entry" role="listitem">
+Schaufeli, W. B. (2013). What is engagement? In <em>Employee engagement in theory and practice</em> (pp. 29–49). Routledge.
+</div>
+<div id="ref-schaufeli2002measurement" class="csl-entry" role="listitem">
+Schaufeli, W., Salanova, M., Gonzalez-Roma, V., &amp; Bakker, A. (2002). The measurement of engagement and bournot and: A confirmative analytic approach. <em>Journal of Happiness Studies</em>, <em>3</em>(1), 71–92.
+</div>
+<div id="ref-taris2014beauty" class="csl-entry" role="listitem">
+Taris, T., Beek, I. van, &amp; Schaufeli, W. (2014). The beauty versus the beast: On the motives of engaged and workaholic employees. In <em>Heavy work investment</em> (pp. 159–177). Routledge.
+</div>
+<div id="ref-vroom1964work" class="csl-entry" role="listitem">
+Vroom, V. H. (1964). <em>Work and motivation</em>. Wiley.
+</div>
+<div id="ref-winston2006integrative" class="csl-entry" role="listitem">
+Winston, B. E., &amp; Patterson, K. (2006). An integrative definition of leadership. <em>International Journal of Leadership Studies</em>, <em>1</em>(2), 6–66.
+</div>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
