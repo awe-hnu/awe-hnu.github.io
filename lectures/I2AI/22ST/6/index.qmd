@@ -16,7 +16,7 @@ format:
 
 ## Motivation
 
-:::{.incremental}
+:::incremental
 - The agent's knowledge of the world is incomplete (not enough information) or uncertain (sensors are unreliable)
 - The agent must consider every possible explanation for its percepts (no matter how unlikely)
 - Leads to a large belief-state full of unlikely possibilities and arbitrarily large contingent plans
@@ -27,7 +27,7 @@ format:
 
 As an agent has to act in spite of this, __conclusions under uncertainty__ need to be drawn.
 
-:::{.notes}
+:::notes
 :::{.callout-note}
 #### Qualification problem
 
@@ -47,7 +47,7 @@ __Goal:__ Be in Ulm at 8:15 to give a lecture
 
 There are several __plans__ that achieve the goal:
 
-:::{.incremental}
+:::incremental
 - $P_1:$ Get up at 6:00, take the bike, arrive at 7:30, take a shower, ...
 - $P_2:$ Get up at 6:30, take the car at 7:00, arrive at 7:45, ...
 - ...
@@ -99,7 +99,7 @@ What do we learn from that?
 
 ## Learnings 
 
-:::{.incremental}
+:::incremental
 - We cannot enumerate all possible causes (i.e., __laziness__)
 - And even if we could, we do not know how correct the rules are (i.e., __theoretical ignorance__[^2]) 
 - And even if we did there will always be uncertainty about the patient (i.e., __practical ignorance__[^3])
@@ -120,7 +120,7 @@ Let us suppose we wanted to support the localization of a robot with (constant) 
 
 Problem: sensors can be __imprecise__
 
-:::{.incremental}
+:::incremental
 - From the fact that a landmark was perceived, we cannot conclude with certainty that the
 robot is at that location
 - The same is true when no landmark is perceived
@@ -129,7 +129,7 @@ robot is at that location
 
 ## Probability theory
 
-:::{.incremental}
+:::incremental
 - We (and other agents) are convinced by facts and rules only up to a certain degree
 - One possibility for expressing the degree of belief is to use __probabilities__
 - The agent is 90% (or 0.9) convinced by its sensor information   
@@ -145,7 +145,7 @@ robot is at that location
 
 `decision theory = utility theory + probability theory`
 
-:::{.incremental}
+:::incremental
 - We have a choice of actions (or plans)
 - These can lead to different solutions with different probabilities
 - The actions have different (subjective) costs
@@ -162,7 +162,7 @@ It would be rational to choose the action with the __maximum expected utility (M
 
 $P(A)$ denotes the unconditional probability or prior probability that $A$ will appear in the absence of any other information, e.g. $P(Cavity) = 0.1$
 
-:::{.incremental}
+:::incremental
 - Prior probabilities can be obtained from statistical analysis or general rules
 - A __random variable__[^5] can take on some range---the set of possible values (e.g., Numbers, Boolean, arbitary tokens), e.g. $P(Weather=sunny=0.6)$
 - Logical connectors can be used to build __probabilistic propositions__, e.g. $P(Cavity \land \neg Insured) = 0.06$$P(Cavity \land \neg Insured) = 0.06$
@@ -393,7 +393,7 @@ P(Cavity | Toothache) = {} &  \frac{0.04*0.1}{0.05} = 0.8
 \end{align}
 $$
 
-:::{.incremental}
+:::incremental
 - Here only information that quantifies the relationship between *Caviety* and *Toothache* in the __causal direction__ is given, the diagnosis is derived by applying Baye's rule
 - If there is quantative information in the __diagnostic direction__ from symptons to causes, there is no need to use Baye's rule
 - However, causal knowledge is more robust than diagnostic knowledge (imagine, e.g., a cavity epidemic[^7a])
@@ -500,7 +500,7 @@ Since $e$ is known, the factor $1 / P(e)$ is the same for all values of $X$.
 
 In fact, it can be viewed as a __normalization constant__ for the distrubution $P(X|e)$, ensuring that it adds up to 1.
 
-:::{.notes}
+:::notes
 The summation is over all possible $y$s (i.e., all possible combinations of values of the unobserved variables $Y$). Notice that together, the variables $X$, $E$, and $Y$ constitute the complete set of variables for the domain, so $P(X,e,y)$ is simply a subset of probabilities from the full joint distribution.
 :::
 
@@ -614,7 +614,7 @@ $$
 
 # Naive Bayes models {.vertical-center background-color="#0333ff" background-image="images/bg.jpeg"}
 
-:::{.notes}
+:::notes
 The dentistry example illustrates a commonly occuring pattern in which a single cause directly influences a number of effects, all of which are conditionally independent, given the cause. 
 
 The full joint distribution can be written as
@@ -656,7 +656,7 @@ P(Cause|e) = \alpha P(Cause) \prod_j P(e_j|Cause) &&
 \end{flalign}
 $$
 
-:::{.notes}
+:::notes
 Reinterpreting this equation in words: for each possible cause, multiply the prior probability of the cause by the product of the conditional probabilities of the observed effects given the casue; then normalize the result.
 :::
 
@@ -728,14 +728,14 @@ $$
 
 The category with the highest posterior probability is taken.
 
-:::{.notes}
+:::notes
 The naive Bayes model assumes that words occur independently in documents, with frequencies determined by the document category. This independence assumption is clearly violated in practice. For example, the phrase "first quarter" occurs more frequently in business (or sports) articles than would be suggested by multiplying the probabilities of "first" and "quarter." The violation of independence usually means that the final posterior probabilities will be much closer to 1 or 0 than they should be; in other words, the model is overconfident in its predictions. On the other hand, even with these errors, the ranking of the possible categories is often quite accurate.
 Naive Bayes models are widely used for language determination, document retrieval, spam filtering, and other classification tasks. For tasks such as medical diagnosis, where the actual values of the posterior probabilities really matter--for example, in deciding wether to perform an appendoctomy--one would usually prefer to use more sophisticated models such as Bayesian networks [@RusselNorvig2022AIMA, p. 422].
 :::
 
 # Summary {.vertical-center background-color="#0333ff"}
 
-:::{.incremental}
+:::incremental
 - Uncertainty is unavoidable in complex, dynamic worlds in which agents are ignorant.
 - Probabilities express the agent’s inability to reach a definite decision. They summarize the agent’s beliefs.
 - Conditional and unconditional probabilities can be formulated over propositions.

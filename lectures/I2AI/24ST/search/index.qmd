@@ -70,7 +70,7 @@ Here only __simple environments__ are considered *(episodic, single agent, fully
 
 We assume that information about the environment are given (e.g., a map)
 
-:::{.notes}
+:::notes
 There are also search algorithms for problems in *partially observable, nondeterministic, unknown, and continuous environments* (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see @RusselNorvig2022AIMA.
 :::
 
@@ -85,7 +85,7 @@ In simple environments, agents can follow a four-phase-problem-solving process [
 4. __Execution:__ the agent executes the actions in the solution, one at a time 
 :::
 
-:::{.notes}
+:::notes
 :::{.callout-note}
 ### Problem formulation must follow goal formulation
 In goal formulation, we decide which aspects of the world we are interested in, and which can be ignored or abstracted away. Then in problem formulation we decide how to manipulate the important aspects (and ignore the others). If we did problem formulation first we would not know what to include and what to leave out.
@@ -541,7 +541,7 @@ Given a state-space search tree, each node's __minimax value__ is calculated.
 :::{.fragment}
 The minimax value is the best achievable utility of being in a given sate (against a rational adversary).
 
-:::{.incremental}
+:::incremental
 - `MAX` prefers to move to a state of maximum value  
 - `MIN` prefers to move to a state of minimum value  
 :::
@@ -560,7 +560,7 @@ The △ nodes are "*MAX* nodes", in which it is *MAX's* turn to move; the ▽ no
 
 The __minimax algorithm__ performs a complete depth-first exploration of the game tree [@RusselNorvig2022AIMA, p.196-196].
 
-:::{.incremental}
+:::incremental
 - Assumes that the adversary plays optimal
 - Returns action whose terminal state has the optimal $\textrm{MINIMAX}$ value
   - If the state is a terminal state ($\textrm{IS-TERMINAL}(s) = true$):  
@@ -572,7 +572,7 @@ The __minimax algorithm__ performs a complete depth-first exploration of the gam
 The exponential complexity makes the miminmax algorithm impractical for complex games (even with alpha-beta pruning applied; chess game tree size > atoms in the universe).
 :::
 
-:::{.notes}
+:::notes
 
 :::{.callout-note}
 ### Pruning to reduce computing complexity [@RusselNorvig2022AIMA, p.198-199].
@@ -653,7 +653,7 @@ What should the **selection process** look like?
 :::{.fragment}
 @fig-mcts-selection shows a tree with the root representing a state where `P-A` has won 37/100 playouts done
 
-:::{.incremental}
+:::incremental
 - `P-A` has just moved to the root node
 - `P-B` selects a move to a node where it has won 60/79 playouts; this is the best win percentage among the available moves
 - `P-A` will select a move to a node where it has won 16/53 playouts (assuming it plays optimally)
@@ -665,7 +665,7 @@ What should the **selection process** look like?
 :::
 :::
 
-:::{.notes}
+:::notes
 It would also have been reasonable to select the 2/11 node for the sake of exploration—with only 11 playouts, the node still has high uncertainty in its valuation, and might end up being the best option if more information about it is gained. So it makes sense to use a selection policy that balances exploitation and exploration.
 :::
 
@@ -679,7 +679,7 @@ $$
 \textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 $$
 
-:::{.incremental}
+:::incremental
 - $\textrm{U}(n)$ is the total utility of all playouts that went through node $n$
 - $\textrm{N}(n)$ is the number of playouts through node $n$
 - $\textrm{PARENT}(n)$ is the parent node of $n$ in the tree
@@ -691,7 +691,7 @@ $$
 :::
 
 
-:::{.notes}
+:::notes
 
 With $C=1.4$, the 60/79 node in @fig-mcts-selection has the highest UCB1 score, but with $C=1.5$, it would be the 2/11 node.
 
@@ -720,7 +720,7 @@ The conventional wisdom has been that Monte Carlo search has an advantage over h
 :::{.fragment}
 A playout for the newly generated child node is performed *(simulation)*.
 
-:::{.incremental}
+:::incremental
 - Moves for both players according the playout policy[^7] are chosen
 - The moves are not recorded in the search tree
 - In @fig-mcts-expansion, the simulation results in a win for `P-B`
@@ -744,7 +744,7 @@ A playout for the newly generated child node is performed *(simulation)*.
 :::{.fragment}
 The result of the simulation is used to update all the search tree nodes going up to the root.
 
-:::{.incremental}
+:::incremental
 - `P-B's` nodes are incremented in both the number of wins and the number of playouts
 - `P-A's` nodes are incremented in the number of playouts only
 :::
@@ -759,7 +759,7 @@ The result of the simulation is used to update all the search tree nodes going u
 
 Search operates over models of the world (which might be observed *online*)
 
-:::{.incremental}
+:::incremental
 - Agents do not try all possible plans
 - Planning is all "in simulation"
 - Search is only as good as the models are
@@ -767,7 +767,7 @@ Search operates over models of the world (which might be observed *online*)
 
 ## Adversarial search
 
-:::{.incremental}
+:::incremental
 - In two-player, discrete, deterministic, turn-taking zero-sum games with perfect information, the __minimax algorithm__ can select optimal moves by a depth-first search in the game tree
 - Efficiency can be improved by using the __alpha-beta__ search algorithm, which eliminates subtrees that are shown to be irrelevant.
 - __Monte Carlo tree search__ evaluates states by playing out the game all the way to the end to see who won. This playout __simulation__ is repeated multiple times. The evaluation is an average of the results.

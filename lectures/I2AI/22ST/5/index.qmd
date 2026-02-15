@@ -18,7 +18,7 @@ format:
 
 The problem-solving agents based on __search algorithms__ know things, but only in a very limited, inflexible sense [@RusselNorvig2022AIMA, p. 226]:
 
-:::{.incremental}
+:::incremental
 - They know what actions are available ($ACTIONS(s)$) and what the result of performing a specific action from a speciic state will be ($RESULT(s,a)$). But they __don't know general facts__.
 - Using __atomic representations__, representing knowledge about the environment (i.e., the state space) requires to list all possible concrete states
 - The goal can formally only be described as an __explicit set of states__
@@ -32,7 +32,7 @@ Until now, the focus has been on agents that act rationally. Often, however, rat
 
 To this end, relevant aspects of the environment must be represented in a __knowledge base__ (KB), composed of __sentences__ in knowledge reprensentation language (e.g., logic)
 
-:::{.incremental}
+:::incremental
 - Each sentence represents some assertion about the world (__semantics__)
 - The sentences themselves have a causal influence on the agent’s behaviour in a way that is correlated with the contents of the sentences (__syntax__)
 - Interaction with the KB through $ASK$ and $TELL$ operations (simplified)
@@ -40,7 +40,7 @@ To this end, relevant aspects of the environment must be represented in a __know
   - $TELL$: tells the knowledge base what it perceives
 :::
 
-:::{.notes}
+:::notes
 :::{.callout-note}
 ### Types of sentences
 
@@ -64,7 +64,7 @@ system knows that a trip from Ulm to Stuttgart costs EUR 25.
 
 ![A simplified illustration of a knowledge-based agent](images/knowledgeBasedAgents.svg){#fig-kba}
 
-:::{.notes}
+:::notes
 A knowledge-based agent uses its knowledge base to
 
 - represent its background knowledge,
@@ -81,7 +81,7 @@ The example is taken from @RusselNorvig2022AIMA
 
 The __wumpus world__ is an environment in which knowledge-based agents can show their worth.
 
-:::{.incremental}
+:::incremental
 - A cave consisting of rooms connected by passageways
 - Wumpus is in one room, it eats anyone who enters its room
 - The wumpus can be shut by an agent, but the agent only has one arrow
@@ -131,7 +131,7 @@ The __wumpus world__ is an environment in which knowledge-based agents can show 
 Percepts are represented as a 5-tuple, e.g.,  
 $[Stench, Breeze, Glitter, None, None]$
 
-:::{.notes}
+:::notes
 The PEAS can be characterized as *deterministic, discrete, static, and single-agent*
 ::::
 
@@ -144,7 +144,7 @@ The PEAS can be characterized as *deterministic, discrete, static, and single-ag
 :::{.column}
 A typical wumpus world
 
-:::{.incremental}
+:::incremental
 - The agent is in the bottom left corner $[1,1]$, facing east (rightward)
 - There are three pits in the world ($[4,4]$,$[3,3]$, and $[3,1]$)
 - Wumpus is in room $[1,3]$
@@ -157,7 +157,7 @@ A typical wumpus world
 
 ![Moving from [1,1] to [2,1]](images/ww-1.svg){#fig-ww-1}
 
-:::{.notes}
+:::notes
 - __Left:__ The initial situation after percept $[None,None,None,None,None]$
 - __Right:__ After moving to $[2,1]$ and perceiving $[None,Breeze,None,None,None]$
 :::
@@ -168,7 +168,7 @@ The wumpus is in [1,3].
 
 ![Moving from [1,1] to [2,1]](images/ww-2.svg){#fig-ww-2}
 
-:::{.notes}
+:::notes
 - __Left:__ After moving to $[1,1]$ and then $[1,2]$, and perceiving  $[Stench,None,None,None,None]$
 - __Right:__ After moving to $[2,2]$ and then $[2,3]$, and perceiving  $[Stench,Breeze,Glitter,None,None]$
 :::
@@ -196,7 +196,7 @@ The logical connectives `and` ($\land$), `or` ($\lor$), `not` ($\neg$), `implies
 
 Operator precedence: $\neg, \land, \lor, \implies, \iff$ (use brackets when necessary)
 
-:::{.notes}
+:::notes
 
 ### Logical connectives
 
@@ -257,7 +257,7 @@ The truth of a formula follows from the truth of its atomic propositions (__trut
 
 Examples:
 
-:::{.incremental}
+:::incremental
 - $(P \lor Q) \land R$
   - If P and Q are false and R is true, the formula is false
   - If P and R are true, the formula is true regardless of what Q is
@@ -272,7 +272,7 @@ Examples:
 
 If we focus on the immutable aspects of the wumpus world, we need the following symbols for each $[x,y]$ location
 
-:::{.incremental}
+:::incremental
 - $P_{x,y}$ is true if there is a pit in $[x,y]$
 - $W_{x,y}$ is true if there is a wumpus in $[x,y]$, dead or alive
 - $B_{x,y}$ is true if there is a breeze in $[x,y]$
@@ -286,7 +286,7 @@ If we focus on the immutable aspects of the wumpus world, we need the following 
 
 Following sentences[^1] will suffice to derive $\neg P_{1,2}$ (there is no pit in *[1,2])*:
 
-:::{.incremental}
+:::incremental
 - $R_1: \neg P_{1,1}$
 - $R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})$
 - $R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})$
@@ -313,7 +313,7 @@ __Model checking__ enumerates all possible models to check that $\alpha$ is true
 
 Example (the agent has just moved to $[2,1]$):
 
-:::{.incremental}
+:::incremental
 - Given current proposition symbols there are 2<sup>7</sup> = 128 possible models[^2.1]
 - In three of these models $R_1$ through $R_5$ are true (the current KB)
 - In all of these three rows, $P_{1,2}$ is false
@@ -344,7 +344,7 @@ For large number of models and short length of proofs, theorem proving __can be 
 
 Some additional concepts are needed to plug into the details:
 
-:::{.incremental}
+:::incremental
 - __Logical equivalence:__ two sentences $\alpha$ and $\beta$ are logically equivalent if they are true in the same set of models[^5] ($\alpha \equiv \beta$ [^4])
 - __Validity:__ a sentence is valid if it is true in *all* models (e.g., $P \lor \neg P$)[^6]
 - __Deduction theorem:__ *for any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid.* [^7]
@@ -382,7 +382,7 @@ The symbols $\alpha$, $\beta$, and $\gamma$ stand for arbitrary sentences of pro
 
 Following __inference rules__[^10] can be used in any particular instances where they apply, generating sound inferences without the need for enumerating models:
 
-:::{.incremental}
+:::incremental
 - __Modus Ponens[^11]:__ $\frac{\alpha \implies \beta, \ \alpha}{\beta}$   
   The sentence $\beta$ can be inferred, whenever sentences of the form $\alpha \implies \beta$ and $\alpha$ are given
 - __And-Elimination__: $\frac{\alpha \land \beta}{\beta}$
@@ -400,7 +400,7 @@ All __logical equivalences__ can be used as inference rules
 
 We start with the knowledge base containing $R_1$ throught $R_5$ and show to prove $\neg P_{1,2}$
 
-:::{.incremental}
+:::incremental
 1. Apply biconditional elimination to $R_2$ to obtain [^r6]  
    $R_6  :  (B_{1,1} \implies (P_{1,2} \lor P_{2,1})) \land ((P_{1,2} \lor P_{2,1}) \implies B_{1,1})$
 2. Apply And-Elimination to $R_6$ to obtain [^r7]  
@@ -450,7 +450,7 @@ Search algorithms can be used to find a sequence of steps that constitutes a pro
 
 The proof problem is defined as follows:
 
-:::{.incremental}
+:::incremental
 - __Initial state:__ the initial knowledge database
 - __Actions:__ all the inference rules applied to all the sentences that match the upper half of the inference rule
 - __Result:__ add the sentence in the lower half of the inference rule to the knowledge base
@@ -459,7 +459,7 @@ The proof problem is defined as follows:
 
 # Open topics
 
-:::{.incremental}
+:::incremental
 - __Completeness__ (if the available inference rules are inadequate, the goal is not reachable)
 - Level of __complexity__ (though propositional logic suffices to represent the wumpus world), e.g.,
   - Rules must be set up for __each square__
@@ -476,7 +476,7 @@ For further information on these and other matters, please see @RusselNorvig2022
 
 ## Summary
 
-:::{.incremental}
+:::incremental
 - Rational agents require __knowledge of their world__ to make rational decisions
 - With the help of a (knowledge) __representation language__, this knowledge is represented and stored in a __knowledge base__ in the form of __sentences__
 - A representation language is defined by its __syntax[^12]__ and its __semantics[^13]__

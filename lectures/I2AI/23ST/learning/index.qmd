@@ -36,7 +36,7 @@ No intelligence without learning?
 
 A learning agent
 
-:::{.incremental}
+:::incremental
 - uses so-called __machine learning__ (ML), if it is a computer;
 - improves performance based on experience (i.e., observations of the world);
 - is required when the designer lacks omniscience (i.e., in unknown environments) and/or
@@ -45,7 +45,7 @@ A learning agent
 
 # The learning agent {.vertical-center background-color="#564ac6" background-image="../assets/bg.jpeg"}
 
-:::{.notes}
+:::notes
 So far an agent’s percepts have only served to help the agent choose its actions. Now they will also serve to improve future behavior.
 :::
 
@@ -89,7 +89,7 @@ The __performance elements__ of the agent designs described in chapter [Intellig
 
 The design of the learning element is influenced by four important aspects:
 
-:::{.incremental}
+:::incremental
 - Which __component__ of the performance element is to be improved?
 - What __representation__ should be chosen (i.e., what model)?
 - What __prior information__ is available (i.e., prior knowledge that influences the model)?
@@ -103,7 +103,7 @@ of the learning problem.
 
 . . .
 
-:::{.incremental}
+:::incremental
 - __Supervised learning:__ Involves learning a function from examples of its inputs and outputs *➞ correct answer for each training instance*
 - __Unsupervised learning:__ The agent has to learn patterns in the input when no specific output values are given *➞ reward sequence, no correct answers*
 - __Reinforcement learning:__ The most general form of learning in which the agent is not told what to do by a teacher. Rather, it must learn from reinforcements (punishments or rewards). It typically involves learning how the environment works *➞ "just make sense of the data"*
@@ -140,7 +140,7 @@ Thus, any hypothesis that is consistent with a sufficiently large set of trainin
 
 The task of learning is to find good hypotheses about the world.
 
-:::{.incremental}
+:::incremental
 - An __example__ is a pair $(x, f(x))$ (input and output)
 - The complete set of examples is called the __training set__ (supervised learning)
 - __Pure inductive inference:__ for a collection of examples for $f$ (the __target function__), return a function $h$ (hypothesis) that approximates $f$
@@ -199,7 +199,7 @@ In __Boolean decision trees__, the input is a set of vector of input attributes 
 
 __Learning process__: Definition of the goal predicate in the form of a decision tree.
 
-:::{.incremental}
+:::incremental
 - An internal node of the decision tree represents a test of a property
 - Branches are labeled with the possible values of the test
 - Each leaf node specifies the Boolean value to be returned if that leaf is reached
@@ -225,7 +225,7 @@ Any function in propositional logic can be represented by a decision tree by tra
 
 This can lead to a tree whose size is __exponential__ in the number of attributes.
 
-:::{.notes}
+:::notes
 :::{.callout-note}
 ### Digression: hypothesis spaces
 
@@ -246,7 +246,7 @@ $3^n$ distinct conjunctive hypotheses
 
 Although decision trees can represent functions with smaller trees, there are functions that require an exponentially large decision tree, e.g.
 
-:::{.incremental}
+:::incremental
 - __Majority function__, which returns true if more than half of the inputs are true
 - __Parity function__, which returns true if and only if an even number of inputs are true
 - $y > A_1 + A_2$ with real-valued attributes [^1]
@@ -271,7 +271,7 @@ The output ($y$) is a Boolean variable **WillWait**
 The input ($x$) is a vector of ten attributes values (discrete values):
 
 :::{.smaller}
-:::{.incremental}
+:::incremental
 - **Alternate** -- Is there an alternative? (T/F)
 - **Bar** -- Does the restaurant have a bar to wait in? (T/F)
 - **Fri** -- Is it Friday or Saturday? (T/F)
@@ -319,7 +319,7 @@ The input ($x$) is a vector of ten attributes values (discrete values):
 
 To get a __naive solution__, we simply construct a tree with one path to a leaf for each example.
 
-:::{.incremental}
+:::incremental
 - We test all the attributes along the path and attach the classification of the example to the leaf
 - Whereas the resulting tree will correctly classify all given examples, it will not say much about other cases
 - It just memorizes the observations and __does not generalize__
@@ -329,7 +329,7 @@ To get a __naive solution__, we simply construct a tree with one path to a leaf 
 
 How to find a tree that is __consistent with the training set__ (@tbl-res-ts), yet __as small as possible__?
 
-:::{.incremental}
+:::incremental
 - It is __intractable__ to find a guaranteed smallest consistent tree.
 - However, with some simple heuristics, we can efficiently find one that is __close to the smallest__ (i.e., "smallish" tree).
 - __Decision tree learning__ adopts a greedy divide-and-conquer strategy.
@@ -339,7 +339,7 @@ How to find a tree that is __consistent with the training set__ (@tbl-res-ts), y
 
 Always use the __most important attribute__ first, then recursively solve the smaller subproblems
 
-:::{.incremental}
+:::incremental
 - The "most important attribute" is the one that makes the most difference[^2]
 - Split the training set into subsets each corresponding to a particular value of that attribute
 - Now that we have divided the training set into several smaller training sets, we can recursively apply this process to the smaller training sets
@@ -359,7 +359,7 @@ That way, we hope to get to the __correct classification__ with a __small number
 
 In each recursive step there are four cases to consider:
 
-:::{.incremental}
+:::incremental
 - Positive and negative examples: choose a __new attribute__
 - __Common outcome__ (only positive or only negative examples): done (answer is *Yes* or *No*).
 - __No examples:__ there was no example with the desired property. Answer *Yes* if the majority of the parent
@@ -373,7 +373,7 @@ node’s examples is positive, otherwise *No*.
 
 Properties of the learning outcome:
 
-:::{.incremental}
+:::incremental
 - The resulting tree is __considerably simpler__ than the one originally given (and from which the
 training examples were generated)
 - The learning algorithm outputs a tree that is __consistent__ with all examples it has seen
@@ -388,7 +388,7 @@ not hungry. If we are, there are cases in which it tells us to wait.
 
 To assess the power of the prediction, the following method can be applied:
 
-:::{.incremental}
+:::incremental
 - Collect a large number of examples
 - Divide it into two disjoint sets: the __training set__ and the __test set__
 - Use the training set to generate $h$
@@ -404,7 +404,7 @@ As the training set grows, the prediction quality increases
 
 Pruning reduces the size of decision trees by removing sections of the tree that are non-critical and redundant to classify instances. 
 
-:::{.incremental}
+:::incremental
 - Pruning reduces the complexity of the final hypothesis (tree size) and reduces overfitting[^4]
 - Predictive accuracy as measured by a cross-validation set[^5]
 - One of the simplest forms of pruning is __reduced error pruning__:
@@ -418,7 +418,7 @@ Pruning reduces the size of decision trees by removing sections of the tree that
 
 ## Summary
 
-:::{.incremental}
+:::incremental
 - Decision trees are one possibility for __representing (Boolean) functions__
 - They __can be exponential__ in the number of attributes
 - It is often too difficult to find the minimal decision tree
@@ -479,7 +479,7 @@ $$
 
 Suppose there are five kinds of bags of candies:
 
-:::{.incremental}
+:::incremental
 - 10% are $h_1$ : 100% *cherry* candies
 - 20% are $h_2$ : 75% *cherry* and 25% *lime* candies
 - 40% are $h_3$ : 50% *cherry* and 50% *lime* candies
@@ -557,7 +557,7 @@ $$
 
 The Bayesian prediction __eventually agrees with the true hypothesis__
 
-:::{.incremental}
+:::incremental
 - For any fixed prior that does not rule out the true hypothesis, the posterior of any false hypothesis will eventually vanish
 - The Bayesian prediction is __optimal__ and, given the hypothesis prior, any other prediction will be correct less often
 :::
@@ -619,7 +619,7 @@ As more data arrive, MAP and Bayesian predictions become closer
 
 ## Summary
 
-:::{.incremental}
+:::incremental
 - Bayesian learning techniques formulate learning as a form of __probabilistic inference__
 - __Full Bayesian learning__ gives best possible predictions but is intractable
 - __Maximum a posterior__ learning selects the most likely hypothesis given the data (balancing complexity with accuracy on training data)
@@ -656,7 +656,7 @@ The key aspect of deep learning is that the levels of representations (i.e., lay
 
 Example: object detection in images
 
-:::{.incremental}
+:::incremental
 - An image comes in the form of an array of pixel values (raw input; input layer)
 - The first layer of representation typically represent the presence or absence of edges at particular orientations and locations in the image (hidden layer 1)
 - The second layer typically detects motifs by spotting particular arrangements of edges, regardless of small variations in the edge positions (hidden layer 2)
@@ -678,7 +678,7 @@ Deep learning methods can __discover intricate structures in high-dimensional da
 
 Using this capability, deep learning is making major advances in solving problems that could not have been solved before (@lecun2015deep), e.g., 
 
-:::{.incremental}
+:::incremental
 - image and speech recognition,
 - analysing particle accelerator data,
 - reconstructing brain circuits,
@@ -700,7 +700,7 @@ The role of the ConvNet is to __reduce the arrays__ into a form which is easier 
 
 A ConvNet is structured as a series of stages, which are composed of two types of layers: __convolutional layers__ and __pooling layers__.
 
-:::{.incremental}
+:::incremental
 - The __convolution layer__: extraction of the high-level features from the input (by applying convolutional operations/filters)
 - The __pooling layer__: reduction of the spatial size of the convoled feature to decrease the computational power required to process the data through dimensionality reduction.
 :::
@@ -719,7 +719,7 @@ We are still in the early stages of defining a methodology for machine learning 
 
 @RusselNorvig2022AIMA [p. 722ff] propose a process that involves following typical steps
 
-:::{.incremental}
+:::incremental
 - Problem formulation
 - Data collection, assessment, and management
 - Model selection and training
@@ -731,7 +731,7 @@ We are still in the early stages of defining a methodology for machine learning 
 
 Figuring out what problem you want to solve compromises three parts:
 
-:::{.incremental}
+:::incremental
 1. __Problem:__ What problem do I solve for my users?  
    ➞ Find an objective that you can track and that relates to your "true goals"
 2. __Suitability:__ What parts of the problem(s) can be solved by ML?   
@@ -760,7 +760,7 @@ Maintain a __data provenance__ for all data (i.e., for each columns of your data
 
 When data are limited, __data augmentation__ can help (i.e., creating multiple versions of each image by rotating, translating, cropping, or scaling each image, or by changing brightness or color balancing or adding noise)
 
-:::{.notes}
+:::notes
 :::{.callout-note}
 ### Helpful questions
 Questions to be asked are 
@@ -784,7 +784,7 @@ Questions to be asked are
 
 After correcting overt errors, the data should be preprocessed so that they can be handled more easily
 
-:::{.incremental}
+:::incremental
 - __Quantization:__ forcing a continuous valued input into fixed bins (e.g., waiting time in 0-10, 10-30, 30-60, or >60 minutes)
 - __Normalization data:__ transforming data so that it has a standard deviation of 1
 - __Separating categorical attributes:__ transform the data into separate Boolean attributes, where exactly one of it is true
@@ -806,7 +806,7 @@ Before starting with building a model, you might start with getting an __intuiti
 
 There is no guaranteed way to pick the __best model class__, but there are some rough guidelines:
 
-:::{.incremental}
+:::incremental
 - __Random forests__ are good then there are a lot of categorical features, where many of these may be irrelevant
 - __Nonparametric methods__ are good when having a lot of data and no prior model
 - __Logistic regression__ does well when the data are linearly separable (or can be converted to be so)
@@ -820,7 +820,7 @@ Do what worked well in similar past problems—and search: run experiments with 
 
 Doing well with test data is a necessary but not sufficient condition for __trust__ in the model (by you and your stakeholders), it also requires
 
-:::{.incremental}
+:::incremental
 - __Verification and validation:__ you test on the training, validation, and datasets, do code reviews, monitoring, and set measures for accountability  
   ➞ Do the best to ensure that the system will not be wrong and, for the case, set responsibilities
 - __Interpretability:__ you understand how answers relate to inputs 
@@ -835,12 +835,12 @@ Doing well with test data is a necessary but not sufficient condition for __trus
 
 After the model is deployed to the users, additional challenges will arise
 
-:::{.incremental} 
+:::incremental 
 - __Long tail of user inputs:__ you might see inputs that were never tested before and you need to know whether your model generalizes well for them (i.e., you need to monitor the performance)
 - __Nonstationarity:__ the world changes over time (e.g., spammers adapt their tactics); you need to consider how often to adapt the model (i.e., find a tradeoff between a well tested model and a model that is built from the latest data)
 :::
 
-:::{.notes}
+:::notes
 :::{.callout-note}
 ### A set of criteria to see how well you are doing at deploying ML models
 
