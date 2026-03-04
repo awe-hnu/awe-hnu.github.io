@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Implementierung (E9) – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"de-DE"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+<!-- Countdown Global CSS -->
+<style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+
+
+<meta property="og:title" content="Implementierung (E9) – awe.lectures">
+<meta property="og:description" content="Wie entstehen Informationssysteme?">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/DE1/25WT/implementierung/images/lifecycle.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Implementierung (E9)</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Implementierung (E9)</h1>
+            <p class="subtitle lead">Wie entstehen Informationssysteme?</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor:in</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">15.08.2025</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Geändert</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">16.02.2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=22065" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://exam.hnu.de/course/view.php?id=862" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle (Prüfungen)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administratives 🧐</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Skript</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/einfuehrung/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einführung (E1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/digitalisierung/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Digitalisierung (E2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/technologie/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technologie (E3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/informationssysteme/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informationssysteme (E4)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/prozesse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prozesse (E5)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/integration/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integration (E6)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/anwendungssysteme/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Anwendungssysteme (E7)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/scale-up/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scale-Up (E8)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/implementierung/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Implementierung (E9)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/it-management/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IT-Management (E10)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/geschaeftsmodelle/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Geschäftsmodelle (E11)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prüfungsleistungen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/praesentation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kurzpräsentation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="assets/big-picture.pdf" class="btn btn-light" target="blank">Big Picture</a> <a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Auf dieser Seite</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#lernergebnisse" id="toc-lernergebnisse" class="nav-link" data-scroll-target="#lernergebnisse">Lernergebnisse 🎯</a></li>
+  <li><a href="#einleitung" id="toc-einleitung" class="nav-link" data-scroll-target="#einleitung">Einleitung</a></li>
+  <li><a href="#anforderungsmanagement" id="toc-anforderungsmanagement" class="nav-link" data-scroll-target="#anforderungsmanagement">Anforderungsmanagement</a></li>
+  <li><a href="#software-entwicklung" id="toc-software-entwicklung" class="nav-link" data-scroll-target="#software-entwicklung">Software-Entwicklung</a></li>
+  <li><a href="#software-einführung" id="toc-software-einführung" class="nav-link" data-scroll-target="#software-einführung">Software-Einführung</a></li>
+  <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen ✏️</a></li>
+  <li><a href="#lernkontrolle" id="toc-lernkontrolle" class="nav-link" data-scroll-target="#lernkontrolle">Lernkontrolle 🧐</a></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur">Literatur 📚</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="motivation" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Motivation</h1>
+<blockquote class="blockquote">
+<p>We‘ve minimized the economic impact of the defects of the system via an advanced business process called ‘hoping nobody notices’. <em>Dilbert, merican comic strip written and illustrated by Scott Adams</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>As a rule, software systems do not work well until they have been used, and have failed repeatedly, in real applications. <em>David Parnas, early pioneer of software engineering and professor of computer science</em></p>
+</blockquote>
+<div class="notes">
+<p>Der Nutzen von Anwendungssystemen zeigt sich nicht auf dem Papier, sondern erst in der Praxis, nämlich dann wenn Sie Teil eines betrieblichen Informationssystem werden. Um den Nutzen zu maximieren, müssen die richtigen Anwenundungssysteme ausgewählt oder entwickelt, an die Geschäftsprozesse angepasst (oder vice versa) und von den Mitarbeitenen genutzt werden. Welche Möglichkeiten zur Implementierung zur Verfügung stehen und was es zu beachten gilt ist Thema dieses Kapitels.</p>
+</div>
+</section>
+<section id="lernergebnisse" class="level1">
+<h1>Lernergebnisse 🎯</h1>
+<p>Nach dieser Einheit</p>
+<div class="incremental">
+<ul class="incremental">
+<li>verstehen Sie, weshalb <strong>Modelle</strong> für die Entwicklung und Anpassung von Anwendungssystemen notwendig sind,</li>
+<li>können Sie den <strong>Anwendungslebenszyklus</strong> beschreiben,</li>
+<li>kennen Sie erste <strong>Herausforderungen in der fachlichen Konzeption</strong> von Anwendungssystemen sowie Ansätze zum Umgang mit diesen,</li>
+<li>verstehen Sie <strong>Grundsätze der linearen Phasen-basierten sowie der agilen Methoden</strong> zur Entwicklung von Individualsoftware erläutern und</li>
+<li>können Sie <strong>den Auswahl- und Einführungsprozess von Standardsoftware</strong> beschreiben</li>
+</ul>
+</div>
+</section>
+<section id="einleitung" class="level1">
+<h1>Einleitung</h1>
+<p>Für viele Bereiche sind Anwendungen am Markt erhältlich, mit der die fachlichen Anforderungen vieler Unternehmen abgedeckt werden können — sogenannte <strong>Standardsoftware</strong> <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<p>Sind die Anforderungen des Unternehmens sehr spezifisch, so muss die Standardsoftware <strong>modifiziert</strong> bzw. erweitert werden.</p>
+<p>Ist das nicht möglich, ist die Entwicklung eines unternehmensspezifischen Anwendungssystems erforderlich — sogenannte <strong>Individualsoftware</strong> <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>Vor- und Nachteile von Standard- und Individualsoftware
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Einführung und Betrieb von Standardsoftware sind in der Regel mit <strong>weniger Risiken</strong> verbunden:</p>
+<ul>
+<li>Niedrigere und besser kalkulierbare Kosten und höhere Investitionssicherheit</li>
+<li>Möglichkeiten zur Evaluierung vor Einführung</li>
+<li>Höhere Qualität (Reife, Stabilität und Skalierbarkeit, Standardkonformität)</li>
+<li>Abbildung von Best-Practice Prozessen</li>
+</ul>
+<p>Auf der anderen Seite kann Individualsoftware besser auf die Unternehmensbelange zugeschnitten werden. So können bspw. spezifische Prozesse, die eine Basis für Wettbewerbsvorteile darstellen, unterstützt werden.</p>
+</div>
+</div>
+</div>
+<section id="anwendungslebenszyklus" class="level2">
+<h2 data-anchor-id="anwendungslebenszyklus">Anwendungslebenszyklus</h2>
+<p>Der Lebenszyklus von betrieblichen Anwendungssystemen überspannt den Zeitraum zwischen der ursprünglichen Idee über die Entwicklung und Einführung, sowie die Wartung und evtl. Weiterentwicklung bis hin zur Ablösung <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar, 2015</a>)</span>.</p>
+<p>Angesichts der relativ langen Lebensdauer von betrieblichen Anwendungen muss der Lebenszyklus systematisch gesteuert werden.</p>
+<p>Der Anwendungslebenszyklus wird im Allgemeinen in sechs Phasen unterteilt: <em>Entwicklung</em>, <em>Einführung</em>, <em>Wachstum</em>,<em>Sättigung/Reife</em>, <em>Rückgang</em> und <em>Abschaffung</em> <span class="citation" data-cites="heinrich2005informationsmanagement">(<a href="#ref-heinrich2005informationsmanagement" role="doc-biblioref">Heinrich &amp; Lehner, 2005</a>)</span>.</p>
+</section>
+<section id="visualisierung" class="level2">
+<h2 data-anchor-id="visualisierung">Visualisierung</h2>
+<div id="fig-lifecycle" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lifecycle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/lifecycle.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lifecycle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;1: Modell des Anwendungslebenszyklus in Anlehnung an <span class="citation" data-cites="heinrich2005informationsmanagement">Heinrich &amp; Lehner (<a href="#ref-heinrich2005informationsmanagement" role="doc-biblioref">2005, S. 237</a>)</span>
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="krcmar2015informationsmanagement">Krcmar (<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">2015, S. 65–66</a>)</span> beschreibt die Phasen des Lebenszyklus wie folgt:</p>
+<ul>
+<li><strong>Entwicklung</strong>: In der Phase der Entwicklung werden die Schritte der Ideenfindung und verwirklichung, beispielsweise im Rahmen eines Software-Entwicklungsprojekts oder -Auswahl und Beschaffungsprojekts, durchlaufen. Hier fallen während des Lebenszyklus die höchsten Systemkosten an.</li>
+<li><strong>Einführung</strong>: Wird eine freiwillige Nutzung unterstellt, ist diese im Idealfall zunehmend. Die Nutzungsintensität wird auch vom Auftreten und Beseitigen von Fehlern während der Installationstests und zu Beginn des produktiven Betriebs bestimmt.</li>
+<li><strong>Wachstum</strong>: In dieser Phase sind alle Tests abgeschlossen und alle während der Einführung aufgetretenen Fehler beseitigt. Alle Funktionen der Anwendung können produktiv genutzt werden. Es kommt idealerweise zu einem weiteren Anstieg der Nutzung, sofern es sich nicht um eine Anwendung mit beschränktem Benutzerkreis handelt.</li>
+<li><strong>Sättigung/Reife</strong>: In dieser Phase erreicht die Nutzung ihren Höhepunkt. Bisherige Nutzer können keine weiteren Nutzungsmöglichkeiten entdecken und weitere Nutzer kommen nicht mehr hinzu. Ein Nutzungsrückgang kann dadurch verursacht werden, dass das System nicht mehr dem Stand der Technik entspricht, mit anderen, zeitlich nachgelagert eingeführten, Systemen konkurriert oder die Menge und Bedeutung der unterstützten Aufgaben zurückgeht.</li>
+<li><strong>Rückgang</strong>: Der in der Phase Sättigung/Reife einsetzende Nutzungsrückgang setzt sich fort.</li>
+<li><strong>Abschaffung</strong>: In dieser Phase wird die Entscheidung getroffen, zu welchem Zeitpunkt ein System abgeschafft oder durch ein neues System abgelöst wird. Über den Zeitpunkt der Nutzung hinaus kann das auslaufende System noch Umstellungskosten oder auch remanente Lizenzkosten verursachen.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="anforderungsmanagement" class="level1">
+<h1>Anforderungsmanagement</h1>
+<p>Vor der Auswahl einer Standardsoftware bzw. der Entwicklung einer Individualsoftware sowie deren Einführung eines Systems müssen die <strong>Anforderungen unternehmensspezifisch erhoben werden</strong> <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar, 2015</a>)</span>.</p>
+<p>Informationssysteme sind <strong>soziotechnische Systeme</strong>. Deshalb müssen neben den technischen Anforderungen auch Anforderungen an die nicht-technischen Komponenten formuliert werden (insbesondere die zu gestaltenden Prozesse).</p>
+<p>Das <strong>Anforderungsmanagement</strong> ist eine systematische Vorgehensweise, um alle relevanten Anforderungen zu ermitteln, zu analysieren, zu vereinbaren, zu spezifizieren, zu validieren, im Projekt zu verfolgen und gegebenenfalls zu ändern <span class="citation" data-cites="ebert2019systematisches">(<a href="#ref-ebert2019systematisches" role="doc-biblioref">Ebert, 2019</a>)</span>.</p>
+<section id="notwendigkeit" class="level2">
+<h2 data-anchor-id="notwendigkeit">Notwendigkeit</h2>
+<div id="fig-re" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-re-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/requirements-engineering.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-re-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;2: Software development tree swing, Urheber unbekannt
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="anforderungsarten" class="level2">
+<h2 data-anchor-id="anforderungsarten">Anforderungsarten</h2>
+<p>Die Anforderungen an ein zu entwickelndes System können in <strong>funktionale und nichtfunktionale Anforderungen</strong> unterschieden werden.</p>
+<dl>
+<dt>Funktionale Anforderungen</dt>
+<dd>
+Diese beschreiben das Verhalten und die Funktionen des Systems und geben an, was das System leisten soll (bspw. Funktionsumfang, UI/UX, Datenstrukturen, Integrationsmöglichkeiten).
+</dd>
+</dl>
+<dl>
+<dt>Nichtfunktionale Anforderungen</dt>
+<dd>
+Diese beschreiben, wie gut funktionale Anforderungen durch das System realisiert werden sollen (bspw. die Reaktionszeit, Verfügbarkeit, Sicherheit).
+</dd>
+</dl>
+</section>
+<section id="visualisierung-1" class="level2">
+<h2 data-anchor-id="visualisierung-1">Visualisierung</h2>
+<div id="fig-anforderungen" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-anforderungen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/anforderungen.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anforderungen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;3: Unterschiedliche Typen von Anforderungen nach <span class="citation" data-cites="ebert2019systematisches">Ebert (<a href="#ref-ebert2019systematisches" role="doc-biblioref">2019</a>)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="aktivitäten" class="level2">
+<h2 data-anchor-id="aktivitäten">Aktivitäten</h2>
+<div id="fig-am" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-am-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/anforderungsmgmt.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-am-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;4: Aktivitäten des Anforderungsmanagements und Spezifikationen, in Anlehnung an <span class="citation" data-cites="ebert2019systematisches">Ebert (<a href="#ref-ebert2019systematisches" role="doc-biblioref">2019</a>)</span>
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Nach <span class="citation" data-cites="ebert2019systematisches">Ebert (<a href="#ref-ebert2019systematisches" role="doc-biblioref">2019</a>)</span> sind die Aktivitäten des Anforderungsmanagements:</p>
+<ul>
+<li><strong>Anforderungsermittlung</strong>: Im Rahmen der Anforderungsermittlung werden die Anforderungsquellen, z. B. Stakeholder, identifiziert und die Anforderungen an das zu entwickelnde System erhoben.</li>
+<li><strong>Anforderungsanalyse</strong>: Die ermittelten Anforderungen werden hinsichtlich ihrer Machbarkeit, Vollständigkeit oder Eindeutigkeit überprüft sowie konkretisiert und priorisiert. Das Ziel der Anforderungsanalyse ist die Beschreibung einer angestrebten Lösung, die die Anforderungen erfüllt.</li>
+<li><strong>Anforderungsvereinbarung</strong>: Im Rahmen der Anforderungsvereinbarung werden Konflikte zwischen Stakeholdern in Bezug auf die Anforderungen identifiziert und gelöst.</li>
+<li><strong>Spezifikation</strong>: Die abgestimmten Anforderungen werden in einem Anforderungsdokument, auch Anforderungsspezifikation genannt, festgehalten. Die Beschreibung des Systems kann zusätzlich, beispielsweise in Form von Use Cases, erfolgen.</li>
+<li><strong>Validierung</strong>: Während der Validierung wird überprüft, ob die analysierten und spezifizierten Anforderungen den Stakeholderwünschen oder Marktbedürfnissen entsprechen.</li>
+<li><strong>Änderungsmanagement</strong>: Das Änderungsmanagement hat die Aufgabe, mit Änderungen an Anforderungen so zu erheben, zu verwalten und zu priorisieren, dass die Projektlaufzeit sowie das Budget nicht überschritten werden und dass das Projekt insgesamt erfolgreich abgeschlossen werden kann.</li>
+</ul>
+<p>Nach Abschluss der <strong>Validierung</strong> müssen alle Anforderungen an das System formuliert sein:</p>
+<ul>
+<li>Was das System können muss</li>
+<li>Was das System nicht können muss</li>
+<li>Wie das System sich verhalten soll</li>
+<li>Wie das System „aussehen“ soll (UI)</li>
+</ul>
+</div>
+</section>
+<section id="spezifikation" class="level2">
+<h2 data-anchor-id="spezifikation">Spezifikation</h2>
+<p>Die Form der Beschreibung wird mit zunehmendem Detaillierungsgrad immer formaler bis hin zu einer detaillierten technischen Spezifikation (Modelle).</p>
+<dl>
+<dt>Grobkonzept</dt>
+<dd>
+Semi-formale Beschreibung der fachlichen Anforderungen und Grenzen auf hohem Niveau
+</dd>
+</dl>
+<dl>
+<dt>Fachkonzept</dt>
+<dd>
+Detaillierte Ausformulierung der fachlichen Anforderungen inkl. formaler Modelle („Lastenheft“)
+</dd>
+</dl>
+<dl>
+<dt>Technisches Design</dt>
+<dd>
+Formaler Systementwurf mit allen systemseitig notwendigen Festlegungen und Eingrenzungen
+</dd>
+</dl>
+<div class="notes">
+<p>Die Freiheitsgrade nehmen zunehmend ab. Im Idealfall kann ein am Prozess unbeteiligter Software-Entwickler auf Basis des technischen Designs das System ohne weitere Rückfragen erstellen.</p>
+</div>
+</section>
+</section>
+<section id="software-entwicklung" class="level1">
+<h1>Software-Entwicklung</h1>
+<p>Der Erfolg einer Anwendungsentwicklung hängt wesentlich davon ab, wie gut die einzelnen Schritte des Projektes geplant, wie gut Probleme vorhergesehen und mögliche Lösungen vorbereitet werden <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar, 2015</a>)</span>.</p>
+<p>In der Praxis werden in der Software-Entwicklung zwei verschiedene Typen von Vorgehensmodellen verwendet:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Lineare Phasenmodelle</strong>: Grundprinzip ist die Abgrenzung einzelner Phasen durch Meilensteine. Die Phasen werden sequenziell durchlaufen, Rücksprünge in vorangegangene Phasen sind nur dann vorgesehen, wenn festgestellt wird, dass gesteckte Ziele sonst nicht erreicht werden.</li>
+<li><strong>Agile, iterative Vorgehensmodelle</strong>: Die Wiederholung von vorangegangenen Arbeitsschritten ist ausdrücklich vorgesehen.</li>
+</ul>
+</div>
+<section id="lineare-phasenmodelle" class="level2">
+<h2 data-anchor-id="lineare-phasenmodelle">Lineare Phasenmodelle</h2>
+<p>Die linearen Phasenmodelle zerlegen den Entwicklungsprozess in aufeinanderfolgende Spezifikationsschritte.</p>
+<p>Die einzelnen Teilschritte schließen jeweils mit einem nachzuweisenden Ergebnis ab, das den Input für die nächste Phase bildet. Deshalb wird dieses Modelle auch oft als <em>Wasserfall-Modell</em> bezeichnet.</p>
+<p>Falls Probleme auftauchen, für die Entscheidungen in vorigen Phasen ursächlich sind, muss in die Phase zurückgesprungen werden, in der diese getroffen wurden. Die Fehlerbeseitigung kann dann aufwändig sein.</p>
+<div class="notes">
+<p>Das Wasserfall-Modell stellt hohe, teilweise praxisferne Anforderungen, die in einer Vielzahl von Problemen resultieren <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>:</p>
+<ul>
+<li>Die Anforderungen an das neue System müssen vollständig vor Beginn der Implementierung vorliegen, Fehler werden oft erst spät erkannt</li>
+<li>Üblicherweise ist es kaum möglich, Anforderungen ex ante vollständig und korrekt zu formulieren</li>
+<li>Manche Anforderungen ergeben sich erst während der Nutzung des neuen Systems</li>
+<li>Zwischen der Spezifikation der Anforderung und der Produktivsetzung des Systems können mehrere Monate bis Jahre vergehen, in einem VUCA Umfeld ändern sich in dieser Zeit die Anforderungen fast zwangsläufig</li>
+</ul>
+<p>Das Wasserfall-Modell kommt in seiner Reinform in der Praxis üblicherweise nicht vor. Statt dessen werden oft <em>zyklische Phasenmodelle</em> verwendet, die aus mehreren sich überlappenden Wasserfall-Modellen bestehen und Rücksprünge in Vorphasen vorsehen <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar, 2015</a>)</span>.</p>
+</div>
+</section>
+<section id="visualisierung-2" class="level2">
+<h2 data-anchor-id="visualisierung-2">Visualisierung</h2>
+<div id="fig-wasserfall" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wasserfall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/wasserfall.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wasserfall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;5: Beispiel für ein Wasserfallmodell zur Software-Entwicklung, eigene Darstellung
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="agile-iterative-ansätze" class="level2">
+<h2 data-anchor-id="agile-iterative-ansätze">Agile, iterative Ansätze</h2>
+<p>Agile Ansätze umfassen wiederholt ablaufende Aktivitäten, an deren Ende jeweils ein messbares Teilergebnis, d.&nbsp;h. eine teilfertige und nutzbare Version des zu erstellenden Systems, als Grundlage für nachfolgende Iterationen steht <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Als Basis der Umsetzung dient in der Regel eine fachliche Anforderungsdefinition („User Story“), die in einzelne logisch zusammengehörende Arbeitspakete unterteilt wird.</li>
+<li>Die Kommunikation zwischen den Entwicklern und mit den späteren Nutzern der Software ist ein wichtiges Element. Wenn möglich, sollen die teilfertigen Versionen schnell eingeführt und schrittweise ergänzt werden.</li>
+<li>Ein Beispiel für ein solchen Ansatz ist <em>SCRUM.</em></li>
+</ul>
+</div>
+<div class="notes">
+<p>Bei dem SCRUM-Vorgehensmodell werden Arbeitspakete in sog. „Sprints“, d.&nbsp;h. vierwöchigen Implementierungsphasen, entwickelt. Im Anschluss werden die Ergebnisse direkt vom Nutzer getestet.</p>
+<p>Selbstorganisation, Transparenz, Kunden-Fokus, Flexibilität und kontinuierliche Verbesserung sind wesentliche Werte dieser Vorgehensmodelle.</p>
+</div>
+</section>
+<section id="visualisierung-3" class="level2">
+<h2 data-anchor-id="visualisierung-3">Visualisierung</h2>
+<div id="fig-SCRUM" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SCRUM-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/agile.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SCRUM-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;6: SCRUM Vorgehensmodell, eigene Darstellung
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="software-einführung" class="level1">
+<h1>Software-Einführung</h1>
+<p>Projekte zum Einführen von Standardsoftware dauern zumeist mehrere Monate. Die Einführungskosten, insbesondere Personalkosten, übersteigen dabei meistens deutlich die Kosten für die Software (insbesondere Lizenzkosten) <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<p>Auch bei der Einführung von Standardsoftware ist ein erhebliches fachliches Verständnis für die zu unterstützenden betrieblichen Funktionen und Prozesse notwendig.</p>
+<p>Projekte zum Einführen von Standardsoftware laufen vergleichbar der Individualentwicklung in Phasen ab.</p>
+<p>Analog zur Entwicklung von Individualsoftware existieren verschiedene phasenorientierte Vorgehensmodelle. Allen gemein sind drei Grundphasen: die Auswahl, die Einführung sowie der Betrieb der Software.</p>
+<section id="phasenmodell" class="level2">
+<h2 data-anchor-id="phasenmodell">Phasenmodell</h2>
+<div id="fig-einführung" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-einführung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/einführung.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-einführung-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7: Phasenmodell zur Software-Einführung nach <span class="citation" data-cites="mertens2016grundzuge">Mertens et al. (<a href="#ref-mertens2016grundzuge" role="doc-biblioref">2016, S. 142</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p>Bei der Anpassung unterscheidet man zwischen <strong>Customizing</strong> und <strong>Parametrisierung.</strong> Im Rahmen des Customizing werden Eigenschaften der Software in der Regel per Programmierung angepasst, im Rahmen der Parametrisierung werden vorhandene Einstellungsmöglichkeiten des Systems zur Anpassung verwendet.</p>
+</section>
+<section id="produktauswahl" class="level2">
+<h2 data-anchor-id="produktauswahl">Produktauswahl</h2>
+<div id="fig-auswahl" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-auswahl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/auswahl.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-auswahl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;8: Vier-Phasenmodell zur Auswahl optimaler Systeme und Anbieter, eigene Darstellung
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Die Auswahl einer Standardsoftware lässt sich in vier Phasen gliedern.</p>
+<ul>
+<li><strong>Identifikation</strong>
+<ul>
+<li>Zielsetzung: Den Markt verstehen und mögliche Lösungen identifizieren</li>
+<li>Wichtige Aktivitäten:
+<ul>
+<li>Anforderungen in einem Kriterienkatalog erfassen</li>
+<li>Liste potenzieller Anbieter erstellen (Long List)</li>
+<li>Informationen anfordern (Request for Information, RfI)</li>
+</ul></li>
+</ul></li>
+<li><strong>Eingrenzung</strong>
+<ul>
+<li>Zielsetzung: Detailliertes Verständnis der Fähigkeiten der Lösungen und Anbieter gewinnen</li>
+<li>Wichtige Aktivitäten:
+<ul>
+<li>Bewertung der Antworten der Anbieter auf die RfI</li>
+<li>Erweiterung des Kriterienkatalogs und Entwicklung von Use Cases</li>
+<li>Erstellung der Short List</li>
+</ul></li>
+</ul></li>
+<li><strong>Bewertung</strong>
+<ul>
+<li>Zielsetzung: Das optimale System und den optimalen Anbieter ermitteln</li>
+<li>Wichtige Aktivitäten:
+<ul>
+<li>Anforderung kommerzieller Angebote der Short-List (Request for Proposal, RfP)</li>
+<li>Durchführung von Workshops zur Bewertung der Lösungen anhand der Use Cases</li>
+</ul></li>
+</ul></li>
+<li><strong>Entscheidung</strong>
+<ul>
+<li>Zielsetzung: Auswahl des Anbieters und Vertragsverhandlung</li>
+<li>Wichtige Aktivitäten:
+<ul>
+<li>Analyse der kommerziellen Angebote (Favorit und Herausforderer)</li>
+<li>Abschluss der Verhandlungen (finales Angebot)</li>
+<li>Entscheidung treffen und abstimmen</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="auswahlkriterien" class="level2">
+<h2 data-anchor-id="auswahlkriterien">Auswahlkriterien</h2>
+<div id="fig-auswahlkriterien" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-auswahlkriterien-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/auswahlkriterien.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-auswahlkriterien-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;9: Auswahlkriterien für Standardsoftware, eigene Darstellung
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p>Im Rahmen der Softwareauswahl sollten sowohl das Anwendungssystem als auch der Anbieter und die kommerziellen Rahmenbedingungen evaluiert werden.</p>
+<p>Wichtige <strong>Eigenschaften des Anbieters</strong> sind unter anderem:</p>
+<ul>
+<li>Branchen-Kenntnis</li>
+<li>Release-Strategie</li>
+<li>Verfügbarkeit und Support-Strukturen</li>
+<li>Ausfallrisiko</li>
+<li>Implementierungsansatz</li>
+<li>Partner-Ökosystem</li>
+<li>Erfolgsbilanz/Referenzen</li>
+</ul>
+<p>Wichtige <strong>kommerzielle Rahmenbedingungen</strong> sind:</p>
+<ul>
+<li>Implementierungskosten</li>
+<li>Investitionskosten</li>
+<li>Betriebskosten (inkl. Langzeitprojektion)</li>
+</ul>
+</div>
+</section>
+<section id="lizenzmodelle" class="level2">
+<h2 data-anchor-id="lizenzmodelle">Lizenzmodelle</h2>
+<p>Die in der Praxis vorkommenden Lizenzmodelle für kommerzielle Anwendungssysteme unterscheiden sich hauptsächlich in den Bezugsgrößen, die für die Ermittlung der Lizenzkosten herangezogen werden <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar, 2015</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Nutzerbezogene Modelle</strong>—Bezugsgröße ist in der Regel die Anzahl der Nutzer (Lizenzkosten pro Nutzer)</li>
+<li><strong>Wertbezogene Modelle</strong>—Bezugsgröße können Personalbestand, Herstellkosten oder verkaufte Produkte sein (z.B. Umsatzbeteiligung in einem Webshop)</li>
+<li><strong>Zeitbezogene Modelle</strong>—Bezugsgröße ist die Dauer der Nutzung (Subskription)</li>
+<li><strong>Infrastrukturbezogene Modelle</strong>—Bezugsgröße ist das Ausmaß der Nutzung der Infrastruktur (bspw. IaaS nach Prozessor- oder Speichernutzung, Lizenzkosten pro Gerät)</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="übungen" class="level1 headline-only">
+<h1 class="headline-only">Übungen ✏️</h1>
+<section id="konzept-speed-dating" class="level2">
+<h2 data-anchor-id="konzept-speed-dating">Konzept-Speed-Dating</h2>
+<p>In dieser Übung vertiefen Sie zentrale Konzepte aus Softwareentwicklung und Anforderungsmanagement spielerisch.</p>
+<p>Bilden Sie Paare und <strong>erklären</strong> Sie sich rundenweise untenstehende Begriffspaare. Nach der Erläuterung <strong>diskutieren Sie gemeinsam</strong>, vergleichen Vor- und Nachteile oder Einsatzszenarien.</p>
+<ol type="1">
+<li>Standard- <em>vs.</em> Individualsoftware</li>
+<li>Funktionale <em>vs.</em> nicht-funktionale Anforderungen</li>
+<li>Wasserfall <em>vs.</em> Agile (SCRUM)</li>
+<li>Einführung-Phase <em>vs</em> Sättigung-/Reife-Phase</li>
+</ol>
+<div id="timer_26b22bfc275378b34b5a16dbb64f686bc94a2806" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">01</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+ </div>
+</section>
+<section id="mini-fallstudie-hnu-campus-app" class="level2 headline-only">
+<h2 class="headline-only" data-anchor-id="mini-fallstudie-hnu-campus-app">Mini-Fallstudie: HNU Campus-App</h2>
+<section id="phase-1-anforderungsmanagement" class="level3">
+<h3 data-anchor-id="phase-1-anforderungsmanagement">Phase 1: Anforderungsmanagement</h3>
+<p>Die HNU plant eine neue <strong>Campus-App</strong>. Ihre Aufgabe ist es, die Anforderungen für die App zu erfassen.</p>
+<p>Bilden Sie Gruppen und arbeiten Sie an folgenden Aufgaben:</p>
+<ol type="1">
+<li><strong>Stakeholder identifizieren</strong> (Wer ist betroffen?)</li>
+<li><strong>Anforderungen sammeln</strong> (je 5 funktionale und nicht-funktionale Anforderungen)</li>
+<li><strong>Priorisieren</strong> (verwenden Sie die <em>MoSCoW-Methode</em> — Must / Should / Could / Won’t)</li>
+<li><strong>Zielkonflikte erkennen</strong> (bspw. Datenschutz vs.&nbsp;Personalisierung)</li>
+</ol>
+<div id="timer_26b22bfc275378b34b5a16dbb64f686bc94a2806" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<div class="notes">
+<div class="smaller">
+<p>Denken Sie zunächst für sich nach (ca. 10 Minuten) und sammeln Sie Ideen zu Stakeholdern und Anforderungen. Danach diskutieren Sie Ihre Erkenntnisse in der Gruppe und</p>
+<ul>
+<li>Dokumentieren die wesentlichen Anforderungen übersichtlich</li>
+<li>Diskutieren Sie gemeinsam, welche Anforderungen besonders kritisch sind</li>
+</ul>
+<p>Wir werden sehen: Das <strong>Erfassen und Priorisieren von Anforderungen</strong> ist die Grundlage für alle weiteren Phasen.</p>
+</div>
+</div>
+<!--
+
+Musterlösung – Stakeholder:
+
+- Studierende (Nutzer)
+- Dozenten (Integration von Stundenplan & Kursinfos)
+- Verwaltung (Zugang zu Studierendendaten, Reporting)
+- Mensa-Personal (Menüanzeigen, Zahlungen)
+- IT-Abteilung (Betrieb & Wartung)
+
+Musterlösung – Anforderungen:
+
+**Funktional:**
+- Stundenplan einsehen
+- Mensa-Menü anzeigen
+- Push-Benachrichtigungen für Termine
+- Druckaufträge verwalten
+- Raumbuchungen einsehen
+
+**Nicht-funktional:**
+- DSGVO-konform
+- hohe Verfügbarkeit (7/24)
+- einfache Bedienung (Usability)
+- kurze Ladezeiten
+- Plattformübergreifend (iOS/Android/Web)
+-->
+</section>
+<section id="phase-2-anforderungsspezifikation" class="level3">
+<h3 data-anchor-id="phase-2-anforderungsspezifikation">Phase 2: Anforderungsspezifikation</h3>
+<p>Anforderungen werden iterativ auf drei Ebenen spezifiziert:</p>
+<ul>
+<li><strong>Grobe Anforderung:</strong> Was soll grundsätzlich erreicht werden?</li>
+<li><strong>Fachliche Anforderung:</strong> Was soll die App konkret leisten?</li>
+<li><strong>Technische Anforderung:</strong> Wie wird es technisch umgesetzt?</li>
+</ul>
+<p>Aufgabe:</p>
+<ul>
+<li>Führen Sie die Strukturierung für eine funktionale Anforderung durch (Einzelarbeit)</li>
+<li>Diskutieren Sie anschließend Ihre Spezifikation in der Gruppe:
+<ul>
+<li>Was fiel leicht, womit hatten Sie Probleme?</li>
+<li>Welche Ebene ist für welche Stakeholder besonders relevant?</li>
+</ul></li>
+</ul>
+<div id="timer_26b22bfc275378b34b5a16dbb64f686bc94a2806" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<div class="notes">
+<div class="smaller">
+<div id="tbl-anforderungsspezifikation" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-anforderungsspezifikation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 29%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ebene</th>
+<th>Leitfrage</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Grob-Konzept</td>
+<td>Was soll erreicht werden?</td>
+<td>Studierende sollen ihren Stundenplan einsehen können</td>
+</tr>
+<tr class="even">
+<td>Fach-Konzept</td>
+<td>Was soll die App konkret leisten?</td>
+<td>Anzeige persönlicher Stundenplan inkl. Änderungen aus Moodle</td>
+</tr>
+<tr class="odd">
+<td>Technisches Design</td>
+<td>Wie wird es umgesetzt?</td>
+<td>REST-API, täglicher Datenabgleich, Frontend React</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-anforderungsspezifikation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;1: Anforderungsspezifikation
+</figcaption>
+</figure>
+</div>
+<p>Wir werden sehen: <strong>Drei-Ebenen-Spezifikationen</strong> helfen, Anforderungen nach und nach präzise zu beschreiben und Missverständnisse zu vermeiden.</p>
+</div>
+</div>
+<!--
+
+Musterlösung (Beispiel):
+
+| Ebene              | Leitfrage                         | Beispiel                                                     | Relevant für       |
+|--------------------|-----------------------------------|--------------------------------------------------------------|------------------|
+| Grob-Konzept       | Was soll erreicht werden?         | Studierende sollen ihren Stundenplan einsehen können         | Management       |
+| Fach-Konzept       | Was soll die App konkret leisten? | Anzeige persönlicher Stundenplan inkl. Änderungen aus Moodle | Nutzer, Fachbereich|
+| Technisches Design | Wie wird es umgesetzt?            | REST-API, täglicher Datenabgleich, Frontend React            | Entwickler       |
+-->
+</section>
+<section id="phase-3-make-or-buy-entscheidung" class="level3">
+<h3 data-anchor-id="phase-3-make-or-buy-entscheidung">Phase 3: Make-or-Buy-Entscheidung</h3>
+<p>Für die Campus-App müssen Sie entscheiden: <strong>Eigenentwicklung</strong> oder <strong>Standardsoftware?</strong></p>
+<p>Bilden Sie Gruppen und bearbeiten Sie folgende Aufgaben:</p>
+<ol type="1">
+<li>Erstellen Sie eine Bewertungsmatrix mit den wesentlichen Kriterien.</li>
+<li>Diskutieren Sie Vor- und Nachteile der Optionen und treffen Sie eine Entscheidung.</li>
+<li>Falls Sie sich für „Buy“ entscheiden: Überlegen Sie ein für Hochschule und Anbieter sinnvolles Lizenzmodell (nutzer-/zeit-/infrastrukturbezogen)</li>
+</ol>
+<div id="timer_26b22bfc275378b34b5a16dbb64f686bc94a2806" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<div class="notes">
+<div class="smaller">
+<div id="tbl-anforderungsspezifikation" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-anforderungsspezifikation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Kriterium</th>
+<th>Gewichtung</th>
+<th>Eigenentwicklung</th>
+<th>Standardsoftware</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kosten</td>
+<td>Hoch</td>
+<td>Hoch</td>
+<td>Niedrig</td>
+</tr>
+<tr class="even">
+<td>Zeit</td>
+<td>Hoch</td>
+<td>Lang</td>
+<td>Kurz</td>
+</tr>
+<tr class="odd">
+<td>Individualität</td>
+<td>Mittel</td>
+<td>Hoch</td>
+<td>Mittel</td>
+</tr>
+<tr class="even">
+<td>Wartung</td>
+<td>Mittel</td>
+<td>Eigenverantwortung</td>
+<td>Anbieter</td>
+</tr>
+<tr class="odd">
+<td>Risiko</td>
+<td>Hoch</td>
+<td>Hoch</td>
+<td>Mittel</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-anforderungsspezifikation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;2: Beispielhafte Make-or-Buy Entscheidungsmatrix
+</figcaption>
+</figure>
+</div>
+<p>Begründung: Standardsoftware ist günstiger und schneller verfügbar, aber weniger individuell. Eigenentwicklung bietet maximale Anpassung, ist aber teuer und riskant.</p>
+<p>Wir werden sehen: <strong>Eine strukturierte Bewertungsmatrix</strong> macht Entscheidungen transparent und nachvollziehbar.</p>
+</div>
+</div>
+</section>
+<section id="phase-4a-make-vorgehensmodell-wählen" class="level3">
+<h3 data-anchor-id="phase-4a-make-vorgehensmodell-wählen">Phase 4a: Make — Vorgehensmodell wählen</h3>
+<p>Sie haben sich für eine <strong>Individualsoftware</strong> entschieden. Für die Implementierung müssen Sie ein Vorgehensmodell auswählen.</p>
+<ul>
+<li>Bilden Sie zwei Fraktionen: <em>Wasserfall-Verfechter</em> und <em>Agile-Verfechter</em></li>
+<li>Diskutieren Sie, welches Modell besser für die Campus-App passt.</li>
+<li>Definieren Sie ein <strong>MVP (Minimum Viable Product)</strong> für einen agilen Start:
+<ul>
+<li>Welche Funktionen müssen im ersten Release enthalten sein?</li>
+<li>Welche Funktionen können später ergänzt werden?</li>
+</ul></li>
+<li>Diskutieren Sie, wie das MVP <strong>Risiken reduziert</strong> und welche <strong>Stakeholder davon profitieren</strong></li>
+</ul>
+<div id="timer_26b22bfc275378b34b5a16dbb64f686bc94a2806" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<div class="notes">
+<div class="smaller">
+<p>Wir werden sehen: <strong>Vorgehensmodelle beeinflussen Entwicklungsstrategie, Zeitplan und Stakeholder-Zufriedenheit.</strong></p>
+</div>
+</div>
+<!--
+
+Musterlösung (Beispiel):
+
+- **Wasserfall:** geeignet bei klaren Anforderungen, weniger flexibel
+- **Agile/SCRUM:** geeignet bei sich ändernden Anforderungen, frühes Feedback
+- **MVP:** Stundenplananzeige + Push-Benachrichtigungen; spätere Funktionen: Mensa-Integration, Raumbuchungen
+-->
+</section>
+<section id="phase-4b-buy-auswahl-einführung" class="level3">
+<h3 data-anchor-id="phase-4b-buy-auswahl-einführung">Phase 4b: Buy — Auswahl &amp; Einführung</h3>
+<p>Sie haben sich für eine <strong>Standardsoftware</strong> entschieden. Planen Sie nun den <strong>Auswahlprozess</strong> entlang des 4-Phasen-Modells.</p>
+<ul>
+<li>Gehen Sie <strong>jede Phase nacheinander durch</strong> (Long List → RfI → Short List → RfP/Entscheidung).</li>
+<li>Überlegen Sie <strong>selbst die Leitfragen</strong>, die Sie in jeder Phase beantworten müssen.</li>
+<li>Diskutieren Sie in der Gruppe:
+<ul>
+<li>Welche Risiken könnten auftreten?</li>
+<li>Welche Zielkonflikte müssen berücksichtigt werden?</li>
+<li>Welche Anforderungsebene (Grob / Fachlich / Technisch) ist für die Auswahl am wichtigsten?</li>
+</ul></li>
+<li>Reflektieren Sie, wie klar spezifizierte Anforderungen den Auswahlprozess erleichtern.</li>
+</ul>
+<div id="timer_26b22bfc275378b34b5a16dbb64f686bc94a2806" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<div class="notes">
+<div class="smaller">
+<p>Wir werden sehen: <strong>Die Qualität der Anforderungsspezifikation bestimmt, wie effektiv die Auswahl und Einführung einer Standardsoftware verläuft.</strong></p>
+</div>
+</div>
+<!--
+
+Musterlösung (Beispiel für Leitfragen):
+
+**Long List:** Welche Anbieter kommen grundsätzlich in Frage? Unterstützen sie die Kernfunktionen?  
+**RfI:** Welche Schnittstellen/API sind verfügbar? Unterstützt die Lösung die wichtigsten Anforderungen?  
+**Short List:** Welche Anbieter erfüllen die priorisierten Anforderungen? Welche Risiken bestehen?  
+**RfP / Entscheidung:** Kosten, Lizenzmodell, Einführungszeit, Zielkonflikte, technische Machbarkeit prüfen  
+
+**Anforderungsebene:** Fachlich am wichtigsten (Kernfunktionen & Benutzerbedürfnisse)
+-->
+</section>
+</section>
+</section>
+<section id="lernkontrolle" class="level1" data-visibility="hidden">
+<h1 data-visibility="hidden">Lernkontrolle 🧐</h1>
+<ul>
+<li>Was sind Herausforderungen in der Anforderungserhebung?</li>
+<li>Worin unterscheiden sich funktionale und nicht-funktionale Anforderungen?</li>
+<li>Was sind Vor- und Nachteile linearer Phasenmodelle?</li>
+<li>Worin unterscheiden sich agile Vorgehensmodelle?</li>
+<li>Welche Ähnlichkeiten erkennen Sie zwischen agilen Vorgehensmodellen in der Software-Entwicklung und Design Thinking?</li>
+<li>Welche Kriterien sollten bei der Auswahl eines Standard-Anwendungssystems berücksichtigt werden?</li>
+<li>Welche Kosten müssen bei der Entscheidung zur Implementierung von Anwendungssystemen berücksichtigt werden?</li>
+</ul>
+</section>
+<section id="literatur" class="level1">
+<h1>Literatur 📚</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-ebert2019systematisches" class="csl-entry" role="listitem">
+Ebert, C. (2019). <em>Systematisches Requirements Engineering: Anforderungen ermitteln, dokumentieren, analysieren und verwalten</em>. dpunkt.verlag.
+</div>
+<div id="ref-heinrich2005informationsmanagement" class="csl-entry" role="listitem">
+Heinrich, L. J., &amp; Lehner, F. (2005). <em>Informationsmanagement: Planung, <span>Ü</span>berwachung und Steuerung der Informationsinfrastruktur</em>. Oldenbourg.
+</div>
+<div id="ref-krcmar2015informationsmanagement" class="csl-entry" role="listitem">
+Krcmar, H. (2015). <em>Einf<span>ü</span>hrung in das Informationsmanagement</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="listitem">
+Mertens, P., Bodendorf, F., König, W., Schumann, M., Hess, T., &amp; Buxmann, P. (2016). <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

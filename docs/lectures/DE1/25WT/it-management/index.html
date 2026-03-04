@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE" xml:lang="de-DE"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>IT-Management (E10) – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"de-DE"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+<!-- Countdown Global CSS -->
+<style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+
+
+<meta property="og:title" content="IT-Management (E10) – awe.lectures">
+<meta property="og:description" content="Wie wird IT im Unternehmen gesteuert?">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/DE1/25WT/it-management/images/business-engineering.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">IT-Management (E10)</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">IT-Management (E10)</h1>
+            <p class="subtitle lead">Wie wird IT im Unternehmen gesteuert?</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor:in</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">17.09.2024</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Geändert</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">16.02.2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=22065" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://exam.hnu.de/course/view.php?id=862" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle (Prüfungen)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administratives 🧐</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Skript</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/einfuehrung/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Einführung (E1)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/digitalisierung/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Digitalisierung (E2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/technologie/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technologie (E3)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/informationssysteme/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informationssysteme (E4)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/prozesse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prozesse (E5)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/integration/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integration (E6)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/anwendungssysteme/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Anwendungssysteme (E7)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/scale-up/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scale-Up (E8)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/implementierung/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Implementierung (E9)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/it-management/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">IT-Management (E10)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/geschaeftsmodelle/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Geschäftsmodelle (E11)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Prüfungsleistungen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DE1/25WT/praesentation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kurzpräsentation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="assets/big-picture.pdf" class="btn btn-light" target="blank">Big Picture</a> <a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Auf dieser Seite</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#lernergebnisse" id="toc-lernergebnisse" class="nav-link" data-scroll-target="#lernergebnisse">Lernergebnisse 🎯</a></li>
+  <li><a href="#begriffsklärung" id="toc-begriffsklärung" class="nav-link" data-scroll-target="#begriffsklärung">Begriffsklärung</a></li>
+  <li><a href="#handlungsfelder" id="toc-handlungsfelder" class="nav-link" data-scroll-target="#handlungsfelder">Handlungsfelder</a></li>
+  <li><a href="#organisation" id="toc-organisation" class="nav-link" data-scroll-target="#organisation">Organisation</a></li>
+  <li><a href="#übungen" id="toc-übungen" class="nav-link" data-scroll-target="#übungen">Übungen ✏️</a></li>
+  <li><a href="#lernkontrolle" id="toc-lernkontrolle" class="nav-link" data-scroll-target="#lernkontrolle">Lernkontrolle 🧐</a></li>
+  <li><a href="#literatur" id="toc-literatur" class="nav-link" data-scroll-target="#literatur">Literatur 📚</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="motivation" class="level1 vertical-center" data-background-color="#0333ff">
+<h1 class="vertical-center" data-background-color="#0333ff">Motivation</h1>
+<blockquote class="blockquote">
+<p>Ohne IT-basierte Anwendungssysteme sind viele Unternehmen überhaupt nicht mehr funktionsfähig. Das Management der Ressource IT ist damit zu einem wichtigen Thema des Managements geworden <em><span class="citation" data-cites="mertens2016grundzuge">Mertens et al. (<a href="#ref-mertens2016grundzuge" role="doc-biblioref">2016, S. 160</a>)</span></em></p>
+</blockquote>
+<div class="notes">
+<p>Informationstechnologie ermöglicht Unternehmen im digitalen Zeitalter die Entwicklung von entscheidenden Fähigkeiten. Analog zu anderen Produktionsfaktoren schafft jedoch auch IT nicht per se <strong>Wettbewerbsvorteile</strong> für Unternehmen. Denn es ist nicht die Technologie, die den Unterschied macht. Entscheidend ist die Art und Weise, wie die Technologie implementiert, gesteuert und genutzt wird. In diesem Kapitel erhalten Sie einen ersten Einblick in die Notwendigkeit und Ansätze für das Management der Ressource IT.</p>
+</div>
+</section>
+<section id="lernergebnisse" class="level1">
+<h1>Lernergebnisse 🎯</h1>
+<p>Nach dieser Einheit</p>
+<div class="incremental">
+<ul class="incremental">
+<li>können Sie erläutern, unter welchen Bedingungen IT zum Unternehmenserfolg beiträgt,</li>
+<li>sind Sie in der Lage, die wesentlichen Management-Aufgaben der IT im Unternehmen zu beschreiben,</li>
+<li>kennen Sie die Notwendigkeit und Möglichkeiten zum Managements des IT-Projektportfolios und der IT-Landschaft,</li>
+<li>können den Nutzen und Kriterien für das Outsourcing von IT-Leistungen beschreiben und</li>
+<li>können Sie erläutern, wie IT in die Unternehmensorganisation eingebunden werden kann.</li>
+</ul>
+</div>
+</section>
+<section id="begriffsklärung" class="level1 headline-only">
+<h1 class="headline-only">Begriffsklärung</h1>
+<section id="it-management" class="level2">
+<h2 data-anchor-id="it-management">IT-Management</h2>
+<p>Unter dem Begriff des <strong>IT-Managements</strong> lassen sich diejenigen Aufgaben fassen, die sich für die Leitung eines Unternehmens aus der Nutzung von IT ergeben.</p>
+<p>Das IT-Management umfasst die <strong>Planung, Überwachung und Steuerung</strong> der Informationsarchitektur des Unternehmens (strategische Ebene) und der einzelnen Komponenten dieser Infrastruktur (taktische Ebene) sowie deren Nutzung (operative Ebene).</p>
+<p>Wesentliche Aufgaben sind:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Entwicklung und Umsetzung der <strong>IT-Strategie</strong> (IT als strategischer Wettbewerbsfaktor),</li>
+<li><strong>Gestaltung</strong> des Aufbaus der Informationssysteme sowie</li>
+<li>Realisierung und <strong>Betrieb</strong> der IT-Landschaft</li>
+</ul>
+</div>
+</section>
+<section id="einbettung" class="level2">
+<h2 data-anchor-id="einbettung">Einbettung</h2>
+<div id="fig-be" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-be-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/business-engineering.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-be-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;1: Einbettung der Aufgaben des IT-Managements in das Business Engineering Modell
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="wertbeitrag-der-it" class="level2">
+<h2 data-anchor-id="wertbeitrag-der-it">Wertbeitrag der IT</h2>
+<p>Der Wertbeitrag der IT beschreibt die <strong>subjektive Zusammenfassung der Kosten und der Nutzeffekte</strong> einer Investition in IT-Lösungen <span class="citation" data-cites="krcmar2015informationsmanagement">(<a href="#ref-krcmar2015informationsmanagement" role="doc-biblioref">Krcmar, 2015</a>)</span>.</p>
+<p>Die Kosten einer IT-Lösung sollten über die gesamte Lebensdauer hinweg bestimmt werden, wobei die Abschätzung des Nutzens üblicherweise schwieriger ist als die Kostenbestimmung <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<p>Erst wenn die Informationssysteme auf die Unternehmensstrategie und die Geschäftsprozesse abgestimmt sind, kann IT einen Wertbeitrag zum Unternehmenserfolg leisten.</p>
+<p>Durch die erfolgreiche Abstimmung kann IT die <strong>Produktivität</strong> erhöhen und bessere <strong>Entscheidungen</strong> ermöglichen sowie <strong>neue Produkte und Services</strong> möglich machen und sich somit zu einem strategischen Wettbewerbsfaktor entwickeln.</p>
+<hr>
+<section id="visualisierung" class="level3">
+<h3 data-anchor-id="visualisierung">Visualisierung</h3>
+<div id="fig-mechanismen" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mechanismen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/mechanismus.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mechanismen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;2: Mechanismen des IT-Wertbeitrags, eigene Darstellung basierend auf <span class="citation" data-cites="schryen2013revisiting">Schryen (<a href="#ref-schryen2013revisiting" role="doc-biblioref">2013</a>)</span>
+</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="effekte-der-it-nutzung" class="level3">
+<h3 data-anchor-id="effekte-der-it-nutzung">Effekte der IT-Nutzung</h3>
+<p>Richtig eingesetzt führt IT zu höherer Produktivität und größerem Nutzen <span class="citation" data-cites="sambamurthy1994management">(<a href="#ref-sambamurthy1994management" role="doc-biblioref">Sambamurthy &amp; Zmud, 1994</a>)</span>, zum Beispiel:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>IT wird in <strong>neue Produkte/Dienstleistungen</strong> integriert, die z. B. zu einer erhöhten Kundenzufriedenheit führen.</li>
+<li>IT ermöglicht die Implementierung von <strong>effizienteren Geschäftsprozessen</strong>, die z. B. zu höherer Produktivität oder Mitarbeiterzufriedenheit führen.</li>
+<li>IT verbessert die <strong>Entscheidungsfindung</strong>, indem bspw. ein besseres Verständnis von Märkten und Kunden ermöglicht wird.</li>
+<li>IT ermöglicht <strong>flexible und anpassungsfähige Organisationsformen</strong>, die bspw. zu kürzeren Vorlaufzeiten bei der Produktentwicklung führen.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="umsetzung" class="level2">
+<h2 data-anchor-id="umsetzung">Umsetzung</h2>
+<p>Wir haben gesehen, dass IT erhebliche <strong>Wertbeiträge</strong> (Produktivität, Entscheidungen, Innovation) leisten kann.</p>
+<p>Das gelingt jedoch nur unter bestimmten <strong>Bedingungen</strong> (Abstimmung auf Strategie &amp; Prozesse):</p>
+<div class="medium">
+<p>IT muss <strong>strategisch geplant</strong>, <strong>gestaltet</strong> und <strong>betrieben</strong> werden</p>
+</div>
+<p>Im Folgenden betrachten wir die <strong>Handlungsfelder des IT-Managements</strong>, um diese Ziele zu erreichen.</p>
+</section>
+</section>
+<section id="handlungsfelder" class="level1 headline-only">
+<h1 class="headline-only">Handlungsfelder</h1>
+<section id="it-governance" class="level2">
+<h2 data-anchor-id="it-governance">IT Governance</h2>
+<p>Die IT-Governance regelt <strong>Entscheidungsrechte und Verantwortlichkeiten</strong> für IT-Entscheidungen, um sicherzustellen, dass die IT die Unternehmensziele unterstützt <span class="citation" data-cites="abts2017grundkurs">(<a href="#ref-abts2017grundkurs" role="doc-biblioref">Abts &amp; Mülder, 2017</a>)</span>.</p>
+<p>IT-Governance umfasst unter anderem folgende <strong>Handlungsfelder</strong>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>IT-Strategie</strong>: Ausrichtung der IT an Unternehmenszielen und Definition langfristiger IT-Ziele</li>
+<li><strong>IT-Projektportfolio</strong>: Auswahl und Priorisierung von IT-Investitionen nach strategischer Passung</li>
+<li><strong>Informationsarchitektur</strong>: Gestaltung und kontinuierliche Weiterentwicklung der IT-Landschaft</li>
+<li><strong>IT-Sourcing</strong>: Entscheidung über Eigenerstellung vs.&nbsp;Fremdbezug von IT-Leistungen</li>
+<li><strong>IT-Organisation</strong>: Strukturierung der IT-Funktion und Einbindung ins Unternehmen</li>
+</ul>
+</div>
+<p>Durch effektive IT-Governance wird sichergestellt, dass IT-Ressourcen effizient eingesetzt und IT-Risiken angemessen gesteuert werden.</p>
+</section>
+<section id="it-strategie" class="level2 headline-only">
+<h2 class="headline-only" data-anchor-id="it-strategie">IT-Strategie</h2>
+<p>Um die genannten Wertbeiträge systematisch zu realisieren, benötigen Unternehmen eine durchdachte IT-Strategie, die folgende Aspekte festlegt:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>die grundlegenden <strong>langfristigen Ziele</strong> eines Unternehmens hinsichtlich der Gestaltung und Nutzung der Informationstechnologie</li>
+<li>die <strong>Handlungsoptionen</strong>, die zur Erreichung dieser Ziele erforderlich sind sowie</li>
+<li>die <strong>Ressourcen-Allokation</strong>, insbesondere die Zuweisung von Investitionsmitteln und Betriebsausgaben festgelegt.</li>
+</ul>
+</div>
+<p>Auch die IT-Strategie richtet den Blick nach Außen und versucht, die Chancen und Risiken verfügbarer Technologien mit den Fähigkeiten und Ressourcen des Unternehmens in Einklang zu bringen.</p>
+<p>Die IT-Strategie definiert, in welche Technologie investiert wird, um gemeinsam mit ergänzenden Ressourcen effektive Informationssysteme zu schaffen, die durch ihre Effekte im gegebenen Marktumfeld Wettbewerbsvorteile erzielen.</p>
+<hr>
+<section id="align-enable-wirkrichtungen" class="level3">
+<h3 data-anchor-id="align-enable-wirkrichtungen">Align-Enable Wirkrichtungen</h3>
+<div class="notes">
+<p>Um die Wertbeiträge zu generieren, müssen die Informationssysteme so gestaltet und gemanagt sein, dass diese die vorhandenen Prozesse und indirekt die Strategie des Unternehmens möglichst optimal unterstützen („align“).</p>
+<p>Gleichzeitig können Informationssysteme so gestaltet werden, dass diese komplett neue Prozesse und neue Geschäftsstrategien ermöglichen. Auch solche Potenziale müssen in der Strategie-Entwicklung identifiziert und festgeschrieben werden („enable“) <span class="citation" data-cites="abts2017grundkurs">(<a href="#ref-abts2017grundkurs" role="doc-biblioref">Abts &amp; Mülder, 2017</a>)</span>.</p>
+</div>
+<div id="fig-align-enable" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-align-enable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/align-enable.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-align-enable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;3: Align-Enable Zusammenhang zwischen Geschäftsstrategie und Informationssystemen
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="it-projektportfolio" class="level2">
+<h2 data-anchor-id="it-projektportfolio">IT-Projektportfolio</h2>
+<p>Vor der Umsetzung eines oder mehrerer IT-Projekte mittels dem passenden <a href="../10/#software-entwicklung">Vorgehensmodell</a> muss in der Regel zwischen mehreren Projektideen und deren strategischer Passung entschieden werden.</p>
+<p>Neben <strong>ökonomischen Aspekten</strong> (Wertbeitrag) sollten bei der Auswahl auch <strong>technische Kriterien</strong> (bspw. notwendiger Integrationsgrad und vorhandenes Know-how) bewertet werden <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li>In der Bewertung werden unterschiedliche <strong>Teil-Portfolios</strong> gebildet (bspw. fachliches und technisches Teilportfolio).</li>
+<li>Projekte werden typischerweise auf Basis <strong>subjektiver Bewertungen</strong> fachkundiger Mitarbeiter in den Portfolios positioniert.</li>
+<li>Durch die Bewertung können dann <strong>Projekte ausgewählt</strong> werden, die bspw. einen hohen Nutzen stiften und gut machbar sind.</li>
+</ul>
+</div>
+<hr>
+<section id="visualisierung-1" class="level4">
+<h4 data-anchor-id="visualisierung-1">Visualisierung</h4>
+<div id="fig-portfolio" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-portfolio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/portfolio.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-portfolio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;4: Portfolio-Analysen zur Beurteilung von IT-Projekten
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="informationsarchitektur" class="level2">
+<h2 data-anchor-id="informationsarchitektur">Informationsarchitektur</h2>
+<p>Die Informationsarchitektur (oder IT-Landschaft) beschreibt alle im Unternehmen eingesetzten IT-Komponenten in folgenden Bereichen <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Anwendungsarchitektur</strong>: beschreibt welche Anwendungssysteme welche Geschäftsprozesse und Funktionen unterstützen. Hierbei werden unter anderem Prozesslandkarten und Wertschöpfungsdiagramme ergänzt um die eingesetzten Informationssysteme eingesetzt.</li>
+<li><strong>Datenarchitektur</strong>: bildet die Datenbestände (<em>Wo sind welche Daten gespeichert?</em>) und deren Struktur (<em>Welche Datenmodelle liegen zugrunde?</em>) ab. Hierzu sind unternehmensweite Datenmodelle hilfreich.</li>
+<li><strong>Kommunikationsarchitektur</strong> bildet den Datenfluss zwischen Funktionen und Datenbeständen ab.</li>
+<li><strong>IT-Architektur</strong>: beschreibt, die technische Infrastruktur (typischerweise Server, Endgeräte, Netzwerke).</li>
+</ul>
+</div>
+<p>Ziel des IT-Managements ist es, diese Bereiche kontinuierliche auf die Geschäftsprozesse und Aufbauorganisation abzustimmen.</p>
+</section>
+<section id="it-sourcing" class="level2">
+<h2 data-anchor-id="it-sourcing">IT-Sourcing</h2>
+<p>Die Make-or-Buy-Entscheidung ist eine wesentliche Komponente der IT-Strategie und beeinflusst sowohl das IT-Projektportfolio als auch die Informationsarchitektur. Der externe Bezug von Leistungen (<em>„buy“</em>) wird oft als <strong>Outsourcing</strong> bezeichnet.</p>
+<p>Bei diesem Entscheidungsproblem sollten vier Aspekte berücksichtigt werden <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Welche Aufgaben der IT werden betrachtet (was)?</li>
+<li>Wo könnten Vorteile des Fremdbezugs liegen (warum)?</li>
+<li>Wie genau wird der Fremdbezug ausgestaltet (wie) und</li>
+<li>Wohin wird die Leistungserstellung verlagert (wohin)?</li>
+</ul>
+</div>
+<p>Wesentliche Gründe für das Outsourcing sind neben <strong>Kostensenkungen</strong> die <strong>Konzentration auf Kernkompetenzen</strong> und der <strong>Zugang zu fehlendem Know-how</strong>.</p>
+<hr>
+<section id="entscheidungsmatrix" class="level4">
+<h4 data-anchor-id="entscheidungsmatrix">Entscheidungsmatrix</h4>
+<div id="fig-outsourcing" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-outsourcing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/outsourcing.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-outsourcing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;5: Entscheidungsmatrix für die Auslagerung von IT-Aufgabe, basierend auf <span class="citation" data-cites="picot1993analyse">Picot &amp; Maier (<a href="#ref-picot1993analyse" role="doc-biblioref">1993</a>)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="organisation" class="level1 headline-only">
+<h1 class="headline-only">Organisation</h1>
+<div class="notes">
+<p>Die IT sollte so organisiert und geleitet sein, dass diese an den Geschäftszielen ausgerichtet ist, verantwortungsvoll die verfügbaren Ressourcen einsetzt sowie das Risikomanagement angemessen betreibt <span class="citation" data-cites="meyer2003governance">(<a href="#ref-meyer2003governance" role="doc-biblioref">Meyer et al., 2003</a>)</span>.</p>
+</div>
+<section id="einordnung-der-it" class="level2">
+<h2 data-anchor-id="einordnung-der-it">Einordnung der IT</h2>
+<p>Die Unternehmens-IT kann grundsätzlich auf drei verschiedene Arten in die Organisation eines Unternehmens eingeordnet werden: als Stabsstelle, als Linienfunktion oder in einer Mischform.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>IT als Stabsstelle</strong> der Geschäftsleitung: IT agiert als verlängerter Arm der Unternehmensleitung</li>
+<li><strong>IT als Linienfunktion</strong>: IT agiert mit anderen Funktions- und Geschäftsbereichen auf Augenhöhe</li>
+<li><strong>Mischformen</strong>: Zentrale Funktionen der IT sind als Stabsstelle organisiert, geschäftsspezifische Funktionen den Geschäftsbereichen untergeordnet</li>
+</ul>
+</div>
+<p>Einige Unternehmen gliedern die IT oder Teile davon in selbstständige Unternehmen aus, um die Effizienz der Leistungserstellung durch tatsächliche Marktkräfte zu optimieren <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<hr>
+<section id="visualisierung-2" class="level4">
+<h4 data-anchor-id="visualisierung-2">Visualisierung</h4>
+<div id="fig-organisation" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/organisation.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-organisation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;6: Möglichkeiten der Einordnung von IT-Abteilungen basierend auf <span class="citation" data-cites="mertens2016grundzuge">Mertens et al. (<a href="#ref-mertens2016grundzuge" role="doc-biblioref">2016</a>)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="interne-organisation" class="level2">
+<h2 data-anchor-id="interne-organisation">Interne Organisation</h2>
+<p>Hauptaufgaben einer IT-Abteilung sind die Entwicklung sowie der Betrieb von Anwendungssystemen. Dazu sind ganz unterschiedliche Kompetenzen erforderlich.</p>
+<p>Aus diesen Gründen finden sich in der IT typischerweise separate Einheiten für die <strong>Entwicklung</strong> und für den <strong>Betrieb der Systeme</strong>. Diese stellen den Kern einer IT-Abteilung dar.</p>
+<p>Je nach Positionierung der IT umfasst diese auch folgende Einheiten:</p>
+<ul>
+<li>Strategische Planung und Architektur-Management</li>
+<li>IT-Controlling und IT-Sourcing</li>
+<li>IT-Risiko-Management und Datensicherheit</li>
+<li>Beratung (Entwicklung neuer Prozesse oder IT-basierter Produkte)</li>
+</ul>
+<hr>
+<section id="visualisierung-3" class="level4">
+<h4 data-anchor-id="visualisierung-3">Visualisierung</h4>
+<div id="fig-organigramm" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-organigramm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/organigramm.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-organigramm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;7: Mögliche Organisation einer IT-Abteilung
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="risikomanagement" class="level2">
+<h2 data-anchor-id="risikomanagement">Risikomanagement</h2>
+<p>Aufgrund der zentralen und noch wachsenden Bedeutung der IT ist sowohl das mit dem Betrieb verbundene Risiko zu berücksichtigen als der geltende Rechtsrahmen zur Speicherung und Verarbeitung von Daten <span class="citation" data-cites="mertens2016grundzuge">(<a href="#ref-mertens2016grundzuge" role="doc-biblioref">Mertens et al., 2016</a>)</span>.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Identifikation</strong>, <strong>Analyse</strong> und <strong>Bewertung</strong> der mit IT verbundenen Gefahren (bspw. Hackerangriff, Stromausfall, etc.).</li>
+<li><strong>Planung</strong> und <strong>Umsetzung</strong> geeigneter Maßnahmen zur Vermeidung oder Beherrschung dieser Unsicherheiten (technische oder organisatorische Maßnahmen).</li>
+<li>Laufende <strong>Überwachung</strong> und bedarfsgerechte Anpassung der getroffenen Maßnahmen.</li>
+</ul>
+</div>
+<p>Besonderes Augenmerk gilt zudem dem <strong>Datenschutz</strong>, insbesondere dem Schutz personenbezogener Daten.</p>
+</section>
+</section>
+<section id="übungen" class="level1 headline-only">
+<h1 class="headline-only">Übungen ✏️</h1>
+<section id="begriffe-wertbeitrag" class="level2">
+<h2 data-anchor-id="begriffe-wertbeitrag">Begriffe &amp; Wertbeitrag</h2>
+<p>Nennen Sie ein Unternehmen und einen konkreten IT-Wertbeitrag aus einer der vier Kategorien nach <span class="citation" data-cites="sambamurthy1994management">Sambamurthy &amp; Zmud (<a href="#ref-sambamurthy1994management" role="doc-biblioref">1994</a>)</span>:</p>
+<ul>
+<li>Neue Produkte/Dienstleistungen</li>
+<li>Effizientere Prozesse</li>
+<li>Bessere Entscheidungen</li>
+<li>Flexible Organisationsformen</li>
+</ul>
+<p>Welche Voraussetzungen müssen erfüllt sein, damit dieser Wertbeitrag tatsächlich eintritt? (Bezug zu <a href="#fig-mechanismen" class="quarto-xref">Abbildung&nbsp;2</a>)</p>
+<div id="timer_20cc87633865d7b94bc32c2a44fcf6ed888097f0" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+<section id="it-projektportfolio-1" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="it-projektportfolio-1">IT-Projektportfolio</h2>
+<p><strong>Szenario:</strong></p>
+<p>Ein mittelständisches Fertigungsunternehmen (350 MA) hat drei IT-Projektideen:</p>
+<p><strong>Projekt A:</strong> Migration auf Cloud-ERP (SAP S/4HANA)</p>
+<ul>
+<li>Kosten: 800k €, Dauer: 18 Monate</li>
+<li>Nutzen: Prozessoptimierung, Echtzeitdaten</li>
+</ul>
+<p><strong>Projekt B:</strong> KI-basierte Predictive Maintenance</p>
+<ul>
+<li>Kosten: 200k €, Dauer: 6 Monate</li>
+<li>Nutzen: Reduktion ungeplanter Ausfälle</li>
+</ul>
+<p><strong>Projekt C:</strong> Modernisierung IT-Infrastruktur (Server-Erneuerung)</p>
+<ul>
+<li>Kosten: 150k €, Dauer: 3 Monate</li>
+<li>Nutzen: Stabilität, Compliance</li>
+</ul>
+<p>Ihre Aufgaben:</p>
+<ol type="1">
+<li>Bewerten Sie jedes Projekt nach <strong>fachlichem Nutzen</strong> (hoch/mittel/niedrig) und <strong>technischer Machbarkeit</strong> (hoch/mittel/niedrig). Begründen Sie kurz.</li>
+<li>Positionieren Sie die Projekte in einem Portfolio wie <a href="#fig-portfolio" class="quarto-xref">Abbildung&nbsp;4</a>.</li>
+<li>Welches Projekt würden Sie priorisieren? Begründen Sie Ihre Entscheidung unter Berücksichtigung von Risiken.</li>
+</ol>
+<div id="timer_20cc87633865d7b94bc32c2a44fcf6ed888097f0" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+<section id="it-sourcing-entscheidung" class="level2">
+<h2 data-anchor-id="it-sourcing-entscheidung">IT-Sourcing-Entscheidung</h2>
+<p><strong>Szenario (Fortsetzung):</strong></p>
+<p>Für die drei Projekte muss nun entschieden werden, welche Aufgaben intern (make) oder extern (buy) erbracht werden.</p>
+<p>Nutzen Sie <a href="#fig-outsourcing" class="quarto-xref">Abbildung&nbsp;5</a> und entscheiden Sie für <strong>Projekt A (Cloud-ERP)</strong>:</p>
+<ol type="1">
+<li><strong>Projektmanagement</strong> – make oder buy? Begründung?</li>
+<li><strong>Customizing/Konfiguration</strong> – make oder buy? Begründung?</li>
+<li><strong>Schulung der Mitarbeitenden</strong> – make oder buy? Begründung?</li>
+<li><strong>Betrieb nach Go-Live</strong> – make oder buy? Begründung?</li>
+</ol>
+<p>Berücksichtigen Sie dabei:</p>
+<ul>
+<li>Strategische Bedeutung (Wettbewerbsrelevanz)</li>
+<li>Vorhandenes Know-how (treffen Sie Annahmen)</li>
+<li>Kosten (treffen Sie Annahmen)</li>
+</ul>
+<div id="timer_20cc87633865d7b94bc32c2a44fcf6ed888097f0" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+<section id="align-enable-analyse" class="level2">
+<h2 data-anchor-id="align-enable-analyse">Align-Enable-Analyse</h2>
+<p>Ein Dienstleistungsunternehmen stellt fest:</p>
+<ul>
+<li>IT wird nur als Kostenfaktor gesehen</li>
+<li>Systeme unterstützen Prozesse nicht effektiv</li>
+<li>Technische Innovationen fließen nicht in Unternehmensstrategie ein</li>
+</ul>
+<p>Ihre Aufgaben:</p>
+<ol type="1">
+<li>Ordnen Sie die drei Probleme den Wirkrichtungen zu: Welche betreffen <em>Align</em> (IT folgt der Strategie)? Welche betreffen <em>Enable</em> (Strategie folgt den Möglichkeiten der IT)?</li>
+<li>Schlagen Sie je <strong>eine konkrete Maßnahme</strong> pro Problem vor: Welche Handlungsfelder sind betroffen? Was muss das IT-Management tun?</li>
+</ol>
+<div id="timer_20cc87633865d7b94bc32c2a44fcf6ed888097f0" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+</section>
+<section id="lernkontrolle" class="level1" data-visibility="hidden">
+<h1 data-visibility="hidden">Lernkontrolle 🧐</h1>
+<ul>
+<li>Beschreiben Sie die wesentlichen Aufgaben des IT-Managements.</li>
+<li>Das IT-Management hat unter anderem zur Aufgabe, den Einsatz von IT so zu planen und zu steuern, dass die Geschäftsziele erreicht werden. In der Vorlesung haben wir hier zwischen zwei verschiedenen Pfaden entschieden: <em>align</em> und <em>enable</em>. Erläutern Sie anhand des Business-Engineering-Modells, was das IT-Management jeweils sicherzustellen hat.</li>
+<li>Nennen und erläutern Sie zwei der generischen Effekte, die IT auf den Unternehmenserfolg haben kann. Welche Voraussetzungen sind notwendig, damit diese Effekte eintreten können?</li>
+<li>Anhand welcher Kriterien sollten IT-Projekte bzw. Investitionen evaluiert werden?</li>
+<li>Geben Sie jeweils ein Beispiel für eine ausgelagerte und eine nicht-ausgelagerte Aufgabe der IT und erläutern Sie, weshalb eine Auslagerung (nicht) sinnvoll ist.</li>
+<li>Erläutern Sie, weshalb das Management der IT-Landschaft zur Erhöhung der vertikalen und horizontalen Integration notwendig ist.</li>
+</ul>
+</section>
+<section id="literatur" class="level1">
+<h1>Literatur 📚</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-abts2017grundkurs" class="csl-entry" role="listitem">
+Abts, D., &amp; Mülder, W. (2017). <em>Grundkurs Wirtschaftsinformatik: Eine kompakte und praxisorientierte Einf<span>ü</span>hrung</em>. Springer Fachmedien Wiesbaden.
+</div>
+<div id="ref-krcmar2015informationsmanagement" class="csl-entry" role="listitem">
+Krcmar, H. (2015). <em>Einf<span>ü</span>hrung in das Informationsmanagement</em>. Springer Gabler, Berlin, Heidelberg.
+</div>
+<div id="ref-mertens2016grundzuge" class="csl-entry" role="listitem">
+Mertens, P., Bodendorf, F., König, W., Schumann, M., Hess, T., &amp; Buxmann, P. (2016). <em>Grundz<span>ü</span>ge der Wirtschaftsinformatik</em>. Springer Berlin Heidelberg.
+</div>
+<div id="ref-meyer2003governance" class="csl-entry" role="listitem">
+Meyer, M., Zarnekow, R., &amp; Kolbe, L. M. (2003). IT-Governance - Begriff, Status quo und Bedeutung. <em>Wirtschaftsinformatik</em>, <em>45</em>(4), 445–448.
+</div>
+<div id="ref-picot1993analyse" class="csl-entry" role="listitem">
+Picot, A., &amp; Maier, M. (1993). Analyse-und Gestaltungskonzepte f<span>ü</span>r das Outsourcing der betrieblichen Informationsverarbeitung. In <em>Rechnungswesen und EDV</em> (S. 39–72). Springer.
+</div>
+<div id="ref-sambamurthy1994management" class="csl-entry" role="listitem">
+Sambamurthy, V., &amp; Zmud, R. W. (1994). <em>IT management competency assessment: A tool for creating business value through IT</em>. Financial Executives Research Foundation Morristown, NJ.
+</div>
+<div id="ref-schryen2013revisiting" class="csl-entry" role="listitem">
+Schryen, G. (2013). Revisiting IS business value research: what we already know, what we still need to know, and how we can get there. <em>European Journal of Information Systems</em>, <em>22</em>(2), 139–169.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
