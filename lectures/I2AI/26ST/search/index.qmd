@@ -78,8 +78,9 @@ Agents that plan by considering a sequence of actions that form a path to a goal
 
 :::incremental
 - The computational process it undertakes is **search**.
-- The representations the agents use are **atomic representations**^[An **atomic representation** is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you're looking for.].
-- The **search algrotihms** can be uninformed and informed.
+- The agents use **atomic representations**^[An atomic representation is one in which each state is treated as a black box with no internal structure.], where each state is a discrete node in a state space.
+- The movement between these states is defined by **actions**, which a **transition model** uses to describe the results of each specific maneuver. 
+- The **search algorithms** used to find a path can be either _uninformed_ (blind) or _informed_ (using heuristics).
 :::
 
 . . .
@@ -127,12 +128,12 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 :::incremental
 - **State space:** a set of possible states[^1] the environment can be in[^2]
 - **Initial state:** the state that the agent starts
-- **Goal state(s):** a state that the agent is trying to reach[^3]
-- **Transition model:** $\textrm{RESULT}(s,a)$ — returns the state $s'$ that results from performing action $a$ in state $s$
-- **Successor function:** $\textrm{ACTIONS}(s)$ — returns a set of (action, state) pairs for node $s$, where the state is the state reachable by taking the action $a$
-- **Action cost function:** $\textrm{ACTION-COST}(s,a,s')$ — gives the numeric cost of performing action $a$ in state $s$ to reach state $s'$
-- **Path:** a sequence of actions
-- **Solution:** a path from the initial state to the goal state
+- **Actions:** $\textrm{ACTION}(s)$ — a function that returns the set of possible actions available to the agent when in state $s$
+- **Transition model:** $\textrm{RESULT}(s, a)$ — a function that returns the state $s'$ that results from performing action $a$ in state $s$
+- **Goal test:** an abstract condition or a set of goal states[^3] that determine if a state is a destination
+- **Action cost function:** $\textrm{ACTION-COST}(s, a, s')$ — a function that assigns a numeric cost to performing action $a$ in state $s$ to reach state $s'$
+- **Path:** a sequence of actions leading from one state to another.
+- **Solution:** a path that leads from the initial state to a goal state. An optimal solution is the solution with the lowest path cost.
 :::
 
 [^1]: A state is a situation that an agent can find itself in.
@@ -145,36 +146,48 @@ A search problem can be defined formally as [@RusselNorvig2022AIMA, p.83]:
 
 **Navigation**
 
-- **State space:** All possible waypoints (intersections, landmarks) in the road network
-- **Initial state:** Starting waypoint of the agent (e.g., home intersection, current street position)
-- **Goal state(s):** Destination waypoint(s) the agent wants to reach (e.g., store intersection, airport terminal entrance)
-- **Transition model:** Model that returns the new waypoint after traveling along a specific road segment
-- **Successor function:** Model that returns available road segments (streets, highways) and resulting waypoints connected to current waypoint
-- **Action cost function:** Model that returns the distance, time, or fuel consumption for traveling between waypoints (maybe influenced by speed limits, traffic, road conditions)
-- **Path:** A sequence of road segments through the network
-- **Solution:** A sequence of road segments from starting waypoint to destination waypoint
+- **State space:** All possible waypoints (intersections, landmarks) in the road network.
+- **Initial state:** The starting waypoint of the agent (e.g., "Home").
+- **Actions:** $\textrm{ACTIONS}(s)$ — The set of available road segments or turns (e.g., *Turn Right onto Main St*) at a given intersection.
+- **Transition model:** $\textrm{RESULT}(s, a)$ — The specific waypoint reached after traveling along a chosen road segment.
+- **Goal test:** A condition checking if the current waypoint is the destination (e.g., "Airport Terminal").
+- **Action cost function:** $\textrm{ACTION-COST}(s, a, s')$ — The distance, time, or fuel consumption for a specific segment.
+- **Path:** A sequence of road segments through the network.
+- **Solution:** A sequence of road segments leading from the home intersection to the destination.
 
-**8-Puzzle**
+**Numbered tiles (sliding tiles)**
 
-- **State space:** All possible configurations of the 8 numbered tiles in a 3×3 grid (with one empty space)
-- **Initial state:** Starting arrangement of tiles (a specific configuration of the 8 tiles and empty space)
-- **Goal state(s):** Target arrangement of tiles (typically tiles in numerical order with empty space in a specific position)
-- **Transition model:** Model that returns the new configuration after sliding a tile into the empty space
-- **Successor function:** AModel that returns possible slides (up, down, left, right) of adjacent tiles into the empty space and resulting configurations
-- **Action cost function:** Typically uniform cost of 1 per move
-- **Path:** A sequence of tile slides
-- **Solution:** A sequence of tile slides from initial configuration to goal configuration
+- **State space:** All possible configurations of the 8 numbered tiles in a $3 \times 3$ grid.
+- **Initial state:** Any specific starting arrangement of the tiles and the empty square.
+- **Actions:** $\textrm{ACTIONS}(s)$ — The possible moves of the blank space: $\{\textit{Left, Right, Up, Down}\}$.
+- **Transition model:** $\textrm{RESULT}(s, a)$ — The new board configuration after the blank space and an adjacent tile swap positions.
+- **Goal test:** Does the current configuration match the target numerical order?
+- **Action cost function:** $\textrm{ACTION-COST}(s, a, s')$ — A uniform cost of $1$ per move.
+- **Path:** A sequence of tile slides.
+- **Solution:** The specific sequence of slides that transforms the start state into the goal state.
+
+**8 Queens Puzzle**
+
+- **State space:** Any arrangement of 0 to 8 queens on the board.
+- **Initial state:** An empty $8 \times 8$ board.
+- **Actions:** $\textrm{ACTIONS}(s)$ — Add a queen to any empty square in the next available column.
+- **Transition model:** $\textrm{RESULT}(s, a)$ — The board configuration with the new queen added.
+- **Goal test:** 8 queens are on the board, and none are attacking each other (no two queens in the same row, column, or diagonal).
+- **Action cost function:** Zero (the "path" doesn't matter; only the final configuration).
+- **Solution:** A final arrangement of 8 non-attacking queens.
+
+Try the *8 Queens Problem* yourself: [https://www.brainbashers.com/queens.asp](https://www.brainbashers.com/queens.asp).
 
 **Chess**
 
-- **State space:** All possible legal board configurations of chess pieces
-- **Initial state:** Standard starting position with all pieces in their traditional positions
-- **Goal state(s):** Any board configuration where the opponent's king is in checkmate
-- **Transition model:** Model that returns the new board configuration after making a specific move
-- **Successor function:** AModel that returns all legal moves and resulting board configurations from current position
-- **Action cost function:** Typically uniform cost of 1 per move
-- **Path:** A sequence of chess moves
-- **Solution:** A sequence of moves from the initial position to a checkmate position
+- **State space:** All possible legal board configurations of the 32 chess pieces.
+- **Initial state:** The standard setup with all pieces in their starting positions.
+- **Actions:** $\textrm{ACTIONS}(s)$ — The set of all legal moves for the player whose turn it is.
+- **Transition model:** $\textrm{RESULT}(s, a)$ — The board configuration resulting from a specific move.
+- **Goal test:** Any board configuration where the opponent's king is in checkmate.
+- **Action cost function:** $\textrm{ACTION-COST}(s, a, s')$ — Typically a uniform cost of $1$ per move.
+- **Path:** A sequence of legal moves.
+- **Solution:** A sequence of moves leading from the initial position to a checkmate.
 
 :::
 :::
@@ -230,13 +243,13 @@ The formulation of a search problem, encompassing the definition of state space,
 The search tree is the computational manifestation of your problem formulation. 
 
 :::notes
-The quality of your your problem formulation directly affects:
+The quality of your problem formulation directly affects:
 
 - The structure of the tree (branching factor, depth)
 - The efficiency of search algorithms traversing it
 - The quality of solutions found
 
-For example, in the 8-puzzle problem, a poor modeling choice might represent the entire board as a single entity, while a better model would represent each tile position individually, resulting in a more manageable search tree.
+For example, in the *8 Queens Puzzle* problem, a poor modeling choice might represent the entire board as a single entity, while a better model would represent each tile position individually, resulting in a more manageable search tree.
 
 :::{.callout-tip collapse="true"}
 

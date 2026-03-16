@@ -227,7 +227,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Apr 22, 2025</p>
+        <p class="date-modified">Mar 16, 2026</p>
       </div>
     </div>
       
@@ -277,13 +277,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/26ST/intro/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../lectures/I2AI/26ST/intro/slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../lectures/I2AI/26ST/agents/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../lectures/I2AI/26ST/agents/slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Environments &amp; Agents</span></a>
   </div>
 </li>
@@ -390,8 +390,9 @@ window.Quarto = {
 <div class="incremental">
 <ul class="incremental">
 <li>The computational process it undertakes is <strong>search</strong>.</li>
-<li>The representations the agents use are <strong>atomic representations</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
-<li>The <strong>search algrotihms</strong> can be uninformed and informed.</li>
+<li>The agents use <strong>atomic representations</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, where each state is a discrete node in a state space.</li>
+<li>The movement between these states is defined by <strong>actions</strong>, which a <strong>transition model</strong> uses to describe the results of each specific maneuver.</li>
+<li>The <strong>search algorithms</strong> used to find a path can be either <em>uninformed</em> (blind) or <em>informed</em> (using heuristics).</li>
 </ul>
 </div>
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
@@ -440,12 +441,12 @@ window.Quarto = {
 <ul class="incremental">
 <li><strong>State space:</strong> a set of possible states<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> the environment can be in<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
 <li><strong>Initial state:</strong> the state that the agent starts</li>
-<li><strong>Goal state(s):</strong> a state that the agent is trying to reach<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
-<li><strong>Transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s,a)\)</span> — returns the state <span class="math inline">\(s'\)</span> that results from performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span></li>
-<li><strong>Successor function:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> — returns a set of (action, state) pairs for node <span class="math inline">\(s\)</span>, where the state is the state reachable by taking the action <span class="math inline">\(a\)</span></li>
-<li><strong>Action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s,a,s')\)</span> — gives the numeric cost of performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span></li>
-<li><strong>Path:</strong> a sequence of actions</li>
-<li><strong>Solution:</strong> a path from the initial state to the goal state</li>
+<li><strong>Actions:</strong> <span class="math inline">\(\textrm{ACTION}(s)\)</span> — a function that returns the set of possible actions available to the agent when in state <span class="math inline">\(s\)</span></li>
+<li><strong>Transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s, a)\)</span> — a function that returns the state <span class="math inline">\(s'\)</span> that results from performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span></li>
+<li><strong>Goal test:</strong> an abstract condition or a set of goal states<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> that determine if a state is a destination</li>
+<li><strong>Action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s, a, s')\)</span> — a function that assigns a numeric cost to performing action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> to reach state <span class="math inline">\(s'\)</span></li>
+<li><strong>Path:</strong> a sequence of actions leading from one state to another.</li>
+<li><strong>Solution:</strong> a path that leads from the initial state to a goal state. An optimal solution is the solution with the lowest path cost.</li>
 </ul>
 </div>
 <div class="notes">
@@ -463,36 +464,47 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p><strong>Navigation</strong></p>
 <ul>
-<li><strong>State space:</strong> All possible waypoints (intersections, landmarks) in the road network</li>
-<li><strong>Initial state:</strong> Starting waypoint of the agent (e.g., home intersection, current street position)</li>
-<li><strong>Goal state(s):</strong> Destination waypoint(s) the agent wants to reach (e.g., store intersection, airport terminal entrance)</li>
-<li><strong>Transition model:</strong> Model that returns the new waypoint after traveling along a specific road segment</li>
-<li><strong>Successor function:</strong> Model that returns available road segments (streets, highways) and resulting waypoints connected to current waypoint</li>
-<li><strong>Action cost function:</strong> Model that returns the distance, time, or fuel consumption for traveling between waypoints (maybe influenced by speed limits, traffic, road conditions)</li>
-<li><strong>Path:</strong> A sequence of road segments through the network</li>
-<li><strong>Solution:</strong> A sequence of road segments from starting waypoint to destination waypoint</li>
+<li><strong>State space:</strong> All possible waypoints (intersections, landmarks) in the road network.</li>
+<li><strong>Initial state:</strong> The starting waypoint of the agent (e.g., “Home”).</li>
+<li><strong>Actions:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> — The set of available road segments or turns (e.g., <em>Turn Right onto Main St</em>) at a given intersection.</li>
+<li><strong>Transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s, a)\)</span> — The specific waypoint reached after traveling along a chosen road segment.</li>
+<li><strong>Goal test:</strong> A condition checking if the current waypoint is the destination (e.g., “Airport Terminal”).</li>
+<li><strong>Action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s, a, s')\)</span> — The distance, time, or fuel consumption for a specific segment.</li>
+<li><strong>Path:</strong> A sequence of road segments through the network.</li>
+<li><strong>Solution:</strong> A sequence of road segments leading from the home intersection to the destination.</li>
 </ul>
-<p><strong>8-Puzzle</strong></p>
+<p><strong>Numbered tiles (sliding tiles)</strong></p>
 <ul>
-<li><strong>State space:</strong> All possible configurations of the 8 numbered tiles in a 3×3 grid (with one empty space)</li>
-<li><strong>Initial state:</strong> Starting arrangement of tiles (a specific configuration of the 8 tiles and empty space)</li>
-<li><strong>Goal state(s):</strong> Target arrangement of tiles (typically tiles in numerical order with empty space in a specific position)</li>
-<li><strong>Transition model:</strong> Model that returns the new configuration after sliding a tile into the empty space</li>
-<li><strong>Successor function:</strong> AModel that returns possible slides (up, down, left, right) of adjacent tiles into the empty space and resulting configurations</li>
-<li><strong>Action cost function:</strong> Typically uniform cost of 1 per move</li>
-<li><strong>Path:</strong> A sequence of tile slides</li>
-<li><strong>Solution:</strong> A sequence of tile slides from initial configuration to goal configuration</li>
+<li><strong>State space:</strong> All possible configurations of the 8 numbered tiles in a <span class="math inline">\(3 \times 3\)</span> grid.</li>
+<li><strong>Initial state:</strong> Any specific starting arrangement of the tiles and the empty square.</li>
+<li><strong>Actions:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> — The possible moves of the blank space: <span class="math inline">\(\{\textit{Left, Right, Up, Down}\}\)</span>.</li>
+<li><strong>Transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s, a)\)</span> — The new board configuration after the blank space and an adjacent tile swap positions.</li>
+<li><strong>Goal test:</strong> Does the current configuration match the target numerical order?</li>
+<li><strong>Action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s, a, s')\)</span> — A uniform cost of <span class="math inline">\(1\)</span> per move.</li>
+<li><strong>Path:</strong> A sequence of tile slides.</li>
+<li><strong>Solution:</strong> The specific sequence of slides that transforms the start state into the goal state.</li>
 </ul>
+<p><strong>8 Queens Puzzle</strong></p>
+<ul>
+<li><strong>State space:</strong> Any arrangement of 0 to 8 queens on the board.</li>
+<li><strong>Initial state:</strong> An empty <span class="math inline">\(8 \times 8\)</span> board.</li>
+<li><strong>Actions:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> — Add a queen to any empty square in the next available column.</li>
+<li><strong>Transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s, a)\)</span> — The board configuration with the new queen added.</li>
+<li><strong>Goal test:</strong> 8 queens are on the board, and none are attacking each other (no two queens in the same row, column, or diagonal).</li>
+<li><strong>Action cost function:</strong> Zero (the “path” doesn’t matter; only the final configuration).</li>
+<li><strong>Solution:</strong> A final arrangement of 8 non-attacking queens.</li>
+</ul>
+<p>Try the <em>8 Queens Problem</em> yourself: <a href="https://www.brainbashers.com/queens.asp">https://www.brainbashers.com/queens.asp</a>.</p>
 <p><strong>Chess</strong></p>
 <ul>
-<li><strong>State space:</strong> All possible legal board configurations of chess pieces</li>
-<li><strong>Initial state:</strong> Standard starting position with all pieces in their traditional positions</li>
-<li><strong>Goal state(s):</strong> Any board configuration where the opponent’s king is in checkmate</li>
-<li><strong>Transition model:</strong> Model that returns the new board configuration after making a specific move</li>
-<li><strong>Successor function:</strong> AModel that returns all legal moves and resulting board configurations from current position</li>
-<li><strong>Action cost function:</strong> Typically uniform cost of 1 per move</li>
-<li><strong>Path:</strong> A sequence of chess moves</li>
-<li><strong>Solution:</strong> A sequence of moves from the initial position to a checkmate position</li>
+<li><strong>State space:</strong> All possible legal board configurations of the 32 chess pieces.</li>
+<li><strong>Initial state:</strong> The standard setup with all pieces in their starting positions.</li>
+<li><strong>Actions:</strong> <span class="math inline">\(\textrm{ACTIONS}(s)\)</span> — The set of all legal moves for the player whose turn it is.</li>
+<li><strong>Transition model:</strong> <span class="math inline">\(\textrm{RESULT}(s, a)\)</span> — The board configuration resulting from a specific move.</li>
+<li><strong>Goal test:</strong> Any board configuration where the opponent’s king is in checkmate.</li>
+<li><strong>Action cost function:</strong> <span class="math inline">\(\textrm{ACTION-COST}(s, a, s')\)</span> — Typically a uniform cost of <span class="math inline">\(1\)</span> per move.</li>
+<li><strong>Path:</strong> A sequence of legal moves.</li>
+<li><strong>Solution:</strong> A sequence of moves leading from the initial position to a checkmate.</li>
 </ul>
 </div>
 </div>
@@ -562,13 +574,13 @@ Figure&nbsp;1: Example: A simplified map of Romania, with road distances in mile
 </div>
 <p>The search tree is the computational manifestation of your problem formulation.</p>
 <div class="notes">
-<p>The quality of your your problem formulation directly affects:</p>
+<p>The quality of your problem formulation directly affects:</p>
 <ul>
 <li>The structure of the tree (branching factor, depth)</li>
 <li>The efficiency of search algorithms traversing it</li>
 <li>The quality of solutions found</li>
 </ul>
-<p>For example, in the 8-puzzle problem, a poor modeling choice might represent the entire board as a single entity, while a better model would represent each tile position individually, resulting in a more manageable search tree.</p>
+<p>For example, in the <em>8 Queens Puzzle</em> problem, a poor modeling choice might represent the entire board as a single entity, while a better model would represent each tile position individually, resulting in a more manageable search tree.</p>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1438,7 +1450,7 @@ Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern appro
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>An <strong>atomic representation</strong> is one in which each state is treated as a black box with not internal structure, meaning the state either does or does not match what you’re looking for.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>An atomic representation is one in which each state is treated as a black box with no internal structure.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Problem formulation is specifically about defining the formal components of a search problem (state space, initial state, goal state, actions, etc.) — it’s about translating a real-world problem into the specific mathematical structure needed for search algorithms.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>A state is a situation that an agent can find itself in.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Expressed by a graph whose nodes are the set of all states, and whose links are actions that transform one state into another<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

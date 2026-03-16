@@ -214,6 +214,52 @@ Andy Weeger
 <h1>Agents</h1>
 
 </section>
+<section id="agency" class="title-slide slide level2">
+<h2>Agency</h2>
+<div class="medium">
+<p>Agency is the capacity of a system to maintain a continuous feedback loop with its environment. Agency requires a mapping of a history of environmental percepts to a sequence of actions designed to achieve a goal or maximize a performance measure <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel &amp; Norvig, 2022</a>)</span>.</p>
+</div>
+<aside class="notes">
+<p>In the evolution of Artificial Intelligence, we have moved beyond viewing systems as isolated “calculators” that perform fixed computations. Modern AI is built on the paradigm of Agency. This shift is fundamental because it moves our engineering focus from “correct output” to “intelligent behavior”.</p>
+<p>By viewing a system as an agent coupled with an environment, we account for the feedback loops, uncertainties, and real-time constraints that define intelligence in the physical and digital worlds.</p>
+<p>Systems architects use <em>agency</em> as a tool for analysis, but should avoid over-applying it to trivial tools where it provides no design leverage:</p>
+<blockquote>
+<p>One could view a hand-held calculator as an agent that chooses the action of displaying ‘4’ when given the percept sequence ‘2 + 2 =,’ but such an analysis would hardly aid our understanding of the calculator… AI operates at… the most interesting end of the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making. <em><span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel &amp; Norvig, 2022, p. 36</a>)</span></em></p>
+</blockquote>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="core-components" class="title-slide slide level2">
+<h2>Core components</h2>
+<p>To analyze these systems, we define the following core components:</p>
+<ul>
+<li class="fragment"><strong>Agent:</strong> anything that perceives its environment through sensors and acts upon it through actuators.</li>
+<li class="fragment"><strong>Percept:</strong> The agent’s perceptual inputs at any given instant.</li>
+<li class="fragment"><strong>Percept Sequence:</strong> The complete history of everything the agent has ever perceived; an agent’s choice of action depends on this sequence observed to date.</li>
+<li class="fragment"><strong>Sensors:</strong> Mechanisms (cameras, GPS, microphones) that receive environmental input.</li>
+<li class="fragment"><strong>Actuators:</strong> Mechanisms (wheels, display screens, robotic joints) that execute actions.</li>
+</ul>
+</section>
+
+<section id="architecture" class="title-slide slide level2">
+<h2>Architecture</h2>
+<p>We must distinguish between the abstract logic and the physical implementation:</p>
+<ul>
+<li class="fragment"><strong>Agent function:</strong> An abstract mathematical mapping (<span class="math inline">\(f: \mathcal{P}^* \to \mathcal{A}\)</span>) that describes how any given percept sequence results in an action.</li>
+<li class="fragment"><strong>Agent program:</strong> The concrete physical implementation (the actual code) running on a specific architecture.</li>
+</ul>
+</section>
+
 <section id="rational-agents" class="title-slide slide level2">
 <h2>Rational agents</h2>
 <div id="fig-agent" class="quarto-float quarto-figure quarto-figure-left">
@@ -227,19 +273,13 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 </figure>
 </div>
 <aside class="notes">
-<p>A rational agent is anything that is</p>
-<ul>
-<li>perceiving its environment through <strong>sensors</strong>,</li>
-<li>thinking and deciding on the next actions<br>
-(mapping given percepts to actions),</li>
-<li>and acting through <strong>actuators</strong></li>
-</ul>
-<p>Rational means, that the agent acts in a way that is expected to maximize its performance measure, given it’s</p>
-<ul>
-<li>built-in knowledge (i.e., the agent function<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a>),</li>
-<li>perceived experience (i.e., the percep sequence<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a>),</li>
-<li>and acting capabilities</li>
-</ul>
+<p>A rational agent is one that “does the right thing.” Rationality is not about the internal process, but the external outcome.</p>
+<p>The agent acts to maximize its <strong>performance measure</strong>, based on three factors:</p>
+<ol type="1">
+<li>The <strong>percept sequence</strong> (its experience to date).</li>
+<li>The <strong>built-in knowledge</strong> (the logic within the agent function).</li>
+<li>The <strong>actuators</strong> (its physical ability to change the world).</li>
+</ol>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -272,7 +312,7 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<aside></aside></section>
+</section>
 
 <section id="exercise" class="title-slide slide level2 html-hidden unlisted discussion-slide">
 <h2>Exercise</h2>
@@ -305,8 +345,65 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 <li class="fragment">Perfection requires omniscience.</li>
 <li class="fragment">Rational choice depends only on the percept sequence <em>to date</em>.</li>
 </ul>
+</section>
+
+<section id="comparison-of-performance-standards" class="title-slide slide level2">
+<h2>Comparison of performance standards</h2>
+<p>To understand the engineering limits of AI, we distinguish between three standards:</p>
+<table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 29%">
+<col style="width: 26%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: left;">Definition</th>
+<th style="text-align: left;">Info Requirement</th>
+<th style="text-align: left;">Feasibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Rationality</strong></td>
+<td style="text-align: left;">Maximizing <em>expected</em> performance</td>
+<td style="text-align: left;">Percept sequence + prior knowledge</td>
+<td style="text-align: left;"><strong>High:</strong> The engineering standard</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Omniscience</strong></td>
+<td style="text-align: left;">Knowing the <em>actual</em> outcome of actions</td>
+<td style="text-align: left;">Complete future and present data</td>
+<td style="text-align: left;"><strong>Impossible:</strong> Requires a “crystal ball”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Perfection</strong></td>
+<td style="text-align: left;">Maximizing <em>actual</em> performance</td>
+<td style="text-align: left;">Requires Omniscience</td>
+<td style="text-align: left;"><strong>Impossible</strong> in unpredictable worlds</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="overcoming-ignorance" class="title-slide slide level2">
+<h2>Overcoming ignorance</h2>
+<div class="medium">
+<p>To bridge the gap between initial ignorance and rational behavior, agents must utilize <strong>information gathering</strong> and <strong>learning.</strong></p>
+</div>
+<div class="fragment">
+<p>Since agents lack omniscience, they must be designed to:</p>
+</div>
+<ul>
+<li class="fragment"><strong>Information gathering:</strong> take actions specifically to modify future percepts (e.g., looking both ways before crossing a street).</li>
+<li class="fragment"><strong>Learning:</strong> modify their internal agent function based on experience to improve performance over time.</li>
+</ul>
+<div class="fragment">
+<p>As the environment is usually not completely known <em>a priori</em> and not completely predictable, these are vital parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel &amp; Norvig, 2022, p. 59</a>)</span>.</p>
+</div>
 <aside class="notes">
-<p>As the environment is usually not completely known <em>a priori</em> and completely predictable (or stable), information gathering and learning are important parts of rationality <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel &amp; Norvig, 2022, p. 59</a>)</span>.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -316,7 +413,7 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 <p><strong>Example</strong></p>
 </div>
 <div class="callout-content">
-<p>The vacuum cleaner needs to explore an initially unknown environment (i.e., exploration) to maximize its expected performance. In addition, a vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.</p>
+<p>The vacuum cleaner needs to explore an initially unknown environment (<strong>exploration</strong>) to maximize its expected performance. A vacuum cleaner that learns to predict where and when additional dirt will appear will do better than one that does not.</p>
 </div>
 </div>
 </div>
@@ -467,7 +564,7 @@ In a <em>known</em> task environment, the agent has complete information about t
 <img data-src="images/simple-reflex-agent.svg" class="img-fluid">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sr-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: A simple reflex agent<a href="#/footnotes" class="footnote-ref" id="fnref3" role="doc-noteref" data-footnote-href="#/fn3" onclick=""><sup>3</sup></a>
+Figure&nbsp;2: A simple reflex agent<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a>
 </figcaption>
 </figure>
 </div>
@@ -1082,9 +1179,7 @@ Wiener, N. (1960). Some moral and technical consequences of automation. <em>Scie
 <section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h3>Footnotes</h3>
 
 <ol>
-<li id="fn1"><p>The <strong>agent function</strong> maps any given percept sequence to an action (an abstract mathematical description).</p></li>
-<li id="fn2"><p>The term <strong>percept</strong> refers to the content an agent’s sensors are perceiving. The <strong>percept sequence</strong> is the complete history of everything an agent has ever perceived.</p></li>
-<li id="fn3"><p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.</p></li>
+<li id="fn1"><p>Rectangles are used to denote the current internal state of the agent’s decision process, rectangles with rounded corners to represent the background information used in the process.</p></li>
 </ol>
 </section>
     </div>
