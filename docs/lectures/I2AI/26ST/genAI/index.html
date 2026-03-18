@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Generative AI – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="Generative AI – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/I2AI/26ST/genAI/images/genAI-hierarchy.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Generative AI</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Generative AI</h1>
+            <p class="subtitle lead">Introduction to AI (I2AI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Mar 17, 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Mar 18, 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=22780" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/agents/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environments &amp; Agents</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/search/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search &amp; Planning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/knowledge/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knowledge &amp; Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/probability-theory/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability Theory</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/bayes-net/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/learning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/decision-trees/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Decision Trees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/genAI/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Generative AI</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#large-language-models" id="toc-large-language-models" class="nav-link" data-scroll-target="#large-language-models">Large Language Models</a></li>
+  <li><a href="#diffusion-models" id="toc-diffusion-models" class="nav-link" data-scroll-target="#diffusion-models">Diffusion Models</a></li>
+  <li><a href="#agentic-ai" id="toc-agentic-ai" class="nav-link" data-scroll-target="#agentic-ai">Agentic AI</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1 headline-only">
+<h1 class="headline-only">Introduction</h1>
+<section id="from-recognition-to-generation" class="level2">
+<h2 data-anchor-id="from-recognition-to-generation">From recognition to generation</h2>
+<div class="large">
+<p>Neural networks learn to <em>recognize</em> patterns. Generative AI learns to <em>create</em> them.</p>
+</div>
+<div class="fragment">
+<p>The shift is fundamental <span class="citation" data-cites="goodfellow2016deep urbach2026genai">(<a href="#ref-goodfellow2016deep" role="doc-biblioref">Goodfellow et al., 2016</a>; <a href="#ref-urbach2026genai" role="doc-biblioref">Urbach et al., 2026</a>)</span>:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Discriminative AI</strong> asks:<br>
+<em>“What is this?”</em> (i.e., classifying, predicting, deciding)</li>
+<li><strong>Generative AI</strong> asks:<br>
+<em>“What could this be?”</em> (i.e., creating text, images, audio, video)</li>
+<li>Instead of mapping inputs to labels, generative models learn the <strong>underlying distribution</strong> of data</li>
+<li>They can then <strong>sample new instances</strong> from that distribution (i.e., producing new content)</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why generative AI is different
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A digit classifier takes in pixel values and outputs one of ten class labels. Its “knowledge” is encoded as a decision boundary separating classes in high-dimensional space. It cannot produce a new digit, it can only evaluate ones it is given.</p>
+<p>Generative AI systems learn something richer: a model of the data distribution itself. A generative model trained on handwritten digits does not just learn “this looks like a 3”; it learns what makes a 3 look like a 3 (i.e., the curves, the proportions, the variations) well enough to synthesize new, plausible examples from scratch.</p>
+<p>This distinction has deep practical implications. Discriminative models are extraordinarily useful for classification and prediction tasks. But generative models unlock an entirely new class of capabilities: content creation, augmentation, simulation, and creative assistance. The explosion of tools like ChatGPT, DALL-E, and Midjourney is the direct result of scaling generative approaches using the <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">transformer architectures</a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-generative-ai-landscape" class="level2">
+<h2 data-anchor-id="the-generative-ai-landscape">The generative AI landscape</h2>
+<div class="medium">
+<p>Generative AI has rapidly transitioned from a niche research domain to a significant driver of innovation across industries <span class="citation" data-cites="urbach2026genai">(<a href="#ref-urbach2026genai" role="doc-biblioref">Urbach et al., 2026</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>Two major families of <strong>foundational models</strong> dominate today:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Large Language Models (LLMs):</strong> generate coherent, contextually relevant <em>text</em><br>
+Examples: GPT-4, Gemini, Claude, LLaMA</li>
+<li><strong>Diffusion Models:</strong> generate high-quality <em>visual and audio content</em> from noise<br>
+Examples: DALL-E, Midjourney, Stable Diffusion, AudioLDM</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Beyond standalone models, <strong>Agentic AI</strong> combines these capabilities with planning, memory, and tool use and, thus, enable AI to <em>act</em>, not just generate.</p>
+</div>
+<div class="notes">
+<div id="fig-genai-landscape" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genai-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genAI-hierarchy.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genai-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#ref-urbach2026genai" role="doc-biblioref">2026</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p>The diagram above captures the nested relationship between these concepts. All the systems discussed in this lecture sit within the broad category of “Generative AI.” The two main architectural families — LLMs and diffusion models — are both instances of a broader category called <strong>foundational models</strong>.</p>
+<p><strong>Foundational models</strong> are large-scale models trained on massive multimodal datasets that generalize knowledge across diverse applications. They are designed not just to perform specific tasks, but to serve as versatile bases from which specialised applications can be derived. The term was introduced by researchers at Stanford to capture the idea that these models are <em>foundational</em> for other, more specialised systems, that are built on top of them.</p>
+<p>This lecture follows the structure of the book chapter by <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#ref-urbach2026genai" role="doc-biblioref">2026</a>)</span> and proceeds through three layers of increasing sophistication: first LLMs (pure language generation), then diffusion models (visual and audio generation), and finally agentic AI systems (goal-directed action).</p>
+</div>
+</section>
+<section id="the-catalyst-chatgpt" class="level2">
+<h2 data-anchor-id="the-catalyst-chatgpt">The catalyst: ChatGPT</h2>
+<p>The introduction of ChatGPT by OpenAI in <strong>November 2022</strong> marked a turning point:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Built on the GPT architecture (Generative Pre-trained <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a>)</li>
+<li>Its simple, user-friendly interface made <strong>advanced AI accessible</strong> to a mass audience</li>
+<li>Within <strong>2 months</strong> it attracted over <strong>100 million users</strong>, one of the fastest-growing applications in digital history <span class="citation" data-cites="reuters2023">(<a href="#ref-reuters2023" role="doc-biblioref">Reuters, 2023</a>)</span></li>
+<li>Major tech companies (Microsoft, Google) immediately intensified their generative AI investments <span class="citation" data-cites="theverge2024">(<a href="#ref-theverge2024" role="doc-biblioref">The Verge, 2024</a>)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="medium">
+<p>ChatGPT is a catalyst, not the full picture.</p>
+</div>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why ChatGPT succeeded where earlier models did not
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>GPT-2 and GPT-3 had already demonstrated remarkable language capabilities, yet neither achieved mainstream cultural impact. ChatGPT’s breakthrough was not primarily technical, it was the <strong>interaction design</strong>. By wrapping a powerful LLM in a simple chat interface, OpenAI made it trivially easy for non-technical users to experience the model’s capabilities directly.</p>
+<p>Two factors drove adoption: (1) the interface required no technical knowledge and enabled diverse practical applications (e.g., writing assistance, coding help, tutoring); and (2) the underlying model had reached a threshold of quality where outputs were routinely impressive and useful, rather than merely interesting.</p>
+<p>This combination of technical capability and accessible design is a recurring pattern in technology adoption. The lesson for AI management is that the path from capable technology to widespread impact often runs through thoughtful design and user experience, not just raw performance improvements.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="large-language-models" class="level1 headline-only">
+<h1 class="headline-only">Large Language Models</h1>
+<section id="what-are-llms" class="level2">
+<h2 data-anchor-id="what-are-llms">What are LLMs?</h2>
+<div class="medium">
+<p>LLMs are neural networks trained on vast amounts of text, capable of generating coherent, contextually appropriate language <span class="citation" data-cites="vaswani2017attention brown2020language">(<a href="#ref-brown2020language" role="doc-biblioref">Brown et al., 2020</a>; <a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al., 2017</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Key characteristics</span></p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>Built on the <strong><a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a> architecture</strong> with self-attention</li>
+<li>Trained via <strong>next-token prediction</strong> on internet-scale text corpora</li>
+<li>Process all tokens in a sequence <strong>simultaneously</strong> (unlike sequential RNNs)</li>
+<li>Represent words as <strong>high-dimensional embedding vectors</strong> capturing semantic meaning</li>
+<li>Scale dramatically: GPT-3 has 175 billion parameters; GPT-4 is estimated at over 1 trillion</li>
+</ul>
+</div>
+<div class="notes">
+<p>Every LLM discussed here is, at its core, a transformer (i.e., the architecture built around attention mechanisms), token embeddings, feed-forward layers, and next-token prediction (see <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html">neural networks unit</a>).</p>
+<p>Think of the transformer as the <em>engine</em>, and the LLM as the <em>vehicle</em>. In this picture, the LLM reflects the complete system that results from scaling and training the engine (i.e., the LLM) on enormous amounts of data, then fine-tuning it to be useful and safe.</p>
+</div>
+</section>
+<section id="how-llms-generate-text" class="level2">
+<h2 data-anchor-id="how-llms-generate-text">How LLMs generate text</h2>
+<p>The generation process in an LLM follows a clear probabilistic pipeline <span class="citation" data-cites="sanderson2024gpt">(<a href="#ref-sanderson2024gpt" role="doc-biblioref">Sanderson, 2024</a>)</span>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Tokenization:</strong> input text is split into tokens; each token becomes a numerical ID</li>
+<li><strong>Embedding:</strong> token IDs are mapped to high-dimensional vectors capturing semantic meaning</li>
+<li><strong>Transformer layers:</strong> self-attention and feed-forward layers refine contextual representations</li>
+<li><strong>Output projection:</strong> final vector is mapped to scores over the entire vocabulary</li>
+<li><strong>Softmax &amp; sampling:</strong> scores become probabilities; the next token is sampled</li>
+<li><strong>Repeat:</strong> the generated token is appended to the context and the process continues</li>
+</ol>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The probabilistic nature of LLM outputs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>LLMs do not “know” the correct answer to a question. They assign probabilities to possible continuations and sample from that distribution. When you ask “What is the capital of France?” the model is not looking up a stored fact; it is computing a probability distribution over all tokens in its vocabulary, and the token “Paris” happens to receive very high probability because it appeared consistently after similar contexts during training.</p>
+<p>This has important consequences:</p>
+<ul>
+<li><strong>Temperature controls creativity</strong>: A low temperature (e.g., 0.2) concentrates probability mass on the most likely tokens, producing focused, predictable outputs. A high temperature (e.g., 1.0–1.5) spreads probability more evenly, producing more varied, creative (but less reliable) outputs.</li>
+<li><strong>Outputs are not deterministic</strong>: Running the same query twice with the same temperature can yield different outputs.</li>
+<li><strong>Confidence is not visible</strong>: The model can assign high probability to incorrect tokens. There is no built-in mechanism to flag uncertainty unless specifically trained to do so.</li>
+</ul>
+<p>Understanding this probabilistic nature is essential for using LLMs responsibly and for understanding why hallucinations occur.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="training-phases" class="level2">
+<h2 data-anchor-id="training-phases">Training phases</h2>
+<p>LLMs are not trained in a single step, they go through <strong>three distinct phases</strong> <span class="citation" data-cites="ouyang2022training">(<a href="#ref-ouyang2022training" role="doc-biblioref">Ouyang et al., 2022</a>)</span>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Pretraining:</strong> self-supervised learning on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures through next-token prediction</li>
+<li><strong>Fine-tuning:</strong> supervised learning on smaller, high-quality, labelled datasets; adapts the general model to specific tasks (summarisation, Q&amp;A, coding) with more precise, contextually relevant outputs</li>
+<li><strong>Reinforcement Learning from Human Feedback (RLHF):</strong> human evaluators score model outputs; a reward model is trained on these scores; the LLM is then optimised to produce outputs humans prefer (i.e., aligning behaviour with expectations and ethical considerations)</li>
+</ol>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why all three phases matter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pretraining</strong> establishes the model’s broad capability. It is extremely data-intensive and computationally expensive (GPT-3’s pretraining was estimated at ~$4.6 million in compute costs). The model emerges from pretraining knowing a great deal about language and the world, but it is not yet useful as an assistant. It would complete prompts in bizarre ways, generate harmful content, and fail to follow instructions.</p>
+<p><strong>Fine-tuning</strong> makes the model task-appropriate. By training on carefully curated input-output pairs, the model learns to produce the type of response a user would find useful. However, this alone is insufficient for safety, as the model might still produce plausible-sounding but harmful outputs.</p>
+<p><strong>RLHF</strong> is where alignment happens. Human raters compare pairs of model outputs and indicate which is better. A reward model learns to predict human preferences and the LLM is updated using reinforcement learning to maximise predicted reward. This is what makes ChatGPT feel helpful, honest, and (usually) harmless. It is also one of the most active areas of AI safety research, as it requires careful design to avoid teaching models to “game” the reward signal.</p>
+<p>The progression “BabyGPT” described by <span class="citation" data-cites="bhatia2023">Bhatia (<a href="#ref-bhatia2023" role="doc-biblioref">2023</a>)</span> illustrates pretraining vividly: a model trained on Jane Austen begins producing gibberish, gradually forms recognisable words at 500 rounds, coherent fragments at 5,000 rounds, and grammatically correct sentences at 30,000 rounds.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="application-scenarios" class="level2">
+<h2 data-anchor-id="application-scenarios">Application scenarios</h2>
+<p>LLMs are applied across a broad spectrum of domains <span class="citation" data-cites="gimpel2023 gimpel2024">(<a href="#ref-gimpel2023" role="doc-biblioref">Gimpel et al., 2023</a>, <a href="#ref-gimpel2024" role="doc-biblioref">2024</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Content creation:</strong> drafting emails, blog posts, reports, code, and creative writing</li>
+<li><strong>Text summarisation:</strong> condensing lengthy documents into concise, actionable summaries</li>
+<li><strong>Knowledge dissemination:</strong> explaining complex concepts accessibly for varied audiences</li>
+<li><strong>Research support:</strong> structuring literature reviews, drafting paper sections, suggesting methodology</li>
+<li><strong>Customer service:</strong> powering conversational agents that handle routine queries at scale</li>
+<li><strong>Code generation:</strong> writing, explaining, and debugging software across programming languages</li>
+<li><strong>Translation:</strong> converting documents between languages while preserving context and register</li>
+</ul>
+</div>
+<div class="notes">
+<p>The breadth of LLM applications reflects a key property: unlike narrow AI tools (which solve one task), LLMs are <strong>general-purpose text processors</strong>. The same model that drafts a legal contract can explain a physics concept to a school student or translate a marketing brief into Japanese.</p>
+<p>In higher education specifically, LLMs are becoming embedded in the learning process. Students use them as tutoring systems, writing assistants, and research partners. This shift raises important questions about the competencies education should develop: as LLMs handle routine writing and information retrieval, critical reflection, judgment, and responsible AI use become more central to what it means to be an educated person <span class="citation" data-cites="gimpel2024">(<a href="#ref-gimpel2024" role="doc-biblioref">Gimpel et al., 2024</a>)</span>.</p>
+<p>From a business perspective, the key strategic question is not “can we use LLMs?” but “which processes benefit most, and how do we manage the risks?” The answer depends heavily on the specific task, the tolerance for error, and whether human oversight is built into the workflow.</p>
+</div>
+</section>
+<section id="limitations-of-llms" class="level2">
+<h2 data-anchor-id="limitations-of-llms">Limitations of LLMs</h2>
+<div class="medium">
+<p>Despite remarkable capabilities, LLMs have fundamental limitations that any responsible deployment must address <span class="citation" data-cites="riemer2023 verma2023">(<a href="#ref-riemer2023" role="doc-biblioref">Riemer &amp; Peter, 2023</a>; <a href="#ref-verma2023" role="doc-biblioref">Verma &amp; Oremus, 2023</a>)</span>.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Hallucination:</strong> Generates plausible but factually incorrect information.</li>
+<li><strong>No genuine understanding:</strong> Relies on statistical patterns rather than logic or reasoning.</li>
+<li><strong>Training data bias:</strong> Reflects and amplifies prejudices found in its source material.</li>
+<li><strong>Legal &amp; privacy risks:</strong> Can leak sensitive data or infringe on intellectual property.</li>
+<li><strong>Static knowledge:</strong> Limited by a “cutoff date” and cannot learn post-training.</li>
+<li><strong>Resource intensive:</strong> Demands massive energy and expensive infrastructure.</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hallucination
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hallucination is arguably the most consequential limitation for practical deployment. It arises from the model’s core mechanism: generating high-probability continuations. If a prompt leads the model into a context where fabricated content is statistically plausible, the model will produce it confidently.</p>
+<p>A famous example: ChatGPT produced a legal brief citing case law that did not exist. The lawyer who submitted it did not verify the citations. The cases were entirely fabricated. This illustrates the danger of treating LLM output as authoritative without independent verification.</p>
+<p>Hallucination is not simply a “bug” that can be patched”. It is a structural consequence of probabilistic text generation. Mitigation strategies exist (Retrieval-Augmented Generation, confidence calibration, human-in-the-loop verification), but none eliminates the risk entirely. Any organisation deploying LLMs in high-stakes contexts (law, medicine, finance, education) must build verification workflows into their processes.</p>
+<p>The ethical and legal landscape is also evolving rapidly. The EU AI Act represents the first major legislative framework for AI governance, but global consensus on acceptable AI use remains elusive.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="diffusion-models" class="level1 headline-only">
+<h1 class="headline-only">Diffusion Models</h1>
+<section id="a-different-generative-paradigm" class="level2">
+<h2 data-anchor-id="a-different-generative-paradigm">A different generative paradigm</h2>
+<div class="medium">
+<p>While LLMs generate text token by token, diffusion models generate images, video, and audio through an <strong>iterative denoising</strong> process inspired by physics <span class="citation" data-cites="ho2020denoising urbach2026genai">(<a href="#ref-ho2020denoising" role="doc-biblioref">Ho et al., 2020</a>; <a href="#ref-urbach2026genai" role="doc-biblioref">Urbach et al., 2026</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>The core intuition:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Forward diffusion:</strong> Take a real image and <strong>gradually add Gaussian noise</strong> over many timesteps until it becomes pure random noise</li>
+<li><strong>Reverse diffusion:</strong> Train a neural network to <strong>reverse this process</strong> (to predict and remove the noise at each step)</li>
+<li>At generation time: <strong>start from pure noise</strong> and apply the learned denoising process to produce coherent, realistic content</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why noise-to-image works
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It may seem paradoxical that starting from random noise and iteratively removing it yields a coherent image. The key is in what the neural network learns during training.</p>
+<p>The network (typically a U-Net architecture) is trained on enormous datasets of real images. For each training image, the forward diffusion process creates a series of increasingly noisy versions. The network learns to predict, at each noise level, which direction of denoising makes the result more “image-like” given the statistical patterns in training data.</p>
+<p>Over hundreds of denoising steps, this process progressively imposes structure on the noise, guided by the network’s learned understanding of what real images look like. The result is a new image that was not in the training set, but shares the statistical properties of real images.</p>
+<p>Conditioning on text (as in text-to-image models) adds a further layer: the denoising network is also conditioned on a text embedding, so the denoising process is guided not just toward “something that looks like a real image” but toward “something that looks like a real image matching this description.”</p>
+<p><strong>Comparison to GANs</strong>: Earlier generative image models, especially Generative Adversarial Networks (GANs), used a competitive dynamic between a generator and a discriminator. GANs could produce impressive results but were notoriously unstable to train and prone to “mode collapse” (producing limited variety). Diffusion models offer a more principled, likelihood-based training objective, producing more stable training and greater output diversity <span class="citation" data-cites="cao2023">(<a href="#ref-cao2023" role="doc-biblioref">Cao et al., 2023</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="text-to-image-generation" class="level2">
+<h2 data-anchor-id="text-to-image-generation">Text-to-image generation</h2>
+<p>The most prominent application of diffusion models is generating images from text descriptions <span class="citation" data-cites="rombach2022">(<a href="#ref-rombach2022" role="doc-biblioref">Rombach et al., 2022</a>)</span>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Text embedding:</strong> the text prompt is encoded into a high-dimensional semantic vector</li>
+<li><strong>Noise-to-image:</strong> a diffusion model starts from random noise and iteratively denoises it, conditioned on the text embedding</li>
+<li><strong>Super-resolution:</strong> the rough initial image (e.g., 64×64 pixels) is progressively upscaled through further diffusion passes to high resolution (e.g., 1024×1024)</li>
+</ol>
+</div>
+<div class="notes">
+<div class="columns">
+<div class="column">
+<p><span class="h4">Key models</span></p>
+<ul>
+<li><strong>DALL-E 3</strong> (OpenAI)</li>
+<li><strong>Stable Diffusion</strong> (Stability AI)</li>
+<li><strong>Midjourney</strong></li>
+</ul>
+</div><div class="column">
+<p><span class="h4">Applications</span></p>
+<ul>
+<li>Graphic design and advertising</li>
+<li>Game asset generation</li>
+<li>Rapid visual prototyping</li>
+<li>E-commerce product visualisation</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-world impact on creative industries
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Text-to-image diffusion models are already reshaping creative workflows. Companies like Edelman and BMW use AI-generated images for rapid prototyping of visual campaigns. Activision has integrated AI-generated assets into “Call of Duty” production pipelines. E-commerce platforms use Midjourney and DALL-E to generate product visuals tailored to seasonal trends at a fraction of traditional photography costs.</p>
+<p>A survey of video game studios found that nearly 90% had experimented with generative AI in their development pipelines. The implications for creative labour markets are profound and contested: some see these tools as powerful amplifiers of human creativity; others are concerned about the displacement of commercial illustrators and designers.</p>
+<p>The process in detail: the initial 64×64 image generated by the base diffusion model is passed through one or more <strong>super-resolution diffusion models</strong> —which also denoise, but conditioned on the low-resolution image— progressively refining detail until reaching the final output resolution. Throughout this pipeline, the original text embedding continues to guide denoising, ensuring that fine-grained detail remains faithful to the original description <span class="citation" data-cites="rombach2022">(<a href="#ref-rombach2022" role="doc-biblioref">Rombach et al., 2022</a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="beyond-images-video-and-audio" class="level2">
+<h2 data-anchor-id="beyond-images-video-and-audio">Beyond images: video and audio</h2>
+<p>Diffusion models extend naturally to other modalities:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Text-to-video</strong> (Runway Gen-2, Imagen Video)<br>
+Temporal coherence between frames is learned from large video datasets; enables visualisation of storyboards, animation, and promotional content directly from text</li>
+<li><strong>Text-to-audio</strong> (AudioLDM)<br>
+Musical pieces and soundscapes from descriptive prompts; learns from mood, instrumentation, and genre cues embedded in text; applications in entertainment scoring, advertising jingles, and rapid audio prototyping</li>
+</ul>
+</div>
+<div class="fragment">
+<p>All three modalities share the same fundamental mechanism: <strong>embedding the prompt</strong> to <strong>iterative denoising</strong> to <strong>structured output</strong> <span class="citation" data-cites="singh2023 liu2023">(<a href="#ref-liu2023" role="doc-biblioref">Liu et al., 2023</a>; <a href="#ref-singh2023" role="doc-biblioref">Singh, 2023</a>)</span>.</p>
+</div>
+<div class="notes">
+<p><strong>Text-to-video</strong> technically extends text-to-image by adding a temporal dimension. Rather than generating a single frame, the model generates sequences of frames, learning temporal coherence and realistic motion from large-scale video datasets. Early models struggled with maintaining consistent subjects across frames; newer models (Sora, Runway Gen-3) have made dramatic progress.</p>
+<p><strong>Text-to-audio</strong> models like AudioLDM apply diffusion in the audio latent space (typically operating on mel-spectrograms rather than raw waveforms). The text embedding encodes genre, tempo, instrumentation, and mood, guiding the denoising toward musically coherent outputs. The speed of audio prototyping these tools enable is already reshaping workflows in game audio, advertising production, and independent music creation.</p>
+<p>The cross-modal nature of these applications points toward a future of <strong>unified multimodal generative models</strong>, i.e., systems that can generate any combination of text, image, audio, and video from any combination of inputs.</p>
+</div>
+</section>
+<section id="limitations-of-diffusion-models" class="level2">
+<h2 data-anchor-id="limitations-of-diffusion-models">Limitations of diffusion models</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Limited controllability:</strong> precise steering of outputs (exact positions, specific faces, fine typography) remains difficult; users often resort to trial and error for nuanced requirements <span class="citation" data-cites="peng2024">(<a href="#ref-peng2024" role="doc-biblioref">Peng, 2024</a>)</span></li>
+<li><strong>Embedded bias:</strong> models trained on internet imagery inevitably reflect and can amplify societal biases relating to gender, race, and culture (“data mirror effect”) <span class="citation" data-cites="milne2023">(<a href="#ref-milne2023" role="doc-biblioref">Milne, 2023</a>)</span></li>
+<li><strong>Copyright and IP concerns:</strong> outputs may closely resemble training images; legal questions about ownership, attribution, and infringement are unresolved <span class="citation" data-cites="brittain2023">(<a href="#ref-brittain2023" role="doc-biblioref">Brittain, 2023</a>)</span></li>
+<li><strong>Deepfakes and misinformation:</strong> realistic images and videos can be used to fabricate convincing false narratives, threatening trust in media</li>
+<li><strong>Safety vs.&nbsp;freedom trade-offs:</strong> content filters introduce new complexities; defining universally acceptable generation criteria is culturally contested</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The deepfake problem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diffusion models have dramatically lowered the cost and skill required to create realistic synthetic media. While earlier deepfake techniques required large datasets of the target person and significant compute, modern diffusion-based methods can produce convincing fake images from a handful of reference photos.</p>
+<p>This capability poses serious threats to political discourse (fabricated images of public figures), to individuals (non-consensual synthetic intimate imagery), and to epistemics in general (undermining confidence in photographic evidence). Responses include digital watermarking (embedding imperceptible signatures in AI-generated content), synthetic media detectors, and legislative frameworks (the EU AI Act, various national laws).</p>
+<p>The broader challenge is that content restriction is fundamentally difficult. Safety filters can be circumvented by adversarial prompting; they can also over-restrict legitimate creative uses. There is no technically clean solution. The governance of generative media ultimately requires a combination of technical controls, legal frameworks, and social norms.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="agentic-ai" class="level1 headline-only page-columns page-full">
+<h1 class="headline-only">Agentic AI</h1>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
+<div class="medium">
+<blockquote class="blockquote">
+<p>Agentic AI is an emerging paradigm in AI that refers to <strong>autonomous systems</strong> designed to pursue complex goals with <strong>minimal human intervention.</strong> <em><span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025, p. 18912</a>)</span></em></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p><span class="h4">Core characteristics</span></p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Autonomy &amp; goal complexity:</strong> handles multiple complex goals simultaneously; operates independently over extended periods</li>
+<li><strong>Adaptability:</strong> functions in dynamic and unpredictable environments; makes decisions with incomplete information</li>
+<li><strong>Independent decision-making:</strong> learns from experience; reconceptualizes approaches based on new information</li>
+</ul>
+</div>
+<div class="notes">
+<p>The shift to agentic AI is not merely incremental. <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span> identify three technical foundations: <em>reinforcement learning</em> enables systems to refine strategies through trial and error; <em>goal-oriented architectures</em> manage complex, multi-step objectives; and <em>adaptive control mechanisms</em> allow recalibration in response to environmental changes. Together, these enable systems that can pursue extended task sequences with minimal human intervention.</p>
+<p><span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> (MIS Quarterly, 2021) provide a complementary management perspective, arguing that AI systems create three interdependent management challenges: <strong>autonomy</strong> (the system acts with progressively less human guidance), <strong>learning</strong> (the system’s behaviour changes over time through experience), and <strong>inscrutability</strong> (the system’s internal reasoning is opaque to observers). Managing these three dimensions simultaneously — rather than treating each in isolation — is the central challenge of deploying agentic AI in organisations.</p>
+</div>
+</section>
+<section id="agentic-ai-vs.-traditional-ai" class="level2">
+<h2 data-anchor-id="agentic-ai-vs.-traditional-ai">Agentic AI vs.&nbsp;Traditional AI</h2>
+<table class="table">
+<caption>Comparison of traditional AI and agentic AI based on <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span></caption>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 33%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Traditional AI</th>
+<th>Agentic AI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primary purpose</td>
+<td>Task-specific automation</td>
+<td>Goal-oriented autonomy</td>
+</tr>
+<tr class="even">
+<td>Human intervention</td>
+<td>High (predefined parameters)</td>
+<td>Low (autonomous adaptability)</td>
+</tr>
+<tr class="odd">
+<td>Adaptability</td>
+<td>Limited</td>
+<td>High</td>
+</tr>
+<tr class="even">
+<td>Environment interaction</td>
+<td>Static or limited context</td>
+<td>Dynamic and context-aware</td>
+</tr>
+<tr class="odd">
+<td>Learning type</td>
+<td>Primarily supervised</td>
+<td>Reinforcement and self-supervised</td>
+</tr>
+<tr class="even">
+<td>Decision-making</td>
+<td>Data-driven, static rules</td>
+<td>Autonomous, contextual reasoning</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="building-blocks" class="level2 page-columns page-full">
+<h2 data-anchor-id="building-blocks">Building blocks</h2>
+<p>Four key components transform LLMs into agents <span class="citation" data-cites="urbach2026genai">(<a href="#ref-urbach2026genai" role="doc-biblioref">Urbach et al., 2026</a>)</span>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Reasoning-augmented LLMs:</strong> chain-of-thought prompting and multi-path reasoning enable systematic, verifiable problem-solving rather than surface-level pattern matching</li>
+<li><strong>Retrieval-Augmented Generation (RAG):</strong> integrates real-time access to external knowledge bases, addressing the static knowledge limitation of standard LLMs</li>
+<li><strong>Conversational agents:</strong> maintain context over extended dialogues; bridge human intent and machine execution; manage conversation history within token limits</li>
+<li><strong>Multi-agent systems (MAS):</strong> multiple specialised agents collaborate and delegate tasks, enabling scalable, modular architectures for complex domains</li>
+</ol>
+</div>
+<div class="notes page-columns page-full">
+<p>Each building block addresses a specific limitation of standalone LLMs:</p>
+<ul>
+<li><p><strong>Reasoning augmentation</strong> addresses the surface-level reasoning problem: standard LLMs can produce confident-sounding wrong answers. By explicitly generating and checking intermediate reasoning steps (chain-of-thought), the model’s logical process becomes visible and verifiable.</p></li>
+<li><p><strong>RAG</strong> addresses the knowledge cut-off problem: rather than relying solely on what was encoded during training, the model retrieves relevant documents at query time. A medical RAG system might retrieve the latest clinical guidelines before generating a recommendation.</p></li>
+<li><p><strong>Conversational agents</strong> address the single-turn limitation: by maintaining structured dialogue history, agents can support extended, coherent interactions where context from earlier in the conversation shapes later responses.</p></li>
+<li><p><strong>MAS</strong> addresses the single-agent capability ceiling: no single agent can be expert in everything. By coordinating specialised agents (e.g., a planning agent, an execution agent, a validation agent, a writing agent) multi-agent systems achieve greater accuracy, efficiency, and robustness than any individual agent could.</p></li>
+<li><p>:::</p></li>
+</ul>
+<section id="workflow-patterns-in-agentic-systems" class="level2">
+<h2 data-anchor-id="workflow-patterns-in-agentic-systems">Workflow patterns in agentic systems</h2>
+<p><span class="citation" data-cites="agenticAI2024">Anthrophic (<a href="#ref-agenticAI2024" role="doc-biblioref">2024</a>)</span> discusses five key patterns for designing agentic AI workflows:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Prompt chaining:</strong> output of one step becomes input to the next; creates complex multi-step reasoning flows</li>
+<li><strong>Routing:</strong> directs tasks to specialised components based on type; improves efficiency through targeted processing</li>
+<li><strong>Parallelisation:</strong> processes independent subtasks simultaneously; increases throughput</li>
+<li><strong>Orchestrator-workers:</strong> central orchestrator delegates to specialised worker agents; manages coordination and integration</li>
+<li><strong>Evaluator-optimizer:</strong> separate components generate, evaluate, and refine; enables iterative quality improvement</li>
+</ol>
+</div>
+</section>
+<section id="retrieval-augmented-generation-rag" class="level2">
+<h2 data-anchor-id="retrieval-augmented-generation-rag">Retrieval-Augmented Generation (RAG)</h2>
+<div class="medium">
+<p>RAG combines the generative power of LLMs with dynamic access to external, up-to-date knowledge <span class="citation" data-cites="lewis2020">(<a href="#ref-lewis2020" role="doc-biblioref">Lewis et al., 2020</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>The mechanism:</p>
+</div>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Retrieval:</strong> a retrieval module searches an external knowledge base (databases, documents, web APIs) for passages relevant to the query</li>
+<li><strong>Augmentation:</strong> retrieved passages are injected into the context alongside the original query</li>
+<li><strong>Generation:</strong> the LLM generates a response grounded in the retrieved evidence, not just its training data</li>
+</ol>
+</div>
+<div class="fragment">
+<p><strong>Key advantages:</strong> factual accuracy, updatability without retraining, and interpretability (users can inspect which sources were used)</p>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why RAG is strategically important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For enterprise deployment, RAG resolves the two most critical practical limitations of standalone LLMs: knowledge staleness and hallucination.</p>
+<p>A hospital deploying a clinical decision support system cannot use a model whose knowledge was frozen at a training date, medical guidelines update continuously. RAG allows the model to retrieve current clinical literature at query time, ensuring responses reflect current evidence. When a clinician asks “what is the current recommended first-line treatment for X?”, the system retrieves relevant recent guidelines rather than relying on possibly outdated training knowledge.</p>
+<p>Hallucination risk also decreases substantially with RAG, because the model is conditioned on externally retrieved, verifiable content. The generation is grounded, which means that there is a retrievable source that can be shown to the user, enabling verification.</p>
+<p>The adaptability advantage is equally important operationally: updating a RAG system’s knowledge requires only updating the external knowledge base, not retraining the (extremely expensive) generative model. This makes RAG-based systems practical to maintain and keep current at a fraction of the cost of full model retraining.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="multi-agent-systems" class="level2">
+<h2 data-anchor-id="multi-agent-systems">Multi-agent systems</h2>
+<div class="medium">
+<p>Multi-agent systems (MAS) represent the frontier of agentic AI: multiple specialised agents collaborating to solve problems beyond any single agent’s capabilities <span class="citation" data-cites="vanderhoek2008 doran1997">(<a href="#ref-doran1997" role="doc-biblioref">Doran et al., 1997</a>; <a href="#ref-vanderhoek2008" role="doc-biblioref">Hoek &amp; Wooldridge, 2008</a>)</span>.</p>
+</div>
+<div class="columns fragment">
+<div class="column">
+<p><strong>Architecture</strong>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>A <strong>manager agent</strong> orchestrates the overall workflow</li>
+<li><strong>Specialist agents</strong> handle specific subtasks (analysis, reasoning, writing, validation)</li>
+<li>Agents share a <strong>common knowledge base</strong> and communicate through structured protocols</li>
+</ul>
+</div>
+</div><div class="column">
+<p><strong>Benefits</strong>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Division of labour:</strong> tasks broken into components matched to agent strengths</li>
+<li><strong>Scalability:</strong> add specialised agents without redesigning the whole system</li>
+<li><strong>Robustness:</strong> multiple agents can check each other’s outputs</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The analogy to human organisations is apt and intentional. Effective human teams work because different members bring different expertise; a project manager coordinates their contributions; clear communication protocols prevent misunderstandings. MAS architectures mirror this: a manager agent with planning capabilities directs a research agent, a coding agent, a reviewing agent, and a writing agent. Each contributing specialised skills to a shared objective.</p>
+<p>The coordination challenges are also analogous. Ensuring that agents understand each other’s capabilities, align their individual decisions with overarching objectives, and resolve conflicts when they produce contradictory outputs requires sophisticated orchestration. This is an active area of research, and production-grade MAS deployments remain technically demanding.</p>
+<p>Nevertheless, MAS are already used in production: in software development (agents that plan, write, test, and review code), in financial analysis (agents that gather data, model scenarios, and write reports), and in customer service (agents that route, retrieve information, and compose responses across a support workflow).</p>
+</div>
+</section>
+<section id="the-road-ahead" class="level2 page-columns page-full">
+<h2 data-anchor-id="the-road-ahead">The road ahead</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Agentic AI is not a distant future;</strong> systems like AutoGPT, Microsoft Copilot, and Anthropic’s Claude already exhibit agentic behaviour in production deployments <span class="citation" data-cites="plaat2025">(<a href="#ref-plaat2025" role="doc-biblioref">Plaat et al., 2025</a>)</span></li>
+<li><strong>Governance challenges grow</strong> with agency: autonomous systems that take actions in the world require more robust oversight than text-generation systems</li>
+<li><strong>Human-AI collaboration models</strong> are evolving rapidly: from AI as assistant, to AI as collaborator, toward AI as (supervised) autonomous actor</li>
+<li><strong>Responsibility questions intensify:</strong> when an agentic system makes a consequential mistake, who is accountable (e.g., the user, the deploying organisation, or the model developer)?</li>
+</ul>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><span class="citation" data-cites="wang2024 urbach2026genai">(<a href="#ref-urbach2026genai" role="doc-biblioref">Urbach et al., 2026</a>; <a href="#ref-wang2024" role="doc-biblioref">Wang et al., 2024</a>)</span></p>
+</div></div><div class="notes">
+<p>The progression from generative AI to agentic AI represents a qualitative shift in what AI systems do. A text-generation system is a tool: a human poses a question, the system generates a response, a human decides what to do with it. An agentic system is closer to an autonomous process: it receives a goal, plans a sequence of actions, executes those actions (potentially interacting with external systems, databases, or other agents), monitors its own progress, and adapts its approach.</p>
+<p>This shift has significant implications for AI governance and risk management. The EU AI Act, which came into force in 2024, addresses AI systems partly by their risk level. Autonomous systems operating in high-stakes domains (healthcare, critical infrastructure, law enforcement) face the highest regulatory burden. As agentic systems proliferate, organisations deploying them will need robust human oversight mechanisms: checkpoints where humans review and approve agent decisions before consequential actions are taken.</p>
+<p>The technical challenges are also substantial: ensuring that goals are correctly specified (the alignment problem), that agents do not take unintended shortcuts (specification gaming), and that multi-agent systems do not exhibit emergent behaviours that no individual designer intended.</p>
+</div>
+</section>
+<section id="exercises" class="level1 headline-only">
+<h1 class="headline-only">Exercises</h1>
+<section id="genai-landscape-mapping" class="level2">
+<h2 data-anchor-id="genai-landscape-mapping">GenAI landscape mapping</h2>
+<p>You are advising a media company that produces news articles, photographs, video segments, and podcast episodes.</p>
+<ol type="1">
+<li><strong>Map the technologies</strong>: For each content type, identify which generative AI technology (LLM, diffusion model, or a combination) would be most relevant and explain why.</li>
+<li><strong>Identify risks</strong>: For each application, identify the most significant risk that would need to be managed (e.g., hallucination, bias, copyright, deepfake potential).</li>
+<li><strong>Prioritise</strong>: If the company can only pilot one generative AI application in the first year, which would you recommend and why?</li>
+</ol>
+</section>
+<section id="training-phase-analysis" class="level2">
+<h2 data-anchor-id="training-phase-analysis">Training phase analysis</h2>
+<p>A startup has built a general-purpose LLM through pretraining on a large web corpus. They now want to deploy it as a legal document assistant for law firms.</p>
+<ol type="1">
+<li><strong>Fine-tuning</strong>: What kind of training data would you recommend for fine-tuning, and why?</li>
+<li><strong>RLHF</strong>: Who would you recruit as human raters, and what specific quality criteria would you have them evaluate?</li>
+<li><strong>Trade-offs</strong>: Fine-tuning makes the model more specialised, but it risks “catastrophic forgetting” of general knowledge. How would you design the training process to mitigate this?</li>
+<li><strong>Evaluation</strong>: Before deploying to law firms, what evaluation would you run to assess the model’s readiness?</li>
+</ol>
+</section>
+<section id="diffusion-model-design" class="level2">
+<h2 data-anchor-id="diffusion-model-design">Diffusion model design</h2>
+<p>A pharmaceutical company wants to use generative AI to visualise molecular structures and simulate how proposed drug compounds might interact with target proteins. They are considering adapting diffusion models for this scientific domain.</p>
+<ol type="1">
+<li><strong>Analogy</strong>: The text-to-image pipeline uses (i) text embedding, (ii) denoising conditioned on the embedding, (iii) super-resolution. Design an analogous pipeline for text-to-molecule generation.</li>
+<li><strong>Training data</strong>: What would a training dataset look like, and where might it come from?</li>
+<li><strong>Evaluation challenge</strong>: Unlike image generation (where human aesthetic judgement provides a useful signal), how would you evaluate whether a generated molecule is “good”?</li>
+<li><strong>Limitations</strong>: What specific limitations of diffusion models become especially problematic in this scientific context?</li>
+</ol>
+</section>
+<section id="rag-system-design" class="level2">
+<h2 data-anchor-id="rag-system-design">RAG system design</h2>
+<p>Your university wants to deploy a student support chatbot that can answer questions about study regulations, course requirements, examination procedures, and administrative processes. The university updates its regulations each semester.</p>
+<ol type="1">
+<li><strong>Architecture</strong>: Sketch a RAG architecture for this system. What are the components, and what documents belong in the knowledge base?</li>
+<li><strong>Retrieval quality</strong>: A student asks: “Can I take my bachelor’s thesis exam if I still have one failed elective from last semester?” Describe the retrieval steps and explain what could go wrong.</li>
+<li><strong>Knowledge base maintenance</strong>: How would you ensure the knowledge base stays up to date as regulations change each semester?</li>
+<li><strong>Failure modes</strong>: Identify three ways this system could fail in ways that harm students, and propose mitigations for each.</li>
+</ol>
+</section>
+<section id="agentic-ai-evaluation" class="level2">
+<h2 data-anchor-id="agentic-ai-evaluation">Agentic AI evaluation</h2>
+<p>Consider the following agentic AI scenario: a university deploys an AI research assistant agent that, given a research question, autonomously searches academic databases, reads and synthesises relevant papers, identifies gaps in the literature, and produces a structured literature review draft.</p>
+<ol type="1">
+<li><strong>Agent architecture</strong>: Identify which building blocks from the lecture (reasoning-augmented LLM, RAG, conversational agent, MAS) are present in this system, and describe the role of each.</li>
+<li><strong>Goal specification</strong>: How would you specify the agent’s goal precisely enough that it produces useful output without over- or under-shooting? What could go wrong with vague goal specification?</li>
+<li><strong>Human oversight</strong>: At which points in the agent’s workflow should a human researcher be consulted or able to intervene? Design a human-in-the-loop workflow.</li>
+<li><strong>Ethical considerations</strong>: Identify two ethical issues this deployment raises for academic integrity, and discuss how they might be addressed.</li>
+</ol>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-acharya2025agentic" class="csl-entry" role="listitem">
+Acharya, D. B., Kuppan, K., &amp; Divya, B. (2025). Agentic AI: Autonomous intelligence for complex goals–a comprehensive survey. <em>IEEE Access</em>.
+</div>
+<div id="ref-agenticAI2024" class="csl-entry" role="listitem">
+Anthrophic. (2024). <em>Building effective agents</em>. Anthropic Research Team; <a href="https://www.anthropic.com/engineering/building-effective-agents" class="uri">https://www.anthropic.com/engineering/building-effective-agents</a>.
+</div>
+<div id="ref-berente2021managing" class="csl-entry" role="listitem">
+Berente, N., Gu, B., Recker, J., &amp; Santhanam, R. (2021). Managing artificial intelligence. <em>MIS Quarterly</em>, <em>45</em>(3), 1433–1450. <a href="https://doi.org/10.25300/MISQ/2021/16274">https://doi.org/10.25300/MISQ/2021/16274</a>
+</div>
+<div id="ref-bhatia2023" class="csl-entry" role="listitem">
+Bhatia, A. (2023). <em>We need to talk about how good <span>A.I.</span> Is getting</em>. <a href="https://www.nytimes.com/interactive/2023/04/26/upshot/gpt-from-scratch.html">https://www.nytimes.com/interactive/2023/04/26/upshot/gpt-from-scratch.html</a>
+</div>
+<div id="ref-brittain2023" class="csl-entry" role="listitem">
+Brittain, B. (2023). Getty images lawsuit says <span>Stability AI</span> misused photos to train <span>AI</span>. <em>Reuters</em>. <a href="https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/">https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/</a>
+</div>
+<div id="ref-brown2020language" class="csl-entry" role="listitem">
+Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu, J., Winter, C., … Amodei, D. (2020). Language models are few-shot learners. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 1877–1901. <a href="https://arxiv.org/abs/2005.14165">https://arxiv.org/abs/2005.14165</a>
+</div>
+<div id="ref-cao2023" class="csl-entry" role="listitem">
+Cao, H., Tan, C., Gao, Z., Xu, Y., Chen, G., Heng, P.-A., &amp; Li, S. Z. (2023). A survey on generative diffusion model. <em>arXiv Preprint arXiv:2209.02646</em>. <a href="https://arxiv.org/abs/2209.02646">https://arxiv.org/abs/2209.02646</a>
+</div>
+<div id="ref-doran1997" class="csl-entry" role="listitem">
+Doran, J., Franklin, S., Jennings, N., &amp; Norman, T. (1997). On cooperation in multi-agent systems. <em>The Knowledge Engineering Review</em>, <em>12</em>(3), 309–314. <a href="https://doi.org/10.1017/s0269888997003111">https://doi.org/10.1017/s0269888997003111</a>
+</div>
+<div id="ref-gimpel2024" class="csl-entry" role="listitem">
+Gimpel, H., Gutheil, N., Mayer, V., Bandtel, M., Büttgen, M., Decker, S., et al. (2024). <em><span>(Generative) AI</span> competencies for future-proof graduates: <span>Inspiration</span> for higher education institutions</em> [Hohenheim Discussion Papers in Business, Economics and Social Sciences]. University of Hohenheim.
+</div>
+<div id="ref-gimpel2023" class="csl-entry" role="listitem">
+Gimpel, H., Ruiner, C., Schoch, M., Schoop, M., Hall, K., Eymann, T., Röglinger, M., Vandrik, S., Lämmermann, L., Urbach, N., Mädche, A., &amp; Decker, S. (2023). <em>Unlocking the power of generative <span>AI</span> models and systems such as <span>GPT-4</span> and <span>ChatGPT</span> for higher education: <span>A</span> guide for students and lecturers</em> (Hohenheim Discussion Papers in Business, Economics and Social Sciences 02-2023). University of Hohenheim. <a href="https://hohpublica.uni-hohenheim.de/items/fe53b2bb-ab75-463c-9383-ec74416fd940">https://hohpublica.uni-hohenheim.de/items/fe53b2bb-ab75-463c-9383-ec74416fd940</a>
+</div>
+<div id="ref-goodfellow2016deep" class="csl-entry" role="listitem">
+Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep learning</em>. MIT Press. <a href="https://www.deeplearningbook.org">https://www.deeplearningbook.org</a>
+</div>
+<div id="ref-ho2020denoising" class="csl-entry" role="listitem">
+Ho, J., Jain, A., &amp; Abbeel, P. (2020). Denoising diffusion probabilistic models. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 6840–6851. <a href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a>
+</div>
+<div id="ref-vanderhoek2008" class="csl-entry" role="listitem">
+Hoek, W. van der, &amp; Wooldridge, M. (2008). Multi-agent systems. In <em>Handbook of knowledge representation</em> (Vol. 3, pp. 887–928). Elsevier. <a href="https://doi.org/10.1016/S1574-6526(07)03024-6">https://doi.org/10.1016/S1574-6526(07)03024-6</a>
+</div>
+<div id="ref-lewis2020" class="csl-entry" role="listitem">
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., &amp; Riedel, S. (2020). Retrieval-augmented generation for knowledge-intensive <span>NLP</span> tasks. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 9459–9474. <a href="https://arxiv.org/abs/2005.11401">https://arxiv.org/abs/2005.11401</a>
+</div>
+<div id="ref-liu2023" class="csl-entry" role="listitem">
+Liu, H., Chen, Z., Yuan, Y., et al. (2023). <em><span>AudioLDM</span>: Text-to-audio generation with latent diffusion models</em>. <a href="https://arxiv.org/abs/2301.12503">https://arxiv.org/abs/2301.12503</a>
+</div>
+<div id="ref-milne2023" class="csl-entry" role="listitem">
+Milne, S. (2023). <em><span>AI</span> image generator <span>Stable Diffusion</span> perpetuates racial and gendered stereotypes, study finds</em>. <a href="https://www.washingtonpost.com/news/2023/11/29/ai-image-generator-stable-diffusion-perpetuates-racial-and-gendered-stereotypes-bias/">https://www.washingtonpost.com/news/2023/11/29/ai-image-generator-stable-diffusion-perpetuates-racial-and-gendered-stereotypes-bias/</a>
+</div>
+<div id="ref-ouyang2022training" class="csl-entry" role="listitem">
+Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C. L., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., Schulman, J., Hilton, J., Kelton, F., Miller, L. E., Simens, M., Askell, A., Welinder, P., Christiano, P. F., Leike, J., &amp; Lowe, R. (2022). Training language models to follow instructions with human feedback. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>35</em>, 27730–27744. <a href="https://arxiv.org/abs/2203.02155">https://arxiv.org/abs/2203.02155</a>
+</div>
+<div id="ref-peng2024" class="csl-entry" role="listitem">
+Peng, Y. (2024). A comparative analysis between <span>GAN</span> and diffusion models in image generation. <em>Transactions on Computer Science and Intelligent Systems Research</em>, <em>5</em>(1).
+</div>
+<div id="ref-plaat2025" class="csl-entry" role="listitem">
+Plaat, A., D’Ascoli, S., Bubeck, S., Chan, B., Chen, D., Chi, E. H., et al. (2025). <em>Agentic large language models</em>. <a href="https://arxiv.org/abs/2503.23037">https://arxiv.org/abs/2503.23037</a>
+</div>
+<div id="ref-reuters2023" class="csl-entry" role="listitem">
+Reuters. (2023). <em><span>ChatGPT</span> sets record for fastest-growing user base—<span>Analyst</span> note</em>. <a href="https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/">https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/</a>
+</div>
+<div id="ref-riemer2023" class="csl-entry" role="listitem">
+Riemer, K., &amp; Peter, S. (2023). What the lone banana problem reveals about the nature of generative <span>AI</span>. <em>ACIS 2023 Proceedings</em>.
+</div>
+<div id="ref-rombach2022" class="csl-entry" role="listitem">
+Rombach, R., Blattmann, A., Lorenz, D., Esser, P., &amp; Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. <em>Proceedings of the <span>IEEE/CVF</span> Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 10684–10695. <a href="https://doi.org/10.1109/CVPR52688.2022.01042">https://doi.org/10.1109/CVPR52688.2022.01042</a>
+</div>
+<div id="ref-sanderson2024gpt" class="csl-entry" role="listitem">
+Sanderson, G. (2024). <em>But what is a <span>GPT</span>? <span>Visual</span> intro to transformers</em>. <a href="https://www.3blue1brown.com/lessons/gpt">https://www.3blue1brown.com/lessons/gpt</a>
+</div>
+<div id="ref-singh2023" class="csl-entry" role="listitem">
+Singh, A. (2023). <em>A survey of <span>AI</span> text-to-image and <span>AI</span> text-to-video generators</em>. <a href="https://arxiv.org/abs/2311.06329">https://arxiv.org/abs/2311.06329</a>
+</div>
+<div id="ref-theverge2024" class="csl-entry" role="listitem">
+The Verge. (2024). <em>Inside the launch—and future—of <span>ChatGPT</span></em>. <a href="https://www.theverge.com/23610427/chatgpt-openai-history-two-year-anniversary">https://www.theverge.com/23610427/chatgpt-openai-history-two-year-anniversary</a>
+</div>
+<div id="ref-urbach2026genai" class="csl-entry" role="listitem">
+Urbach, N., Feulner, D., Feulner, S., Guggenberger, T., &amp; Mayer, V. (2026). Introduction to generative artificial intelligence. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 71–95). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
+</div>
+<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>30</em>, 5998–6008. <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>
+</div>
+<div id="ref-verma2023" class="csl-entry" role="listitem">
+Verma, P., &amp; Oremus, W. (2023). <em><span>ChatGPT</span> invented a sexual harassment scandal and named a real law prof as the accused</em>. <a href="https://www.washingtonpost.com/technology/2023/04/05/chatgpt-lies/">https://www.washingtonpost.com/technology/2023/04/05/chatgpt-lies/</a>
+</div>
+<div id="ref-wang2024" class="csl-entry" role="listitem">
+Wang, L., Liu, Z., Wang, Z., &amp; Li, L. (2024). A survey on large language model based autonomous agents. <em>Journal of Computer Science and Technology</em>. <a href="https://doi.org/10.1109/JOCST.2024.10849561">https://doi.org/10.1109/JOCST.2024.10849561</a>
+</div>
+</div>
+
+
+</section>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

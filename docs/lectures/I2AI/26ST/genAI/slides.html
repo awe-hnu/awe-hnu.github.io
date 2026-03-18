@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-03-17">
+  <title>awe.lectures – Generative AI</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8c670e19b69dfa49d603c5f4f1569fb0.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Generative AI – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V1.2
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Introduction to Artificial Intelligence (AI)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Generative AI</h1>
+  <p class="subtitle">Introduction to AI (I2AI)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">March 17, 2026</p>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 headline-only">
+<h1>Introduction</h1>
+
+</section>
+<section id="discussion" class="title-slide slide level2 html-hidden discussion-slide unlisted">
+<h2>Discussion</h2>
+<div class="medium">
+<p>When you hear “Generative AI”, what comes to mind?</p>
+</div>
+<p>And what do you think it actually means for a machine to <em>create</em> something?</p>
+</section>
+
+<section id="from-recognition-to-generation" class="title-slide slide level2">
+<h2>From recognition to generation</h2>
+<div class="large">
+<p>Neural networks learn to <em>recognize</em> patterns. Generative AI learns to <em>create</em> them.</p>
+</div>
+<div class="fragment">
+<p>The shift is fundamental <span class="citation" data-cites="goodfellow2016deep urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Goodfellow et al., 2016</a>; <a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>)</span>:</p>
+</div>
+<ul>
+<li class="fragment"><strong>Discriminative AI</strong> asks:<br>
+<em>“What is this?”</em> (i.e., classifying, predicting, deciding)</li>
+<li class="fragment"><strong>Generative AI</strong> asks:<br>
+<em>“What could this be?”</em> (i.e., creating text, images, audio, video)</li>
+<li class="fragment">Instead of mapping inputs to labels, generative models learn the <strong>underlying distribution</strong> of data</li>
+<li class="fragment">They can then <strong>sample new instances</strong> from that distribution (i.e., producing new content)</li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why generative AI is different</strong></p>
+</div>
+<div class="callout-content">
+<p>A digit classifier takes in pixel values and outputs one of ten class labels. Its “knowledge” is encoded as a decision boundary separating classes in high-dimensional space. It cannot produce a new digit, it can only evaluate ones it is given.</p>
+<p>Generative AI systems learn something richer: a model of the data distribution itself. A generative model trained on handwritten digits does not just learn “this looks like a 3”; it learns what makes a 3 look like a 3 (i.e., the curves, the proportions, the variations) well enough to synthesize new, plausible examples from scratch.</p>
+<p>This distinction has deep practical implications. Discriminative models are extraordinarily useful for classification and prediction tasks. But generative models unlock an entirely new class of capabilities: content creation, augmentation, simulation, and creative assistance. The explosion of tools like ChatGPT, DALL-E, and Midjourney is the direct result of scaling generative approaches using the <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">transformer architectures</a>.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="the-generative-ai-landscape" class="title-slide slide level2">
+<h2>The generative AI landscape</h2>
+<div class="medium">
+<p>Generative AI has rapidly transitioned from a niche research domain to a significant driver of innovation across industries <span class="citation" data-cites="urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>Two major families of <strong>foundational models</strong> dominate today:</p>
+</div>
+<ul>
+<li class="fragment"><strong>Large Language Models (LLMs):</strong> generate coherent, contextually relevant <em>text</em><br>
+Examples: GPT-4, Gemini, Claude, LLaMA</li>
+<li class="fragment"><strong>Diffusion Models:</strong> generate high-quality <em>visual and audio content</em> from noise<br>
+Examples: DALL-E, Midjourney, Stable Diffusion, AudioLDM</li>
+</ul>
+<div class="fragment">
+<p>Beyond standalone models, <strong>Agentic AI</strong> combines these capabilities with planning, memory, and tool use and, thus, enable AI to <em>act</em>, not just generate.</p>
+</div>
+<aside class="notes">
+<div id="fig-genai-landscape" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-genai-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/genAI-hierarchy.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genai-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#/literature" role="doc-biblioref" onclick="">2026</a>)</span>
+</figcaption>
+</figure>
+</div>
+<p>The diagram above captures the nested relationship between these concepts. All the systems discussed in this lecture sit within the broad category of “Generative AI.” The two main architectural families — LLMs and diffusion models — are both instances of a broader category called <strong>foundational models</strong>.</p>
+<p><strong>Foundational models</strong> are large-scale models trained on massive multimodal datasets that generalize knowledge across diverse applications. They are designed not just to perform specific tasks, but to serve as versatile bases from which specialised applications can be derived. The term was introduced by researchers at Stanford to capture the idea that these models are <em>foundational</em> for other, more specialised systems, that are built on top of them.</p>
+<p>This lecture follows the structure of the book chapter by <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#/literature" role="doc-biblioref" onclick="">2026</a>)</span> and proceeds through three layers of increasing sophistication: first LLMs (pure language generation), then diffusion models (visual and audio generation), and finally agentic AI systems (goal-directed action).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="the-catalyst-chatgpt" class="title-slide slide level2">
+<h2>The catalyst: ChatGPT</h2>
+<p>The introduction of ChatGPT by OpenAI in <strong>November 2022</strong> marked a turning point:</p>
+<ul>
+<li class="fragment">Built on the GPT architecture (Generative Pre-trained <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a>)</li>
+<li class="fragment">Its simple, user-friendly interface made <strong>advanced AI accessible</strong> to a mass audience</li>
+<li class="fragment">Within <strong>2 months</strong> it attracted over <strong>100 million users</strong>, one of the fastest-growing applications in digital history <span class="citation" data-cites="reuters2023">(<a href="#/literature" role="doc-biblioref" onclick="">Reuters, 2023</a>)</span></li>
+<li class="fragment">Major tech companies (Microsoft, Google) immediately intensified their generative AI investments <span class="citation" data-cites="theverge2024">(<a href="#/literature" role="doc-biblioref" onclick="">The Verge, 2024</a>)</span></li>
+</ul>
+<div class="fragment">
+<div class="medium">
+<p>ChatGPT is a catalyst, not the full picture.</p>
+</div>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why ChatGPT succeeded where earlier models did not</strong></p>
+</div>
+<div class="callout-content">
+<p>GPT-2 and GPT-3 had already demonstrated remarkable language capabilities, yet neither achieved mainstream cultural impact. ChatGPT’s breakthrough was not primarily technical, it was the <strong>interaction design</strong>. By wrapping a powerful LLM in a simple chat interface, OpenAI made it trivially easy for non-technical users to experience the model’s capabilities directly.</p>
+<p>Two factors drove adoption: (1) the interface required no technical knowledge and enabled diverse practical applications (e.g., writing assistance, coding help, tutoring); and (2) the underlying model had reached a threshold of quality where outputs were routinely impressive and useful, rather than merely interesting.</p>
+<p>This combination of technical capability and accessible design is a recurring pattern in technology adoption. The lesson for AI management is that the path from capable technology to widespread impact often runs through thoughtful design and user experience, not just raw performance improvements.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="large-language-models" class="title-slide slide level1 headline-only">
+<h1>Large Language Models</h1>
+
+</section>
+<section id="what-are-llms" class="title-slide slide level2">
+<h2>What are LLMs?</h2>
+<div class="medium">
+<p>LLMs are neural networks trained on vast amounts of text, capable of generating coherent, contextually appropriate language <span class="citation" data-cites="vaswani2017attention brown2020language">(<a href="#/literature" role="doc-biblioref" onclick="">Brown et al., 2020</a>; <a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al., 2017</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Key characteristics</span></p>
+</div>
+<ul>
+<li class="fragment">Built on the <strong><a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a> architecture</strong> with self-attention</li>
+<li class="fragment">Trained via <strong>next-token prediction</strong> on internet-scale text corpora</li>
+<li class="fragment">Process all tokens in a sequence <strong>simultaneously</strong> (unlike sequential RNNs)</li>
+<li class="fragment">Represent words as <strong>high-dimensional embedding vectors</strong> capturing semantic meaning</li>
+<li class="fragment">Scale dramatically: GPT-3 has 175 billion parameters; GPT-4 is estimated at over 1 trillion</li>
+</ul>
+<aside class="notes">
+<p>Every LLM discussed here is, at its core, a transformer (i.e., the architecture built around attention mechanisms), token embeddings, feed-forward layers, and next-token prediction (see <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html">neural networks unit</a>).</p>
+<p>Think of the transformer as the <em>engine</em>, and the LLM as the <em>vehicle</em>. In this picture, the LLM reflects the complete system that results from scaling and training the engine (i.e., the LLM) on enormous amounts of data, then fine-tuning it to be useful and safe.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="how-llms-generate-text" class="title-slide slide level2">
+<h2>How LLMs generate text</h2>
+<p>The generation process in an LLM follows a clear probabilistic pipeline <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2024</a>)</span>:</p>
+<ol type="1">
+<li class="fragment"><strong>Tokenization:</strong> input text is split into tokens; each token becomes a numerical ID</li>
+<li class="fragment"><strong>Embedding:</strong> token IDs are mapped to high-dimensional vectors capturing semantic meaning</li>
+<li class="fragment"><strong>Transformer layers:</strong> self-attention and feed-forward layers refine contextual representations</li>
+<li class="fragment"><strong>Output projection:</strong> final vector is mapped to scores over the entire vocabulary</li>
+<li class="fragment"><strong>Softmax &amp; sampling:</strong> scores become probabilities; the next token is sampled</li>
+<li class="fragment"><strong>Repeat:</strong> the generated token is appended to the context and the process continues</li>
+</ol>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The probabilistic nature of LLM outputs</strong></p>
+</div>
+<div class="callout-content">
+<p>LLMs do not “know” the correct answer to a question. They assign probabilities to possible continuations and sample from that distribution. When you ask “What is the capital of France?” the model is not looking up a stored fact; it is computing a probability distribution over all tokens in its vocabulary, and the token “Paris” happens to receive very high probability because it appeared consistently after similar contexts during training.</p>
+<p>This has important consequences:</p>
+<ul>
+<li><strong>Temperature controls creativity</strong>: A low temperature (e.g., 0.2) concentrates probability mass on the most likely tokens, producing focused, predictable outputs. A high temperature (e.g., 1.0–1.5) spreads probability more evenly, producing more varied, creative (but less reliable) outputs.</li>
+<li><strong>Outputs are not deterministic</strong>: Running the same query twice with the same temperature can yield different outputs.</li>
+<li><strong>Confidence is not visible</strong>: The model can assign high probability to incorrect tokens. There is no built-in mechanism to flag uncertainty unless specifically trained to do so.</li>
+</ul>
+<p>Understanding this probabilistic nature is essential for using LLMs responsibly and for understanding why hallucinations occur.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="training-phases" class="title-slide slide level2">
+<h2>Training phases</h2>
+<p>LLMs are not trained in a single step, they go through <strong>three distinct phases</strong> <span class="citation" data-cites="ouyang2022training">(<a href="#/literature" role="doc-biblioref" onclick="">Ouyang et al., 2022</a>)</span>:</p>
+<ol type="1">
+<li class="fragment"><strong>Pretraining:</strong> self-supervised learning on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures through next-token prediction</li>
+<li class="fragment"><strong>Fine-tuning:</strong> supervised learning on smaller, high-quality, labelled datasets; adapts the general model to specific tasks (summarisation, Q&amp;A, coding) with more precise, contextually relevant outputs</li>
+<li class="fragment"><strong>Reinforcement Learning from Human Feedback (RLHF):</strong> human evaluators score model outputs; a reward model is trained on these scores; the LLM is then optimised to produce outputs humans prefer (i.e., aligning behaviour with expectations and ethical considerations)</li>
+</ol>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why all three phases matter</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Pretraining</strong> establishes the model’s broad capability. It is extremely data-intensive and computationally expensive (GPT-3’s pretraining was estimated at ~$4.6 million in compute costs). The model emerges from pretraining knowing a great deal about language and the world, but it is not yet useful as an assistant. It would complete prompts in bizarre ways, generate harmful content, and fail to follow instructions.</p>
+<p><strong>Fine-tuning</strong> makes the model task-appropriate. By training on carefully curated input-output pairs, the model learns to produce the type of response a user would find useful. However, this alone is insufficient for safety, as the model might still produce plausible-sounding but harmful outputs.</p>
+<p><strong>RLHF</strong> is where alignment happens. Human raters compare pairs of model outputs and indicate which is better. A reward model learns to predict human preferences and the LLM is updated using reinforcement learning to maximise predicted reward. This is what makes ChatGPT feel helpful, honest, and (usually) harmless. It is also one of the most active areas of AI safety research, as it requires careful design to avoid teaching models to “game” the reward signal.</p>
+<p>The progression “BabyGPT” described by <span class="citation" data-cites="bhatia2023">Bhatia (<a href="#/literature" role="doc-biblioref" onclick="">2023</a>)</span> illustrates pretraining vividly: a model trained on Jane Austen begins producing gibberish, gradually forms recognisable words at 500 rounds, coherent fragments at 5,000 rounds, and grammatically correct sentences at 30,000 rounds.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="discussion-1" class="title-slide slide level2 html-hidden discussion-slide unlisted">
+<h2>Discussion</h2>
+<div class="large">
+<p>Consider the tasks you do in a typical working day. <strong>Where could an LLM genuinely help?</strong> And where might it do more harm than good?</p>
+</div>
+</section>
+
+<section id="application-scenarios" class="title-slide slide level2">
+<h2>Application scenarios</h2>
+<p>LLMs are applied across a broad spectrum of domains <span class="citation" data-cites="gimpel2023 gimpel2024">(<a href="#/literature" role="doc-biblioref" onclick="">Gimpel et al., 2023</a>, <a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span>:</p>
+<ul>
+<li class="fragment"><strong>Content creation:</strong> drafting emails, blog posts, reports, code, and creative writing</li>
+<li class="fragment"><strong>Text summarisation:</strong> condensing lengthy documents into concise, actionable summaries</li>
+<li class="fragment"><strong>Knowledge dissemination:</strong> explaining complex concepts accessibly for varied audiences</li>
+<li class="fragment"><strong>Research support:</strong> structuring literature reviews, drafting paper sections, suggesting methodology</li>
+<li class="fragment"><strong>Customer service:</strong> powering conversational agents that handle routine queries at scale</li>
+<li class="fragment"><strong>Code generation:</strong> writing, explaining, and debugging software across programming languages</li>
+<li class="fragment"><strong>Translation:</strong> converting documents between languages while preserving context and register</li>
+</ul>
+<aside class="notes">
+<p>The breadth of LLM applications reflects a key property: unlike narrow AI tools (which solve one task), LLMs are <strong>general-purpose text processors</strong>. The same model that drafts a legal contract can explain a physics concept to a school student or translate a marketing brief into Japanese.</p>
+<p>In higher education specifically, LLMs are becoming embedded in the learning process. Students use them as tutoring systems, writing assistants, and research partners. This shift raises important questions about the competencies education should develop: as LLMs handle routine writing and information retrieval, critical reflection, judgment, and responsible AI use become more central to what it means to be an educated person <span class="citation" data-cites="gimpel2024">(<a href="#/literature" role="doc-biblioref" onclick="">Gimpel et al., 2024</a>)</span>.</p>
+<p>From a business perspective, the key strategic question is not “can we use LLMs?” but “which processes benefit most, and how do we manage the risks?” The answer depends heavily on the specific task, the tolerance for error, and whether human oversight is built into the workflow.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="limitations-of-llms" class="title-slide slide level2">
+<h2>Limitations of LLMs</h2>
+<div class="medium">
+<p>Despite remarkable capabilities, LLMs have fundamental limitations that any responsible deployment must address <span class="citation" data-cites="riemer2023 verma2023">(<a href="#/literature" role="doc-biblioref" onclick="">Riemer &amp; Peter, 2023</a>; <a href="#/literature" role="doc-biblioref" onclick="">Verma &amp; Oremus, 2023</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Hallucination:</strong> Generates plausible but factually incorrect information.</li>
+<li class="fragment"><strong>No genuine understanding:</strong> Relies on statistical patterns rather than logic or reasoning.</li>
+<li class="fragment"><strong>Training data bias:</strong> Reflects and amplifies prejudices found in its source material.</li>
+<li class="fragment"><strong>Legal &amp; privacy risks:</strong> Can leak sensitive data or infringe on intellectual property.</li>
+<li class="fragment"><strong>Static knowledge:</strong> Limited by a “cutoff date” and cannot learn post-training.</li>
+<li class="fragment"><strong>Resource intensive:</strong> Demands massive energy and expensive infrastructure.</li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Hallucination</strong></p>
+</div>
+<div class="callout-content">
+<p>Hallucination is arguably the most consequential limitation for practical deployment. It arises from the model’s core mechanism: generating high-probability continuations. If a prompt leads the model into a context where fabricated content is statistically plausible, the model will produce it confidently.</p>
+<p>A famous example: ChatGPT produced a legal brief citing case law that did not exist. The lawyer who submitted it did not verify the citations. The cases were entirely fabricated. This illustrates the danger of treating LLM output as authoritative without independent verification.</p>
+<p>Hallucination is not simply a “bug” that can be patched”. It is a structural consequence of probabilistic text generation. Mitigation strategies exist (Retrieval-Augmented Generation, confidence calibration, human-in-the-loop verification), but none eliminates the risk entirely. Any organisation deploying LLMs in high-stakes contexts (law, medicine, finance, education) must build verification workflows into their processes.</p>
+<p>The ethical and legal landscape is also evolving rapidly. The EU AI Act represents the first major legislative framework for AI governance, but global consensus on acceptable AI use remains elusive.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="diffusion-models" class="title-slide slide level1 headline-only">
+<h1>Diffusion Models</h1>
+
+</section>
+<section id="a-different-generative-paradigm" class="title-slide slide level2">
+<h2>A different generative paradigm</h2>
+<div class="medium">
+<p>While LLMs generate text token by token, diffusion models generate images, video, and audio through an <strong>iterative denoising</strong> process inspired by physics <span class="citation" data-cites="ho2020denoising urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Ho et al., 2020</a>; <a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>The core intuition:</p>
+</div>
+<ul>
+<li class="fragment"><strong>Forward diffusion:</strong> Take a real image and <strong>gradually add Gaussian noise</strong> over many timesteps until it becomes pure random noise</li>
+<li class="fragment"><strong>Reverse diffusion:</strong> Train a neural network to <strong>reverse this process</strong> (to predict and remove the noise at each step)</li>
+<li class="fragment">At generation time: <strong>start from pure noise</strong> and apply the learned denoising process to produce coherent, realistic content</li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why noise-to-image works</strong></p>
+</div>
+<div class="callout-content">
+<p>It may seem paradoxical that starting from random noise and iteratively removing it yields a coherent image. The key is in what the neural network learns during training.</p>
+<p>The network (typically a U-Net architecture) is trained on enormous datasets of real images. For each training image, the forward diffusion process creates a series of increasingly noisy versions. The network learns to predict, at each noise level, which direction of denoising makes the result more “image-like” given the statistical patterns in training data.</p>
+<p>Over hundreds of denoising steps, this process progressively imposes structure on the noise, guided by the network’s learned understanding of what real images look like. The result is a new image that was not in the training set, but shares the statistical properties of real images.</p>
+<p>Conditioning on text (as in text-to-image models) adds a further layer: the denoising network is also conditioned on a text embedding, so the denoising process is guided not just toward “something that looks like a real image” but toward “something that looks like a real image matching this description.”</p>
+<p><strong>Comparison to GANs</strong>: Earlier generative image models, especially Generative Adversarial Networks (GANs), used a competitive dynamic between a generator and a discriminator. GANs could produce impressive results but were notoriously unstable to train and prone to “mode collapse” (producing limited variety). Diffusion models offer a more principled, likelihood-based training objective, producing more stable training and greater output diversity <span class="citation" data-cites="cao2023">(<a href="#/literature" role="doc-biblioref" onclick="">Cao et al., 2023</a>)</span>.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="text-to-image-generation" class="title-slide slide level2">
+<h2>Text-to-image generation</h2>
+<p>The most prominent application of diffusion models is generating images from text descriptions <span class="citation" data-cites="rombach2022">(<a href="#/literature" role="doc-biblioref" onclick="">Rombach et al., 2022</a>)</span>:</p>
+<ol type="1">
+<li class="fragment"><strong>Text embedding:</strong> the text prompt is encoded into a high-dimensional semantic vector</li>
+<li class="fragment"><strong>Noise-to-image:</strong> a diffusion model starts from random noise and iteratively denoises it, conditioned on the text embedding</li>
+<li class="fragment"><strong>Super-resolution:</strong> the rough initial image (e.g., 64×64 pixels) is progressively upscaled through further diffusion passes to high resolution (e.g., 1024×1024)</li>
+</ol>
+<aside class="notes">
+<div class="columns">
+<div class="column">
+<p><span class="h4">Key models</span></p>
+<ul>
+<li><strong>DALL-E 3</strong> (OpenAI)</li>
+<li><strong>Stable Diffusion</strong> (Stability AI)</li>
+<li><strong>Midjourney</strong></li>
+</ul>
+</div><div class="column">
+<p><span class="h4">Applications</span></p>
+<ul>
+<li>Graphic design and advertising</li>
+<li>Game asset generation</li>
+<li>Rapid visual prototyping</li>
+<li>E-commerce product visualisation</li>
+</ul>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Real-world impact on creative industries</strong></p>
+</div>
+<div class="callout-content">
+<p>Text-to-image diffusion models are already reshaping creative workflows. Companies like Edelman and BMW use AI-generated images for rapid prototyping of visual campaigns. Activision has integrated AI-generated assets into “Call of Duty” production pipelines. E-commerce platforms use Midjourney and DALL-E to generate product visuals tailored to seasonal trends at a fraction of traditional photography costs.</p>
+<p>A survey of video game studios found that nearly 90% had experimented with generative AI in their development pipelines. The implications for creative labour markets are profound and contested: some see these tools as powerful amplifiers of human creativity; others are concerned about the displacement of commercial illustrators and designers.</p>
+<p>The process in detail: the initial 64×64 image generated by the base diffusion model is passed through one or more <strong>super-resolution diffusion models</strong> —which also denoise, but conditioned on the low-resolution image— progressively refining detail until reaching the final output resolution. Throughout this pipeline, the original text embedding continues to guide denoising, ensuring that fine-grained detail remains faithful to the original description <span class="citation" data-cites="rombach2022">(<a href="#/literature" role="doc-biblioref" onclick="">Rombach et al., 2022</a>)</span>.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="beyond-images-video-and-audio" class="title-slide slide level2">
+<h2>Beyond images: video and audio</h2>
+<p>Diffusion models extend naturally to other modalities:</p>
+<ul>
+<li class="fragment"><strong>Text-to-video</strong> (Runway Gen-2, Imagen Video)<br>
+Temporal coherence between frames is learned from large video datasets; enables visualisation of storyboards, animation, and promotional content directly from text</li>
+<li class="fragment"><strong>Text-to-audio</strong> (AudioLDM)<br>
+Musical pieces and soundscapes from descriptive prompts; learns from mood, instrumentation, and genre cues embedded in text; applications in entertainment scoring, advertising jingles, and rapid audio prototyping</li>
+</ul>
+<div class="fragment">
+<p>All three modalities share the same fundamental mechanism: <strong>embedding the prompt</strong> to <strong>iterative denoising</strong> to <strong>structured output</strong> <span class="citation" data-cites="singh2023 liu2023">(<a href="#/literature" role="doc-biblioref" onclick="">Liu et al., 2023</a>; <a href="#/literature" role="doc-biblioref" onclick="">Singh, 2023</a>)</span>.</p>
+</div>
+<aside class="notes">
+<p><strong>Text-to-video</strong> technically extends text-to-image by adding a temporal dimension. Rather than generating a single frame, the model generates sequences of frames, learning temporal coherence and realistic motion from large-scale video datasets. Early models struggled with maintaining consistent subjects across frames; newer models (Sora, Runway Gen-3) have made dramatic progress.</p>
+<p><strong>Text-to-audio</strong> models like AudioLDM apply diffusion in the audio latent space (typically operating on mel-spectrograms rather than raw waveforms). The text embedding encodes genre, tempo, instrumentation, and mood, guiding the denoising toward musically coherent outputs. The speed of audio prototyping these tools enable is already reshaping workflows in game audio, advertising production, and independent music creation.</p>
+<p>The cross-modal nature of these applications points toward a future of <strong>unified multimodal generative models</strong>, i.e., systems that can generate any combination of text, image, audio, and video from any combination of inputs.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="limitations-of-diffusion-models" class="title-slide slide level2">
+<h2>Limitations of diffusion models</h2>
+<ul>
+<li class="fragment"><strong>Limited controllability:</strong> precise steering of outputs (exact positions, specific faces, fine typography) remains difficult; users often resort to trial and error for nuanced requirements <span class="citation" data-cites="peng2024">(<a href="#/literature" role="doc-biblioref" onclick="">Peng, 2024</a>)</span></li>
+<li class="fragment"><strong>Embedded bias:</strong> models trained on internet imagery inevitably reflect and can amplify societal biases relating to gender, race, and culture (“data mirror effect”) <span class="citation" data-cites="milne2023">(<a href="#/literature" role="doc-biblioref" onclick="">Milne, 2023</a>)</span></li>
+<li class="fragment"><strong>Copyright and IP concerns:</strong> outputs may closely resemble training images; legal questions about ownership, attribution, and infringement are unresolved <span class="citation" data-cites="brittain2023">(<a href="#/literature" role="doc-biblioref" onclick="">Brittain, 2023</a>)</span></li>
+<li class="fragment"><strong>Deepfakes and misinformation:</strong> realistic images and videos can be used to fabricate convincing false narratives, threatening trust in media</li>
+<li class="fragment"><strong>Safety vs.&nbsp;freedom trade-offs:</strong> content filters introduce new complexities; defining universally acceptable generation criteria is culturally contested</li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The deepfake problem</strong></p>
+</div>
+<div class="callout-content">
+<p>Diffusion models have dramatically lowered the cost and skill required to create realistic synthetic media. While earlier deepfake techniques required large datasets of the target person and significant compute, modern diffusion-based methods can produce convincing fake images from a handful of reference photos.</p>
+<p>This capability poses serious threats to political discourse (fabricated images of public figures), to individuals (non-consensual synthetic intimate imagery), and to epistemics in general (undermining confidence in photographic evidence). Responses include digital watermarking (embedding imperceptible signatures in AI-generated content), synthetic media detectors, and legislative frameworks (the EU AI Act, various national laws).</p>
+<p>The broader challenge is that content restriction is fundamentally difficult. Safety filters can be circumvented by adversarial prompting; they can also over-restrict legitimate creative uses. There is no technically clean solution. The governance of generative media ultimately requires a combination of technical controls, legal frameworks, and social norms.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="agentic-ai" class="title-slide slide level1 headline-only">
+<h1>Agentic AI</h1>
+<div class="html-hidden">
+<div class="medium">
+<p>From generation to action</p>
+</div>
+</div>
+</section>
+<section id="definition" class="title-slide slide level2">
+<h2>Definition</h2>
+<div class="medium">
+<blockquote>
+<p>Agentic AI is an emerging paradigm in AI that refers to <strong>autonomous systems</strong> designed to pursue complex goals with <strong>minimal human intervention.</strong> <em><span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#/literature" role="doc-biblioref" onclick="">2025, p. 18912</a>)</span></em></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p><span class="h4">Core characteristics</span></p>
+</div>
+<ul>
+<li class="fragment"><strong>Autonomy &amp; goal complexity:</strong> handles multiple complex goals simultaneously; operates independently over extended periods</li>
+<li class="fragment"><strong>Adaptability:</strong> functions in dynamic and unpredictable environments; makes decisions with incomplete information</li>
+<li class="fragment"><strong>Independent decision-making:</strong> learns from experience; reconceptualizes approaches based on new information</li>
+</ul>
+<aside class="notes">
+<p>The shift to agentic AI is not merely incremental. <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> identify three technical foundations: <em>reinforcement learning</em> enables systems to refine strategies through trial and error; <em>goal-oriented architectures</em> manage complex, multi-step objectives; and <em>adaptive control mechanisms</em> allow recalibration in response to environmental changes. Together, these enable systems that can pursue extended task sequences with minimal human intervention.</p>
+<p><span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span> (MIS Quarterly, 2021) provide a complementary management perspective, arguing that AI systems create three interdependent management challenges: <strong>autonomy</strong> (the system acts with progressively less human guidance), <strong>learning</strong> (the system’s behaviour changes over time through experience), and <strong>inscrutability</strong> (the system’s internal reasoning is opaque to observers). Managing these three dimensions simultaneously — rather than treating each in isolation — is the central challenge of deploying agentic AI in organisations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="agentic-ai-vs.-traditional-ai" class="title-slide slide level2">
+<h2>Agentic AI vs.&nbsp;Traditional AI</h2>
+<table>
+<caption>Comparison of traditional AI and agentic AI based on <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span></caption>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 33%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Traditional AI</th>
+<th>Agentic AI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primary purpose</td>
+<td>Task-specific automation</td>
+<td>Goal-oriented autonomy</td>
+</tr>
+<tr class="even">
+<td>Human intervention</td>
+<td>High (predefined parameters)</td>
+<td>Low (autonomous adaptability)</td>
+</tr>
+<tr class="odd">
+<td>Adaptability</td>
+<td>Limited</td>
+<td>High</td>
+</tr>
+<tr class="even">
+<td>Environment interaction</td>
+<td>Static or limited context</td>
+<td>Dynamic and context-aware</td>
+</tr>
+<tr class="odd">
+<td>Learning type</td>
+<td>Primarily supervised</td>
+<td>Reinforcement and self-supervised</td>
+</tr>
+<tr class="even">
+<td>Decision-making</td>
+<td>Data-driven, static rules</td>
+<td>Autonomous, contextual reasoning</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="building-blocks" class="title-slide slide level2">
+<h2>Building blocks</h2>
+<p>Four key components transform LLMs into agents <span class="citation" data-cites="urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>)</span>:</p>
+<ol type="1">
+<li class="fragment"><strong>Reasoning-augmented LLMs:</strong> chain-of-thought prompting and multi-path reasoning enable systematic, verifiable problem-solving rather than surface-level pattern matching</li>
+<li class="fragment"><strong>Retrieval-Augmented Generation (RAG):</strong> integrates real-time access to external knowledge bases, addressing the static knowledge limitation of standard LLMs</li>
+<li class="fragment"><strong>Conversational agents:</strong> maintain context over extended dialogues; bridge human intent and machine execution; manage conversation history within token limits</li>
+<li class="fragment"><strong>Multi-agent systems (MAS):</strong> multiple specialised agents collaborate and delegate tasks, enabling scalable, modular architectures for complex domains</li>
+</ol>
+</section>
+<aside class="notes">
+<p>Each building block addresses a specific limitation of standalone LLMs:</p>
+<ul>
+<li><p><strong>Reasoning augmentation</strong> addresses the surface-level reasoning problem: standard LLMs can produce confident-sounding wrong answers. By explicitly generating and checking intermediate reasoning steps (chain-of-thought), the model’s logical process becomes visible and verifiable.</p></li>
+<li><p><strong>RAG</strong> addresses the knowledge cut-off problem: rather than relying solely on what was encoded during training, the model retrieves relevant documents at query time. A medical RAG system might retrieve the latest clinical guidelines before generating a recommendation.</p></li>
+<li><p><strong>Conversational agents</strong> address the single-turn limitation: by maintaining structured dialogue history, agents can support extended, coherent interactions where context from earlier in the conversation shapes later responses.</p></li>
+<li><p><strong>MAS</strong> addresses the single-agent capability ceiling: no single agent can be expert in everything. By coordinating specialised agents (e.g., a planning agent, an execution agent, a validation agent, a writing agent) multi-agent systems achieve greater accuracy, efficiency, and robustness than any individual agent could.</p></li>
+<li><p>:::</p></li>
+</ul>
+<section id="workflow-patterns-in-agentic-systems" class="title-slide slide level2">
+<h2>Workflow patterns in agentic systems</h2>
+<p><span class="citation" data-cites="agenticAI2024">Anthrophic (<a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span> discusses five key patterns for designing agentic AI workflows:</p>
+<ol type="1">
+<li class="fragment"><strong>Prompt chaining:</strong> output of one step becomes input to the next; creates complex multi-step reasoning flows</li>
+<li class="fragment"><strong>Routing:</strong> directs tasks to specialised components based on type; improves efficiency through targeted processing</li>
+<li class="fragment"><strong>Parallelisation:</strong> processes independent subtasks simultaneously; increases throughput</li>
+<li class="fragment"><strong>Orchestrator-workers:</strong> central orchestrator delegates to specialised worker agents; manages coordination and integration</li>
+<li class="fragment"><strong>Evaluator-optimizer:</strong> separate components generate, evaluate, and refine; enables iterative quality improvement</li>
+</ol>
+</section>
+
+<section id="retrieval-augmented-generation-rag" class="title-slide slide level2">
+<h2>Retrieval-Augmented Generation (RAG)</h2>
+<div class="medium">
+<p>RAG combines the generative power of LLMs with dynamic access to external, up-to-date knowledge <span class="citation" data-cites="lewis2020">(<a href="#/literature" role="doc-biblioref" onclick="">Lewis et al., 2020</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>The mechanism:</p>
+</div>
+<ol type="1">
+<li class="fragment"><strong>Retrieval:</strong> a retrieval module searches an external knowledge base (databases, documents, web APIs) for passages relevant to the query</li>
+<li class="fragment"><strong>Augmentation:</strong> retrieved passages are injected into the context alongside the original query</li>
+<li class="fragment"><strong>Generation:</strong> the LLM generates a response grounded in the retrieved evidence, not just its training data</li>
+</ol>
+<div class="fragment">
+<p><strong>Key advantages:</strong> factual accuracy, updatability without retraining, and interpretability (users can inspect which sources were used)</p>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why RAG is strategically important</strong></p>
+</div>
+<div class="callout-content">
+<p>For enterprise deployment, RAG resolves the two most critical practical limitations of standalone LLMs: knowledge staleness and hallucination.</p>
+<p>A hospital deploying a clinical decision support system cannot use a model whose knowledge was frozen at a training date, medical guidelines update continuously. RAG allows the model to retrieve current clinical literature at query time, ensuring responses reflect current evidence. When a clinician asks “what is the current recommended first-line treatment for X?”, the system retrieves relevant recent guidelines rather than relying on possibly outdated training knowledge.</p>
+<p>Hallucination risk also decreases substantially with RAG, because the model is conditioned on externally retrieved, verifiable content. The generation is grounded, which means that there is a retrievable source that can be shown to the user, enabling verification.</p>
+<p>The adaptability advantage is equally important operationally: updating a RAG system’s knowledge requires only updating the external knowledge base, not retraining the (extremely expensive) generative model. This makes RAG-based systems practical to maintain and keep current at a fraction of the cost of full model retraining.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="multi-agent-systems" class="title-slide slide level2">
+<h2>Multi-agent systems</h2>
+<div class="medium">
+<p>Multi-agent systems (MAS) represent the frontier of agentic AI: multiple specialised agents collaborating to solve problems beyond any single agent’s capabilities <span class="citation" data-cites="vanderhoek2008 doran1997">(<a href="#/literature" role="doc-biblioref" onclick="">Doran et al., 1997</a>; <a href="#/literature" role="doc-biblioref" onclick="">Hoek &amp; Wooldridge, 2008</a>)</span>.</p>
+</div>
+<div class="columns fragment">
+<div class="column">
+<p><strong>Architecture</strong>:</p>
+<ul>
+<li class="fragment">A <strong>manager agent</strong> orchestrates the overall workflow</li>
+<li class="fragment"><strong>Specialist agents</strong> handle specific subtasks (analysis, reasoning, writing, validation)</li>
+<li class="fragment">Agents share a <strong>common knowledge base</strong> and communicate through structured protocols</li>
+</ul>
+</div><div class="column">
+<p><strong>Benefits</strong>:</p>
+<ul>
+<li class="fragment"><strong>Division of labour:</strong> tasks broken into components matched to agent strengths</li>
+<li class="fragment"><strong>Scalability:</strong> add specialised agents without redesigning the whole system</li>
+<li class="fragment"><strong>Robustness:</strong> multiple agents can check each other’s outputs</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>The analogy to human organisations is apt and intentional. Effective human teams work because different members bring different expertise; a project manager coordinates their contributions; clear communication protocols prevent misunderstandings. MAS architectures mirror this: a manager agent with planning capabilities directs a research agent, a coding agent, a reviewing agent, and a writing agent. Each contributing specialised skills to a shared objective.</p>
+<p>The coordination challenges are also analogous. Ensuring that agents understand each other’s capabilities, align their individual decisions with overarching objectives, and resolve conflicts when they produce contradictory outputs requires sophisticated orchestration. This is an active area of research, and production-grade MAS deployments remain technically demanding.</p>
+<p>Nevertheless, MAS are already used in production: in software development (agents that plan, write, test, and review code), in financial analysis (agents that gather data, model scenarios, and write reports), and in customer service (agents that route, retrieve information, and compose responses across a support workflow).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="the-road-ahead" class="title-slide slide level2">
+<h2>The road ahead</h2>
+<ul>
+<li class="fragment"><strong>Agentic AI is not a distant future;</strong> systems like AutoGPT, Microsoft Copilot, and Anthropic’s Claude already exhibit agentic behaviour in production deployments <span class="citation" data-cites="plaat2025">(<a href="#/literature" role="doc-biblioref" onclick="">Plaat et al., 2025</a>)</span></li>
+<li class="fragment"><strong>Governance challenges grow</strong> with agency: autonomous systems that take actions in the world require more robust oversight than text-generation systems</li>
+<li class="fragment"><strong>Human-AI collaboration models</strong> are evolving rapidly: from AI as assistant, to AI as collaborator, toward AI as (supervised) autonomous actor</li>
+<li class="fragment"><strong>Responsibility questions intensify:</strong> when an agentic system makes a consequential mistake, who is accountable (e.g., the user, the deploying organisation, or the model developer)?</li>
+</ul>
+
+<aside class="notes">
+<p>The progression from generative AI to agentic AI represents a qualitative shift in what AI systems do. A text-generation system is a tool: a human poses a question, the system generates a response, a human decides what to do with it. An agentic system is closer to an autonomous process: it receives a goal, plans a sequence of actions, executes those actions (potentially interacting with external systems, databases, or other agents), monitors its own progress, and adapts its approach.</p>
+<p>This shift has significant implications for AI governance and risk management. The EU AI Act, which came into force in 2024, addresses AI systems partly by their risk level. Autonomous systems operating in high-stakes domains (healthcare, critical infrastructure, law enforcement) face the highest regulatory burden. As agentic systems proliferate, organisations deploying them will need robust human oversight mechanisms: checkpoints where humans review and approve agent decisions before consequential actions are taken.</p>
+<p>The technical challenges are also substantial: ensuring that goals are correctly specified (the alignment problem), that agents do not take unintended shortcuts (specification gaming), and that multi-agent systems do not exhibit emergent behaviours that no individual designer intended.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside><div>
+<p><span class="citation" data-cites="wang2024 urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>; <a href="#/literature" role="doc-biblioref" onclick="">Wang et al., 2024</a>)</span></p>
+</div></aside></section>
+
+<section id="exercises" class="title-slide slide level1 headline-only">
+<h1>Exercises</h1>
+
+</section>
+<section id="genai-landscape-mapping" class="title-slide slide level2">
+<h2>GenAI landscape mapping</h2>
+<p>You are advising a media company that produces news articles, photographs, video segments, and podcast episodes.</p>
+<ol type="1">
+<li><strong>Map the technologies</strong>: For each content type, identify which generative AI technology (LLM, diffusion model, or a combination) would be most relevant and explain why.</li>
+<li><strong>Identify risks</strong>: For each application, identify the most significant risk that would need to be managed (e.g., hallucination, bias, copyright, deepfake potential).</li>
+<li><strong>Prioritise</strong>: If the company can only pilot one generative AI application in the first year, which would you recommend and why?</li>
+</ol>
+<div class="html-hidden">
+<aside class="notes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution notes</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Technology mapping</strong></p>
+<ul>
+<li><strong>News articles (text):</strong> LLMs are the natural fit: drafting, summarising wire reports, translating. Risk: hallucination — factual errors in published news. A RAG-based system grounded in verified news agency feeds would substantially reduce this risk.</li>
+<li><strong>Photographs (images):</strong> Diffusion models (DALL-E, Stable Diffusion) can generate illustrations or supplement stock imagery. Risk: copyright ambiguity (training data provenance), bias in representation, and deepfake potential if photo-realistic people are generated.</li>
+<li><strong>Video segments:</strong> Text-to-video models (Runway, Sora). Risk: deepfake potential is highest here; realistic synthetic video could be mistaken for documentary footage. Robust labelling and watermarking are essential.</li>
+<li><strong>Podcast episodes (audio):</strong> Text-to-audio/speech synthesis (AudioLDM, ElevenLabs voice cloning). Risk: voice cloning could enable fraud or impersonation; consent and disclosure requirements are both ethical and increasingly legal obligations.</li>
+</ul>
+<p><strong>Recommendation rationale</strong></p>
+<p>A reasonable first-year pilot is LLM-assisted article drafting with RAG. It has the clearest productivity ROI (journalists save time on first drafts), the risk is manageable with human editorial review, and the legal landscape around text generation is more settled than around synthetic imagery or audio. The pilot also builds organisational competence in prompt engineering, output review workflows, and quality standards — a foundation for expanding to other modalities in subsequent years.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="training-phase-analysis" class="title-slide slide level2">
+<h2>Training phase analysis</h2>
+<p>A startup has built a general-purpose LLM through pretraining on a large web corpus. They now want to deploy it as a legal document assistant for law firms.</p>
+<ol type="1">
+<li><strong>Fine-tuning</strong>: What kind of training data would you recommend for fine-tuning, and why?</li>
+<li><strong>RLHF</strong>: Who would you recruit as human raters, and what specific quality criteria would you have them evaluate?</li>
+<li><strong>Trade-offs</strong>: Fine-tuning makes the model more specialised, but it risks “catastrophic forgetting” of general knowledge. How would you design the training process to mitigate this?</li>
+<li><strong>Evaluation</strong>: Before deploying to law firms, what evaluation would you run to assess the model’s readiness?</li>
+</ol>
+<div class="html-hidden">
+<aside class="notes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution notes</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Fine-tuning data</strong></p>
+<ul>
+<li>Legal briefs, contracts, court opinions, regulatory filings with high-quality, verified content (e.g., from LexisNexis or Westlaw databases)</li>
+<li>Include diverse jurisdictions (if multi-jurisdiction deployment is planned) and legal domains (contract law, IP, labour law, etc.)</li>
+<li>Include human-annotated “ideal” responses to common legal drafting tasks for supervised fine-tuning</li>
+<li>Crucially: ensure data is properly licensed, e.g., by using copyrighted legal databases without authorisation creates legal risk</li>
+</ul>
+<p><strong>RLHF rater profile</strong></p>
+<ul>
+<li>Practising lawyers or senior paralegals with relevant domain expertise</li>
+<li>Mix of jurisdictions if multi-jurisdiction deployment is intended</li>
+<li>Quality criteria: legal accuracy (most important), citation correctness, appropriate hedging (legal advice must acknowledge uncertainty), clarity and professional tone, absence of fabricated citations or case law</li>
+</ul>
+<p><strong>Catastrophic forgetting mitigation</strong></p>
+<ul>
+<li>Use <strong>mixed fine-tuning datasets</strong>: combine legal-domain data with a small proportion of general-domain data to preserve general capabilities</li>
+<li><strong>Parameter-efficient fine-tuning (PEFT)</strong> methods such as LoRA (Low-Rank Adaptation) update only a small subset of parameters, preserving most of the pretrained knowledge</li>
+<li>Monitor performance on a general benchmark (e.g., MMLU) throughout fine-tuning to detect degradation early</li>
+</ul>
+<p><strong>Pre-deployment evaluation</strong></p>
+<ul>
+<li><strong>Domain accuracy</strong>: Test on a held-out set of verified legal questions with known correct answers; have lawyers rate outputs on accuracy</li>
+<li><strong>Hallucination rate</strong>: Include questions where the correct answer is “I don’t know” or where verifiable citations are required — assess how often the model fabricates case law or statutes</li>
+<li><strong>Adversarial testing</strong>: Red-team the model to see if it can be prompted to give dangerous advice (e.g., advising a client to take an action that would be legally disastrous)</li>
+<li><strong>Bias audit</strong>: Check whether outputs differ systematically across client characteristics (e.g., does advice quality vary by the perceived socioeconomic status implied in the prompt?)</li>
+</ul>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="diffusion-model-design" class="title-slide slide level2">
+<h2>Diffusion model design</h2>
+<p>A pharmaceutical company wants to use generative AI to visualise molecular structures and simulate how proposed drug compounds might interact with target proteins. They are considering adapting diffusion models for this scientific domain.</p>
+<ol type="1">
+<li><strong>Analogy</strong>: The text-to-image pipeline uses (i) text embedding, (ii) denoising conditioned on the embedding, (iii) super-resolution. Design an analogous pipeline for text-to-molecule generation.</li>
+<li><strong>Training data</strong>: What would a training dataset look like, and where might it come from?</li>
+<li><strong>Evaluation challenge</strong>: Unlike image generation (where human aesthetic judgement provides a useful signal), how would you evaluate whether a generated molecule is “good”?</li>
+<li><strong>Limitations</strong>: What specific limitations of diffusion models become especially problematic in this scientific context?</li>
+</ol>
+<div class="html-hidden">
+<aside class="notes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution notes</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Text-to-molecule pipeline (analogous design)</strong></p>
+<ul>
+<li>Step 1 <strong>Molecular description embedding</strong>: Convert a textual description of desired properties (“small molecule with high binding affinity for EGFR, low molecular weight, water soluble”) into a semantic embedding vector using a chemistry-aware LLM (e.g., ChemBERTa)</li>
+<li>Step 2 <strong>Structure denoising</strong>: Start from a random molecular graph (atoms as nodes, bonds as edges) and iteratively denoise it using a graph diffusion model conditioned on the embedding, guided toward chemically valid structures with the desired properties</li>
+<li>Step 3 <strong>Energy minimisation/refinement</strong>: Pass the generated structure through a physics-based energy minimisation module to correct bond lengths, angles, and stereochemistry — analogous to super-resolution but in chemical property space</li>
+</ul>
+<p><strong>Training data</strong></p>
+<ul>
+<li>Public databases: PubChem (~116 million compounds), ChEMBL (bioactivity data), PDB (Protein Data Bank for protein-ligand interactions)</li>
+<li>Company’s proprietary assay data (binding affinities, toxicity screens)</li>
+<li>Each entry: molecular structure + associated property measurements (binding affinity, solubility, toxicity) used to condition generation</li>
+</ul>
+<p><strong>Evaluation approaches</strong></p>
+<ul>
+<li><strong>Chemical validity</strong>: What percentage of generated molecules are syntactically valid (no broken valences, etc.)?</li>
+<li><strong>Predicted bioactivity</strong>: Use established computational docking tools (AutoDock Vina, Schrödinger) to estimate binding affinity of generated molecules to the target protein</li>
+<li><strong>Synthesisability</strong>: Score how feasible the molecule would be to actually synthesise in the lab (using tools like SAScore or RetroSynthesis AI)</li>
+<li><strong>Diversity</strong>: Assess whether generated candidates explore different regions of chemical space or cluster around known compounds</li>
+<li><strong>Experimental validation</strong>: Ultimately, synthesise and test a subset of top-ranked generated molecules — this is the ground truth</li>
+</ul>
+<p><strong>Critical limitations in this context</strong></p>
+<ul>
+<li><strong>Controllability</strong>: The difficulty of precisely steering diffusion outputs is far more consequential here than in image generation; a pharmaceutical error (generating a toxic compound misidentified as safe) has life-or-death implications</li>
+<li><strong>Out-of-distribution extrapolation</strong>: Diffusion models generate compounds similar to those in training data; truly novel scaffolds outside the training distribution may be unreachable or generated incorrectly</li>
+<li><strong>No physical grounding</strong>: Diffusion models learn statistical patterns, not physical laws; generated structures may violate thermodynamic or quantum-chemical constraints in subtle ways that are hard to detect without expensive wet-lab validation</li>
+<li><strong>Dataset bias</strong>: Chemical databases over-represent certain drug classes (small molecules, carbon-based compounds); biased training data produces biased generation</li>
+</ul>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="rag-system-design" class="title-slide slide level2">
+<h2>RAG system design</h2>
+<p>Your university wants to deploy a student support chatbot that can answer questions about study regulations, course requirements, examination procedures, and administrative processes. The university updates its regulations each semester.</p>
+<ol type="1">
+<li><strong>Architecture</strong>: Sketch a RAG architecture for this system. What are the components, and what documents belong in the knowledge base?</li>
+<li><strong>Retrieval quality</strong>: A student asks: “Can I take my bachelor’s thesis exam if I still have one failed elective from last semester?” Describe the retrieval steps and explain what could go wrong.</li>
+<li><strong>Knowledge base maintenance</strong>: How would you ensure the knowledge base stays up to date as regulations change each semester?</li>
+<li><strong>Failure modes</strong>: Identify three ways this system could fail in ways that harm students, and propose mitigations for each.</li>
+</ol>
+<div class="html-hidden">
+<aside class="notes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution notes</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>RAG architecture components</strong></p>
+<ul>
+<li><em>Knowledge base</em>: Study and examination regulations (Prüfungsordnung), module handbooks, administrative process guides, FAQ documents, course catalogues — all updated each semester. Documents stored in a vector database (e.g., Pinecone, Weaviate, ChromaDB) as chunked, embedded passages.</li>
+<li><em>Retrieval module</em>: A dense retrieval system (e.g., bi-encoder with a fine-tuned sentence embedding model) that takes the student’s query, embeds it, and retrieves the top-k most relevant document chunks by cosine similarity.</li>
+<li><em>Re-ranking</em>: An optional cross-encoder re-ranker that scores query-passage pairs more precisely to improve retrieval precision for the top results.</li>
+<li><em>LLM (generator)</em>: A fine-tuned or prompted LLM that receives the retrieved passages as context and generates a clear, accurate answer with references to specific document sections.</li>
+<li><em>Source attribution</em>: The response should cite the specific regulation document and section, enabling students to verify independently.</li>
+</ul>
+<p><strong>Retrieval for the complex exam question</strong></p>
+<ul>
+<li>The query involves multiple conditions: (a) bachelor’s thesis exam eligibility, (b) failed elective module, (c) interaction between the two.</li>
+<li>Good retrieval should return: thesis examination admission requirements AND elective failure / retake regulations.</li>
+<li>What could go wrong: (1) retrieval returns only the thesis admission requirements without the elective rules — the model generates a partial or incorrect answer; (2) regulations have been updated this semester but the knowledge base has not been refreshed — the model gives outdated advice; (3) the relevant rule is buried inside a long document chunk that gets cut off — the model misses the nuance.</li>
+</ul>
+<p><strong>Knowledge base maintenance</strong></p>
+<ul>
+<li>Implement a <strong>versioned document pipeline</strong>: when new semester regulations are published (PDF/Word), an automated ingestion process re-chunks, re-embeds, and replaces the old versions in the vector database.</li>
+<li>Tag all documents with their effective semester date; at query time, the retrieval is filtered to the current semester’s documents.</li>
+<li>Maintain a <strong>change log</strong>: human administrators review and approve new regulation documents before ingestion to catch formatting errors or unexpected changes.</li>
+</ul>
+<p><strong>Failure modes and mitigations</strong></p>
+<ol type="1">
+<li><em>Hallucinated regulation details</em>: The model fabricates a regulation that does not exist. Mitigation: require that every factual claim in the response is directly supported by a retrieved passage; display the source passage alongside the answer.</li>
+<li><em>Stale knowledge</em>: A student receives advice based on last semester’s regulations, which have since changed. Mitigation: semester-versioned document tagging + automated ingestion pipeline + a prominent “effective from” label on all responses.</li>
+<li><em>Out-of-scope confidence</em>: A student asks about a very specific edge case not covered in any regulation; the model invents an answer rather than saying “I don’t know”. Mitigation: train or prompt the model to abstain when retrieval similarity is below a threshold, and escalate to a human advisor.</li>
+</ol>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="agentic-ai-evaluation" class="title-slide slide level2">
+<h2>Agentic AI evaluation</h2>
+<p>Consider the following agentic AI scenario: a university deploys an AI research assistant agent that, given a research question, autonomously searches academic databases, reads and synthesises relevant papers, identifies gaps in the literature, and produces a structured literature review draft.</p>
+<ol type="1">
+<li><strong>Agent architecture</strong>: Identify which building blocks from the lecture (reasoning-augmented LLM, RAG, conversational agent, MAS) are present in this system, and describe the role of each.</li>
+<li><strong>Goal specification</strong>: How would you specify the agent’s goal precisely enough that it produces useful output without over- or under-shooting? What could go wrong with vague goal specification?</li>
+<li><strong>Human oversight</strong>: At which points in the agent’s workflow should a human researcher be consulted or able to intervene? Design a human-in-the-loop workflow.</li>
+<li><strong>Ethical considerations</strong>: Identify two ethical issues this deployment raises for academic integrity, and discuss how they might be addressed.</li>
+</ol>
+<div class="html-hidden">
+<aside class="notes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution notes</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Building blocks present</strong></p>
+<ul>
+<li><em>RAG</em>: Central to the system — the agent retrieves papers from academic databases (Semantic Scholar, PubMed, arXiv) at query time rather than relying on the LLM’s training data. Without RAG, the agent would produce a review based on papers it was trained on, missing recent work and potentially hallucinating citations.</li>
+<li><em>Reasoning-augmented LLM</em>: The agent must synthesise across multiple papers, identify thematic patterns, assess methodological quality, and reason about gaps — tasks requiring multi-step inference beyond surface-level pattern matching. Chain-of-thought prompting or structured reasoning prompts would be essential.</li>
+<li><em>Conversational agent</em>: The researcher may need to refine the scope mid-task (“focus more on intervention studies and less on observational work”); the agent maintains context of the evolving research question and earlier retrieved papers.</li>
+<li><em>MAS (optional but valuable)</em>: A well-designed system might decompose the task: a planning agent defines the search strategy; a retrieval agent queries databases; a reading agent processes and summarises each paper; a synthesis agent integrates findings; a writing agent produces the draft. Each specialises, improving quality.</li>
+</ul>
+<p><strong>Goal specification</strong></p>
+<p>Vague goal: “Do a literature review on AI in education.” Problems: unclear scope, depth, methodology focus, time range, target audience, output format.</p>
+<p>Precise specification should include: research question, date range, databases to search, inclusion/exclusion criteria (study type, language, methodology), desired output format (introduction, thematic sections, gap analysis, reference list), intended audience (conference paper, PhD thesis, industry report), and approximate length target.</p>
+<p>What goes wrong with vague goals: agent retrieves too broadly (50,000 papers) or too narrowly (misses a relevant sub-field); synthesises at the wrong depth; produces a general overview when a methodological critique was needed.</p>
+<p><strong>Human-in-the-loop design</strong></p>
+<p>Key checkpoints: 1. <em>After query formulation</em>: Human reviews and approves the search queries and inclusion criteria before any retrieval happens. 2. <em>After initial retrieval</em>: Human reviews the list of retrieved papers (titles + abstracts); can remove irrelevant results and flag missed important works. 3. <em>After synthesis outline</em>: Human reviews the thematic structure the agent has identified before writing begins — ensuring the framing matches the researcher’s intent. 4. <em>After draft</em>: Human reviews the complete draft for accuracy, tone, and completeness; all citations must be verified against source documents.</p>
+<p><strong>Ethical considerations</strong></p>
+<ol type="1">
+<li><em>Academic integrity and authorship</em>: If an agent writes a literature review that appears in a PhD thesis or paper without disclosure, this raises questions of authorship and academic honesty. Mitigation: institutions should develop and enforce clear AI disclosure policies; journals and thesis committees should require explicit statements about AI tool use.</li>
+<li><em>Citation fabrication</em>: Even with RAG, the agent’s writing layer may introduce subtle misrepresentations of source papers or generate plausible-looking but incorrect citations. Mitigation: every citation in the agent’s output must be verifiable against a retrieved source passage; the system should flag any generated reference for which no retrieved source exists; human reviewer must check a sample of all citations.</li>
+</ol>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-acharya2025agentic" class="csl-entry" role="listitem">
+Acharya, D. B., Kuppan, K., &amp; Divya, B. (2025). Agentic AI: Autonomous intelligence for complex goals–a comprehensive survey. <em>IEEE Access</em>.
+</div>
+<div id="ref-agenticAI2024" class="csl-entry" role="listitem">
+Anthrophic. (2024). <em>Building effective agents</em>. Anthropic Research Team; <a href="https://www.anthropic.com/engineering/building-effective-agents" class="uri">https://www.anthropic.com/engineering/building-effective-agents</a>.
+</div>
+<div id="ref-berente2021managing" class="csl-entry" role="listitem">
+Berente, N., Gu, B., Recker, J., &amp; Santhanam, R. (2021). Managing artificial intelligence. <em>MIS Quarterly</em>, <em>45</em>(3), 1433–1450. <a href="https://doi.org/10.25300/MISQ/2021/16274">https://doi.org/10.25300/MISQ/2021/16274</a>
+</div>
+<div id="ref-bhatia2023" class="csl-entry" role="listitem">
+Bhatia, A. (2023). <em>We need to talk about how good <span>A.I.</span> Is getting</em>. <a href="https://www.nytimes.com/interactive/2023/04/26/upshot/gpt-from-scratch.html">https://www.nytimes.com/interactive/2023/04/26/upshot/gpt-from-scratch.html</a>
+</div>
+<div id="ref-brittain2023" class="csl-entry" role="listitem">
+Brittain, B. (2023). Getty images lawsuit says <span>Stability AI</span> misused photos to train <span>AI</span>. <em>Reuters</em>. <a href="https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/">https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/</a>
+</div>
+<div id="ref-brown2020language" class="csl-entry" role="listitem">
+Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu, J., Winter, C., … Amodei, D. (2020). Language models are few-shot learners. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 1877–1901. <a href="https://arxiv.org/abs/2005.14165">https://arxiv.org/abs/2005.14165</a>
+</div>
+<div id="ref-cao2023" class="csl-entry" role="listitem">
+Cao, H., Tan, C., Gao, Z., Xu, Y., Chen, G., Heng, P.-A., &amp; Li, S. Z. (2023). A survey on generative diffusion model. <em>arXiv Preprint arXiv:2209.02646</em>. <a href="https://arxiv.org/abs/2209.02646">https://arxiv.org/abs/2209.02646</a>
+</div>
+<div id="ref-doran1997" class="csl-entry" role="listitem">
+Doran, J., Franklin, S., Jennings, N., &amp; Norman, T. (1997). On cooperation in multi-agent systems. <em>The Knowledge Engineering Review</em>, <em>12</em>(3), 309–314. <a href="https://doi.org/10.1017/s0269888997003111">https://doi.org/10.1017/s0269888997003111</a>
+</div>
+<div id="ref-gimpel2024" class="csl-entry" role="listitem">
+Gimpel, H., Gutheil, N., Mayer, V., Bandtel, M., Büttgen, M., Decker, S., et al. (2024). <em><span>(Generative) AI</span> competencies for future-proof graduates: <span>Inspiration</span> for higher education institutions</em> [Hohenheim Discussion Papers in Business, Economics and Social Sciences]. University of Hohenheim.
+</div>
+<div id="ref-gimpel2023" class="csl-entry" role="listitem">
+Gimpel, H., Ruiner, C., Schoch, M., Schoop, M., Hall, K., Eymann, T., Röglinger, M., Vandrik, S., Lämmermann, L., Urbach, N., Mädche, A., &amp; Decker, S. (2023). <em>Unlocking the power of generative <span>AI</span> models and systems such as <span>GPT-4</span> and <span>ChatGPT</span> for higher education: <span>A</span> guide for students and lecturers</em> (Hohenheim Discussion Papers in Business, Economics and Social Sciences 02-2023). University of Hohenheim. <a href="https://hohpublica.uni-hohenheim.de/items/fe53b2bb-ab75-463c-9383-ec74416fd940">https://hohpublica.uni-hohenheim.de/items/fe53b2bb-ab75-463c-9383-ec74416fd940</a>
+</div>
+<div id="ref-goodfellow2016deep" class="csl-entry" role="listitem">
+Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep learning</em>. MIT Press. <a href="https://www.deeplearningbook.org">https://www.deeplearningbook.org</a>
+</div>
+<div id="ref-ho2020denoising" class="csl-entry" role="listitem">
+Ho, J., Jain, A., &amp; Abbeel, P. (2020). Denoising diffusion probabilistic models. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 6840–6851. <a href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a>
+</div>
+<div id="ref-vanderhoek2008" class="csl-entry" role="listitem">
+Hoek, W. van der, &amp; Wooldridge, M. (2008). Multi-agent systems. In <em>Handbook of knowledge representation</em> (Vol. 3, pp. 887–928). Elsevier. <a href="https://doi.org/10.1016/S1574-6526(07)03024-6">https://doi.org/10.1016/S1574-6526(07)03024-6</a>
+</div>
+<div id="ref-lewis2020" class="csl-entry" role="listitem">
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., &amp; Riedel, S. (2020). Retrieval-augmented generation for knowledge-intensive <span>NLP</span> tasks. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 9459–9474. <a href="https://arxiv.org/abs/2005.11401">https://arxiv.org/abs/2005.11401</a>
+</div>
+<div id="ref-liu2023" class="csl-entry" role="listitem">
+Liu, H., Chen, Z., Yuan, Y., et al. (2023). <em><span>AudioLDM</span>: Text-to-audio generation with latent diffusion models</em>. <a href="https://arxiv.org/abs/2301.12503">https://arxiv.org/abs/2301.12503</a>
+</div>
+<div id="ref-milne2023" class="csl-entry" role="listitem">
+Milne, S. (2023). <em><span>AI</span> image generator <span>Stable Diffusion</span> perpetuates racial and gendered stereotypes, study finds</em>. <a href="https://www.washingtonpost.com/news/2023/11/29/ai-image-generator-stable-diffusion-perpetuates-racial-and-gendered-stereotypes-bias/">https://www.washingtonpost.com/news/2023/11/29/ai-image-generator-stable-diffusion-perpetuates-racial-and-gendered-stereotypes-bias/</a>
+</div>
+<div id="ref-ouyang2022training" class="csl-entry" role="listitem">
+Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C. L., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., Schulman, J., Hilton, J., Kelton, F., Miller, L. E., Simens, M., Askell, A., Welinder, P., Christiano, P. F., Leike, J., &amp; Lowe, R. (2022). Training language models to follow instructions with human feedback. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>35</em>, 27730–27744. <a href="https://arxiv.org/abs/2203.02155">https://arxiv.org/abs/2203.02155</a>
+</div>
+<div id="ref-peng2024" class="csl-entry" role="listitem">
+Peng, Y. (2024). A comparative analysis between <span>GAN</span> and diffusion models in image generation. <em>Transactions on Computer Science and Intelligent Systems Research</em>, <em>5</em>(1).
+</div>
+<div id="ref-plaat2025" class="csl-entry" role="listitem">
+Plaat, A., D’Ascoli, S., Bubeck, S., Chan, B., Chen, D., Chi, E. H., et al. (2025). <em>Agentic large language models</em>. <a href="https://arxiv.org/abs/2503.23037">https://arxiv.org/abs/2503.23037</a>
+</div>
+<div id="ref-reuters2023" class="csl-entry" role="listitem">
+Reuters. (2023). <em><span>ChatGPT</span> sets record for fastest-growing user base—<span>Analyst</span> note</em>. <a href="https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/">https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/</a>
+</div>
+<div id="ref-riemer2023" class="csl-entry" role="listitem">
+Riemer, K., &amp; Peter, S. (2023). What the lone banana problem reveals about the nature of generative <span>AI</span>. <em>ACIS 2023 Proceedings</em>.
+</div>
+<div id="ref-rombach2022" class="csl-entry" role="listitem">
+Rombach, R., Blattmann, A., Lorenz, D., Esser, P., &amp; Ommer, B. (2022). High-resolution image synthesis with latent diffusion models. <em>Proceedings of the <span>IEEE/CVF</span> Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 10684–10695. <a href="https://doi.org/10.1109/CVPR52688.2022.01042">https://doi.org/10.1109/CVPR52688.2022.01042</a>
+</div>
+<div id="ref-sanderson2024gpt" class="csl-entry" role="listitem">
+Sanderson, G. (2024). <em>But what is a <span>GPT</span>? <span>Visual</span> intro to transformers</em>. <a href="https://www.3blue1brown.com/lessons/gpt">https://www.3blue1brown.com/lessons/gpt</a>
+</div>
+<div id="ref-singh2023" class="csl-entry" role="listitem">
+Singh, A. (2023). <em>A survey of <span>AI</span> text-to-image and <span>AI</span> text-to-video generators</em>. <a href="https://arxiv.org/abs/2311.06329">https://arxiv.org/abs/2311.06329</a>
+</div>
+<div id="ref-theverge2024" class="csl-entry" role="listitem">
+The Verge. (2024). <em>Inside the launch—and future—of <span>ChatGPT</span></em>. <a href="https://www.theverge.com/23610427/chatgpt-openai-history-two-year-anniversary">https://www.theverge.com/23610427/chatgpt-openai-history-two-year-anniversary</a>
+</div>
+<div id="ref-urbach2026genai" class="csl-entry" role="listitem">
+Urbach, N., Feulner, D., Feulner, S., Guggenberger, T., &amp; Mayer, V. (2026). Introduction to generative artificial intelligence. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 71–95). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
+</div>
+<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>30</em>, 5998–6008. <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>
+</div>
+<div id="ref-verma2023" class="csl-entry" role="listitem">
+Verma, P., &amp; Oremus, W. (2023). <em><span>ChatGPT</span> invented a sexual harassment scandal and named a real law prof as the accused</em>. <a href="https://www.washingtonpost.com/technology/2023/04/05/chatgpt-lies/">https://www.washingtonpost.com/technology/2023/04/05/chatgpt-lies/</a>
+</div>
+<div id="ref-wang2024" class="csl-entry" role="listitem">
+Wang, L., Liu, Z., Wang, Z., &amp; Li, L. (2024). A survey on large language model based autonomous agents. <em>Journal of Computer Science and Technology</em>. <a href="https://doi.org/10.1109/JOCST.2024.10849561">https://doi.org/10.1109/JOCST.2024.10849561</a>
+</div>
+</div>
+
+
+</section>
+
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
