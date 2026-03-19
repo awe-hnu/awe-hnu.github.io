@@ -231,10 +231,8 @@ Andy Weeger
 <p>The shift is fundamental <span class="citation" data-cites="goodfellow2016deep urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Goodfellow et al., 2016</a>; <a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>)</span>:</p>
 </div>
 <ul>
-<li class="fragment"><strong>Discriminative AI</strong> asks:<br>
-<em>“What is this?”</em> (i.e., classifying, predicting, deciding)</li>
-<li class="fragment"><strong>Generative AI</strong> asks:<br>
-<em>“What could this be?”</em> (i.e., creating text, images, audio, video)</li>
+<li class="fragment"><strong>Discriminative AI</strong> asks: <em>“What is this?”</em> (i.e., classifying, predicting, deciding)</li>
+<li class="fragment"><strong>Generative AI</strong> asks: <em>“What could this be?”</em> (i.e., creating text, images, audio, video)</li>
 <li class="fragment">Instead of mapping inputs to labels, generative models learn the <strong>underlying distribution</strong> of data</li>
 <li class="fragment">They can then <strong>sample new instances</strong> from that distribution (i.e., producing new content)</li>
 </ul>
@@ -288,15 +286,15 @@ Examples: DALL-E, Midjourney, Stable Diffusion, AudioLDM</li>
 <div id="fig-genai-landscape" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-fig">
 <div aria-describedby="fig-genai-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img data-src="images/genAI-hierarchy.svg" class="img-fluid">
+<img data-src="images/genai-landscape.svg" class="img-fluid">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genai-landscape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#/literature" role="doc-biblioref" onclick="">2026</a>)</span>
+Figure&nbsp;1: Hierarchical structure of generative AI technologies (adapted from <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#/literature" role="doc-biblioref" onclick="">2026</a>)</span>)
 </figcaption>
 </figure>
 </div>
 <p>The diagram above captures the nested relationship between these concepts. All the systems discussed in this lecture sit within the broad category of “Generative AI.” The two main architectural families — LLMs and diffusion models — are both instances of a broader category called <strong>foundational models</strong>.</p>
-<p><strong>Foundational models</strong> are large-scale models trained on massive multimodal datasets that generalize knowledge across diverse applications. They are designed not just to perform specific tasks, but to serve as versatile bases from which specialised applications can be derived. The term was introduced by researchers at Stanford to capture the idea that these models are <em>foundational</em> for other, more specialised systems, that are built on top of them.</p>
+<p><strong>Foundational models</strong> are large-scale models trained on massive multimodal datasets that generalize knowledge across diverse applications. They are designed not just to perform specific tasks, but to serve as versatile bases from which specialised applications can be derived. The term was introduced by researchers at Stanford to capture the idea that these models are <em>foundational</em> — other, more specialised systems are built on top of them.</p>
 <p>This lecture follows the structure of the book chapter by <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#/literature" role="doc-biblioref" onclick="">2026</a>)</span> and proceeds through three layers of increasing sophistication: first LLMs (pure language generation), then diffusion models (visual and audio generation), and finally agentic AI systems (goal-directed action).</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -822,16 +820,38 @@ Musical pieces and soundscapes from descriptive prompts; learns from mood, instr
 <li class="fragment"><strong>Conversational agents:</strong> maintain context over extended dialogues; bridge human intent and machine execution; manage conversation history within token limits</li>
 <li class="fragment"><strong>Multi-agent systems (MAS):</strong> multiple specialised agents collaborate and delegate tasks, enabling scalable, modular architectures for complex domains</li>
 </ol>
-</section>
 <aside class="notes">
+<div id="fig-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/agent-architecture.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: LLM-based agent architecture with memory, tools, and planning (adapted from <span class="citation" data-cites="weng2023">Weng (<a href="#/literature" role="doc-biblioref" onclick="">2023</a>)</span>)
+</figcaption>
+</figure>
+</div>
+<p>The diagram illustrates how a central agent connects to: memory modules (short-term for conversation history, long-term for persistent knowledge), tools (calendar, calculator, code interpreter, search), and planning mechanisms (reflection, self-critique, chain-of-thought, subgoal decomposition).</p>
 <p>Each building block addresses a specific limitation of standalone LLMs:</p>
 <ul>
-<li><p><strong>Reasoning augmentation</strong> addresses the surface-level reasoning problem: standard LLMs can produce confident-sounding wrong answers. By explicitly generating and checking intermediate reasoning steps (chain-of-thought), the model’s logical process becomes visible and verifiable.</p></li>
-<li><p><strong>RAG</strong> addresses the knowledge cut-off problem: rather than relying solely on what was encoded during training, the model retrieves relevant documents at query time. A medical RAG system might retrieve the latest clinical guidelines before generating a recommendation.</p></li>
-<li><p><strong>Conversational agents</strong> address the single-turn limitation: by maintaining structured dialogue history, agents can support extended, coherent interactions where context from earlier in the conversation shapes later responses.</p></li>
-<li><p><strong>MAS</strong> addresses the single-agent capability ceiling: no single agent can be expert in everything. By coordinating specialised agents (e.g., a planning agent, an execution agent, a validation agent, a writing agent) multi-agent systems achieve greater accuracy, efficiency, and robustness than any individual agent could.</p></li>
-<li><p>:::</p></li>
+<li><strong>Reasoning augmentation</strong> addresses the surface-level reasoning problem: standard LLMs can produce confident-sounding wrong answers. By explicitly generating and checking intermediate reasoning steps (chain-of-thought), the model’s logical process becomes visible and verifiable.</li>
+<li><strong>RAG</strong> addresses the knowledge cut-off problem: rather than relying solely on what was encoded during training, the model retrieves relevant documents at query time. A medical RAG system might retrieve the latest clinical guidelines before generating a recommendation.</li>
+<li><strong>Conversational agents</strong> address the single-turn limitation: by maintaining structured dialogue history, agents can support extended, coherent interactions where context from earlier in the conversation shapes later responses.</li>
+<li><strong>MAS</strong> addresses the single-agent capability ceiling: no single agent can be expert in everything. By coordinating specialised agents (e.g., a planning agent, an execution agent, a validation agent, a writing agent) multi-agent systems achieve greater accuracy, efficiency, and robustness than any individual agent could.</li>
 </ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
 <section id="workflow-patterns-in-agentic-systems" class="title-slide slide level2">
 <h2>Workflow patterns in agentic systems</h2>
 <p><span class="citation" data-cites="agenticAI2024">Anthrophic (<a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span> discusses five key patterns for designing agentic AI workflows:</p>
@@ -955,7 +975,8 @@ Musical pieces and soundscapes from descriptive prompts; learns from mood, instr
 <aside><div>
 <p><span class="citation" data-cites="wang2024 urbach2026genai">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach et al., 2026</a>; <a href="#/literature" role="doc-biblioref" onclick="">Wang et al., 2024</a>)</span></p>
 </div></aside></section>
-
+</section>
+<section>
 <section id="exercises" class="title-slide slide level1 headline-only">
 <h1>Exercises</h1>
 
@@ -1249,8 +1270,7 @@ Musical pieces and soundscapes from descriptive prompts; learns from mood, instr
       }</style></aside>
 </div>
 </section>
-
-
+</section>
 <section id="literature" class="title-slide slide level1 smaller scrollable">
 <h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
@@ -1341,22 +1361,12 @@ Verma, P., &amp; Oremus, W. (2023). <em><span>ChatGPT</span> invented a sexual h
 <div id="ref-wang2024" class="csl-entry" role="listitem">
 Wang, L., Liu, Z., Wang, Z., &amp; Li, L. (2024). A survey on large language model based autonomous agents. <em>Journal of Computer Science and Technology</em>. <a href="https://doi.org/10.1109/JOCST.2024.10849561">https://doi.org/10.1109/JOCST.2024.10849561</a>
 </div>
+<div id="ref-weng2023" class="csl-entry" role="listitem">
+Weng, L. (2023). <em><span>LLM</span> powered autonomous agents</em>. <a href="https://lilianweng.github.io/posts/2023-06-23-agent/">https://lilianweng.github.io/posts/2023-06-23-agent/</a>
+</div>
 </div>
 
 
-</section>
-
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
