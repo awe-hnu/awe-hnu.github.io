@@ -41,7 +41,7 @@ By viewing a system as an agent coupled with an environment, we account for the 
 
 Systems architects use _agency_ as a tool for analysis, but should avoid over-applying it to trivial tools where it provides no design leverage:
 
-> One could view a hand-held calculator as an agent that chooses the action of displaying '4' when given the percept sequence '2 + 2 =,' but such an analysis would hardly aid our understanding of the calculator... AI operates at... the most interesting end of the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making. *[@RusselNorvig2022AIMA, p. 36]*
+> One could view a hand-held calculator as an agent that chooses the action of displaying '4' when given the percept sequence '2 + 2 =,' but such an analysis would hardly aid our understanding of the calculator... AI operates at... the most interesting end of the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making. *@RusselNorvig2022AIMA [p. 36]*
 
 :::
 
@@ -52,7 +52,7 @@ To analyze these systems, we define the following core components:
 :::incremental
 - **Agent:** anything that perceives its environment through sensors and acts upon it through actuators.
 - **Percept:** The agent's perceptual inputs at any given instant.
-- **Percept Sequence:** The complete history of everything the agent has ever perceived; an agent’s choice of action depends on this sequence observed to date.
+- **Percept sequence:** The complete history of everything the agent has ever perceived; an agent’s choice of action depends on this sequence observed to date.
 - **Sensors:** Mechanisms (cameras, GPS, microphones) that receive environmental input.
 - **Actuators:** Mechanisms (wheels, display screens, robotic joints) that execute actions.
 ::: 
@@ -127,7 +127,7 @@ Rationality is *not* the same as perfection.
 - Rational choice depends only on the percept sequence *to date*.
 :::
 
-## Comparison of performance standards
+## Performance standards
 
 To understand the engineering limits of AI, we distinguish between three standards:
 
@@ -137,7 +137,7 @@ To understand the engineering limits of AI, we distinguish between three standar
 | **Omniscience** | Knowing the *actual* outcome of actions | Complete future and present data   | **Impossible:** Requires a "crystal ball" |
 | **Perfection**  | Maximizing *actual* performance         | Requires Omniscience               | **Impossible** in unpredictable worlds    |
 
-## Overcoming ignorance
+## Information gathering & learning
 
 :::medium
 To bridge the gap between initial ignorance and rational behavior, agents must utilize **information gathering** and **learning.**
@@ -174,7 +174,7 @@ Before designing an agent (i.e., *the solution*), the task environment (i.e., *t
 - the **p**erformance measure,
 - the **e**nvironment,
 - the **a**ctuators, and
-- the **s**ensors 
+- the **s**ensors. 
 :::
 :::
 
@@ -551,19 +551,9 @@ For each of the following assertions, say whether it is true or false and suppor
 3. There exists a task environment in which every agent is rational.
 4. Every agent is rational in an unobservable environment.
 5. A perfectly rational poker-playing agent never loses.
-
-:::notes
-:::{.callout-tip collapse="true"}
-#### Solution notes
-
-1. **False.** Perfect rationality refers to the ability to make gooddecisions given the sensor information received.
-2. **True.** A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment
-3. **True.** For example, in an environment with a single state, such that all actions have the same reward, it does not matter which action is taken.
-4. **False.** Some actions are stupid (and the agent may know this if it has a model) even if it has no environment input.
-5. **False.** Unless it draws the perfect hand, the agent can lose if an opponent has better cards.
-
-:::
-:::
+6. An agentic AI system always outperforms a classical goal-based agent.
+7. Agentic AI systems can be fully rational without learning capabilities.
+8. An agentic AI system that can decompose goals into sub-goals is always more rational than one that cannot.
 
 ## Task environment
 
@@ -574,7 +564,7 @@ For each of the following activities characterize the task environment it in ter
 - Shopping for used AI books on the internet
 - Playing a tennis match
 
-## Task environment #2
+## Task environment properties
 
 For each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property. 
 
@@ -585,6 +575,11 @@ b. Continuous: driving; spoken conversation; written conversation; climate engin
 c. Stochastic: driving; sudoku; poker; soccer
 d. Static: chat room; checkers; tax planning; tennis
 
+## Task environment for Agentic AI
+
+For an AI agent that independently conducts scientific literature reviews, characterize the task environment in terms of the properties discussed in the lecture notes. 
+
+Then argue why the scenario requires an agentic AI approach rather than a classical agent design.
 
 # Literature
 ::: {#refs}
