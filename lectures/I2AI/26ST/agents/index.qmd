@@ -19,11 +19,11 @@ format:
     output-file: index.html
     margin-header: |
       [Slides](slides.html){.btn .btn-primary target="blank"}
-      [Solutions](solutions/solutions.html){.btn .btn-secondary target="blank"}
+      [Solutions](solutions/solutions.html){.btn target="blank"}
     format-links: false
   presentation-revealjs:
     output-file: slides.html
-    include-before-body: ../assets/footer.html      
+    include-before-body: ../assets/footer.html
 ---
 
 
@@ -503,13 +503,13 @@ Agentic AI systems need to have the ability to
 
 ## Concepts
 
-Define in your own words the following terms: 
+Define in your own words the following terms:
 
 - Rationality
 - Autonomy
 - Agent
 - Environment
-- Sensor 
+- Sensor
 - Actuator
 - Percept
 - Agent function
@@ -556,6 +556,23 @@ For each of the following assertions, say whether it is true or false and suppor
 7. Agentic AI systems can be fully rational without learning capabilities.
 8. An agentic AI system that can decompose goals into sub-goals is always more rational than one that cannot.
 
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+1. **False.** Perfect rationality refers to the ability to make gooddecisions given the sensor information received.
+2. **True.** A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment
+3. **True.** For example, in an environment with a single state, such that all actions have the same reward, it does not matter which action is taken.
+4. **False.** Some actions are stupid (and the agent may know this if it has a model) even if it has no environment input.
+5. **False.** Unless it draws the perfect hand, the agent can lose if an opponent has better cards.
+6. **False.** In simple, fully observable, deterministic environments (e.g., a thermostat controlling room temperature), a classical goal-based agent can perform optimally. The overhead of autonomy, adaptation, and sub-goal management in an agentic AI system adds complexity without improving performance. Agentic AI provides advantages primarily in complex, dynamic, and partially observable environments.
+7. **False.** Rationality requires the agent to maximize expected performance given its percept sequence and built-in knowledge [@RusselNorvig2022AIMA]. In dynamic and unpredictable environments — which are precisely the environments agentic AI is designed for — an agent without learning capabilities cannot adapt to changing conditions or improve from experience. Its built-in knowledge would become increasingly misaligned with the actual environment, leading to suboptimal actions. While a non-learning agent could be rational in a static, fully known environment, such environments do not require agentic AI in the first place.
+8. **False.** Sub-goal decomposition is beneficial for complex, multi-step tasks, but rationality depends on maximizing expected performance — not on the internal architecture. In simple environments with a single, clearly defined goal (e.g., a binary classification task), decomposition adds unnecessary complexity and potential failure points without improving the outcome.
+
+:::
+:::
+
 ## Task environment
 
 For each of the following activities characterize the task environment it in terms of the properties discussed in the lecture notes.
@@ -565,29 +582,38 @@ For each of the following activities characterize the task environment it in ter
 - Shopping for used AI books on the internet
 - Playing a tennis match
 
-## Properties of task environments 
+## Task environment properties
 
-For each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property. 
+For each of the following task environment properties, rank the example task environments from most to least according to how well the environment satisfies the property.
 
-Lay out any assumptions you make to reach your conclusions. 
+Lay out any assumptions you make to reach your conclusions.
 
 a. Fully observable: driving; document classification; tutoring a student in calculus; skin cancer diagnosis from images
 b. Continuous: driving; spoken conversation; written conversation; climate engineering by stratospheric aerosol injection
 c. Stochastic: driving; sudoku; poker; soccer
 d. Static: chat room; checkers; tax planning; tennis
 
-## Task environments for Agentic AI
+## Task environment for Agentic AI
 
-For an AI agent that independently conducts scientific literature reviews, characterize the task environment in terms of the properties discussed in the lecture notes. 
+For an AI agent that independently conducts scientific literature reviews, characterize the task environment in terms of the properties discussed in the lecture notes.
 
 Then argue why the scenario requires an agentic AI approach rather than a classical agent design.
+
+:::notes
+:::{.callout-tip collapse="true"}
+#### Solution notes
+
+- **Partially observable:** The agent cannot access all publications (paywalls, preprints, unpublished work); relevance of a paper is not fully apparent from metadata alone.
+- **Single agent:** Typically operates independently, though it may interact with the user for clarification.
+- **Nondeterministic:** Search results vary; the relevance and quality of papers are uncertain until processed.
+- **Sequential:** Findings from one paper inform which papers to search for next; the synthesis builds cumulatively.
+- **Semi-dynamic:** New publications appear during the review process.
+- **Discrete:** Actions (search, read, summarize, compare) are distinct steps, though the information space is vast.
+- **Unknown:** The agent does not know the full landscape of relevant literature in advance and must discover it through exploration.
+
+:::
+:::
 
 # Literature
 ::: {#refs}
 :::
-
-
-
-As announced last week, most of the lectures will be delivered using the flipped classroom approach.
-
-Please prepare by looking at last week's class exercises, working through this week's class lecture notes independently, and noting down any issues you have understood. In class, we will clarify any questions you have and work on the exercises.

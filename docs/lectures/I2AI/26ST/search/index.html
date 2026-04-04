@@ -227,7 +227,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Mar 16, 2026</p>
+        <p class="date-modified">Apr 4, 2026</p>
       </div>
     </div>
       
@@ -343,7 +343,7 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a> <a href="session.html" class="btn" target="blank">Session</a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
@@ -401,8 +401,12 @@ window.Quarto = {
 <li>The <strong>search algorithms</strong> used to find a path can be either <em>uninformed</em> (blind) or <em>informed</em> (using heuristics).</li>
 </ul>
 </div>
+<div class="fragment">
 <p>Here only <strong>simple environments</strong> are considered <em>(episodic, single agent, fully observable, deterministic, static, discrete, and known)</em>.</p>
+</div>
+<div class="fragment">
 <p>We assume that information about the environment are given (e.g., a map)</p>
+</div>
 <div class="notes">
 <div class="small">
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span>.</p>
@@ -578,7 +582,9 @@ Figure&nbsp;1: Example: A simplified map of Romania, with road distances in mile
 <li><strong>Goal nodes</strong> are states that satisfy your goal condition</li>
 </ul>
 </div>
+<div class="fragment">
 <p>The search tree is the computational manifestation of your problem formulation.</p>
+</div>
 <div class="notes">
 <p>The quality of your problem formulation directly affects:</p>
 <ul>
@@ -632,7 +638,9 @@ Figure&nbsp;1: Example: A simplified map of Romania, with road distances in mile
 <section id="frontier" class="level2">
 <h2 data-anchor-id="frontier">Frontier</h2>
 <p>The frontier (sometimes called the “open list” or “fringe”) is the collection of nodes that have been generated but not yet expanded or evaluated.</p>
+<div class="fragment">
 <p>The frontier serves as the boundary between explored and unexplored parts of the search space. It contains all the nodes that are immediate candidates for expansion.</p>
+</div>
 <div class="medium">
 <p>You might also call the frontier the “to-do list” of nodes that the search algorithm maintains.</p>
 </div>
@@ -752,7 +760,9 @@ Figure&nbsp;2: Example: A partial search tree for finding a route from Arad to B
 <li>try to find a path that reaches a goal state.</li>
 </ul>
 </div>
+<div class="fragment">
 <p>Depending on the problem formulation, they can implement different methods:</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><strong>Uninformed search</strong>, which only have access to the problem definition but not clue about how close a state is to the goal(s).</li>
@@ -958,9 +968,15 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <section id="greedy-best-first-search" class="level3">
 <h3 data-anchor-id="greedy-best-first-search">Greedy best-first search</h3>
 <p>The Greedy best-first search uses the evlation function <span class="math inline">\(f(n) = h(n)\)</span></p>
+<div class="fragment">
 <p>It expands the first node with the lowest <span class="math inline">\(h(n)\)</span> value in the queue.</p>
+</div>
+<div class="fragment">
 <p>In route finding problems, the straight-line distance heuristic is used as <span class="math inline">\(h(n)\)</span>.</p>
+</div>
+<div class="fragment">
 <p>Greedy best-first graph search is complete in finite state spaces, but not in infinite ones.</p>
+</div>
 </section>
 <section id="a-search" class="level3">
 <h3 data-anchor-id="a-search">A* Search</h3>
@@ -971,13 +987,17 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <li><span class="math inline">\(h(n)\)</span> is the <em>estimated cost</em> of the shortes path from <span class="math inline">\(n\)</span> to a goal state.</li>
 </ul>
 </div>
+<div class="fragment">
 <p>A* search is complete, if it is cost-optimal depends on the heuristic.</p>
+</div>
 </section>
 </section>
 <section id="online-search" class="level2">
 <h2 data-anchor-id="online-search">Online search</h2>
 <p>The agents considered so far use <strong>offline search</strong> algorithm. They compute a complete solution before taking their first action. They are not helpful in unknown environments.</p>
+<div class="fragment">
 <p><strong>Online search</strong> agents interleaves computation and action:</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li>Takes action,</li>
@@ -985,8 +1005,12 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <li>computes the next action,</li>
 </ul>
 </div>
+<div class="fragment">
 <p>These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)</p>
+</div>
+<div class="fragment">
 <p>Online search is a good idea in dynamic or semi-dynamic environments.</p>
+</div>
 </section>
 </section>
 <section id="player-games" class="level1 headline-only">
@@ -1021,12 +1045,16 @@ Figure&nbsp;4: A human trying to beat AlphaGo
 <div class="medium">
 <p><span class="fragment">2 players</span> &nbsp; <span class="fragment">fully observable</span> &nbsp; <span class="fragment">deterministic</span> &nbsp; <span class="fragment">zero-sum</span></p>
 </div>
+<div class="fragment">
 <p>As in such games <span class="fragment">the state of a game is easy to represent,</span> <span class="fragment">agents are restricted to a few actions</span> <span class="fragment">and effects of actions are defined by precise rules <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, p. 192</a>)</span>.</span></p>
+</div>
 </section>
 <section id="minmax-value" class="level2">
 <h2 data-anchor-id="minmax-value">MinMax value</h2>
 <p>Given a state-space search tree, each node’s <strong>MinMax value</strong> is calculated.</p>
+<div class="fragment">
 <p>The MinMax value is the best achievable utility of being in a given sate (against a rational adversary).</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><code>MAX</code> prefers to move to a state of maximum value<br>
@@ -1076,8 +1104,8 @@ Figure&nbsp;5: Example: A adversarial game tree
 <ul class="incremental">
 <li>Alpha-beta pruning maintains two values during the tree traversal:
 <ul class="incremental">
-<li>α — The minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)</li>
-<li>β — The maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)</li>
+<li>α: the minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)</li>
+<li>β: the maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)</li>
 </ul></li>
 <li>As the algorithm explores the tree:
 <ul class="incremental">
@@ -1114,12 +1142,16 @@ Figure&nbsp;5: Example: A adversarial game tree
 <section id="introduction-1" class="level2">
 <h2 data-anchor-id="introduction-1">Introduction</h2>
 <p>The concept of a limited planning horizon, as applied in the MinMax-algorithm is one way to handle complex problems, which can not be planned to the goal-state in one step.</p>
+<div class="fragment">
 <p>Another concept is to construct a tree until a final state in such a way that in each state only promising actions and corresponding successors are generated. This concept is applied by Monte Carlo tree search.</p>
+</div>
 </section>
 <section id="functioning" class="level2">
 <h2 data-anchor-id="functioning">Functioning</h2>
 <p><strong>Monte Carlo tree search</strong> (MCTS)<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> does estimate the value of a state as the <strong>average utility</strong><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> over a number of simulations of complete games starting from the current state <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022, pp. 207–209</a>)</span>.</p>
+<div class="fragment">
 <p>Each iteration follows four steps:</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><strong>Selection:</strong> starting from the root node, apply tree policy in order to select next action (e.g., based on average utility<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>).</li>
@@ -1128,7 +1160,9 @@ Figure&nbsp;5: Example: A adversarial game tree
 <li><strong>Backpropagation:</strong> the result of the simulation is used to update all the search tree nodes going up to the root.</li>
 </ul>
 </div>
+<div class="fragment">
 <p>If the computational budget is reached, MCTS returns with the best action a for the given root node.</p>
+</div>
 </section>
 <section id="example-selection" class="level2">
 <h2 data-anchor-id="example-selection">Example: selection</h2>
@@ -1164,9 +1198,11 @@ Figure&nbsp;6: Example: MCTS — selection
 <section id="example-selection-policy-uct" class="level2">
 <h2 data-anchor-id="example-selection-policy-uct">Example: selection policy (UCT)</h2>
 <p><strong>Upper confidence bounds applied to trees</strong> (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)</p>
+<div class="fragment">
 <p><span class="math display">\[
 \textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 \]</span></p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\(\textrm{U}(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>

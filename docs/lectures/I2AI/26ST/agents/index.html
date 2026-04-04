@@ -192,7 +192,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Apr 3, 2026</p>
+        <p class="date-modified">Apr 4, 2026</p>
       </div>
     </div>
       
@@ -308,7 +308,7 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a> <a href="solutions/solutions.html" class="btn" target="blank">Solutions</a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
@@ -1010,6 +1010,33 @@ Figure&nbsp;7: The evolution of AI agents
 <li>Agentic AI systems can be fully rational without learning capabilities.</li>
 <li>An agentic AI system that can decompose goals into sub-goals is always more rational than one that cannot.</li>
 </ol>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>False.</strong> Perfect rationality refers to the ability to make gooddecisions given the sensor information received.</li>
+<li><strong>True.</strong> A pure reflex agent ignores previous percepts and cannot obtain an optimal state estimate in a partially observable environment</li>
+<li><strong>True.</strong> For example, in an environment with a single state, such that all actions have the same reward, it does not matter which action is taken.</li>
+<li><strong>False.</strong> Some actions are stupid (and the agent may know this if it has a model) even if it has no environment input.</li>
+<li><strong>False.</strong> Unless it draws the perfect hand, the agent can lose if an opponent has better cards.</li>
+<li><strong>False.</strong> In simple, fully observable, deterministic environments (e.g., a thermostat controlling room temperature), a classical goal-based agent can perform optimally. The overhead of autonomy, adaptation, and sub-goal management in an agentic AI system adds complexity without improving performance. Agentic AI provides advantages primarily in complex, dynamic, and partially observable environments.</li>
+<li><strong>False.</strong> Rationality requires the agent to maximize expected performance given its percept sequence and built-in knowledge <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">Russel &amp; Norvig, 2022</a>)</span>. In dynamic and unpredictable environments — which are precisely the environments agentic AI is designed for — an agent without learning capabilities cannot adapt to changing conditions or improve from experience. Its built-in knowledge would become increasingly misaligned with the actual environment, leading to suboptimal actions. While a non-learning agent could be rational in a static, fully known environment, such environments do not require agentic AI in the first place.</li>
+<li><strong>False.</strong> Sub-goal decomposition is beneficial for complex, multi-step tasks, but rationality depends on maximizing expected performance — not on the internal architecture. In simple environments with a single, clearly defined goal (e.g., a binary classification task), decomposition adds unnecessary complexity and potential failure points without improving the outcome.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="task-environment" class="level2">
 <h2 data-anchor-id="task-environment">Task environment</h2>
@@ -1036,6 +1063,32 @@ Figure&nbsp;7: The evolution of AI agents
 <h2 data-anchor-id="task-environment-for-agentic-ai">Task environment for Agentic AI</h2>
 <p>For an AI agent that independently conducts scientific literature reviews, characterize the task environment in terms of the properties discussed in the lecture notes.</p>
 <p>Then argue why the scenario requires an agentic AI approach rather than a classical agent design.</p>
+<div class="notes">
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution notes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Partially observable:</strong> The agent cannot access all publications (paywalls, preprints, unpublished work); relevance of a paper is not fully apparent from metadata alone.</li>
+<li><strong>Single agent:</strong> Typically operates independently, though it may interact with the user for clarification.</li>
+<li><strong>Nondeterministic:</strong> Search results vary; the relevance and quality of papers are uncertain until processed.</li>
+<li><strong>Sequential:</strong> Findings from one paper inform which papers to search for next; the synthesis builds cumulatively.</li>
+<li><strong>Semi-dynamic:</strong> New publications appear during the review process.</li>
+<li><strong>Discrete:</strong> Actions (search, read, summarize, compare) are distinct steps, though the information space is vast.</li>
+<li><strong>Unknown:</strong> The agent does not know the full landscape of relevant literature in advance and must discover it through exploration.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="literature" class="level1">
@@ -1054,8 +1107,6 @@ Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern appro
 Wiener, N. (1960). Some moral and technical consequences of automation. <em>Science</em>, <em>131</em>(3410), 1355–1358.
 </div>
 </div>
-<p>As announced last week, most of the lectures will be delivered using the flipped classroom approach.</p>
-<p>Please prepare by looking at last week’s class exercises, working through this week’s class lecture notes independently, and noting down any issues you have understood. In class, we will clarify any questions you have and work on the exercises.</p>
 
 
 </section>

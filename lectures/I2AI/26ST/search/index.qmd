@@ -19,6 +19,7 @@ format:
     output-file: index.html
     margin-header: | 
       [Slides](slides.html){.btn .btn-primary target="blank"}
+      [Session](session.html){.btn target="blank"}
     format-links: false        
   presentation-revealjs:
     output-file: slides.html 
@@ -83,13 +84,13 @@ Agents that plan by considering a sequence of actions that form a path to a goal
 - The **search algorithms** used to find a path can be either _uninformed_ (blind) or _informed_ (using heuristics).
 :::
 
-. . .
-
+:::fragment
 Here only **simple environments** are considered *(episodic, single agent, fully observable, deterministic, static, discrete, and known)*.  
+:::
 
-. . .
-
+:::fragment
 We assume that information about the environment are given (e.g., a map)
+:::
 
 :::notes
 :::small
@@ -238,9 +239,9 @@ The formulation of a search problem, encompassing the definition of state space,
 - **Goal nodes** are states that satisfy your goal condition
 :::
 
-. . .
-
+:::fragment
 The search tree is the computational manifestation of your problem formulation. 
+:::
 
 :::notes
 The quality of your problem formulation directly affects:
@@ -295,9 +296,9 @@ The waypoint model transforms an infinite continuous problem into a finite discr
 
 The frontier (sometimes called the "open list" or "fringe") is the collection of nodes that have been generated but not yet expanded or evaluated.
 
-. . .
-
+:::fragment
 The frontier serves as the boundary between explored and unexplored parts of the search space. It contains all the nodes that are immediate candidates for expansion.
+:::
 
 :::medium
 You might also call the frontier the "to-do list" of nodes that the search algorithm maintains.
@@ -401,9 +402,9 @@ In addition, a data structure to store the **frontier** is neded. Usually this i
 - try to find a path that reaches a goal state.
 :::
 
-. . .
-
+:::fragment
 Depending on the problem formulation, they can implement different methods:
+:::
 
 :::incremental
 - **Uninformed search**, which only have access to the problem definition but not clue about how close a state is to the goal(s).
@@ -616,17 +617,17 @@ Informed (heuristic) search strategies use domain-specific hints about the locat
 
 The Greedy best-first search uses the evlation function $f(n) = h(n)$ 
 
-. . .
-
+:::fragment
 It expands the first node with the lowest $h(n)$ value in the queue. 
+:::
 
-. . .
-
+:::fragment
 In route finding problems, the straight-line distance heuristic is used as $h(n)$.
+:::
 
-. . .
-
+:::fragment
 Greedy best-first graph search is complete in finite state spaces, but not in infinite ones.
+:::
 
 ### A* Search
 
@@ -637,17 +638,17 @@ The A* search (pronounced "A-star search") uses the evaluation function $f(n) = 
 - $h(n)$ is the *estimated cost* of the shortes path from $n$ to a goal state.
 :::
 
-. . .
-
+:::fragment
 A* search is complete, if it is cost-optimal depends on the heuristic.
+:::
 
 ## Online search
 
 The agents considered so far use **offline search** algorithm. They compute a complete solution before taking their first action. They are not helpful in unknown environments.
 
-. . .
-
+:::fragment
 **Online search** agents interleaves computation and action:
+:::
 
 :::incremental
 - Takes action,
@@ -655,13 +656,13 @@ The agents considered so far use **offline search** algorithm. They compute a co
 - computes the next action,
 :::
 
-. . .
-
+:::fragment
 These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)
+:::
 
-. . . 
-
+:::fragment
 Online search is a good idea in dynamic or semi-dynamic environments.
+:::
 
 # 2-Player games {.headline-only}
 
@@ -691,18 +692,17 @@ The algorithm described in this section is applicable for all games with the fol
 [2 players]{.fragment} &nbsp; [fully observable]{.fragment} &nbsp; [deterministic]{.fragment} &nbsp; [zero-sum]{.fragment}
 :::
 
-. . .
-
+:::fragment
 As in such games [the state of a game is easy to represent,]{.fragment} [agents are restricted to a few actions]{.fragment} [and effects of actions are defined by precise rules [@RusselNorvig2022AIMA, p.192].]{.fragment}
-
+:::
 
 ## MinMax value
 
 Given a state-space search tree, each node's **MinMax value** is calculated.
 
-. . .
-
+:::fragment
 The MinMax value is the best achievable utility of being in a given sate (against a rational adversary).
+:::
 
 :::incremental
 - `MAX` prefers to move to a state of maximum value  
@@ -714,7 +714,9 @@ The MinMax value is the best achievable utility of being in a given sate (agains
 ![Example: A adversarial game tree](images/adversarial-game-tree.svg){#fig-adversarial-game-tree}
 
 :::notes
-The △ nodes are "`MAX` nodes", in which it is `MAX's` turn to move; the ▽ nodes are "`MIN` nodes". `MAX's` best move at the root is α₁ (the highest MinMax value achievable at level 3), `MIN's` best move is β₁ (the lowest minimax value).
+The △ nodes are "`MAX` nodes", in which it is `MAX's` turn to move; the ▽ nodes are "`MIN` nodes". 
+`MAX's` best move at the root is α₁ (the highest MinMax value achievable at level 3),
+`MIN's` best move is β₁ (the lowest minimax value).
 :::
 
 ## MinMax algorithm
@@ -740,8 +742,8 @@ Alpha-Beta Pruning is an improvement of the MinMax algorithm in the sense that i
 
 :::incremental
 - Alpha-beta pruning maintains two values during the tree traversal:
-  - α — The minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)
-  - β — The maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)
+  - α: the minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)
+  - β: the maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)
 - As the algorithm explores the tree:
   - At maximizing nodes ($L-2$), we update alpha if we find a better value
   - At minimizing nodes ($L-1$), we update beta if we find a better value
@@ -771,9 +773,9 @@ Alpha-beta search updates the values of α and β as it goes along and prunes th
 
 The concept of a limited planning horizon, as applied in the MinMax-algorithm is one way to handle complex problems, which can not be planned to the goal-state in one step.
 
-. . .
-
+:::fragment
 Another concept is to construct a tree until a final state in such a way that in each state only promising actions and corresponding successors are generated. This concept is applied by Monte Carlo tree search.
+:::
 
 ## Functioning
 
@@ -781,9 +783,9 @@ Another concept is to construct a tree until a final state in such a way that in
 
 [^averageUtility]: The average utility is guided by the **selection policy**.
 
-. . .
-
+:::fragment
 Each iteration follows four steps:
+:::
 
 :::incremental
 - **Selection:** starting from the root node, apply tree policy in order to select next action (e.g., based on average utility[^5]).
@@ -794,9 +796,9 @@ Each iteration follows four steps:
 
 [^5]: For games with binary outcomes, **average utility** equals *win percentage*
 
-. . .
-
+:::fragment
 If the computational budget is reached, MCTS returns with the best action a for the given root node.
+:::
 
 ## Example: selection
 
@@ -832,11 +834,11 @@ It would also have been reasonable to select the 2/11 node for the sake of explo
 
 **Upper confidence bounds applied to trees** (UCT) is a very effective selection policy ranking possible moves based on an upper confidence bound formula (UCB1)
 
-. . .
-
+:::fragment
 $$ 
 \textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 $$
+:::
 
 :::incremental
 - $\textrm{U}(n)$ is the total utility of all playouts that went through node $n$

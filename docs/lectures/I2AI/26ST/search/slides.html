@@ -119,7 +119,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8c670e19b69dfa49d603c5f4f1569fb0.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-c481292d7d5ec3129000845608e57a11.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -350,6 +350,7 @@ Andy Weeger
 </div>
 <div class="fragment">
 <p>We assume that information about the environment are given (e.g., a map)</p>
+</div>
 <aside class="notes">
 <div class="small">
 <p>There are also search algorithms for problems in <em>partially observable, nondeterministic, unknown, and continuous environments</em> (i.e., complex environments) like local search methods (e.g., hill-climbing search, local beam search, evolutionary algorithms). For details please see <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022</a>)</span>.</p>
@@ -365,7 +366,6 @@ Andy Weeger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 <aside></aside></section>
 
 <section id="problem-solving-process" class="title-slide slide level2">
@@ -567,6 +567,7 @@ Figure&nbsp;1: Example: A simplified map of Romania, with road distances in mile
 </ul>
 <div class="fragment">
 <p>The search tree is the computational manifestation of your problem formulation.</p>
+</div>
 <aside class="notes">
 <p>The quality of your problem formulation directly affects:</p>
 <ul>
@@ -623,7 +624,6 @@ Figure&nbsp;1: Example: A simplified map of Romania, with road distances in mile
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 
 <section id="frontier" class="title-slide slide level2">
@@ -631,9 +631,9 @@ Figure&nbsp;1: Example: A simplified map of Romania, with road distances in mile
 <p>The frontier (sometimes called the “open list” or “fringe”) is the collection of nodes that have been generated but not yet expanded or evaluated.</p>
 <div class="fragment">
 <p>The frontier serves as the boundary between explored and unexplored parts of the search space. It contains all the nodes that are immediate candidates for expansion.</p>
+</div>
 <div class="medium">
 <p>You might also call the frontier the “to-do list” of nodes that the search algorithm maintains.</p>
-</div>
 </div>
 </section>
 
@@ -762,11 +762,11 @@ Figure&nbsp;2: Example: A partial search tree for finding a route from Arad to B
 </ul>
 <div class="fragment">
 <p>Depending on the problem formulation, they can implement different methods:</p>
+</div>
 <ul>
 <li class="fragment"><strong>Uninformed search</strong>, which only have access to the problem definition but not clue about how close a state is to the goal(s).</li>
 <li class="fragment"><strong>Informed search</strong>, which have access to a heuristic function that gives domain-specific hints about how close a state is to the goal(s) <em>(e.g., using straight-line distance in route-finding problems)</em></li>
 </ul>
-</div>
 </section>
 
 <section id="performance-metrics" class="title-slide slide level2">
@@ -846,12 +846,12 @@ Figure&nbsp;3: Overview of uninformed search strategies
 <p>The agents considered so far use <strong>offline search</strong> algorithm. They compute a complete solution before taking their first action. They are not helpful in unknown environments.</p>
 <div class="fragment">
 <p><strong>Online search</strong> agents interleaves computation and action:</p>
+</div>
 <ul>
 <li class="fragment">Takes action,</li>
 <li class="fragment">observes the environment, and</li>
 <li class="fragment">computes the next action,</li>
 </ul>
-</div>
 <div class="fragment">
 <p>These agents can discover successor only for a state that is occupied or that is learned (i.e., contained in a map created online)</p>
 </div>
@@ -916,13 +916,13 @@ Figure&nbsp;4: A human trying to beat AlphaGo
 <p>Given a state-space search tree, each node’s <strong>MinMax value</strong> is calculated.</p>
 <div class="fragment">
 <p>The MinMax value is the best achievable utility of being in a given sate (against a rational adversary).</p>
+</div>
 <ul>
 <li class="fragment"><code>MAX</code> prefers to move to a state of maximum value<br>
 </li>
 <li class="fragment"><code>MIN</code> prefers to move to a state of minimum value<br>
 </li>
 </ul>
-</div>
 </section>
 
 <section id="adversarial-game-tree" class="title-slide slide level2">
@@ -984,8 +984,8 @@ Figure&nbsp;5: Example: A adversarial game tree
 <ul>
 <li class="fragment">Alpha-beta pruning maintains two values during the tree traversal:
 <ul>
-<li class="fragment">α — The minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)</li>
-<li class="fragment">β — The maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)</li>
+<li class="fragment">α: the minimum score that the maximizing player (Max) is guaranteed to achieve (worst for Max)</li>
+<li class="fragment">β: the maximum score that the minimizing player (Min) is guaranteed to achieve (worst for Min)</li>
 </ul></li>
 <li class="fragment">As the algorithm explores the tree:
 <ul>
@@ -1044,13 +1044,13 @@ Figure&nbsp;5: Example: A adversarial game tree
 <p><strong>Monte Carlo tree search</strong> (MCTS)<a href="#/footnotes" class="footnote-ref" id="fnref9" role="doc-noteref" data-footnote-href="#/fn9" onclick=""><sup>9</sup></a> does estimate the value of a state as the <strong>average utility</strong><a href="#/footnotes" class="footnote-ref" id="fnref10" role="doc-noteref" data-footnote-href="#/fn10" onclick=""><sup>10</sup></a> over a number of simulations of complete games starting from the current state <span class="citation" data-cites="RusselNorvig2022AIMA">(<a href="#/literature" role="doc-biblioref" onclick="">Russel &amp; Norvig, 2022, pp. 207–209</a>)</span>.</p>
 <div class="fragment">
 <p>Each iteration follows four steps:</p>
+</div>
 <ul>
 <li class="fragment"><strong>Selection:</strong> starting from the root node, apply tree policy in order to select next action (e.g., based on average utility<a href="#/footnotes" class="footnote-ref" id="fnref11" role="doc-noteref" data-footnote-href="#/fn11" onclick=""><sup>11</sup></a>).</li>
 <li class="fragment"><strong>Expansion:</strong> in a leaf-node select an arbitrary action and generate the corresponding new child-node.</li>
 <li class="fragment"><strong>Simulation:</strong> simulate the game, starting from the new child-node. At the end of each simulation the game is won or lost.</li>
 <li class="fragment"><strong>Backpropagation:</strong> the result of the simulation is used to update all the search tree nodes going up to the root.</li>
 </ul>
-</div>
 <div class="fragment">
 <p>If the computational budget is reached, MCTS returns with the best action a for the given root node.</p>
 </div>
@@ -1102,6 +1102,7 @@ Figure&nbsp;6: Example: MCTS — selection
 <p><span class="math display">\[
 \textrm{UCB1}(n) = \frac{\textrm{U}(n)}{\textrm{N}(n)} + C * \sqrt{\frac{\log{\textrm{N}(\textrm{PARENT}(n))}}{\textrm{N}(n)}}
 \]</span></p>
+</div>
 <ul>
 <li class="fragment"><span class="math inline">\(\textrm{U}(n)\)</span> is the total utility of all playouts that went through node <span class="math inline">\(n\)</span></li>
 <li class="fragment"><span class="math inline">\(\textrm{N}(n)\)</span> is the number of playouts through node <span class="math inline">\(n\)</span></li>
@@ -1124,7 +1125,6 @@ Figure&nbsp;6: Example: MCTS — selection
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 
 <section id="example-expansion-and-simulation" class="title-slide slide level2">
