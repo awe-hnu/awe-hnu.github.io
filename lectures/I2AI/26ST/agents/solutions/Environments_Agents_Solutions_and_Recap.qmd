@@ -1,0 +1,558 @@
+---
+title: "Environments & Agents – I2AI"
+format:
+  revealjs:
+    theme: default
+    transition: fade
+    slide-number: false
+    progress: true
+    center: false
+    width: 1400
+    height: 788
+---
+
+## Environments & Agents {.title-slide}
+
+**Introduction to AI**
+
+```
+Course    :: I2AI
+Topic     :: Environments & Agents
+```
+
+---
+
+# Agency {.section-slide}
+
+*Is AI really just a fancy calculator? We examine what sets agents apart — and why the distinction matters.*
+
+---
+
+## Is AI Different from a Calculator? If so, why? {data-tag="Discussion"}
+
+::: {.callout-note}
+**💬 Recap**
+
+Is AI different from a calculator? If so, why?
+:::
+
+. . .
+
+Modern AI has moved beyond isolated "calculators." The paradigm of **agency** shifts our engineering focus from *"correct output"* to ***"intelligent behavior"*** — accounting for **feedback loops, uncertainties, and real-time constraints.**
+
+> Agency is the capacity of a system to maintain a continuous feedback loop with its environment. Agency requires a mapping of a history of environmental percepts to a sequence of actions designed to achieve a goal or maximize a performance measure.
+>
+> — Russel & Norvig, 2022
+
+---
+
+## Core Components & Architecture of Agents
+
+::: {.callout-note}
+**💬 Think about it**
+
+What are the **core components** that define an agent? Explain what each means.
+:::
+
+. . .
+
+**✓ Core components**
+
+- **Agent:** anything that perceives its environment through sensors and acts upon it through actuators.
+- **Percept:** the agent's perceptual inputs at any given instant.
+- **Percept sequence:** the complete history of everything the agent has ever perceived; action depends on this full sequence.
+- **Sensors:** mechanisms (cameras, GPS, microphones) that receive environmental input.
+- **Actuators:** mechanisms (wheels, display screens, robotic joints) that execute actions.
+
+---
+
+## Core Components & Architecture of Agents
+
+::: {.callout-note}
+**💬 Think about it**
+
+What are the components of the **Agent Architecture**?
+:::
+
+. . .
+
+**✓ Agent Architecture**
+
+- **Agent Function:** An abstract mathematical mapping *f : P\* → A* — describing how any given percept sequence results in an action. This is the *what*.
+- **Agent Program:** The concrete physical implementation — the actual code — running on a specific architecture. This is the *how*.
+
+---
+
+## Can We Consider a Calculator an Agent? {data-tag="Recap"}
+
+::: {.callout-note}
+**💬 Think about it**
+
+A calculator takes inputs and produces outputs. Could we consider a calculator to be an agent?
+:::
+
+. . .
+
+**✓ Answer**
+
+Technically yes — but the framing provides **no design leverage**:
+
+> "One could view a hand-held calculator as an agent that chooses the action of displaying '4' when given the percept sequence '2 + 2 =,' but such an analysis would hardly aid our understanding of the calculator … AI operates at … the most interesting end of the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making."
+>
+> — p.36, Russel & Norvig, 2022
+
+---
+
+## Rational Agents
+
+. . .
+
+A rational agent selects an action that is **expected to maximize its performance measure**, given the prior percept sequence and its built-in knowledge.
+
+Rationality is not about the internal process, but the external outcome.
+
+![Figure 1: Rational agents interact with environments through sensors and actuators.](/image/agent.svg){width=80%}
+
+---
+
+## Rationality vs. Perfection
+
+Rationality is *not* the same as perfection:
+
+. . .
+
+- Rationality maximizes **expected** performance.
+- Perfection maximizes **actual** performance.
+- Perfection requires omniscience.
+- Rational choice depends only on the percept sequence *to date*.
+
+. . .
+
+| Metric | Definition | Info Required | Feasibility |
+|--------|-----------|---------------|-------------|
+| **Rationality** | Maximizes expected performance | Percept sequence + prior knowledge | High — the engineering standard |
+| **Omniscience** | Knows actual outcome of actions | Complete future & present data | Impossible |
+| **Perfection** | Maximizes actual performance | Requires omniscience | Impossible in unpredictable worlds |
+
+---
+
+# Environments {.section-slide}
+
+*Before designing an agent (the solution), the task environment (the problem) must be specified as fully as possible using the PEAS framework.*
+
+---
+
+## PEAS Framework {data-tag="Definition"}
+
+The task environment must be specified across four dimensions:
+
+. . .
+
+- **P**erformance measure
+- **E**nvironment
+- **A**ctuators
+- **S**ensors
+
+---
+
+## Exercise: PEAS {data-tag="In-class Group Exercise | 10 Min"}
+
+::: {.callout-note}
+**📝 Exercise**
+
+Describe the task environment of the following agents using PEAS.
+:::
+
+| Type | Performance Measure | Environment | Actuators | Sensors |
+|------|--------------------:|------------:|----------:|--------:|
+| **Microwave oven** | Food heated correctly; time minimized; no burning | Kitchen; food of varying types/density | Magnetron; turntable motor | Temperature sensor; timer; door sensor |
+| **Chess program** | Win; minimize opponent's probability; compute within time | 8×8 board; opponent; time constraint | Move selection; display | Board state; clock; game history |
+| **Autonomous supply delivery** | On-time delivery; route efficiency; safety | Roads; traffic; pedestrians; weather | Steering; brakes; cargo release | GPS; lidar; radar; cameras; speedometer |
+| **Bidding at an auction** | Obtain item; minimize price paid | Auction house / eBay | Placing a bid | Eyes, ears |
+
+---
+
+## Properties of Task Environments
+
+Task environments can be categorized along seven dimensions:
+
+. . .
+
+- **Fully observable ↔ Partially observable**: Does the agent have access to the complete state of the environment at all times? (e.g., chess vs. poker)
+- **Single agent ↔ Multi-agent**: Is only one agent interacting with the environment? (e.g., crossword puzzle vs. chess)
+- **Deterministic ↔ Nondeterministic**: Is the next state completely determined by current state and action? (e.g., crossword vs. poker)
+- **Episodic ↔ Sequential**: Is each episode independent of prior ones? (e.g., spam filtering vs. chess)
+- **Static ↔ Dynamic**: Does the environment change while the agent is deliberating? (e.g., chess vs. stock trading)
+- **Discrete ↔ Continuous**: Is the state space finite and distinct, or continuous? (e.g., chess vs. self-driving)
+- **Known ↔ Unknown**: Does the agent have complete information about outcomes of its actions? (e.g., solitaire vs. new environment)
+
+. . .
+
+::: {.callout-warning}
+**⚠️ Hardest case**
+
+Partially observable, multi-agent, nondeterministic, sequential, dynamic, continuous, and unknown — this is the most challenging combination for agent design (Russel & Norvig, 2022, pp. 62–64).
+:::
+
+---
+
+## Exercise: Rational Agent Games {data-tag="In-class Group Exercise | 10 Min"}
+
+Which of these games would a rational agent always win and why?
+
+- Sudoku
+- Chess
+- Tic-Tac-Toe
+- Lottery
+- Minesweeper
+
+---
+
+## Exercise: Rational Agent Games — Solution
+
+. . .
+
+- **Sudoku:** *Always wins (if a solution exists)* — single agent, fully observable, deterministic, episodic. Rational = perfection here because the environment is known and static. Only caveat: some puzzles are intentionally unsolvable.
+
+. . .
+
+- **Chess:** *Theoretically always wins (practically depends)* — environment is deterministic and fully observable. However, the state space is enormous (10^43^ board positions, 10^120^ possible games). A winning/drawing strategy has not yet been explicitly found and is currently computationally infeasible.
+
+. . .
+
+- **Tic-Tac-Toe:** *Always at least draws* — fully observable, deterministic, known. Rational = perfect here. A rational agent with perfect play can always force at least a draw. Against a non-rational agent it can win; against another rational agent it always draws. [xkcd/832](https://xkcd.com/832/)
+
+. . .
+
+- **Lottery:** *Rational agent would not play* — fully observable, known and static. The agent can calculate exact expected values and determine that keeping its money maximizes expected performance. The rational move is not to play (negative expected value).
+
+. . .
+
+- **Minesweeper:** *~50/50 chance* — partially observable and stochastic. Many endgame configurations require a pure guess between two equally likely mines. A rational agent reasons perfectly up to that point, then faces a 50/50 with no additional information. Perfection would require knowing mine locations — i.e., omniscience.
+
+---
+
+## Exercise: Assertions
+
+::: {.callout-note}
+**✏️ Exercise**
+
+For each assertion, say whether it is **true or false** and support your answer with examples or counterexamples.
+:::
+
+1. An agent that senses only partial information about the state cannot be perfectly rational.  
+   **False.** Perfect rationality means making good decisions given available sensor information; partial observability does not preclude it.
+
+2. There exist task environments in which no pure reflex agent can behave rationally.  
+   **True.** A pure reflex agent ignores percept history and cannot obtain an optimal state estimate in partially observable environments.
+
+3. There exists a task environment in which every agent is rational.  
+   **True.** In a single-state environment where all actions yield the same reward, any action is rational.
+
+4. Every agent is rational in an unobservable environment.  
+   **False.** Even without sensory input, some actions are inherently suboptimal — an agent with an internal model can know this.
+
+5. A perfectly rational poker-playing agent never loses.  
+   **False.** Rationality maximizes expected outcomes; an opponent may simply hold better cards.
+
+6. An agentic AI system always outperforms a classical goal-based agent.  
+   **False.** In simple, static environments a classical agent already acts optimally; agentic AI adds overhead without benefit.
+
+7. Agentic AI systems can be fully rational without learning capabilities.  
+   **False.** In dynamic or initially unknown environments, learning is required to compensate for partial or incorrect prior knowledge.
+
+8. An agentic AI system that can decompose goals into sub-goals is always more rational than one that cannot.  
+   **False.** Goal decomposition is an architectural feature, not a prerequisite for rationality in simpler environments.
+
+---
+
+## Exercise: Task Environments
+
+::: {.callout-note}
+**✏️ Exercise**
+
+For each of the following activities, characterize the task environment in terms of the properties discussed in the lecture.
+:::
+
+- Playing soccer
+- Exploring the subsurface oceans of Titan
+- Shopping for used AI books on the internet
+- Playing a tennis match
+
+---
+
+## Solution: Task Environments (Part 1)
+
+### Playing Soccer
+
+| Property | Characterization |
+|----------|-----------------|
+| **Observability** | Partial — field not fully visible; opponent intentions hidden |
+| **Agents** | Multi — cooperative teammates and competitive opponents |
+| **Determinism** | Stochastic — ball bounce and weather introduce uncertainty |
+| **Episodes** | Sequential — actions affect the flow of the game and future options |
+| **Dynamics** | Dynamic — ball and players continuously move while deliberating |
+| **Continuity** | Continuous — speed and position of players and ball sweep smooth ranges |
+
+### Exploring the Subsurface Oceans of Titan
+
+| Property | Characterization |
+|----------|-----------------|
+| **Observability** | Partial — sensors limited to local range in dark, murky ocean |
+| **Agents** | Single — currents treated as physical laws, not agents |
+| **Determinism** | Stochastic — unpredictable currents and unknown obstacles |
+| **Episodes** | Sequential — path taken dictates future discoveries and energy budget |
+| **Dynamics** | Dynamic — currents and conditions change while the agent processes data |
+| **Continuity** | Continuous — movement and navigation occur through continuous space and time |
+
+---
+
+## Solution: Task Environments (Part 2)
+
+### Shopping for Used AI Books
+
+| Property | Characterization |
+|----------|-----------------|
+| **Observability** | Partial — prices, stock, and inventories across the web not fully visible |
+| **Agents** | Multi — other buyers, algorithmic sellers, and dynamic pricing bots |
+| **Determinism** | Stochastic — item may be bought by a competing agent before checkout |
+| **Episodes** | Sequential — search → evaluate → add to cart → checkout |
+| **Dynamics** | Static / semidynamic — site waits for input; stock may change concurrently |
+| **Continuity** | Discrete — keystrokes and clicks are distinct, separate actions |
+
+### Playing a Tennis Match
+
+| Property | Characterization |
+|----------|-----------------|
+| **Observability** | Partial — opponent's intentions and muscle movements not directly observable |
+| **Agents** | Multi — strictly competitive opponent |
+| **Determinism** | Stochastic — wind, spin, and string bed variation affect ball trajectory |
+| **Episodes** | Sequential — shot placement determines positioning for the next shot |
+| **Dynamics** | Dynamic — ball and opponent continue to move while player deliberates |
+| **Continuity** | Continuous — ball trajectory, swing angles, and player movement are continuous |
+
+---
+
+# Agent Types {.section-slide}
+
+*From simple reflex agents to learning agents — a progression in capability, complexity, and autonomy.*
+
+---
+
+## Types of Agents
+
+Fundamental equation of agency is **Agent = Architecture + Program**. As we move up the complexity scale, we face a trade-off between **flexibility** and **computational overhead**.
+
+. . .
+
+::: {.callout-note}
+**💬 Recap**
+
+What types of agents do you know?
+:::
+
+. . .
+
+**✓ Agent Types**
+
+- **Simple reflex agents:** Act solely on the *current* percept using condition-action rules; require a fully observable environment.
+
+. . .
+
+- **Model-based reflex agents:** Maintain an internal model of the world (transition + sensor model) to handle partially observable environments.
+
+. . .
+
+- **Goal-based agents:** Use goal information and search/planning to select actions that lead to a desired future state.
+
+. . .
+
+- **Utility-based agents:** Maximize a utility function over possible outcomes, enabling rational trade-offs between conflicting or uncertain goals.
+
+. . .
+
+- **Learning agents:** Improve performance over time via a learning element, performance element, critic, and problem generator — gaining greater autonomy through experience.
+
+---
+
+## Exercise: Performance Measures & Agent Types {data-tag="In-class Group Exercise | 10 Min"}
+
+::: {.callout-note}
+**✏️ Exercise**
+
+Suggest **performance measures** for each of the following agents and argue which **type of agent** should be used.
+:::
+
+| Agent | Performance Measure | Agent Type |
+|-------|--------------------:|----------:|
+| Bomb disposal | Bomb does not explode; casualties avoided; mission completed in time | *Goal-based*; *utility-based* if time constraints require trade-offs |
+| Traffic light control | Minimize avg. wait time; maximize throughput; ensure fairness | *Simple reflex* for fixed cycles; *model-based* for queue tracking; *utility-based* for fairness vs. throughput |
+| Microwave oven | Food heated uniformly to target temperature within set time | *Simple reflex* — fixed rules (time, power setting) to actions; fully observable, deterministic environment |
+| Content moderation | Takedown rate; false positive rate; false negative rate; appeal outcomes | *Utility-based learning agent* — harmful content evolves; appropriate safety/expression tradeoff changes continuously |
+
+---
+
+## Performance vs Utility {data-tag="In-class Plenum"}
+
+::: {.callout-note}
+**💬 Think about it**
+
+Both the performance measure and the utility function measure how well an agent is doing. What is the difference between the two?
+:::
+
+. . .
+
+**✓ Key definitions**
+
+- **Performance measure** is a specification from the designer or programmer (external to the agent) to specify what the agent should do. If an agent always acts to maximize or achieve the performance measure, this is a rational agent.
+- Not all agents have **utility functions**, for example, reflex agents do not. The utility function is used internally by the robot itself to evaluate the best course of action to optimally achieve/maximize the performance measure(s), given its perceived state.
+
+---
+
+## Exercise: Properties of Task Environments
+
+::: {.callout-note}
+**✏️ Exercise**
+
+For each of the following task environment properties, **rank the example task environments from most to least** according to how well the environment satisfies the property. Lay out any assumptions you make to reach your conclusions.
+:::
+
+1. **Fully observable:** driving — document classification — tutoring a student in calculus — skin cancer diagnosis from images
+2. **Continuous:** driving — spoken conversation — written conversation — climate engineering by stratospheric aerosol injection
+3. **Stochastic:** driving — sudoku — poker — soccer
+4. **Static:** chat room — checkers — tax planning — tennis
+
+---
+
+## Solution: Properties of Task Environments (1/2)
+
+**1. Fully observable — most to least**
+
+**Document classification → Skin cancer diagnosis → Tutoring a student → Driving**
+
+Document classification provides the complete, static text upfront. The full image is visible for diagnosis, though subsurface biology and medical history are hidden. In tutoring, the student's true understanding is a hidden variable — only explicit answers are observable. Driving is highly partial: blind spots, truck interiors, and other drivers' intentions are all unobservable.
+
+*Assumptions: Document classification provides complete text upfront; diagnosis relies only on the provided image; tutoring treats the student's mental state as hidden.*
+
+**2. Continuous — most to least**
+
+**Climate engineering → Driving → Spoken conversation → Written conversation**
+
+Climate engineering involves planetary-scale fluid dynamics operating across sweeping continuous values. Driving sweeps speed, location, and steering angles continuously. Spoken conversation is continuous at the acoustic wave level, even though words are discrete units. Written conversation is strictly discrete — keystrokes, characters, and messages are all distinct.
+
+*Assumptions: Climate engineering involves massive fluid models compared to localized driving physics. Spoken conversation is analyzed at the raw audio level.*
+
+---
+
+## Solution: Properties of Task Environments (2/2)
+
+**3. Stochastic — most to least**
+
+**Soccer → Driving → Poker → Sudoku**
+
+Soccer is most stochastic: physical unpredictability (ball bounce, wind) combines with multiple adversarial agents creating chaotic states. Driving is highly stochastic due to unpredictable traffic behaviour and potential hardware failures. Poker is stochastic but constrained — uncertainty is strictly quantified by deck probabilities, without real-world physical chaos. Sudoku is fully deterministic; the board state is entirely determined by the agent's actions.
+
+*Assumptions: Soccer's adversarial physical complexity edges out driving. Poker's stochasticity is purely mathematical.*
+
+**4. Static — most to least**
+
+**Tax planning → Checkers → Chat room → Tennis**
+
+Tax planning is perfectly static — historical data and published laws do not change while the agent computes. Checkers is static: the board does not change while the agent deliberates. A chat room is semidynamic — other agents can post simultaneously, altering context while the agent thinks. Tennis is highly dynamic: ball and opponent continuously move while the player decides how to react.
+
+*Assumptions: Tax planning relies on a closed financial year. Checkers is played without a strict clock. Chat room participants do not wait their turn like in a turn-based game.*
+
+---
+
+# Agentic AI {.section-slide}
+
+*From reactive rules to autonomous goal pursuit — what changes when agents start acting on their own?*
+
+---
+
+## Learning Agents & True Autonomy
+
+True autonomy is achieved when an agent can compensate for partial or incorrect prior knowledge by **learning from its experience**. A learning agent consists of four components:
+
+- **Performance Element:** The core agent that selects actions based on current knowledge.
+- **Learning Element:** Responsible for making improvements to the agent function based on data and experience.
+- **Critic:** Evaluates the agent's performance against a fixed external standard and provides feedback to the learning element.
+- **Problem Generator:** Suggests exploratory actions that may be suboptimal in the short term but yield vital information for long-term improvement.
+
+. . .
+
+::: {.callout-tip}
+**💡 The Problem Generator as Scientist**
+
+Consider Galileo's experiments at the Tower of Pisa — he wasn't dropping rocks because the action was inherently useful, but to gather data to update his internal model of motion. This tension between **exploration** (gathering new information) and **exploitation** (acting on what is already known) is the heart of autonomous learning.
+:::
+
+---
+
+## Agentic AI
+
+::: {.callout-note}
+**💬 Recap**
+
+What is Agentic AI?
+:::
+
+. . .
+
+Autonomous systems designed to pursue **complex goals** with **minimal human intervention**.
+
+Core characteristics:
+
+. . .
+
+- Higher **autonomy and goal complexity**,
+- ability to **adapt** to environmental and situational unpredictabilities, and
+- **independent decision-making**.
+
+---
+
+## Exercise: Agentic AI for Literature Reviews {data-tag="In-class Group Exercise | 10 Min"}
+
+::: {.callout-note}
+**✏️ Exercise**
+
+For an AI agent that **independently conducts scientific literature reviews**, characterize the task environment in terms of the properties discussed in the lecture. Then argue why the scenario requires an **agentic AI approach** rather than a classical agent design.
+:::
+
+---
+
+## Solution: Task Environment
+
+| Property | Characterization |
+|----------|-----------------|
+| **Partially observable** | Cannot access all papers at once; paywalls hide content; relevance only clear after reading; full scope of literature never known |
+| **Multi-agent** | Interacts with search engine algorithms, publisher systems, paywalls, and other softbots — an environment of comparable complexity to the physical world |
+| **Stochastic** | Outcome of queries is uncertain; different searches yield different results; relevance judgments are probabilistic (deterministic only with identical queries) |
+| **Sequential** | Search → filter → read → refine → repeat; early mistakes (e.g., missing a key paper) propagate to later conclusions |
+| **Dynamic** | New papers are constantly published; citations and research trends evolve during the review process (static only with a fixed, frozen corpus) |
+| **Discrete** | Actions such as selecting or excluding a paper are discrete choices |
+| **Unknown** | The agent does not know the full relevant literature in advance, nor the optimal search strategy |
+
+---
+
+## Solution: Why Agentic AI?
+
+A classical agent design is insufficient — an agentic approach is required for three key reasons:
+
+. . .
+
+- **Goal complexity and task shifting:** A literature review is a multi-objective task requiring the agent to decompose goals into sub-goals (search → filter → synthesize) and shift between them autonomously. Classical agents assume predefined, fixed workflows; agentic AI sets and refines subgoals dynamically.
+
+. . .
+
+- **Adaptability and contextual reasoning:** If a paper introduces a new relevant term, the agent must update its search strategy accordingly. Agentic systems incorporate reflection loops and flexible strategy selection; classical agents rely on static rules that cannot reconceptualize their approach based on new information.
+
+. . .
+
+- **Handling uncertainty and incomplete information:** The environment is partially observable and continuously changing. Agentic AI uses adaptive control mechanisms to operate under uncertainty; classical agents struggle outside predefined, limited contexts with high reliance on supervised, static rules.
+
+---
+
+# Questions? {.section-slide}
+
+*What remains unclear — about agents, environments, or agentic AI?*
