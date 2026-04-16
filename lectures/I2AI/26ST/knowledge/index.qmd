@@ -41,10 +41,9 @@ The problem-solving agents based on **search algorithms** know things, but only 
 
 Often rational action requires **rational (logical) thought** on the agent's part.
 
-. . .
-
+:::fragment
 For rational thought, an agent requires [a **knowledge base (KB)** with semantically meaningful **sentences** expressed in a formal representation language[^KRL],]{.fragment} [**inference mechanisms** to derive new knowledge from existing facts,]{.fragment} [and a means of interacting with this knowledge through **operations like ASK and TELL**.]{.fragment}
-
+:::
 
 [^KRL]: Propositional logic, first-order logic or some dialect thereof are often used to formally represent knowledge and inferences. More recently, approaches like Knowledge Graphs and Bayesian Networks are used for this purpose.  
 
@@ -90,9 +89,9 @@ A knowledge-based agent uses its knowledge base (KB) to
 Knowledge comprises *facts* and *rules*; observations are always *facts*.
 :::
 
-. . .
-
+:::fragment
 Rule: $A \implies B$ (A: premise; B: conclusion)
+:::
 
 :::incremental
 - **Deductive reasoning:** Given a rule, observed a premise fact A, *certainly conclude* B
@@ -128,11 +127,11 @@ Propositional logic (sometimes called zero-order logic) is a very simple logic s
 - Through applying syntactic rules (**inference**) new information can be derived from existing knowledge.
 :::
 
-. . .
-
+:::fragment
 :::small
 We will delve deep into propositional logic using the [Wumpus World](#wumpus-world) example below.
 :::
+::: 
 
 ## Knowledge graphs
 
@@ -148,8 +147,6 @@ While propositional logic can only represent statements that are true or false w
 - **Amazon Alexa** employs knowledge graphs to understand relationships between products, users' preferences, and general world knowledge to answer questions and make recommendations.
 
 :::
-
-. . .
 
 ::::columns
 :::{.column .fragment}
@@ -199,9 +196,9 @@ The **wumpus world** is an environment in which knowledge-based agents can show 
 Let's apply the PEAS concept to specify the task environment of the
 wumpus world (though we do not use the complete specification here).
 
-. . .
-
+:::fragment
 [Performance measure]{.h4}
+:::
 
 ::: incremental
 -   +1,000 for finding the gold
@@ -243,10 +240,10 @@ wumpus world (though we do not use the complete specification here).
 -   When the agent walks into a wall, it perceives a *bump*
 :::
 
-. . .
-
+:::fragment
 Percepts are represented as a 4-tuple, e.g.,\
 $[Stench, Breeze, Glitter, None]$[^Tupel]
+:::
 
 [^Tupel]: $[Stench, Breeze, Glitter, None]$ reads there is a *stench*, a *breeze*, a *glitter*, and no *bump*.
 
@@ -310,25 +307,25 @@ fig-align="left"}
 
 **Propositions** are the building blocks of propositional logic.
 
-. . .
-
+:::fragment
 **Atomic sentences** consist of a single proposition symbol, that can be `true` or `false`, e.g.,
+:::
 
-. . .
-
+:::fragment
 -   $BlockRed$ --- *The block is red*
 -   $W_{1,3}$ --- *The wumpus is in* $[1,3]$
+:::
 
-. . .
-
+:::fragment 
 The logical connectives `and` $\land$, `or` $\lor$, `not` $\neg$,
 `implies` $\implies$, and `if and only if` $\iff$ can be used to build
 **complex sentences**.
+:::
 
-. . .
-
+:::fragment
 Operator precedence: $\neg, \land, \lor, \implies, \iff$ (use brackets
 when necessary)
+:::
 
 ::: notes
 [Logical connectives]{.h4}
@@ -393,14 +390,14 @@ The biconditional combines a conditional relation between P and Q and its revers
 
 Atomic propositions can be `true` or `false`.
 
-. . .
-
+:::fragment
 The truth of a formula follows from the truth of its atomic propositions
 (**truth assignment** or **interpretation**) and the connectives.
+:::
 
-. . .
-
+:::fragment
 Examples:
+:::
 
 ::: incremental
 -   $(P \lor Q) \land R$
@@ -462,16 +459,16 @@ e.g. is $\neg P_{1,2}$ entailed by our $KB$ (and, thus, a safe place to move)?
 
 [^2]: $KB \models \alpha$ means that $KB$ does entail $\alpha$ (a sentence $\alpha$ follows logically from $KB$)
 
-. . .
-
+:::fragment
 **Model checking** enumerates all possible models to check that $\alpha$
 is true in every model in which $KB$ is true[^3].
+:::
 
 [^3]: In mathematical notation, we write $M(KB) \subseteq M(\alpha)$
 
-. . .
-
+:::fragment
 Example (the agent has just moved to $[2,1]$):
+:::
 
 ::: incremental
 -   Given current proposition symbols there are 2<sup>7</sup> = 128
@@ -495,9 +492,9 @@ We want to determine whether a sentence $\alpha$ is **entailed** by a knowledge 
 
 $KB \models \alpha \quad \text{which means} \quad M(KB) \subseteq M(\alpha)$
 
-. . .
-
+:::fragment
 That is, in **every model** where $KB$ is true, $\alpha$ must also be true. One way to check this is by **model checking using a truth table**, which evaluates all possible assignments of truth values to propositional symbols.
+:::
 
 ## Procedure
 
@@ -537,19 +534,20 @@ $M(KB) \subseteq M(\alpha)$
 | F  | T  | T                | yes        | T            |
 | F  | F  | T                | yes        | F            |
 
-. . .
-
+:::fragment
 [**Analyze**]{.h4}
 
 Rows where $KB$ is true: rows 1, 3, and 4.
 
 In *row 4*, $Q$ is false → so $\alpha$ is *not* true in all models of $KB$.
+:::
 
-. . .
+:::fragment
 
 Therefore:
 
 $M(KB) \nsubseteq M(\alpha) \quad \implies \quad KB \not\models \alpha$
+:::
 
 # Propositional proofs {.headline-only}
 
@@ -557,13 +555,13 @@ $M(KB) \nsubseteq M(\alpha) \quad \implies \quad KB \not\models \alpha$
 
 Entailment by the $KB$ (or logical consequence) can also be done by **theorem proving**.
 
-. . .
-
+:::fragment
 **Theorem proving** means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.
+:::
 
-. . .
-
+:::fragment
 For large number of models and short length of proofs, theorem proving **can be more efficient** than model checking.
+:::
 
 ## Additional concepts
 
@@ -575,19 +573,19 @@ Logical equivalence
 
 [^6]: Note that $\equiv$ is used to make claims about sentences, while $\iff$ is used as part of a sentence
 
-. . .
-
+:::fragment
 Validity
 
 :   A sentence is valid if it is true in *all* models (e.g., $P \lor \neg P$)[^7].
 
 [^7]: Valid sentences are also known as **tautologies**, they are necessarily true.
+:::
 
-. . .
-
+:::fragment
 Deduction theorem
 
 :   For any sentences $\alpha$ and $\beta$, $\alpha \models \beta$ if and only if the sentence $(\alpha \implies \beta)$ is valid[^8].
+:::
 
 [^8]: The deduction theorem states that every valid implication sentence describes a legitimate inference.
 
@@ -602,11 +600,11 @@ Satisfiability
     ($R_1 \land R_2 \land R_3 \land R_4 \land R_5$) is satisfiable
     because there are three models in which it is true.
 
-. . .
-
+:::fragment
 Validity and satisfiability are connected:\
 $\alpha \models \beta$ if and only if the sentence
 $(\alpha \land \neg \beta)$ is unsatisfiable[^10]
+:::
 
 [^10]: $\alpha$ is valid iff $\neg \alpha$ is unsatisfiable;
     contrapositively, $\alpha$ is satisfiable iff $\neg \alpha$ is not
@@ -651,9 +649,9 @@ Following **inference rules**[^11] can be used in any particular instances where
 
 [^12]: Modus ponens is latin and stands for *mode that affirms*
 
-. . .
-
+:::fragment
 All **logical equivalences** can be used as inference rules
+:::
 
 ## Wumpus World
 
@@ -663,18 +661,20 @@ Rules of the game:
 -   $R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})$
 -   $R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})$
 
-. . .
-
+:::fragment
 The agent is in $[1,1]$ and has received following precepts:
 
 -   $R_4: \neg B_{1,1}$
 
-. . .
+:::
+
+:::fragment
 
 **Question:** is there pit in$[1,2]$ or $[2,1]$?
 
 Using logical inference and the $KB$ containing $R_1$ to $R_4$, we prove
 that $\neg P_{1,2} \land \neg P_{2,1}$
+:::
 
 ------------------------------------------------------------------------
 
@@ -786,49 +786,50 @@ Neither $[1,2]$ nor $[2,1]$ contains a pit.
 Search algorithms can be used to find a sequence of steps that
 constitutes a proof.
 
-. . .
-
+:::fragment
 The proof problem is defined as follows:
+:::
 
+:::fragment
 Initial state
 : The initial knowledge database
+:::
 
-. . .
-
+:::fragment
 Actions
 : All the inference rules applied to all the sentences in the $KB$
+:::
 
-. . .
-
+:::fragment
 Result
 : Add the inferred sentence to the knowledge base ($KB$)
+:::
 
-. . .
-
+:::fragment
 Goal
 : A state that contains the sentence we are trying to prove
+:::
 
 ## Open topics {.html-hidden}
 
 **Completeness** (if the available inference rules are inadequate, the goal is not reachable)
 
-. . .
-
+:::fragment
 Level of **complexity** (though propositional logic suffices to represent the wumpus world), e.g.,
+:::
 
-. . .
-
+:::fragment
 - Inference rules must be set up for **each square** (expansion of the rule set)
 - We need a **time index** for each proposition that refer to an aspect of the world that is subject to change (further expansion of the rule set)
+:::
 
-. . .
+:::fragment
+**Efficiency** of inference algorithms
+:::
 
- **Efficiency** of inference algorithms
-
-. . .
-
+:::fragment
 For further information on these and other matters, please see @RusselNorvig2022AIMA-
-
+:::
 
 # Knowledge Graph
 
@@ -975,10 +976,8 @@ Explain the logical operators to each other and complete following truth table.
 
 ## Logical equivalences
 
-::: html-hidden
 Check the following equivalences.\
 If you have issues of understanding, try to find a real life example.
-:::
 
 ::: smaller
 |                                                                  |                                                                                           |                                                                                          |
