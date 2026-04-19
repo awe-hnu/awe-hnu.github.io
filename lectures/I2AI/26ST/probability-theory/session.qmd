@@ -1,0 +1,438 @@
+---
+title: "Probability Theory"
+subtitle: "Introduction to AI (I2AI)"
+lang: en
+categories: ["Session Slides"]
+
+bibliography: ../assets/literature.bib
+
+date: "04.19.2026"
+
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#0333ff'
+
+format:
+  presentation-revealjs:
+    output-file: session.html
+    include-before-body: ../assets/footer.html
+---
+
+# Agenda
+
+:::medium
+- Warm-up [10 min]{.smaller}
+- Why probability? [10 min]{.smaller}
+- Joint probability & marginalization [20 min]{.smaller}
+- Conditional probability & Bayes [30 min]{.smaller}
+- Naive Bayes in action [15 min]{.smaller}
+- Wrap-up [5 min]{.smaller}
+:::
+
+# Why probability? {.headline-only}
+
+## Sources of uncertainty
+
+Probability is the response to a fundamental limitation of logic:\
+**Agents rarely have complete, reliable information.**
+
+:::incremental
+- **Laziness:** enumerating all possible causes is infeasible in practice
+- **Theoretical ignorance:** even known rules are incomplete or approximate
+- **Practical ignorance:** even with perfect theory, facts about the specific case are unavailable\
+  (e.g., sensors fail, history is missing)
+:::
+
+:::notes
+This is a conceptual anchor for the session. Students who worked through the intro section understand *that* logic fails; the point here is to name *why* so the probabilistic vocabulary feels motivated.
+
+Prompt: "Which of these three sources is most fundamental? Could you eliminate one without eliminating the others?" — brief think-pair, no need to debrief in depth, just warm up discussion mode.
+:::
+
+## Decision-making under uncertainty
+
+:::medium
+[expected utility]{.link-color} = (utility - cost) x probability
+:::
+
+:::incremental
+- A rational agent selects the action with **maximum expected utility (MEU)**
+- Probability quantifies the degree of belief, not just frequency
+- Probability is the basis for rational choice in uncertain environments.
+:::
+
+:::fragment
+Probability theory is, thus, a foundation for the design of *rational* AI agents.
+:::
+
+:::notes
+The MEU framing is important: probability is not an abstract tool but the basis for rational choice in uncertain environments. The "get to the lecture" example from the notes is good if you want to make it concrete. The key point: without probability, you cannot compare plans that differ in both success rate and payoff.
+:::
+
+## True or false? {.discussion-slide}
+
+Decide: **true** or **false** and give a one-sentence justification.
+
+:::incremental
+1. $P(A) + P(\neg A) = 1$ always holds.
+2. If $P(A) = 0.5$ and $P(B) = 0.5$, then $P(A \land B) = 0.25$.
+3. $P(A | B) = P(B | A)$ whenever $P(A) = P(B)$.
+4. A highly accurate test returning positive for a rare disease means you probably have it.
+:::
+
+:::notes
+Rapid-fire, individual answers then quick class poll.
+
+1. **TRUE:** axiom of complementarity. Non-negotiable.
+2. **FALSE:** $P(A \land B) = P(A) \cdot P(B)$ only when $A$ and $B$ are independent. Without that assumption the value is unconstrained (subject only to $P(A \land B) \leq \min(P(A), P(B))$).
+3. **TRUE:** Bayes: $P(A|B) = P(B|A) \cdot P(A)/P(B)$. If $P(A) = P(B)$, the ratio equals 1, so $P(A|B) = P(B|A)$.
+4. **FALSE:** the base rate dominates when the disease is rare. This previews the medical-test exercise later. Let the class sit with the intuition before the calculation confirms it.\ 
+   It feels like a betrayal of common sense, doesn't it? If a doctor tells you a test is 99% accurate and you test positive, your brain naturally wants to scream, "There's a 99% chance I'm sick!"\
+   But in the world of statistics, the Base Rate (how common the disease is) often carries more weight than the test's accuracy. This is known as the Base Rate Fallacy.
+
+These four questions intentionally surface the three most common probability misconceptions: confusion between complement and independence, symmetric-probability fallacy, and base-rate neglect.
+:::
+
+# Joint probability & marginalization {.headline-only}
+
+## Prior probability
+
+The **prior probability** $P(x)$ expresses the degree of belief in $x$ in the absence of any other information [@RusselNorvig2022AIMA].
+
+ 
+Every valid probability mass function satisfies three axioms:
+
+:::incremental
+- **Non-negativity:** $p_X(x) \geq 0$ for all $x$\
+  *(A probability can never be a negative number.)*
+- **Normalization:** $\sum_{x \in V(X)} p_X(x) = 1$\
+  *(If you add up the probabilities of every possible outcome, the total must equal exactly 1.)*
+- **Support:** $p_X(x) = 0$ for all $x \notin V(X)$#\
+  *(If an outcome is not in the set of possible values ($V(X)$), its probability is zero.)*
+:::
+
+:::fragment
+Probabilities do not need to come from frequencies, they can encode expert belief (i.e., probability can represent a degree of certainty or expert judgment about a unique event that hasn't happened yet).
+:::
+
+:::notes
+Students may conflate "probability" with "relative frequency." Emphasize the degree-of-belief interpretation, which is what makes Bayesian inference coherent even when data is scarce.
+:::
+
+## Joint distribution
+
+The full joint distribution over $N$ variables is the collection of probabilities for every possible combination of values.
+
+|                          | Toothache ($y_1$) | $\neg$Toothache ($y_2$) | Marginal $P(X)$ |
+|-------------------------:|:-----------------:|:-----------------------:|:---------------:|
+|       **Cavity** ($x_1$) |       0.04        |          0.06           |       0.1       |
+| **$\neg$Cavity** ($x_2$) |       0.01        |          0.89           |       0.9       |
+
+: Full joint distribution for the Toothache/Cavity world [@RusselNorvig2022AIMA] {#tbl-joint}
+
+:::fragment
+**Marginalization law:** $P(x_i) = \sum_{y_j \in V(Y)} P(x_i, y_j)$
+
+*"I want to know the probability of X happening, and I don't care what happens with Y." To "marginalize" a variable is to remove it from the equation by accounting for every possible way it could have occurred.*
+:::
+
+:::notes
+Walk through the table: reading off $P(\text{Toothache=T, Cavity=T}) = 0.04$ is direct. Marginalization sums a row or column. Independence means $P(x,y) = P(x) \cdot P(y)$ — you can verify this does NOT hold for the table above.
+
+Ask: "What is $P(\text{Cavity=T})$?" (0.10) — gets students reading the table before the exercise.
+:::
+
+## Exercise: passing I2AI {.discussion-slide}
+
+A study tracks student performance in the I2AI exam: **Passing** (R) and **Coffee Consumption** (C).
+
+|        | $C=T$  | $C=F$  |
+|-------:|:------:|:------:|
+|  $R=T$ |  0.60  |  0.20  |
+|  $R=F$ |  0.10  |  0.10  |
+
+: Joint distribution — Exam Result / Coffee {#tbl-students}
+
+[Tasks]{.h4}
+
+1. Compute $P(R=T)$ and $P(C=T)$.
+2. Are $R$ and $C$ independent? Show your working.
+3. You meet a student who drank coffee ($C=T$). What is the probability they passed ($R=T$)?
+
+{{< countdown "10:00" top="0">}}
+
+:::notes
+Expected answers:
+
+1. $P(R=T) = 0.60 + 0.20 = 0.80$; $P(C=T) = 0.60 + 0.10 = 0.70$.
+2. Independence check: $P(R=T) \cdot P(C=T) = 0.80 \times 0.70 = 0.56$.
+   Since $P(R=T, C=T) = 0.60$ and $0.60 \neq 0.56$, the variables are **not independent**. Coffee consumption and passing co-occur more frequently than chance predicts.
+3. Conditional: $P(R=T | C=T) = P(R=T, C=T) / P(C=T) = 0.60 / 0.70 \approx 0.86$.
+
+Debrief note: Task 2 reinforces that "related" variables in the real world (like stimulants and performance) usually fail the mathematical independence test. Task 3 shows how conditional probability "shrinks" our sample space to just the $C=T$ column.
+:::
+
+# Conditional probability & Bayes {.headline-only}
+
+## Conditional Probability
+
+New evidence narrows the sample space to only those outcomes consistent with the data. Because the total probability of the sample space must always equal 1, the evidence doesn't create new probability mass but redistributes the existing mass into a smaller, more concentrated area.
+
+$$P(x_i | y_j) = \frac{P(x_i, y_j)}{P(y_j)} \qquad \text{(provided } P(y_j) > 0\text{)}$$
+
+--------
+
+Imagine 10,000 people. A disease affects 1% of them, and a test is 99% accurate.
+
+|             | Test Positive | Test Negative |   Total    |
+|:------------|:-------------:|:-------------:|:----------:|
+| **Sick**    |    **99**     |       1       |    100     |
+| **Healthy** |    **99**     |     9,801     |   9,900    |
+| **Total**   |    **198**    |     9,802     | **10,000** |
+
+:::fragment
+**The Update:** Once you receive a **Positive** result, the "Test Negative" column is eliminated. The total sample space shrinks from 10,000 to **198**.
+
+Your probability of being sick is now:
+$$\frac{99}{198} = 50\%$$
+:::
+
+:::notes
+"Narrowing the sample space" is the key intuition. When you learn $B$ is true, only the outcomes where $B$ holds remain relevant. You rescale those remaining probabilities to make them sum to 1.
+
+The Product and Chain rules are the underlying machinery that connects these distributions, but the core takeaway is this "rescaling" process. Bayes' theorem follows directly from applying this logic in both directions.
+:::
+
+## Bayes' theorem
+
+$$P(x_i | y_j) = \frac{P(y_j | x_i) \cdot P(x_i)}{P(y_j)}$$
+
+:::incremental
+- $P(x_i)$: **prior:**  belief before seeing evidence
+- $P(y_j | x_i)$: **likelihood:**  how probable is the evidence if $x_i$ is true?
+- $P(y_j)$: **evidence:**  total probability of observing $y_j$ (normalizing constant)
+- $P(x_i | y_j)$: **posterior:**  updated belief after seeing evidence
+:::
+
+:::fragment
+The **Law of Total Probability** calculates the overall probability of an outcome by summing its likelihood across every possible, mutually exclusive scenario that could lead to it.
+:::
+
+:::fragment
+$$P(y_j) = \sum_{x_k \in V(X)} P(y_j | x_k) \cdot P(x_k) \quad \text{(law of total probability)}$$
+:::
+
+:::notes
+Stress the direction flip: the likelihood $P(y_j | x_i)$ is what we can usually measure or learn (e.g., "how often does this symptom appear in confirmed disease cases?"), while the posterior $P(x_i | y_j)$ is what we actually want to know ("does this patient have the disease?"). Bayes' theorem is the bridge.
+
+The normalizing denominator $P(y_j)$ is often the hardest part to compute; walk through the total-probability formula carefully before the exercise.
+
+- $P(x_i)$: **Prior** (The Initial Hunch):\
+  What you believed before you saw the evidence.
+- $P(y_j | x_i)$: **Likelihood** (The Story):\
+  How well does this specific hypothesis explain the evidence?
+- $P(y_j)$: **Evidence** (The Reality Check):\
+  How common is this observation regardless of the hypothesis?
+- $P(x_i | y_j)$: **Posterior** (The New Normal):\
+  Your updated belief after the data has been processed.
+
+The total probability of an event is the sum of its probability in every possible scenario, weighted by the likelihood of each scenario actually occurring.
+
+:::
+
+## Beliefs table {.discussion-slide}
+
+An agent holds three beliefs: $P(A) = 0.4$, $P(B) = 0.3$, and $P(A \lor B) = 0.5$.
+
+[Tasks]{.h4}
+
+1. Create a $2 \times 2$ joint distribution table where the variables $a, b, c, d$ represent the four possible worlds.
+2. Using the table above, write four equations that represent the agent's beliefs and the fundamental rules of probability.
+3. Solve your equations to find the values for $a, b, c, \text{and } d$.
+4. Are $A$ and $B$ independent?
+
+{{< countdown "08:00" top="0">}}
+
+:::notes
+This exercise is from the lecture notes. It tests whether students can bridge from symbolic probability statements to a concrete table — and back.
+
+Solution:
+
+|          | $B$  | $\neg B$ |
+|---------:|:----:|:--------:|
+|      $A$ | $a$  |   $b$    |
+| $\neg A$ | $c$  |   $d$    |
+
+Equations: $a + b = 0.4$; $a + c = 0.3$; $a + b + c = 0.5$; $a + b + c + d = 1$.
+
+From the third equation: $c = 0.5 - 0.4 = 0.1$. From the second: $a = 0.3 - 0.1 = 0.2$. From the first: $b = 0.4 - 0.2 = 0.2$. From the fourth: $d = 0.5$.
+
+So $P(A \land B) = a = 0.2$.
+
+Independence check: $P(A) \cdot P(B) = 0.4 \times 0.3 = 0.12 \neq 0.2$ — **not independent.**
+
+Debrief quickly: the table technique is general and will reappear in every Bayes calculation.
+:::
+
+## Medical test {.discussion-slide}
+
+A test screens for a disease affecting **1%** of the population.
+
+- **Sensitivity:** $P(\text{pos} | \text{disease}) = 0.95$
+- **Specificity:** $P(\text{neg} | \text{no disease}) = 0.98$
+
+A random person tests **positive.**
+
+[Tasks]{.h4}
+
+1. What is $P(\text{disease} | \text{positive})$?\
+   Use Bayes' theorem and the law of total probability for the denominator.
+2. The person tests positive a **second** time (independent test).\
+   Use your answer from (1) as the new prior. What is the updated probability now?
+3. Would you recommend treatment after two positive tests? Why or why not?
+
+{{< countdown "15:00" top="0">}}
+
+:::notes
+This is the main exercise of the session. Allow 15 min; circulate and check that students correctly apply the law of total probability for the denominator before plugging in.
+
+**Task 1:**
+
+$P(+) = P(+|\text{D}) \cdot P(\text{D}) + P(+|\neg\text{D}) \cdot P(\neg\text{D})$
+$= 0.95 \times 0.01 + 0.02 \times 0.99 = 0.0095 + 0.0198 = 0.0293$
+
+$P(\text{D}|+) = \frac{0.95 \times 0.01}{0.0293} \approx 0.324$
+
+Despite a 95%-sensitive test, only ~32% chance of disease. This is the **base-rate fallacy** / **false-positive paradox**.
+
+**Task 2:** New prior = 0.324, new $P(\neg\text{D}) = 0.676$.
+
+$P(+_2) = 0.95 \times 0.324 + 0.02 \times 0.676 = 0.3078 + 0.01352 = 0.3213$
+
+$P(\text{D}|+_1, +_2) = \frac{0.95 \times 0.324}{0.3213} \approx 0.957$
+
+After two positives, the probability exceeds 95%. Bayesian updating compounds evidence correctly.
+
+**Task 3:** Open-ended. Key considerations: what are the costs of a false positive (over-treatment) vs. a false negative (untreated disease)? Medical ethics: treatment decision depends on disease severity, treatment side-effects, and the availability of further confirmatory tests. No single correct answer, but students should demonstrate that the *posterior probability alone* does not determine the decision — the utility structure matters too.
+
+Debrief: connect back to MEU from the motivation section.
+:::
+
+# Naive Bayes in action {.headline-only}
+
+## Naive Bayes Classifier
+
+How do we predict a category ($Y$) based on multiple clues ($X$)?\
+We treat each clue as an independent "vote" for the outcome.
+
+$$P(\text{Class} \mid \text{Features}) \propto P(\text{Class}) \cdot P(\text{Feature}_1 \mid \text{Class}) \cdot P(\text{Feature}_2 \mid \text{Class}) \dots$$
+
+:::fragment
+**The "naive" assumption:** We assume every feature is **independent** of the others ($\propto$ means proportional).
+:::
+
+:::incremental
+- *Example:* In a spam filter, we assume the word "money" appearing has nothing to do with the word "free" appearing.
+- In reality this is almost always false, but the math still works surprisingly well for ranking.
+- Thus, we just study each word's frequency individually and calculate "unnormalized scores" for each class
+- To get an actual % probability, we divide each class score by the sum of all scores.
+:::
+
+:::notes
+The "Naive" part is the assumption that $P(x_1, x_2 | Y) = P(x_1 | Y) \cdot P(x_2 | Y)$. This collapses a complex "joint" problem into a simple multiplication problem.
+
+Think of it as a "separate clues" approach. Even if the clues are related (like "Ice" and "Cold"), Naive Bayes treats them as two independent pieces of evidence. It's computationally "cheap" and very fast, making it a baseline for many real-world tasks.
+:::
+
+## Classify the patient {.discussion-slide}
+
+A symptom-based diagnostic system distinguishes **Cold** (C) from **Flu** (F). From clinic records:
+
+| Symptom | $P(\cdot | \text{Cold})$ | $P(\cdot | \text{Flu})$ |
+|:--------|:---:|:---:|
+| Fever=T | 0.30 | 0.90 |
+| Cough=T | 0.80 | 0.95 |
+
+Class priors: $P(\text{Cold}) = 0.70$, $P(\text{Flu}) = 0.30$.
+
+[Tasks]{.h4}
+
+1. Patient A: **Fever=T, Cough=T.** Compute unnormalized scores and classify.
+2. Patient B: **Fever=F, Cough=T.** Compute unnormalized scores and classify.
+3. Which symptom is more diagnostic for flu: fever or cough? Why?
+
+{{< countdown "12:00" top="0">}}
+
+:::notes
+This exercise builds Naive Bayes intuition before any code is involved.
+
+**Patient A (Fever=T, Cough=T):**
+
+$\text{score}(\text{Cold}) = P(\text{Cold}) \cdot P(\text{Fv=T}|\text{Cold}) \cdot P(\text{Co=T}|\text{Cold}) = 0.70 \times 0.30 \times 0.80 = 0.168$
+
+$\text{score}(\text{Flu}) = P(\text{Flu}) \cdot P(\text{Fv=T}|\text{Flu}) \cdot P(\text{Co=T}|\text{Flu}) = 0.30 \times 0.90 \times 0.95 = 0.2565$
+
+Normalize: total = 0.4245; $P(\text{Cold}|\ldots) \approx 0.40$; $P(\text{Flu}|\ldots) \approx 0.60$. **Classify as Flu.**
+
+**Patient B (Fever=F, Cough=T):**
+
+$P(\text{Fv=F}|\text{Cold}) = 1 - 0.30 = 0.70$; $P(\text{Fv=F}|\text{Flu}) = 1 - 0.90 = 0.10$
+
+$\text{score}(\text{Cold}) = 0.70 \times 0.70 \times 0.80 = 0.392$
+
+$\text{score}(\text{Flu}) = 0.30 \times 0.10 \times 0.95 = 0.0285$
+
+Normalize: total = 0.4205; $P(\text{Cold}|\ldots) \approx 0.93$. **Classify as Cold.** The absent fever almost completely rules out flu.
+
+**Task 3:** Fever is more diagnostic. The likelihood ratio $P(\text{Fv=T}|\text{Flu})/P(\text{Fv=T}|\text{Cold}) = 0.90/0.30 = 3.0$, while for cough it is $0.95/0.80 \approx 1.19$. A feature with a high likelihood ratio separates classes more sharply.
+
+Debrief: connect to the prior. The strong Cold prior (0.70 vs. 0.30) means fever alone is not enough to flip the classification — two strong signals are needed. This illustrates the interaction between likelihood and prior.
+:::
+
+# Wrap-up {.headline-only}
+
+## Key takeaways
+
+[Why probability]{.h4 .fragment}
+
+:::incremental
+- Logic fails when knowledge is incomplete, rules are approximate, or sensor data is unreliable
+- Probability provides a principled calculus for degrees of belief — not just frequencies
+:::
+
+[Joint distributions, marginalization, and conditional probability]{.h4 .fragment}
+
+:::incremental
+- The full joint distribution contains all information; other distributions are derived from it by summation
+- Conditioning on evidence narrows the sample space and rescales probabilities
+:::
+
+[Bayes' theorem]{.h4 .fragment}
+
+:::incremental
+- Prior $\times$ likelihood / evidence = posterior; each observed datum updates belief
+- Base rates matter: a rare event remains improbable even after a positive test, until enough evidence accumulates
+- Sequential Bayesian updating (using last posterior as current's prior) is correct and powerful
+:::
+
+## Key takeaways #2
+
+[Naive Bayes]{.h4}
+
+:::incremental
+- The conditional independence assumption replaces a single intractable joint likelihood with a product of simple ones
+- Despite the "naive" assumption being almost always false, the classifier is often surprisingly accurate
+- The prior shapes classification: high base-rate classes resist being overridden by weak evidence
+:::
+
+:::notes
+Optional closing prompt: "Where in the probability workflow does human judgment enter?" (Prior specification, feature selection, deciding what counts as evidence — Bayesian inference is not assumption-free.)
+:::
+
+# Q&A {.html-hidden .unlisted .headline-only background-image="../assets/bg.jpg"}
+
+# Literature
+::: {#refs}
+:::

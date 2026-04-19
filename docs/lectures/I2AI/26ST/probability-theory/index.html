@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,26 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -134,13 +115,15 @@ window.Quarto = {
     <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">awe — Lecture Notes</span>
     </a>
   </div>
           <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../../index.html"> 
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
 <span class="menu-text">Start</span></a>
   </li>  
 </ul>
@@ -184,14 +167,14 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">Mar 12, 2025</p>
+        <p class="date">Apr 18, 2026</p>
       </div>
     </div>
     
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Feb 15, 2026</p>
+        <p class="date-modified">Apr 19, 2026</p>
       </div>
     </div>
       
@@ -201,6 +184,10 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
@@ -302,7 +289,9 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a> <a href="../../../../lectures/I2AI/26ST/probability-theory/session.html" class="btn btn-secondary" target="blank">Session</a></p>
+</div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -314,7 +303,6 @@ window.Quarto = {
   <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability">Conditional probability</a></li>
   <li><a href="#bayesian-inference" id="toc-bayesian-inference" class="nav-link" data-scroll-target="#bayesian-inference">Bayesian inference</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
-  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
   </ul>
 </nav>
     </div>
@@ -359,12 +347,24 @@ window.Quarto = {
 <h2 data-anchor-id="uncertainty-in-rules">Uncertainty in rules</h2>
 <p>Take an expert dental diagnosis system as an example.</p>
 <p><span class="math inline">\(Toothache \implies Cavity\)</span></p>
+<div class="fragment">
 <p>This rule is incorrect as there are other causes for toothache, thus a better rule would be:</p>
-<p><span class="math inline">\(Toothache \implies Cavity \lor GumProblem \lor Abscess \lor...\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Toothache \implies Cavity \lor GumProblem \lor Abscess \lor ...\)</span></p>
+</div>
+<div class="fragment">
 <p>However, as we don’t know all the causes, this rule for <strong>diagnostic reasoning</strong> is still incomplete<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+</div>
+<div class="fragment">
 <p>What about a rule for <strong>causal reasoning</strong>?</p>
+</div>
+<div class="fragment">
 <p><span class="math inline">\(Cavity \implies Toothache\)</span></p>
+</div>
+<div class="fragment">
 <p>This is still wrong as not cavity does not always imply toothache. Furthger, it does not allow to reason from symptoms to causes.</p>
+</div>
 </section>
 <section id="learnings" class="level2">
 <h2 data-anchor-id="learnings">Learnings</h2>
@@ -376,7 +376,9 @@ window.Quarto = {
 <li>And even if there would be no uncertainty about the case, our sensors could be imprecises (e.g., the recognition of a caviety).</li>
 </ul>
 </div>
+<div class="fragment">
 <p>Thus, formal logical reasoning systems have significant limitations when dealing with real-world problems where we lack complete information.</p>
+</div>
 </section>
 </section>
 <section id="probability-theory" class="level1 headline-only">
@@ -397,7 +399,9 @@ window.Quarto = {
 <section id="example" class="level2">
 <h2 data-anchor-id="example">Example</h2>
 <p><strong>Goal:</strong> Be in Ulm at 8:15 to give a lecture</p>
+<div class="fragment">
 <p>There are several plans that achieve the goal:</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\(P_1:\)</span> Get up at 6:00, take the bike, arrive at 7:30, take a shower, …</li>
@@ -405,13 +409,17 @@ window.Quarto = {
 <li>…</li>
 </ul>
 </div>
+<div class="fragment">
 <p>All these plans are correct, but they imply different <strong>costs</strong> and different <strong>probabilities</strong> of actually achieving the goal.</p>
+</div>
+<div class="fragment">
 <div class="smaller">
 <p><span class="math inline">\(P_2\)</span> is probably the plan of choice, as the success rate of <span class="math inline">\(P_1\)</span> is only 80%, though the rewards are high.</p>
 </div>
+</div>
 </section>
 <section id="decision-making-under-uncertainty" class="level2">
-<h2 data-anchor-id="decision-making-under-uncertainty">Decision making under uncertainty</h2>
+<h2 data-anchor-id="decision-making-under-uncertainty">Decision-making under uncertainty</h2>
 <div class="large">
 <p><code>(utility - cost) * probability</code></p>
 </div>
@@ -423,7 +431,9 @@ window.Quarto = {
 <li>The results have different (subjective) utilities</li>
 </ul>
 </div>
+<div class="fragment">
 <p>It would be rational to choose the action with the <strong>maximum expected utility (MEU)</strong> — the “average”, or “statistical mean” of the outcome utilities minus the costs of the actions leading to the outcome, weighted by the probability of the outcome.</p>
+</div>
 </section>
 <section id="discrete-and-continuous-variables" class="level2">
 <h2 data-anchor-id="discrete-and-continuous-variables">Discrete and continuous variables</h2>
@@ -434,8 +444,12 @@ window.Quarto = {
 <li>If the possible outcomes are not finite, for example, drawing a real number <span class="math inline">\(x \in \left[0,1\right] \subset \mathbb{R}\)</span>, the random variable is said to be <strong>continuous</strong>.</li>
 </ul>
 </div>
+<div class="fragment">
 <p>The probability that the random variable <span class="math inline">\(X\)</span> takes the value <span class="math inline">\(x\)</span> is dentoted by <span class="math inline">\(P(X=x)\)</span> or for short <span class="math inline">\(P(x)\)</span>.</p>
+</div>
+<div class="fragment">
 <p>The description of the probabilities <span class="math inline">\(P(x)\)</span> for all possible <span class="math inline">\(x \in V(X)\)</span> is called the <strong>probability distribution</strong> of variable <span class="math inline">\(X\)</span>.</p>
+</div>
 </section>
 </section>
 <section id="unconditional-probability" class="level1 headline-only">
@@ -454,55 +468,83 @@ window.Quarto = {
 <section id="probability-mass-function" class="level2">
 <h2 data-anchor-id="probability-mass-function">Probability mass function</h2>
 <p>In the case of discrete random variables <span class="math inline">\(X\)</span>, the probability distribution is called <strong>probability mass function (PMF) <span class="math inline">\(p_X(x)\)</span></strong>, it assigns to all <span class="math inline">\(x \in V(X)\)</span> the corresponding probability <span class="math inline">\(P(x)\)</span>. For all probabilities the following conditions must be satisfied:</p>
-<p><span class="h4"><strong>1. Non-negativity</strong></span></p>
+<div class="fragment">
+<p><span class="h4">1. Non-negativity</span></p>
+</div>
+<div class="fragment">
 <p>The probability assigned to any value <span class="math inline">\(X\)</span> must be greater than or equal to zero.</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 p_X(x) \geq 0 \quad \text{for all } x  &amp;&amp;
 \end{flalign}
 \]</span></p>
-<p><span class="h4"><strong>2. Normalization</strong></span></p>
+</div>
+<p><span class="h4">2. Normalization</span></p>
+<div class="fragment">
 <p>The sum of the probabilities of all possible values that the random variable <span class="math inline">\(X\)</span> can take is equal to 1.</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 \sum_{x \in V(X)} p_X(x) = 1 &amp;&amp;
 \end{flalign}
 \]</span></p>
-<p><span class="h4"><strong>3. Support</strong></span></p>
+</div>
+<hr>
+<p><span class="h4">3. Support</span></p>
+<div class="fragment">
 <p>The probability that the random variable <span class="math inline">\(X\)</span> takes a value outside its possible values is zero. So only values <span class="math inline">\(X\)</span> can actually take (with non-zero probability) are those in the support.</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 p_X(x) = 0 \quad \text{for all } x \notin V(X) &amp;&amp;
 \end{flalign}
 \]</span></p>
+</div>
 </section>
 <section id="cumulative-distribution-function" class="level2">
 <h2 data-anchor-id="cumulative-distribution-function">Cumulative distribution function</h2>
 <p>The <strong>cumulative distribution function (CDF) <span class="math inline">\(F_X(x)\)</span></strong> of a real-valued random variable <span class="math inline">\(X\)</span> is the probability that <span class="math inline">\(X\)</span> will take a value less than or equal to <span class="math inline">\(x\)</span>.</p>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 F_X(x) = P(X \leq x) &amp;&amp;
 \end{flalign}
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Hence, the probability that X takes a value larger than <span class="math inline">\(x=a\)</span> and smaller or equal than <span class="math inline">\(x=b\)</span> is:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 P(a &lt;x \leq b) = F_X(b) - F_X(a) &amp;&amp;
 \end{flalign}
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Every CDF is non-decreasing and has a maximum value of 1.</p>
+</div>
 </section>
 <section id="discrete-uniform-distribution" class="level2">
 <h2 data-anchor-id="discrete-uniform-distribution">Discrete uniform distribution</h2>
 <p>For the experiment “rolling a dice” the possible outcomes are 1, 2, 3, 4, 5 and 6. The corresponding discrete random variable <span class="math inline">\(X\)</span>, has the probability mass function <span class="math inline">\(p_X(x)\)</span>, which is defined by:</p>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 P(X=1) &amp;= P(X=2) = P(X=3) =P(X=4) \\
 &amp;= P(X=5) = P(X=6) = \frac{1}{6}
 \end{flalign}
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Such a distribution, for which <span class="math inline">\(P(x)\)</span> is equal for all <span class="math inline">\(x \in V(X)\)</span> is called a <strong>uniform distribution</strong>.</p>
-<div id="7057d797" class="cell" data-execution_count="1">
+</div>
+<div class="notes">
+<div id="7f2efaed" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -511,10 +553,12 @@ P(X=1) &amp;= P(X=2) = P(X=3) =P(X=4) \\
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="bernoulli-distribution" class="level2">
 <h2 data-anchor-id="bernoulli-distribution">Bernoulli distribution</h2>
 <p>A discrete binary random variable <span class="math inline">\(X\)</span> has only two possible outcomes: <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, i.e.&nbsp;in this case <span class="math inline">\(V(X) = \lbrace 0,1 \rbrace\)</span>. The corresponding probability mass function is the <strong>Bernoulli distribution</strong>, which is defined as follows:</p>
+<div class="fragment">
 <p><span class="math display">\[
 p_X(x) = \left\{
 \begin{array}{ll}
@@ -523,8 +567,10 @@ p &amp; \mbox{ for } x=1 \\
 \end{array}
 \right.
 \]</span></p>
+</div>
+<div class="notes">
 <p>For example, if the probability <span class="math inline">\(P(X=1)=p=0.7\)</span>, the PMF of the Bernoulli distribution is as plotted below:</p>
-<div id="dd834ede" class="cell" data-execution_count="2">
+<div id="2c3ff91a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -533,10 +579,12 @@ p &amp; \mbox{ for } x=1 \\
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="binomial-distribution" class="level2">
 <h2 data-anchor-id="binomial-distribution">Binomial distribution</h2>
 <p>The <strong>Binomial distribution</strong> helps us calculate the probability of getting a specific number of successful outcomes (let’s say <span class="math inline">\(k\)</span>) in a fixed number of independent trials (let’s say <span class="math inline">\(n\)</span>).</p>
+<div class="fragment">
 <p><span class="math display">\[
 \left(
 \begin{array}{c}
@@ -546,7 +594,11 @@ k
 \right)
 p^k (1-p)^{n-k}
 \]</span></p>
+</div>
+<div class="fragment">
 <p>For example in a coin-tossing experiment the probability of success is <span class="math inline">\(P(X=1)=p=0.5\)</span>. If we toss the coin <span class="math inline">\(n=5\)</span> times the probability, that exactly <span class="math inline">\(k=4\)</span> tosses yield success is</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \left(
 \begin{array}{c}
@@ -557,13 +609,16 @@ p^k (1-p)^{n-k}
 0.5^4 (1-0.5)^{5-4}
 = 0.15625
 \]</span></p>
+</div>
+<div class="notes">
 <p>The PDF and CDF of binomial distributed variables of different success probabilities <span class="math inline">\(p\)</span> are plotted below:</p>
-<div id="971e61ba" class="cell" data-execution_count="3">
+<div id="17b77a83" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="index_files/figure-html/cell-4-output-1.png" width="645" height="406" class="figure-img"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -574,14 +629,19 @@ p^k (1-p)^{n-k}
 <p><span class="math display">\[
 (1-p)^{(k-1)} \cdot p
 \]</span></p>
+<div class="fragment">
 <p>For the coin-tossing experiment, the probability that the first success comes …</p>
-<ul>
+</div>
+<div class="incremental">
+<ul class="incremental">
 <li>… at the first toss (<span class="math inline">\(k=1\)</span>) is <span class="math inline">\(0.5^0 \cdot 0.5 = 0.5\)</span></li>
 <li>… at the second toss (<span class="math inline">\(k=2\)</span>) is <span class="math inline">\(0.5^1 \cdot 0.5 = 0.25\)</span></li>
 <li>… at the third toss (<span class="math inline">\(k=3\)</span>) is <span class="math inline">\(0.5^2 \cdot 0.5 = 0.125\)</span></li>
 <li>…</li>
 </ul>
-<div id="73b61cce" class="cell" data-execution_count="4">
+</div>
+<div class="notes">
+<div id="e4420495" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -590,35 +650,55 @@ p^k (1-p)^{n-k}
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="continuous-random-variables" class="level2">
 <h2 data-anchor-id="continuous-random-variables">Continuous random variables</h2>
+<div class="fragment">
 <p>For <strong>continuous</strong> random variables, we use the <strong>probability density function (PDF)</strong>, written as <span class="math inline">\(p_X(x)\)</span>, to understand how the variable’s values are distributed. Think of it like the probability mass function (PMF) for discrete variables.</p>
+</div>
+<div class="fragment">
 <p>The PDF tells us the <strong>relative likelihood</strong> of the random variable <span class="math inline">\(X\)</span> taking on a specific value <span class="math inline">\(x\)</span>. While the exact probability of a continuous variable being any single value is zero (because there are infinitely many possibilities), the PDF helps us compare how likely different values are. A higher PDF value at one point means that values around that point are more likely to occur than values around a point with a lower PDF.</p>
+</div>
+<div class="fragment">
 <p>More precisely, the PDF is used to find the probability of the random variable falling within a <strong>range</strong> of values. This probability is the <strong>area under the PDF curve</strong> over that range.</p>
+</div>
+<div class="fragment">
 <p>Key properties of a PDF:</p>
-<ul>
+</div>
+<div class="incremental">
+<ul class="incremental">
 <li>It’s always non-negative: <span class="math inline">\(p_X(x) &gt; 0\)</span>.</li>
 <li>The total area under the curve is 1: <span class="math inline">\(\int_{-\infty}^{\infty} p_X(x) \cdot dx = 1\)</span>.</li>
 <li>Unlike the PMF, the PDF’s value can be greater than 1.</li>
 </ul>
+</div>
 </section>
 <section id="cumulative-distribution-function-1" class="level2">
 <h2 data-anchor-id="cumulative-distribution-function-1">Cumulative distribution function</h2>
 <p>The CDF, written as <span class="math inline">\(F_X(x)\)</span>, tells us the probability that the random variable <span class="math inline">\(X\)</span> will be less than or equal to a specific value <span class="math inline">\(x\)</span>. For continuous variables, this is the area under the PDF curve from negative infinity up to <span class="math inline">\(x\)</span>:</p>
+<div class="fragment">
 <p><span class="math display">\[
 F_X(x)= \int_{-\infty}^{x} p_X(t) \cdot dt
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Using the CDF, we can find the probability that <span class="math inline">\(X\)</span> falls within a range between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> (where <span class="math inline">\(a &lt; b\)</span>):</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(a&lt; x \leq b) = F_X(b)-F_X(a)=\int_{a}^{b} p_X(t) \cdot dt
 \]</span></p>
+</div>
 <section id="the-gaussian-distribution" class="level3">
 <h3 data-anchor-id="the-gaussian-distribution">The Gaussian distribution</h3>
 <p>The <strong>Gaussian distribution</strong> (also called the normal distribution) is a common continuous distribution. Its PDF has a bell shape and is defined by its mean (<span class="math inline">\(\mu\)</span>) and standard deviation (<span class="math inline">\(\sigma\)</span>):</p>
+<div class="fragment">
 <p><span class="math display">\[p_X(x)=\frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]</span></p>
+</div>
+<div class="notes">
 <p>The plots below show the PDF of a Gaussian distribution with the same mean but two different standard deviations. Notice how the PDF values can be greater than 0.</p>
-<div id="3b38b677" class="cell" data-execution_count="5">
+<div id="fbb0b646" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -627,19 +707,26 @@ P(a&lt; x \leq b) = F_X(b)-F_X(a)=\int_{a}^{b} p_X(t) \cdot dt
 </div>
 </div>
 </div>
+</div>
 </section>
 </section>
 </section>
 <section id="joint-probability" class="level1 headline-only">
 <h1 class="headline-only">Joint probability</h1>
-<section id="definiton" class="level2">
-<h2 data-anchor-id="definiton">Definiton</h2>
+<section id="definition" class="level2">
+<h2 data-anchor-id="definition">Definition</h2>
 <p>The <strong>joint probability</strong> of two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, denoted as <span class="math inline">\(P(X=x_i, Y=y_j)\)</span> or simply <span class="math inline">\(P(x_i, y_j)\)</span>, represents the probability that <span class="math inline">\(X\)</span> takes the specific value <span class="math inline">\(x_i\)</span> <strong>and</strong> <span class="math inline">\(Y\)</span> simultaneously takes the specific value <span class="math inline">\(y_j\)</span>. The comma “,” signifies the logical “and”.</p>
+<div class="fragment">
 <p>The <strong>joint probability distribution</strong> of two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is the set of all possible joint probabilities for all possible value combinations of <span class="math inline">\(X\)</span> (from its value set <span class="math inline">\(V(X)\)</span>) and <span class="math inline">\(Y\)</span> (from its value set <span class="math inline">\(V(Y)\)</span>):</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(X=x_i, Y=y_j) \quad \forall \quad x_i \in V(X), y_j \in V(Y)
 \]</span></p>
-<p>Consider two binary random variables: <code>Toothache</code> (True or False, denoted as <span class="math inline">\(\neg\)</span>Toothache) and <code>Cavity</code> (True or False, denoted as <span class="math inline">\(\neg\)</span>Cavity). The full joint probability distribution for these variables is given in the table below</p>
+</div>
+<section id="example-1" class="level3">
+<h3 data-anchor-id="example-1">Example</h3>
+<p>Consider two binary random variables: <code>Toothache</code> (True or False, denoted as <span class="math inline">\(\neg\)</span>Toothache) and <code>Cavity</code> (True or False, denoted as <span class="math inline">\(\neg\)</span>Cavity).</p>
 <div id="tbl-distribution" class="quarto-float quarto-figure quarto-figure-left">
 <figure class="quarto-float quarto-float-tbl figure">
 <div aria-describedby="tbl-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -668,29 +755,46 @@ Table&nbsp;1: Probabilities of the atomic events (full joint distribution for th
 </figcaption>
 </figure>
 </div>
+<div class="fragment">
 <p>From this table, we can directly read the joint probability of any combination of <code>Toothache</code> and <code>Cavity</code>. For example, the probability of having a toothache and a cavity is:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(\text{Toothache=True, Cavity=True}) = 0.04
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Similarly, the probability of not having a toothache and not having a cavity is:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(\text{Toothache=False, Cavity=False}) = 0.89
 \]</span></p>
+</div>
+</section>
 </section>
 <section id="generalization" class="level2">
 <h2 data-anchor-id="generalization">Generalization</h2>
 <p>For <span class="math inline">\(N\)</span> random variables <span class="math inline">\(X_1, X_2, \ldots, X_N\)</span>, the joint probability is:</p>
+<div class="fragment">
 <p><span class="math display">\[
 P(X_1=x_{i_1}, X_2=x_{i_2}, \ldots, X_N=x_{i_N}) \quad \text{or} \quad P(x_{i_1}, x_{i_2}, \ldots, x_{i_N})
 \]</span></p>
+</div>
+<div class="fragment">
 <p>This represents the probability that <span class="math inline">\(X_1\)</span> takes value <span class="math inline">\(x_{i_1}\)</span> and <span class="math inline">\(X_2\)</span> takes value <span class="math inline">\(x_{i_2}\)</span> and so on, up to <span class="math inline">\(X_N\)</span> taking value <span class="math inline">\(x_{i_N}\)</span>.</p>
+</div>
+<div class="fragment">
 <p>The <strong>joint probability distribution</strong> for these <span class="math inline">\(N\)</span> variables is the collection of all such probabilities for all possible combinations of their values.</p>
+</div>
+<div class="fragment">
 <div class="small">
 <p>For continuous random variables, the joint probability distribution is described by a joint <strong>cumulative distribution function</strong> (CDF) or a joint <strong>probability density function</strong> (PDF). For discrete random variables, it’s described by a <strong>probability mass function</strong> (PMF) or the CDF.</p>
 </div>
+</div>
 </section>
-<section id="other-distributions" class="level2">
-<h2 data-anchor-id="other-distributions">Other distributions</h2>
+<section id="other-distributions" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" data-anchor-id="other-distributions">Other distributions</h2>
 <p>These joint probability distributions are important because they help to derive other key distributions, as we will see in more detail below.</p>
 <dl>
 <dt>Marginal distribution</dt>
@@ -706,41 +810,63 @@ The probability distribution of one variable given that we know the value(s) of 
 <section id="independence-of-random-variables" class="level2">
 <h2 data-anchor-id="independence-of-random-variables">Independence of random variables</h2>
 <p>Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are considered independent if the value taken by one variable does not influence the value taken by the other.</p>
+<div class="fragment">
 <div class="small">
 <p>Example: Two consecutive rolls of a fair die are independent events. The outcome of the second roll is not affected by the outcome of the first roll. In contrast, in a Lotto draw where balls are drawn without replacement, the outcomes are dependent. The probability of drawing a specific number on the second draw depends on which number was drawn first.</p>
 </div>
+</div>
+<div class="fragment">
 <p>Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if their joint probability can be factored into the product of their individual probabilities (also known as marginal probabilities):</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(X=x_{i}, Y=y_j) = P(X=x_{i}) \cdot P(Y=y_j)
 \]</span></p>
+</div>
+<div class="fragment">
 <div class="small">
 <p>Example: For two independent dice rolls, the probability of getting a 1 on the first roll (<span class="math inline">\(X=1\)</span>) and a 2 on the second roll (<span class="math inline">\(Y=2\)</span>) is:</p>
 </div>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(X=1, Y=2) = P(X=1) \cdot P(Y=2) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}
 \]</span></p>
+</div>
 </section>
 <section id="marginal-probability" class="level2">
 <h2 data-anchor-id="marginal-probability">Marginal probability</h2>
+<div class="notes">
 <p>The <strong>marginal distribution</strong> of a subset of random variables from a larger set is the probability distribution of only those variables in the subset, without considering the specific values of the other variables. It essentially gives the probabilities of the values of the chosen variables by “averaging out” or “summing over” the possibilities of the other variables.</p>
+</div>
 <p>If we have a set of random variables <span class="math inline">\(X_1, X_2, \ldots, X_N\)</span> and we know their joint probability distribution <span class="math inline">\(P(X_1=x_{i_1}, X_2=x_{i_2}, \ldots, X_N=x_{i_N})\)</span>, we can find the marginal probability distribution for a subset <span class="math inline">\({X_{i_1}, X_{i_2}, \ldots, X_{i_Z}}\)</span> by marginalizing (summing or integrating over) the variables that are not in the subset.</p>
+<div class="fragment">
 <p><strong>Marginalization law</strong>: For two discrete random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with a known joint probability distribution <span class="math inline">\(P(x_i, y_j)\)</span>, the marginal probability of <span class="math inline">\(X\)</span> taking the value <span class="math inline">\(x_i\)</span> is obtained by summing the joint probabilities over all possible values of <span class="math inline">\(Y\)</span>:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(x_i) = \sum_{y_j \in V(Y)} P(x_i, y_j)
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Similarly, the marginal probability of <span class="math inline">\(Y\)</span> taking the value <span class="math inline">\(y_j\)</span> is:</p>
 <p><span class="math display">\[
 P(y_j) = \sum_{x_i \in V(X)} P(x_i, y_j)
 \]</span></p>
+</div>
+<div class="fragment">
 <p>The variables we are interested in (like <span class="math inline">\(X\)</span> in the first equation) are called marginal variables.</p>
-<hr>
-<p><span class="h4"><strong>Generalization to multiple variables</strong></span></p>
+</div>
+<section id="generalization-to-multiple-variables" class="level3">
+<h3 data-anchor-id="generalization-to-multiple-variables">Generalization to multiple variables</h3>
 <p>For three random variables <span class="math inline">\(X, Y, Z\)</span>, the marginal probability of <span class="math inline">\(X\)</span> is:</p>
 <p><span class="math display">\[
 P(x_i) = \sum_{y_j \in V(Y)} \sum_{z_k \in V(Z)} P(x_i, y_j, z_k)
 \]</span></p>
 <p>This concept extends to any number of variables and any subset.</p>
-<p><span class="h4"><strong>Example</strong></span></p>
+</section>
+<section id="example-2" class="level3 scrollable">
+<h3 class="scrollable" data-anchor-id="example-2">Example</h3>
 <p>Let’s calculate the marginal probability of having a cavity (<span class="math inline">\(P(\text{Cavity=True})\)</span>). To do this, we sum the joint probabilities where <code>Cavity</code> is True, across all possible values of <code>Toothache</code>:</p>
 <p><span class="math display">\[
 \begin{flalign}
@@ -768,36 +894,64 @@ P(\text{Cavity=False}) = 0.01 + 0.89 = 0.90
 <p>These calculations demonstrate how we can obtain the probability distribution for a single variable (<code>Cavity</code>) by marginalizing over the other variable (<code>Toothache</code>) in the joint probability distribution.</p>
 </section>
 </section>
+</section>
 <section id="conditional-probability" class="level1 headline-only">
 <h1 class="headline-only">Conditional probability</h1>
+<section id="definition-1" class="level2">
+<h2 data-anchor-id="definition-1">Definition</h2>
 <p>New information (usually called evidence) can change the probability, e.g.&nbsp;the probability of a cavity increases if we know the patient has a toothache</p>
+<div class="fragment">
 <p>The conditional probability of a random variable <span class="math inline">\(X\)</span> taking the value <span class="math inline">\(x_i\)</span> given that another random variable <span class="math inline">\(Y\)</span> has taken the value <span class="math inline">\(y_j\)</span>, denoted as <span class="math inline">\(P(X=x_i | Y=y_j)\)</span> or <span class="math inline">\(P(x_i | y_j)\)</span>, is the probability of <span class="math inline">\(X=x_i\)</span> occurring under the condition that <span class="math inline">\(Y=y_j\)</span> is already known or has been observed.</p>
+</div>
+<div class="fragment">
 <p>Marginal probability is the probability of an event occurring on its own, whereas conditional probability considers the occurrence of one event given that another has already happened. This introduces a dependency in the probability calculation.</p>
+</div>
+<div class="fragment">
 <p>The conditional probability of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> is calculated as the ratio of the joint probability of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> to the marginal probability of <span class="math inline">\(Y\)</span> (provided <span class="math inline">\(P(y_j) &gt; 0\)</span>):</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(x_i | y_j) = \frac{P(x_i \land y_j)}{P(y_j)} = \frac{P(x_i, y_j)}{P(y_j)}
 \]</span></p>
+</div>
+</section>
 <section id="product-rule" class="level2">
 <h2 data-anchor-id="product-rule">Product rule</h2>
 <p>By rearranging the conditional probability equation we can calculate a joint probability as a product of a conditional probability and an a-priori probability:</p>
+<div class="fragment">
 <p><span class="math display">\[
 P(x_i,y_j)= P(x_i|y_j)\cdot P(y_j)
 \]</span></p>
+</div>
+<div class="fragment">
 <p>This is actually the most simple case of the product rule.</p>
+</div>
+<div class="fragment">
 <p>For 3 variables we can write:</p>
 <p><span class="math display">\[
 P(x_i,y_j,z_k)= P(x_i|y_j,z_j)\cdot P(y_j,z_j).
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Since the last factor on the right hand side of this equation can be again written as</p>
 <p><span class="math display">\[
 P(y_j,z_j)= P(y_j|z_k)\cdot P(z_k),
 \]</span></p>
-<p>we finally obtain:</p>
+</div>
+<div class="fragment">
+<p>We finally obtain:</p>
 <p><span class="math display">\[
 P(x_i,y_j,z_k)= P(x_i|y_j,z_j)\cdot P(y_j|z_k)\cdot p(z_k)
 \]</span></p>
-<p>I.e. the joint probability can be expressed as a product of conditional probabilities and an a-priori probability.</p>
+</div>
+</section>
+<section id="generalization-1" class="level2">
+<h2 data-anchor-id="generalization-1">Generalization</h2>
+<p>The joint probability can be expressed as a product of conditional probabilities and an a-priori probability.</p>
+<div class="fragment">
 <p>This can be generalized to the case of <span class="math inline">\(N\)</span> random variables. The general form of the chain rule is:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{flalign}
 P(x_{i_1}, x_{i_2},  \ldots x_{i_{N}}) &amp;= P(x_{i_1} | x_{i_2},  \ldots x_{i_{N}}  ) \cdot P(x_{i_2} | x_{i_3},  \ldots x_{i_{N}}) \\
@@ -805,21 +959,31 @@ P(x_{i_1}, x_{i_2},  \ldots x_{i_{N}}) &amp;= P(x_{i_1} | x_{i_2},  \ldots x_{i_
 &amp;= \prod\limits_{j=1}^N P(x_{i_j} | x_{i_{j+1}},  \ldots x_{i_{N}}  )
 \end{flalign}
 \]</span></p>
+</div>
 </section>
 </section>
-<section id="bayesian-inference" class="level1">
-<h1>Bayesian inference</h1>
+<section id="bayesian-inference" class="level1 headline-only">
+<h1 class="headline-only">Bayesian inference</h1>
 <section id="bayes-theorem" class="level2">
 <h2 data-anchor-id="bayes-theorem">Bayes’ Theorem</h2>
 <p><strong>Bayes’ Theorem</strong> is a fundamental concept in probability theory and serves as the cornerstone of modern AI and machine learning. It allows us to update our beliefs based on new evidence.</p>
+<div class="fragment">
 <p>At its core, Bayes’ Theorem relates conditional probabilities. Starting from the conditional probability formula:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(x_i | y_j) = \frac{P(x_i, y_j)}{P(y_j)}
 \]</span></p>
+</div>
+<div class="fragment">
 <p>We can derive Bayes’ Theorem as:</p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[
 P(x_i | y_j)=\frac{P(y_j | x_i) P(x_i)}{P(y_j)}
 \]</span></p>
+</div>
+<div class="notes">
 <p>Each term in this equation has a specific interpretation:</p>
 <ul>
 <li><span class="math inline">\(P(x_i | y_j)\)</span> is the <strong>posterior probability:</strong><br>
@@ -831,29 +995,39 @@ the probability of observing evidence <span class="math inline">\(y_j\)</span> i
 <li><span class="math inline">\(P(y_j)\)</span> is the <strong>evidence:</strong><br>
 the total probability of observing <span class="math inline">\(y_j\)</span> under all possible conditions</li>
 </ul>
+</div>
 </section>
 <section id="computing-the-evidence-term" class="level2">
 <h2 data-anchor-id="computing-the-evidence-term">Computing the evidence term</h2>
 <p>The denominator <span class="math inline">\(P(y_j)\)</span> can be expanded using the law of total probability<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>:</p>
+<div class="fragment">
 <p><span class="math display">\[
 P(y_j) = \sum_{x_k \in V(X)} P(y_j | x_k) P(x_k)
 \]</span></p>
+</div>
+<div class="fragment">
 <p>Where <span class="math inline">\(V(X)\)</span> represents all possible values of the random variable <span class="math inline">\(X\)</span>.</p>
+</div>
+<div class="fragment">
 <p>This gives us the complete form of Bayes’ Theorem:</p>
 <p><span class="math display">\[
 P(x_i | y_j)=\frac{P(y_j | x_i) P(x_i)}{\sum\limits_{x_k \in V(X)}P(y_j | x_k) P(x_k)}
 \]</span></p>
+</div>
 </section>
 <section id="bayesian-inference-in-practice" class="level2">
 <h2 data-anchor-id="bayesian-inference-in-practice">Bayesian inference in practice</h2>
 <p>Bayesian inference is the process of applying Bayes’ Theorem to update probabilities as new information becomes available. Here’s how it works in practice:</p>
-<ol type="1">
+<div class="incremental">
+<ol class="incremental" type="1">
 <li>Start with a <strong>prior probability</strong> <span class="math inline">\(P(x_i)\)</span> based on existing knowledge</li>
 <li>Collect new evidence <span class="math inline">\(y_j\)</span></li>
 <li>Calculate how likely that evidence would be under different scenarios using the <strong>likelihood</strong> <span class="math inline">\(P(y_j|x_i)\)</span></li>
 <li>Update your belief to the <strong>posterior probability</strong> <span class="math inline">\(P(x_i|y_j)\)</span> using Bayes’ Theorem</li>
 </ol>
-<p><span class="h4"><strong>Example scenario</strong></span></p>
+</div>
+<div class="notes">
+<p><span class="h4">Example scenario</span></p>
 <p>Imagine we want to determine if a person has a certain disease.</p>
 <ul>
 <li>Prior: 1% of the population has the disease, so <span class="math inline">\(P(\text{disease})=0.01\)</span></li>
@@ -861,14 +1035,20 @@ P(x_i | y_j)=\frac{P(y_j | x_i) P(x_i)}{\sum\limits_{x_k \in V(X)}P(y_j | x_k) P
 <li>Evidence: We need to account for both true positives and false positives</li>
 <li>Posterior: We calculate the probability of having the disease given a positive test result</li>
 </ul>
+</div>
 </section>
 <section id="naive-bayes-classifiers" class="level2">
 <h2 data-anchor-id="naive-bayes-classifiers">Naive Bayes classifiers</h2>
+<div class="notes">
 <p>Naive Bayes classifiers are based on Bayes’ Theorem but make a simplifying assumption that the features (or predictors) are conditionally independent given the class label. This assumption is rarely true in real-world data, which is why it’s called “naive,” but the classifier often performs surprisingly well despite this simplification.</p>
+</div>
 <p>Given a feature vector<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> <span class="math inline">\(X = (x_1, x_2, ..., x_n)\)</span> and a class variable<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> <span class="math inline">\(Y\)</span>, Bayes’ Theorem gives us:</p>
 <p><span class="math display">\[P(Y|X) = \frac{P(X|Y) \cdot P(Y)}{P(X)}\]</span></p>
+<div class="fragment">
 <p>The naive independence assumption states that:</p>
 <p><span class="math display">\[P(X|Y) = P(x_1|Y) \cdot P(x_2|Y) \cdot ... \cdot P(x_n|Y)\]</span></p>
+</div>
+<div class="fragment">
 <p>This gives us:</p>
 <p><span class="math display">\[
 \begin{flalign}
@@ -876,18 +1056,37 @@ P(Y|X) &amp;= \frac{P(X|Y) \cdot P(Y)}{P(X)}\\
 &amp;= \frac{P(x_1|Y) \cdot P(x_2|Y) \cdot ... \cdot P(x_n|Y) \cdot P(Y)}{P(x_1, x_2, \ldots, x_n)}\\
 \end{flalign}
 \]</span></p>
-<p>In practice, when calculating Naive Bayes, often the unnormalized probabilities are calculated for each class:</p>
+</div>
+<hr>
+<p>In practice, often the unnormalized probabilities are calculated for each class:</p>
 <p><span class="math display">\[P(x_1|Y) \cdot P(x_2|Y) \cdot ... \cdot P(x_n|Y) \cdot P(Y)\]</span></p>
+<div class="fragment">
 <p>And then normalized by dividing by the total probability:</p>
 <p><span class="math display">\[P(x_1, x_2, \ldots, x_n) = \sum_{j=1}^{m} \left[\prod_{i=1}^{n} P(x_i|Y=y_j)\right] \cdot P(Y=y_j)\]</span></p>
+</div>
+<div class="fragment">
 <p>Overall, Naive Bayes simplify the calculation dramatically, as we now only need to estimate these simpler conditional probabilities from the training data.</p>
-<p><span class="h4"><strong>Types of Naive Bayes classifiers</strong></span></p>
-<ol type="1">
-<li><strong>Gaussian Naive Bayes</strong>: For continuous features, assumes that values follow a Gaussian distribution.</li>
-<li><strong>Multinomial Naive Bayes</strong>: Commonly used for text classification, where features represent word frequencies or counts.</li>
-<li><strong>Bernoulli Naive Bayes</strong>: Used when features are binary (e.g., words present/absent in a document).</li>
-</ol>
-<p><span class="h4"><strong>Advantages</strong></span></p>
+</div>
+<section id="types-of-naive-bayes-classifiers" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="types-of-naive-bayes-classifiers">Types of Naive Bayes classifiers</h3>
+<dl>
+<dt>Gaussian Naive Bayes</dt>
+<dd>
+For continuous features, assumes that values follow a Gaussian distribution.
+</dd>
+<dt>Multinomial Naive Bayes</dt>
+<dd>
+Commonly used for text classification, where features represent word frequencies or counts.
+</dd>
+<dt>Bernoulli Naive Bayes</dt>
+<dd>
+Used when features are binary (e.g., words present/absent in a document).
+</dd>
+</dl>
+</section>
+<section id="advantages-limitations-and-applications" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="advantages-limitations-and-applications">Advantages, limitations and applications</h3>
+<p><span class="h4">Advantages</span></p>
 <ul>
 <li>Simple and fast to train and make predictions</li>
 <li>Works well with small datasets</li>
@@ -896,13 +1095,13 @@ P(Y|X) &amp;= \frac{P(X|Y) \cdot P(Y)}{P(X)}\\
 <li>Requires less training data than many other classifiers</li>
 <li>Not sensitive to irrelevant features</li>
 </ul>
-<p><span class="h4"><strong>Limitations</strong></span></p>
+<p><span class="h4">Limitations</span></p>
 <ul>
 <li>The “naive” independence assumption rarely holds in real data</li>
 <li>Can be outperformed by more sophisticated models</li>
 <li>May give poor probability estimates (though the class predictions might still be accurate)</li>
 </ul>
-<p><span class="h4"><strong>Applications</strong></span></p>
+<p><span class="h4">Applications</span></p>
 <ul>
 <li>Text classification (spam filtering, sentiment analysis, document categorization)</li>
 <li>Medical diagnosis</li>
@@ -911,11 +1110,13 @@ P(Y|X) &amp;= \frac{P(X|Y) \cdot P(Y)}{P(X)}\\
 </ul>
 </section>
 </section>
-<section id="exercises" class="level1 vertical-center page-columns page-full" data-background-color="black">
-<h1 class="vertical-center" data-background-color="black">Exercises</h1>
+</section>
+<section id="exercises" class="level1 headline-only page-columns page-full">
+<h1 class="headline-only">Exercises</h1>
 <section id="conditional-probability-1" class="level2">
 <h2 data-anchor-id="conditional-probability-1">Conditional probability</h2>
 <p>Show from the definition of conditional probability that <span class="math inline">\(P(a | b \land a) = 1\)</span>.</p>
+<div class="notes">
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -949,12 +1150,14 @@ P(a|b \land a) = \frac{P(b \land a)}{P(b \land a)} = 1 &amp;&amp;
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="beliefs" class="level2">
 <h2 data-anchor-id="beliefs">Beliefs</h2>
 <p>An agent holds the three beliefs: <span class="math inline">\(P(A)=0.4\)</span>, <span class="math inline">\(P(B)=0.3\)</span>, and <span class="math inline">\(P(A \lor B)=0.5\)</span>.</p>
 <p>What is the probability of <span class="math inline">\(A \land B\)</span>?</p>
 <p>Make up a table like the one in <a href="#tbl-distribution" class="quarto-xref">Table&nbsp;1</a> to answer that question.</p>
+<div class="notes">
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -997,21 +1200,23 @@ P(a|b \land a) = \frac{P(b \land a)}{P(b \land a)} = 1 &amp;&amp;
 </div>
 </div>
 </div>
+</div>
 </section>
-<section id="medical-tests" class="level2">
-<h2 data-anchor-id="medical-tests">Medical tests</h2>
+<section id="medical-tests" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="medical-tests">Medical tests</h2>
 <p>A medical test is being used to screen for a rare disease that affects 1% of the population. The test has the following characteristics:</p>
 <ul>
 <li>If a person has the disease, the test will correctly identify them as positive 95% of the time (sensitivity).</li>
 <li>If a person does not have the disease, the test will correctly identify them as negative 98% of the time (specificity).</li>
 </ul>
 <p>A random person from the population takes the test and receives a positive result.</p>
-<p><span class="h4"><strong>Questions</strong></span></p>
+<p><span class="h4">Questions</span></p>
 <ol type="1">
 <li>What is the probability that this person actually has the disease?</li>
 <li>If the person takes the test a second time and again receives a positive result, what is the updated probability that they have the disease? Assume that test results are independent for the same person.</li>
 <li>Would you recommend that this person undergo treatment based on these test results? Why or why not? Consider the reliability of the diagnosis given the test results.</li>
 </ol>
+<div class="notes">
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1052,7 +1257,7 @@ P(Positive) &amp;= P(Positive|Disease) \cdot P(Disease) \\
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="h4"><strong>Question 1: probability of disease given a positive test</strong></span></p>
+<p><span class="h4">Question 1: probability of disease given a positive test</span></p>
 <p>Let’s define our notation:</p>
 <ul>
 <li>D = person has the disease</li>
@@ -1075,7 +1280,7 @@ P(Positive) &amp;= P(Positive|Disease) \cdot P(Disease) \\
 <p>Now we can calculate P(D|+):</p>
 <p><span class="math display">\[P(D|+) = \frac{0.95 \times 0.01}{0.0293}\]</span> <span class="math display">\[P(D|+) = \frac{0.0095}{0.0293}\]</span> <span class="math display">\[P(D|+) = 0.324 \text{ or } 32.4\%\]</span></p>
 <p>Therefore, despite receiving a positive test result, the probability that the person actually has the disease is only about 32.4%. This is a classic example of the “base rate fallacy” - even with a highly accurate test, when testing for a rare condition, many positive results will still be false positives.</p>
-<p><span class="h4"><strong>Question 2: probability after a second positive test</strong></span></p>
+<p><span class="h4">Question 2: probability after a second positive test</span></p>
 <p>For the second test, we use our updated probability as the new prior:</p>
 <ul>
 <li>P(D) = 0.324 (updated prior probability of disease after first positive test)</li>
@@ -1088,7 +1293,7 @@ P(Positive) &amp;= P(Positive|Disease) \cdot P(Disease) \\
 <p>Now we can calculate P(D|+₂):</p>
 <p><span class="math display">\[P(D|+_2) = \frac{0.95 \times 0.324}{0.32132}\]</span> <span class="math display">\[P(D|+_2) = \frac{0.3078}{0.32132}\]</span> <span class="math inline">\(P(D|+_2) = 0.958 \text{ or } 95.8\%\)</span></p>
 <p>After the second positive test, the probability that the person has the disease increases dramatically to about 95.8%.</p>
-<p><span class="h4"><strong>Question 3: treatment recommendation</strong></span></p>
+<p><span class="h4">Question 3: treatment recommendation</span></p>
 <p>Based on the test results:</p>
 <ul>
 <li>After one positive test: 32.4% probability of disease</li>
@@ -1107,6 +1312,7 @@ P(Positive) &amp;= P(Positive|Disease) \cdot P(Disease) \\
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="conditional-independence" class="level2">
 <h2 data-anchor-id="conditional-independence">Conditional independence</h2>
@@ -1122,6 +1328,7 @@ P(A,B|C)=P(A|C)P(B|C) &amp;&amp;
 P(A|B,C)=P(A|C) \quad \textrm{and} \quad P(B|A,C)=P(B|C) &amp;&amp;
 \end{flalign}
 \]</span></p>
+<div class="notes">
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1174,9 +1381,10 @@ P(A|B,C) = P(A|C)
 </div>
 </div>
 </div>
+</div>
 </section>
-<section id="pacman" class="level2 page-columns page-full">
-<h2 data-anchor-id="pacman">Pacman</h2>
+<section id="pacman" class="level2 scrollable page-columns page-full">
+<h2 class="scrollable" data-anchor-id="pacman">Pacman</h2>
 <p>Pacman has developed a hobby of fishing. Over the years, he has learned that a day can be considered fit or unfit for fishing <span class="math inline">\(Y\)</span> which results in three features: whether or not Ms.&nbsp;Pacman can show up <span class="math inline">\(M\)</span>, the temperature of the day <span class="math inline">\(T\)</span>, and how high the water level is <span class="math inline">\(W\)</span>. Pacman models it as an Naive Bayes classification problem.</p>
 <p>We wish to calculate the probability a day is fit for fishing given features of the day. Consider the conditional probability tables that Pacman has estimated over the years:</p>
 <table class="table">
@@ -1311,6 +1519,7 @@ P(A|B,C) = P(A|C)
 <li>The weather is cold: T = cold</li>
 <li>The water level is high: W = high</li>
 </ul>
+<div class="notes page-columns page-full">
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1387,15 +1596,10 @@ P(A|B,C) = P(A|C)
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="literature" class="level1">
-<h1>Literature</h1>
-<div id="refs" role="list">
-
 </div>
 
 
+</section>
 </section>
 
 
