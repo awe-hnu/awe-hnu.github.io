@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Knowledge &amp; Inference – I2AI</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --blue:        #0535f5;
+  --blue-dark:   #0228cc;
+  --blue-light:  #2a55ff;
+  --cyan:        #4de8f4;
+  --white:       #ffffff;
+  --off-white:   #f7f8fc;
+  --light-bg:    #f0f2fc;
+  --text-dark:   #0d0d0d;
+  --muted-dark:  #444;
+  --border:      #d8daf0;
+  --mono-meta:   #b8ccff;
+  --footer-h:    52px;
+}
+
+.reveal {
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  background: var(--blue);
+  color: var(--white);
+}
+.reveal .slides { width: 100%; height: 100%; }
+.reveal .slides section {
+  text-align: left;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.reveal h1,.reveal h2,.reveal h3,.reveal h4 {
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  text-transform: none;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-shadow: none;
+  margin: 0 0 .4em;
+}
+
+/* ── Title slide ── */
+.title-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+.title-slide::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -5%;
+  width: 62%; height: 110%;
+  background: radial-gradient(ellipse at 60% 40%,
+    rgba(77,232,244,.22) 0%,
+    rgba(40,120,255,.18) 30%,
+    transparent 70%);
+  pointer-events: none;
+}
+.title-inner {
+  position: relative;
+  z-index: 2;
+  padding: 0 3.5rem 2.5rem;
+  padding-bottom: calc(var(--footer-h) + 2rem);
+}
+.title-slide h1 {
+  font-size: 4em;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.05;
+  margin: 0 0 .45em;
+}
+.title-slide .subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25em;
+  font-weight: 500;
+  color: var(--white);
+  margin: 0 0 2em;
+  opacity: .95;
+}
+.title-slide .meta-block {
+  font-family: 'Space Mono', monospace;
+  font-size: .72em;
+  color: var(--mono-meta);
+  line-height: 2;
+}
+.version-tag {
+  position: absolute;
+  top: 1.4rem; left: 1.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .68em;
+  color: var(--mono-meta);
+  z-index: 10;
+}
+
+/* ── Footer bar ── */
+.slide-footer-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--footer-h);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.4rem;
+  z-index: 100;
+  box-sizing: border-box;
+}
+.slide-footer-bar .footer-left {
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.slide-footer-bar .footer-version { color: #888; margin-right: .5rem; }
+.slide-footer-bar .footer-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+.slide-footer-bar .footer-nav {
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.footer-menu {
+  width: 18px; height: 12px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer; margin-right: .8rem;
+}
+.footer-menu span { display: block; height: 2px; background: var(--text-dark); border-radius: 1px; }
+
+/* ── Section slides ── */
+.section-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+  position: relative;
+  overflow: hidden;
+}
+.section-slide::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 50%; height: 140%;
+  background: radial-gradient(ellipse, rgba(77,232,244,.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+.section-slide .section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .72em;
+  color: var(--mono-meta);
+  margin-bottom: .7em;
+  letter-spacing: .04em;
+}
+.section-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); margin: 0 0 .5em; }
+.section-slide .section-desc {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .9em;
+  color: rgba(255,255,255,.72);
+  max-width: 60%;
+  line-height: 1.75;
+}
+.section-slide .section-number {
+  position: absolute;
+  right: 3rem;
+  bottom: calc(var(--footer-h) + 1rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 8em;
+  font-weight: 700;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Content slides ── */
+.content-slide {
+  background: var(--off-white) !important;
+  color: var(--text-dark) !important;
+  padding: 2rem 3.5rem calc(var(--footer-h) + 1.2rem) !important;
+  height: 100%;
+}
+.content-slide p, .content-slide li, .content-slide td, .content-slide dd { color: var(--text-dark); }
+.slide-header {
+  display: flex;
+  align-items: baseline;
+  gap: .7em;
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: .35em;
+  margin-bottom: .85em;
+}
+.slide-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35em;
+  font-weight: 600;
+  color: var(--blue);
+  margin: 0;
+  flex: 1;
+  border: none;
+}
+.content-slide p { line-height: 1.72; margin: .5em 0; font-size: .95em; color: var(--text-dark); }
+.content-slide ul, .content-slide ol { margin: .4em 0 .4em 1.3em; }
+.content-slide li { margin: .3em 0; line-height: 1.65; font-size: .95em; color: var(--text-dark); }
+.content-slide ul > li::marker { color: var(--blue); }
+.content-slide strong { color: var(--text-dark); font-weight: 700; }
+.content-slide h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .8em;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin: .8em 0 .3em;
+}
+.content-slide a { color: var(--blue); border-bottom: 1px solid rgba(5,53,245,.3); text-decoration: none; }
+.content-slide blockquote {
+  background: var(--light-bg);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 4px 4px 0;
+  margin: .9em 0;
+  padding: .8em 1.2em;
+  font-style: italic;
+  color: var(--muted-dark);
+  font-size: .9em;
+  line-height: 1.75;
+  box-shadow: none;
+  width: auto;
+}
+.content-slide blockquote p { color: var(--muted-dark); margin: 0; }
+.content-slide blockquote cite {
+  display: block;
+  margin-top: .4em;
+  font-style: normal;
+  font-size: .82em;
+  color: var(--blue);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+.content-slide table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .84em;
+  margin: .7em 0;
+}
+.content-slide table th {
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  padding: .55em .85em;
+  text-align: left;
+  letter-spacing: .015em;
+}
+.content-slide table td {
+  padding: .45em .85em;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text-dark);
+}
+.content-slide table tbody tr:nth-child(even) td { background: var(--light-bg); }
+.content-slide table tbody tr:last-child td { border-bottom: none; }
+.content-slide table tbody tr:hover td { background: rgba(5,53,245,.05); }
+.content-slide code {
+  font-family: 'Space Mono', monospace;
+  font-size: .8em;
+  background: #e8eaf8;
+  color: var(--blue-dark);
+  padding: .08em .35em;
+  border-radius: 3px;
+}
+
+/* ── Tags ── */
+.tag {
+  display: inline-block;
+  background: rgba(5,53,245,.1);
+  color: var(--blue);
+  font-family: 'Space Mono', monospace;
+  font-size: .63em;
+  font-weight: 400;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: .17em .6em;
+  border-radius: 2px;
+  border: 1px solid rgba(5,53,245,.2);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ── Callouts ── */
+.callout {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 4px 4px 0;
+  padding: .75em 1.1em;
+  margin: .75em 0;
+  font-size: .91em;
+}
+.callout p { color: var(--text-dark); margin: .25em 0; }
+.callout ol, .callout ul { color: var(--text-dark); }
+.callout.exercise { border-left-color: var(--cyan); background: #edfcfe; }
+.callout.exercise .callout-label { color: #0099aa; }
+.callout.note { border-left-color: var(--blue); background: var(--light-bg); }
+.callout.warning { border-left-color: #f5a623; background: #fef9ee; }
+.callout.warning .callout-label { color: #c07a00; }
+.callout-label {
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  font-size: .7em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: .28em;
+}
+
+/* ── Answer box ── */
+.reveal .slides .fragment.answer-reveal { display: block; margin-top: .7em; }
+.answer-box {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cyan);
+  border-radius: 0 4px 4px 0;
+  padding: .75em 1.1em;
+  font-size: .91em;
+}
+.answer-box p, .answer-box li { color: var(--text-dark); margin: .25em 0; }
+.answer-box ul, .answer-box ol { margin: .3em 0 .3em 1.2em; }
+.answer-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .68em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #0099aa;
+  margin-bottom: .35em;
+}
+
+/* ── Q&A slide ── */
+.qa-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+}
+.qa-slide h1 { font-size: 3.2em; font-weight: 300; color: var(--white); margin: .1em 0 .4em; }
+.qa-slide p { color: rgba(255,255,255,.7); font-size: .95em; line-height: 1.75; max-width: 480px; }
+.qa-big {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 5em;
+  font-weight: 700;
+  color: rgba(255,255,255,.15);
+  line-height: 1;
+  margin-bottom: -.1em;
+}
+
+/* ── Exercises section ── */
+.exercises-slide {
+  background: #111 !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+  position: relative;
+}
+.exercises-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); }
+.exercises-slide .section-number {
+  position: absolute;
+  right: 3rem;
+  bottom: calc(var(--footer-h) + 1rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 8em;
+  font-weight: 700;
+  color: rgba(255,255,255,.05);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ── Reveal chrome ── */
+.reveal .progress { background: rgba(255,255,255,.15); height: 3px; }
+.reveal .progress span { background: var(--cyan); }
+.reveal .controls { color: var(--white); bottom: calc(var(--footer-h) + 8px); }
+.reveal .slide-number {
+  background: transparent;
+  color: var(--text-dark);
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  bottom: calc(var(--footer-h) / 2 - 0.5em);
+  right: 4.5rem;
+}
+
+/* ── Math-like mono display ── */
+.mono {
+  font-family: 'Space Mono', monospace;
+  font-size: .88em;
+  color: var(--blue-dark);
+}
+.content-slide .mono { color: var(--blue-dark); }
+
+/* ── Wumpus step-by-step truth table ── */
+.ww-step-box {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 4px 4px 0;
+  padding: .45em 1em;
+  margin-bottom: .6em;
+  font-size: .84em;
+  color: var(--text-dark);
+  line-height: 1.65;
+}
+.ww-step-box strong { color: var(--blue); }
+.ww-step-box code {
+  font-family: 'Space Mono', monospace;
+  font-size: .82em;
+  background: #e8eaf8;
+  color: var(--blue-dark);
+  padding: .05em .3em;
+  border-radius: 3px;
+}
+ 
+.ww-tt {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .78em;
+  margin-top: .4em;
+}
+.ww-tt th {
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  padding: .42em .75em;
+  text-align: center;
+  letter-spacing: .015em;
+  border: 1px solid var(--blue-dark);
+}
+.ww-tt th.l { text-align: left; }
+.ww-tt td {
+  padding: .32em .75em;
+  text-align: center;
+  border: 1px solid var(--border);
+  color: #9aa0b8;
+  background: var(--off-white);
+  font-size: .97em;
+}
+.ww-tt td.l { text-align: left; color: #9aa0b8; }
+ 
+/* rows newly introduced this step */
+.ww-tt tr.ww-new td     { background: var(--off-white); color: var(--text-dark); }
+.ww-tt tr.ww-new td.l   { color: var(--text-dark); }
+ 
+/* rows eliminated this step */
+.ww-tt tr.ww-elim td    { background: #fef2f2; color: #c0bcbc; text-decoration: line-through; }
+.ww-tt tr.ww-elim td.l  { color: #c0bcbc; }
+ 
+/* the surviving world */
+.ww-tt tr.ww-ok td      { background: #edfcfe; color: var(--text-dark); font-weight: 500; }
+.ww-tt tr.ww-ok td.l    { color: var(--text-dark); font-weight: 600; }
+ 
+.ww-g { color: #1a9e1a; font-weight: 700; }
+.ww-r { color: #cc0000; font-weight: 700; }
+.ww-q { color: #c07a00; font-weight: 700; }
+ 
+.ww-badges {
+  display: flex;
+  gap: .5em;
+  margin-top: .45em;
+  font-size: .74em;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ww-badge-elim {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: .18em .65em;
+  border-radius: 3px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+}
+.ww-badge-ok {
+  background: #edfcfe;
+  color: #0099aa;
+  border: 1px solid #a5f3fc;
+  padding: .18em .65em;
+  border-radius: 3px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+}
+ 
+/* entailment result cards (step 6) */
+.ww-ent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .7em;
+  margin-top: .55em;
+}
+.ww-ent-card {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cyan);
+  border-radius: 0 4px 4px 0;
+  overflow: hidden;
+}
+.ww-ent-hd {
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: .8em;
+  padding: .4em .85em;
+  letter-spacing: .01em;
+}
+.ww-ent-body {
+  padding: .55em .85em;
+  font-size: .78em;
+  color: var(--muted-dark);
+  line-height: 1.7;
+}
+.ww-ent-result {
+  margin-top: .4em;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+  color: #1a9e1a;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── PERSISTENT FOOTER BAR ── -->
+<div class="slide-footer-bar">
+  <div class="footer-left">
+    <div class="footer-menu"><span></span><span></span><span></span></div>
+    <span class="footer-version">V 1.0</span>
+    <span>Andy Weeger &nbsp;/&nbsp; Neu-Ulm University of Applied Sciences &nbsp;/&nbsp; Introduction to Artificial Intelligence (AI)</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <div class="footer-logo">HNU</div>
+    <div class="footer-nav" id="footer-slide-num">1</div>
+  </div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+
+<!-- ══════════════════════════════════════════
+     TITLE SLIDE
+══════════════════════════════════════════ -->
+<section class="title-slide">
+  <div class="version-tag">V 1.0</div>
+  <div class="title-inner">
+    <h1>Knowledge &amp; Inference</h1>
+    <p class="subtitle">Introduction to AI (I2AI)</p>
+    <div class="meta-block">
+      <span>Deinera Jechle</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Neu-Ulm University of Applied Sciences</span><br/>
+      April 16, 2026
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 0 — WARM UP
+══════════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Warm Up</h2>
+    <span class="tag">Discussion</span>
+    <span class="timer" data-minutes="8"></span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">🪐 Imagine</div>
+    <p style="font-size:1.1em;line-height:1.8;">Looking ahead 10-15 years - Where do you see AI becoming part in our everyday life? How do you imagine the future of AI?</p>
+  </div>
+    <div class="fragment" style="margin-top:1.2em;">
+      <p>
+        Some ideas and questions to think about:
+      </p>
+      <ul style="font-size:.8em; line-height:1.9; margin-left:1.2em;">
+        <li>Can humans say "no" to AI? Can AI say "no" to humans?<sup>1</sup></li>
+        <li>What will win the day: growth &amp; productivity — or joy &amp; love?<sup>1</sup></li>
+        <li>Will AI lead to "privacy nightmares"?<sup>1</sup></li>
+        <li>How will jobs change? <em>According to WEF, 65% of today's children will work in jobs that don't exist yet.</em><sup>2</sup></li>
+        <li>What will democracy look like?</li>
+        <li>What values will AI reflect? Or should reflect?</li>
+        <li>If AI does most of our work, how do we find purpose?</li>
+      </ul>
+    </div>
+    <div style="position:absolute; bottom:calc(var(--footer-h) + .6rem); left:3.5rem; right:3.5rem;
+              border-top:1px solid var(--border); padding-top:.4em;
+              font-family:'Space Mono',monospace; font-size:.58em; color:#888;
+              display:flex; gap:2rem;">
+    <span><sup>1</sup> Imagining the Digital Future —
+      <a href="https://imaginingthedigitalfuture.org/reports-and-publications/the-impact-of-artificial-intelligence-by-2040/a-selection-of-future-scenarios-how-things-might-play-out/"
+         style="color:var(--blue); text-decoration:none;">AI Impact by 2040</a>
+    </span>
+    <span><sup>2</sup> World Economic Forum (2016). <em>The Future of Jobs.</em></span>
+  </div>
+  </section>
+
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 01 — KNOWLEDGE-BASED AGENTS
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 01</div>
+  <h1>Knowledge-Based Agents</h1>
+  <p class="section-desc">From reactive rules to explicit knowledge — why search-based agents fall short and what we need instead.</p>
+  <div class="section-number">01</div>
+</section>
+
+<!-- Recap: Search -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Recap: Search Algorithms</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Recap</div>
+    <p style="font-size:1.1em;line-height:1.8;">What is a <strong>search algorithm</strong> — and what are its key limitations?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <p>Search algorithms take a search problem as input and return a solution, or an indication of failure <em>(Russel &amp; Norvig, 2022, p. 89)</em>.</p>
+      <p>Problem-solving agents based on search are limited in a very specific way:</p>
+      <ul>
+        <li>They are <em>aware</em> of available actions and consequences, but <strong>do not possess general facts</strong> about the world.</li>
+        <li>They use <strong>atomic representations</strong> — requiring all possible concrete states to be enumerated.</li>
+        <li>Goals can only be described as an <strong>explicit set of states</strong> — no general rules or relations are possible.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- KB Agent components -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Knowledge-Based Agents</h2>
+  </div>
+  <p>To overcome the limitations of search-based agents, we introduce <strong>knowledge-based agents</strong> with three core components:</p>
+  <ul>
+    <li class="fragment"><strong>Knowledge base (KB):</strong> Central repository where the agent stores its understanding of the world — its memory and model of reality, used to make decisions.</li>
+    <li class="fragment"><strong>Sentences:</strong> The KB contains <em>sentences</em> — formal statements about the world in a knowledge representation language with defined syntax and semantics.</li>
+    <li class="fragment"><strong>TELL and ASK operations:</strong> Two fundamental ways the agent interacts with its KB:
+      <ul>
+        <li><strong>TELL</strong> — update the KB with new knowledge.</li>
+        <li><strong>ASK</strong> — query the KB for guidance on what action to take.</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<!-- Wumpus World -->
+ <section class="content-slide">
+  <div class="slide-header">
+    <h2>Example: Wumpus World</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div style="display: flex; gap: 2em; align-items: flex-start;">
+    <div style="flex: 1;">
+      <div class="callout exercise">
+        <div class="callout-label">💬 Discussion</div>
+        <p style="font-size:1.1em;line-height:1.8;">How is the <strong>Wumpus World</strong> characterized in terms of its task environment dimensions?</p>
+      </div>
+      <ol style="font-size:.9em; line-height:2;">
+        <li>B = Breeze</li>
+        <li>S = Stench</li>
+        <li>G = Glitter</li>
+        <li>P = Pit</li>
+        <li>A = Agent</li>
+        <li>W = Wumpus</li>
+        <li>OK = Safe Square</li>
+      </ol>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <img src="WumpusWorld.jpg" alt="Wumpus World" style="max-width: 100%; border-radius: 4px;" />
+    </div>
+  </div>
+</section>
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Example: Wumpus World</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <table style="margin-top:.4em;">
+        <thead><tr><th>Property</th><th>Characterization</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Observability</strong></td><td>Partial — agent only perceives its current square</td></tr>
+          <tr><td><strong>Agents</strong></td><td>Single agent</td></tr>
+          <tr><td><strong>Determinism</strong></td><td>Deterministic — actions have fixed outcomes</td></tr>
+          <tr><td><strong>Episodes</strong></td><td>Sequential — earlier moves affect future options</td></tr>
+          <tr><td><strong>Dynamics</strong></td><td>Static — world does not change while agent deliberates</td></tr>
+          <tr><td><strong>Continuity</strong></td><td>Discrete — finite grid of cells and discrete actions</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.6em;">Navigating this world <strong>requires some form of logic</strong> to store and reason over accumulated knowledge.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 02 — LOGIC & REASONING
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 02</div>
+  <h1>Logic &amp; Reasoning</h1>
+  <p class="section-desc">The formal building blocks agents use to represent knowledge and derive new facts from existing ones.</p>
+  <div class="section-number">02</div>
+</section>
+
+<!-- Syntax vs Semantics -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Syntax and Semantics</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.1em;line-height:1.8;">What is the difference between the <strong>syntax</strong> and <strong>semantics</strong> of a language?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <ul>
+        <li><strong>Syntax</strong> — the formal structure of sentences and the rules governing how they can be constructed and manipulated.</li>
+        <li><strong>Semantics</strong> — the meaning of sentences; how sentences relate to the world they describe.</li>
+      </ul>
+      <p style="margin-top:.5em;">Agents follow <strong>syntactic rules</strong> to derive new knowledge from existing sentences — and these derivations preserve <strong>semantic meaning</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Axioms vs Inference -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Types of Sentences in a KB</h2>
+  </div>
+  <p>A knowledge base can contain two types of sentences:</p>
+  <ul>
+    <li class="fragment"><strong>Axioms</strong> — sentences taken as given, without being derived from other sentences.</li>
+    <li class="fragment"><strong>Inferences</strong> — sentences derived from existing sentences using rules of reasoning.</li>
+  </ul>
+  <div class="fragment">
+    <div class="callout note" style="margin-top:.8em;">
+      <div class="callout-label">Example</div>
+      <p><strong>Axiom:</strong> If it is raining, the ground gets wet. <br> It is raining.</p>
+      <p><strong>Inference:</strong> The ground is wet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Modes of reasoning -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Modes of Reasoning</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p>Knowledge comprises <strong>facts</strong> and <strong>rules</strong>. Given a rule <em>A ⇒ B</em>, what are the different modes of reasoning?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <table style="font-size:.82em;">
+        <thead><tr><th>Type</th><th>You know</th><th>You derive</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Deductive</strong></td><td>Rule + A</td><td>B (certain)</td><td>It is raining → ground is wet</td></tr>
+          <tr><td><strong>Abductive</strong></td><td>Rule + B</td><td>A (best guess)</td><td>Ground is wet → probably rained (could be a sprinkler)</td></tr>
+          <tr><td><strong>Inductive</strong></td><td>Many A⇒B pairs</td><td>The rule itself</td><td>Every time it rains, ground is wet → rain makes ground wet</td></tr>
+          <tr><td><strong>Causal</strong></td><td>The cause</td><td>The effect</td><td>Rain causes the ground to be wet</td></tr>
+          <tr><td><strong>Diagnostic</strong></td><td>The effect</td><td>The cause</td><td>Ground is wet → what caused it? Must have rained</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 03 — PROPOSITIONAL LOGIC
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 03</div>
+  <h1>Propositional Logic</h1>
+  <p class="section-desc">Zero-order logic — the simplest formal system for encoding knowledge and deriving conclusions.</p>
+  <div class="section-number">03</div>
+</section>
+
+<!-- PL Overview -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Propositional Logic — Overview</h2>
+  </div>
+  <p>Propositional logic (also called <em>zero-order logic</em>) is the simplest form of logic for knowledge representation.</p>
+  <ul>
+    <li class="fragment"><strong>Objects</strong> — sentences or formulae that encode information and denote statements about the world.</li>
+    <li class="fragment"><strong>Atoms</strong> — basic sentences; the building blocks of propositional logic, denoted <em>P, Q, R, S, …</em></li>
+    <li class="fragment"><strong>Logical connectives</strong> — connect atoms to form compound formulae (e.g., if-then, and, or).</li>
+    <li class="fragment"><strong>Inference</strong> — derive new information from existing knowledge using syntactic rules.</li>
+  </ul>
+</section>
+
+<!-- Syntax table -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Syntax of Propositional Logic</h2>
+  </div>
+  <table>
+    <thead><tr><th>Connective</th><th>Notation</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Negation</td><td><code>¬S</code></td><td>not S</td></tr>
+      <tr><td>Conjunction</td><td><code>S₁ ∧ S₂</code></td><td>S1 and S2</td></tr>
+      <tr><td>Disjunction</td><td><code>S₁ ∨ S₂</code></td><td>S1 or S2</td></tr>
+      <tr><td>Implication</td><td><code>S₁ → S₂</code></td><td>if S1 then S2</td></tr>
+      <tr><td>Biconditional</td><td><code>S₁ ↔ S₂</code></td><td>S1 if and only if S2</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment">
+    <div class="callout note" style="margin-top:.8em;">
+      <div class="callout-label">Binding order — tightest to loosest</div>
+      <p><code>AP | ¬ | ∧ | ∨ | → | ↔ | (S)</code> &nbsp; where <em>AP</em> denotes an atomic proposition (e.g., true, false, A, B, …)</p>
+    </div>
+  </div>
+</section>
+
+<!-- Valid formulae exercise -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Valid Formulae?</h2>
+    <span class="tag">Discussion</span>
+    <span class="timer" data-minutes="3"></span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Which of the following are <strong>syntactically correct</strong> propositional logic formulae?</p>
+  </div>
+    <ol style="font-size:.9em; line-height:2.2;">
+    <li><code>True</code> <span class="fragment" data-fragment-index="1" style="color: #1a9e1a; font-weight: 700;">✓</span></li>
+    <li><code>True (∧ S2)</code> <span class="fragment" data-fragment-index="2" style="color: #cc0000; font-weight: 700;">✗ — <code>(∧ AP)</code> is not a valid connective</span></li>
+    <li><code>S1 →→ S2</code> <span class="fragment" data-fragment-index="3" style="color: #cc0000; font-weight: 700;">✗ — <code>→→</code> is not a valid connective</span></li>
+    <li><code>¬¬S1</code> <span class="fragment" data-fragment-index="4" style="color: #1a9e1a; font-weight: 700;">✓</span></li>
+    <li><code>S1 → ¬S2</code> <span class="fragment" data-fragment-index="5" style="color: #1a9e1a; font-weight: 700;">✓</span></li>
+    <li><code>S1 ¬→ S2</code> <span class="fragment" data-fragment-index="6" style="color: #cc0000; font-weight: 700;">✗ — <code>¬→</code> is not a valid connective</span></li>
+  </ol>
+</section>
+
+<!-- Truth table -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Truth Table</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="5"></span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Complete the truth table for the following formulae:</p>
+  </div>
+  <table style="font-size:.78em;">
+    <thead>
+      <tr>
+        <th>A</th><th>B</th><th>¬A</th><th>(A ∧ B) ∨ B</th><th>A → B</th><th>A ↔ B</th><th>B → (A ∧ B)</th><th>A → (A ↔ B)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>F</td><td>F</td>
+        <td class="fragment" data-fragment-index="1">T</td>
+        <td class="fragment" data-fragment-index="2">F</td>
+        <td class="fragment" data-fragment-index="3">T</td>
+        <td class="fragment" data-fragment-index="4">T</td>
+        <td class="fragment" data-fragment-index="5">T</td>
+        <td class="fragment" data-fragment-index="6">T</td>
+      </tr>
+      <tr>
+        <td>F</td><td>T</td>
+        <td class="fragment" data-fragment-index="1">T</td>
+        <td class="fragment" data-fragment-index="2">T</td>
+        <td class="fragment" data-fragment-index="3">T</td>
+        <td class="fragment" data-fragment-index="4">F</td>
+        <td class="fragment" data-fragment-index="5">F</td>
+        <td class="fragment" data-fragment-index="6">T</td>
+      </tr>
+      <tr>
+        <td>T</td><td>F</td>
+        <td class="fragment" data-fragment-index="1">F</td>
+        <td class="fragment" data-fragment-index="2">F</td>
+        <td class="fragment" data-fragment-index="3">F</td>
+        <td class="fragment" data-fragment-index="4">F</td>
+        <td class="fragment" data-fragment-index="5">T</td>
+        <td class="fragment" data-fragment-index="6">F</td>
+      </tr>
+      <tr>
+        <td>T</td><td>T</td>
+        <td class="fragment" data-fragment-index="1">F</td>
+        <td class="fragment" data-fragment-index="2">T</td>
+        <td class="fragment" data-fragment-index="3">T</td>
+        <td class="fragment" data-fragment-index="4">T</td>
+        <td class="fragment" data-fragment-index="5">T</td>
+        <td class="fragment" data-fragment-index="6">T</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 04 — SIMPLE INFERENCE
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 04</div>
+  <h1>Simple Inference</h1>
+  <p class="section-desc">From knowing facts to deriving conclusions — entailment, model checking, and what it means for KB to guarantee a sentence.</p>
+  <div class="section-number">04</div>
+</section>
+
+<!-- Key concepts -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Key Concepts</h2>
+  </div>
+  <ul>
+    <li class="fragment"><strong>Entailment</strong> (α ⊨ β) — the truth of one sentence requires the truth of another. In every model where α is true, β must also be true.</li>
+    <li class="fragment"><strong>Satisfaction</strong> — sentence α is true in model m. We write M(α) for the set of all models of α.</li>
+    <li class="fragment"><strong>Model checking</strong> — determine whether KB ⊨ α, i.e. M(KB) ⊆ M(α): in every model where KB is true, α must also be true.</li>
+  </ul>
+</section>
+
+<!-- Model checking procedure -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Model Checking — Procedure</h2>
+  </div>
+  <p>To check whether <strong>KB ⊨ α</strong>:</p>
+  <ol>
+    <li class="fragment">Identify all propositional symbols appearing in KB and α.</li>
+    <li class="fragment">Construct a complete truth table listing all 2ⁿ possible truth value combinations for n symbols.</li>
+    <li class="fragment">Evaluate both KB and α in each row.</li>
+    <li class="fragment">Select the models where KB is true — this is M(KB).</li>
+    <li class="fragment">Check whether α is also true in <strong>all</strong> those models:
+      <ul>
+        <li>If yes: KB ⊨ α (entailment holds).</li>
+        <li>If no: KB ⊭ α (entailment does not hold).</li>
+      </ul>
+    </li>
+  </ol>
+</section>
+
+<!-- Model checking example -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Example: Model Checking</h2>
+  </div>
+  <div class="callout note">
+    <div class="callout-label">Example</div>
+    <p><strong>KB</strong> = P ∧ Q, &nbsp; <strong>α</strong> = P ↔ Q. &nbsp; Does KB ⊨ α?</p>
+  </div>
+  <table class="fragment" style="margin-top:.6em;">
+    <thead><tr><th>P</th><th>Q</th><th>P ∧ Q</th><th>KB true?</th><th>P ↔ Q</th></tr></thead>
+    <tbody>
+      <tr><td>T</td><td>T</td><td>T</td><td><strong>T</strong></td><td>T</td></tr>
+      <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td></tr>
+      <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+      <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment" style="margin-top:.7em;">
+    <p>M(KB) = {(T,T)} ⊆ {(T,T),(F,F)} = M(α) &nbsp;→&nbsp; <strong>KB ⊨ α ✓</strong></p>
+  </div>
+</section>
+
+<!-- Wumpus exercise -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Wumpus World — Model Checking</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="15"></span>
+  </div>
+  <div style="display: flex; gap: 2rem; align-items: flex-start;">
+    <div><p>The agent has perceived: <strong>nothing</strong> in [1,1], a <strong>breeze</strong>
+    in [2,1], and a <strong>stench</strong> in [1,2]. Cells of interest: [1,3], [2,2], [3,1]
+    — each may contain a pit; at most one contains the wumpus.</p>
+    <div class="callout exercise">
+      <div class="callout-label">✏️ Exercise</div>
+      <p><strong>Construct all 32 possible worlds</strong> (2³ pit combos × 4 wumpus placements) and use model checking to determine whether the KB entails:</p>
+      <ul>
+        <li><strong>α₂:</strong> "There is no pit in [2,2]"</li>
+        <li><strong>α₃:</strong> "The wumpus is in [1,3]"</li>
+      </ul>
+    </div></div>
+    <img src="wumpus_scenario_exercise.svg" alt="Wumpus World"
+       style="max-width: 45%; border-radius: 4px;" />
+  </div>
+</section>
+
+<!-- Wumpus solution -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Model Checking</h2>
+  </div>
+  <p><strong>What the KB encodes:</strong></p>
+  <ul style="font-size:.88em;">
+    <li>Nothing in [1,1] → no adjacent pit or wumpus</li>
+    <li>Breeze in [2,1] → P₂,₂ ∨ P₃,₁</li>
+    <li>Stench in [1,2] → W₁,₃ ∨ W₂,₂</li>
+  </ul>
+  <p style="margin-top:.5em;">A world is KB-consistent iff <strong>both</strong> conditions hold: Breeze in [2,1] and Stench in [1,2].</p>
+</section>
+
+<!-- ══════════════════════════════════════
+     STEP 1 — All 32 worlds (textbook grouping)
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 1 / 6</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Setup:</strong> Cells [1,3], [2,2], [3,1] are unknown — 8 pit combinations × 4 wumpus placements = <strong>32 worlds</strong>.
+    Worlds are grouped by wumpus location (matching R&amp;N Fig. S7.1). Propositions not listed are false. All values are <span class="ww-q">?</span>.
+  </div>
+ 
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:.6em;">
+ 
+    <table class="ww-tt" style="font-size:.66em;">
+      <thead><tr><th class="l" style="padding:.26em .45em;">Model</th><th style="padding:.26em .32em;">KB</th><th style="padding:.26em .32em;">α₂</th><th style="padding:.26em .32em;">α₃</th></tr></thead>
+      <tbody>
+        <tr class="ww-sep"><td colspan="4">No wumpus in cells of interest</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">(no pits)</td>          <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₂,₂</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₃,₁</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-sep"><td colspan="4">W₁,₃</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃</td>                       <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₂,₂</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₃,₁</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+      </tbody>
+    </table>
+ 
+    <table class="ww-tt" style="font-size:.66em;">
+      <thead><tr><th class="l" style="padding:.26em .45em;">Model</th><th style="padding:.26em .32em;">KB</th><th style="padding:.26em .32em;">α₂</th><th style="padding:.26em .32em;">α₃</th></tr></thead>
+      <tbody>
+        <tr class="ww-sep"><td colspan="4">W₃,₁</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁</td>                       <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₂,₂</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₃,₁</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₃,₁, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-sep"><td colspan="4">W₂,₂</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂</td>                       <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₂,₂</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₃,₁</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+      </tbody>
+    </table>
+ 
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 2 — Stench in [1,2] → W₁,₃ ∨ W₂,₂
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 2 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Constraint — Stench in [1,2]:</strong> &nbsp;<code>W₁,₃ ∨ W₂,₂</code> &nbsp;—&nbsp;
+    adjacents of [1,2] are [1,1], [1,3], [2,2]. Since [1,1] is safe, the wumpus must be at [1,3] or [2,2].
+    Eliminates all worlds where the wumpus is neither at [1,3] nor [2,2] — i.e. the entire "no wumpus" group and the W₃,₁ group.
+  </div>
+ 
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:.6em;">
+ 
+    <table class="ww-tt" style="font-size:.66em;">
+      <thead><tr><th class="l" style="padding:.26em .45em;">Model</th><th style="padding:.26em .32em;">KB</th><th style="padding:.26em .32em;">α₂</th><th style="padding:.26em .32em;">α₃</th></tr></thead>
+      <tbody>
+        <tr class="ww-sep"><td colspan="4">No wumpus — eliminated (stench requires W)</td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">(no pits)</td>          <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₁,₃</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₂,₂</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₃,₁</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₁,₃, P₂,₂</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₂,₂, P₃,₁</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₃,₁, P₁,₃</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-sep"><td colspan="4">W₃,₁ — eliminated (not adjacent to [1,2])</td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁</td>                       <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₁,₃</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₂,₂</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₃,₁</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₁,₃, P₂,₂</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₂,₂, P₃,₁</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₃,₁, P₁,₃</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+        <tr class="ww-elim"><td class="l" style="padding:.19em .45em;">W₃,₁, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-r">✗</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+ 
+    <table class="ww-tt" style="font-size:.66em;">
+      <thead><tr><th class="l" style="padding:.26em .45em;">Model</th><th style="padding:.26em .32em;">KB</th><th style="padding:.26em .32em;">α₂</th><th style="padding:.26em .32em;">α₃</th></tr></thead>
+      <tbody>
+        <tr class="ww-sep"><td colspan="4">W₂,₂ — still open</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂</td>                       <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₂,₂</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₃,₁</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₂,₂, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-sep"><td colspan="4">W₁,₃ — still open</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃</td>                       <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₂,₂</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₃,₁</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+        <tr class="ww-new"><td class="l" style="padding:.19em .45em;">W₁,₃, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-q">?</td></tr>
+      </tbody>
+    </table>
+ 
+  </div>
+ 
+  <div class="ww-badges">
+    <span class="ww-badge-elim">16 worlds eliminated</span>
+    <span class="ww-badge-ok">16 remaining — W₁,₃ and W₂,₂ groups</span>
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 3 — No stench in [2,1] → ¬W₂,₂ ∧ ¬W₃,₁
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 3 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Constraint — No stench in [2,1]:</strong> &nbsp;<code>¬W₂,₂ ∧ ¬W₃,₁</code> &nbsp;—&nbsp;
+    adjacents of [2,1] are [1,1], [2,2], [3,1]. No stench means the wumpus is in none of these.
+    Eliminates the entire W₂,₂ group — 8 more worlds.
+  </div>
+ 
+  <p style="font-size:.78em; color:var(--muted-dark); margin:.1em 0 .3em;">Newly eliminated — all 8 worlds in the W₂,₂ group:</p>
+ 
+  <table class="ww-tt" style="font-size:.84em;">
+    <thead><tr><th class="l">Model</th><th>KB</th><th>α₂ &nbsp;(¬P₂,₂)</th><th>α₃ &nbsp;(W₁,₃)</th></tr></thead>
+    <tbody>
+      <tr class="ww-elim"><td class="l">W₂,₂</td>                       <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₁,₃</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₂,₂</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₃,₁</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₁,₃, P₂,₂</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₂,₂, P₃,₁</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₃,₁, P₁,₃</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₂,₂, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-r">✗</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="ww-badges">
+    <span class="ww-badge-elim">8 more worlds eliminated</span>
+    <span class="ww-badge-ok">8 remaining — W₁,₃ group only</span>
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 4 — Combined wumpus result: only W₁,₃ survives
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 4 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Interim result — wumpus location established:</strong> combining steps 2 and 3, the wumpus must be at [1,3].
+    Only the W₁,₃ group survives. All 8 worlds in this group still differ in their pit assignments.
+  </div>
+ 
+  <p style="font-size:.78em; color:var(--muted-dark); margin:.1em 0 .3em;">8 surviving worlds — pit constraints still to be applied:</p>
+ 
+  <table class="ww-tt" style="font-size:.84em;">
+    <thead><tr><th class="l">Model</th><th>KB</th><th>α₂ &nbsp;(¬P₂,₂)</th><th>α₃ &nbsp;(W₁,₃)</th></tr></thead>
+    <tbody>
+      <tr class="ww-new"><td class="l">W₁,₃</td>                       <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₁,₃</td>               <td class="ww-q">?</td><td class="ww-q">?</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₂,₂</td>               <td class="ww-q">?</td><td class="ww-r">✗</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₃,₁</td>               <td class="ww-q">?</td><td class="ww-g">✓</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₁,₃, P₂,₂</td>        <td class="ww-q">?</td><td class="ww-r">✗</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₂,₂, P₃,₁</td>        <td class="ww-q">?</td><td class="ww-r">✗</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₃,₁, P₁,₃</td>        <td class="ww-q">?</td><td class="ww-g">✓</td><td class="ww-g">✓</td></tr>
+      <tr class="ww-new"><td class="l">W₁,₃, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-q">?</td><td class="ww-r">✗</td><td class="ww-g">✓</td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="ww-badges">
+    <span class="ww-badge-ok">α₃ already established as true in all 8 remaining worlds</span>
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 5 — Breeze in [2,1] → P₂,₂ ∨ P₃,₁
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 5 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Constraint — Breeze in [2,1]:</strong> &nbsp;<code>P₂,₂ ∨ P₃,₁</code> &nbsp;—&nbsp;
+    adjacents of [2,1] are [1,1], [2,2], [3,1]; since [1,1] is safe, at least one of P₂,₂ or P₃,₁ must hold.
+    Eliminates W₁,₃ worlds where neither pit is present.
+  </div>
+ 
+  <p style="font-size:.78em; color:var(--muted-dark); margin:.1em 0 .3em;">Newly eliminated from the 8 remaining W₁,₃ worlds (no P₂,₂ and no P₃,₁):</p>
+ 
+  <table class="ww-tt" style="font-size:.84em;">
+    <thead><tr><th class="l">Model</th><th>KB</th><th>α₂ &nbsp;(¬P₂,₂)</th><th>α₃ &nbsp;(W₁,₃)</th></tr></thead>
+    <tbody>
+      <tr class="ww-elim"><td class="l">W₁,₃</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₁,₃, P₁,₃</td> <td class="ww-r">✗</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="ww-badges">
+    <span class="ww-badge-elim">2 more worlds eliminated</span>
+    <span class="ww-badge-ok">6 remaining</span>
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 6 — No breeze in [1,2] → ¬P₁,₃ ∧ ¬P₂,₂
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 6 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Constraint — No breeze in [1,2]:</strong> &nbsp;<code>¬P₁,₃ ∧ ¬P₂,₂</code> &nbsp;—&nbsp;
+    adjacents of [1,2] are [1,1], [1,3], [2,2]; since [1,1] is safe, no pit in [1,3] or [2,2].
+    Eliminates all remaining worlds where P₁,₃ = true or P₂,₂ = true.
+  </div>
+ 
+  <p style="font-size:.78em; color:var(--muted-dark); margin:.1em 0 .3em;">Newly eliminated from the 6 remaining worlds:</p>
+ 
+  <table class="ww-tt" style="font-size:.84em;">
+    <thead><tr><th class="l">Model</th><th>KB</th><th>α₂ &nbsp;(¬P₂,₂)</th><th>α₃ &nbsp;(W₁,₃)</th></tr></thead>
+    <tbody>
+      <tr class="ww-elim"><td class="l">W₁,₃, P₂,₂</td>               <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₁,₃, P₁,₃, P₂,₂</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₁,₃, P₂,₂, P₃,₁</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₁,₃, P₃,₁, P₁,₃</td>        <td class="ww-r">✗</td><td></td><td></td></tr>
+      <tr class="ww-elim"><td class="l">W₁,₃, P₁,₃, P₃,₁, P₂,₂</td> <td class="ww-r">✗</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+ 
+  <div class="ww-badges">
+    <span class="ww-badge-elim">5 more worlds eliminated</span>
+    <span class="ww-badge-ok">1 remaining</span>
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 7 — The unique surviving world
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 7 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Result:</strong> After applying all four KB constraints, exactly <strong>one world</strong> remains consistent:
+    it has P₃,₁ (satisfying the breeze), W₁,₃ (satisfying the stench),
+    no P₁,₃ or P₂,₂ (satisfying the no-breeze in [1,2]), and W not at [2,2] or [3,1] (satisfying the no-stench in [2,1]).
+  </div>
+ 
+  <table class="ww-tt" style="font-size:.88em;">
+    <thead><tr><th class="l">Model</th><th>KB</th><th>α₂ &nbsp;(¬P₂,₂)</th><th>α₃ &nbsp;(W₁,₃)</th></tr></thead>
+    <tbody>
+      <tr class="ww-ok">
+        <td class="l">W₁,₃, P₃,₁</td>
+        <td class="ww-g">✓</td>
+        <td class="ww-g">✓</td>
+        <td class="ww-g">✓</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="ww-badges" style="margin-top:.6em;">
+    <span class="ww-badge-ok">Unique KB-consistent world: W₁,₃ ∧ P₃,₁</span>
+  </div>
+ 
+  <div class="callout note" style="margin-top:.8em; font-size:.84em;">
+    <div class="callout-label">Key insight</div>
+    <p>
+      The <strong>negative percepts</strong> — no breeze in [1,2] and no stench in [2,1] — are just as informative as the positive ones.
+      Without them, 12 worlds would remain consistent and neither α₂ nor α₃ could be entailed.
+    </p>
+  </div>
+</section>
+ 
+ 
+<!-- ══════════════════════════════════════
+     STEP 8 — Evaluate α₂ and α₃
+══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Wumpus World — Step 8 / 8</h2>
+    <span class="tag">Step by Step</span>
+  </div>
+ 
+  <div class="ww-step-box">
+    <strong>Entailment check:</strong> KB ⊨ α holds iff α is true in <em>every</em> model where KB is true — M(KB) ⊆ M(α).
+    Since M(KB) = {W₁,₃ ∧ P₃,₁}, we evaluate α₂ and α₃ in that single world.
+  </div>
+ 
+  <table class="ww-tt" style="font-size:.88em; margin-bottom:.65em;">
+    <thead><tr><th class="l">Model</th><th>KB</th><th>α₂ &nbsp;(¬P₂,₂)</th><th>α₃ &nbsp;(W₁,₃)</th></tr></thead>
+    <tbody>
+      <tr class="ww-ok">
+        <td class="l">W₁,₃, P₃,₁</td>
+        <td class="ww-g">✓</td>
+        <td class="ww-g">✓</td>
+        <td class="ww-g">✓</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="ww-ent-grid">
+    <div class="ww-ent-card">
+      <div class="ww-ent-hd">α₂ — No pit in [2,2]</div>
+      <div class="ww-ent-body">
+        No breeze in [1,2] eliminates P₂,₂ directly (step 6).<br>
+        In the unique KB world, P₂,₂ = false → α₂ is true.
+        <div class="ww-ent-result">KB &nbsp;⊨&nbsp; α₂ &nbsp;✓</div>
+      </div>
+    </div>
+    <div class="ww-ent-card">
+      <div class="ww-ent-hd">α₃ — Wumpus in [1,3]</div>
+      <div class="ww-ent-body">
+        Stench in [1,2] required W₁,₃ or W₂,₂ (step 2).<br>
+        No stench in [2,1] ruled out W₂,₂ (step 3) → only W₁,₃ remains.
+        <div class="ww-ent-result">KB &nbsp;⊨&nbsp; α₃ &nbsp;✓</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="callout note" style="margin-top:.6em; font-size:.84em;">
+    <div class="callout-label">Definition — Entailment</div>
+    <p>KB ⊨ α &nbsp;iff&nbsp; M(KB) ⊆ M(α) — α is true in <strong>every</strong> model where KB is true.
+    Here M(KB) = {W₁,₃ ∧ P₃,₁}, and both α₂ and α₃ hold in that single world. ∎</p>
+  </div>
+</section>
+<!-- ══════════════════════════════════════════
+     SECTION 05 — PROPOSITIONAL PROOFS
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 05</div>
+  <h1>Propositional Proofs</h1>
+  <p class="section-desc">Theorem proving — deriving entailments directly from sentences using inference rules, without enumerating all models.</p>
+  <div class="section-number">05</div>
+</section>
+
+<!-- Theorem proving + additional concepts -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Theorem Proving — Key Concepts</h2>
+  </div>
+  <p><strong>Theorem proving</strong> applies inference rules directly to sentences in the KB to construct a proof — without enumerating models.</p>
+  <ul>
+    <li class="fragment"><strong>Logical equivalence</strong> (≡): α ≡ β iff α and β are true in the same set of models. Standard equivalences apply (e.g., commutativity of ∧).</li>
+    <li class="fragment"><strong>Validity:</strong> A sentence is valid if it is true in all models (e.g., P ∨ ¬P).</li>
+    <li class="fragment"><strong>Deduction theorem:</strong> α ⊨ β iff the sentence (α → β) is valid.</li>
+    <li class="fragment"><strong>Satisfiability:</strong> A sentence is satisfiable if it is true in at least one model.</li>
+  </ul>
+  <div class="fragment">
+    <div class="callout note" style="margin-top:.6em;">
+      <div class="callout-label">Key connection</div>
+      <p>α ⊨ β &nbsp; iff &nbsp; (α ∧ ¬β) is <strong>unsatisfiable</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How are equivalences proven? -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>How Are Equivalences Proven?</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.1em;line-height:1.8;">How can we prove logical equivalences?</p>
+    <p>a) By using other (yet-to-be-proven) equivalences from the list<br/>
+    b) By enumeration (truth tables)</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <p><strong>b — truth tables.</strong> Proving equivalences by other unproven equivalences would lead to circular reasoning.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Inference rules -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Inference Rules</h2>
+  </div>
+  <p>Sound inference rules derive new sentences without enumerating models:</p>
+  <ul>
+    <li class="fragment"><strong>Modus Ponens</strong> (α → β, α | β): If α → β and α are both given, then β can be inferred.</li>
+    <li class="fragment"><strong>And-Elimination</strong> (α ∧ β | β): From a conjunction, any conjunct can be inferred individually.</li>
+    <li class="fragment"><strong>Biconditional elimination:</strong> α ↔ β ≡ (α → β) ∧ (β → α)</li>
+    <li class="fragment"><strong>Contraposition:</strong> (α → β) ≡ (¬β → ¬α)</li>
+    <li class="fragment"><strong>De Morgan:</strong> ¬(α ∧ β) ≡ (¬α ∨ ¬β) &nbsp;and&nbsp; ¬(α ∨ β) ≡ (¬α ∧ ¬β)</li>
+    <li class="fragment">All logical equivalences can be used as inference rules in either direction.</li>
+  </ul>
+</section>
+
+<!-- Fire alarm world -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Example: Fire Alarm World</h2>
+    <span class="timer" data-minutes="5"></span>
+  </div>
+  <div class="callout note">
+    <div class="callout-label">Scenario</div>
+    <p><em>"There is smoke in a room iff the alarm in that room sounds."</em><br/>
+    Agent perceives: <strong>no alarm in room A or B</strong>. Is there smoke in room A or B?</p>
+  </div>
+  <p class="fragment" style="margin-top:.6em;"><strong>KB:</strong></p>
+  <ul class="fragment" style="font-size:.9em;">
+    <li>R1: S<sub>A</sub> ↔ A<sub>A</sub></li>
+    <li>R2: S<sub>B</sub> ↔ A<sub>B</sub></li>
+    <li>R3: ¬A<sub>A</sub></li>
+    <li>R4: ¬A<sub>B</sub></li>
+  </ul>
+</section>
+
+<!-- Fire alarm proof -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Fire Alarm World — Proof</h2>
+  </div>
+  <ol style="font-size:.88em; line-height:1.9;">
+    <li class="fragment"><strong>Biconditional elimination</strong> on R1: S<sub>A</sub> ↔ A<sub>A</sub> ≡ (S<sub>A</sub> → A<sub>A</sub>) ∧ (A<sub>A</sub> → S<sub>A</sub>) → R5</li>
+    <li class="fragment"><strong>And-Elimination</strong> on R5: extract A<sub>A</sub> → S<sub>A</sub> → R6</li>
+    <li class="fragment"><strong>Contraposition</strong> on R6: A<sub>A</sub> → S<sub>A</sub> ≡ ¬A<sub>A</sub> → ¬S<sub>A</sub> → R7</li>
+    <li class="fragment"><strong>Modus Ponens</strong> with R7 and R3 (¬A<sub>A</sub>): derive ¬S<sub>A</sub> → R8</li>
+    <li class="fragment">Apply same steps for room B → derive ¬S<sub>B</sub> → R9: ¬S<sub>A</sub> ∧ ¬S<sub>B</sub></li>
+    <li class="fragment"><strong>De Morgan</strong>: ¬S<sub>A</sub> ∧ ¬S<sub>B</sub> ≡ ¬(S<sub>A</sub> ∨ S<sub>B</sub>)</li>
+  </ol>
+  <div class="fragment">
+    <div class="callout note" style="margin-top:.7em;">
+      <div class="callout-label">Conclusion</div>
+      <p><strong>There is no smoke in room A or B.</strong></p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     Q&A
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Q&amp;A</div>
+  <h1>Questions?</h1>
+  <p class="section-desc">What remains unclear — about knowledge-based agents, logic, or inference?</p>
+  <div class="section-number">?</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     EXERCISES
+══════════════════════════════════════════ -->
+<section class="exercises-slide">
+  <h1>Exercises</h1>
+  <div class="section-number">Ex</div>
+  <p> Additional exercise for practice </p>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Recap: Search Algorithms</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Recap the definition of <strong>search algorithms</strong> and explain what their key limitations are when compared to knowledge-based agents.</p>
+  </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Knowledge-Based Agent Components</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Explain in your own words the following terms:</p>
+  </div>
+  <ul>
+    <li>Knowledge base (KB)</li>
+    <li>Sentence</li>
+    <li>Axiom</li>
+    <li>Inference</li>
+    <li>TELL operation</li>
+    <li>ASK operation</li>
+  </ul>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Modes of Reasoning</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>For each of the following, identify the <strong>mode of reasoning</strong> and justify your answer.</p>
+  </div>
+  <ol style="font-size:.9em; line-height:1.9;">
+    <li>A doctor observes a patient has a fever and concludes they likely have an infection.</li>
+    <li>Every time a server is overloaded, response time increases. A developer concludes high load causes slow responses.</li>
+    <li>A fire alarm is sounding. The safety officer concludes there is probably smoke somewhere.</li>
+    <li>If the database is locked, queries will fail. The database is locked — therefore queries will fail.</li>
+    <li>Overloading a CPU causes it to throttle. The CPU is overloaded — therefore it will throttle.</li>
+  </ol>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Propositional Logic — Syntax</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Which of the following are syntactically correct propositional logic formulae?</p>
+  </div>
+  <ol style="font-size:.9em; line-height:2;">
+    <li><code>True</code></li>
+    <li><code>True ∧ S2</code></li>
+    <li><code>S1 →→ S2</code></li>
+    <li><code>¬¬S1</code></li>
+    <li><code>S1 → ¬S2</code></li>
+    <li><code>S1 ¬→ S2</code></li>
+  </ol>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Truth Table</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Construct the truth table for the following formulae and determine for which truth value assignments they are satisfied:</p>
+  </div>
+  <ol style="font-size:.9em; line-height:2;">
+    <li>A → (B ∨ ¬A)</li>
+    <li>(A ↔ B) ∧ ¬B</li>
+    <li>¬(A ∧ B) ↔ (¬A ∨ ¬B)</li>
+  </ol>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Model Checking</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Use model checking to determine whether the following entailments hold.</p>
+  </div>
+  <ol style="font-size:.9em; line-height:2;">
+    <li><strong>KB</strong> = {P → Q, P}, &nbsp; α = Q. &nbsp; Does KB ⊨ α?</li>
+    <li><strong>KB</strong> = {P ∨ Q, ¬P}, &nbsp; α = Q. &nbsp; Does KB ⊨ α?</li>
+    <li><strong>KB</strong> = {P ↔ Q}, &nbsp; α = P ∧ Q. &nbsp; Does KB ⊨ α?</li>
+  </ol>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Propositional Proof — Fire Alarm</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>A building has the following rules and percepts. Use inference rules to derive conclusions about smoke in rooms A and B.</p>
+  </div>
+  <ul style="font-size:.9em; line-height:1.9;">
+    <li>R1: S<sub>A</sub> ↔ A<sub>A</sub> &nbsp; (smoke in A iff alarm in A sounds)</li>
+    <li>R2: S<sub>B</sub> ↔ A<sub>B</sub> &nbsp; (smoke in B iff alarm in B sounds)</li>
+    <li>R3: A<sub>A</sub> &nbsp; (alarm in A <em>is</em> sounding)</li>
+    <li>R4: ¬A<sub>B</sub> &nbsp; (alarm in B is <em>not</em> sounding)</li>
+  </ul>
+</section>
+
+
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: false,
+  progress: true,
+  controls: false,
+  fragments: true,
+  transition: 'fade',
+  transitionSpeed: 'default',
+  center: false,
+  width: 1400,
+  height: 788,
+  margin: 0,
+});
+
+function updateFooter() {
+  var idx = Reveal.getIndices();
+  var total = Reveal.getTotalSlides();
+  var el = document.getElementById('footer-slide-num');
+  if (el) el.textContent = (idx.h + 1) + ' / ' + total;
+}
+Reveal.on('ready', updateFooter);
+Reveal.on('slidechanged', updateFooter);
+</script>
+<script>
+document.querySelectorAll('.timer').forEach(function(el) {
+  var m = parseInt(el.dataset.minutes) || 5;
+  el.textContent = m + ':00';
+  Object.assign(el.style, {
+    fontFamily: "'Space Mono', monospace",
+    fontSize: '1.4em', fontWeight: '700',
+    color: 'var(--blue)', background: 'var(--light-bg)',
+    border: '2px solid var(--border)', borderRadius: '6px',
+    padding: '.1em .5em', cursor: 'pointer'
+  });
+  el.addEventListener('click', function() {
+    if (el._running) return;
+    el._running = true;
+    var s = m * 60;
+    var iv = setInterval(function() {
+      s--;
+      el.textContent = Math.floor(s/60) + ':' + (s%60 < 10 ? '0' : '') + s%60;
+      if (s <= 60) el.style.color = '#e05000';
+      if (s <= 0) { clearInterval(iv); el.textContent = 'Done'; el.style.color = '#cc0000'; el._running = false; }
+    }, 1000);
+  });
+});
+</script>
+</body>
+</html>
