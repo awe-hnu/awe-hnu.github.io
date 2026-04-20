@@ -196,7 +196,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Mar 16, 2026</p>
+        <p class="date-modified">Apr 19, 2026</p>
       </div>
     </div>
       
@@ -353,7 +353,9 @@ window.Quarto = {
 <section id="components-of-knowledge-based-agents" class="level2">
 <h2 data-anchor-id="components-of-knowledge-based-agents">Components of knowledge-based agents</h2>
 <p>Often rational action requires <strong>rational (logical) thought</strong> on the agent’s part.</p>
+<div class="fragment">
 <p>For rational thought, an agent requires <span class="fragment">a <strong>knowledge base (KB)</strong> with semantically meaningful <strong>sentences</strong> expressed in a formal representation language<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,</span> <span class="fragment"><strong>inference mechanisms</strong> to derive new knowledge from existing facts,</span> <span class="fragment">and a means of interacting with this knowledge through <strong>operations like ASK and TELL</strong>.</span></p>
+</div>
 <div class="notes">
 <dl>
 <dt>Knowledge Base (KB)</dt>
@@ -413,7 +415,9 @@ Figure&nbsp;1: A simplified illustration of a knowledge-based agent
 </section>
 <section id="reasoning-types" class="level2">
 <h2 data-anchor-id="reasoning-types">Reasoning types</h2>
+<div class="fragment">
 <p>Rule: <span class="math inline">\(A \implies B\)</span> (A: premise; B: conclusion)</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><strong>Deductive reasoning:</strong> Given a rule, observed a premise fact A, <em>certainly conclude</em> B</li>
@@ -455,8 +459,10 @@ Figure&nbsp;1: A simplified illustration of a knowledge-based agent
 <li>Through applying syntactic rules (<strong>inference</strong>) new information can be derived from existing knowledge.</li>
 </ul>
 </div>
+<div class="fragment">
 <div class="small">
 <p>We will delve deep into propositional logic using the <a href="#wumpus-world">Wumpus World</a> example below.</p>
+</div>
 </div>
 </section>
 <section id="knowledge-graphs" class="level2">
@@ -531,7 +537,9 @@ Figure&nbsp;1: A simplified illustration of a knowledge-based agent
 <section id="peas" class="level2">
 <h2 data-anchor-id="peas">PEAS</h2>
 <p>Let’s apply the PEAS concept to specify the task environment of the wumpus world (though we do not use the complete specification here).</p>
+<div class="fragment">
 <p><span class="h4">Performance measure</span></p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li>+1,000 for finding the gold</li>
@@ -569,8 +577,10 @@ Figure&nbsp;1: A simplified illustration of a knowledge-based agent
 <li>When the agent walks into a wall, it perceives a <em>bump</em></li>
 </ul>
 </div>
+<div class="fragment">
 <p>Percepts are represented as a 4-tuple, e.g.,<br>
 <span class="math inline">\([Stench, Breeze, Glitter, None]\)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</div>
 <div class="notes">
 <p>The PEAS can be characterized as <em>deterministic, discrete, static, and single-agent</em></p>
 </div>
@@ -641,13 +651,21 @@ Figure&nbsp;4: Moving from [1,2] to [2,3]
 <section id="basic-syntax" class="level2">
 <h2 data-anchor-id="basic-syntax">Basic syntax</h2>
 <p><strong>Propositions</strong> are the building blocks of propositional logic.</p>
+<div class="fragment">
 <p><strong>Atomic sentences</strong> consist of a single proposition symbol, that can be <code>true</code> or <code>false</code>, e.g.,</p>
+</div>
+<div class="fragment">
 <ul>
 <li><span class="math inline">\(BlockRed\)</span> — <em>The block is red</em></li>
 <li><span class="math inline">\(W_{1,3}\)</span> — <em>The wumpus is in</em> <span class="math inline">\([1,3]\)</span></li>
 </ul>
+</div>
+<div class="fragment">
 <p>The logical connectives <code>and</code> <span class="math inline">\(\land\)</span>, <code>or</code> <span class="math inline">\(\lor\)</span>, <code>not</code> <span class="math inline">\(\neg\)</span>, <code>implies</code> <span class="math inline">\(\implies\)</span>, and <code>if and only if</code> <span class="math inline">\(\iff\)</span> can be used to build <strong>complex sentences</strong>.</p>
+</div>
+<div class="fragment">
 <p>Operator precedence: <span class="math inline">\(\neg, \land, \lor, \implies, \iff\)</span> (use brackets when necessary)</p>
+</div>
 <div class="notes">
 <p><span class="h4">Logical connectives</span></p>
 <p>Logical connectives (also called logical operators) are symbols or words used to connect two or more sentences (of either a formal or a natural language) in a grammatically valid way, such that the value of the compound sentence produced depends only on that of the original sentences and on the meaning of the connective.</p>
@@ -741,8 +759,12 @@ Table&nbsp;1: Truth tables for the five logical connectives
 <section id="basic-semantics" class="level2">
 <h2 data-anchor-id="basic-semantics">Basic semantics</h2>
 <p>Atomic propositions can be <code>true</code> or <code>false</code>.</p>
+<div class="fragment">
 <p>The truth of a formula follows from the truth of its atomic propositions (<strong>truth assignment</strong> or <strong>interpretation</strong>) and the connectives.</p>
+</div>
+<div class="fragment">
 <p>Examples:</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\((P \lor Q) \land R\)</span>
@@ -804,8 +826,12 @@ Figure&nbsp;5: The situation reflected by the sentences
 <h2 data-anchor-id="a-simple-inference">A simple inference</h2>
 <p>Our goal is to decide wether <span class="math inline">\(KB \models \alpha\)</span><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> for some sentence <span class="math inline">\(\alpha\)</span>,<br>
 e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <span class="math inline">\(KB\)</span> (and, thus, a safe place to move)?</p>
+<div class="fragment">
 <p><strong>Model checking</strong> enumerates all possible models to check that <span class="math inline">\(\alpha\)</span> is true in every model in which <span class="math inline">\(KB\)</span> is true<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+</div>
+<div class="fragment">
 <p>Example (the agent has just moved to <span class="math inline">\([2,1]\)</span>):</p>
+</div>
 <div class="incremental">
 <ul class="incremental">
 <li>Given current proposition symbols there are 2<sup>7</sup> = 128 possible models<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></li>
@@ -824,7 +850,9 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <h2 data-anchor-id="goal">Goal</h2>
 <p>We want to determine whether a sentence <span class="math inline">\(\alpha\)</span> is <strong>entailed</strong> by a knowledge base <span class="math inline">\(KB\)</span>. This is written as:</p>
 <p><span class="math inline">\(KB \models \alpha \quad \text{which means} \quad M(KB) \subseteq M(\alpha)\)</span></p>
+<div class="fragment">
 <p>That is, in <strong>every model</strong> where <span class="math inline">\(KB\)</span> is true, <span class="math inline">\(\alpha\)</span> must also be true. One way to check this is by <strong>model checking using a truth table</strong>, which evaluates all possible assignments of truth values to propositional symbols.</p>
+</div>
 </section>
 <section id="procedure" class="level2">
 <h2 data-anchor-id="procedure">Procedure</h2>
@@ -898,11 +926,15 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 </tr>
 </tbody>
 </table>
+<div class="fragment">
 <p><span class="h4"><strong>Analyze</strong></span></p>
 <p>Rows where <span class="math inline">\(KB\)</span> is true: rows 1, 3, and 4.</p>
 <p>In <em>row 4</em>, <span class="math inline">\(Q\)</span> is false → so <span class="math inline">\(\alpha\)</span> is <em>not</em> true in all models of <span class="math inline">\(KB\)</span>.</p>
+</div>
+<div class="fragment">
 <p>Therefore:</p>
 <p><span class="math inline">\(M(KB) \nsubseteq M(\alpha) \quad \implies \quad KB \not\models \alpha\)</span></p>
+</div>
 </section>
 </section>
 <section id="propositional-proofs" class="level1 headline-only page-columns page-full">
@@ -910,8 +942,12 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <section id="theorem-proving" class="level2">
 <h2 data-anchor-id="theorem-proving">Theorem proving</h2>
 <p>Entailment by the <span class="math inline">\(KB\)</span> (or logical consequence) can also be done by <strong>theorem proving</strong>.</p>
+<div class="fragment">
 <p><strong>Theorem proving</strong> means applying rules of inference directly to the sentences in the knowledge base to construct a proof of the desired sentence without consulting models.</p>
+</div>
+<div class="fragment">
 <p>For large number of models and short length of proofs, theorem proving <strong>can be more efficient</strong> than model checking.</p>
+</div>
 </section>
 <section id="additional-concepts" class="level2">
 <h2 data-anchor-id="additional-concepts">Additional concepts</h2>
@@ -921,18 +957,22 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <p>Two sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are logically equivalent if they are true in the same set of models<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, i.e.&nbsp;<span class="math inline">\(\alpha \equiv \beta\)</span><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p>
 </dd>
 </dl>
+<div class="fragment">
 <dl>
 <dt>Validity</dt>
 <dd>
 <p>A sentence is valid if it is true in <em>all</em> models (e.g., <span class="math inline">\(P \lor \neg P\)</span>)<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p>
 </dd>
 </dl>
+</div>
+<div class="fragment">
 <dl>
 <dt>Deduction theorem</dt>
 <dd>
 <p>For any sentences <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \implies \beta)\)</span> is valid<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>.</p>
 </dd>
 </dl>
+</div>
 <hr>
 <dl>
 <dt>Satisfiability</dt>
@@ -940,8 +980,10 @@ e.g.&nbsp;is <span class="math inline">\(\neg P_{1,2}\)</span> entailed by our <
 <p>A sentence is satisfiable if it is true in, or satisfied by, <em>some</em> model<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
 </dd>
 </dl>
+<div class="fragment">
 <p>Validity and satisfiability are connected:<br>
 <span class="math inline">\(\alpha \models \beta\)</span> if and only if the sentence <span class="math inline">\((\alpha \land \neg \beta)\)</span> is unsatisfiable<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+</div>
 </section>
 <section id="standard-logical-equivalences" class="level2 page-columns page-full" data-visibility="hidden">
 <h2 data-visibility="hidden" data-anchor-id="standard-logical-equivalences">Standard logical equivalences</h2>
@@ -1019,7 +1061,9 @@ From a conjunction, any of the conjuncts can be inferred<br>
 <span class="fragment">(e.g., If both <em>alpha</em> and <em>beta</em> are <em>true</em>, then <em>beta</em> must be <em>true</em> (and <em>alpha</em> must be <em>true</em>))</span></li>
 </ul>
 </div>
+<div class="fragment">
 <p>All <strong>logical equivalences</strong> can be used as inference rules</p>
+</div>
 </section>
 <section id="wumpus-world-1" class="level2">
 <h2 data-anchor-id="wumpus-world-1">Wumpus World</h2>
@@ -1029,12 +1073,16 @@ From a conjunction, any of the conjuncts can be inferred<br>
 <li><span class="math inline">\(R_2: B_{1,1} \iff (P_{1,2} \lor P_{2,1})\)</span></li>
 <li><span class="math inline">\(R_3: B_{2,1} \iff (P_{1,1} \lor P_{2,2} \lor P_{3,1})\)</span></li>
 </ul>
+<div class="fragment">
 <p>The agent is in <span class="math inline">\([1,1]\)</span> and has received following precepts:</p>
 <ul>
 <li><span class="math inline">\(R_4: \neg B_{1,1}\)</span></li>
 </ul>
+</div>
+<div class="fragment">
 <p><strong>Question:</strong> is there pit in<span class="math inline">\([1,2]\)</span> or <span class="math inline">\([2,1]\)</span>?</p>
 <p>Using logical inference and the <span class="math inline">\(KB\)</span> containing <span class="math inline">\(R_1\)</span> to <span class="math inline">\(R_4\)</span>, we prove that <span class="math inline">\(\neg P_{1,2} \land \neg P_{2,1}\)</span></p>
+</div>
 <hr>
 <section id="biconditional-elimination-to-r_2" class="level4">
 <h4 data-anchor-id="biconditional-elimination-to-r_2">1. Biconditional elimination to <span class="math inline">\(R_2\)</span></h4>
@@ -1126,31 +1174,41 @@ From a conjunction, any of the conjuncts can be inferred<br>
 <section id="search-algorithms" class="level2">
 <h2 data-anchor-id="search-algorithms">Search algorithms</h2>
 <p>Search algorithms can be used to find a sequence of steps that constitutes a proof.</p>
+<div class="fragment">
 <p>The proof problem is defined as follows:</p>
+</div>
+<div class="fragment">
 <dl>
 <dt>Initial state</dt>
 <dd>
 The initial knowledge database
 </dd>
 </dl>
+</div>
+<div class="fragment">
 <dl>
 <dt>Actions</dt>
 <dd>
 All the inference rules applied to all the sentences in the <span class="math inline">\(KB\)</span>
 </dd>
 </dl>
+</div>
+<div class="fragment">
 <dl>
 <dt>Result</dt>
 <dd>
 Add the inferred sentence to the knowledge base (<span class="math inline">\(KB\)</span>)
 </dd>
 </dl>
+</div>
+<div class="fragment">
 <dl>
 <dt>Goal</dt>
 <dd>
 A state that contains the sentence we are trying to prove
 </dd>
 </dl>
+</div>
 </section>
 </section>
 <section id="knowledge-graph" class="level1">
@@ -1273,13 +1331,13 @@ Figure&nbsp;6: xkcd 816: Applied Math (explanation see <a href="https://www.expl
 <div class="smaller">
 <table class="table">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1335,12 +1393,14 @@ Figure&nbsp;6: xkcd 816: Applied Math (explanation see <a href="https://www.expl
 </section>
 <section id="logical-equivalences" class="level2">
 <h2 data-anchor-id="logical-equivalences">Logical equivalences</h2>
+<p>Check the following equivalences.<br>
+If you have issues of understanding, try to find a real life example.</p>
 <div class="smaller">
 <table class="table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 36%">
 </colgroup>
 <tbody>
 <tr class="odd">
