@@ -15,11 +15,11 @@ title-slide-attributes:
   data-background-color: '#0333ff'
 
 format:
-  html:
-    output-file: index.html
-    margin-header: |
-      [Slides](slides.html){.btn .btn-primary target="blank"}
-    format-links: false
+#  html:
+#    output-file: index.html
+#    margin-header: |
+#      [Slides](slides.html){.btn .btn-primary target="blank"}
+#    format-links: false
   presentation-revealjs:
     output-file: slides.html
     include-before-body: ../assets/footer.html    
@@ -409,71 +409,285 @@ To address challenges to adopting agile methods in large, more traditional organ
 
 ![Transformation maturity model [@stettina2021impact]](images/maturity.svg){#fig-maturity}
 
-## Exercise {.discussion-slide}
+# SAFe {.headline-only}
+
+## What SAFe is
+
+A framework developed by Dean Leffingwell (2011) as a synthesis of **Lean, Agile, and DevOps** principles for enterprise-scale delivery
+
+
+:::incremental
+- Four configurations: **Essential, Large Solution, Portfolio,** and **Full SAFe**
+- Provides an explicit organizational model (roles, events, artifacts) rather than a set of principles to interpret
+- The most widely adopted scaling framework, and the most contested [@dikert2016challenges]
+:::
+
+:::notes
+SAFe's wide adoption is partly a function of its completeness: it specifies not just what to do but who does it, at what cadence, and in what governance structure. This makes it attractive to large organizations that need a migration path from traditional program management. It also makes it controversial in the agile community, which has historically privileged minimalism and team autonomy. Understanding SAFe analytically (rather than as a vendor prescription or a community target) requires mapping it onto the theoretical frameworks already established in this unit.
+:::
+
+## Important concepts
+
+:::incremental
+- **Agile Release Train (ART):** 50–125 people, long-lived, aligned to a value stream; the primary unit of delivery and planning
+- **Program Increment (PI):** Fixed timebox of 8–12 weeks; the cadence that synchronizes all teams on the ART
+- **PI Planning:** Two-day synchronization event; all ART members align on objectives, dependencies, and risks
+- **Iterations:** 2-week sprints nested within the PI; teams deliver working software increments
+- **Innovation and Planning (IP) iteration:** A dedicated iteration at the end of each PI for exploration, technical debt reduction, and planning preparation
+- **Inspect and Adapt (I&A) workshop:** Structured retrospective closing each PI; identifies and addresses systemic impediments
+:::
+
+
+## The four configurations
+
+SAFe scales by composing layers. Each configuration adds the layer above to the previous one.
+
+:::fragment
+
+| Configuration         | Adds                                                              | Suits organizations with                                 |
+|:----------------------|:------------------------------------------------------------------|:---------------------------------------------------------|
+| **Essential**         | One ART, PI cadence, core ceremonies                              | A single value stream, 50–125 people                     |
+| **Large Solution**    | Solution Train coordinating multiple ARTs                         | Complex solutions requiring several ARTs and suppliers   |
+| **Portfolio**         | Lean Portfolio Management, strategic themes, value stream funding | Multiple value streams requiring strategic alignment     |
+| **Full SAFe**         | All layers active                                                 | Enterprises operating across all of the above            |
+
+: SAFe configurations [@knaster2020safe] {#tbl-safe-config}
+:::
+
+:::fragment
+Configurations are not maturity stages. An organization with one value stream stays at **Essential** and is not "less mature" than one running **Full SAFe**, but it has a different problem.
+:::
+
+:::notes
+The configuration model is the most practical part of SAFe and the most often misunderstood. Many organizations adopt Full SAFe by default, assuming more layers means more agility. The reverse is closer to true: each additional layer is additional coordination overhead, justified only when the underlying problem (multiple ARTs on one solution; multiple value streams competing for portfolio funding) actually exists. The official SAFe Big Picture diagram visualizes this nesting; if you want to show it directly, link out to scaledagileframework.com — the diagram is copyrighted and should not be reproduced.
+:::
+
+## Example
+
+All four configuration levels are simultaneously active in one company, here Zalando (Berlin-based online fashion retailer operating across Europe wit approx. 17,000 employees):
+
+:::incremental
+- **Feature team:** The *checkout team* owns the moment a customer clicks "place order" end to end (UI, API, database, confirmation email); ~9 people, ships independently
+- **ART:** ~12 feature teams (~110 people) aligned to the *online shopping* value stream create the *customer experience*; synchronizes on a 10-week PI cadence
+- **Solution Train:** Four ARTs (customer experience, mobile, search & personalization, payments) jointly deliver the integrated *Shopping* product
+- **Portfolio:** *Shopping* is one value stream alongside Marketplace, Logistics Solutions, Connected Retail, and Marketing Services, each competing for strategic investment
+:::
+
+:::notes
+The four SAFe configurations are not separate levels of "agile maturity" or product offerings to choose between. They are the four scopes at which the modularity argument needs to operate *simultaneously* in a company of this size before coherent customer experiences can ship without coordination collapse.
+
+[Three scales, one logic]{.h4}
+
+> Zalando's checkout team ships a button. Zalando's shopping Solution Train ships an experience. Zalando's portfolio ships a company.
+
+Implements the modularity logic of "the digital" [@yoo2010organizing; @sanchez1996modularity] at three different scales: each layer adds coordination only where the lower layer's autonomy is insufficient.
+
+:::
+
+## Core competencies {visibility=hidden}
+
+SAFe organizes business agility around seven competencies:
+
+:::incremental
+1. **Lean-agile leadership:** developing leaders who model the mindset
+2. **Team and technical agility:** high-performing teams with sound engineering practices
+3. **Agile product delivery:** customer-centric, design-led continuous delivery
+4. **Enterprise solution delivery:** building large, coordinated complex solutions
+5. **Lean portfolio management:** aligning strategy and execution at portfolio level
+6. **Organizational agility:** lean-thinking structures and practices
+7. **Continuous learning culture:** relentless improvement and innovation
+:::
+
+## SAFe in the Harraf framework
 
 :::large
-Research SAFe.
+SAFe is engineered for **adapters** more than disrupters [@harraf2015organizational].
 :::
 
-Scaled Agile Framework (SAFe) is popular with very large teams that require much more structure due to team size and complexity. SAFe is itself complex, but also effective. In SAFe, work is organized into three levels of Agile management: team, program and portfolio. All work moves along on what is known in SAFe as an Agile Release Train (ART).
+:::fragment
+The cadence-based design optimizes the **rate** of variety change through synchronized inspect-and-adapt loops[, but the same cadence limits the **magnitude** per cycle.]{.fragment}.
+:::
 
-Do some research on [SAFe](https://www.scaledagileframework.com/), try to understand the framework (start with the essentials) and explain how SAFe addresses the **coordination challenges** and the **requirements engineering challenges**.
-
-## What is SAFe?
-
-:::incremental
-- A framework for **scaling agile practices** across large enterprises
-- Addresses coordination challenges when multiple teams work on a shared product or value stream
-- Combines principles from **Lean**, **Agile**, and **DevOps**
-- Organized around four configurations: Essential, Large Solution, Portfolio, and Full SAFe
+:::fragment
+SAFe is not "more agile" in an absolute sense. It is a particular design point in the agility space.
 :::
 
 :::notes
-SAFe was developed by Dean Leffingwell and first released in 2011. It is widely adopted in large organizations that struggle to apply Scrum or Kanban beyond a single-team level.
+
+| Harraf quadrant                              | Fit      | Reasoning                                                               |
+|:---------------------------------------------|:---------|:------------------------------------------------------------------------|
+| **Innovators** (high magnitude, lower rate)  | Moderate | PI scope limits per-cycle magnitude; enabler epics partially compensate |
+| **Adapters** (high rate, moderate magnitude) | Strong   | PI cadence and I&A workshops are purpose-built for this position        |
+| **Disrupters** (high on both)                | Limited  | Synchronized cadence becomes a ceiling on per-increment magnitude       |
+| **Indifferents** (low on both)               | n/a      | SAFe is not designed for stable environments                            |
+
+: SAFe positioned on the Harraf agility matrix {#tbl-safe-harraf}
+
+Organizations adopting SAFe to become disrupters may find that the cadence infrastructure, intended to increase rate, paradoxically constrains magnitude by synchronizing all teams to the same planning horizon. Firms already operating as disrupters often develop lighter-weight coordination models precisely because they need magnitude flexibility that a fixed PI cadence would foreclose.
 :::
 
-## Core Principles & Structure
+## ARTs x magnitude
 
-:::fragment
-**Seven core competencies** drive business agility, including Lean-Agile Leadership, Team and Technical Agility, and Lean Portfolio Management.
-:::
-
-:::fragment
-[Key structural elements]{.h4}
-:::
-
-:::incremental
-- **Agile Release Train (ART):** A long-lived team-of-teams (typically 50–125 people) aligned to a value stream
-- **Program Increment (PI):** A fixed timebox (8–12 weeks) for planning, executing, and inspecting work across the ART
-- **PI Planning:** A large-scale, face-to-face event where all ART members align on objectives and dependencies
-:::
-
-:::notes
-PI Planning is often considered the heartbeat of SAFe. It creates visibility, fosters collaboration, and forces explicit dependency management.
-:::
-
-## Why SAFe matters
-
-:::fragment
-[Strengths]{.h4}
+:::medium
+**Agile Release Trains** instantiate the modularity argument at the organizational level.
 :::
 
 :::incremental
-- Alignment across business and technology at scale
-- Predictability through cadence-based planning
-- A migration path for traditionally managed organizations toward agility
+- An ART is a stable, long-lived team-of-teams aligned to one development value stream
+- Teams within an ART are feature teams that own a slice of customer value end to end (e.g., checkout, search), not component teams that own a technical layer (e.g., frontend, database)
+- Shared services and platform teams provide common capabilities behind stable interfaces
+- Between PIs, teams can be **recombined** within or across ARTs without organizational restructuring
 :::
 
 :::fragment
-[Weaknesses]{.h4}
+ARTs therefore expand the firm's **magnitude of variety change** [@harraf2015organizational]: the same pool of teams can be reconfigured to serve a wider range of strategic responses without redesigning the organization.
 :::
 
-- Risk of "agile theater," i.e., adopting rituals without embracing mindset change
-- Heavy process overhead that can conflict with agile values of simplicity and autonomy
-- Potential tension between top-down portfolio governance and bottom-up team empowerment
+## PI cadence x rate
+
+:::medium
+The **Program Increment** instantiates reprogrammability at the organizational level.
+:::
+
+:::incremental
+- Each PI is a periodic re-execution of organizational logic: priorities, scope, capacity allocation, and dependencies are all set anew
+- The **Inspect & Adapt workshop** functions as continuous deployment of organizational improvements
+- Reconfiguration happens **without restructuring:** no reorgs, no formal change management, just the next PI
+- The IP iteration provides the buffer for retooling before the next cycle begins
+:::
+
+:::fragment
+PI cadence therefore directly governs the **rate of variety change** [@harraf2015organizational]: the speed at which the organization can intentionally redirect its delivery capacity.
+:::
+
+## Team interactions x ecosystems
+
+:::medium
+**Team interaction patterns** instantiate the programmatic interface argument [@skelton2019team].
+:::
+
+:::incremental
+- **Collaboration:** two teams work closely together for a bounded period, typically during discovery or when boundaries are unclear
+- **X-as-a-Service:** one team consumes another team's capability through a defined "API" (documented service, predictable behavior, low-friction integration)
+- **Facilitating:** one team helps another build new capability and then steps back
+:::
+
+:::fragment
+The **Architectural Runway** is the internal technical equivalent: pre-built code, components, and infrastructure exposed to ARTs as a stable platform on which near-term features can be built without redesign.
+:::
 
 :::notes
-SAFe is the most widely adopted scaling framework (according to the State of Agile reports), but it remains polarizing in the agile community. A balanced perspective is important for leadership discussions.
+Together, these patterns are the foundation of **partnering and ecosystem agility** [@sambamurthy2003shaping]: they lower the coupling between organizational units so that integration cost stays bounded as the network grows.
+:::
+
+## SAFe x ambidexterity
+
+How does SAFe structure the exploration–exploitation balance [@lee2015does]?
+
+:::fragment
+**Exploitation:** the PI delivery cadence with committed team and ART objectives drives execution discipline; teams deliver working increments against a known plan.
+:::
+
+:::fragment
+**Exploration:** the IP iteration and Architectural Runway provide structural capacity for innovation, debt reduction, and capability building outside normal delivery pressure.
+:::
+
+:::notes
+@lee2015does show that IT ambidexterity enables operational ambidexterity, which in turn enhances organizational agility. SAFe encodes this claim structurally: the IP iteration is not merely a buffer or cleanup week; it is the exploration half of the ambidexterity pair, given formal time and governance protection.
+
+The critical question the framework cannot answer by design is whether the IP iteration is in practice used for genuine exploration or colonized by backlog clearance. That depends on leadership behavior.
+:::
+
+## Agility in a nutshell
+
+| Digital trait               | SAFe analog                                      | Mechanism                                           |
+|:----------------------------|:-------------------------------------------------|:----------------------------------------------------|
+| **Modularity**              | ARTs and Solution Trains                         | Recombinable team-of-teams aligned to value streams |
+| **Reprogrammability**       | PI cadence, I&A, IP iteration                    | Periodic re-prioritization without restructuring    |
+| **Programmatic interfaces** | Team interaction patterns, Architectural Runway  | Standardized integration points across ARTs         |
+
+: SAFe instantiates the digital traits from @tbl-dtraits at the organizational level {#tbl-safe-traits}
+
+:::fragment
+SAFe is, read this way, an applied instance of @sanchez1996modularity's claim: modular technical architectures both require and produce modular organizational forms.
+:::
+
+## Challenges
+
+SAFe addresses the agile challenges discussed by @dikert2016challenges, but it can also exacerbate them.
+
+:::fragment
+[Challenges addressed by SAFe's structural mechanisms]{.h4}
+:::
+
+:::incremental
+- **Coordination challenges:** PI Planning for explicit dependency management
+- **Requirements engineering challenges:** portfolio-to-PI-to-iteration hierarchy
+- **Hierarchical management:** Lean Portfolio Management replaces traditional project governance
+:::
+
+:::fragment
+[Potentially aggravated by SAFe's design choices]{.h4}
+:::
+
+:::incremental
+- **Resistance to change:** comprehensiveness can trigger resistance
+- **Different approaches:** detailed prescriptions create friction when teams adapt selectively
+- **Integrating non-development functions:** SAFe assumes broad organizational participation that many implementations never achieve
+:::
+
+:::notes
+SAFe was explicitly designed to address the coordination and requirements engineering challenge clusters, and it does so through structural means that most large organizations find usable. The irony is that its structural thoroughness can aggravate the cultural challenges: resistance to change intensifies when the change is visible and comprehensive; different-approaches problems multiply when teams deviate from a detailed reference model; and non-development integration remains difficult precisely because SAFe does not extend its prescriptions into HR, finance, or legal with the same rigor it applies to delivery.
+:::
+
+## The SAFe paradox
+
+The framework that scales agility relies on heavy process scaffolding, in tension with the manifesto's "individuals and interactions over processes and tools."
+
+:::fragment
+[Potential dysfunctions]{.h4}
+:::
+
+:::incremental
+1. **Agile theater:** ceremonies without mindset change; teams follow the calendar but not the principles
+2. **Process ossification:** the cadence becomes the goal; teams optimize for PI completion rather than value delivery
+3. **Top-down/bottom-up tension:** portfolio governance constrains the team autonomy that agile requires
+:::
+
+:::fragment
+A firm can be procedurally compliant with SAFe and still be an **indifferent** on the Harraf matrix, going through the motions of synchronized cadence without generating meaningful variety change [@harraf2015organizational].
+:::
+
+:::notes
+The paradox is not a reason to reject SAFe; it is a reason to deploy it with clarity about what process can and cannot accomplish. SAFe can establish coordination infrastructure, synchronize planning horizons, and provide a shared vocabulary. It cannot install a growth mindset, generate psychological safety, or make leaders comfortable with distributed decision-making.
+
+Organizations that treat SAFe as a transformation destination rather than a transformation vehicle are precisely the ones most at risk of the three failure modes listed. The Harraf framing is useful here because it externalizes the question: agility is defined relative to the environment and competitors, not relative to framework adoption.
+:::
+
+## When SAFe is the right answer
+
+SAFe suits organizations with:
+
+:::incremental
+- Regulatory or contractual planning horizons that require multi-quarter predictability
+- Large existing application portfolios with significant dependency and migration management needs
+- Mixed agile and non-agile interfaces
+- A need for a shared governance language across business and IT at scale
+:::
+
+:::fragment
+SAFe suits less well when:
+:::
+
+:::incremental
+- The organization is small or its teams are already high-performing and loosely coupled
+- Products operate on sub-monthly feedback cycles where PI cadence introduces overhead without value
+:::
+
+:::notes
+The fit conditions are not a defense of SAFe; they are a recognition that framework choice is a design decision, not a market-share decision. The State of Agile reports consistently show SAFe as the most adopted scaling framework precisely because it provides a usable migration path for traditional program management organizations. The same organizations that find SAFe most natural are often those for which disruption-level agility is neither achievable nor necessary in the near term (e.g., regulated industries, defense contractors, large enterprise software vendors).
+
+Firms that need to move toward the disrupter quadrant on the Harraf matrix often require a fundamentally different organizational design, not a larger or more disciplined version of SAFe.
 :::
 
 # Q&A {.html-hidden .unlisted .headline-only background-image="../assets/bg.jpg"}
