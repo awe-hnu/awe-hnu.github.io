@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-05-04">
+  <title>awe.lectures – Introduction to ML</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-735089d110c961a04cadc41357682241.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="mermaid-theme" content="neutral">
+  <script src="../../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+<meta property="og:title" content="Introduction to ML – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V1.2
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Introduction to Artificial Intelligence (AI)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Introduction to ML</h1>
+  <p class="subtitle">Introduction to AI (I2AI)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">May 4, 2026</p>
+</section>
+<section id="agenda" class="title-slide slide level1">
+<h1>Agenda</h1>
+<div class="medium">
+<ul>
+<li>What is ML? <span class="smaller">15 min</span></li>
+<li>Three learning paradigms <span class="smaller">25 min</span></li>
+<li>The learning process &amp; what can go wrong <span class="smaller">25 min</span></li>
+<li>Ockham’s razor &amp; wrap-up <span class="smaller">15 min</span></li>
+</ul>
+</div>
+</section>
+
+<section>
+<section id="what-is-ml" class="title-slide slide level1 headline-only">
+<h1>What is ML?</h1>
+
+</section>
+<section id="mitchells-definition" class="title-slide slide level2">
+<h2>Mitchell’s definition</h2>
+<div class="medium">
+<blockquote>
+<p>A computer is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E. <em><span class="citation" data-cites="mitchel1997machine">Mitchel (<a href="#/literature" role="doc-biblioref" onclick="">1997, p. 2</a>)</span></em></p>
+</blockquote>
+</div>
+<ul>
+<li class="fragment"><strong>Traditional programming:</strong> humans encode rules; the computer follows them</li>
+<li class="fragment"><strong>Machine learning:</strong> the computer discovers rules from data (the “experience”)</li>
+<li class="fragment"><strong>T</strong> and <strong>E</strong> are usually tractable to define; <strong>P</strong> is the hardest to get right</li>
+<li class="fragment"><strong>Goodhart’s Law:</strong> once a measure becomes the explicit optimization target, it loses value as a proxy for what we actually care about</li>
+</ul>
+<aside class="notes">
+<p>Prompt the class: “Why is P the hardest to get right?” to surface Goodhart’s Law before moving on.</p>
+<p>Examples for Goodhart’s Law in ML: A recommendation system optimized solely for clicks might discover that clickbait titles and thumbnails maximize this metric, even if the content quality suffers and user satisfaction decreases long-term. If a content filter is optimized only to minimize false negatives (letting harmful content through), it might become overly restrictive and block large amounts of legitimate content.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="learning-agent-architecture" class="title-slide slide level2">
+<h2>Learning agent architecture</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div id="fig-learning-agent" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-learning-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/learning-agent.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-learning-agent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A learning agent based on <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#/literature" role="doc-biblioref" onclick="">2022, p. 74</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
+<ul>
+<li class="fragment"><strong>Performance element:</strong> processes percepts and selects actions</li>
+<li class="fragment"><strong>Learning element:</strong> carries out improvements using feedback from the critic</li>
+<li class="fragment"><strong>Critic:</strong> evaluates behavior against an external performance standard</li>
+<li class="fragment"><strong>Problem generator:</strong> suggests explorative actions that lead to new experience</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>The critic provides the signal that drives improvement; the learning element acts on it to update the performance element; the problem generator ensures the agent explores rather than only exploiting what it already knows. This is the formal structure behind T/E/P: T is what the performance element does, E comes from the problem generator and environment, P is what the critic measures.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="map-the-scenario" class="title-slide slide level2 discussion-slide">
+<h2>Map the Scenario</h2>
+<p>Consider: <em>Me learning to play tennis.</em></p>
+<p><span class="h4">Tasks</span></p>
+<ol type="1">
+<li>What is the <strong>task T,</strong> the <strong>experience E,</strong> and the <strong>performance measure P?</strong></li>
+<li>Who or what acts as the <strong>critic</strong> and the <strong>problem generator?</strong></li>
+<li>What type of feedback is available: supervised, unsupervised, or reinforcement?</li>
+</ol>
+<div id="timer_af0baac14f8bf7558f6c78602005be94b08ce2b8" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p><strong>T:</strong> returning the ball to the opponent’s court; winning points.<br>
+<strong>E:</strong> practice sessions, matches, coach feedback.<br>
+<strong>P:</strong> percentage of points or matches won.</p>
+<p><strong>Critic:</strong> the outcome of each point (won or lost), or a coach giving technique feedback.<br>
+<strong>Problem generator:</strong> the coach suggesting new drills, or the player trying new shots in practice.</p>
+<p><strong>Paradigm:</strong> primarily reinforcement learning (the reward is points won; feedback is delayed). Supervised elements appear when a coach demonstrates correct technique and provides corrective feedback. This ambiguity is the teaching point.</p>
+<p>Debrief: collect 2–3 answers; highlight that the paradigm boundary is blurry here, previewing Block 2. (5 min pair work, 5 min debrief.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="three-learning-paradigms" class="title-slide slide level1 headline-only">
+<h1>Three learning paradigms</h1>
+
+</section>
+<section id="three-paradigms-visualized" class="title-slide slide level2">
+<h2>Three paradigms visualized</h2>
+<div class="large">
+<p>Supervised<br>
+Unsupervised<br>
+&amp; Reinforcement</p>
+</div>
+<p>What type of <strong>feedback</strong> does the agent receive?</p>
+</section>
+<section class="slide level3">
+
+<div id="fig-sl-training" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-sl-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/sl-training.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sl-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Supervised learning
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>Supervised: A teacher provides the correct answer for each input.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level3">
+
+<div id="fig-usl-training" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-usl-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/usl-training.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-usl-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Unsupervised learning
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>Unsupervised: The agent sees data but no labels and must find structure.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level3">
+
+<div id="fig-rl-training" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-rl-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/rf-learning.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rl-training-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Reinforcement learning
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>Reinforcement: the agent acts, the environment returns a reward or penalty (no correct answer per input, only a signal for the cumulative outcome). (3–4 min.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="learning-paradigm-comparison" class="title-slide slide level2">
+<h2>Learning paradigm comparison</h2>
+<div id="tbl-paradigms" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-paradigms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 32%">
+<col style="width: 34%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Supervised</strong></th>
+<th><strong>Unsupervised</strong></th>
+<th><strong>Reinforcement</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Feedback</strong></td>
+<td>Correct answer per instance</td>
+<td>None (structure only)</td>
+<td>Reward/punishment signal</td>
+</tr>
+<tr class="even">
+<td><strong>Goal</strong></td>
+<td>Learn input, map output</td>
+<td>Discover hidden patterns</td>
+<td>Learn optimal policy</td>
+</tr>
+<tr class="odd">
+<td><strong>Examples</strong></td>
+<td>Classification, regression</td>
+<td>Clustering, dimension reduction</td>
+<td>Game play, robotics</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-paradigms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Three learning paradigms compared
+</figcaption>
+</figure>
+</div>
+<div class="fragment">
+<p>The boundaries are not rigid:<br>
+Semi-supervised and self-supervised learning blend elements of multiple paradigms.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Semi-supervised learning</strong> uses a small amount of labeled data together with a large amount of unlabeled data</li>
+<li class="fragment"><strong>Self-supervised learning</strong> creates its own supervision signal from unlabeled data by defining a “pretext task” derived from the data’s structure (e.g., masked language modelling; next-token prediction)</li>
+</ul>
+<aside class="notes">
+<p>This table is the anchor students return to during Exercise B. Stress that the distinguishing criterion is the feedback type, not the application domain. That is exactly what the next exercise will test. (3–4 min including discussion of the fragment.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="classify-justify" class="title-slide slide level2 discussion-slide">
+<h2>Classify &amp; Justify</h2>
+<p>For each scenario, decide: <strong>supervised, unsupervised, or reinforcement learning?</strong><br>
+For each, specify <strong>T</strong>, <strong>E</strong>, and <strong>P</strong>.</p>
+<div class="smaller">
+<ol type="1">
+<li>A streaming service groups its catalog into clusters of similar movies to improve its recommendation interface.</li>
+<li>A bank builds a model to predict whether a loan applicant will default, trained on 10 years of labeled application outcomes.</li>
+<li>A warehouse robot learns to pick and place objects by trying different grasping strategies and receiving a success/failure signal.</li>
+<li>An email provider trains a filter using a dataset of messages manually labeled “spam” or “not spam.”</li>
+<li>A retailer analyzes purchase histories to discover which products are frequently bought together.</li>
+<li>A self-driving car’s lane-keeping system is trained on thousands of hours of human driving footage with the correct steering angle recorded for each frame.</li>
+</ol>
+</div>
+<div id="timer_af0baac14f8bf7558f6c78602005be94b08ce2b8" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p><strong>1. Unsupervised.</strong> T: group movies by similarity. E: movie metadata or viewing patterns (no labels). P: cluster cohesion/separation.</p>
+<p><strong>2. Supervised.</strong> T: predict default (yes/no). E: labeled historical applications. P: accuracy, AUC, F1.</p>
+<p><strong>3. Reinforcement.</strong> T: pick and place objects. E: trial-and-error grasping attempts. P: success rate over episodes.</p>
+<p><strong>4. Supervised.</strong> T: classify email as spam or not spam. E: labeled email corpus. P: precision, recall, F1.</p>
+<p><strong>5. Unsupervised</strong> (association rule mining). T: discover product co-occurrence patterns. E: transaction records (no labels). P: support, confidence, lift of discovered rules.</p>
+<p><strong>6. Supervised</strong> (the deliberately tricky one). T: predict steering angle from a camera image. E: labeled image-angle pairs from human driving. P: mean squared error of predicted vs.&nbsp;actual angle. It looks like reinforcement learning because the domain is autonomous driving, but the feedback is a correct label per frame. That makes it supervised (imitation learning).</p>
+<p>Debrief: spend most time on scenario 6. The key insight is that the feedback type determines the paradigm, not the application domain. (12 min pair work, 5 min debrief.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="learning" class="title-slide slide level1 headline-only">
+<h1>Learning</h1>
+
+</section>
+<section id="the-learning-process" class="title-slide slide level2">
+<h2>The learning process</h2>
+<div class="cell" data-reveal="true" data-layout-align="left">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    TD[(Training Data)] --&gt; T[Training]
+    T --&gt; M[Model]
+    VD[(Validation Data)] --&gt; V[Validation]
+    M --&gt; V
+    V --&gt; |"Hyperparameter Tuning"| T
+    V --&gt; |"Model Selection"| SM[Selected Model]
+    TestD[(Test Data)] --&gt; TE[Testing]
+    SM --&gt; TE
+    TE --&gt; |"Performance Estimation"| FM[Final Model]
+    ND[(New Data)] --&gt; AP[Application]
+    FM --&gt; AP
+    AP --&gt; PR[Predictions]
+    
+    style TD fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style VD fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style TestD fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style ND fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style M fill:#c0f0c0,stroke:#333,stroke-width:1px
+    style SM fill:#c0f0c0,stroke:#333,stroke-width:1px
+    style FM fill:#c0f0c0,stroke:#333,stroke-width:1px
+    style PR fill:#ffe0c0,stroke:#333,stroke-width:1px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Three separate datasets</strong></p>
+<ul>
+<li>Training = dataset to learn a general model</li>
+<li>Validation = dataset for selection and tuning</li>
+<li>Test = dataset to detect problems in a controlled environment</li>
+</ul>
+<aside class="notes">
+<p>Students often confuse validation and test. Stress that the test set is touched exactly once, at the very end.</p>
+<p>The validation set is used iteratively (hyperparameter search, model selection), so it cannot serve as a clean estimate of generalization. If you tune on the test set, you are no longer estimating real-world performance; you are fitting to it. (3–4 min.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="bias-variance-tradeoff" class="title-slide slide level2">
+<h2>Bias-variance tradeoff</h2>
+<div id="fig-bias-variance" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-bias-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/curve-fitting.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bias-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Underfitting, good fit, and overfitting in polynomial curve fitting
+</figcaption>
+</figure>
+</div>
+<ul>
+<li class="fragment"><strong>Underfitting (high bias, low variance):</strong> the model is too simple to capture the underlying pattern</li>
+<li class="fragment"><strong>Good fit (balanced):</strong> complexity matches the data; the model generalizes</li>
+<li class="fragment"><strong>Overfitting (low bias, high variance):</strong> the model memorizes training noise and fails on new data</li>
+</ul>
+<aside class="notes">
+<p>Walk through the three curves. Ask: “Which model would you trust for a new data point?” The high-degree polynomial passes through every training point but wiggles badly between them; it has memorized noise rather than learned the pattern. This sets up Exercise C. (3–4 min.)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="what-went-wrong" class="title-slide slide level2 discussion-slide">
+<h2>What Went Wrong?</h2>
+<p>For each case, <strong>diagnose the problem</strong> (name it) and <strong>propose a fix.</strong></p>
+<p><strong>Case 1:</strong> A sentiment classifier trained on electronics reviews achieves 99.2% training accuracy. After deployment to restaurant and hotel reviews, accuracy drops to 61%.</p>
+<p><strong>Case 2:</strong> A student fits a degree-15 polynomial to 20 data points. The curve passes through every training point (training error ≈ 0). With 10 new measurements, predictions are wildly off.</p>
+<p><strong>Case 3:</strong> A hospital trains a readmission model. Training accuracy: 58%. Validation accuracy: 57%. Adding more training data does not improve performance.</p>
+<div id="timer_af0baac14f8bf7558f6c78602005be94b08ce2b8" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">18</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p>Allow 12 min for pair work, 6 min for debrief. Circulate during pair work; check that students use the terms “overfitting,” “underfitting,” and “distribution shift” rather than vague descriptions. Connect each case back to the bias-variance slide during debrief.</p>
+<p><strong>Case 1: Distribution shift.</strong> The training distribution (electronics reviews) does not represent the deployment distribution (restaurants, hotels). Fix: collect training data across all relevant domains, or apply domain adaptation techniques. Also illustrates why the test set must mirror the deployment distribution.</p>
+<p><strong>Case 2: Overfitting</strong> (high variance). The model memorized noise in the training data. Fix: reduce model complexity (lower polynomial degree), apply regularization, or collect more data. Connect to the polynomial fitting figure.</p>
+<p><strong>Case 3: Underfitting</strong> (high bias). The model is too simple, or the features are insufficient to capture the underlying pattern. Fix: use a more expressive model, or engineer better features. Signature clue: more data does not help when the problem is bias, not variance.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="ockhams-razor-wrap-up" class="title-slide slide level1 headline-only">
+<h1>Ockham’s razor &amp; wrap-up</h1>
+
+</section>
+<section id="ockhams-razor" class="title-slide slide level2 discussion-slide">
+<h2>Ockham’s Razor</h2>
+<p>In your own words, explain what Ockham’s razor is. Find an example from everyday life or from ML that you can use to enrich your explanation.</p>
+<div id="timer_af0baac14f8bf7558f6c78602005be94b08ce2b8" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p>Brief pair work (4 min), then collect 2–3 examples from the class. Good everyday examples: choosing the simpler medical diagnosis before ordering exotic tests; preferring a linear trend line over a wiggly one when both fit equally well. This consolidates the bias-variance insight from Block 3 and gives it a historical name: entities should not be multiplied beyond necessity.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="key-takeaways" class="title-slide slide level2">
+<h2>Key takeaways</h2>
+<p><span class="h4 fragment">What is ML?</span></p>
+<ul>
+<li class="fragment">ML is improvement through experience; define T, E, and P carefully, especially P</li>
+<li class="fragment">Goodhart’s Law: once a metric becomes the optimization target, it loses value as a proxy for the goal</li>
+</ul>
+<p><span class="h4 fragment">Three learning paradigms</span></p>
+<ul>
+<li class="fragment">The distinguishing criterion is the feedback type, not the application domain</li>
+<li class="fragment">Supervised: correct answer per instance. Unsupervised: structure only. Reinforcement: reward signal</li>
+</ul>
+<aside class="notes">
+<p>If time remains, ask: “Where does human judgment enter the ML workflow?” (Feature selection, performance measure definition, model complexity choice, training data curation.) This mirrors the probability session’s closing question and reminds students that ML is not assumption-free.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="key-takeaways-2" class="title-slide slide level2">
+<h2>Key takeaways #2</h2>
+<p><span class="h4 fragment">The learning process</span></p>
+<ul>
+<li class="fragment">Train/validate/test separation protects the evaluation from contamination; the test set is touched exactly once</li>
+<li class="fragment">Distribution shift between training and deployment is a silent failure mode</li>
+</ul>
+<p><span class="h4 fragment">Bias, variance, and Ockham’s razor</span></p>
+<ul>
+<li class="fragment">High bias: the model is too simple and underfits. High variance: the model is too complex and overfits</li>
+<li class="fragment">The simplest model that adequately explains the data is preferred (Ockham’s razor)</li>
+</ul>
+</section>
+</section>
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only" data-background-image="../assets/bg.jpg">
+<h1>Q&amp;A</h1>
+
+</section>
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-mitchel1997machine" class="csl-entry" role="listitem">
+Mitchel, T. (1997). <em>Machine learning (mcgraw-hill international edit).</em> McGraw-Hill Education. <a href="https://books.google.de/books?id=dMp2uwEACAAJ">https://books.google.de/books?id=dMp2uwEACAAJ</a>
+</div>
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern approach</em>. Pearson Education.
+</div>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
