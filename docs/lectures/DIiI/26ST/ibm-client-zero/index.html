@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+<meta name="dcterms.date" content="2026-05-18">
+
+<title>IBM as Client Zero – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="IBM as Client Zero – awe.lectures">
+<meta property="og:description" content="DI in Industry (DIiI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">IBM as Client Zero</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">IBM as Client Zero</h1>
+            <p class="subtitle lead">DI in Industry (DIiI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 18, 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">May 18, 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=22779" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/introduction/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/agility/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Agility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/agentic-ai/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Agentic AI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/ibm-client-zero/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">IBM as Client Zero</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/digital-twin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Digital Twin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/platforms/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Platforms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/adoption/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technology Adoption</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/ar/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Product Uncertainty x AR</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exam</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/DIiI/26ST/assignment/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#prologue" id="toc-prologue" class="nav-link" data-scroll-target="#prologue">Prologue</a></li>
+  <li><a href="#the-case" id="toc-the-case" class="nav-link" data-scroll-target="#the-case">The case</a></li>
+  <li><a href="#evolution" id="toc-evolution" class="nav-link" data-scroll-target="#evolution">Evolution</a></li>
+  <li><a href="#human-machine-interaction" id="toc-human-machine-interaction" class="nav-link" data-scroll-target="#human-machine-interaction">Human-machine interaction</a></li>
+  <li><a href="#governance" id="toc-governance" class="nav-link" data-scroll-target="#governance">Governance</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="learning-objectives" class="level1">
+<h1>Learning objectives</h1>
+<p>After working through this case, you will be able to:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>Distinguish the architectural and behavioural properties of agentic AI from traditional, rule-based automation using a real enterprise case.</li>
+<li>Classify an operational AI workflow against the five agentic workflow patterns of <span class="citation" data-cites="agenticAI2024">Anthrophic (<a href="#ref-agenticAI2024" role="doc-biblioref">2024</a>)</span>.</li>
+<li>Analyse containment-rate limits and escalation cases through the lens of complementary strengths <span class="citation" data-cites="dellermann2019hybrid hemmer2025complementarity">(<a href="#ref-dellermann2019hybrid" role="doc-biblioref">Dellermann et al., 2019</a>; <a href="#ref-hemmer2025complementarity" role="doc-biblioref">Hemmer et al., 2025</a>)</span>.</li>
+<li>Interpret the automation-augmentation paradox <span class="citation" data-cites="raisch2021automation">(<a href="#ref-raisch2021automation" role="doc-biblioref">Raisch &amp; Krakowski, 2021</a>)</span> for entry-level job design.</li>
+<li>Evaluate how an organisation can govern autonomy, learning, and inscrutability in HR-related agentic systems <span class="citation" data-cites="berente2021managing">(<a href="#ref-berente2021managing" role="doc-biblioref">Berente et al., 2021</a>)</span>.</li>
+<li>Reflect on the strategic value of the “Client Zero” living lab approach for a B2B technology vendor.</li>
+</ol>
+</div>
+</section>
+<section id="prologue" class="level1 headline-only">
+<h1 class="headline-only">Prologue</h1>
+<section id="the-hook" class="level2">
+<h2 data-anchor-id="the-hook">The hook</h2>
+<div class="large">
+<blockquote class="blockquote">
+<p>Before we sell it, we run it. <em>IBM Client Zero programme principle</em></p>
+</blockquote>
+</div>
+<p>This case asks you to interrogate, with the tools of this course, an enterprise deployment of agentic AI that is unusually well documented. IBM’s “Client Zero” philosophy commits the company to deploying every component of its <em>watsonx platform</em> on its own organisation before commercialising it to enterprise customers. The case data offered here are IBM’s own disclosures; your task is to apply the frameworks of the unit to them.</p>
+<p>You will work the case in three parts. Part A is about <em>what kind of system</em> AskHR actually is. Part B is about <em>humans inside the system</em>. Part C is about <em>governance and strategic value</em>.</p>
+</section>
+</section>
+<section id="the-case" class="level1 headline-only">
+<h1 class="headline-only">The case</h1>
+<section id="client-zero-in-one-paragraph" class="level2">
+<h2 data-anchor-id="client-zero-in-one-paragraph">Client Zero in one paragraph</h2>
+<div class="medium">
+<p>IBM applies its own <em>watsonx platform</em> to its own back office <strong>before</strong> commercialisation. The internal deployment serves three purposes:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Operational:</strong> unlock productivity in HR, IT, finance, and supply chain</li>
+<li><strong>Empirical:</strong> generate validated metrics that condition B2B sales claims</li>
+<li><strong>Strategic:</strong> train an “AI-first” operating model that becomes a reference architecture</li>
+</ul>
+</div>
+</section>
+<section id="inside-the-deployment" class="level2">
+<h2 data-anchor-id="inside-the-deployment">Inside the deployment</h2>
+<p>A prime operational example is the internal HR platform <strong>AskHR,</strong> powered by <em>watsonx</em> Orchestrate. The system orchestrates work across Workday, SAP SuccessFactors, and Concur, executing end-to-end workflows such as promotion processing, salary-band compliance, and leave management. Within IT support, autonomous agent architectures now resolve the majority of standard service tickets without human intervention.</p>
+<p>The corporate hiring trajectory is equally striking. In May 2023, CEO Arvind Krishna announced a hiring freeze for roughly 7,800 administrative roles, citing AI substitution potential within five years. In early 2026, CHRO Nickle LaMoreaux announced a tripling of entry-level hiring. Junior employees are no longer hired for form-filling or boilerplate code; they are deployed as AI orchestrators, evaluating and controlling agentic workflows in client-facing contexts.</p>
+<div class="fragment">
+<div class="medium">
+<p>Same company.<br>
+Same technology trajectory.<br>
+Opposite hiring signal.</p>
+</div>
+</div>
+<div class="fragment">
+<p>What changed?</p>
+</div>
+</section>
+<section id="headline-kpis" class="level2">
+<h2 data-anchor-id="headline-kpis">Headline KPIs</h2>
+<div id="tbl-ibm-kpis" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-ibm-kpis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 37%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Business unit</th>
+<th>Deployed system</th>
+<th>Reported effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Human resources</td>
+<td>AskHR via <em>watsonx</em> Orchestrate (Workday, SuccessFactors, Concur)</td>
+<td>11.5M employee interactions p.a.; 94% containment rate; 40% reduction in HR operating costs</td>
+</tr>
+<tr class="even">
+<td>IT support</td>
+<td><em>watsonx</em> agent architectures with automated ticket routing</td>
+<td>86% of standard IT tickets resolved autonomously; substantial MTTR reduction</td>
+</tr>
+<tr class="odd">
+<td>Enterprise-wide</td>
+<td><em>watsonx</em> Governance and Living Lab architecture</td>
+<td>$4.5B productivity gains over 3 years (finance, supply chain)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-ibm-kpis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Reported outcomes of IBM’s internal AI transformation (synthesised from IBM Client Zero disclosures)
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="a-historical-detail-to-keep-in-mind" class="level2">
+<h2 data-anchor-id="a-historical-detail-to-keep-in-mind">A historical detail to keep in mind</h2>
+<div class="medium">
+<p>At the onset of the AskHR automation drive, IBM’s internal HR Net Promoter Score reportedly fell from <strong>+19 to -35</strong> before recovering.</p>
+</div>
+</section>
+</section>
+<section id="evolution" class="level1 headline-only">
+<h1 class="headline-only">Evolution</h1>
+<section id="from-traditional-to-agentic-ai" class="level2">
+<h2 data-anchor-id="from-traditional-to-agentic-ai">From traditional to agentic AI</h2>
+<div class="medium">
+<p>Compare the characteristics of traditional, rule-based chatbots with the autonomous architecture of IBM’s AskHR.</p>
+</div>
+<div class="fragment">
+<p>Which of <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span>’s <strong>core characteristics</strong> <em>cleanly</em> distinguish AskHR from traditional process automation, and which are <em>blurred?</em></p>
+</div>
+<div class="fragment">
+<p><span class="h4">Frameworks to apply</span></p>
+<ul>
+<li><span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span> on agentic core characteristics</li>
+<li><span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span> on the agent taxonomy (simple-reflex, model-based, goal-based, learning)</li>
+<li><span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> on autonomy, learning, and inscrutability</li>
+</ul>
+</div>
+</section>
+<section id="agentic-workflow-patterns" class="level2">
+<h2 data-anchor-id="agentic-workflow-patterns">Agentic workflow patterns</h2>
+<div class="medium">
+<p>When <em>watsonx</em> Orchestrate invokes specialised sub-agents to execute a cross-system workflow, which of the <strong>five agentic workflow patterns</strong> of <span class="citation" data-cites="agenticAI2024">Anthrophic (<a href="#ref-agenticAI2024" role="doc-biblioref">2024</a>)</span> is primarily utilised?</p>
+</div>
+<div class="fragment">
+<p>The five candidates:</p>
+</div>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Prompt chaining</strong></li>
+<li><strong>Routing</strong></li>
+<li><strong>Parallelisation</strong></li>
+<li><strong>Orchestrator-workers</strong></li>
+<li><strong>Evaluator-optimizer</strong></li>
+</ol>
+</div>
+<div class="fragment">
+<p>Justify your classification using <em>case evidence,</em> and identify the strongest <em>opposing</em> classification.</p>
+</div>
+</section>
+</section>
+<section id="human-machine-interaction" class="level1 headline-only">
+<h1 class="headline-only">Human-machine interaction</h1>
+<section id="the-94-and-the-6" class="level2">
+<h2 data-anchor-id="the-94-and-the-6">The 94% and the 6%</h2>
+<div class="medium">
+<p>AskHR records a 94% containment rate. What does the remaining <strong>6%</strong> look like?</p>
+</div>
+<div class="fragment">
+<p>Using complementary-strengths frameworks <span class="citation" data-cites="dellermann2019hybrid hemmer2025complementarity">(<a href="#ref-dellermann2019hybrid" role="doc-biblioref">Dellermann et al., 2019</a>; <a href="#ref-hemmer2025complementarity" role="doc-biblioref">Hemmer et al., 2025</a>)</span>, construct a <strong>typology</strong> of the escalation cases.</p>
+</div>
+<div class="fragment">
+<p>Incorporate the historical NPS plunge (+19 to -35) into your analysis: what does it tell you about the relationship between <em>containment</em> and <em>complementarity?</em></p>
+</div>
+<div class="fragment">
+<p><span class="h4">Frameworks to apply</span></p>
+<ul>
+<li><span class="citation" data-cites="hemmer2025complementarity">Hemmer et al. (<a href="#ref-hemmer2025complementarity" role="doc-biblioref">2025</a>)</span> on information and capability asymmetry</li>
+<li><span class="citation" data-cites="dellermann2019hybrid">Dellermann et al. (<a href="#ref-dellermann2019hybrid" role="doc-biblioref">2019</a>)</span> on hybrid intelligence and role distribution</li>
+<li><span class="citation" data-cites="raisch2021automation">Raisch &amp; Krakowski (<a href="#ref-raisch2021automation" role="doc-biblioref">2021</a>)</span> on the automation-augmentation logic</li>
+</ul>
+</div>
+</section>
+<section id="the-entry-level-employment-paradox" class="level2">
+<h2 data-anchor-id="the-entry-level-employment-paradox">The entry-level employment paradox</h2>
+<div class="medium">
+<p>IBM moved from a planned hiring freeze in 2023 to a <strong>tripling</strong> of entry-level hiring in 2026.</p>
+</div>
+<div class="fragment">
+<p>How does agentic AI reconstruct the classic <strong>automation-augmentation paradox</strong> <span class="citation" data-cites="raisch2021automation">(<a href="#ref-raisch2021automation" role="doc-biblioref">Raisch &amp; Krakowski, 2021</a>)</span> specifically for junior professionals and entry-level career tracks?</p>
+</div>
+<div class="fragment">
+<p>Is the 2026 pivot a <em>reversal</em> of strategy, or a <em>confirmation</em> of the paradox? Defend your answer with reference to task content versus role content.</p>
+</div>
+</section>
+</section>
+<section id="governance" class="level1 headline-only">
+<h1 class="headline-only">Governance</h1>
+<section id="inscrutability-and-algorithmic-bias" class="level2">
+<h2 data-anchor-id="inscrutability-and-algorithmic-bias">Inscrutability and algorithmic bias</h2>
+<div class="medium">
+<p>HR decisions are governed by tight legal, ethical, and organisational constraints.</p>
+</div>
+<div class="fragment">
+<p>Using <span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span>’s three dimensions (<strong>autonomy, learning, inscrutability</strong>), evaluate how IBM can ensure that autonomous agents do <em>not</em> replicate or systematise historical biases during promotional screenings.</p>
+</div>
+<div class="fragment">
+<p>Which <strong>organisational and technical guardrails</strong> are indispensable?</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Frameworks to apply</span></p>
+<ul>
+<li><span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> on the three management dimensions</li>
+<li><span class="citation" data-cites="shavit2023practices">Shavit et al. (<a href="#ref-shavit2023practices" role="doc-biblioref">2023</a>)</span> on safe-operation practices</li>
+<li><span class="citation" data-cites="herath2024design">Herath et al. (<a href="#ref-herath2024design" role="doc-biblioref">2024</a>)</span> on accountability anchoring</li>
+<li><span class="citation" data-cites="jarrahi2025rethinking">Jarrahi &amp; Ritala (<a href="#ref-jarrahi2025rethinking" role="doc-biblioref">2025</a>)</span> on principal-agent framing</li>
+<li><span class="citation" data-cites="papagiannidis2025responsible">Papagiannidis et al. (<a href="#ref-papagiannidis2025responsible" role="doc-biblioref">2025</a>)</span> on operational governance phases</li>
+<li>EU AI Act risk classification</li>
+</ul>
+</div>
+</section>
+<section id="the-strategic-value-of-client-zero" class="level2">
+<h2 data-anchor-id="the-strategic-value-of-client-zero">The strategic value of Client Zero</h2>
+<div class="medium">
+<p>Elaborate on the economic, strategic, and trust-building value of the <strong>“Client Zero” model</strong> for a global B2B technology vendor.</p>
+</div>
+<div class="fragment">
+<p>In what ways does using one’s own organisation as a <em>living lab</em> validate and condition market-facing B2B value-creation claims?</p>
+</div>
+<div class="fragment">
+<p>Name <strong>two failure modes</strong> of the Client Zero approach that would invalidate the strategic argument.</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Frameworks to apply</span></p>
+<ul>
+<li><span class="citation" data-cites="soh1995creates">Soh &amp; Markus (<a href="#ref-soh1995creates" role="doc-biblioref">1995</a>)</span> on the IT value-creation process and the <em>missing link</em></li>
+<li><span class="citation" data-cites="schryen2013revisiting">Schryen (<a href="#ref-schryen2013revisiting" role="doc-biblioref">2013</a>)</span> on internal/external × tangible/intangible IS business value</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="sources" class="level1 scrollable">
+<h1 class="scrollable">Sources</h1>
+<p><span class="h4">Mandatory primary sources</span></p>
+<ul>
+<li>IBM Client Zero Hub (public case page)</li>
+<li>Wharton interview with Radha Plumb (VP of AI Transformation)</li>
+<li>IMD Business School analysis of AskHR (incl.&nbsp;the NPS history)</li>
+<li>2023 hiring-freeze coverage (Al Jazeera, May 2023)</li>
+<li>2026 hiring-pivot coverage (Times of India, 2026)</li>
+<li>IBM Institute for Business Value (IBV) thought leadership on Agentic Operations</li>
+</ul>
+<p><span class="h4">Required theory</span></p>
+<ul>
+<li><span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span> (core characteristics and architectures)</li>
+<li><span class="citation" data-cites="hemmer2025complementarity">Hemmer et al. (<a href="#ref-hemmer2025complementarity" role="doc-biblioref">2025</a>)</span> (sources of complementarity and design implications)</li>
+<li><span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> (three management dimensions)</li>
+<li><span class="citation" data-cites="raisch2021automation">Raisch &amp; Krakowski (<a href="#ref-raisch2021automation" role="doc-biblioref">2021</a>)</span> (the automation-augmentation paradox)</li>
+</ul>
+<p><span class="h4">Guiding questions for your reading</span></p>
+<ol type="1">
+<li>Which of IBM’s published metrics are directly verifiable, and which depend on definitions IBM controls?</li>
+<li>Where in your <em>own project</em> do you currently expect autonomous agent action, and what is its consequence class?</li>
+<li>What is the equivalent of IBM’s NPS for your project: the complementarity metric that should be tracked alongside the productivity metric?</li>
+<li>Sketch the minimum governance design that would let your project deploy at one-tenth of IBM’s internal scale.</li>
+<li>Could your organisation plausibly become a “Client Zero” for the solution you are designing? Why or why not?</li>
+</ol>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-acharya2025agentic" class="csl-entry" role="listitem">
+Acharya, D. B., Kuppan, K., &amp; Divya, B. (2025). Agentic AI: Autonomous intelligence for complex goals–a comprehensive survey. <em>IEEE Access</em>.
+</div>
+<div id="ref-agenticAI2024" class="csl-entry" role="listitem">
+Anthrophic. (2024). <em>Building effective agents</em>. Anthropic Research Team; <a href="https://www.anthropic.com/engineering/building-effective-agents" class="uri">https://www.anthropic.com/engineering/building-effective-agents</a>.
+</div>
+<div id="ref-berente2021managing" class="csl-entry" role="listitem">
+Berente, N., Gu, B., Recker, J., &amp; Santhanam, R. (2021). Managing artificial intelligence. <em>MIS Quarterly</em>, <em>45</em>(3), 1433–1450. <a href="https://doi.org/10.25300/MISQ/2021/16274">https://doi.org/10.25300/MISQ/2021/16274</a>
+</div>
+<div id="ref-dellermann2019hybrid" class="csl-entry" role="listitem">
+Dellermann, D., Ebel, P., Söllner, M., &amp; Leimeister, J. M. (2019). Hybrid intelligence. <em>Business &amp; Information Systems Engineering</em>, <em>61</em>, 637–643.
+</div>
+<div id="ref-hemmer2025complementarity" class="csl-entry" role="listitem">
+Hemmer, P., Schemmer, M., Kühl, N., Vössing, M., &amp; Satzger, G. (2025). Complementarity in <span>Human–AI</span> collaboration: Concept, sources, and evidence. <em>European Journal of Information Systems</em>, <em>34</em>(6), 979–1002. <a href="https://doi.org/10.1080/0960085X.2025.2475962">https://doi.org/10.1080/0960085X.2025.2475962</a>
+</div>
+<div id="ref-herath2024design" class="csl-entry" role="listitem">
+Herath, S., Shrestha, Y. R., &amp; Krogh, G. von. (2024). Design principles for artificial intelligence-augmented decision making: An action design research study. <em>European Journal of Information Systems</em>, <em>34</em>(2), 207–229. <a href="https://doi.org/10.1080/0960085X.2024.2330402">https://doi.org/10.1080/0960085X.2024.2330402</a>
+</div>
+<div id="ref-jarrahi2025rethinking" class="csl-entry" role="listitem">
+Jarrahi, M. H., &amp; Ritala, P. (2025). Rethinking <span>AI</span> agents: A principal–agent perspective. <em>California Management Review</em>. <a href="https://doi.org/10.1177/00081256251320040">https://doi.org/10.1177/00081256251320040</a>
+</div>
+<div id="ref-papagiannidis2025responsible" class="csl-entry" role="listitem">
+Papagiannidis, E., Mikalef, P., &amp; Conboy, K. (2025). Responsible artificial intelligence governance: A review and research framework. <em>The Journal of Strategic Information Systems</em>, <em>34</em>(2), 101885. <a href="https://doi.org/10.1016/j.jsis.2024.101885">https://doi.org/10.1016/j.jsis.2024.101885</a>
+</div>
+<div id="ref-raisch2021automation" class="csl-entry" role="listitem">
+Raisch, S., &amp; Krakowski, S. (2021). Artificial intelligence and management: The automation–augmentation paradox. <em>Academy of Management Review</em>, <em>46</em>(1), 192–210. <a href="https://doi.org/10.5465/amr.2018.0072">https://doi.org/10.5465/amr.2018.0072</a>
+</div>
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern approach</em>. Pearson Education.
+</div>
+<div id="ref-schryen2013revisiting" class="csl-entry" role="listitem">
+Schryen, G. (2013). Revisiting IS business value research: What we already know, what we still need to know, and how we can get there. <em>European Journal of Information Systems</em>, <em>22</em>(2), 139–169.
+</div>
+<div id="ref-shavit2023practices" class="csl-entry" role="listitem">
+Shavit, Y., Agarwal, S., Brundage, M., Adler, S., O’Keefe, C., Campbell, R., Lee, T., Mishkin, P., Eloundou, T., Hickey, A., et al. (2023). Practices for governing agentic AI systems. <em>Research Paper, OpenAI</em>.
+</div>
+<div id="ref-soh1995creates" class="csl-entry" role="listitem">
+Soh, C., &amp; Markus, M. L. (1995). How IT creates business value: A process theory synthesis. <em>ICIS 1995 Proceedings</em>, 4.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

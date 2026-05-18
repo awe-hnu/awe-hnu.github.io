@@ -15,6 +15,10 @@
 - Paragraph breaks every 3–5 sentences in extended prose.
 - Rhetorical questions at transitions ("So what does this mean for strategy formation?").
 
+**Do not use contrasts:**
+- Do not use phrases like "this is not ..., this is ..."
+- Do not built up strawmans just to dismantle them
+
 ## Concept introduction pattern (six steps)
 
 1. Motivating hook: quote (blockquote), question, or brief case reference.
