@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bayesian Networks &amp; Probabilistic Inference – I2AI</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --blue:        #0535f5;
+  --blue-dark:   #0228cc;
+  --blue-light:  #2a55ff;
+  --cyan:        #4de8f4;
+  --white:       #ffffff;
+  --off-white:   #f7f8fc;
+  --light-bg:    #f0f2fc;
+  --text-dark:   #0d0d0d;
+  --muted-dark:  #444;
+  --border:      #d8daf0;
+  --mono-meta:   #b8ccff;
+  --footer-h:    52px;
+}
+.reveal {
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  background: var(--blue);
+  color: var(--white);
+}
+.reveal .slides { width: 100%; height: 100%; }
+.reveal .slides section {
+  text-align: left;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.reveal h1,.reveal h2,.reveal h3,.reveal h4 {
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  text-transform: none;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-shadow: none;
+  margin: 0 0 .4em;
+}
+.title-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+.title-slide::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -5%;
+  width: 62%; height: 110%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(77,232,244,.22) 0%, rgba(40,120,255,.18) 30%, transparent 70%);
+  pointer-events: none;
+}
+.title-inner {
+  position: relative; z-index: 2;
+  padding: 0 3.5rem calc(var(--footer-h) + 2rem);
+}
+.title-slide h1 { font-size: 4em; font-weight: 300; color: var(--white); line-height: 1.05; margin: 0 0 .45em; }
+.title-slide .subtitle { font-family: 'Space Grotesk',sans-serif; font-size: 1.25em; font-weight: 500; color: var(--white); margin: 0 0 2em; opacity: .95; }
+.title-slide .meta-block { font-family: 'Space Mono',monospace; font-size: .72em; color: var(--mono-meta); line-height: 2; }
+.version-tag { position: absolute; top: 1.4rem; left: 1.5rem; font-family: 'Space Mono',monospace; font-size: .68em; color: var(--mono-meta); z-index: 10; }
+.slide-footer-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--footer-h); background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.4rem; z-index: 100; box-sizing: border-box;
+}
+.slide-footer-bar .footer-left { font-family: 'Space Mono',monospace; font-size: .6em; color: var(--text-dark); display: flex; align-items: center; gap: 1.2rem; }
+.slide-footer-bar .footer-version { color: #888; margin-right: .5rem; }
+.slide-footer-bar .footer-logo { font-family: 'Space Grotesk',sans-serif; font-size: 1.4em; font-weight: 700; color: var(--text-dark); letter-spacing: -.04em; }
+.footer-menu { width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; margin-right: .8rem; }
+.footer-menu span { display: block; height: 2px; background: var(--text-dark); border-radius: 1px; }
+.section-slide {
+  background: var(--blue) !important;
+  display: flex !important; flex-direction: column; justify-content: center;
+  height: 100%; padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+  position: relative; overflow: hidden;
+}
+.section-slide::before {
+  content: ''; position: absolute; top: -20%; right: -10%; width: 50%; height: 140%;
+  background: radial-gradient(ellipse, rgba(77,232,244,.15) 0%, transparent 65%); pointer-events: none;
+}
+.section-slide .section-label { font-family: 'Space Mono',monospace; font-size: .72em; color: var(--mono-meta); margin-bottom: .7em; letter-spacing: .04em; }
+.section-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); margin: 0 0 .5em; }
+.section-slide .section-desc { font-family: 'Space Grotesk',sans-serif; font-size: .9em; color: rgba(255,255,255,.72); max-width: 60%; line-height: 1.75; }
+.section-slide .section-number { position: absolute; right: 3rem; bottom: calc(var(--footer-h) + 1rem); font-family: 'Space Grotesk',sans-serif; font-size: 8em; font-weight: 700; color: rgba(255,255,255,.07); line-height: 1; pointer-events: none; user-select: none; }
+.content-slide {
+  background: var(--off-white) !important; color: var(--text-dark) !important;
+  padding: 2rem 3.5rem calc(var(--footer-h) + 1.2rem) !important; height: 100%;
+}
+.content-slide p, .content-slide li, .content-slide td { color: var(--text-dark); }
+.slide-header {
+  display: flex; align-items: baseline; gap: .7em;
+  border-bottom: 2px solid var(--blue); padding-bottom: .35em; margin-bottom: .85em;
+}
+.slide-header h2 { font-family: 'Space Grotesk',sans-serif; font-size: 1.35em; font-weight: 600; color: var(--blue); margin: 0; flex: 1; border: none; }
+.content-slide p { line-height: 1.72; margin: .5em 0; font-size: .95em; }
+.content-slide ul, .content-slide ol { margin: .4em 0 .4em 1.3em; }
+.content-slide li { margin: .3em 0; line-height: 1.65; font-size: .95em; }
+.content-slide ul > li::marker { color: var(--blue); }
+.content-slide strong { font-weight: 700; }
+.content-slide code { font-family: 'Space Mono',monospace; font-size: .8em; background: #e8eaf8; color: var(--blue-dark); padding: .08em .35em; border-radius: 3px; }
+.content-slide table { width: 100%; border-collapse: collapse; font-size: .84em; margin: .7em 0; }
+.content-slide table th { background: var(--blue); color: var(--white); font-family: 'Space Grotesk',sans-serif; font-weight: 600; padding: .55em .85em; text-align: left; }
+.content-slide table td { padding: .45em .85em; border-bottom: 1px solid var(--border); vertical-align: top; }
+.content-slide table tbody tr:nth-child(even) td { background: var(--light-bg); }
+.content-slide table tbody tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; background: rgba(5,53,245,.1); color: var(--blue); font-family: 'Space Mono',monospace; font-size: .63em; letter-spacing: .05em; text-transform: uppercase; padding: .17em .6em; border-radius: 2px; border: 1px solid rgba(5,53,245,.2); vertical-align: middle; flex-shrink: 0; }
+.callout { background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 4px 4px 0; padding: .75em 1.1em; margin: .75em 0; font-size: .91em; }
+.callout p { margin: .25em 0; }
+.callout ol, .callout ul { color: var(--text-dark); }
+.callout.exercise { border-left-color: var(--cyan); background: #edfcfe; }
+.callout.exercise .callout-label { color: #0099aa; }
+.callout.note { border-left-color: var(--blue); background: var(--light-bg); }
+.callout.warning { border-left-color: #f5a623; background: #fef9ee; }
+.callout.warning .callout-label { color: #c07a00; }
+.callout-label { font-family: 'Space Mono',monospace; font-size: .7em; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: .28em; }
+.reveal .slides .fragment.answer-reveal { display: block; margin-top: .7em; }
+.answer-box { background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--cyan); border-radius: 0 4px 4px 0; padding: .75em 1.1em; font-size: .91em; }
+.answer-box p, .answer-box li { margin: .25em 0; }
+.answer-box ul, .answer-box ol { margin: .3em 0 .3em 1.2em; }
+.answer-label { font-family: 'Space Mono',monospace; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; color: #0099aa; margin-bottom: .35em; }
+.exercises-slide { background: #111 !important; display: flex !important; flex-direction: column; justify-content: center; height: 100%; padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important; position: relative; }
+.exercises-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); }
+.exercises-slide .section-number { position: absolute; right: 3rem; bottom: calc(var(--footer-h) + 1rem); font-family: 'Space Grotesk',sans-serif; font-size: 8em; font-weight: 700; color: rgba(255,255,255,.05); line-height: 1; pointer-events: none; }
+.reveal .progress { background: rgba(255,255,255,.15); height: 3px; }
+.reveal .progress span { background: var(--cyan); }
+.reveal .controls { color: var(--white); bottom: calc(var(--footer-h) + 8px); }
+.dag-block { font-family: 'Space Mono',monospace; font-size: .9em; background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 4px 4px 0; padding: .8em 1.2em; line-height: 2.2; color: var(--blue-dark); margin: .7em 0; }
+.cpt-wrap { display: flex; gap: 1.4em; flex-wrap: wrap; margin: .5em 0; align-items: flex-start; }
+.cpt-mini { border-collapse: collapse; font-size: .8em; font-family: 'Space Mono',monospace; }
+.cpt-mini th { background: var(--blue); color: var(--white); padding: .38em .65em; text-align: center; border: 1px solid var(--blue-dark); font-family: 'Space Grotesk',sans-serif; font-weight: 600; }
+.cpt-mini td { padding: .3em .65em; text-align: center; border: 1px solid var(--border); color: var(--text-dark); background: var(--off-white); }
+.cpt-mini tr:nth-child(even) td { background: var(--light-bg); }
+.cpt-highlight { font-weight: 700; color: var(--blue-dark); }
+.scenario-box { background: #12143a; border-left: 4px solid var(--cyan); border-radius: 0 6px 6px 0; padding: .85em 1.2em; margin: .6em 0; font-style: italic; font-size: .88em; color: #c8d8f8; line-height: 1.8; }
+.scenario-box .s-label { font-family: 'Space Mono',monospace; font-style: normal; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: .4em; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; align-items: start; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .9em; align-items: start; }
+.info-card { background: var(--light-bg); border: 1px solid var(--border); border-radius: 6px; padding: .75em 1em; }
+.info-card .card-title { font-family: 'Space Grotesk',sans-serif; font-weight: 700; font-size: .82em; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .35em; }
+.info-card p, .info-card li { font-size: .92em; color: var(--text-dark); margin: .2em 0; }
+.info-card ul { margin: .3em 0 .3em 1.1em; }
+</style>
+</head>
+<body>
+
+<div class="slide-footer-bar">
+  <div class="footer-left">
+    <div class="footer-menu"><span></span><span></span><span></span></div>
+    <span class="footer-version">V 1.0</span>
+    <span>Deinera Jechle &nbsp;/&nbsp; Neu-Ulm University of Applied Sciences &nbsp;/&nbsp; Introduction to Artificial Intelligence (AI)</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <div class="footer-logo">HNU</div>
+    <div id="footer-slide-num" style="font-family:'Space Mono',monospace;font-size:.6em;color:#888;">1</div>
+  </div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- TITLE -->
+<section class="title-slide">
+  <div class="version-tag">V 1.0</div>
+  <div class="title-inner">
+    <h1>Decision Trees</h1>
+    <p class="subtitle">Introduction to AI (I2AI)</p>
+    <div class="meta-block">
+      <span>Deinera Jechle</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Neu-Ulm University of Applied Sciences</span><br/>
+      21. May 2026
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     WARM UP — Smart Glasses
+═══════════════════════════════════════ -->
+<!-- Warm Up — Smart Glasses -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Warm Up — Smart Glasses</h2>
+    <span class="tag">Discussion</span>
+    <span class="timer" data-minutes="8"></span>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr auto; gap:1em; align-items:start;">
+    <div>
+      <div class="scenario-box" style="margin-bottom:.6em; font-size:.75em;">
+        <div class="s-label">📰 In the news — 2026</div>
+        <strong>Google I/O, May 19:</strong> Project Aura XR smart glasses confirmed for global launch — 90g, 70° display, Gemini AI, three cameras. It "sees and hears what you do" all day.<br/><br/>
+        <strong>February 2026:</strong> Swedish investigation reveals Meta Ray-Ban glasses sent intimate footage — sex, nudity, bathroom use, bank card numbers — to data annotators in Kenya. Workers described seeing it daily. Their job: label the footage so Meta's AI could learn. Meta sold 7 million pairs in 2025. The LED indicator on the frame told bystanders they were being filmed. It did not tell them a human in Nairobi might be watching. Meta terminated the contract. 1,108 workers lost their jobs.
+      </div>
+      <div class="callout exercise">
+        <div class="callout-label">💬 Discuss with a partner</div>
+        <ol style="line-height:2.2; font-size:.75em;">
+          <li><strong>Would you wear smart glasses?</strong> What would it take to trust them — or would you never?</li>
+          <li><strong>The data pipeline:</strong> AI models need human-labeled training data. Footage from your glasses feeds that pipeline. Is that an acceptable trade-off for a better product?</li>
+          <li><strong>Who is responsible?</strong> Meta? The annotators? The users who didn't read the privacy policy? The regulators who didn't act sooner?</li>
+        </ol>
+      </div>
+    </div>
+    <img src="images/meta-ai-glasses.jpg" alt="Meta Ray-Ban AI smart glasses"
+         style="width:260px; border-radius:6px; border:1px solid var(--border); object-fit:cover;" />
+  </div>
+  <div style="position:absolute; bottom:calc(var(--footer-h) + .6rem); left:3.5rem; right:3.5rem;
+              border-top:1px solid var(--border); padding-top:.4em;
+              font-family:'Space Mono',monospace; font-size:.58em; color:#888;
+              display:flex; gap:0.5rem; flex-wrap:wrap;">
+    <span>The Next Web (2026). <em>Meta ends Sama contract after Kenyan workers report seeing intimate footage from Ray-Ban smart glasses users.</em> May 5.</span>
+    <span>Svenska Dagbladet &amp; Göteborgs-Posten (2026). Joint investigation on Meta Ray-Ban data annotation. Feb 27.</span>
+    <span>Wong, R. (2026). <em>Project Aura XR Smart Glasses Are Legit.</em> Gizmodo, May 19.</span>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════
+     SECTION 01 — GENERAL INTRODUCTION
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 01</div>
+  <h1>General Introduction to Decision Trees</h1>
+  <p class="section-desc">Definition, structure, advantages — and why decision trees remain a critical part of the AI toolkit despite decades of newer approaches.</p>
+  <div class="section-number">01</div>
+</section>
+
+<!-- 1.1 Decision Tree-->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Decision Trees</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.05em;line-height:1.8;">What is a decision tree?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <p>Decision trees are fundamental concepts in knowledge-based AI agents. They offer <strong>predictive power</strong> and <strong>interpretability</strong></p>
+      <ul style="margin-top:.5em;">
+        <li>represent a function that maps attribute values to a decision</li>
+         <li>use search to find a decision through a sequence of tests</li>
+          <li>create a model that is <strong>inherintly explainable</strong></li>
+        </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 1.2 Decision Tree Structure -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>How Does a Decision Tree Look Like?</h2>
+  </div>
+    <div>
+      <p>A decision tree is a representation of a function that maps a vector of attribute values to a single output value (a "decision"):</p>
+      <ul>
+        <li>An <strong>internal node</strong> represents a test of a property</li>
+        <li><strong>Branches</strong> are labeled with possible values of the test</li>
+        <li>Each <strong>leaf node</strong> specifies the value to be returned if that leaf is reached</li>
+      </ul>
+      <p>In Boolean decision trees, the input is a vector of input attributes <em>X</em> and a single Boolean output value <em>y</em>. Decision trees can handle both <strong>classification</strong> (discrete output) and <strong>regression</strong> (continuous output) tasks.</p>
+      <div class="fragment callout note" style="margin-top:.05em;">
+        <div class="callout-label">Example: Restaurant Decision (Russell &amp; Norvig, 2022)</div>
+        <div class="two-col" style="align-items:start;">
+        <p>Should I wait for a table? </br> Input: 10 attributes (Alt, Bar, Fri, Hungry, Patrons, Price, WaitEstimate, Reservation, Raining, Type). </br> Output: <strong>WillWait</strong> (true / false)</p>
+      <div style="text-align:right;">
+        <img src="images/decision-tree 2.svg" alt="Example decision tree"
+            style="width:70%; max-width:520px; border-radius:6px;
+                    border:1px solid var(--border); background:var(--white);
+                    padding:.0005em;" />
+        <p style="font-size:.72em; color:var(--muted); margin-top:.0004em; font-style:italic;">
+          Figure 1: Decision tree restaurant example based on Russell &amp; Norvig (2022, p. 674)
+        </p>
+      </div>
+      </div>
+    </div>
+</section>
+
+<!-- Exercise 1 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 1 — Draw a Decision Tree</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="10"></span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>A bank wants to decide whether to <strong>approve a loan application</strong>. The following attributes are available:</p>
+    <table style="font-size:.85em; margin-top:.4em;">
+      <thead><tr><th>Attribute</th><th>Values</th></tr></thead>
+      <tbody>
+        <tr><td>Credit Score</td><td>Good / Bad</td></tr>
+        <tr><td>Income</td><td>High / Low</td></tr>
+        <tr><td>Employment</td><td>Employed / Unemployed</td></tr>
+        <tr><td>Existing Debt</td><td>Yes / No</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:.6em;"><strong>Output:</strong> <code>Approve</code> (Yes / No)</p>
+    <ol style="margin-top:.5em; line-height:2.1;">
+      <li>Draw a decision tree that classifies loan applications based on these attributes. Use your own intuition — there is no training set yet.</li>
+      <li>How many leaf nodes does your tree have? How many internal nodes?</li>
+      <li>Can every possible combination of attribute values be correctly classified by your tree?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Solution Exercise 1 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 1 — Draw a Decision Tree</h2>
+  </div>
+  <div> 
+    <div class="fragment">
+    <p>One intuitive decision tree based on domain knowledge, not training data. Credic Score is the dominant factor in lending, so it makes sense as the root:</p>
+    </div>
+    <div class="two-col" style="align-items:start;">
+    <div class="fragment"><img src="images/loan_decision_tree_solution.svg" alt="Example decision tree"
+            style="width:70%; max-width:520px; border-radius:6px;
+                    border:1px solid var(--border); background:var(--white);
+                    padding:.0005em;">
+                    <div style="font-family:'Space Mono',monospace; font-size:.3em; color:#888;
+              display:flex; gap:1rem; flex-wrap:wrap;">
+    <p style="font-size:.72em; color:var(--muted); margin-top:.0004em; font-style:italic;">
+          Figure 2: Decision tree loan example.
+        </p>
+    <span>Note that this is just one possible solution, your tree might look very different. A real trained tree might look quite different — it would calculate information gain and discover which attribute actually separates approvals from denials most cleanly in the training data. The structure might surprise you.</span>
+</div>
+    <p><strong>Node count:</strong> 11 </p>
+      <li style="font-size:16px"> Root node: 1 - Credit score </li>
+      <li style="font-size:16px"> Internal nodes (decision nodes): 4 - Credit Score, Income (left branch), Employment (right branch), and two Existing debt nodes</li>
+      <li style="font-size:16px"> Leaf nodes: 6 - four on the bottom row (left branch) + Approve and Deny directly under Employment</li>
+  </div>
+  <div class="fragment">
+  <p><strong>Can every possible combination of attribute values be correctly classified by the tree?</strong></p>
+    <p style="font-size:16px">Yes — can you shorten this a bit? every possible combination of the 4 binary/categorical attributes leads to exactly one leaf. With 4 attributes that have 2 values each, there are 2⁴ = 16 possible input combinations (Credit Score has 2 values, Income has 2, Employment has 2, Existing Debt has 2). The tree as drawn doesn't test all four attributes on every path — for example, a Bad credit score + Unemployed path goes directly to Deny without checking Income or Existing Debt. This is intentional: once we're certain enough, we don't need more tests. This is exactly the principle that makes decision trees efficient, not every path needs to reach maximum depth.</p>
+</div></div></div>
+</section>
+
+<!-- 1.3 Types -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>1.3 — Types of Decision Trees</h2>
+  </div>
+  <div class="fragment">
+  <div class="two-col">
+    <div class="info-card">
+      <div class="card-title">Binary Decision Trees</div>
+      <p>Each node has exactly <strong>two branches</strong> (True / False)</p>
+      <ul>
+        <li>For numeric features: "Is X ≤ threshold?" <em>(e.g., "Pages Viewed ≤ 20?")</em></li>
+        <li>For categorical features: "Is X = value?" <em>(e.g., "Referrer = Slashdot?")</em></li>
+      </ul>
+      <p style="margin-top:.4em; font-size:.88em;">Maps directly to <strong>if-then-else</strong> statements in code — computationally efficient</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Non-Binary Decision Trees</div>
+      <p>Categorical nodes can have <strong>multiple branches</strong></p>
+      <ul>
+        <li>Each branch corresponds to one possible value</li>
+        <li>Often visually simpler for features with many values</li>
+        <li>Requires switch-case logic — less efficient</li>
+      </ul>
+      <p style="margin-top:.4em; font-size:.88em;">More intuitive when a feature has many categories (e.g., Country, Type)</p>
+    </div></div>
+  </div>
+  <div class="fragment callout exercise" style="margin-top:.7em;">
+    <div class="callout-label">💬 Reflect</div>
+    <p><strong>What did we draw in Exercise 1?</strong> Binary or non-binary — and why? Where might we need a non-binary tree instead of a binary one?</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 02 — LEARNING DECISION TREES
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 02</div>
+  <h1>Learning Decision Trees</h1>
+  <p class="section-desc">From naive memorisation to generalisation — divide-and-conquer, entropy, information gain, Gini impurity, and numerical attributes.</p>
+  <div class="section-number">02</div>
+</section>
+
+<!-- 2.1 What is learning -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>What is Learning Again?</h2>
+    <span class="tag">Recap</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.05em; line-height:1.8;">The naive approach: construct a tree with one path to a leaf for each example — testing all attributes along the path and attaching the classification to the leaf. <strong>What is wrong with this?</strong></p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <ul>
+        <li>This correctly classifies all training examples — but <strong>doesn't generalise</strong></li>
+        <li>It just <em>memorises</em> the observations</li>
+        <li>We need a tree that is: (1) <strong>consistent</strong> with the training set, and (2) <strong>as small as possible</strong> to promote generalisation</li>
+      </ul>
+      <p style="margin-top:.5em;">Finding the <em>smallest</em> consistent tree is <strong>intractable</strong> — but decision tree learning algorithms use <strong>greedy heuristics</strong> to efficiently find a reasonably small tree.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2.2.2 Divide and Conquer -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Divide-and-Conquer Strategy</h2>
+  </div>
+  <p>Decision tree learning adopts a <strong>greedy divide-and-conquer</strong> approach:</p>
+  <ol>
+    <li>Select the <em>most important</em> attribute to test at the root</li>
+    <li>Divide the training set into subsets corresponding to each value of that attribute</li>
+    <li>Recursively apply the same process to each subset</li>
+  </ol>
+  <div class="callout note" style="margin-top:.7em;">
+    <div class="callout-label">Goal</div>
+    <p>Reach the <strong>correct classification</strong> with a <strong>small number of tests</strong>, creating a tree that is both accurate and shallow.</p>
+  </div>
+  <div class="fragment callout note" style="margin-top:.5em;">
+    <div class="callout-label">Key Question</div>
+    <p>But how do we determine which attribute is <em>most important</em>? → This is where <strong>entropy</strong> and <strong>information gain</strong> come in.</p>
+  </div>
+</section>
+
+<!-- 2.2.3 Entropy -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Entropy</h2>
+  </div>
+  <p>Entropy comes from information theory and <strong>measures the unpredictability</strong> of a random variable. When entropy is high, the classes are mixed. When entropy is zero, we have a pure node.</p>
+  <p class="fragment">Formal: for a random variable <em>X</em> with possible values <em>V(X)</em>:</p>
+  <code class="formula fragment">H(X) = − Σ p(x) · log₂(p(x))</code>
+  <ul class="fragment">
+    <li><code>0 ≤ H(X) ≤ log₂(|V(X)|)</code></li>
+    <li><strong>H(X) = 0</strong> means complete certainty (pure node)</li>
+    <li>Maximum value occurs when all outcomes are equally likely</li>
+  </ul>
+  <div class="fragment callout note" style="margin-top:.5em;">
+    <div class="callout-label">Maximum Entropy — Examples</div>
+    <ul style="font-size:.9em; line-height:1.9;">
+      <li>Binary variable (yes/no): max H = log₂(2) = <strong>1 bit</strong> — when P(yes) = P(no) = 0.5</li>
+      <li>4 possible values (card suit): max H = log₂(4) = <strong>2 bits</strong> — each at probability 0.25</li>
+      <li>8 possible values: max H = log₂(8) = <strong>3 bits</strong></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Entropy Example -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Entropy: Bob's Skiing Example</h2>
+    <span class="tag">Example</span>
+  </div>
+  <p>Bob decides whether to go skiing based on: <strong>Snow nearby</strong>, <strong>Weekend</strong>, <strong>Sunny</strong>.</p>
+  <div class="two-col" style="margin-top:.4em;">
+    <table style="font-size:.75em;">
+      <thead><tr><th>Snow</th><th>Weekend</th><th>Sun</th><th>Go Skiing</th></tr></thead>
+      <tbody>
+        <tr><td>yes</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>yes</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>yes</td><td>yes</td><td>no</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>yes</td><td>no</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>yes</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>no</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>no</td><td>yes</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>no</td><td>yes</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>no</td><td>no</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+      </tbody>
+    </table>
+    <div>
+      <div class="fragment callout note">
+        <div class="callout-label">Entropy of "Go Skiing"</div>
+        <p class="fragment">6 yes, 5 no out of 11 examples:</p>
+        <code class="fragment formula">H(D) = −(6/11 · log₂(6/11) + 5/11 · log₂(5/11)) = 0.994</code>
+        <p class="fragment">Close to 1 → <strong>high uncertainty</strong>. The maximum entropy for a binary variable is 1, indicating we're almost at maximum unpredictability.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.2.4 Information Gain -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Information Gain</h2>
+  </div>
+  <p><strong>Information gain</strong> measures how much the entropy decreases when we split the data based on a particular attribute.</p>
+  <p class="fragment">Formal: for a dataset <em>D</em> and attribute <em>X</em>:</p>
+  <code class="formula fragment">G(D, X) = H(D) − Σ (|D_x| / |D|) · H(D_x)</code>
+  <ul class="fragment" style="margin-top:.3em;">
+    <li><code>H(D)</code> — entropy of the original dataset</li>
+    <li><code>D_x</code> — subset of D where attribute X has value x</li>
+    <li><code>|D_x|</code> — size of subset D_x</li>
+    <li><code>H(D_x)</code> — entropy of subset D_x</li>
+  </ul>
+  <div class="fragment callout note" style="margin-top:.6em;">
+    <div class="callout-label">Decision Rule</div>
+    <p>The attribute with the <strong>highest information gain</strong> is the <em>most important</em> attribute — select it as the split node.</p>
+  </div>
+</section>
+
+<!-- Information Gain Example -->
+<!-- Entropy Example -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Information Gain: Bob's Skiing Example</h2>
+    <span class="tag">Example</span>
+  </div>
+  <p>Bob decides whether to go skiing based on: <strong>Snow nearby</strong>, <strong>Weekend</strong>, <strong>Sunny</strong>.</p>
+  <div class="two-col" style="margin-top:.4em;">
+    <table style="font-size:.75em;">
+      <thead><tr><th>Snow</th><th>Weekend</th><th>Sun</th><th>Go Skiing</th></tr></thead>
+      <tbody>
+        <tr><td>yes</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>yes</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>yes</td><td>yes</td><td>no</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>yes</td><td>no</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>yes</td><td><strong style="color:#1a9e1a;">yes</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>yes</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>yes</td><td>no</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>no</td><td>yes</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>no</td><td>yes</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+        <tr><td>no</td><td>no</td><td>no</td><td><strong style="color:#cc0000;">no</strong></td></tr>
+      </tbody>
+    </table>
+    <div>
+      <div class="fragment callout note">
+        <div class="callout-label">Information Gain of "Go Skiing"</div>
+        <p>Calculating information gain for the <strong>Snow nearby</strong> attribute:</p>
+        <ul clas="fragment" style="font-size:.9em; line-height:2;">
+          <li><strong>D<sub>yes</sub></strong>: 4 examples, all Go Skiing = yes → entropy = 0 (pure node)</li>
+          <li><strong>D<sub>no</sub></strong>: 7 examples, 2 yes and 5 no → entropy = 0.863</li>
+        </ul>
+      <code class="formula fragment">G(D, Snow) = 0.994 − (4/11 · 0) − (7/11 · 0.863) = 0.445</code>
+      <div class="fragment">
+        <p style="margin-top:.5em;">Similarly:</p>
+        <ul style="font-size:.9em; line-height:2;">
+          <li><code>G(D, Weekend) = 0.150</code></li>
+          <li><code>G(D, Sun) = 0.049</code></li>
+        </ul>
+          <div class="callout-label">Result</div>
+          <p>Since <strong>Snow nearby</strong> has the highest information gain (0.445), we select it as the <strong>root node</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2.2.5 Building the tree -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>How to Build a Decision Tree</h2>
+  </div>
+  <p>After selecting <strong>Snow nearby</strong> as root, continue the process recursively for each subset:</p>
+  <ul>
+    <li class="fragment"><strong>D<sub>yes</sub></strong> — all examples have <strong>Go Skiing</strong> = yes → <em>pure node, we're done</em></li>
+    <li class="fragment"><strong>D<sub>no</sub></strong> — mixed yes and no → calculate information gain for remaining attributes on this subset:
+      <ul>
+        <li><strong>Weekend</strong> has higher gain (0.292) than <strong>Sun</strong> (0.169) → split on Weekend</li>
+        <li>Continue recursively…</li>
+      </ul>
+    </li>
+  </ul>
+  <img class="fragment" src="images/skiing_decision_tree.svg" 
+     alt="Decision tree for Go Skiing? — Snow nearby as root, branching through Weekend and Sun"
+     style="width:100%; max-width:560px; display:left; margin:.7em auto;" />
+     <p style="font-size:.72em; color:var(--muted); margin-top:.0004em; font-style:italic;">
+          Figure 3: Decision tree Example.
+        </p>
+</section>
+
+<!-- Exercise 2 — Dataset -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 2 — Which Race Should We Sign Up For?</h2>
+    <span class="tag">Dataset</span>
+  </div>
+  <div class="callout note">
+    <div class="callout-label">Exercise</div>
+    You are training hard in your fitness class each week. A member of your team proposes to attend a race. The group can't agree. So you do what any data-driven athlete would do: collect data from 10 athletes who already chose — and build a decision tree to let the model decide.
+    Calculate (1) entropy of the dataset, (2) information gain of each attribute, (3) identify the root node.
+  </div>
+  <table style="font-size:.82em; margin-top:.5em;">
+    <thead><tr><th>#</th><th>Strength Level</th><th>Ejoys Suffering</th><th>Social Butterfly</th><th>Event</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Low</td><td>Yes</td><td>No</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+      <tr><td>2</td><td>Medium</td><td>Yes</td><td>Yes</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+      <tr><td>3</td><td>Low</td><td>No</td><td>No</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>4</td><td>High</td><td>Yes</td><td>No</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+      <tr><td>5</td><td>Medium</td><td>No</td><td>Yes</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>6</td><td>Low</td><td>No</td><td>No</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>7</td><td>Low</td><td>No</td><td>No</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>8</td><td>Medium</td><td>Yes</td><td>Yes</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+      <tr><td>9</td><td>High</td><td>Yes</td><td>Yes</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+      <tr><td>10</td><td>Low</td><td>Yes</td><td>No</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Step 1: H(D) -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 1 — Calculate H(D)</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="5"></span>
+  </div>
+  <div class="callout note" style="margin-bottom:.5em;">
+    <div class="callout-label">Recall</div>
+    <code class="formula">H(D) = − Σ p(x) · log₂(p(x))</code>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Task</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Count the examples per class. What is the probability of each?</li>
+      <li>Calculate H(D).</li>
+      <li>Is the entropy high or low relative to the maximum? What does it tell us?</li>
+    </ol>
+  </div>
+  <div class="fragment answer-box">
+    <div class="answer-label">Solution</div>
+    <p class="fragment">Marathon: 3/10 · Hyrox: 3/10 · Rest: 4/10</p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D)</strong> = −(3/10·log₂(3/10) + 3/10·log₂(3/10) + 4/10·log₂(4/10))<br/>
+    = −(3/10·(−1.737) + 3/10·(−1.737) + 4/10·(−1.322))<br/>
+    = −(−0.521 − 0.521 − 0.529) = <strong>1.571</strong></p>
+    <p class="fragment" style="margin-top:.4em; font-size:.9em;">Maximum for 3 classes = log₂(3) = 1.585 — we are very close to maximum uncertainty. The dataset is highly mixed.</p>
+  </div>
+</section>
+
+<!-- Step 2: IG task intro -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — Calculate Information Gain</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="15"></span>
+  </div>
+  <div class="callout note" style="margin-bottom:.5em;">
+    <div class="callout-label">Recall</div>
+    <code class="formula">H(D) = − Σ p(x) · log₂(p(x))</code></br></br>
+    <code class="formula" style="margin-top:.4em;">G(D, X) = H(D) − Σ (|D_x| / |D|) · H(D_x)</code>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Task — repeat for each of the 3 attributes</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Split D by the attribute — how many Ma / Hy / Re fall into each subset?</li>
+      <li>For each subset
+      </br> 2.1 calculate entropy
+      </br> 2.2 calculate information gain G(D,X)</li>
+      <li>Note the result — compare all three G values at the end to identify the root node</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Step 2a: Suffering -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — G(D, Enjoys Suffering)</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <p>Split D by <strong>Enjoys Suffering</strong> (Yes / No):</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>#</th><th>Ma</th><th>Hy</th><th>Re</th></tr></thead>
+    <tbody>
+      <tr><td>Yes</td><td>6</td><td>3</td><td>3</td><td>0</td></tr>
+      <tr><td>No</td><td>4</td><td>0</td><td>0</td><td>4</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment answer-box" style="margin-top:.5em; font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p class="fragment"><strong>H(D<sub>Yes</sub>)</strong> = −(3/6·log₂(3/6) + 3/6·log₂(3/6))<br/>
+    = −(3/6·(−1.000) + 3/6·(−1.000))<br/>
+    = −(−0.500 − 0.500) = <strong>1.000</strong></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D<sub>No</sub>)</strong> = −(4/4·log₂(4/4)) = −(1·0) = <strong>0.000</strong> <em>(pure — all Rest)</em></p>
+    <p class="fragment" style="margin-top:.5em;"><strong>G(D, Suffering)</strong> = 1.571 − (6/10)·1.000 − (4/10)·0.000<br/>
+    = 1.571 − 0.600 − 0.000 = <strong>0.971</strong></p>
+  </div>
+</section>
+
+<!-- Step 2b: Strength -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — G(D, Strength Level)</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <p>Split D by <strong>Strength Level</strong> (High / Medium / Low):</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>#</th><th>Ma</th><th>Hy</th><th>Re</th></tr></thead>
+    <tbody>
+      <tr><td>High</td><td>2</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td>Medium</td><td>3</td><td>0</td><td>2</td><td>1</td></tr>
+      <tr><td>Low</td><td>5</td><td>2</td><td>0</td><td>3</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment answer-box" style="margin-top:.5em; font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p class="fragment"><strong>H(D<sub>High</sub>)</strong> = −(1/2·log₂(1/2) + 1/2·log₂(1/2))<br/>
+    = −(1/2·(−1.000) + 1/2·(−1.000))<br/>
+    = −(−0.500 − 0.500) = <strong>1.000</strong></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D<sub>Medium</sub>)</strong> = −(2/3·log₂(2/3) + 1/3·log₂(1/3))<br/>
+    = −(2/3·(−0.585) + 1/3·(−1.585))<br/>
+    = −(−0.390 − 0.528) = <strong>0.918</strong></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D<sub>Low</sub>)</strong> = −(2/5·log₂(2/5) + 3/5·log₂(3/5))<br/>
+    = −(2/5·(−1.322) + 3/5·(−0.737))<br/>
+    = −(−0.529 − 0.442) = <strong>0.971</strong></p>
+    <p class="fragment" style="margin-top:.5em;"><strong>G(D, Strength)</strong> = 1.571 − (2/10)·1.000 − (3/10)·0.918 − (5/10)·0.971<br/>
+    = 1.571 − 0.200 − 0.275 − 0.486 = <strong>0.610</strong></p>
+  </div>
+</section>
+
+<!-- Step 2c: Social -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — G(D, Social Butterfly)</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <p>Split D by <strong>Social Butterfly</strong> (Yes / No):</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>#</th><th>Ma</th><th>Hy</th><th>Re</th></tr></thead>
+    <tbody>
+      <tr><td>Yes</td><td>4</td><td>0</td><td>3</td><td>1</td></tr>
+      <tr><td>No</td><td>6</td><td>3</td><td>0</td><td>3</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment answer-box" style="margin-top:.5em; font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p class="fragment"><strong>H(D<sub>Yes</sub>)</strong> = −(3/4·log₂(3/4) + 1/4·log₂(1/4))<br/>
+    = −(3/4·(−0.415) + 1/4·(−2.000))<br/>
+    = −(−0.311 − 0.500) = <strong>0.811</strong></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D<sub>No</sub>)</strong> = −(3/6·log₂(3/6) + 3/6·log₂(3/6))<br/>
+    = −(3/6·(−1.000) + 3/6·(−1.000))<br/>
+    = −(−0.500 − 0.500) = <strong>1.000</strong></p>
+    <p class="fragment" style="margin-top:.5em;"><strong>G(D, Social)</strong> = 1.571 − (4/10)·0.811 − (6/10)·1.000<br/>
+    = 1.571 − 0.324 − 0.600 = <strong>0.647</strong></p>
+  </div>
+</section>
+
+<!-- Step 2 Summary -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — Which Attribute is the Root?</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <table class="fragment" style="font-size:.88em; margin-top:.3em;">
+    <thead><tr><th>Attribute</th><th>G(D, X)</th></tr></thead>
+    <tbody>
+      <tr style="background:#edfcfe;">
+        <td><strong>Enjoys Suffering</strong></td>
+        <td><strong style="color:#0F6E56;">0.971 → highest → root</strong></td>
+      </tr>
+      <tr><td>Social Butterfly</td><td>0.647</td></tr>
+      <tr><td>Strength Level</td><td>0.610</td></tr>
+    </tbody>
+  </table>
+  <div class="fragment callout note" style="margin-top:.6em;">
+    <div class="callout-label">Result</div>
+    <p><strong>Enjoys Suffering</strong> has the highest information gain (0.971) → it is the root node.<br/>
+    Splitting immediately produces one pure leaf: Suffering = No → all 4 athletes chose <strong>Rest</strong>.</p>
+  </div>
+</section>
+
+<!-- Additional Exercise Step 3: Recurse on Suffering=Yes -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 3 — Recurse: D<sub>Suffering=Yes</sub></h2>
+    <span class="tag">Additional Exercise</span>
+  </div>
+  <p>D<sub>Yes</sub> has 6 examples: Marathon×3, Hyrox×3, Rest×0. H(D<sub>Yes</sub>) = 1.000. Calculate G for the remaining 2 attributes.</p>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Task</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Split D<sub>Yes</sub> by <strong>Social Butterfly</strong> — count Ma/Hy per subset, calculate H, calculate G</li>
+      <li>Split D<sub>Yes</sub> by <strong>Strength Level</strong> — same process</li>
+      <li>Which attribute should split D<sub>Yes</sub>?</li>
+    </ol>
+  </div>
+  <div class="fragment answer-box" style="font-size:.87em;">
+    <div class="answer-label">Solution</div>
+    <div class="two-col" style="gap:.8em;">
+      <div>
+        <p><strong>G(D<sub>Yes</sub>, Social):</strong></p>
+        <p>Social=Yes (3): Ma=0, Hy=3 → H = 0.000 <em>(pure)</em><br/>
+        Social=No (3): Ma=3, Hy=0 → H = 0.000 <em>(pure)</em></p>
+        <p>= 1.000 − (3/6)·0.000 − (3/6)·0.000<br/>
+        = 1.000 − 0 − 0 = <strong>1.000</strong></p>
+      </div>
+      <div>
+        <p><strong>G(D<sub>Yes</sub>, Strength):</strong></p>
+        <p>High (2): Ma=1, Hy=1 → H = 1.000<br/>
+        Medium (2): Ma=0, Hy=2 → H = 0.000 <em>(pure)</em><br/>
+        Low (2): Ma=2, Hy=0 → H = 0.000 <em>(pure)</em></p>
+        <p>= 1.000 − (2/6)·1.000 − 0 − 0<br/>
+        = 1.000 − 0.333 = <strong>0.667</strong></p>
+      </div>
+    </div>
+    </div>
+    <div class="fragment callout note" style="margin-top:.5em; font-size:.88em;">
+      <div class="callout-label">Result</div>
+      <p><strong>Social Butterfly</strong> has the highest G (1.000) → perfect split.<br/>
+      Social=Yes → pure: <strong>Hyrox</strong> (3/3) · Social=No → pure: <strong>Marathon</strong> (3/3)</p>
+    </div>
+</section>
+
+<!-- Solution: Complete Tree -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution — The Complete Tree</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <img src="images/complete_race_decision_tree.svg"
+       alt="Decision tree: Enjoys Suffering root, No → Rest, Yes → Social Butterfly, No → Marathon, Yes → Hyrox"
+       style="width:100%; max-width:600px; display:block; margin:.5em auto;" />
+  <div class="callout note" style="margin-top:.6em; font-size:.88em;">
+    <div class="callout-label">Key takeaways</div>
+    <ul style="line-height:1.9;">
+      <li><strong>Suffering</strong> is root — highest G (0.971), immediately isolates all Rest cases</li>
+      <li><strong>Social</strong> perfectly separates Marathon (No) from Hyrox (Yes) — G = 1.000, maximum possible</li>
+      <li><strong>Strength</strong> was never needed — the tree is complete without it</li>
+      <li>All 3 leaf nodes are pure · 2 internal nodes · depth 2</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 2.2.6 Gini -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Gini Impurity</h2>
+  </div>
+  <p>Instead of information gain, <strong>Gini impurity</strong> is another common splitting criterion — it measures the probability of incorrectly classifying a randomly chosen element if it were randomly labeled according to the class distribution:</p>
+  <code class="formula fragment">Gini(X) = Σ p(x) · (1 − p(x))</code>
+  <div class="fragment two-col" style="margin-top:.5em;">
+    <div class="info-card">
+      <div class="card-title">Properties</div>
+      <ul>
+        <li>0 = all elements belong to the same class (pure)</li>
+        <li>Maximum when classes are equally likely</li>
+        <li>Lower value = "purer" node</li>
+        <li>Often used in <strong>CART</strong> (Classification and Regression Trees) algorithm</li>
+      </ul>
+    </div>
+    <div class="info-card fragment">
+      <div class="card-title">Entropy vs. Gini</div>
+      <ul>
+        <li>Entropy measures <em>uncertainty</em></li>
+        <li>Gini measures <em>expected error rate</em></li>
+        <li>In practice both often yield similar trees</li>
+        <li>Gini is computationally more efficient — no logarithms</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Exercise 3 — Dataset intro -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 3 — Decision Tree with Gini Impurity</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="10"></span>
+  </div>
+  <div class="callout note" style="margin-bottom:.6em;">
+    <div class="callout-label">Recall — Gini Impurity</div>
+    <code class="formula">Gini(D) = 1 − Σ p(x)²</code>
+    <p style="font-size:.9em; margin-top:.4em;">Measures the probability of incorrectly classifying a randomly chosen element. A pure node has Gini = 0. Instead of information gain, we now look for the attribute with the <strong>lowest weighted Gini impurity</strong> after splitting.</p>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Task — repeat for each of the 3 attributes</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Split D by the attribute — how many Ma / Hy / Re fall into each subset?</li>
+      <li>For each subset, calculate <code>Gini(D<sub>x</sub>) = 1 − Σ p(x)²</code></li>
+      <li>Calculate the weighted Gini impurity: <code>Σ (|D<sub>x</sub>| / |D|) · Gini(D<sub>x</sub>)</code></li>
+      <li>Note the result — compare all three values at the end to identify the root node</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Step 1: Gini(D) -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 1 — Calculate Gini(D)</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <div class="callout note" style="margin-bottom:.5em;">
+    <div class="callout-label">Recall</div>
+    <code class="formula">Gini(D) = 1 − Σ p(x)²</code>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Task</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Count the examples per class. What is the probability of each?</li>
+      <li>Calculate Gini(D).</li>
+      <li>Is the Gini high or low relative to the maximum? What does it tell us?</li>
+    </ol>
+  </div>
+  <div class="fragment answer-box">
+    <div class="answer-label">Solution</div>
+    <p class="fragment">Marathon: 3/10 · Hyrox: 3/10 · Rest: 4/10</p>
+    <p class="fragment" style="margin-top:.4em;"><strong>Gini(D)</strong> = 1 − (3/10)² − (3/10)² − (4/10)²<br/>
+    = 1 − 0.090 − 0.090 − 0.160 = <strong>0.660</strong></p>
+    <p class="fragment" style="margin-top:.4em; font-size:.9em;">Maximum for 3 equal classes = 1 − 3·(1/3)² = 0.667 — we are very close to maximum impurity. The dataset is highly mixed.</p>
+  </div>
+</section>
+
+<!-- Step 2a: Suffering -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — Weighted Gini for Enjoys Suffering</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <p>Split D by <strong>Enjoys Suffering</strong> (Yes / No):</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>n</th><th>Ma</th><th>Hy</th><th>Re</th></tr></thead>
+    <tbody>
+      <tr><td>Yes</td><td>6</td><td>3</td><td>3</td><td>0</td></tr>
+      <tr><td>No</td><td>4</td><td>0</td><td>0</td><td>4</td></tr>
+    </tbody>
+  </table>
+  <div class="callout exercise" style="margin-top:.5em;">
+    <div class="callout-label">✏️ Task</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Calculate Gini(D<sub>Yes</sub>) and Gini(D<sub>No</sub>)</li>
+      <li>Calculate the weighted Gini = (6/10)·Gini(D<sub>Yes</sub>) + (4/10)·Gini(D<sub>No</sub>)</li>
+    </ol>
+  </div>
+  <div class="fragment answer-box" style="margin-top:.5em; font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p class="fragment"><strong>Gini(D<sub>Yes</sub>)</strong> = 1 − (3/6)² − (3/6)²<br/>
+    = 1 − 0.250 − 0.250 = <strong>0.500</strong></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>Gini(D<sub>No</sub>)</strong> = 1 − (4/4)²<br/>
+    = 1 − 1.000 = <strong>0.000</strong> <em>(pure — all Rest)</em></p>
+    <p class="fragment" style="margin-top:.5em;"><strong>Weighted Gini(Suffering)</strong> = (6/10)·0.500 + (4/10)·0.000<br/>
+    = 0.300 + 0.000 = <strong>0.300</strong></p>
+  </div>
+</section>
+
+<!-- Step 2b: Social -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — Weighted Gini for Social Butterfly</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <p>Split D by <strong>Social Butterfly</strong> (Yes / No):</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>n</th><th>Ma</th><th>Hy</th><th>Re</th></tr></thead>
+    <tbody>
+      <tr><td>Yes</td><td>4</td><td>0</td><td>3</td><td>1</td></tr>
+      <tr><td>No</td><td>6</td><td>3</td><td>0</td><td>3</td></tr>
+    </tbody>
+  </table>
+  <div class="answer-box" style="margin-top:.5em; font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p ><strong>Gini(D<sub>Yes</sub>)</strong> = 1 − (3/4)² − (1/4)²<br/>
+    = 1 − 0.5625 − 0.0625 = <strong>0.375</strong></p>
+    <p  style="margin-top:.4em;"><strong>Gini(D<sub>No</sub>)</strong> = 1 − (3/6)² − (3/6)²<br/>
+    = 1 − 0.250 − 0.250 = <strong>0.500</strong></p>
+    <p  style="margin-top:.5em;"><strong>Weighted Gini(Social)</strong> = (4/10)·0.375 + (6/10)·0.500<br/>
+    = 0.150 + 0.300 = <strong>0.450</strong></p>
+  </div>
+</section>
+
+<!-- Step 2c: Strength -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 2 — Weighted Gini for Strength Level</h2>
+    <span class="tag">Exercise</span>
+  </div>
+  <p>Split D by <strong>Strength Level</strong> (High / Medium / Low):</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>n</th><th>Ma</th><th>Hy</th><th>Re</th></tr></thead>
+    <tbody>
+      <tr><td>High</td><td>2</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td>Medium</td><td>3</td><td>0</td><td>2</td><td>1</td></tr>
+      <tr><td>Low</td><td>5</td><td>2</td><td>0</td><td>3</td></tr>
+    </tbody>
+  </table>
+  <div class="answer-box" style="margin-top:.5em; font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p><strong>Gini(D<sub>High</sub>)</strong> = 1 − (1/2)² − (1/2)²<br/>
+    = 1 − 0.250 − 0.250 = <strong>0.500</strong></p>
+    <p style="margin-top:.4em;"><strong>Gini(D<sub>Medium</sub>)</strong> = 1 − (2/3)² − (1/3)²<br/>
+    = 1 − 0.444 − 0.111 = <strong>0.444</strong></p>
+    <p style="margin-top:.4em;"><strong>Gini(D<sub>Low</sub>)</strong> = 1 − (2/5)² − (3/5)²<br/>
+    = 1 − 0.160 − 0.360 = <strong>0.480</strong></p>
+    <p style="margin-top:.5em;"><strong>Weighted Gini(Strength)</strong> = (2/10)·0.500 + (3/10)·0.444 + (5/10)·0.480<br/>
+    = 0.100 + 0.133 + 0.240 = <strong>0.473</strong></p>
+  </div>
+</section>
+
+<!-- Summary -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Step 3 — Which Attribute is the Root?</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <table style="font-size:.88em; margin-top:.3em;">
+    <thead><tr><th>Attribute</th><th>Weighted Gini impurity</th><th>G (Info Gain)</th></tr></thead>
+    <tbody>
+      <tr style="background:#edfcfe;">
+        <td><strong>Enjoys Suffering</strong></td>
+        <td><strong style="color:#0F6E56;">0.300 → lowest → root</strong></td>
+        <td>0.971 → highest</td>
+      </tr>
+      <tr><td>Social Butterfly</td><td>0.450</td><td>0.647</td></tr>
+      <tr><td>Strength Level</td><td>0.473</td><td>0.610</td></tr>
+    </tbody>
+  </table>
+  <div class="callout note" style="margin-top:.6em;">
+    <div class="callout-label">Result</div>
+    <p><strong>Enjoys Suffering</strong> has the lowest weighted Gini impurity (0.300) → it is the root node. This matches the Information Gain result from Exercise 2.</p>
+  </div>
+  <div class="callout exercise" style="margin-top:.5em;">
+    <div class="callout-label">Reflect</div>
+    <p>Gini and Information Gain agree here — both rank the attributes in the same order. In practice they usually agree, but can differ when one attribute has many values or when class distributions are skewed. Gini is computationally cheaper — no logarithms required.</p>
+  </div>
+</section>
+
+<!--Numeric Attributes -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Numerical Attributes</h2>
+  </div>
+  <p>For numerical attributes, rather than treating each value as a separate category, we find the optimal <strong>binary split point</strong>:</p>
+  <ol>
+    <li><strong>Sort</strong> the values of the attribute in the training set</li>
+    <li><strong>Consider all possible thresholds</strong> between adjacent values</li>
+    <li><strong>Calculate information gain</strong> (or Gini) for each threshold</li>
+    <li><strong>Select the threshold</strong> with the highest information gain</li>
+  </ol>
+  <div class="callout note" style="margin-top:.6em;">
+    <div class="callout-label">Key Insight</div>
+    <p>The same numerical attribute can be used <strong>multiple times</strong> in a decision tree with different thresholds.</p>
+  </div>
+</section>
+
+<!-- Numeric Example -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Numerical Attributes: Snow Depth Example</h2>
+    <span class="tag">Example</span>
+  </div>
+  <p>Replacing <em>Snow nearby</em> with <strong>Snow Depth (cm)</strong> as a numerical attribute:</p>
+  <div class="fragment two-col" style="margin-top:.3em;">
+    <div>
+      <p style="font-size:.88em; margin-bottom:.3em;">Sorted values: 0, 0, 1, 2, 3, 5, 8, 15, 25, 30, 35</p>
+      <p style="font-size:.88em;">Testing threshold: <strong>Snow Depth ≤ 10 cm</strong></p>
+      <ul style="font-size:.85em; line-height:1.9;">
+        <li>≤ 10 cm: 7 examples (2 yes, 5 no)</li>
+        <li>&gt; 10 cm: 4 examples (4 yes, 0 no)</li>
+      </ul>
+      <code class="formula" style="font-size:.78em; margin-top:.4em;">H(D≤10) = 0.863<br/>H(D>10) = 0 (pure)<br/>G(D, Depth≤10) = 0.994 − 7/11·0.863 − 4/11·0 = 0.445</code>
+    </div>
+        <img src="images/snow_depth_decision_tree.svg"
+        alt="Decision tree: Snow Depth ≤ 10cm root, No → Go Skiing Yes, Yes → Weekend → Sun"
+        style="width:100%; max-width:580px; display:block; margin:.5em auto;" />
+    <div class="callout note" style="font-size:.8em; margin-top:.4em;">
+      <div class="callout-label">Result</div>
+      <p>Same information gain (0.445) as Snow nearby — equally good root node choice.</p>
+    </div>
+    </div>
+</section>
+
+<!-- Exercise 4 — Dataset -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — Numeric Attributes: Which Race?</h2>
+    <span class="tag">Dataset</span>
+  </div>
+  <div class="callout note" style="margin-bottom:.5em;">
+    <div class="callout-label">Extension</div>
+    <p>We add another competition "CrossFit" which results in mixed leaf nodes for Enjoys Suffering = Yes and Social Butterfly = Yes.<br/>
+    Two <strong>numerical attributes</strong> are now added: weekly training volume (km) and running pace (min/km). Your task: find the best threshold for each and build the full tree.</p>
+  </div>
+  <table style="font-size:.72em; margin-top:.3em;">
+    <thead><tr><th>#</th><th>Suffering</th><th>Social</th><th>Weekly km</th><th>Pace (min/km)</th><th>Event</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Yes</td><td>No</td><td>65</td><td>4:30</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+      <tr><td>2</td><td>Yes</td><td>Yes</td><td>42</td><td>5:30</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+      <tr><td>3</td><td>No</td><td>No</td><td>0</td><td>7:00</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>4</td><td>Yes</td><td>No</td><td>70</td><td>4:18</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+      <tr><td>5</td><td>No</td><td>Yes</td><td>20</td><td>6:45</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>6</td><td>No</td><td>No</td><td>10</td><td>7:15</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>7</td><td>No</td><td>No</td><td>15</td><td>7:30</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+      <tr><td>8</td><td>Yes</td><td>Yes</td><td>38</td><td>5:45</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+      <tr><td>9</td><td>Yes</td><td>Yes</td><td>5</td><td>6:12</td><td><strong style="color:#0C447C;">CrossFit</strong></td></tr>
+      <tr><td>10</td><td>Yes</td><td>No</td><td>60</td><td>4:45</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+      <tr><td>11</td><td>Yes</td><td>Yes</td><td>22</td><td>6:30</td><td><strong style="color:#0C447C;">CrossFit</strong></td></tr>
+      <tr><td>12</td><td>Yes</td><td>Yes</td><td>45</td><td>5:18</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Exercise 4 — Tree with known values -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — What We Already Know</h2>
+    <span class="tag">Recap</span>
+  </div>
+  <p>The categorical splits are already solved. All relevant values are provided — your task is only to find the best numeric threshold.</p>
+  <img src="images/partial_tree_numeric_exercise.svg"
+     alt="Partial decision tree: Suffering root, No → Rest, Yes → Social, No → Marathon, Yes → numeric split to be found"
+     style="width:100%; max-width:580px; display:block; margin:.5em auto;" />
+      <div class="callout exercise" style="margin-top:.5em; font-size:.85em;">
+        <div class="callout-label">✏️ Task</div>
+        <ol style="line-height:2; font-size:.93em;">
+          <li>Sort the <strong>Weekly km</strong> values. What thresholds would you test?</li>
+          <li>Test <strong>km ≤ threshold</strong> — calculate H for each subset, then G</li>
+          <li>Test <strong>pace ≤ 5:57</strong> — same process</li>
+          <li>Which threshold gives the highest G? Are both leaves pure?</li>
+        </ol>
+      </div>
+</section>
+
+<!-- Exercise 4 — Step 1: Sort and identify thresholds -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — Step 1: Sort Values and Identify Thresholds</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <p>The Social=Yes branch has 5 athletes. Sort both numerical attributes:</p>
+  <div style="margin-top:.5em;">
+    <div class="callout note">
+      <div class="callout-label">Weekly km — sorted</div>
+      <p style="font-family:'Space Mono',monospace; font-size:.9em; line-height:2;">
+        5 · 22 · 38 · 42 · 45
+      </p>
+      <p style="font-size:.88em;">Thresholds to test (midpoints between adjacent values):</p>
+      <p style="font-family:'Space Mono',monospace; font-size:.88em; line-height:2;">
+        14 · <strong>30</strong> · 40 · 44
+      </p>
+    </div>
+  <div class="callout note" style="margin-top:.5em; font-size:.88em;">
+    <div class="callout-label">Recall</div>
+    <p>For numerical attributes we test all midpoints between adjacent sorted values — the threshold with the highest information gain is selected.</p>
+    <p>Because 30 sits exactly between the CrossFit athletes (km = 5 and 22) and the Hyrox athletes (km = 38, 42, 45). Everything ≤ 30 is CrossFit, everything > 30 is Hyrox — a perfect natural gap in the data.
+    You wouldn't know this upfront. You'd test all four thresholds (14, 30, 40, 44), calculate G for each, and 30 would come out highest — which is what Step 2 shows.</p>
+  </div>
+</section>
+
+<!-- Exercise 4 — Step 2: G(km ≤ 30) -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — Step 2: G(D<sub>soc=yes</sub>, km ≤ 30)</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <p>Split the Social=Yes branch by <strong>Weekly km ≤ 30</strong>:</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>Athletes</th><th>n</th><th>Hy</th><th>CF</th></tr></thead>
+    <tbody>
+      <tr style="background:#edfcfe;"><td>km ≤ 30</td><td>#9 (5 km), #11 (22 km)</td><td>2</td><td>0</td><td>2</td></tr>
+      <tr><td>km &gt; 30</td><td>#8 (38 km), #2 (42 km), #12 (45 km)</td><td>3</td><td>3</td><td>0</td></tr>
+    </tbody>
+  </table>
+  <div class="answer-box" style="margin-top:.6em; font-size:.88em;">
+    <div class="answer-label">Calculation</div>
+    <p class="fragment"><strong>H(D<sub>km≤30</sub>)</strong> = −(2/2·log₂(2/2)) = −(1·0) = <strong>0.000</strong> <em>(pure — all CrossFit)</em></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D<sub>km&gt;30</sub>)</strong> = −(3/3·log₂(3/3)) = −(1·0) = <strong>0.000</strong> <em>(pure — all Hyrox)</em></p>
+    <p class="fragment" style="margin-top:.5em;"><strong>G(D<sub>soc=yes</sub>, km≤30)</strong> = 0.971 − (2/5)·0.000 − (3/5)·0.000<br/>
+    = 0.971 − 0 − 0 = <strong>0.971</strong> — perfect split</p>
+  </div>
+</section>
+
+<!-- Exercise 4 — Step 3: G(pace ≤ 5:57) -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — Step 3: G(D<sub>soc=yes</sub>, pace ≤ 5:57)</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <p>Split the Social=Yes branch by <strong>Pace ≤ 5:57</strong>:</p>
+  <table style="font-size:.82em; margin-top:.3em;">
+    <thead><tr><th>Subset</th><th>Athletes</th><th>n</th><th>Hy</th><th>CF</th></tr></thead>
+    <tbody>
+      <tr><td>pace ≤ 5:57</td><td>#12 (5:18), #2 (5:30), #8 (5:45)</td><td>3</td><td>3</td><td>0</td></tr>
+      <tr style="background:#edfcfe;"><td>pace &gt; 5:57</td><td>#9 (6:12), #11 (6:30)</td><td>2</td><td>0</td><td>2</td></tr>
+    </tbody>
+  </table>
+  <div class="answer-box" style="margin-top:.6em; font-size:.88em;">
+    <div class="answer-label">Calculation</div>
+    <p class="fragment"><strong>H(D<sub>pace≤5:57</sub>)</strong> = −(3/3·log₂(3/3)) = <strong>0.000</strong> <em>(pure — all Hyrox)</em></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>H(D<sub>pace&gt;5:57</sub>)</strong> = −(2/2·log₂(2/2)) = <strong>0.000</strong> <em>(pure — all CrossFit)</em></p>
+    <p class="fragment" style="margin-top:.5em;"><strong>G(D<sub>soc=yes</sub>, pace≤5:57)</strong> = 0.971 − (3/5)·0.000 − (2/5)·0.000<br/>
+    = 0.971 − 0 − 0 = <strong>0.971</strong> — equally perfect split</p>
+  </div>
+</section>
+
+<!-- Exercise 4 — Step 4: Which threshold? -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — Step 4: Which Threshold to Choose?</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <table style="font-size:.88em; margin-top:.3em;">
+    <thead><tr><th>Threshold</th><th>G</th><th>Both leaves pure?</th></tr></thead>
+    <tbody>
+      <tr style="background:#edfcfe;"><td><strong>Weekly km ≤ 30</strong></td><td><strong style="color:#0F6E56;">0.971</strong></td><td>Yes — CrossFit (2/2) · Hyrox (3/3)</td></tr>
+      <tr style="background:#edfcfe;"><td><strong>Pace ≤ 5:57</strong></td><td><strong style="color:#0F6E56;">0.971</strong></td><td>Yes — Hyrox (3/3) · CrossFit (2/2)</td></tr>
+    </tbody>
+  </table>
+  <div class="callout note" style="margin-top:.6em;">
+    <div class="callout-label">Result</div>
+    <p>Both thresholds give G = 0.971 — a perfect split. This is not a coincidence: CrossFit athletes in this dataset consistently train fewer km at slower pace, while Hyrox athletes train more km at faster pace. The two attributes are perfectly correlated in this subset. Either split is valid — use <strong>Weekly km ≤ 30</strong> for the tree.</p>
+  </div>
+  <div class="callout exercise" style="margin-top:.5em; font-size:.88em;">
+    <div class="callout-label">Pruning note</div>
+    <p>The CrossFit leaf is based on only <strong>2 examples</strong>. This makes it a prime candidate for pruning — we will revisit this in Exercise 5.</p>
+  </div>
+</section>
+
+<!-- Exercise 4 — Complete Tree -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — The Complete Tree</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <img src="images/complete_race_tree_numeric.svg"
+      alt="Complete decision tree: Suffering → Social → Weekly km ≤ 30 → CrossFit / Hyrox"
+      style="width:100%; max-width:620px; display:block; margin:.5em auto;" />
+  <div class="callout note" style="margin-top:.6em; font-size:.88em;">
+    <div class="callout-label">Key takeaways</div>
+    <ul style="line-height:1.9;">
+      <li><strong>Suffering</strong> — root, isolates Rest immediately</li>
+      <li><strong>Social=No</strong> → Marathon pure — marathoners train alone</li>
+      <li><strong>Weekly km ≤ 30</strong> separates CrossFit (low volume) from Hyrox (higher volume)</li>
+      <li>Pace ≤ 5:57 is an equally valid alternative split — same result, different attribute</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Pruning Recap -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>3.2 — Pruning: Recap</h2>
+  </div>
+  <p>Our tree perfectly classifies all 12 training examples — but is it too specific?</p>
+  <div class="two-col" style="margin-top:.6em;">
+    <div class="info-card">
+      <div class="card-title">The Problem: Overfitting</div>
+      <ul>
+        <li>A deeper tree fits training data more perfectly</li>
+        <li>But it may learn <strong>noise</strong>, not patterns</li>
+        <li>Result: poor generalisation to new athletes</li>
+        <li>Our CrossFit leaf is based on <strong>only 2 examples</strong> — how confident are we?</li>
+      </ul>
+    </div>
+    <div class="info-card fragment">
+      <div class="card-title">The Solution: Pruning</div>
+      <ul>
+        <li><strong>Pre-pruning:</strong> stop growing early — set minimum examples per node, maximum depth, or minimum IG threshold</li>
+        <li><strong>Post-pruning:</strong> build the full tree, then remove nodes that do not improve performance on a validation set</li>
+      </ul>
+      <p style="font-size:.88em; margin-top:.4em; color:var(--muted-dark);">Post-pruning is more robust — it uses real evidence to decide what to remove.</p>
+    </div>
+  </div>
+  <div class="fragment callout note" style="margin-top:.6em;">
+    <div class="callout-label">Reduced Error Pruning</div>
+    <p>Replace an internal node with its most frequent class label. If accuracy on the validation set does not decrease — keep the pruned version. Simpler tree, same or better generalisation.</p>
+  </div>
+</section>
+
+<!-- Pruning Exercise -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Pruning</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="12"></span>
+  </div>
+  <p>Consider the complete tree from Exercise 4. A validation set of <strong>4 new athletes</strong> has arrived:</p>
+  <table style="font-size:.83em; margin-top:.3em;">
+    <thead><tr><th>#</th><th>Suffering</th><th>Social</th><th>Weekly km</th><th>Pace</th><th>Event (actual)</th></tr></thead>
+    <tbody>
+      <tr><td>V1</td><td>Yes</td><td>Yes</td><td>28</td><td>6:05</td><td><strong style="color:#0C447C;">CrossFit</strong></td></tr>
+      <tr><td>V2</td><td>Yes</td><td>Yes</td><td>40</td><td>5:40</td><td><strong style="color:#3C3489;">Hyrox</strong></td></tr>
+      <tr><td>V3</td><td>Yes</td><td>No</td><td>55</td><td>4:55</td><td><strong style="color:#27500A;">Marathon</strong></td></tr>
+      <tr><td>V4</td><td>No</td><td>No</td><td>8</td><td>7:10</td><td><strong style="color:#444441;">Rest</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="callout exercise" style="margin-top:.5em;">
+    <div class="callout-label">✏️ Task</div>
+    <ol style="line-height:2.1; font-size:.93em;">
+      <li>Run all 4 validation athletes through the tree. What does the tree predict for each? How many are correctly classified?</li>
+      <li>Apply <strong>reduced error pruning</strong> to the <code>Weekly km ≤ 30</code> node — replace it with the majority class of its training examples (Hyrox×3, CrossFit×2). What is the pruned prediction for V1 and V2?</li>
+      <li>Does pruning increase or decrease accuracy on the validation set? Should we keep the pruned version?</li>
+      <li>Would <strong>pre-pruning</strong> have prevented this node from being created? What minimum examples threshold would you set?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Pruning Solution Step 1 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Step 1: Run Validation Through the Tree</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <table style="font-size:.85em; margin-top:.3em;">
+    <thead><tr><th>#</th><th>Path through tree</th><th>Predicted</th><th>Actual</th><th>Correct?</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>V1</td>
+        <td>Suffering=Yes → Social=Yes → km=28 ≤ 30</td>
+        <td><strong style="color:#0C447C;">CrossFit</strong></td>
+        <td><strong style="color:#0C447C;">CrossFit</strong></td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+      <tr>
+        <td>V2</td>
+        <td>Suffering=Yes → Social=Yes → km=40 &gt; 30</td>
+        <td><strong style="color:#3C3489;">Hyrox</strong></td>
+        <td><strong style="color:#3C3489;">Hyrox</strong></td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+      <tr>
+        <td>V3</td>
+        <td>Suffering=Yes → Social=No</td>
+        <td><strong style="color:#27500A;">Marathon</strong></td>
+        <td><strong style="color:#27500A;">Marathon</strong></td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+      <tr>
+        <td>V4</td>
+        <td>Suffering=No</td>
+        <td><strong style="color:#444441;">Rest</strong></td>
+        <td><strong style="color:#444441;">Rest</strong></td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="answer-box" style="margin-top:.6em;">
+    <div class="answer-label">Result</div>
+    <p>The original tree correctly classifies <strong>4/4 validation examples</strong> — perfect accuracy on the validation set.</p>
+  </div>
+</section>
+
+<!-- Pruning Solution Step 2: Apply Pruning -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Step 2: Apply Reduced Error Pruning</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <p>We consider pruning the <code>Weekly km ≤ 30</code> node. The rule for reduced error pruning:</p>
+  <div class="callout note" style="margin-bottom:.6em;">
+    <div class="callout-label">Recall — Reduced Error Pruning</div>
+    <p>Replace the node with its <strong>majority class</strong> from the training examples that reach it. Then check: does accuracy on the validation set decrease? If not — keep the pruned version.</p>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">🔎 Hint</div>
+    <ol style="line-height:2.2; font-size:.93em;">
+      <li>Which training examples reach the <code>km ≤ 30</code> node? List them.</li>
+      <li>Count the classes — what is the majority class?</li>
+      <li>Replace the node with that class label — draw the pruned tree.</li>
+    </ol>
+  </div>
+  <div class="fragment answer-box" style="font-size:.88em;">
+    <div class="answer-label">Solution</div>
+    <p class="fragment">Training examples reaching <code>km ≤ 30</code>: athletes who have Suffering=Yes AND Social=Yes.<br/>
+    That is athletes #2, #8, #9, #11, #12 → Hyrox×3 (km: 38, 42, 45) · CrossFit×2 (km: 5, 22)</p>
+    <p class="fragment" style="margin-top:.4em;">Majority class: <strong>Hyrox</strong> (3 out of 5)</p>
+    <p class="fragment" style="margin-top:.4em;">Pruned tree: replace <code>km ≤ 30</code> node with leaf <strong>Hyrox</strong></p>
+  </div>
+</section>
+
+<!-- Pruning Solution Step 3: Run validation through pruned tree -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Step 3: Run Validation Through the Pruned Tree</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <p>Pruned tree: Suffering → Social → <strong>Hyrox</strong> (leaf, no more km split).</p>
+  <div class="callout exercise" style="margin-bottom:.5em;">
+    <div class="callout-label">🔎 Hint</div>
+    <p>For each validation athlete, follow the pruned tree and write down the prediction. Compare to actual.</p>
+  </div>
+  <table style="font-size:.85em; margin-top:.3em;">
+    <thead><tr><th>#</th><th>Suffering</th><th>Social</th><th>km</th><th>Pruned prediction</th><th>Actual</th><th>Correct?</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>V1</td><td>Yes</td><td>Yes</td><td>28</td>
+        <td class="fragment"><strong style="color:#3C3489;">Hyrox</strong> <span style="color:var(--muted-dark); font-size:.85em;">(leaf — km ignored)</span></td>
+        <td><strong style="color:#0C447C;">CrossFit</strong></td>
+        <td class="fragment" style="color:#cc0000; font-weight:700;">✗</td>
+      </tr>
+      <tr>
+        <td>V2</td><td>Yes</td><td>Yes</td><td>40</td>
+        <td class="fragment"><strong style="color:#3C3489;">Hyrox</strong></td>
+        <td><strong style="color:#3C3489;">Hyrox</strong></td>
+        <td class="fragment" style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+      <tr>
+        <td>V3</td><td>Yes</td><td>No</td><td>55</td>
+        <td class="fragment"><strong style="color:#27500A;">Marathon</strong></td>
+        <td><strong style="color:#27500A;">Marathon</strong></td>
+        <td class="fragment" style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+      <tr>
+        <td>V4</td><td>No</td><td>No</td><td>8</td>
+        <td class="fragment"><strong style="color:#444441;">Rest</strong></td>
+        <td><strong style="color:#444441;">Rest</strong></td>
+        <td class="fragment" style="color:#1a9e1a; font-weight:700;">✓</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="fragment answer-box" style="margin-top:.5em;">
+    <div class="answer-label">Result</div>
+    <p>Pruned accuracy: <strong>3/4</strong> (75%) — V1 is now misclassified.</p>
+  </div>
+</section>
+
+<!-- Pruning Solution Step 4: Compare -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Step 4: Keep or Discard the Pruned Version?</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <div class="callout exercise" style="margin-bottom:.5em;">
+    <div class="callout-label">🔎 Hint</div>
+    <p>Compare original vs pruned accuracy. Apply the reduced error pruning decision rule.</p>
+  </div>
+  <table style="font-size:.88em; margin-top:.3em;">
+    <thead><tr><th>Version</th><th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>Accuracy</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Original tree</strong></td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td><strong>4/4</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Pruned tree</strong></td>
+        <td style="color:#cc0000; font-weight:700;">✗</td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td style="color:#1a9e1a; font-weight:700;">✓</td>
+        <td><strong>3/4</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="fragment answer-box" style="margin-top:.5em;">
+    <div class="answer-label">Decision</div>
+    <p>Pruned accuracy (3/4) &lt; original accuracy (4/4) → accuracy <strong>decreased</strong>.</p>
+    <p style="margin-top:.4em;">→ By the reduced error pruning rule: <strong>keep the original tree.</strong></p>
+    <p style="margin-top:.4em;">The validation data confirms the km ≤ 30 split is genuinely useful — even though it was built on only 2 training examples. The CrossFit pattern holds in the validation set too.</p>
+  </div>
+</section>
+
+<!-- Pruning Solution Step 5: Pre-pruning -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Step 5: Pre-Pruning</h2>
+    <span class="tag">Solution</span>
+  </div>
+  <div class="callout exercise" style="margin-bottom:.5em;">
+    <div class="callout-label">✏️ Task</div>
+    <p>Would pre-pruning have prevented the <code>km ≤ 30</code> node from being created? What minimum examples threshold would you set?</p>
+  </div>
+  <div class="answer-box">
+    <div class="answer-label">Solution</div>
+    <p><strong>Which examples reach the km ≤ 30 node?</strong><br/>
+    5 athletes (Suffering=Yes, Social=Yes). After the km split:<br/>
+    — km ≤ 30: <strong>2 examples</strong> (CrossFit)<br/>
+    — km &gt; 30: <strong>3 examples</strong> (Hyrox)</p>
+    <p style="margin-top:.5em;"><strong>With min_samples = 3:</strong> the km ≤ 30 split would be blocked — the CrossFit subset has only 2 examples, below the threshold. The node would become a leaf: <strong>Hyrox</strong> (majority of 5).</p>
+    <p style="margin-top:.5em;"><strong>Would that have been correct?</strong><br/>
+    No — post-pruning showed the split was valid. Pre-pruning with min_samples=3 would have removed a genuinely useful node.</p>
+  </div>
+  <div class="callout note" style="margin-top:.6em;">
+      <div class="callout-label">Key Insight</div>
+      <p>Pre-pruning is faster but may stop too early — it cannot use validation evidence. Post-pruning waits for real data before deciding. With small datasets like this one, <strong>post-pruning is the safer choice</strong>.</p>
+    </div>
+</section>
+
+<!--Recursive Learning -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Recursive Learning Process</h2>
+  </div>
+  <p>In each recursive step of decision tree learning, there are <strong>four cases</strong> to consider:</p>
+  <ol>
+    <li><strong>Mixed examples (positive and negative):</strong> Choose the best attribute and split</li>
+    <li><strong>Pure node</strong> (all examples have same class): Create a leaf node with that class</li>
+    <li><strong>No examples:</strong> Create a leaf with the majority class from the <em>parent node</em></li>
+    <li><strong>No attributes left but mixed classes:</strong> Create a leaf with the majority class (handles noisy data)</li>
+  </ol>
+  <div class="callout note" style="margin-top:.7em;">
+    <div class="callout-label">Note</div>
+    <p>Cases 3 and 4 are important for handling edge cases with small or noisy datasets. The algorithm is robust because it <strong>always has a way to proceed</strong> regardless of the data configuration.</p>
+  </div>
+</section>
+
+<!-- Q&A -->
+<section class="section-slide">
+  <div class="section-label">// Q&amp;A</div>
+  <h1>Questions?</h1>
+  <p class="section-desc">What remains unclear?</p>
+  <div class="section-number">?</div>
+</section>
+
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true, slideNumber: false, progress: true, controls: false,
+  fragments: true, transition: 'fade', transitionSpeed: 'default',
+  center: false, width: 1400, height: 788, margin: 0,
+});
+function updateFooter() {
+  var idx = Reveal.getIndices();
+  var total = Reveal.getTotalSlides();
+  var el = document.getElementById('footer-slide-num');
+  if (el) el.textContent = (idx.h + 1) + ' / ' + total;
+}
+Reveal.on('ready', updateFooter);
+Reveal.on('slidechanged', updateFooter);
+</script>
+<script>
+document.querySelectorAll('.timer').forEach(function(el) {
+  var m = parseInt(el.dataset.minutes) || 5;
+  el.textContent = m + ':00';
+  Object.assign(el.style, {
+    fontFamily: "'Space Mono', monospace", fontSize: '1.4em', fontWeight: '700',
+    color: 'var(--blue)', background: 'var(--light-bg)',
+    border: '2px solid var(--border)', borderRadius: '6px',
+    padding: '.1em .5em', cursor: 'pointer'
+  });
+  el.addEventListener('click', function() {
+    if (el._running) return;
+    el._running = true;
+    var s = m * 60;
+    var iv = setInterval(function() {
+      s--;
+      el.textContent = Math.floor(s/60) + ':' + (s%60 < 10 ? '0' : '') + s%60;
+      if (s <= 60) el.style.color = '#e05000';
+      if (s <= 0) { clearInterval(iv); el.textContent = 'Done'; el.style.color = '#cc0000'; el._running = false; }
+    }, 1000);
+  });
+});
+</script>
+</body>
+</html>
