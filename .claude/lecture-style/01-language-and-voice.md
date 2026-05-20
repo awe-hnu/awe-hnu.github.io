@@ -15,6 +15,12 @@
 - Paragraph breaks every 3–5 sentences in extended prose.
 - Rhetorical questions at transitions ("So what does this mean for strategy formation?").
 
+**Style:**
+
+1. Direct Affirmation: Define and explain all concepts exclusively by what they are. Focus entirely on positive, straightforward descriptions.
+2. Avoid Structural Contrasts: Do not use phrases structured around binary opposites, such as "this is not [X], this is [Y]."
+3. No Strawman Arguments: Address the core substance of the prompt directly. Never introduce hypothetical, weakened, or incorrect counterarguments simply to dismantle them.
+
 ## Concept introduction pattern (six steps)
 
 1. Motivating hook: quote (blockquote), question, or brief case reference.

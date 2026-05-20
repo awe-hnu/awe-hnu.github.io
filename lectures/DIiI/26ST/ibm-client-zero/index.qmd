@@ -1,0 +1,288 @@
+---
+title: "IBM as Client Zero"
+subtitle: "DI in Industry (DIiI)"
+lang: en
+categories: ["Lecture Notes"]
+
+author: "Andy Weeger"
+
+date: "05.18.2026"
+
+bibliography: ../assets/literature.bib
+
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#0333ff'
+
+format:
+  html:
+    output-file: index.html
+    margin-header: |
+        [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false
+  presentation-revealjs:
+    output-file: slides.html
+    include-before-body: ../assets/footer.html
+---
+
+# Learning objectives
+
+After working through this case, you will be able to:
+
+:::incremental
+1. Distinguish the architectural and behavioural properties of agentic AI from traditional, rule-based automation using a real enterprise case.
+2. Classify an operational AI workflow against the five agentic workflow patterns of @agenticAI2024.
+3. Analyse containment-rate limits and escalation cases through the lens of complementary strengths [@dellermann2019hybrid; @hemmer2025complementarity].
+4. Interpret the automation-augmentation paradox [@raisch2021automation] for entry-level job design.
+5. Evaluate how an organisation can govern autonomy, learning, and inscrutability in HR-related agentic systems [@berente2021managing].
+6. Reflect on the strategic value of the "Client Zero" living lab approach for a B2B technology vendor.
+:::
+
+# Prologue {.headline-only}
+
+:::{.content-visible when-format="revealjs"}
+## Discussion {.discussion-slide}
+
+:::medium
+A CHRO triples entry-level hiring two years after announcing an AI-driven hiring freeze.
+
+What does this tell you about how agentic AI is reshaping work?
+:::
+
+{{< countdown "5:00" top="0">}}
+:::
+
+## The hook
+
+:::large
+> Before we sell it, we run it. *IBM Client Zero programme principle*
+:::
+
+:::{.content-visible unless-format="revealjs"}
+This case asks you to interrogate, with the tools of this course, an enterprise deployment of agentic AI that is unusually well documented. IBM's "Client Zero" philosophy commits the company to deploying every component of its *watsonx platform* on its own organisation before commercialising it to enterprise customers. The case data offered here are IBM's own disclosures; your task is to apply the frameworks of the unit to them.
+
+You will work the case in three parts. Part A is about *what kind of system* AskHR actually is. Part B is about *humans inside the system*. Part C is about *governance and strategic value*.
+:::
+
+# The case {.headline-only}
+
+## Client Zero in one paragraph
+
+:::medium
+IBM applies its own *watsonx platform* to its own back office **before** commercialisation. The internal deployment serves three purposes:
+:::
+
+:::incremental
+- **Operational:** unlock productivity in HR, IT, finance, and supply chain
+- **Empirical:** generate validated metrics that condition B2B sales claims
+- **Strategic:** train an "AI-first" operating model that becomes a reference architecture
+:::
+
+## Inside the deployment
+
+:::{.content-visible unless-format="revealjs"}
+A prime operational example is the internal HR platform **AskHR,** powered by *watsonx* Orchestrate. The system orchestrates work across Workday, SAP SuccessFactors, and Concur, executing end-to-end workflows such as promotion processing, salary-band compliance, and leave management. Within IT support, autonomous agent architectures now resolve the majority of standard service tickets without human intervention.
+
+The corporate hiring trajectory is equally striking. In May 2023, CEO Arvind Krishna announced a hiring freeze for roughly 7,800 administrative roles, citing AI substitution potential within five years. In early 2026, CHRO Nickle LaMoreaux announced a tripling of entry-level hiring. Junior employees are no longer hired for form-filling or boilerplate code; they are deployed as AI orchestrators, evaluating and controlling agentic workflows in client-facing contexts.
+:::
+
+:::{.content-visible when-format="revealjs"}
+:::incremental
+- **AskHR** orchestrates Workday, SAP SuccessFactors, and Concur for HR workflows
+- **IT support** uses autonomous agent architectures for standard ticket resolution
+- **May 2023:** hiring freeze announcement for ~7,800 administrative roles
+- **Early 2026:** *tripling* of entry-level hiring, redefined as AI-orchestration roles
+:::
+:::
+
+:::fragment
+:::medium
+Same company.\
+Same technology trajectory.\
+Opposite hiring signal.
+:::
+:::
+
+:::fragment
+What changed?
+:::
+
+## Headline KPIs
+
+| Business unit   | Deployed system                                                   | Reported effect                                                                             |
+|-----------------|-------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| Human resources | AskHR via *watsonx* Orchestrate (Workday, SuccessFactors, Concur) | 11.5M employee interactions p.a.; 94% containment rate; 40% reduction in HR operating costs |
+| IT support      | *watsonx* agent architectures with automated ticket routing       | 86% of standard IT tickets resolved autonomously; substantial MTTR reduction                |
+| Enterprise-wide | *watsonx* Governance and Living Lab architecture                  | $4.5B productivity gains over 3 years (finance, supply chain)                               |
+
+: Reported outcomes of IBM's internal AI transformation (synthesised from IBM Client Zero disclosures) {#tbl-ibm-kpis}
+
+## A historical detail to keep in mind
+
+:::medium
+At the onset of the AskHR automation drive, IBM's internal HR Net Promoter Score reportedly fell from **+19 to -35** before recovering.
+:::
+
+# Evolution {.headline-only}
+
+## From traditional to agentic AI
+
+:::medium
+Compare the characteristics of traditional, rule-based chatbots with the autonomous architecture of IBM's AskHR.
+:::
+
+:::fragment
+Which of @acharya2025agentic's **core characteristics** *cleanly* distinguish AskHR from traditional process automation, and which are *blurred?*
+:::
+
+:::fragment
+[Frameworks to apply]{.h4}
+
+- @acharya2025agentic on agentic core characteristics
+- @RusselNorvig2022AIMA on the agent taxonomy (simple-reflex, model-based, goal-based, learning)
+- @berente2021managing on autonomy, learning, and inscrutability
+:::
+
+## Agentic workflow patterns
+
+:::medium
+When *watsonx* Orchestrate invokes specialised sub-agents to execute a cross-system workflow, which of the **five agentic workflow patterns** of @agenticAI2024 is primarily utilised?
+:::
+
+:::fragment
+The five candidates:
+:::
+
+:::incremental
+1. **Prompt chaining**
+2. **Routing**
+3. **Parallelisation**
+4. **Orchestrator-workers**
+5. **Evaluator-optimizer**
+:::
+
+:::fragment
+Justify your classification using *case evidence,* and identify the strongest *opposing* classification.
+:::
+
+# Human-machine interaction {.headline-only}
+
+## The 94% and the 6%
+
+:::medium
+AskHR records a 94% containment rate. What does the remaining **6%** look like?
+:::
+
+:::fragment
+Using complementary-strengths frameworks [@dellermann2019hybrid; @hemmer2025complementarity], construct a **typology** of the escalation cases.
+:::
+
+:::fragment
+Incorporate the historical NPS plunge (+19 to -35) into your analysis: what does it tell you about the relationship between *containment* and *complementarity?*
+:::
+
+:::fragment
+[Frameworks to apply]{.h4}
+
+- @hemmer2025complementarity on information and capability asymmetry
+- @dellermann2019hybrid on hybrid intelligence and role distribution
+- @raisch2021automation on the automation-augmentation logic
+:::
+
+## The entry-level employment paradox
+
+:::medium
+IBM moved from a planned hiring freeze in 2023 to a **tripling** of entry-level hiring in 2026.
+:::
+
+:::fragment
+How does agentic AI reconstruct the classic **automation-augmentation paradox** [@raisch2021automation] specifically for junior professionals and entry-level career tracks?
+:::
+
+:::fragment
+Is the 2026 pivot a *reversal* of strategy, or a *confirmation* of the paradox? Defend your answer with reference to task content versus role content.
+:::
+
+# Governance {.headline-only}
+
+## Inscrutability and algorithmic bias
+
+:::medium
+HR decisions are governed by tight legal, ethical, and organisational constraints.
+:::
+
+:::fragment
+Using @berente2021managing's three dimensions (**autonomy, learning, inscrutability**), evaluate how IBM can ensure that autonomous agents do *not* replicate or systematise historical biases during promotional screenings.
+:::
+
+:::fragment
+Which **organisational and technical guardrails** are indispensable?
+:::
+
+:::fragment
+[Frameworks to apply]{.h4}
+
+- @berente2021managing on the three management dimensions
+- @shavit2023practices on safe-operation practices
+- @herath2024design on accountability anchoring
+- @jarrahi2025rethinking on principal-agent framing
+- @papagiannidis2025responsible on operational governance phases
+- EU AI Act risk classification
+:::
+
+## The strategic value of Client Zero
+
+:::medium
+Elaborate on the economic, strategic, and trust-building value of the **"Client Zero" model** for a global B2B technology vendor.
+:::
+
+:::fragment
+In what ways does using one's own organisation as a *living lab* validate and condition market-facing B2B value-creation claims?
+:::
+
+:::fragment
+Name **two failure modes** of the Client Zero approach that would invalidate the strategic argument.
+:::
+
+:::fragment
+[Frameworks to apply]{.h4}
+
+- @soh1995creates on the IT value-creation process and the *missing link*
+- @schryen2013revisiting on internal/external × tangible/intangible IS business value
+:::
+
+
+# Sources {.scrollable}
+
+[Mandatory primary sources]{.h4}
+
+- IBM Client Zero Hub (public case page)
+- Wharton interview with Radha Plumb (VP of AI Transformation)
+- IMD Business School analysis of AskHR (incl. the NPS history)
+- 2023 hiring-freeze coverage (Al Jazeera, May 2023)
+- 2026 hiring-pivot coverage (Times of India, 2026)
+- IBM Institute for Business Value (IBV) thought leadership on Agentic Operations
+
+[Required theory]{.h4}
+
+- @acharya2025agentic (core characteristics and architectures)
+- @hemmer2025complementarity (sources of complementarity and design implications)
+- @berente2021managing (three management dimensions)
+- @raisch2021automation (the automation-augmentation paradox)
+
+[Guiding questions for your reading]{.h4}
+
+1. Which of IBM's published metrics are directly verifiable, and which depend on definitions IBM controls?
+2. Where in your *own project* do you currently expect autonomous agent action, and what is its consequence class?
+3. What is the equivalent of IBM's NPS for your project: the complementarity metric that should be tracked alongside the productivity metric?
+4. Sketch the minimum governance design that would let your project deploy at one-tenth of IBM's internal scale.
+5. Could your organisation plausibly become a "Client Zero" for the solution you are designing? Why or why not?
+
+# Q&A {.headline-only .html-hidden .unlisted}
+
+# Literature
+
+::: {#refs}
+:::

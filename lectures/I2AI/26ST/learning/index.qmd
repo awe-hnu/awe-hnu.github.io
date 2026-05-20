@@ -19,6 +19,7 @@ format:
     output-file: index.html
     margin-header: | 
       [Slides](slides.html){.btn .btn-primary target="blank"}
+      [Session](session.qmd){.btn .btn-secondary target="blank"}       
     format-links: false       
   presentation-revealjs:
     output-file: slides.html
@@ -32,9 +33,9 @@ format:
 
 > Learning agents are those that can improve their behavior through diligent study of past experiences and predictions of the future. *@RusselNorvig2022AIMA [p. 668]*
 
-. . .
-
+:::fragment
 At its core, a learning agent (LA):
+:::
 
 :::incremental
 - Uses **machine learning** (ML) when it's a computer system
@@ -44,17 +45,17 @@ At its core, a learning agent (LA):
 :::
 
 :::notes
-This definition from @RusselNorvig2022AIMA emphasizes the key aspect of learning: **improvement through experience**. 
+This definition from @RusselNorvig2022AIMA emphasizes the key aspect of learning: **improvement through experience.** 
 
 :::
 
 ## Definition
 
-> A computer is said to learn from **experience E** with respect to some **task T** and some **performance measure P**, if its performance on T, as measured by P, improves with experience E. *@mitchel1997machine [p. 2]*
+> A computer is said to learn from **experience E** with respect to some **task T** and some **performance measure P,** if its performance on T, as measured by P, improves with experience E. *@mitchel1997machine [p. 2]*
 
-. . .
-
+:::fragment
 Any ML project needs to clearly specify:
+:::
 
 :::incremental
 - The **task T** (what problem are we solving?)
@@ -65,10 +66,10 @@ Any ML project needs to clearly specify:
 :::notes
 The **performance measure** component is arguably the most critical component to define correctly. Poorly defined performance measures lead to misaligned systems that optimize for the wrong objectives, creating several serious problems:
 
-- **Goal misalignment**: The system optimizes for metrics that don't actually capture what humans value or need
-- **Unexpected behaviors**: The system may find unexpected or undesirable ways to maximize the specified metric
-- **Goodhart's Law**: Once a measure becomes the explicit target for optimization, it often loses its value as an accurate representation of what we actually care about[^GL].
-- **Neglect of unmeasured factors**: Important considerations that aren't explicitly measured may be ignored or sacrificed
+- **Goal misalignment:** The system optimizes for metrics that don't actually capture what humans value or need
+- **Unexpected behaviors:** The system may find unexpected or undesirable ways to maximize the specified metric
+- **Goodhart's Law:** Once a measure becomes the explicit target for optimization, it often loses its value as an accurate representation of what we actually care about[^GL].
+- **Neglect of unmeasured factors:** Important considerations that aren't explicitly measured may be ignored or sacrificed
 
 [^GL]: Examples for Goodhart's Law in ML: A recommendation system optimized solely for clicks might discover that clickbait titles and thumbnails maximize this metric, even if the content quality suffers and user satisfaction decreases long-term. If a content filter is optimized only to minimize false negatives (letting harmful content through), it might become overly restrictive and block large amounts of legitimate content. 
 
@@ -113,13 +114,13 @@ Select one of the specific applications for ML below and define T, E, and P.
 
 How can we be sure that our learned hypothesis will predict well for previously unseen inputs? I.e., how do we know that the hypothesis $h$ is close to the target function $f$ when $f$ is unknown?
 
-. . .
-
+:::fragment
 The underlying principle of __computational learning theory__ is, that any hypothesis that is seriously wrong will almost certainly be "found out" with high probability after a small number of examples.
+:::
 
-. . .
-
+:::fragment
 Thus, any hypothesis that is consistent with a sufficiently large set of training examples is unlikely to be seriously wrong: that is, it must be __probably approximately correct__ (PAC).
+:::
 
 ## ML x AI
 
@@ -142,11 +143,11 @@ flowchart TD
 
 :::notes
 
-However, the other branches have important historical significance and **complementary roles**:
+However, the other branches have important historical significance and **complementary roles:**
 
 - **Machine learning** excels at pattern recognition, handling messy real-world data, adapting to new situations
-- **Search and planning** is concerned with finding **optimal solutions**, guaranteeing results, and handling combinatorial problems. It encompasses algorithms like A*, minimax, and planning systems.
-- **Knowledge and inference** excels at **explicit reasoning**, incorporating human expertise, and transparency. It includes expert systems, knowledge graphs, and logical reasoning.
+- **Search and planning** is concerned with finding **optimal solutions,** guaranteeing results, and handling combinatorial problems. It encompasses algorithms like A*, minimax, and planning systems.
+- **Knowledge and inference** excels at **explicit reasoning,** incorporating human expertise, and transparency. It includes expert systems, knowledge graphs, and logical reasoning.
 - **Modeling of uncertainty** is concerned with handling incomplete information, quantifying confidence, and risk assessment. It covers Bayesian networks, fuzzy logic, and probabilistic reasoning
 
 Consequently, the most powerful AI systems often combine techniques from multiple branches. For example:
@@ -167,18 +168,17 @@ Consequently, the most powerful AI systems often combine techniques from multipl
 
 __Performance element:__ Processes percepts and chooses actions (relates to the basics of AI we have studied so far).
 
-. . .
+:::fragment
+__Learning element:__ Carries out improvements and requires awareness and feedback on how the agent is doing in the environment.
+:::
 
-__Learning element:__ Carries out improvements — requires awareness and feedback on how the agent is doing in the environment.
-
-. . .
-
+:::fragment
 __Critic:__ Evaluation of the agent’s behavior based on a given external behavioral measure (i.e., feedback).
+:::
 
-. . .
-
+:::fragment
 __Problem generator:__ Suggests explorative actions that lead the agent to new experiences.
-
+:::
 
 ::: notes
 ::: callout-note
@@ -210,13 +210,13 @@ The type of feedback available for learning is usually the most important factor
 of the learning problem.
 
 :::incremental
-- **Supervised learning**: Involves learning a function from examples of its inputs and outputs *➞ correct answer for each training instance*
+- **Supervised learning:** Involves learning a function from examples of its inputs and outputs *➞ correct answer for each training instance*
   - Requires labeled data
   - Examples: classification, regression
-- **Unsupervised learning**: The agent has to learn patterns in the input when no specific output values are given *➞ reward sequence, no correct answers*
+- **Unsupervised learning:** The agent has to learn patterns in the input when no specific output values are given *➞ reward sequence, no correct answers*
   - No labels needed
   - Examples: Clustering, dimensionality reduction
-- **Reinforcement learning**: The most general form of learning in which the agent is not told what to do by a teacher. Rather, it must learn from reinforcements (punishments or rewards). It typically involves learning how the environment works *➞ "just make sense of the data"*
+- **Reinforcement learning:** The most general form of learning in which the agent is not told what to do by a teacher. Rather, it must learn from reinforcements (punishments or rewards). It typically involves learning how the environment works *➞ "just make sense of the data"*
   - No direct labels, but feedback on actions
   - Examples: Game playing, robotic control
 :::
@@ -225,8 +225,8 @@ of the learning problem.
 
 These categories aren't rigid - many modern systems combine elements of multiple approaches, often refered to as semi-supervised and self-supervised learning.
 
-- **Semi-supervised learning**: using small amounts of labeled data with large amounts of unlabeled data
-- **Self-supervised learning**: creating "synthetic" supervision signals from unlabeled data
+- **Semi-supervised learning:** using small amounts of labeled data with large amounts of unlabeled data
+- **Self-supervised learning:** creating "synthetic" supervision signals from unlabeled data
 
 :::
 
@@ -271,27 +271,27 @@ Supervised learning resonates with our natural understanding of teaching. Just a
 
 ### Classification algorithms {visibility=hidden}
 
-- **Logistic Regression**: Despite its name, this is used for classification problems. It predicts the probability of an instance belonging to a particular class.
-- **Support Vector Machines (SVM)**: Creates a hyperplane that maximally separates different classes in feature space.
-- **Decision Trees**: Splits data based on feature values to create a tree-like model of decisions.
-- **Random Forests**: Ensemble of decision trees that improves accuracy and reduces overfitting.
-- **Neural Networks**: Multiple layers of interconnected nodes that can learn complex patterns for classification tasks.
+- **Logistic Regression:** Despite its name, this is used for classification problems. It predicts the probability of an instance belonging to a particular class.
+- **Support Vector Machines (SVM):** Creates a hyperplane that maximally separates different classes in feature space.
+- **Decision Trees:** Splits data based on feature values to create a tree-like model of decisions.
+- **Random Forests:** Ensemble of decision trees that improves accuracy and reduces overfitting.
+- **Neural Networks:** Multiple layers of interconnected nodes that can learn complex patterns for classification tasks.
 
 ### Regression algorithms {visibility=hidden}
 
-- **Linear Regression**: Models the relationship between variables by fitting a linear equation to observed data.
-- **Support Vector Regression (SVR)**: Adaptation of SVM principles for predicting continuous values.
-- **Decision Trees**: Can be adapted for regression by predicting numerical values at leaf nodes.
-- **Random Forests**: Ensemble method that averages predictions from multiple regression trees.
-- **Neural Networks**: Can output continuous values for regression problems when configured with appropriate activation functions.
+- **Linear Regression:** Models the relationship between variables by fitting a linear equation to observed data.
+- **Support Vector Regression (SVR):** Adaptation of SVM principles for predicting continuous values.
+- **Decision Trees:** Can be adapted for regression by predicting numerical values at leaf nodes.
+- **Random Forests:** Ensemble method that averages predictions from multiple regression trees.
+- **Neural Networks:** Can output continuous values for regression problems when configured with appropriate activation functions.
 
 ### Versatile approaches {visibility=hidden}
 
 Many of these algorithms can be adapted for either classification or regression tasks:
 
-- **Decision Trees and Random Forests**: Change output from class labels to continuous values
-- **Neural Networks**: Modify the output layer and loss function based on the problem type
-- **Support Vector Machines**: Use standard SVM for classification or SVR for regression
+- **Decision Trees and Random Forests:** Change output from class labels to continuous values
+- **Neural Networks:** Modify the output layer and loss function based on the problem type
+- **Support Vector Machines:** Use standard SVM for classification or SVR for regression
 
 ## Practical applications
 
@@ -304,7 +304,7 @@ Many of these algorithms can be adapted for either classification or regression 
 - Sentiment analysis
 - Spam detection
 - Loan approval prediction
-- [Image classification]{.html-hidden}
+[- Image classification]{.html-hidden}
 :::
 :::
 
@@ -349,19 +349,19 @@ The open-ended nature of unsupervised learning creates unique considerations. Wi
 
 ### Clustering algorithms {visibility=hidden}
 
-- **K-Means**: Partitions data into K clusters by minimizing the distance between points and their assigned cluster centers.
-- **Hierarchical Clustering**: Builds nested clusters by either merging or splitting them successively (agglomerative or divisive).
-- **DBSCAN**: Density-based approach that finds clusters of arbitrary shape and identifies outliers.
-- **Gaussian Mixture Models (GMM)**: Models clusters as a mixture of multiple Gaussian distributions.
-- **Spectral Clustering**: Leverages eigenvalues of similarity matrices to reduce dimensions before clustering.
+- **K-Means:** Partitions data into K clusters by minimizing the distance between points and their assigned cluster centers.
+- **Hierarchical Clustering:** Builds nested clusters by either merging or splitting them successively (agglomerative or divisive).
+- **DBSCAN:** Density-based approach that finds clusters of arbitrary shape and identifies outliers.
+- **Gaussian Mixture Models (GMM):** Models clusters as a mixture of multiple Gaussian distributions.
+- **Spectral Clustering:** Leverages eigenvalues of similarity matrices to reduce dimensions before clustering.
 
 ### Dimensionality reduction algorithms {visibility=hidden}
 
-- **Principal Component Analysis (PCA)**: Transforms data to a new coordinate system that maximizes variance along orthogonal axes.
-- **t-SNE**: Visualizes high-dimensional data by giving each datapoint a location in a 2D or 3D map, particularly effective for visualization.
-- **UMAP**: Manifold learning technique for dimension reduction that preserves more global structure than t-SNE.
-- **Autoencoders**: Neural networks that compress data into a latent-space representation and then reconstruct it.
-- **Kernel PCA**: Non-linear extension of PCA that works in transformed feature spaces.
+- **Principal Component Analysis (PCA):** Transforms data to a new coordinate system that maximizes variance along orthogonal axes.
+- **t-SNE:** Visualizes high-dimensional data by giving each datapoint a location in a 2D or 3D map, particularly effective for visualization.
+- **UMAP:** Manifold learning technique for dimension reduction that preserves more global structure than t-SNE.
+- **Autoencoders:** Neural networks that compress data into a latent-space representation and then reconstruct it.
+- **Kernel PCA:** Non-linear extension of PCA that works in transformed feature spaces.
 
 ## Practical applications
 
@@ -486,28 +486,28 @@ Second, we perform **association rule mining** to find relationships between pro
 
 Based on the association rules analysis, we can derive the following insights:
 
-1. **Strong product pairings**: 
+1. **Strong product pairings:** 
    - Products 5 and 6 have the strongest association with the highest lift value (2.67) in both directions. Customers who buy either one are much more likely to buy the other, suggesting these products strongly complement each other.
    - Products 2 and 3 also show a strong positive association (lift = 1.50), with 75% of product 2 buyers also purchasing product 3.
 
-2. **One-way associations**:
+2. **One-way associations:**
    - The rule P4 → P3 shows that 66.7% of customers who buy product 4 also buy product 3 (lift = 1.33), but the reverse isn't as strong (P3 → P4 has only 50% confidence).
    - This suggests Product 4 buyers are a subset of product 3 buyers, but not vice versa.
 
-3. **Product clustering**:
+3. **Product clustering:**
    - Group 1: Products 5 and 6 (strongest association)
    - Group 2: Products 2 and 3 (strong association)
    - Group 3: Products 1 and 6 (moderate association)
 
-4. **Product Independence and Negative Associations**:
+4. **Product Independence and Negative Associations:**
    - Several products never appear together (lift = 0), such as P1 and P4, P2 and P5, P3 and P5.
    - This suggests potential product incompatibility or different customer segments.
 
-5. **Product Popularity**:
+5. **Product Popularity:**
    - Products 1, 2, and 3 have the highest support (each purchased by 50% of customers)
    - Product 5 has the lowest support (only 25%)
 
-6. **Business Applications**:
+6. **Business Applications:**
    - Bundle marketing: The P5 → P6 rule with 100% confidence and 2.67 lift suggests these products could be effectively bundled.
    - Recommendation systems: When a customer buys product 4, recommending product 3 would be logical (66.7% confidence).
 
@@ -646,8 +646,8 @@ In ML, selecting the appropriate model complexity is a fundamental challenge. He
 When building a machine learning model, we must balance two competing concerns:
 
 :::incremental
-1. **Bias**: The error from erroneous assumptions in the learning algorithm. High bias can cause an algorithm to miss relevant relations between features and outputs (underfitting).
-2. **Variance**: The error from sensitivity to small fluctuations in the training set. High variance models can fit the training data very well but perform poorly on new, unseen data (overfitting).
+1. **Bias:** The error from erroneous assumptions in the learning algorithm. High bias can cause an algorithm to miss relevant relations between features and outputs (underfitting).
+2. **Variance:** The error from sensitivity to small fluctuations in the training set. High variance models can fit the training data very well but perform poorly on new, unseen data (overfitting).
 :::
 
 ## Polynomial curve fitting example
@@ -746,33 +746,33 @@ p_all
 
 The linear model (blue line) is too simple to capture the underlying pattern. It has:
 
-- **High bias**:\
+- **High bias:**\
   The model makes strong assumptions about the data structure (linearity)
-- **Low variance**:\
+- **Low variance:**\
   Different training sets would produce similar models
-- **High training and test error**:\
+- **High training and test error:**\
   The model fails to capture the fundamental pattern
 
 ### Good fit {visibility=hidden}
 
 The quadratic model (purple line) captures the underlying pattern well. It has:
 
-- **Balanced bias and variance**:\
+- **Balanced bias and variance:**\
   The model makes appropriate assumptions
-- **Low training and test error**:\
+- **Low training and test error:**\
   Performs well on both seen and unseen data
-- **Good generalization**:\
+- **Good generalization:**\
   Likely to predict new data points accurately
 
 ### Overfitting {visibility=hidden}
 
 The high-degree polynomial (red line) fits training data closely but wiggles excessively. It has:
 
-- **Low bias**:\
+- **Low bias:**\
   Makes few assumptions about the data structure
-- **High variance**:\
+- **High variance:**\
   Would change dramatically with different training sets
-- **Low training error but high test error**:\
+- **Low training error but high test error:**\
   Memorizes the training data rather than learning the pattern
 
 ## The learning principle

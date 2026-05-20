@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+<meta name="dcterms.date" content="2026-05-18">
+
+<title>IBM as Client Zero: Instructor Notes – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="IBM as Client Zero: Instructor Notes – awe.lectures">
+<meta property="og:description" content="DI in Industry (DIiI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">IBM as Client Zero: Instructor Notes</h1>
+            <p class="subtitle lead">DI in Industry (DIiI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 18, 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">May 18, 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="index.html" class="btn btn-primary" target="blank">Case</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#purpose-of-these-notes" id="toc-purpose-of-these-notes" class="nav-link active" data-scroll-target="#purpose-of-these-notes">Purpose of these notes</a></li>
+  <li><a href="#how-to-run-the-session" id="toc-how-to-run-the-session" class="nav-link" data-scroll-target="#how-to-run-the-session">How to run the session</a></li>
+  <li><a href="#reading-the-headline-kpis-critically" id="toc-reading-the-headline-kpis-critically" class="nav-link" data-scroll-target="#reading-the-headline-kpis-critically">Reading the headline KPIs critically</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<section id="purpose-of-these-notes" class="level1">
+<h1>Purpose of these notes</h1>
+<p>These notes accompany the IBM Client Zero case study. They are <em>not</em> meant to be shared with students before the discussion. They contain:</p>
+<ul>
+<li>A short interpretive frame for facilitation</li>
+<li>Reference answers for each of the six case questions, written at a level appropriate for full credit</li>
+<li>The most common student mistakes for each question</li>
+<li>Discussion prompts and timing suggestions</li>
+<li>A short note on which case claims are independently verifiable and which are not</li>
+</ul>
+<p>The reference answers are deliberately longer than the 400-to-600-word student responses; they show the reasoning a top answer would compress.</p>
+</section>
+<section id="how-to-run-the-session" class="level1">
+<h1>How to run the session</h1>
+<p>The case is designed for a 90-minute session, with optional extension to 120 minutes when groups present in plenary.</p>
+<p><span class="h4">Suggested timing (90 minutes)</span></p>
+<div id="tbl-timing" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-timing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>Minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prologue discussion (CHRO pivot)</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Walk-through of the case description and KPIs</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>Part A (Questions 1 and 2) in pairs</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Part B (Questions 3 and 4) in pairs</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td>Part C (Questions 5 and 6) in pairs</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Plenary synthesis</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-timing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Suggested 90-minute timing for the IBM Client Zero session
+</figcaption>
+</figure>
+</div>
+<p><span class="h4">Two facilitation moves that work</span></p>
+<ol type="1">
+<li>After each question, force a <em>counter-classification.</em> For example: “What is the strongest case against orchestrator-workers being the primary pattern?” Students who can defend against the alternative will internalise the diagnostic.</li>
+<li>After Part B, return to the prologue discussion. Ask: did your reading of the CHRO pivot change? Surface the shift from substitution intuition to reconfiguration intuition.</li>
+</ol>
+<p><span class="h4">How to use the prologue</span></p>
+<p>The 2023-to-2026 CHRO pivot is the interpretive crux of the case. Resist the urge to resolve the apparent contradiction at the start. Surface two intuitions in plenary: substitution (the 2023 narrative) and reconfiguration (the 2026 reality). The whole session interrogates this contrast; the resolution is the answer to Question 4.</p>
+</section>
+<section id="reading-the-headline-kpis-critically" class="level1">
+<h1>Reading the headline KPIs critically</h1>
+<p>Before students begin Part A, point out which numbers in <strong>?@tbl-ibm-kpis</strong> are reliable and which are not.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>94% containment rate (HR):</strong> definitionally controlled by IBM. What counts as “contained”? Resolved versus deferred versus closed-without-resolution. Treat as a vendor metric, not a ground truth.</li>
+<li><strong>40% reduction in HR operating costs:</strong> plausible, but compared against what baseline? The 2019 baseline includes pre-pandemic staffing decisions unrelated to AI.</li>
+<li><strong>86% IT ticket auto-resolution:</strong> depends on the <em>denominator,</em> i.e., which tickets count as “standard.” Definitionally controlled by IBM.</li>
+<li><strong>$4.5B productivity gains over three years:</strong> an aggregate net of investments? Or gross? Public disclosure does not separate the two cleanly. The order of magnitude is plausible for a company IBM’s size, but the figure is a narrative number, not an audited one.</li>
+<li><strong>11.5M employee interactions p.a.:</strong> IBM has roughly 270,000 employees; 11.5M corresponds to ~43 interactions per employee per year, which is consistent with HR transaction volumes. This is the most credible figure.</li>
+<li><strong>NPS plunge +19 to -35:</strong> sourced from IMD’s analysis, not from IBM’s own case page. Treat as credible but indirect.</li>
+</ul>
+<p>Tell students they should <em>cite</em> IBM’s numbers, but they should also <em>flag</em> which are vendor-controlled. Doing both is part of full credit on Question 6.</p>
+<section id="reference-answers" class="level1">
+<h1>Reference answers</h1>
+<section id="from-traditional-to-agentic-ai" class="level2">
+<h2 data-anchor-id="from-traditional-to-agentic-ai">From traditional to agentic AI</h2>
+<p><span class="h4">Reference answer</span></p>
+<p>A deterministic HR chatbot is structurally a <em>simple-reflex agent</em> in <span class="citation" data-cites="RusselNorvig2022AIMA">Russel &amp; Norvig (<a href="#ref-RusselNorvig2022AIMA" role="doc-biblioref">2022</a>)</span>’s taxonomy: it matches an utterance to a script, retrieves a pre-authored response, and (at most) hands off to a human queue. It does not pursue goals across steps; it does not act in adjacent systems; it does not adapt its behaviour. AskHR is structurally different. A single employee request (“approve a promotion for X”) triggers a multi-step workflow that spans Workday, SAP SuccessFactors, and Concur. The agent decomposes the request, queries each system, applies compliance rules, surfaces gaps, and completes the workflow autonomously where compliance is satisfied. There is no script; there is a goal.</p>
+<p>Mapping this against <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span>’s core characteristics:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Autonomy and goal complexity:</strong> AskHR pursues a multi-step goal (e.g., promotion processing) over an extended workflow rather than a single response. <strong>Cleanly distinguishing.</strong></li>
+<li><strong>Adaptability:</strong> the system handles incomplete information (missing band data, unusual cases) by retrieving, asking, or escalating, rather than failing. <strong>Cleanly distinguishing.</strong></li>
+<li><strong>Independent decision-making:</strong> the agent decides which sub-systems to invoke, and in what order. <strong>Cleanly distinguishing.</strong></li>
+<li><strong>Learning:</strong> workflow patterns can be retrained on outcomes, but whether AskHR continuously learns in deployment is <em>not</em> unambiguously documented in the public case. <strong>Blurred.</strong></li>
+<li><strong>Real-world action:</strong> the agent writes to systems of record (HR, finance); it does not merely answer. <strong>Cleanly distinguishing.</strong></li>
+</ul>
+</div>
+<p>The cleanly distinguishing set forms a tight cluster: autonomy across systems, adaptation under incomplete information, independent decision-making about workflow, and consequential action in systems of record. This is what changes the governance question from “is the chatbot polite?” to “what did the agent do, where, and to whom?” The <span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> dimensions all rise sharply when crossing this line: autonomy increases (the agent now decides what to do in what order), learning becomes consequential (because the agent acts on its learning), and inscrutability bites harder (because the decisions are now consequential).</p>
+<p><span class="h4">Common student mistakes</span></p>
+<ul class="incremental">
+<li>Claiming AskHR is agentic <em>because it uses an LLM.</em> It is not. Agentic-ness is a property of system architecture and delegated decision authority, not of the model underneath.</li>
+<li>Treating <em>learning</em> as cleanly distinguishing without evidence. Press for what the case actually says about online learning at deployment time; the case is silent.</li>
+<li>Forgetting <em>real-world action.</em> This is the most consequential differentiator and is often missed because it does not appear in the <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span> list under that label.</li>
+</ul>
+<p><span class="h4">Discussion prompt</span></p>
+<p>“If AskHR were stripped of the ability to write to Workday (that is, it could only <em>recommend</em> actions to a human approver), would it still be agentic in the <span class="citation" data-cites="acharya2025agentic">Acharya et al. (<a href="#ref-acharya2025agentic" role="doc-biblioref">2025</a>)</span> sense?” The intended answer is <em>partially.</em> Goal-pursuit and adaptation remain; consequential action does not. This sets up the autonomy-scoping discussion in Question 5.</p>
+</section>
+<section id="agentic-workflow-patterns" class="level2">
+<h2 data-anchor-id="agentic-workflow-patterns">Agentic workflow patterns</h2>
+<p><span class="h4">Reference answer</span></p>
+<p>AskHR primarily uses the <strong>orchestrator-workers</strong> pattern from <span class="citation" data-cites="agenticAI2024">Anthrophic (<a href="#ref-agenticAI2024" role="doc-biblioref">2024</a>)</span>.</p>
+<p>The case description gives strong textual clues. AskHR receives a heterogeneous request (“promote employee X to grade Y”), <em>decomposes</em> it into sub-tasks (verify eligibility, check band, verify approver chain, write to HRIS, notify stakeholders), and <em>delegates dynamically</em> to specialised components, each tied to a system of record. The orchestration is not predetermined: the routing depends on the specific request, the employee’s current state, and the policy configuration that day. That is the orchestrator-workers signature.</p>
+<p>The other four patterns play <em>supporting</em> roles but are not the primary classification:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Routing</strong> is a defensible secondary classification at the <em>entry point</em> (request type triage), but the workflow as a whole is not a single-step routing decision; it is a coordinated multi-system execution under a central planner.</li>
+<li><strong>Prompt chaining</strong> is too rigid for the case; the steps are not a fixed pipeline.</li>
+<li><strong>Parallelisation</strong> may occur for independent reads (band lookup, leave balance) but it is a feature <em>inside</em> the orchestration, not the primary pattern.</li>
+<li><strong>Evaluator-optimizer</strong> is not what the case describes for HR transactions; it would apply more naturally to content-generation workflows.</li>
+</ul>
+</div>
+<p>The classification has practical consequences. Orchestrator-workers is the most <em>governance-intensive</em> of the five patterns: the orchestrator decides both what to do and who does it, which means the audit trail must capture the decomposition (why these sub-tasks?) and the execution (what was done?). This is precisely the failure surface <span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> flag under inscrutability.</p>
+<p><span class="h4">Common student mistakes</span></p>
+<ul class="incremental">
+<li>Classifying as <em>prompt chaining</em> because the workflow has multiple steps. The diagnostic is whether the steps are <em>fixed</em> (chaining) or <em>dynamically decomposed</em> (orchestrator-workers).</li>
+<li>Stopping at <em>routing.</em> Routing dispatches; it does not integrate. AskHR integrates outcomes across sub-agents, which is the orchestrator’s job.</li>
+<li>Treating the patterns as mutually exclusive. The good answers name the <em>primary</em> pattern and acknowledge supporting patterns inside it.</li>
+</ul>
+<p><span class="h4">Discussion prompt</span></p>
+<p>“What would have to be true about AskHR’s architecture for evaluator-optimizer to also be present?” Intended answer: a generator step that produces a draft action (e.g., a draft compensation recommendation) and an evaluator step that scores it against compliance rules before the action is committed. This is plausible for some workflows (e.g., job-description generation) but not for transactional HR.</p>
+</section>
+<section id="the-94-and-the-6" class="level2">
+<h2 data-anchor-id="the-94-and-the-6">The 94% and the 6%</h2>
+<p><span class="h4">Reference answer</span></p>
+<p><span class="citation" data-cites="hemmer2025complementarity">Hemmer et al. (<a href="#ref-hemmer2025complementarity" role="doc-biblioref">2025</a>)</span> argue that hybrid performance gains require two simultaneous asymmetries between humans and AI: <em>information asymmetry</em> (different access to relevant information) and <em>capability asymmetry</em> (different proficiency at the task). The 6% escalations are exactly the cases where these asymmetries are large enough that the human contribution is irreplaceable. Concretely, they fall into five types:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Ambiguity and edge cases:</strong> policy interactions the agent has not seen at sufficient frequency to act with confidence (e.g., simultaneous parental leave, contractor-to-employee transitions, transfers between jurisdictions with different labour codes). <em>Information asymmetry</em> dominates.</li>
+<li><strong>Context-laden judgments:</strong> cases where the policy <em>could</em> be applied, but the right answer depends on tacit organisational context not in any system of record (e.g., a high-performer retention situation that touches HR policy but is really a leadership decision). <em>Information asymmetry,</em> with capability asymmetry secondary.</li>
+<li><strong>Affect-laden interactions:</strong> terminations, bereavement, grievance handling, psychological-safety concerns. Human presence is required not because the policy is unclear, but because employee experience and legal exposure depend on the <em>quality of the interaction</em> itself. <em>Capability asymmetry</em> dominates.</li>
+<li><strong>Policy-exception requests:</strong> explicit requests to deviate from policy, which by definition cannot be resolved by a policy-following agent. <em>Capability asymmetry</em> (the agent is not authorised).</li>
+<li><strong>Cross-system inconsistencies:</strong> state mismatches between Workday and SuccessFactors that the agent recognises but cannot resolve autonomously without writing the wrong fact-of-record. <em>Information asymmetry,</em> plus a governance constraint.</li>
+</ul>
+</div>
+<p>The NPS history connects directly. When the automation drive began, IBM’s internal HR NPS reportedly fell from +19 to -35. The likely mechanism is not that the agent answered the easy questions poorly; it is that the agent intercepted <em>every</em> interaction at the front door, including ones that belonged in the escalation set, and routed them in ways that felt impersonal in exactly the moments employees needed personal contact. The recovery requires explicit <em>triage</em> of which interactions should never reach the agent in the first place, which is a design choice about task allocation, exactly the prescription from <span class="citation" data-cites="hemmer2025complementarity">Hemmer et al. (<a href="#ref-hemmer2025complementarity" role="doc-biblioref">2025</a>)</span>.</p>
+<p>A core insight to surface: <strong>containment is a productivity metric; NPS is a complementarity metric.</strong> They can move in opposite directions if the agent contains cases it should have escalated. Both must be tracked together.</p>
+<p><span class="h4">Common student mistakes</span></p>
+<ul class="incremental">
+<li>Treating “the 6%” as a residual category rather than a designed escalation set.</li>
+<li>Reading the NPS crash as a <em>technology</em> failure. It is a <em>design</em> failure: the routing was set up to maximise containment rather than to maximise complementarity.</li>
+<li>Proposing “make the agent more empathetic” as the fix. The fix is routing redesign, not affect simulation.</li>
+</ul>
+<p><span class="h4">Discussion prompt</span></p>
+<p>“Suppose IBM trained AskHR to handle affect-laden interactions with simulated empathy and the NPS recovered. Would that be a success?” The intended answer surfaces a value question: simulated empathy may move the metric but does not change the underlying complementarity logic, and may create new risks (perceived manipulation, regulatory exposure under the EU AI Act’s transparency obligations).</p>
+</section>
+<section id="the-entry-level-employment-paradox" class="level2">
+<h2 data-anchor-id="the-entry-level-employment-paradox">The entry-level employment paradox</h2>
+<p><span class="h4">Reference answer</span></p>
+<p><span class="citation" data-cites="raisch2021automation">Raisch &amp; Krakowski (<a href="#ref-raisch2021automation" role="doc-biblioref">2021</a>)</span> argue that automation and augmentation are not alternatives but <em>interdependent</em> logics. The IBM trajectory is a clean field demonstration of that interdependence applied to a specific labour segment.</p>
+<p>In 2023, the <em>task content</em> of junior administrative roles (form-filling, boilerplate code, ticket triage) was correctly identified as automatable. Reading task content alone, the 2023 hiring-freeze announcement was internally consistent: those tasks were about to be done by software.</p>
+<p>The 2026 correction comes from a different layer. Once the agentic systems are running at scale, two new categories of work emerge that did <em>not</em> exist before:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Orchestration work:</strong> evaluating, guiding, and correcting agentic workflows. Someone must inspect the cases the agent flags as low-confidence, verify the agent’s output on consequential transactions, and update the policies the agent enforces. This is a <em>new</em> job category, not a residual of the old one.</li>
+<li><strong>Client-facing AI mediation:</strong> for a vendor like IBM, the same skills become the front line of customer engagement, because customers also need orchestration help with their own deployments.</li>
+</ul>
+</div>
+<p>The paradox resolves without contradiction: the <em>substituted</em> tasks were eliminated as predicted; an <em>augmented</em> category of work expanded around them; the net effect on junior hiring turned positive because the augmented category required entry-level access for talent development. The <em>content</em> of the entry-level role changed: no boilerplate, immediate exposure to consequential workflows, and rapid responsibility for AI oversight.</p>
+<p>There is a darker reading worth airing. If orchestration roles are the new entry-level, then the entry-level <em>learning curve</em> has been compressed and reshaped: junior employees no longer build judgment through low-stakes repetition; they are exposed immediately to high-stakes oversight tasks for which judgment is required but not yet developed. Connect this to <span class="citation" data-cites="fugener2022cognitive">Fügener et al. (<a href="#ref-fugener2022cognitive" role="doc-biblioref">2022</a>)</span>: humans are poor at assessing their own reliability, and the new entry-level role requires exactly that capability (knowing when to override the agent). Whether IBM’s pipeline systematically develops that judgment, or implicitly assumes it, is the empirical question that will determine the durability of the pivot.</p>
+<p>The pivot is therefore best read as a <strong>confirmation</strong> of the paradox, not a reversal of strategy. The 2023 announcement read only the substitution side; the 2026 announcement adds the augmentation side that emerged in deployment.</p>
+<p><span class="h4">Common student mistakes</span></p>
+<ul class="incremental">
+<li>Calling the 2026 announcement a <em>reversal</em> of strategy. It is a <em>completion</em> of the strategy: substitution at the task level, augmentation at the role level.</li>
+<li>Treating “tripled hiring” as evidence that AI did not substitute labour. It substituted <em>task content,</em> which is exactly what was predicted; the role content changed in compensating ways.</li>
+<li>Missing the metaknowledge problem in the new junior role.</li>
+</ul>
+<p><span class="h4">Discussion prompt</span></p>
+<p>“What does IBM owe a junior hire under the 2026 model that it did not owe one under the 2020 model?” Intended answer: structured judgment-development scaffolding, because the conventional path (low-stakes repetition) has been removed.</p>
+</section>
+<section id="inscrutability-and-algorithmic-bias" class="level2">
+<h2 data-anchor-id="inscrutability-and-algorithmic-bias">Inscrutability and algorithmic bias</h2>
+<p><span class="h4">Reference answer</span></p>
+<p>Apply <span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span>’s three dimensions as the diagnostic frame.</p>
+<p><strong>On autonomy.</strong> The decisive design move is scope limitation by <em>consequence class.</em> Routine HR transactions (leave bookings, address changes, policy lookups) sit firmly inside the agent’s autonomous envelope. Promotion decisions, compensation changes, and termination workflows sit <em>outside</em> it: the agent prepares the case (data assembly, policy check, band compliance), but the decision is recorded against a named human approver. This maps onto <span class="citation" data-cites="shavit2023practices">Shavit et al. (<a href="#ref-shavit2023practices" role="doc-biblioref">2023</a>)</span>’s <em>scope limitation</em> and <em>attributability</em> practices and on <span class="citation" data-cites="jarrahi2025rethinking">Jarrahi &amp; Ritala (<a href="#ref-jarrahi2025rethinking" role="doc-biblioref">2025</a>)</span>’s principal-agent reading: the agent is a delegated actor, not an autonomous decider.</p>
+<p><strong>On learning.</strong> The risk is <em>invisible drift.</em> If the agent updates its routing or its recommendations based on observed outcomes, and the outcomes themselves reflect historical bias (e.g., promotion patterns that under-represented certain groups), the system silently amplifies the bias. Counter-measures are technical (fairness-aware monitoring, disparate-impact metrics computed continuously) and organisational (a governance role with the authority to pause or roll back model updates that show distributional regressions). <span class="citation" data-cites="papagiannidis2025responsible">Papagiannidis et al. (<a href="#ref-papagiannidis2025responsible" role="doc-biblioref">2025</a>)</span>’s monitoring phase is exactly this.</p>
+<p><strong>On inscrutability.</strong> Every consequential output must be linked to (a) the data the agent used, (b) the policy version it applied, and (c) a named human accountable for the decision. This is the <em>accountability anchoring</em> principle from <span class="citation" data-cites="herath2024design">Herath et al. (<a href="#ref-herath2024design" role="doc-biblioref">2024</a>)</span>. The model’s internal weights do not need to become interpretable; the <em>organisational record</em> must be reconstructable.</p>
+<p>Indispensable guardrails, summarised:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Decision-class scoping:</strong> agent decides routine, recommends consequential</li>
+<li><strong>Pre-deployment bias audits</strong> on the workflows that touch protected attributes</li>
+<li><strong>Continuous disparate-impact monitoring</strong> with named owners</li>
+<li><strong>Versioned policy and prompt artefacts</strong> as part of the audit trail</li>
+<li><strong>Interruptibility</strong> at the workflow and the deployment level <span class="citation" data-cites="shavit2023practices">(<a href="#ref-shavit2023practices" role="doc-biblioref">Shavit et al., 2023</a>)</span></li>
+<li><strong>Documented escalation paths</strong> that are exercised, not aspirational</li>
+<li><strong>Workforce councils or works-council involvement</strong> where required by jurisdiction (a non-trivial constraint in the EU)</li>
+</ul>
+</div>
+<p>None of these are uniquely “AI” controls. They are familiar HR-governance controls reapplied where the actor performing the work is an agent rather than an HR generalist. The contribution of the agentic layer is to make the controls <em>more enforceable,</em> because every step is logged. The risk it introduces is <em>scale:</em> a biased pattern executes against 11.5 million interactions before anyone reads the report.</p>
+<p><span class="h4">EU AI Act note</span></p>
+<p>HR systems that screen, rank, or evaluate employees fall in the <strong>high-risk</strong> category of the EU AI Act. Mandatory: conformity assessment before deployment, documented risk-management system, enforceable human oversight, logging and post-market monitoring, disclosure to affected employees in defined cases. AskHR’s <em>transactional</em> scope is largely outside this perimeter; its <em>recommendation and ranking</em> functions are squarely inside it.</p>
+<p><span class="h4">Common student mistakes</span></p>
+<ul class="incremental">
+<li>Going straight to fairness metrics. The first move is autonomy scoping; fairness metrics only become tractable once the boundary is set.</li>
+<li>Treating bias control as a model-level problem. It is primarily an <em>organisational</em> problem at scale.</li>
+<li>Ignoring the works-council dimension in EU jurisdictions; this can constrain deployment more than the AI Act does.</li>
+</ul>
+<p><span class="h4">Discussion prompt</span></p>
+<p>“If IBM offered AskHR to a European customer with strong works-council representation, which of these guardrails would the customer <em>also</em> need, beyond what IBM uses internally?” The intended answer surfaces the difference between US-style and EU-style HR-governance contexts and motivates discussion of <span class="citation" data-cites="papagiannidis2025responsible">Papagiannidis et al. (<a href="#ref-papagiannidis2025responsible" role="doc-biblioref">2025</a>)</span>’s design-phase governance.</p>
+</section>
+<section id="the-strategic-value-of-client-zero" class="level2">
+<h2 data-anchor-id="the-strategic-value-of-client-zero">The strategic value of Client Zero</h2>
+<p><span class="h4">Reference answer</span></p>
+<p>The Client Zero approach extracts value along several reinforcing dimensions.</p>
+<p>The <em>economic</em> return is the most directly visible: $4.5B in reported productivity gains over a three-year horizon, primarily in finance, supply chain, HR, and IT. Even discounting for measurement optimism, the figure is consequential at the scale of IBM’s cost base. Per <span class="citation" data-cites="soh1995creates">Soh &amp; Markus (<a href="#ref-soh1995creates" role="doc-biblioref">1995</a>)</span>, the missing link from IT investment to performance is <em>use;</em> Client Zero closes that link inside the firm before the customer ever sees the product.</p>
+<p>The <em>strategic</em> return is subtler and probably larger. A B2B technology vendor’s central problem is <em>trust:</em> enterprise buyers do not buy unproven technology to govern HR, IT support, or finance workflows. Running the platform on IBM’s own employees, tickets, and supplier relationships substitutes IBM’s institutional credibility for missing third-party validation. The pattern is structurally similar to how AWS used Amazon retail as its first major customer; the product cannot be dismissed as an experiment when the vendor’s own operations depend on it.</p>
+<p>The <em>trust</em> dimension has a third-order effect that is easy to miss: it conditions the <em>kinds of claims</em> IBM can make in the market. Specifically, claims about productivity gains, containment rates, and bias-managed deployments become <em>testable</em> against a known reference deployment. Competitors making similar claims without a comparable reference must argue against IBM’s published numbers, not against a hypothetical. That asymmetry is durable.</p>
+<p>Mapping the value against <span class="citation" data-cites="schryen2013revisiting">Schryen (<a href="#ref-schryen2013revisiting" role="doc-biblioref">2013</a>)</span>’s IS business value taxonomy:</p>
+<div id="tbl-client-zero-value" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-client-zero-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quadrant</th>
+<th>Value created</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Internal tangible</td>
+<td>$4.5B productivity gains, 40% HR cost reduction</td>
+</tr>
+<tr class="even">
+<td>Internal intangible</td>
+<td>Capability and talent development, reference architectures, training material</td>
+</tr>
+<tr class="odd">
+<td>External tangible</td>
+<td>Sales-conversion lift from validated claims, faster customer time-to-value</td>
+</tr>
+<tr class="even">
+<td>External intangible</td>
+<td>Brand and trust, regulatory credibility</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-client-zero-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Client Zero value mapped to <span class="citation" data-cites="schryen2013revisiting">Schryen (<a href="#ref-schryen2013revisiting" role="doc-biblioref">2013</a>)</span>’s quadrants
+</figcaption>
+</figure>
+</div>
+<p>Few investments map across all four quadrants. This one does, which is part of why the model is difficult to copy without scale.</p>
+<p><span class="h4">Failure modes</span></p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>High-profile internal failure</strong> (bias incident, workforce backlash, regulator action). If a Client Zero deployment fails publicly, the vendor narrative collapses faster than for a vendor with no internal commitment. The 2023 NPS crash was a controlled, reversible version of this risk; a future incident may not be either.</li>
+<li><strong>Context mismatch with customer organisations.</strong> IBM’s internal deployment runs in IBM’s unique operating context (engineering-heavy culture, US-centric works-council exposure, specific systems-of-record landscape). Customers in different contexts may find that the proof-point does not transfer cleanly.</li>
+<li><strong>(Bonus) Stale reference.</strong> If IBM stops investing in its internal deployment, the credibility erodes; the reference must keep pace with the product roadmap.</li>
+</ul>
+</div>
+<p><span class="h4">Common student mistakes</span></p>
+<ul class="incremental">
+<li>Listing only the economic value and missing the <em>trust</em> and <em>claim-conditioning</em> dimensions.</li>
+<li>Treating Client Zero as cost-free. The model raises both upside <em>and</em> downside: a public failure inside the vendor is worse than a public failure inside a customer.</li>
+<li>Failing to use <span class="citation" data-cites="soh1995creates">Soh &amp; Markus (<a href="#ref-soh1995creates" role="doc-biblioref">1995</a>)</span> and <span class="citation" data-cites="schryen2013revisiting">Schryen (<a href="#ref-schryen2013revisiting" role="doc-biblioref">2013</a>)</span> explicitly.</li>
+</ul>
+<p><span class="h4">Discussion prompt</span></p>
+<p>“Could a small, focused vendor (say, a 200-person AI startup) credibly run a Client Zero model? What would have to be true?” Intended answer: yes, but the <em>scope</em> of the reference would be narrower; the strategic value is proportional to the scale and complexity of the internal deployment. This sets up the homework question on whether students’ own organisations could plausibly become a Client Zero.</p>
+</section>
+</section>
+<section id="synthesis-cues-for-plenary" class="level1">
+<h1>Synthesis cues for plenary</h1>
+<p>If you have ten minutes at the end, ask students for one-sentence answers to each of the three integrating prompts. Useful “punchline” lines to surface:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Agentic-ness is a property of the system, not the model.</strong> Decompose, delegate, integrate, act.</li>
+<li><strong>Containment is a productivity metric; NPS is a complementarity metric.</strong> Track both, or the 6% will eat the narrative.</li>
+<li><strong>The automation-augmentation paradox plays out at the role level,</strong> with task content substituted while role content expands.</li>
+<li><strong>Bias control is primarily a scoping decision,</strong> not a fairness-metric decision. Set the autonomy boundary first.</li>
+<li><strong>Client Zero converts an internal cost into a strategic asset</strong> by closing the IT-value gap inside the vendor.</li>
+</ul>
+</div>
+</section>
+<section id="grading-guidance-for-the-written-submissions" class="level1">
+<h1>Grading guidance for the written submissions</h1>
+<p><span class="h4">Full credit signals</span></p>
+<div class="incremental">
+<ul class="incremental">
+<li>Explicit and correct use of at least one framework per question, with citation</li>
+<li>Specific reference to case evidence (numbers, system names, the NPS history, the CHRO pivot)</li>
+<li>A counter-position or limitation acknowledged in at least three of the six answers</li>
+<li>A methods note that names the primary sources used and where they appear</li>
+</ul>
+</div>
+<p><span class="h4">Common deductions</span></p>
+<div class="incremental">
+<ul class="incremental">
+<li>Treating IBM’s numbers as ground truth without flagging the vendor-controlled definitions</li>
+<li>Confusing the <em>model</em> (LLM) with the <em>system</em> (agentic architecture) in Question 1</li>
+<li>Recommending fairness metrics in Question 5 without first scoping autonomy</li>
+<li>Listing economic value only in Question 6, missing trust and claim-conditioning</li>
+<li>Calling the 2026 hiring pivot a “reversal” in Question 4</li>
+</ul>
+</div>
+</section>
+<section id="qa" class="level1 headline-only html-hidden unlisted">
+<h1 class="headline-only html-hidden unlisted">Q&amp;A</h1>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-acharya2025agentic" class="csl-entry" role="listitem">
+Acharya, D. B., Kuppan, K., &amp; Divya, B. (2025). Agentic AI: Autonomous intelligence for complex goals–a comprehensive survey. <em>IEEE Access</em>.
+</div>
+<div id="ref-agenticAI2024" class="csl-entry" role="listitem">
+Anthrophic. (2024). <em>Building effective agents</em>. Anthropic Research Team; <a href="https://www.anthropic.com/engineering/building-effective-agents" class="uri">https://www.anthropic.com/engineering/building-effective-agents</a>.
+</div>
+<div id="ref-berente2021managing" class="csl-entry" role="listitem">
+Berente, N., Gu, B., Recker, J., &amp; Santhanam, R. (2021). Managing artificial intelligence. <em>MIS Quarterly</em>, <em>45</em>(3), 1433–1450. <a href="https://doi.org/10.25300/MISQ/2021/16274">https://doi.org/10.25300/MISQ/2021/16274</a>
+</div>
+<div id="ref-fugener2022cognitive" class="csl-entry" role="listitem">
+Fügener, A., Grahl, J., Gupta, A., &amp; Ketter, W. (2022). Cognitive challenges in <span>Human–Artificial Intelligence</span> collaboration: Investigating the path toward productive delegation. <em>Information Systems Research</em>, <em>33</em>(2), 678–696. <a href="https://doi.org/10.1287/isre.2021.1079">https://doi.org/10.1287/isre.2021.1079</a>
+</div>
+<div id="ref-hemmer2025complementarity" class="csl-entry" role="listitem">
+Hemmer, P., Schemmer, M., Kühl, N., Vössing, M., &amp; Satzger, G. (2025). Complementarity in <span>Human–AI</span> collaboration: Concept, sources, and evidence. <em>European Journal of Information Systems</em>, <em>34</em>(6), 979–1002. <a href="https://doi.org/10.1080/0960085X.2025.2475962">https://doi.org/10.1080/0960085X.2025.2475962</a>
+</div>
+<div id="ref-herath2024design" class="csl-entry" role="listitem">
+Herath, S., Shrestha, Y. R., &amp; Krogh, G. von. (2024). Design principles for artificial intelligence-augmented decision making: An action design research study. <em>European Journal of Information Systems</em>, <em>34</em>(2), 207–229. <a href="https://doi.org/10.1080/0960085X.2024.2330402">https://doi.org/10.1080/0960085X.2024.2330402</a>
+</div>
+<div id="ref-jarrahi2025rethinking" class="csl-entry" role="listitem">
+Jarrahi, M. H., &amp; Ritala, P. (2025). Rethinking <span>AI</span> agents: A principal–agent perspective. <em>California Management Review</em>. <a href="https://doi.org/10.1177/00081256251320040">https://doi.org/10.1177/00081256251320040</a>
+</div>
+<div id="ref-papagiannidis2025responsible" class="csl-entry" role="listitem">
+Papagiannidis, E., Mikalef, P., &amp; Conboy, K. (2025). Responsible artificial intelligence governance: A review and research framework. <em>The Journal of Strategic Information Systems</em>, <em>34</em>(2), 101885. <a href="https://doi.org/10.1016/j.jsis.2024.101885">https://doi.org/10.1016/j.jsis.2024.101885</a>
+</div>
+<div id="ref-raisch2021automation" class="csl-entry" role="listitem">
+Raisch, S., &amp; Krakowski, S. (2021). Artificial intelligence and management: The automation–augmentation paradox. <em>Academy of Management Review</em>, <em>46</em>(1), 192–210. <a href="https://doi.org/10.5465/amr.2018.0072">https://doi.org/10.5465/amr.2018.0072</a>
+</div>
+<div id="ref-RusselNorvig2022AIMA" class="csl-entry" role="listitem">
+Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern approach</em>. Pearson Education.
+</div>
+<div id="ref-schryen2013revisiting" class="csl-entry" role="listitem">
+Schryen, G. (2013). Revisiting IS business value research: What we already know, what we still need to know, and how we can get there. <em>European Journal of Information Systems</em>, <em>22</em>(2), 139–169.
+</div>
+<div id="ref-shavit2023practices" class="csl-entry" role="listitem">
+Shavit, Y., Agarwal, S., Brundage, M., Adler, S., O’Keefe, C., Campbell, R., Lee, T., Mishkin, P., Eloundou, T., Hickey, A., et al. (2023). Practices for governing agentic AI systems. <em>Research Paper, OpenAI</em>.
+</div>
+<div id="ref-soh1995creates" class="csl-entry" role="listitem">
+Soh, C., &amp; Markus, M. L. (1995). How IT creates business value: A process theory synthesis. <em>ICIS 1995 Proceedings</em>, 4.
+</div>
+</div>
+
+
+</section>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

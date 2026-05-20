@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bayesian Networks &amp; Probabilistic Inference – I2AI</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --blue:        #0535f5;
+  --blue-dark:   #0228cc;
+  --blue-light:  #2a55ff;
+  --cyan:        #4de8f4;
+  --white:       #ffffff;
+  --off-white:   #f7f8fc;
+  --light-bg:    #f0f2fc;
+  --text-dark:   #0d0d0d;
+  --muted-dark:  #444;
+  --border:      #d8daf0;
+  --mono-meta:   #b8ccff;
+  --footer-h:    52px;
+}
+.reveal {
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  background: var(--blue);
+  color: var(--white);
+}
+.reveal .slides { width: 100%; height: 100%; }
+.reveal .slides section {
+  text-align: left;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.reveal h1,.reveal h2,.reveal h3,.reveal h4 {
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  text-transform: none;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-shadow: none;
+  margin: 0 0 .4em;
+}
+.title-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+.title-slide::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -5%;
+  width: 62%; height: 110%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(77,232,244,.22) 0%, rgba(40,120,255,.18) 30%, transparent 70%);
+  pointer-events: none;
+}
+.title-inner {
+  position: relative; z-index: 2;
+  padding: 0 3.5rem calc(var(--footer-h) + 2rem);
+}
+.title-slide h1 { font-size: 4em; font-weight: 300; color: var(--white); line-height: 1.05; margin: 0 0 .45em; }
+.title-slide .subtitle { font-family: 'Space Grotesk',sans-serif; font-size: 1.25em; font-weight: 500; color: var(--white); margin: 0 0 2em; opacity: .95; }
+.title-slide .meta-block { font-family: 'Space Mono',monospace; font-size: .72em; color: var(--mono-meta); line-height: 2; }
+.version-tag { position: absolute; top: 1.4rem; left: 1.5rem; font-family: 'Space Mono',monospace; font-size: .68em; color: var(--mono-meta); z-index: 10; }
+.slide-footer-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--footer-h); background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.4rem; z-index: 100; box-sizing: border-box;
+}
+.slide-footer-bar .footer-left { font-family: 'Space Mono',monospace; font-size: .6em; color: var(--text-dark); display: flex; align-items: center; gap: 1.2rem; }
+.slide-footer-bar .footer-version { color: #888; margin-right: .5rem; }
+.slide-footer-bar .footer-logo { font-family: 'Space Grotesk',sans-serif; font-size: 1.4em; font-weight: 700; color: var(--text-dark); letter-spacing: -.04em; }
+.footer-menu { width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; margin-right: .8rem; }
+.footer-menu span { display: block; height: 2px; background: var(--text-dark); border-radius: 1px; }
+.section-slide {
+  background: var(--blue) !important;
+  display: flex !important; flex-direction: column; justify-content: center;
+  height: 100%; padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+  position: relative; overflow: hidden;
+}
+.section-slide::before {
+  content: ''; position: absolute; top: -20%; right: -10%; width: 50%; height: 140%;
+  background: radial-gradient(ellipse, rgba(77,232,244,.15) 0%, transparent 65%); pointer-events: none;
+}
+.section-slide .section-label { font-family: 'Space Mono',monospace; font-size: .72em; color: var(--mono-meta); margin-bottom: .7em; letter-spacing: .04em; }
+.section-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); margin: 0 0 .5em; }
+.section-slide .section-desc { font-family: 'Space Grotesk',sans-serif; font-size: .9em; color: rgba(255,255,255,.72); max-width: 60%; line-height: 1.75; }
+.section-slide .section-number { position: absolute; right: 3rem; bottom: calc(var(--footer-h) + 1rem); font-family: 'Space Grotesk',sans-serif; font-size: 8em; font-weight: 700; color: rgba(255,255,255,.07); line-height: 1; pointer-events: none; user-select: none; }
+.content-slide {
+  background: var(--off-white) !important; color: var(--text-dark) !important;
+  padding: 2rem 3.5rem calc(var(--footer-h) + 1.2rem) !important; height: 100%;
+}
+.content-slide p, .content-slide li, .content-slide td { color: var(--text-dark); }
+.slide-header {
+  display: flex; align-items: baseline; gap: .7em;
+  border-bottom: 2px solid var(--blue); padding-bottom: .35em; margin-bottom: .85em;
+}
+.slide-header h2 { font-family: 'Space Grotesk',sans-serif; font-size: 1.35em; font-weight: 600; color: var(--blue); margin: 0; flex: 1; border: none; }
+.content-slide p { line-height: 1.72; margin: .5em 0; font-size: .95em; }
+.content-slide ul, .content-slide ol { margin: .4em 0 .4em 1.3em; }
+.content-slide li { margin: .3em 0; line-height: 1.65; font-size: .95em; }
+.content-slide ul > li::marker { color: var(--blue); }
+.content-slide strong { font-weight: 700; }
+.content-slide code { font-family: 'Space Mono',monospace; font-size: .8em; background: #e8eaf8; color: var(--blue-dark); padding: .08em .35em; border-radius: 3px; }
+.content-slide table { width: 100%; border-collapse: collapse; font-size: .84em; margin: .7em 0; }
+.content-slide table th { background: var(--blue); color: var(--white); font-family: 'Space Grotesk',sans-serif; font-weight: 600; padding: .55em .85em; text-align: left; }
+.content-slide table td { padding: .45em .85em; border-bottom: 1px solid var(--border); vertical-align: top; }
+.content-slide table tbody tr:nth-child(even) td { background: var(--light-bg); }
+.content-slide table tbody tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; background: rgba(5,53,245,.1); color: var(--blue); font-family: 'Space Mono',monospace; font-size: .63em; letter-spacing: .05em; text-transform: uppercase; padding: .17em .6em; border-radius: 2px; border: 1px solid rgba(5,53,245,.2); vertical-align: middle; flex-shrink: 0; }
+.callout { background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 4px 4px 0; padding: .75em 1.1em; margin: .75em 0; font-size: .91em; }
+.callout p { margin: .25em 0; }
+.callout ol, .callout ul { color: var(--text-dark); }
+.callout.exercise { border-left-color: var(--cyan); background: #edfcfe; }
+.callout.exercise .callout-label { color: #0099aa; }
+.callout.note { border-left-color: var(--blue); background: var(--light-bg); }
+.callout.warning { border-left-color: #f5a623; background: #fef9ee; }
+.callout.warning .callout-label { color: #c07a00; }
+.callout-label { font-family: 'Space Mono',monospace; font-size: .7em; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: .28em; }
+.reveal .slides .fragment.answer-reveal { display: block; margin-top: .7em; }
+.answer-box { background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--cyan); border-radius: 0 4px 4px 0; padding: .75em 1.1em; font-size: .91em; }
+.answer-box p, .answer-box li { margin: .25em 0; }
+.answer-box ul, .answer-box ol { margin: .3em 0 .3em 1.2em; }
+.answer-label { font-family: 'Space Mono',monospace; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; color: #0099aa; margin-bottom: .35em; }
+.exercises-slide { background: #111 !important; display: flex !important; flex-direction: column; justify-content: center; height: 100%; padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important; position: relative; }
+.exercises-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); }
+.exercises-slide .section-number { position: absolute; right: 3rem; bottom: calc(var(--footer-h) + 1rem); font-family: 'Space Grotesk',sans-serif; font-size: 8em; font-weight: 700; color: rgba(255,255,255,.05); line-height: 1; pointer-events: none; }
+.reveal .progress { background: rgba(255,255,255,.15); height: 3px; }
+.reveal .progress span { background: var(--cyan); }
+.reveal .controls { color: var(--white); bottom: calc(var(--footer-h) + 8px); }
+.dag-block { font-family: 'Space Mono',monospace; font-size: .9em; background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 4px 4px 0; padding: .8em 1.2em; line-height: 2.2; color: var(--blue-dark); margin: .7em 0; }
+.cpt-wrap { display: flex; gap: 1.4em; flex-wrap: wrap; margin: .5em 0; align-items: flex-start; }
+.cpt-mini { border-collapse: collapse; font-size: .8em; font-family: 'Space Mono',monospace; }
+.cpt-mini th { background: var(--blue); color: var(--white); padding: .38em .65em; text-align: center; border: 1px solid var(--blue-dark); font-family: 'Space Grotesk',sans-serif; font-weight: 600; }
+.cpt-mini td { padding: .3em .65em; text-align: center; border: 1px solid var(--border); color: var(--text-dark); background: var(--off-white); }
+.cpt-mini tr:nth-child(even) td { background: var(--light-bg); }
+.cpt-highlight { font-weight: 700; color: var(--blue-dark); }
+.scenario-box { background: #12143a; border-left: 4px solid var(--cyan); border-radius: 0 6px 6px 0; padding: .85em 1.2em; margin: .6em 0; font-style: italic; font-size: .88em; color: #c8d8f8; line-height: 1.8; }
+.scenario-box .s-label { font-family: 'Space Mono',monospace; font-style: normal; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); margin-bottom: .4em; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; align-items: start; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .9em; align-items: start; }
+.info-card { background: var(--light-bg); border: 1px solid var(--border); border-radius: 6px; padding: .75em 1em; }
+.info-card .card-title { font-family: 'Space Grotesk',sans-serif; font-weight: 700; font-size: .82em; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .35em; }
+.info-card p, .info-card li { font-size: .92em; color: var(--text-dark); margin: .2em 0; }
+.info-card ul { margin: .3em 0 .3em 1.1em; }
+</style>
+</head>
+<body>
+
+<div class="slide-footer-bar">
+  <div class="footer-left">
+    <div class="footer-menu"><span></span><span></span><span></span></div>
+    <span class="footer-version">V 1.0</span>
+    <span>Deinera Jechle &nbsp;/&nbsp; Neu-Ulm University of Applied Sciences &nbsp;/&nbsp; Introduction to Artificial Intelligence (AI)</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <div class="footer-logo">HNU</div>
+    <div id="footer-slide-num" style="font-family:'Space Mono',monospace;font-size:.6em;color:#888;">1</div>
+  </div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- TITLE -->
+<section class="title-slide">
+  <div class="version-tag">V 1.0</div>
+  <div class="title-inner">
+    <h1>Bayesian Networks &amp; Probabilistic Inference</h1>
+    <p class="subtitle">Introduction to AI (I2AI)</p>
+    <div class="meta-block">
+      <span>Deinera Jechle</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Neu-Ulm University of Applied Sciences</span><br/>
+      30. April 2026
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     WARM UP — AI CONSCIOUSNESS
+═══════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Warm Up</h2>
+    <span class="tag">Discussion</span>
+    <span class="timer" data-minutes="8"></span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">🧠 Imagine</div>
+    <p style="font-size:1.05em; line-height:1.8;">Researchers predict AI will be conscious within <strong>15 years</strong>.<br/>
+    What is consciousness — and does AI already have it? What would need to change?</p>
+  </div>
+  <div style="margin-top:.9em;">
+    <p>Some questions and angles to think about:</p>
+    <ul style="font-size:.88em; line-height:2; margin-left:1.2em;">
+      <li>What makes something <em>conscious</em> — and how would you know?</li>
+      <li>ChatGPT, Claude, and Gemini independently reported similar inner states under the same experimental conditions — does that mean anything?</li>
+      <li>If AI <em>is</em> conscious, what changes — legally, ethically, in the workplace?</li>
+      <li>Could an unconscious system ever be <em>dangerous</em> in a different way than a conscious one?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Warm-Up Answer slide -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Warm Up — Some Answers</h2>
+    <span class="tag">Discussion</span>
+  </div>
+    <div>
+      <div class="answer-box">
+        <div class="answer-label">What is Consciousness?</div>
+        <p>Philosophers call it the <strong>"hard problem"</strong>: how does subjective experience emerge from matter?</p>
+        <p><b>Dictionary Definition:</b> Consciousness is being aware of something internal to one's self or of states or objects in one's external environment<sub>1</sub></p>
+        <p style="margin-top:.4em;">Human consciousness is most often described by two constructs:<sup>2</sup></p>
+        <ul style="font-size:.9em; line-height:1.9;">
+          <li><strong>Phenomenal consciousness</strong> — what it feels like (qualia: pain, the redness of red)</li>
+          <li><strong>Access consciousness</strong> — information available for reasoning, reporting, and guiding behaviour</li>
+        </ul>
+        <p>Does AI have either of these - or is it just something that looks like them from the outside?</p>
+      </div>
+    </div>
+    <p></p><p></p>
+    <div>
+      <div class="fragment">
+      <div class="answer-box">
+        <div class="answer-label">Does AI Already Have It?<sup>3,4</sup> </div>
+        <p>Researchers at the Allen Institute found that when deception circuits in LLMs were suppressed, <strong>self-experience reports increased</strong> — and vice versa. Simple priming did <em>not</em> produce the same effect.</p>
+        <p style="margin-top:.4em;">ChatGPT, Claude, and Gemini — trained independently — produced <strong>strikingly similar introspective descriptions</strong> under the same conditions. This convergence was unexpected.</p>
+        <p style="margin-top:.4em; font-style:italic; font-size:.9em; color:var(--muted-dark);">"The question is no longer 'Can AI be conscious?' but rather 'Can we responsibly ignore the growing evidence?'"<sup>5</sup></p>
+      </div>
+    </div>
+    </div>
+    <div style="position:absolute; bottom:calc(var(--footer-h) + .6rem); left:3.5rem; right:3.5rem;
+              border-top:1px solid var(--border); padding-top:.4em;
+              font-family:'Space Mono',monospace; font-size:.3em; color:#888;
+              display:flex; gap:1rem; flex-wrap:wrap;">
+    <span><sup>1</sup> Merriam-Webster <em>Definition 'consciousness'</em>https://www.merriam-webster.com/dictionary/consciousness</span>
+    <span><sup>2</sup> Block, N. (1995). <em>On a confusion about a function of consciousness. Behavioral and Brain Sciences,</em> 18(2), 227–247.</span>
+    <span><sup>3</sup> Butlin, P., Long, R., Elmoznino, E., et al. (2023). <em>Consciousness in Artificial Intelligence: Insights from the Science of Consciousness.</em> arXiv:2308.08708</span>
+    <span><sup>4</sup> Koch, C. (2025). <em>Scientists Are Gifting AI the Final Ingredient for Consciousness — And It Could Trigger the Singularity.</em> Popular Mechanics, Dec 2025</span>
+    <span><sup>5</sup>Berg, C., de Lucena, D., & Rosenblatt, J. (2025). <em>Large Language Models Report Subjective Experience Under Self-Referential Processing.</em> arXiv:2510.24797</span>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 01 — GENERAL INTRODUCTION
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 01</div>
+  <h1>General Introduction to Bayesian Networks</h1>
+  <p class="section-desc">From logical frameworks to probabilistic reasoning — the scalability problem of a complete Joint Probability Distribution and how Bayesian networks solve it.</p>
+  <div class="section-number">01</div>
+</section>
+
+<!-- 1.1 Traditional vs Probabilistic -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Traditional Agents vs. Probabilistic Frameworks</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.05em;line-height:1.8;">What is the primary difference between <strong>traditional knowledge-based agents</strong> and those using <strong>probabilistic frameworks</strong>?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">Answer</div>
+      <p>Traditional agents rely on logical frameworks like propositional or first-order logic, which are limited to <strong>binary reasoning (True/False)</strong> and struggle with incomplete or uncertain information. Probabilistic agents replace rigid logical rules with a <strong>Joint Probability Distribution</strong>, allowing them to represent nuanced knowledge and reason using degrees of likelihood.</p>
+      <ul style="margin-top:.5em;">
+        <li><strong>The problem of traditional logic:</strong> Relies on binary reasoning (True/False). Highly expressive in formal domains but shatters when faced with incomplete, uncertain, or evolving real-world evidence.</li>
+        <li><strong>Probabilistic reasoning:</strong> Replaces rigid rules with fluid probabilistic relationships, allowing the agent to update its knowledge dynamically as new evidence emerges.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 1.2 Scalability problem -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The "Scalability Problem" — Complete Joint Probability Distribution</h2>
+  </div>
+  <p>A complete JPD requires storing the probability of every possible combination of values for all variables, which grows exponentially at a rate of <strong>2<sup>n</sup></strong> for <em>n</em> binary variables.</p>
+  <div class="callout note" style="margin-top:.8em;">
+    <div class="callout-label">Insight</div>
+    <p>For example, while <strong>10 variables</strong> require 1,024 values, <strong>20 variables</strong> require over a million — making storage and computation impractical for complex domains.</p>
+  </div>
+</section>
+
+<!-- 1.3 Solution: Bayesian Networks -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The Solution — Bayesian Networks</h2>
+  </div>
+  <p>While a complete JPD is impractical because it requires storing an exponentially growing number of probabilities for every possible combination of variables, <strong>Bayesian networks</strong> create a dramatically more compact representation by exploiting variable independence and conditional independence.</p>
+  <p class="fragment" style="margin-top:.5em;">This is achieved by organising variables into a <strong>directed acyclic graph (DAG)</strong> structure, where each node represents a variable and edges represent direct causal relationships or influences. Because a node is conditionally independent of its non-descendants given its parents, the system does not need to store the massive full JPD. Instead, it only needs to store a <strong>conditional probability table</strong> for each node based strictly on the values of its direct parents.</p>
+  <div class="fragment callout note" style="margin-top:.6em;">
+    <div class="callout-label">Insight</div>
+    <p>Instead of requiring roughly <strong>one million probabilities</strong> for a full JPD of 20 binary variables, a Bayesian network reduces the requirement to just <strong>a few thousand</strong>.</p>
+  </div>
+</section>
+
+<!-- ⚠ DAG vs Knowledge Graph -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>⚠ Do Not Mistake DAGs for Knowledge Graphs</h2>
+    <span class="tag">Attention</span>
+  </div>
+  <ul>
+    <li class="fragment"><strong>Knowledge graphs</strong> map factual, semantic relationships between entities: "Company A employs CEO B, who manages Company A." Loops are acceptable and even natural here.</li>
+    <li class="fragment" style="margin-top:.4em;"><strong>DAGs</strong> model the probabilistic flow of information. Introducing a loop would be mathematically catastrophic: Node A updates B, B updates C, C loops back to update A — creating an infinite feedback cycle that never converges.</li>
+    <li class="fragment" style="margin-top:.4em;">The <strong>acyclic constraint</strong> is not a design choice — it is a <em>mathematical requirement</em> for the probability calculations to remain valid.</li>
+  </ul>
+</section>
+
+<!-- Blackwood Scenario intro -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>🔪 The Blackwood Manor Mystery — Running Scenario</h2>
+    <span class="tag">Scenario</span>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr auto; gap:1.2em; align-items:start;">
+    <div>
+      <div class="scenario-box">
+        <div class="s-label">🕵️‍♂️ Blackwood Manor</div>
+        It is a stormy evening at Blackwood Manor. The maid enters the study with the evening tea — and screams. Lord Blackwood is slumped over his desk, dead. The candle on his desk still flickers. Outside, rain hammers the windows.<br/><br/>
+        Detective Bayes is called. He arrives with one tool: not a weapon, not a warrant — but a probability model.<br/><br/>
+        Lord Blackwood has been found dead in his study. Detective Bayes has been tasked with catching the murderer. There is one prime suspect: <strong style="color:var(--cyan);">Mr. Graves, the Butler.</strong>
+      </div>
+      <p style="margin-top:.5em;">The detective models the situation with <strong>6 binary variables:</strong></p>
+      <table style="font-size:.82em; margin-top:.2em;">
+        <thead><tr><th>Variable</th><th>Symbol</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td>Motive (financial debt to Lord Blackwood)</td><td><code>M</code></td><td>true / false</td></tr>
+          <tr><td>Opportunity (was alone with victim)</td><td><code>O</code></td><td>true / false</td></tr>
+          <tr><td>Access to Poison (had access to the pantry)</td><td><code>A</code></td><td>true / false</td></tr>
+          <tr><td>Guilty</td><td><code>G</code></td><td>true / false</td></tr>
+          <tr><td>Nervous Behavior (witnessed by maid)</td><td><code>N</code></td><td>true / false</td></tr>
+          <tr><td>Weapon Found near suspect</td><td><code>W</code></td><td>true / false</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- What do we know about the variables? -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>What Do We Know About How These Variables Relate?</h2>
+  </div>
+  <p>Before formalising into a graph, Detective Bayes establishes the following relationships in plain English:</p>
+  <ul>
+    <li ><strong>Motive and Opportunity are independent facts.</strong> Whether Graves owed Lord Blackwood money has nothing to do with whether he happened to be alone with him that evening. One is about finances; the other is about presence. Neither caused the other.</li>
+    <li ><strong>Both Motive and Opportunity influence Guilt.</strong> A suspect with a financial reason and the chance to act is far more likely to have committed the crime than one with only one — or neither.</li>
+    <li "><strong>Guilt influences Nervous Behavior.</strong> Graves was observed shaking at dinner. The detective's working assumption: guilty people tend to act nervous; innocent people less so.</li>
+    <li ><strong>Guilt and Access to Poison together influence whether the Weapon is found.</strong> The poison vial turning up near the suspect requires both that Graves actually committed the act and that he had access to the pantry where the poison was kept. Access alone — without guilt — would not explain the weapon's location.</li>
+    <li ><strong>Access to Poison is an independent fact.</strong> Whether Graves held the pantry key is simply a fact about his role in the household. It has nothing to do with his motive or opportunity.</li>
+  </ul>
+  <p  style="font-size:.82em; color:var(--muted-dark); margin-top:.4em;"><em>Note: In Section 3 we will formalise these relationships into a directed graph. For now, use the descriptions above to reason about independence.</em></p>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 02 — CONDITIONAL INDEPENDENCE
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 02</div>
+  <h1>Conditional Independence</h1>
+  <p class="section-desc">The two types of independence — unconditional and conditional — and why they are key to making Bayesian networks tractable.</p>
+  <div class="section-number">02</div>
+</section>
+
+<!-- Two types -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Two Types of Independence</h2>
+  </div>
+  <ul>
+    <li class="fragment"">
+      <strong>Unconditional independence:</strong> &nbsp;<code>P(A, B) = P(A) × P(B)</code><br/>
+      Knowing A tells you nothing about B.
+    </li>
+    <li class="fragment" style="margin-top:.7em;">
+      <strong>Conditional independence:</strong> &nbsp;<code>P(A, B | C) = P(A | C) × P(B | C)</code><br/>
+      Once we know C, learning A gives us zero additional information about B.
+    </li>
+  </ul>
+  <div class="fragment callout note" style="margin-top:.9em;">
+    <div class="callout-label">Why This Matters</div>
+    <p>When two variables do not influence each other — given what we already know — we do not need to calculate their relationship at all. The AI can <strong>split the problem into smaller independent sub-problems</strong>, dramatically reducing what it needs to compute.</p>
+  </div>
+</section>
+
+<!-- Reasoning directions -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Reasoning — Two Directions</h2>
+  </div>
+  <p>Bayesian networks support reasoning in <strong>both directions simultaneously</strong> — a key advantage over rule-based systems.</p>
+  <ul style="margin-top:.6em;">
+    <li ><strong>Causal reasoning (predicting effects):</strong> Given a cause, what effects should we expect?<br/>
+    <em>Example: "Given a patient has disease X, what symptoms might they develop?"</em></li>
+    <li  style="margin-top:.6em;"><strong>Diagnostic reasoning (inferring causes):</strong> Given observed effects, what caused them?<br/>
+    <em>Example: "Given a patient's symptoms, what disease do they likely have?"</em></li>
+  </ul>
+  <div style="margin-top:.8em;">
+    <div class="callout-label">Key Point</div>
+    <p>The same network handles both types of query <strong>without modification</strong>.</p>
+  </div>
+</section>
+
+<!-- Exercise 2 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 2 — Conditional Independence</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="8"></span>
+  </div>
+  <div class="scenario-box">
+    <div class="s-label">🔪 Detective Bayes</div>
+    Detective Bayes sits across from Mr. Graves in the dimly lit study. He considers two facts: Graves had a financial motive, and Graves was alone in the east wing that evening.<br/>
+    "Tell me," Bayes murmurs, mostly to himself. "Does knowing about the debt tell me anything about whether he was there that night?"
+  </div>
+  <div class="callout exercise" style="margin-top:.5em;">
+    <div class="callout-label">✏️ Exercise</div>
+    <ol style="line-height:2.1; font-size:.93em;">
+      <li><strong>a)</strong> Are M (Motive) and O (Opportunity) unconditionally independent? Write the formal statement and explain in plain language using the relationships described above.</li>
+      <li><strong>b)</strong> Detective Bayes now learns that Graves is Guilty (G = true). Does knowing his motive now tell us something about whether he had opportunity? Explain intuitively — no calculation needed.</li>
+      <li><strong>c)</strong> Both Guilty and Access to Poison influence whether the Weapon is found. Given this, are N (Nervous Behavior) and W (Weapon Found) conditionally independent given G (Guilty)? Justify your answer using the relationship descriptions above.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Solution Exercise 2 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 2 — Conditional Independence</h2>
+  </div>
+  <div class="answer-box">
+    <div class="answer-label">Solution</div>
+    <div class="fragment">
+    <p><strong>a)</strong> Yes — M and O are unconditionally independent, because they have no common cause and no direct connection. Formally:</p>
+    <p style="font-family:'Space Mono',monospace; font-size:.88em; margin:.3em 0 .3em 1.2em;">P(M, O) = P(M) · P(O)</p>
+    <p>In plain language: whether Graves owed Lord Blackwood money has nothing to do with whether he happened to be alone with him that evening — these are separate facts about the world.</p>
+    </div><div class="fragment">
+    <p style="margin-top:.6em;"><strong>b)</strong> Once we know G = true, M and O become <strong>conditionally dependent</strong>. This is the collider effect. If we know Graves is guilty but learn he had no opportunity, our belief that his motive must have been overwhelmingly strong increases — the two causes begin to "explain" each other.</p>
+    </div><div class="fragment">
+    <p style="margin-top:.6em;"><strong>c)</strong> Yes — N and W are conditionally independent given G. Both are children of G, forming a fork structure. Once we know whether Graves is guilty, his nervous behavior tells us nothing additional about whether the weapon was found, and vice versa. Formally:</p>
+    <p style="font-family:'Space Mono',monospace; font-size:.88em; margin:.3em 0 .3em 1.2em;">P(N, W | G) = P(N | G) · P(W | G, A)</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 03 — GRAPHICAL REPRESENTATION
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 03</div>
+  <h1>Graphical Representation of Bayesian Networks as Directed Acyclic Graphs (DAG)</h1>
+  <p class="section-desc">Nodes, directed edges, acyclicity, and Conditional Probability Tables — the building blocks of a Bayesian network.</p>
+  <div class="section-number">03</div>
+</section>
+
+<!-- DAG definition -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Bayesian Networks as DAGs</h2>
+  </div>
+  <p>A Bayesian network is represented as a Directed Acyclic Graph (DAG):</p>
+  <ul>
+    <li><strong>Nodes</strong> represent random variables (events, propositions, states of the world).</li>
+    <li><strong>Directed edges (arrows)</strong> represent direct probabilistic influence between variables. B → C means the variable C directly depends on the outcome of variable B.</li>
+    <li><strong>Acyclic</strong> means there are no loops — information flows strictly forward.</li>
+    <li><strong>Each node stores a Conditional Probability Table (CPT):</strong> the probability distribution of that variable given the specific values of its parent nodes. For B → C, the network assigns a CPT to node C that is explicitly conditioned on the values of its parent B.</li>
+    <li><em>Example: "Cloudy → Rain" means the probability of rain is stored conditional on whether it is cloudy or not — not as a standalone number.</em></li>
+  </ul>
+  <div class="callout note" style="margin-top:.5em;">
+    <div class="callout-label">Key Property</div>
+    <p>This parent-child relationship is the fundamental building block of the network structure. Because each node depends only on its direct parent nodes, the system can assume that the node is conditionally independent of all its non-descendants once the values of those parents are known — this is exactly how Bayesian networks drastically reduce computational complexity.</p>
+  </div>
+</section>
+
+<!-- ⚠ DAGs vs Knowledge Graphs (second callout here as in notes) -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>⚠ Attention — Do Not Mistake DAGs for Knowledge Graphs</h2>
+    <span class="tag">Attention</span>
+  </div>
+  <ul>
+    <li ><strong>Knowledge graphs</strong> map factual, semantic relationships between entities: "Company A employs CEO B, who manages Company A." Loops are acceptable and even natural here.</li>
+    <li  style="margin-top:.5em;"><strong>DAGs</strong> model the probabilistic flow of information. Introducing a loop would be mathematically catastrophic: Node A updates B, B updates C, C loops back to update A — creating an infinite feedback cycle that never converges.</li>
+    <li  style="margin-top:.5em;">The <strong>acyclic constraint</strong> is not a design choice — it is a <em>mathematical requirement</em> for the probability calculations to remain valid.</li>
+  </ul>
+</section>
+
+<!-- 3.2 Building a BN -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>3.2 Building a Bayesian Network</h2>
+  </div>
+  <p>Constructing a Bayesian network follows a structured process:</p>
+  <ol>
+    <li class="fragment"><strong>Identify root nodes:</strong> variables with no parents — these receive prior probability distributions directly.</li>
+    <li class="fragment"><strong>Add dependent variables layer by layer:</strong> connect each variable to the nodes that directly influence it.</li>
+    <li class="fragment"><strong>Assign Conditional Probability Tables:</strong> for each node, specify the probability distribution over its values given every possible combination of parent values.</li>
+    <li class="fragment"><strong>Verify the causal structure:</strong> ensure all direct dependencies are captured and no spurious edges are introduced.</li>
+  </ol>
+  <div class="fragment callout warning" style="margin-top:.7em;">
+    <div class="callout-label">⚠ Attention</div>
+    <p>The quality of the network depends on correctly identifying which variables directly influence which others — <strong>domain knowledge is essential here</strong>.</p>
+  </div>
+</section>
+
+<!-- Exercise 3 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 3 — Drawing the Network</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="10"></span>
+  </div>
+  <div class="scenario-box" style="margin-bottom:.4em;">
+    <div class="s-label">🔪 Detective Bayes</div>
+    Detective Bayes pins a blank sheet to the wall of the study. Six cards, each bearing a variable name, lie on the desk in front of him. He picks up his pen.<br/>
+    "Every effect has a cause," he says. "We simply need to find the arrows."
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise — Based on these clues, construct the Bayesian network — identify the variables, draw the edges, and justify each connection.</div>
+    <ul style="font-size:.87em; line-height:1.9; margin-top:.3em;">
+      <li><strong>Clue 1 — The Housekeeper's account:</strong> "Mr. Graves had been borrowing heavily from Lord Blackwood for months. And we all knew he was present in the east wing that evening — alone." → What two facts about Graves does this establish? Could either of them have directly caused the other, or are they independent pieces of information?</li>
+      <li><strong>Clue 2 — The Footman's observation:</strong> "I don't know if he did it, sir. But a man with reason and occasion... well, that changes things considerably." → What does "reason and occasion" refer to? Together, what do they determine?</li>
+      <li><strong>Clue 3 — The Cook's testimony:</strong> "Guilty men don't sleep easy, Detective. And they certainly don't sit still at dinner. Graves could barely hold his fork." → What variable does guilt appear to cause here? In which direction does the arrow point?</li>
+      <li><strong>Clue 4 — The Inventory Ledger:</strong> "The poison was found in the butler's pantry, sir. Whether it ended up near the body — well, that depends on who had the key, and whether they used it." → Two things jointly determine whether the weapon is found. What are they?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Solution Exercise 3 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 3 — Drawing the Network</h2>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="answer-box">
+        <div class="answer-label">Edges</div>
+        <ul style="font-size:.9em; line-height:2;">
+          <li><code>M → G</code>: Having a financial motive raises the probability of committing the crime</li>
+          <li><code>O → G</code>: Having opportunity (being alone with the victim) raises the probability of committing the crime</li>
+          <li><code>G → N</code>: A guilty person is more likely to exhibit nervous behavior</li>
+          <li><code>G → W</code>: A guilty person is more likely to have the weapon nearby</li>
+          <li><code>A → W</code>: Having access to the poison is a prerequisite for the weapon to be found</li>
+        </ul>
+      </div><div class="fragment">
+      <div class="dag-block" style="margin-top:.5em;">
+M ──→ G ←── O<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ &nbsp;&nbsp;↘<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N &nbsp;&nbsp;&nbsp;W ←── A
+      </div></div>
+    </div>
+    <div>
+      <div class="fragment">
+      <div class="answer-box">
+        <div class="answer-label">Verification</div>
+        <ul style="font-size:.88em; line-height:1.9;">
+          <li>3 root nodes: M, O, A (no parents)</li>
+          <li>No cycles — information flows strictly downward</li>
+          <li>G has the most parents (2: M and O)</li>
+        </ul>
+        <p style="margin-top:.5em;"><strong>CPTs required:</strong></p>
+        <table style="font-size:.8em; margin-top:.2em;">
+          <thead><tr><th>Node</th><th>Parents</th><th>CPT needed</th></tr></thead>
+          <tbody>
+            <tr><td><code>M</code></td><td>none</td><td>P(M)</td></tr>
+            <tr><td><code>O</code></td><td>none</td><td>P(O)</td></tr>
+            <tr><td><code>A</code></td><td>none</td><td>P(A)</td></tr>
+            <tr><td><code>G</code></td><td>M, O</td><td>P(G | M, O)</td></tr>
+            <tr><td><code>N</code></td><td>G</td><td>P(N | G)</td></tr>
+            <tr><td><code>W</code></td><td>G, A</td><td>P(W | G, A)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 04 — D-SEPARATION
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 04</div>
+  <h1>D-Separation: Controlling the Flow of Information</h1>
+  <p class="section-desc">The formal rule for determining whether two variables are conditionally independent in a network — three structural patterns that open or block information flow.</p>
+  <div class="section-number">04</div>
+</section>
+
+<!-- D-Sep definition -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>D-Separation</h2>
+  </div>
+  <ul>
+    <li><strong>D-separation</strong> is the formal rule for determining whether two variables are conditionally independent in a network.</li>
+    <li style="margin-top:.4em;">Think of the network as a system of pipes: probability flows between variables like water through channels — unless something blocks the path.</li>
+    <li  style="margin-top:.4em;">Two variables A and B are <strong>d-separated</strong> given evidence set E if every path between them is blocked by a variable in E. When d-separated, A and B are conditionally independent.</li>
+  </ul>
+  <div class=" callout note" style="margin-top:.8em;">
+    <div class="callout-label">💡 Tip</div>
+    <p>Think of the Bayesian network as a system of physical channels. Information (probability) flows between variables unless it is <strong>blocked by evidence variables in E</strong> that we have already observed.</p>
+  </div>
+  <p  style="margin-top:.5em;">Three structural patterns determine whether a path is open or blocked:</p>
+</section>
+
+<!-- Three patterns -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Three Structural Patterns</h2>
+  </div>
+  <div class="three-col" style="margin-top:.3em;">
+    <div class="info-card">
+      <div class="card-title">Chain: A → C → B</div>
+      <p><em>e.g. Rain → Wet ground → Slippery road</em></p>
+      <ul>
+        <li>C unknown: path <strong style="color:#1a9e1a;">open</strong></li>
+        <li>C observed: path <strong style="color:#cc0000;">blocked</strong></li>
+      </ul>
+      <p style="margin-top:.3em;">Once we know whether the ground is wet, whether it rained adds nothing about the road.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Fork: A ← C → B</div>
+      <p><em>e.g. Season → Temperature; Season → Daylight hours</em></p>
+      <ul>
+        <li>C unknown: path <strong style="color:#1a9e1a;">open</strong></li>
+        <li>C observed: path <strong style="color:#cc0000;">blocked</strong></li>
+      </ul>
+      <p style="margin-top:.3em;">Once we know the season, temperature and daylight become conditionally independent.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Collider: A → C ← B</div>
+      <p><em>e.g. Flu → Sneezing ← Allergies</em></p>
+      <ul>
+        <li>C unknown: path <strong style="color:#cc0000;">blocked</strong> by default</li>
+        <li>C observed: path <strong style="color:#1a9e1a;">opens</strong></li>
+      </ul>
+      <p style="margin-top:.3em;">Flu and allergies are independent — until we observe sneezing. Then, ruling out one increases the probability of the other ("explaining away").</p>
+    </div>
+  </div>
+  <div class="callout note" style="margin-top:.7em;">
+    <div class="callout-label">Application</div>
+    <p>Understanding d-separation allows us to identify the conditional independence assumptions encoded in a Bayesian network structure, which is crucial for both building appropriate networks and performing efficient inference.</p>
+  </div>
+</section>
+
+<!-- Exercise 4 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 4 — Tracking the Information Flow</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="10"></span>
+  </div>
+  <div class="scenario-box" style="margin-bottom:.5em;">
+    <div class="s-label">🔪 Detective Bayes</div>
+    Mr. Graves sits across the table from Detective Bayes, hands clasped, visibly tense. Bayes studies him in silence for a long moment.<br/>
+    "Mr. Graves," he says finally, "let me be precise about what knowing one thing tells me about another."
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise — For each pair below, determine whether the path is open or blocked, and whether the variables are independent or dependent. Apply the three path-blocking rules.</div>
+    <ol style="line-height:2.2; font-size:.93em; margin-top:.3em;">
+      <li><strong>a)</strong> Are M and N independent? What about given G?</li>
+      <li><strong>b)</strong> Are M and O independent? What about given G?</li>
+      <li><strong>c)</strong> Are O and W independent given G? What about given G and A?</li>
+      <li><strong>d)</strong> Are M and A independent? Does observing W change this?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Solution Exercise 4 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 4 — Tracking the Information Flow</h2>
+  </div>
+  <div class="answer-box" style="font-size:.87em;">
+    <div class="answer-label">Solution</div>
+    <div class="fragment">
+    <p><strong>a) M and N</strong> — path: M → G → N — <em>Chain</em><br/>
+    Without G: path is <strong style="color:#1a9e1a;">open</strong> → M and N are dependent. Motive is informative about nervousness, via guilt.<br/>
+    <em>Given G:</em> chain is <strong style="color:#cc0000;">blocked</strong> → M and N are conditionally independent. Once we know whether Graves is guilty, his motive tells us nothing new about his nervousness. <code>P(N | G, M) = P(N | G)</code></p>
+      </div><div class="fragment">
+    <p style="margin-top:.5em;"><strong>b) M and O</strong> — path: M → G ← O — <em>Collider at G</em><br/>
+    <em>Without G:</em> path is <strong style="color:#cc0000;">blocked</strong> → M and O are marginally independent. <code>P(M, O) = P(M) · P(O)</code><br/>
+    <em>Given G:</em> collider is activated → M and O become conditionally dependent. Knowing Graves is guilty but had no opportunity raises the probability he had a strong motive. This is "explaining away."</p>
+    </div><div class="fragment">
+    <p style="margin-top:.5em;"><strong>c) O and W</strong> — path: O → G → W — <em>Chain</em><br/>
+    <em>Given G:</em> <strong style="color:#cc0000;">blocked</strong> → conditionally independent. Knowing whether Graves is guilty, opportunity adds no information about the weapon.<br/>
+    <em>Given G and A:</em> still blocked at G → still conditionally independent.</p>
+    </div><div class="fragment">
+    <p style="margin-top:.5em;"><strong>d) M and A</strong> — no connecting path in the network → always marginally independent. M is a root node; A is a root node with no shared ancestor.<br/>
+    <em>Given W:</em> W is a common child of G (which M influences) and A — a <strong>collider</strong>. Observing W activates the path M → G → W ← A, making M and A <strong>conditionally dependent</strong> given W. If the weapon was found but Graves had no pantry access, suspicion about motive-driven guilt increases.</p>
+  </div></div>
+</section>
+
+<!-- Exercise 5 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 5 — Extend the Investigation</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="10"></span>
+  </div>
+  <div class="scenario-box" style="margin-bottom:.5em;">
+    <div class="s-label">🔪 Detective Bayes</div>
+    A constable enters the study and hands Detective Bayes two new pieces of information. Bayes reads them carefully, then looks back at his network on the wall.<br/>
+    "The network is not complete," he says. "Two new variables. They fit — but where?"
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>Detective Bayes receives new information. The investigation now also considers:</p>
+    <ul style="font-size:.9em; line-height:1.9; margin-top:.3em;">
+      <li><strong>Alibi (L):</strong> Mr. Graves claims to have an alibi. Whether the alibi holds up depends on whether he actually had opportunity — a false alibi is more likely when someone had opportunity and is trying to conceal it.</li>
+      <li><strong>Confession (C):</strong> Mr. Graves eventually confesses under questioning. A confession is influenced both by his guilty status and by whether nervous behavior was observed — nervous suspects under pressure confess more readily.</li>
+    </ul>
+    <ol style="line-height:2.1; font-size:.93em; margin-top:.4em;">
+      <li><strong>a)</strong> Where do L and C fit into the existing DAG? Identify their parent nodes and justify each edge.</li>
+      <li><strong>b)</strong> Draw the updated DAG with all 8 variables.</li>
+      <li><strong>c)</strong> Write out the CPT headers (just the structure, not the numbers) for both L and C.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Solution Exercise 5 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 5 — Extend the Investigation</h2>
+  </div>
+  <div class="two-col">
+    <div class="answer-box">
+      <div class="answer-label">Solution</div>
+      <div class="fragment">
+      <p><strong>a)</strong></p>
+      <ul style="font-size:.9em; line-height:1.9;">
+        <li><strong>L (Alibi holds):</strong> Parent is O. If Graves truly had opportunity, he was at the manor and is more likely to fabricate an alibi. L depends only on O.</li>
+        <li><strong>C (Confession):</strong> Parents are G and N. Guilty people are more likely to confess; nervous behavior under questioning further increases confession probability.</li>
+      </ul></div><div class="fragment">
+      <p style="margin-top:.6em;"><strong>c) CPT headers:</strong><br/>
+      <code>P(L | O)</code> — 2 rows (O = true / false)<br/>
+      <code>P(C | G, N)</code> — 4 rows (all combinations of G = true/false, N = true/false)</p>
+    </div></div>
+    <div><div class="fragment">
+      <p><strong>b) Updated network:</strong></p>
+      <div class="dag-block">
+M ──→ G ←── O ──→ L<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ &nbsp;&nbsp;↘<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N &nbsp;&nbsp;&nbsp;W ←── A<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C ←── G<br/>
+<span style="font-size:.82em; color:var(--muted-dark);">(G and N are both parents of C)</span>
+      </div>
+      <div class="callout note" style="margin-top:.4em; font-size:.85em;">
+        <div class="callout-label">Edges</div>
+        <p>M→G, O→G, G→N, G→W, A→W, O→L, G→C, N→C</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 06 — THE MARKOV BLANKET
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 06</div>
+  <h1>The Markov Blanket</h1>
+  <p class="section-desc">The minimal set of variables that completely isolates a node from the rest of the network — the key to computational efficiency in Bayesian inference.</p>
+  <div class="section-number">06</div>
+</section>
+
+<!-- Markov Blanket -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The Markov Blanket</h2>
+  </div>
+  <ul>
+    <li>For any node in the network, its <strong>Markov blanket</strong> is the minimal set of variables that completely isolates it from the rest of the network.</li>
+    <li  style="margin-top:.4em;">The Markov blanket of a node consists of: its <strong>parents</strong>, its <strong>children</strong>, and the <strong>other parents of its children</strong> (co-parents).</li>
+    <li  style="margin-top:.4em;">Once the state of the Markov blanket is known, the node is <strong>conditionally independent of every other variable in the network</strong> — the rest of the universe becomes irrelevant.</li>
+    <li  style="margin-top:.4em;">This is the key to <strong>computational efficiency</strong>: rather than considering the entire network for every query, the AI focuses only on a small local neighbourhood.</li>
+  </ul>
+</section>
+
+<!-- Exercise 6 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 6 — Shielding the Suspect</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="8"></span>
+  </div>
+  <div class="scenario-box" style="margin-bottom:.5em;">
+    <div class="s-label">🔪 Detective Bayes</div>
+    Detective Bayes draws a circle on the wall around a cluster of cards — the ones directly surrounding the Guilty node. He steps back and looks at the rest of the board.<br/>
+    "Everything outside this circle," he says, tapping the boundary, "is irrelevant. Once I know what's inside, nothing else changes my estimate of guilt."
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <ol style="line-height:2.2;">
+      <li><strong>a)</strong> Identify the Markov Blanket of G (Guilty) in the original 6-variable network (M, O, A, G, N, W).</li>
+      <li><strong>b)</strong> Detective Bayes already knows the values of every variable in G's Markov Blanket. His assistant suggests also investigating whether Graves had a habit of staying up late — a new, unconnected variable. Does this information change the probability of guilt? Justify using the Markov Blanket concept.</li>
+      <li><strong>c)</strong> What is the Markov Blanket of W (Weapon Found)?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Solution Exercise 6 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 6 — Shielding the Suspect</h2>
+  </div>
+  <div class="answer-box">
+    <div class="answer-label">Solution</div>
+    <div class="fragment">
+    <p><strong>a) Markov Blanket of G:</strong></p>
+    <ul style="font-size:.92em; line-height:1.9; margin-top:.2em;">
+      <li>Parents of G: M, O</li>
+      <li>Children of G: N, W</li>
+      <li>Co-parents of G's children: A (co-parent of W alongside G)</li>
+      <li>→ <strong>Markov Blanket of G = {M, O, N, W, A}</strong></li>
+    </ul>
+    <p>In this 6-node network, G's blanket contains all other 5 variables — which makes intuitive sense: guilt is the central node that everything connects through.</p>
+    </div><div class="fragment">
+    <p style="margin-top:.6em;"><strong>b)</strong> No. The new variable has no edge into the network and lies outside G's Markov Blanket. Once the detective knows the state of {M, O, N, W, A}, no external variable can add information about G. <strong>The blanket is mathematically impenetrable.</strong></p>
+    </div><div class="fragment">
+    <p style="margin-top:.6em;"><strong>c) Markov Blanket of W:</strong></p>
+    <ul style="font-size:.92em; line-height:1.9; margin-top:.2em;">
+      <li>Parents of W: G, A</li>
+      <li>Children of W: none</li>
+      <li>Co-parents: none</li>
+      <li>→ <strong>Markov Blanket of W = {G, A}</strong></li>
+    </ul>
+    <p>Once we know whether Graves is guilty and whether he had access to the poison, nothing else — not his motive, nervousness, or opportunity — tells us anything more about whether the weapon was found.</p>
+  </div></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 07 — INFERENCE
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 07</div>
+  <h1>Inference in Bayesian Networks</h1>
+  <p class="section-desc">Exact and approximate methods — and the three classes of probability queries a completed network can answer.</p>
+  <div class="section-number">07</div>
+</section>
+
+<!-- Inference methods -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Inference Methods</h2>
+  </div>
+  <p><strong>Exact inference</strong> — in small to medium networks, the AI computes precise probabilities using:</p>
+  <ul>
+    <li class="fragment"><strong>Variable elimination:</strong> hidden variables are systematically summed out to reduce the equation before solving.</li>
+    <li class="fragment"><strong>Belief propagation:</strong> each node passes its current probability estimate to its neighbours; estimates update in waves until the network reaches equilibrium.</li>
+  </ul>
+  <p class="fragment" style="margin-top:.7em;"><strong>Approximate inference</strong> — in large, densely connected networks, exact inference becomes computationally intractable. The AI then uses sampling methods:</p>
+  <ul>
+    <li class="fragment"><strong>Markov Chain Monte Carlo (MCMC):</strong> the algorithm takes a random walk through the network, generating thousands of simulated outcomes. The frequency of each outcome approximates its true probability.</li>
+  </ul>
+</section>
+
+<!-- Three query classes -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Three Classes of Questions</h2>
+  </div>
+  <p>A completed Bayesian network can answer three classes of questions:</p>
+  <ol>
+    <li class="fragment" style="margin-top:.4em;"><strong>Marginal probability:</strong> <code>P(X = x)</code> — the probability of a single variable taking a specific value, regardless of others. For root nodes, read directly from the CPT; for other nodes, marginalize over all parent values.</li>
+    <li class="fragment" style="margin-top:.6em;"><strong>Joint probability:</strong> <code>P(X = x, Y = y, …)</code> — the probability of multiple variables taking specific values simultaneously. Computed using the chain rule applied to the network structure: multiply the conditional probabilities of each variable given its parents.</li>
+    <li class="fragment" style="margin-top:.6em;"><strong>Conditional probability:</strong> <code>P(Y = y | X = x)</code> — the probability of Y given observed evidence about X. Computed either via Bayes' rule or as the ratio of joint probabilities.</li>
+  </ol>
+</section>
+
+<!-- Exercise 7 — data slide -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 7 — The Detective's Calculations</h2>
+    <span class="tag">Data</span>
+  </div>
+  <div class="scenario-box" style="margin-bottom:.4em;">
+    <div class="s-label">🔪 Detective Bayes</div>
+    Detective Bayes sits alone in the study, long after the others have gone to bed. The case file is open in front of him. The only sound is the rain and the scratch of his pen. Now, finally, he calculates.
+  </div>
+  <p>The full network has the following probabilities:</p>
+  <p style="font-family:'Space Mono',monospace; font-size:.88em; margin:.4em 0;">P(M=t) = 0.3 &nbsp;&nbsp;&nbsp; P(O=t) = 0.4 &nbsp;&nbsp;&nbsp; P(A=t) = 0.5</p>
+  <div class="cpt-wrap" style="margin-top:.5em;">
+    <table class="cpt-mini">
+      <thead><tr><th>M</th><th>O</th><th>P(G=t | M,O)</th></tr></thead>
+      <tbody>
+        <tr><td>t</td><td>t</td><td class="cpt-highlight">0.9</td></tr>
+        <tr><td>t</td><td>f</td><td class="cpt-highlight">0.5</td></tr>
+        <tr><td>f</td><td>t</td><td class="cpt-highlight">0.2</td></tr>
+        <tr><td>f</td><td>f</td><td class="cpt-highlight">0.01</td></tr>
+      </tbody>
+    </table>
+    <table class="cpt-mini">
+      <thead><tr><th>G</th><th>P(N=t | G)</th></tr></thead>
+      <tbody>
+        <tr><td>t</td><td class="cpt-highlight">0.85</td></tr>
+        <tr><td>f</td><td class="cpt-highlight">0.10</td></tr>
+      </tbody>
+    </table>
+    <table class="cpt-mini">
+      <thead><tr><th>G</th><th>A</th><th>P(W=t | G,A)</th></tr></thead>
+      <tbody>
+        <tr><td>t</td><td>t</td><td class="cpt-highlight">0.95</td></tr>
+        <tr><td>t</td><td>f</td><td class="cpt-highlight">0.30</td></tr>
+        <tr><td>f</td><td>t</td><td class="cpt-highlight">0.10</td></tr>
+        <tr><td>f</td><td>f</td><td class="cpt-highlight">0.02</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Exercise 7 — questions -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise 7 — The Detective's Calculations</h2>
+    <span class="tag">Exercise</span>
+    <span class="timer" data-minutes="15"></span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <ol style="line-height:2.3; font-size:.93em;">
+      <li><strong>a) Marginal probability</strong> — What is the overall prior probability that Mr. Graves is guilty, P(G=t)? <em>(Marginalize over all combinations of M and O.)</em></li>
+      <li><strong>b) Joint probability</strong> — What is the probability that Graves had motive, had opportunity, is guilty, <em>and</em> the weapon was found — assuming he had access to the poison? I.e., calculate <code>P(M=t, O=t, G=t, A=t, W=t)</code>.</li>
+      <li><strong>c) Conditional probability</strong> — Nervous behavior was observed by the maid (N=t). What is the probability that Graves is guilty given this evidence, <code>P(G=t | N=t)</code>?</li>
+      <li><strong>d) Reflection</strong> — The weapon is also found (W=t), in addition to N=t. Without calculating, what do you expect happens to <code>P(G=t | N=t, W=t)</code> compared to part (c)? Why?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Solution Exercise 7 -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Exercise 7 — The Detective's Calculations</h2>
+  </div>
+  <div class="answer-box" style="font-size:.87em;">
+    <div class="answer-label">Solution</div>
+    <div class="fragment">
+    <p><strong>a) P(G=t):</strong></p>
+    <p style="font-family:'Space Mono',monospace; font-size:.85em; margin:.25em 0 .25em 1em; line-height:1.8;">
+      P(G=t) = Σ<sub>(m,o)</sub> P(G=t|M=m,O=o) · P(M=m) · P(O=o)<br/>
+      = 0.9·0.3·0.4 + 0.5·0.3·0.6 + 0.2·0.7·0.4 + 0.01·0.7·0.6<br/>
+      = 0.108 + 0.090 + 0.056 + 0.0042 = <strong>0.2582</strong>
+    </p>
+    <p>Mr. Graves has roughly a <strong>26% prior probability</strong> of being guilty before any evidence is observed.</p>
+    </div><div class="fragment">
+    <p style="margin-top:.5em;"><strong>b) P(M=t, O=t, G=t, A=t, W=t):</strong> Using the chain rule:</p>
+    <p style="font-family:'Space Mono',monospace; font-size:.85em; margin:.25em 0 .25em 1em; line-height:1.8;">
+      = P(M=t) · P(O=t) · P(A=t) · P(G=t|M=t,O=t) · P(W=t|G=t,A=t)<br/>
+      = 0.3 · 0.4 · 0.5 · 0.9 · 0.95 = <strong>0.0513</strong>
+    </p></div>
+    <div class="fragment">
+    <p style="margin-top:.5em;"><strong>c) P(G=t | N=t):</strong></p>
+    <p style="font-family:'Space Mono',monospace; font-size:.85em; margin:.25em 0 .25em 1em; line-height:1.8;">
+      P(G=t, N=t) = P(N=t|G=t) · P(G=t) = 0.85 · 0.2582 = 0.21947<br/>
+      P(N=t) = 0.85·0.2582 + 0.1·0.7418 = 0.21947 + 0.07418 = 0.29365<br/>
+      P(G=t|N=t) = 0.21947 / 0.29365 ≈ <strong>0.747</strong>
+    </p>
+    <p>The maid's testimony alone pushes the probability of guilt from <strong>26% to 75%</strong>.</p>
+    </div><div class="fragment">
+    <p style="margin-top:.5em;"><strong>d)</strong> P(G=t | N=t, W=t) will be <strong>higher than 0.747</strong>. Both N and W are children of G — observing both "effects" of guilt simultaneously provides even stronger evidence for the cause. Finding the weapon on top of the nervous behavior makes it increasingly difficult to explain innocence through chance alone.</p>
+    <p style="font-size:.88em; color:var(--muted-dark); font-style:italic; margin-top:.3em;">(The exact value: ≈ 0.96 — Detective Bayes closes his notebook.)</p>
+  </div></div>
+</section>
+
+<!-- Closing quote -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Closing</h2>
+  </div>
+  <div style="display:flex; align-items:center; height:72%; padding: 0 2rem;">
+    <blockquote style="background:#12143a; border-left:4px solid var(--cyan); border-radius:0 6px 6px 0; padding:1.5em 2em; font-style:italic; font-size:1.1em; color:#c8d8f8; line-height:1.9; max-width:75%;">
+      "The evidence speaks in probabilities, not certainties. But sometimes, the probabilities are loud enough."
+      <cite style="display:block; margin-top:.8em; font-style:normal; font-size:.72em; color:var(--cyan); font-family:'Space Grotesk',sans-serif; font-weight:600;">— Detective Bayes</cite>
+    </blockquote>
+  </div>
+</section>
+
+
+<!-- Q&A -->
+<section class="section-slide">
+  <div class="section-label">// Q&amp;A</div>
+  <h1>Questions?</h1>
+  <p class="section-desc">What remains unclear — about Bayesian networks, conditional independence, d-separation, the Markov blanket, or probabilistic inference?</p>
+  <div class="section-number">?</div>
+</section>
+
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true, slideNumber: false, progress: true, controls: false,
+  fragments: true, transition: 'fade', transitionSpeed: 'default',
+  center: false, width: 1400, height: 788, margin: 0,
+});
+function updateFooter() {
+  var idx = Reveal.getIndices();
+  var total = Reveal.getTotalSlides();
+  var el = document.getElementById('footer-slide-num');
+  if (el) el.textContent = (idx.h + 1) + ' / ' + total;
+}
+Reveal.on('ready', updateFooter);
+Reveal.on('slidechanged', updateFooter);
+</script>
+<script>
+document.querySelectorAll('.timer').forEach(function(el) {
+  var m = parseInt(el.dataset.minutes) || 5;
+  el.textContent = m + ':00';
+  Object.assign(el.style, {
+    fontFamily: "'Space Mono', monospace", fontSize: '1.4em', fontWeight: '700',
+    color: 'var(--blue)', background: 'var(--light-bg)',
+    border: '2px solid var(--border)', borderRadius: '6px',
+    padding: '.1em .5em', cursor: 'pointer'
+  });
+  el.addEventListener('click', function() {
+    if (el._running) return;
+    el._running = true;
+    var s = m * 60;
+    var iv = setInterval(function() {
+      s--;
+      el.textContent = Math.floor(s/60) + ':' + (s%60 < 10 ? '0' : '') + s%60;
+      if (s <= 60) el.style.color = '#e05000';
+      if (s <= 0) { clearInterval(iv); el.textContent = 'Done'; el.style.color = '#cc0000'; el._running = false; }
+    }, 1000);
+  });
+});
+</script>
+</body>
+</html>

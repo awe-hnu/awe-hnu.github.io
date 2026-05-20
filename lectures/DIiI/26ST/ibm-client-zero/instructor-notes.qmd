@@ -1,0 +1,312 @@
+---
+title: "IBM as Client Zero: Instructor Notes"
+subtitle: "DI in Industry (DIiI)"
+lang: en
+categories: ["Lecture Notes"]
+
+author: "Andy Weeger"
+
+date: "05.18.2026"
+
+bibliography: ../assets/literature.bib
+
+format:
+  html:
+    output-file: instructor-notes.html
+    margin-header: |
+      [Case](index.html){.btn .btn-primary target="blank"}
+    format-links: false
+---
+
+# Purpose of these notes
+
+These notes accompany the IBM Client Zero case study. They are *not* meant to be shared with students before the discussion. They contain:
+
+- A short interpretive frame for facilitation
+- Reference answers for each of the six case questions, written at a level appropriate for full credit
+- The most common student mistakes for each question
+- Discussion prompts and timing suggestions
+- A short note on which case claims are independently verifiable and which are not
+
+The reference answers are deliberately longer than the 400-to-600-word student responses; they show the reasoning a top answer would compress.
+
+# How to run the session
+
+The case is designed for a 90-minute session, with optional extension to 120 minutes when groups present in plenary.
+
+[Suggested timing (90 minutes)]{.h4}
+
+| Block | Minutes |
+|---|---|
+| Prologue discussion (CHRO pivot) | 10 |
+| Walk-through of the case description and KPIs | 10 |
+| Part A (Questions 1 and 2) in pairs | 20 |
+| Part B (Questions 3 and 4) in pairs | 20 |
+| Part C (Questions 5 and 6) in pairs | 20 |
+| Plenary synthesis | 10 |
+
+: Suggested 90-minute timing for the IBM Client Zero session {#tbl-timing}
+
+[Two facilitation moves that work]{.h4}
+
+1. After each question, force a *counter-classification.* For example: "What is the strongest case against orchestrator-workers being the primary pattern?" Students who can defend against the alternative will internalise the diagnostic.
+2. After Part B, return to the prologue discussion. Ask: did your reading of the CHRO pivot change? Surface the shift from substitution intuition to reconfiguration intuition.
+
+[How to use the prologue]{.h4}
+
+The 2023-to-2026 CHRO pivot is the interpretive crux of the case. Resist the urge to resolve the apparent contradiction at the start. Surface two intuitions in plenary: substitution (the 2023 narrative) and reconfiguration (the 2026 reality). The whole session interrogates this contrast; the resolution is the answer to Question 4.
+
+# Reading the headline KPIs critically
+
+Before students begin Part A, point out which numbers in @tbl-ibm-kpis are reliable and which are not.
+
+:::incremental
+- **94% containment rate (HR):** definitionally controlled by IBM. What counts as "contained"? Resolved versus deferred versus closed-without-resolution. Treat as a vendor metric, not a ground truth.
+- **40% reduction in HR operating costs:** plausible, but compared against what baseline? The 2019 baseline includes pre-pandemic staffing decisions unrelated to AI.
+- **86% IT ticket auto-resolution:** depends on the *denominator,* i.e., which tickets count as "standard." Definitionally controlled by IBM.
+- **$4.5B productivity gains over three years:** an aggregate net of investments? Or gross? Public disclosure does not separate the two cleanly. The order of magnitude is plausible for a company IBM's size, but the figure is a narrative number, not an audited one.
+- **11.5M employee interactions p.a.:** IBM has roughly 270,000 employees; 11.5M corresponds to ~43 interactions per employee per year, which is consistent with HR transaction volumes. This is the most credible figure.
+- **NPS plunge +19 to -35:** sourced from IMD's analysis, not from IBM's own case page. Treat as credible but indirect.
+
+Tell students they should *cite* IBM's numbers, but they should also *flag* which are vendor-controlled. Doing both is part of full credit on Question 6.
+
+# Reference answers
+
+## From traditional to agentic AI
+
+[Reference answer]{.h4}
+
+A deterministic HR chatbot is structurally a *simple-reflex agent* in @RusselNorvig2022AIMA's taxonomy: it matches an utterance to a script, retrieves a pre-authored response, and (at most) hands off to a human queue. It does not pursue goals across steps; it does not act in adjacent systems; it does not adapt its behaviour. AskHR is structurally different. A single employee request ("approve a promotion for X") triggers a multi-step workflow that spans Workday, SAP SuccessFactors, and Concur. The agent decomposes the request, queries each system, applies compliance rules, surfaces gaps, and completes the workflow autonomously where compliance is satisfied. There is no script; there is a goal.
+
+Mapping this against @acharya2025agentic's core characteristics:
+
+:::incremental
+- **Autonomy and goal complexity:** AskHR pursues a multi-step goal (e.g., promotion processing) over an extended workflow rather than a single response. **Cleanly distinguishing.**
+- **Adaptability:** the system handles incomplete information (missing band data, unusual cases) by retrieving, asking, or escalating, rather than failing. **Cleanly distinguishing.**
+- **Independent decision-making:** the agent decides which sub-systems to invoke, and in what order. **Cleanly distinguishing.**
+- **Learning:** workflow patterns can be retrained on outcomes, but whether AskHR continuously learns in deployment is *not* unambiguously documented in the public case. **Blurred.**
+- **Real-world action:** the agent writes to systems of record (HR, finance); it does not merely answer. **Cleanly distinguishing.**
+:::
+
+The cleanly distinguishing set forms a tight cluster: autonomy across systems, adaptation under incomplete information, independent decision-making about workflow, and consequential action in systems of record. This is what changes the governance question from "is the chatbot polite?" to "what did the agent do, where, and to whom?" The @berente2021managing dimensions all rise sharply when crossing this line: autonomy increases (the agent now decides what to do in what order), learning becomes consequential (because the agent acts on its learning), and inscrutability bites harder (because the decisions are now consequential).
+
+[Common student mistakes]{.h4}
+
+- Claiming AskHR is agentic *because it uses an LLM.* It is not. Agentic-ness is a property of system architecture and delegated decision authority, not of the model underneath.
+- Treating *learning* as cleanly distinguishing without evidence. Press for what the case actually says about online learning at deployment time; the case is silent.
+- Forgetting *real-world action.* This is the most consequential differentiator and is often missed because it does not appear in the @acharya2025agentic list under that label.
+
+[Discussion prompt]{.h4}
+
+"If AskHR were stripped of the ability to write to Workday (that is, it could only *recommend* actions to a human approver), would it still be agentic in the @acharya2025agentic sense?" The intended answer is *partially.* Goal-pursuit and adaptation remain; consequential action does not. This sets up the autonomy-scoping discussion in Question 5.
+
+## Agentic workflow patterns
+
+[Reference answer]{.h4}
+
+AskHR primarily uses the **orchestrator-workers** pattern from @agenticAI2024.
+
+The case description gives strong textual clues. AskHR receives a heterogeneous request ("promote employee X to grade Y"), *decomposes* it into sub-tasks (verify eligibility, check band, verify approver chain, write to HRIS, notify stakeholders), and *delegates dynamically* to specialised components, each tied to a system of record. The orchestration is not predetermined: the routing depends on the specific request, the employee's current state, and the policy configuration that day. That is the orchestrator-workers signature.
+
+The other four patterns play *supporting* roles but are not the primary classification:
+
+:::incremental
+- **Routing** is a defensible secondary classification at the *entry point* (request type triage), but the workflow as a whole is not a single-step routing decision; it is a coordinated multi-system execution under a central planner.
+- **Prompt chaining** is too rigid for the case; the steps are not a fixed pipeline.
+- **Parallelisation** may occur for independent reads (band lookup, leave balance) but it is a feature *inside* the orchestration, not the primary pattern.
+- **Evaluator-optimizer** is not what the case describes for HR transactions; it would apply more naturally to content-generation workflows.
+:::
+
+The classification has practical consequences. Orchestrator-workers is the most *governance-intensive* of the five patterns: the orchestrator decides both what to do and who does it, which means the audit trail must capture the decomposition (why these sub-tasks?) and the execution (what was done?). This is precisely the failure surface @berente2021managing flag under inscrutability.
+
+[Common student mistakes]{.h4}
+
+- Classifying as *prompt chaining* because the workflow has multiple steps. The diagnostic is whether the steps are *fixed* (chaining) or *dynamically decomposed* (orchestrator-workers).
+- Stopping at *routing.* Routing dispatches; it does not integrate. AskHR integrates outcomes across sub-agents, which is the orchestrator's job.
+- Treating the patterns as mutually exclusive. The good answers name the *primary* pattern and acknowledge supporting patterns inside it.
+
+[Discussion prompt]{.h4}
+
+"What would have to be true about AskHR's architecture for evaluator-optimizer to also be present?" Intended answer: a generator step that produces a draft action (e.g., a draft compensation recommendation) and an evaluator step that scores it against compliance rules before the action is committed. This is plausible for some workflows (e.g., job-description generation) but not for transactional HR.
+
+## The 94% and the 6%
+
+[Reference answer]{.h4}
+
+@hemmer2025complementarity argue that hybrid performance gains require two simultaneous asymmetries between humans and AI: *information asymmetry* (different access to relevant information) and *capability asymmetry* (different proficiency at the task). The 6% escalations are exactly the cases where these asymmetries are large enough that the human contribution is irreplaceable. Concretely, they fall into five types:
+
+:::incremental
+- **Ambiguity and edge cases:** policy interactions the agent has not seen at sufficient frequency to act with confidence (e.g., simultaneous parental leave, contractor-to-employee transitions, transfers between jurisdictions with different labour codes). *Information asymmetry* dominates.
+- **Context-laden judgments:** cases where the policy *could* be applied, but the right answer depends on tacit organisational context not in any system of record (e.g., a high-performer retention situation that touches HR policy but is really a leadership decision). *Information asymmetry,* with capability asymmetry secondary.
+- **Affect-laden interactions:** terminations, bereavement, grievance handling, psychological-safety concerns. Human presence is required not because the policy is unclear, but because employee experience and legal exposure depend on the *quality of the interaction* itself. *Capability asymmetry* dominates.
+- **Policy-exception requests:** explicit requests to deviate from policy, which by definition cannot be resolved by a policy-following agent. *Capability asymmetry* (the agent is not authorised).
+- **Cross-system inconsistencies:** state mismatches between Workday and SuccessFactors that the agent recognises but cannot resolve autonomously without writing the wrong fact-of-record. *Information asymmetry,* plus a governance constraint.
+:::
+
+The NPS history connects directly. When the automation drive began, IBM's internal HR NPS reportedly fell from +19 to -35. The likely mechanism is not that the agent answered the easy questions poorly; it is that the agent intercepted *every* interaction at the front door, including ones that belonged in the escalation set, and routed them in ways that felt impersonal in exactly the moments employees needed personal contact. The recovery requires explicit *triage* of which interactions should never reach the agent in the first place, which is a design choice about task allocation, exactly the prescription from @hemmer2025complementarity.
+
+A core insight to surface: **containment is a productivity metric; NPS is a complementarity metric.** They can move in opposite directions if the agent contains cases it should have escalated. Both must be tracked together.
+
+[Common student mistakes]{.h4}
+
+- Treating "the 6%" as a residual category rather than a designed escalation set.
+- Reading the NPS crash as a *technology* failure. It is a *design* failure: the routing was set up to maximise containment rather than to maximise complementarity.
+- Proposing "make the agent more empathetic" as the fix. The fix is routing redesign, not affect simulation.
+
+[Discussion prompt]{.h4}
+
+"Suppose IBM trained AskHR to handle affect-laden interactions with simulated empathy and the NPS recovered. Would that be a success?" The intended answer surfaces a value question: simulated empathy may move the metric but does not change the underlying complementarity logic, and may create new risks (perceived manipulation, regulatory exposure under the EU AI Act's transparency obligations).
+
+## The entry-level employment paradox
+
+[Reference answer]{.h4}
+
+@raisch2021automation argue that automation and augmentation are not alternatives but *interdependent* logics. The IBM trajectory is a clean field demonstration of that interdependence applied to a specific labour segment.
+
+In 2023, the *task content* of junior administrative roles (form-filling, boilerplate code, ticket triage) was correctly identified as automatable. Reading task content alone, the 2023 hiring-freeze announcement was internally consistent: those tasks were about to be done by software.
+
+The 2026 correction comes from a different layer. Once the agentic systems are running at scale, two new categories of work emerge that did *not* exist before:
+
+:::incremental
+- **Orchestration work:** evaluating, guiding, and correcting agentic workflows. Someone must inspect the cases the agent flags as low-confidence, verify the agent's output on consequential transactions, and update the policies the agent enforces. This is a *new* job category, not a residual of the old one.
+- **Client-facing AI mediation:** for a vendor like IBM, the same skills become the front line of customer engagement, because customers also need orchestration help with their own deployments.
+:::
+
+The paradox resolves without contradiction: the *substituted* tasks were eliminated as predicted; an *augmented* category of work expanded around them; the net effect on junior hiring turned positive because the augmented category required entry-level access for talent development. The *content* of the entry-level role changed: no boilerplate, immediate exposure to consequential workflows, and rapid responsibility for AI oversight.
+
+There is a darker reading worth airing. If orchestration roles are the new entry-level, then the entry-level *learning curve* has been compressed and reshaped: junior employees no longer build judgment through low-stakes repetition; they are exposed immediately to high-stakes oversight tasks for which judgment is required but not yet developed. Connect this to @fugener2022cognitive: humans are poor at assessing their own reliability, and the new entry-level role requires exactly that capability (knowing when to override the agent). Whether IBM's pipeline systematically develops that judgment, or implicitly assumes it, is the empirical question that will determine the durability of the pivot.
+
+The pivot is therefore best read as a **confirmation** of the paradox, not a reversal of strategy. The 2023 announcement read only the substitution side; the 2026 announcement adds the augmentation side that emerged in deployment.
+
+[Common student mistakes]{.h4}
+
+- Calling the 2026 announcement a *reversal* of strategy. It is a *completion* of the strategy: substitution at the task level, augmentation at the role level.
+- Treating "tripled hiring" as evidence that AI did not substitute labour. It substituted *task content,* which is exactly what was predicted; the role content changed in compensating ways.
+- Missing the metaknowledge problem in the new junior role.
+
+[Discussion prompt]{.h4}
+
+"What does IBM owe a junior hire under the 2026 model that it did not owe one under the 2020 model?" Intended answer: structured judgment-development scaffolding, because the conventional path (low-stakes repetition) has been removed.
+
+## Inscrutability and algorithmic bias
+
+[Reference answer]{.h4}
+
+Apply @berente2021managing's three dimensions as the diagnostic frame.
+
+**On autonomy.** The decisive design move is scope limitation by *consequence class.* Routine HR transactions (leave bookings, address changes, policy lookups) sit firmly inside the agent's autonomous envelope. Promotion decisions, compensation changes, and termination workflows sit *outside* it: the agent prepares the case (data assembly, policy check, band compliance), but the decision is recorded against a named human approver. This maps onto @shavit2023practices's *scope limitation* and *attributability* practices and on @jarrahi2025rethinking's principal-agent reading: the agent is a delegated actor, not an autonomous decider.
+
+**On learning.** The risk is *invisible drift.* If the agent updates its routing or its recommendations based on observed outcomes, and the outcomes themselves reflect historical bias (e.g., promotion patterns that under-represented certain groups), the system silently amplifies the bias. Counter-measures are technical (fairness-aware monitoring, disparate-impact metrics computed continuously) and organisational (a governance role with the authority to pause or roll back model updates that show distributional regressions). @papagiannidis2025responsible's monitoring phase is exactly this.
+
+**On inscrutability.** Every consequential output must be linked to (a) the data the agent used, (b) the policy version it applied, and (c) a named human accountable for the decision. This is the *accountability anchoring* principle from @herath2024design. The model's internal weights do not need to become interpretable; the *organisational record* must be reconstructable.
+
+Indispensable guardrails, summarised:
+
+:::incremental
+- **Decision-class scoping:** agent decides routine, recommends consequential
+- **Pre-deployment bias audits** on the workflows that touch protected attributes
+- **Continuous disparate-impact monitoring** with named owners
+- **Versioned policy and prompt artefacts** as part of the audit trail
+- **Interruptibility** at the workflow and the deployment level [@shavit2023practices]
+- **Documented escalation paths** that are exercised, not aspirational
+- **Workforce councils or works-council involvement** where required by jurisdiction (a non-trivial constraint in the EU)
+:::
+
+None of these are uniquely "AI" controls. They are familiar HR-governance controls reapplied where the actor performing the work is an agent rather than an HR generalist. The contribution of the agentic layer is to make the controls *more enforceable,* because every step is logged. The risk it introduces is *scale:* a biased pattern executes against 11.5 million interactions before anyone reads the report.
+
+[EU AI Act note]{.h4}
+
+HR systems that screen, rank, or evaluate employees fall in the **high-risk** category of the EU AI Act. Mandatory: conformity assessment before deployment, documented risk-management system, enforceable human oversight, logging and post-market monitoring, disclosure to affected employees in defined cases. AskHR's *transactional* scope is largely outside this perimeter; its *recommendation and ranking* functions are squarely inside it.
+
+[Common student mistakes]{.h4}
+
+- Going straight to fairness metrics. The first move is autonomy scoping; fairness metrics only become tractable once the boundary is set.
+- Treating bias control as a model-level problem. It is primarily an *organisational* problem at scale.
+- Ignoring the works-council dimension in EU jurisdictions; this can constrain deployment more than the AI Act does.
+
+[Discussion prompt]{.h4}
+
+"If IBM offered AskHR to a European customer with strong works-council representation, which of these guardrails would the customer *also* need, beyond what IBM uses internally?" The intended answer surfaces the difference between US-style and EU-style HR-governance contexts and motivates discussion of @papagiannidis2025responsible's design-phase governance.
+
+## The strategic value of Client Zero
+
+[Reference answer]{.h4}
+
+The Client Zero approach extracts value along several reinforcing dimensions.
+
+The *economic* return is the most directly visible: $4.5B in reported productivity gains over a three-year horizon, primarily in finance, supply chain, HR, and IT. Even discounting for measurement optimism, the figure is consequential at the scale of IBM's cost base. Per @soh1995creates, the missing link from IT investment to performance is *use;* Client Zero closes that link inside the firm before the customer ever sees the product.
+
+The *strategic* return is subtler and probably larger. A B2B technology vendor's central problem is *trust:* enterprise buyers do not buy unproven technology to govern HR, IT support, or finance workflows. Running the platform on IBM's own employees, tickets, and supplier relationships substitutes IBM's institutional credibility for missing third-party validation. The pattern is structurally similar to how AWS used Amazon retail as its first major customer; the product cannot be dismissed as an experiment when the vendor's own operations depend on it.
+
+The *trust* dimension has a third-order effect that is easy to miss: it conditions the *kinds of claims* IBM can make in the market. Specifically, claims about productivity gains, containment rates, and bias-managed deployments become *testable* against a known reference deployment. Competitors making similar claims without a comparable reference must argue against IBM's published numbers, not against a hypothetical. That asymmetry is durable.
+
+Mapping the value against @schryen2013revisiting's IS business value taxonomy:
+
+| Quadrant | Value created |
+|---|---|
+| Internal tangible | $4.5B productivity gains, 40% HR cost reduction |
+| Internal intangible | Capability and talent development, reference architectures, training material |
+| External tangible | Sales-conversion lift from validated claims, faster customer time-to-value |
+| External intangible | Brand and trust, regulatory credibility |
+
+: Client Zero value mapped to @schryen2013revisiting's quadrants {#tbl-client-zero-value}
+
+Few investments map across all four quadrants. This one does, which is part of why the model is difficult to copy without scale.
+
+[Failure modes]{.h4}
+
+:::incremental
+- **High-profile internal failure** (bias incident, workforce backlash, regulator action). If a Client Zero deployment fails publicly, the vendor narrative collapses faster than for a vendor with no internal commitment. The 2023 NPS crash was a controlled, reversible version of this risk; a future incident may not be either.
+- **Context mismatch with customer organisations.** IBM's internal deployment runs in IBM's unique operating context (engineering-heavy culture, US-centric works-council exposure, specific systems-of-record landscape). Customers in different contexts may find that the proof-point does not transfer cleanly.
+- **(Bonus) Stale reference.** If IBM stops investing in its internal deployment, the credibility erodes; the reference must keep pace with the product roadmap.
+:::
+
+[Common student mistakes]{.h4}
+
+- Listing only the economic value and missing the *trust* and *claim-conditioning* dimensions.
+- Treating Client Zero as cost-free. The model raises both upside *and* downside: a public failure inside the vendor is worse than a public failure inside a customer.
+- Failing to use @soh1995creates and @schryen2013revisiting explicitly.
+
+[Discussion prompt]{.h4}
+
+"Could a small, focused vendor (say, a 200-person AI startup) credibly run a Client Zero model? What would have to be true?" Intended answer: yes, but the *scope* of the reference would be narrower; the strategic value is proportional to the scale and complexity of the internal deployment. This sets up the homework question on whether students' own organisations could plausibly become a Client Zero.
+
+# Synthesis cues for plenary
+
+If you have ten minutes at the end, ask students for one-sentence answers to each of the three integrating prompts. Useful "punchline" lines to surface:
+
+:::incremental
+- **Agentic-ness is a property of the system, not the model.** Decompose, delegate, integrate, act.
+- **Containment is a productivity metric; NPS is a complementarity metric.** Track both, or the 6% will eat the narrative.
+- **The automation-augmentation paradox plays out at the role level,** with task content substituted while role content expands.
+- **Bias control is primarily a scoping decision,** not a fairness-metric decision. Set the autonomy boundary first.
+- **Client Zero converts an internal cost into a strategic asset** by closing the IT-value gap inside the vendor.
+:::
+
+# Grading guidance for the written submissions
+
+[Full credit signals]{.h4}
+
+:::incremental
+- Explicit and correct use of at least one framework per question, with citation
+- Specific reference to case evidence (numbers, system names, the NPS history, the CHRO pivot)
+- A counter-position or limitation acknowledged in at least three of the six answers
+- A methods note that names the primary sources used and where they appear
+:::
+
+[Common deductions]{.h4}
+
+:::incremental
+- Treating IBM's numbers as ground truth without flagging the vendor-controlled definitions
+- Confusing the *model* (LLM) with the *system* (agentic architecture) in Question 1
+- Recommending fairness metrics in Question 5 without first scoping autonomy
+- Listing economic value only in Question 6, missing trust and claim-conditioning
+- Calling the 2026 hiring pivot a "reversal" in Question 4
+:::
+
+# Q&A {.headline-only .html-hidden .unlisted}
+
+# Literature
+
+::: {#refs}
+:::

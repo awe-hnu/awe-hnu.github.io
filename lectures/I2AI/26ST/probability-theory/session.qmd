@@ -184,25 +184,27 @@ $$P(x_i | y_j) = \frac{P(x_i, y_j)}{P(y_j)} \qquad \text{(provided } P(y_j) > 0\
 
 --------
 
-Imagine 10,000 people. A disease affects 1% of them, and a test is 99% accurate.
+Imagine 10,000 people. A disease affects 1% of them, and a test is 95% accurate.
 
 |             | Test Positive | Test Negative |   Total    |
 |:------------|:-------------:|:-------------:|:----------:|
-| **Sick**    |    **99**     |       1       |    100     |
-| **Healthy** |    **99**     |     9,801     |   9,900    |
-| **Total**   |    **198**    |     9,802     | **10,000** |
+| **Sick**    |    **95**     |       5       |    100     |
+| **Healthy** |    **495**    |     9,405     |   9,900    |
+| **Total**   |    **590**    |     9,410     | **10,000** |
 
 :::fragment
-**The Update:** Once you receive a **Positive** result, the "Test Negative" column is eliminated. The total sample space shrinks from 10,000 to **198**.
+**The Update:** Once you receive a **Positive** result, the "Test Negative" column is eliminated. The total sample space shrinks from 10,000 to **590**.
 
 Your probability of being sick is now:
-$$\frac{99}{198} = 50\%$$
+$$\frac{95}{590} \approx 16\%$$
 :::
 
 :::notes
 "Narrowing the sample space" is the key intuition. When you learn $B$ is true, only the outcomes where $B$ holds remain relevant. You rescale those remaining probabilities to make them sum to 1.
 
 The Product and Chain rules are the underlying machinery that connects these distributions, but the core takeaway is this "rescaling" process. Bayes' theorem follows directly from applying this logic in both directions.
+
+Note: With 95% accuracy, a positive result still means an ~84% chance you are *not* sick — a result most students find deeply counterintuitive. This is the base rate neglect in action.
 :::
 
 ## Bayes' theorem
