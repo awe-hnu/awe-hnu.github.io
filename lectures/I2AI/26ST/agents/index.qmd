@@ -26,6 +26,23 @@ format:
     include-before-body: ../assets/footer.html
 ---
 
+:::{.content-visible unless-format="revealjs"}
+
+# Introductory remarks
+
+This unit establishes the conceptual framework for the course. All subsequent units cover concrete approaches to implement the [*agent function*](index.qmd#architecture).
+
+| Unit                      | Approach                           | Agent type                          |
+|:--------------------------|:-----------------------------------|:------------------------------------|
+| **Search & Planning**     | Systematic state-space search      | Goal-based agents                   |
+| **Knowledge & Inference** | Logic-based reasoning              | Knowledge-based agents              |
+| **Probability Theory**    | Reasoning under uncertainty        | Foundation for utility-based agents |
+| **Bayesian Networks**     | Structured probabilistic inference | Utility-based agents                |
+| **Introduction to ML**    | Learning from data                 | Learning agents                     |
+| **Decision Trees**        | Interpretable classification       | Learning agents                     |
+| **Neural Networks**       | Deep representation learning       | Learning agents; Agentic AI         |
+
+:::
 
 # Agents {.headline-only}
 
@@ -48,22 +65,22 @@ Systems architects use _agency_ as a tool for analysis, but should avoid over-ap
 
 ## Core components
 
-To analyze these systems, we define the following core components:
+To analyze systems exhibiting agency, we define the following core components. Note that sensors and actuators are *part of* the agent itself; percept and percept sequence describe what flows in from the environment.
 
 :::incremental
 - **Agent:** anything that perceives its environment through sensors and acts upon it through actuators.
-- **Percept:** The agent's perceptual inputs at any given instant.
-- **Percept sequence:** The complete history of everything the agent has ever perceived; an agent’s choice of action depends on this sequence observed to date.
-- **Sensors:** Mechanisms (cameras, GPS, microphones) that receive environmental input.
-- **Actuators:** Mechanisms (wheels, display screens, robotic joints) that execute actions.
-::: 
+- **Sensors:** mechanisms (cameras, GPS, microphones) *within the agent* that receive environmental input.
+- **Actuators:** mechanisms (wheels, display screens, robotic joints) *within the agent* that execute actions.
+- **Percept:** the agent's perceptual inputs at any given instant.
+- **Percept sequence:** the complete history of everything the agent has ever perceived; an agent's choice of action depends on this sequence observed to date.
+:::
 
 ## Architecture
  
 We must distinguish between the abstract logic and the physical implementation:
 
 :::incremental
-- **Agent function:** An abstract mathematical mapping ($f: \mathcal{P}^* \to \mathcal{A}$) that describes how any given percept sequence results in an action.
+- **Agent function:** An abstract mathematical mapping ($f: \mathcal{P}^* \to \mathcal{A}$) that describes how any given percept sequence results in an action, where $\mathcal{P}^*$ denotes the set of all possible percept sequences and $\mathcal{A}$ the set of all possible actions.
 - **Agent program:** The concrete physical implementation (the actual code) running on a specific architecture.
 :::
 
@@ -72,6 +89,7 @@ We must distinguish between the abstract logic and the physical implementation:
 ![Rational agents interact with environments through sensors and actuators](images/actor.svg){#fig-agent}
 
 :::notes
+The **performance measure** defines the criteria by which an agent's behavior is evaluated, i.e., what counts as success.
 
 A rational agent is one that "does the right thing." Rationality is not about the internal process, but the external outcome.
 
@@ -130,7 +148,7 @@ Rationality is *not* the same as perfection.
 
 ## Performance standards
 
-To understand the engineering limits of AI, we distinguish between three standards:
+To understand the engineering limits of rational agents (and the AI systems that implement them) we distinguish between three standards:
 
 | Metric          | Definition                              | Info Requirement                   | Feasibility                               |
 |:----------------|:----------------------------------------|:-----------------------------------|:------------------------------------------|
@@ -166,16 +184,16 @@ The vacuum cleaner needs to explore an initially unknown environment (**explorat
 
 # Environments {.headline-only}
 
-## Components 
+## Specifying the task environment
 
 Before designing an agent (i.e., *the solution*), the task environment (i.e., *the problem*) must be specified as fully as possible, including
 
 :::medium
 :::incremental
-- the **p**erformance measure,
-- the **e**nvironment,
-- the **a**ctuators, and
-- the **s**ensors. 
+- the performance measure (P),
+- the environment (E),
+- the actuators (A), and
+- the sensors (S). 
 :::
 :::
 
@@ -613,6 +631,28 @@ Then argue why the scenario requires an agentic AI approach rather than a classi
 
 :::
 :::
+
+# Appendix {.smaller .scrollable}
+
+[Glossary]{.h4}
+
+| Term                    | Definition                                                                                                                                                                                                                       |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Agency**              | The capacity of a system to maintain a continuous feedback loop with its environment by mapping percept sequences to actions.                                                                                                    |
+| **Agent**               | The conceptual unit of analysis in AI: anything that perceives its environment through sensors and acts upon it through actuators. The term is framework-neutral and applies to systems as simple as a thermostat.               |
+| **AI system**           | A concrete computational implementation designed to exhibit intelligent behavior. An AI system typically realizes *one or more agents*, combining hardware, software, and data to perceive, reason, and act in pursuit of goals. |
+| **Agentic AI**          | An AI system capable of autonomous, goal-directed behavior over extended tasks — decomposing goals into sub-goals, gathering information, learning from experience, and acting with minimal human intervention.                  |
+| **Percept**             | The agent's perceptual input at any given instant.                                                                                                                                                                               |
+| **Percept sequence**    | The complete history of everything an agent has ever perceived; the basis for its action choices.                                                                                                                                |
+| **Sensors**             | Mechanisms within the agent (e.g., cameras, GPS, microphones) that receive environmental input.                                                                                                                                  |
+| **Actuators**           | Mechanisms within the agent (e.g., wheels, display screens, robotic joints) that execute actions.                                                                                                                                |
+| **Agent function**      | An abstract mathematical mapping ($f: \mathcal{P}^* \to \mathcal{A}$) from percept sequences to actions.                                                                                                                         |
+| **Agent program**       | The concrete implementation of the agent function running on a physical architecture.                                                                                                                                            |
+| **Performance measure** | The criteria by which an agent's behavior is evaluated; defines what counts as success.                                                                                                                                          |
+| **Rationality**         | The property of an agent that maximizes its *expected* performance given its percept sequence and built-in knowledge.                                                                                                            |
+| **Task environment**    | The problem context in which an agent operates, specified via PEAS.                                                                                                                                                              |
+| **PEAS**                | A framework for specifying task environments: Performance measure, Environment, Actuators, Sensors.                                                                                                                              |
+| **Autonomy**            | The degree to which an agent relies on its own experience and learning rather than built-in knowledge.                                                                                                                           |
 
 # Literature
 ::: {#refs}
