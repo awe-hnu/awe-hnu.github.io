@@ -241,13 +241,13 @@ Andy Weeger
 
 <section id="core-components" class="title-slide slide level2">
 <h2>Core components</h2>
-<p>To analyze these systems, we define the following core components:</p>
+<p>To analyze systems exhibiting agency, we define the following core components. Note that sensors and actuators are <em>part of</em> the agent itself; percept and percept sequence describe what flows in from the environment.</p>
 <ul>
 <li class="fragment"><strong>Agent:</strong> anything that perceives its environment through sensors and acts upon it through actuators.</li>
-<li class="fragment"><strong>Percept:</strong> The agent’s perceptual inputs at any given instant.</li>
-<li class="fragment"><strong>Percept sequence:</strong> The complete history of everything the agent has ever perceived; an agent’s choice of action depends on this sequence observed to date.</li>
-<li class="fragment"><strong>Sensors:</strong> Mechanisms (cameras, GPS, microphones) that receive environmental input.</li>
-<li class="fragment"><strong>Actuators:</strong> Mechanisms (wheels, display screens, robotic joints) that execute actions.</li>
+<li class="fragment"><strong>Sensors:</strong> mechanisms (cameras, GPS, microphones) <em>within the agent</em> that receive environmental input.</li>
+<li class="fragment"><strong>Actuators:</strong> mechanisms (wheels, display screens, robotic joints) <em>within the agent</em> that execute actions.</li>
+<li class="fragment"><strong>Percept:</strong> the agent’s perceptual inputs at any given instant.</li>
+<li class="fragment"><strong>Percept sequence:</strong> the complete history of everything the agent has ever perceived; an agent’s choice of action depends on this sequence observed to date.</li>
 </ul>
 </section>
 
@@ -255,7 +255,7 @@ Andy Weeger
 <h2>Architecture</h2>
 <p>We must distinguish between the abstract logic and the physical implementation:</p>
 <ul>
-<li class="fragment"><strong>Agent function:</strong> An abstract mathematical mapping (<span class="math inline">\(f: \mathcal{P}^* \to \mathcal{A}\)</span>) that describes how any given percept sequence results in an action.</li>
+<li class="fragment"><strong>Agent function:</strong> An abstract mathematical mapping (<span class="math inline">\(f: \mathcal{P}^* \to \mathcal{A}\)</span>) that describes how any given percept sequence results in an action, where <span class="math inline">\(\mathcal{P}^*\)</span> denotes the set of all possible percept sequences and <span class="math inline">\(\mathcal{A}\)</span> the set of all possible actions.</li>
 <li class="fragment"><strong>Agent program:</strong> The concrete physical implementation (the actual code) running on a specific architecture.</li>
 </ul>
 </section>
@@ -273,6 +273,7 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 </figure>
 </div>
 <aside class="notes">
+<p>The <strong>performance measure</strong> defines the criteria by which an agent’s behavior is evaluated, i.e., what counts as success.</p>
 <p>A rational agent is one that “does the right thing.” Rationality is not about the internal process, but the external outcome.</p>
 <p>The agent acts to maximize its <strong>performance measure</strong>, based on three factors:</p>
 <ol type="1">
@@ -349,7 +350,7 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 
 <section id="performance-standards" class="title-slide slide level2">
 <h2>Performance standards</h2>
-<p>To understand the engineering limits of AI, we distinguish between three standards:</p>
+<p>To understand the engineering limits of rational agents (and the AI systems that implement them) we distinguish between three standards:</p>
 <table>
 <colgroup>
 <col style="width: 12%">
@@ -435,15 +436,15 @@ Figure&nbsp;1: Rational agents interact with environments through sensors and ac
 <h1>Environments</h1>
 
 </section>
-<section id="components" class="title-slide slide level2">
-<h2>Components</h2>
+<section id="specifying-the-task-environment" class="title-slide slide level2">
+<h2>Specifying the task environment</h2>
 <p>Before designing an agent (i.e., <em>the solution</em>), the task environment (i.e., <em>the problem</em>) must be specified as fully as possible, including</p>
 <div class="medium">
 <ul>
-<li class="fragment">the <strong>p</strong>erformance measure,</li>
-<li class="fragment">the <strong>e</strong>nvironment,</li>
-<li class="fragment">the <strong>a</strong>ctuators, and</li>
-<li class="fragment">the <strong>s</strong>ensors.</li>
+<li class="fragment">the performance measure (P),</li>
+<li class="fragment">the environment (E),</li>
+<li class="fragment">the actuators (A), and</li>
+<li class="fragment">the sensors (S).</li>
 </ul>
 </div>
 <div class="fragment">
@@ -1201,6 +1202,85 @@ Figure&nbsp;7: The evolution of AI agents
       }</style></aside>
 </section>
 </section>
+<section id="appendix" class="title-slide slide level1 smaller scrollable">
+<h1>Appendix</h1>
+<p><span class="h4">Glossary</span></p>
+<table>
+<colgroup>
+<col style="width: 9%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Agency</strong></td>
+<td style="text-align: left;">The capacity of a system to maintain a continuous feedback loop with its environment by mapping percept sequences to actions.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Agent</strong></td>
+<td style="text-align: left;">The conceptual unit of analysis in AI: anything that perceives its environment through sensors and acts upon it through actuators. The term is framework-neutral and applies to systems as simple as a thermostat.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>AI system</strong></td>
+<td style="text-align: left;">A concrete computational implementation designed to exhibit intelligent behavior. An AI system typically realizes <em>one or more agents</em>, combining hardware, software, and data to perceive, reason, and act in pursuit of goals.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Agentic AI</strong></td>
+<td style="text-align: left;">An AI system capable of autonomous, goal-directed behavior over extended tasks — decomposing goals into sub-goals, gathering information, learning from experience, and acting with minimal human intervention.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Percept</strong></td>
+<td style="text-align: left;">The agent’s perceptual input at any given instant.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Percept sequence</strong></td>
+<td style="text-align: left;">The complete history of everything an agent has ever perceived; the basis for its action choices.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Sensors</strong></td>
+<td style="text-align: left;">Mechanisms within the agent (e.g., cameras, GPS, microphones) that receive environmental input.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Actuators</strong></td>
+<td style="text-align: left;">Mechanisms within the agent (e.g., wheels, display screens, robotic joints) that execute actions.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Agent function</strong></td>
+<td style="text-align: left;">An abstract mathematical mapping (<span class="math inline">\(f: \mathcal{P}^* \to \mathcal{A}\)</span>) from percept sequences to actions.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Agent program</strong></td>
+<td style="text-align: left;">The concrete implementation of the agent function running on a physical architecture.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Performance measure</strong></td>
+<td style="text-align: left;">The criteria by which an agent’s behavior is evaluated; defines what counts as success.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Rationality</strong></td>
+<td style="text-align: left;">The property of an agent that maximizes its <em>expected</em> performance given its percept sequence and built-in knowledge.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Task environment</strong></td>
+<td style="text-align: left;">The problem context in which an agent operates, specified via PEAS.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>PEAS</strong></td>
+<td style="text-align: left;">A framework for specifying task environments: Performance measure, Environment, Actuators, Sensors.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Autonomy</strong></td>
+<td style="text-align: left;">The degree to which an agent relies on its own experience and learning rather than built-in knowledge.</td>
+</tr>
+</tbody>
+</table>
+</section>
+
 <section id="literature" class="title-slide slide level1 smaller scrollable">
 <h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
