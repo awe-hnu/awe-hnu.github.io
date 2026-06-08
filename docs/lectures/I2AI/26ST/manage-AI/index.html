@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Managing AI – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="Managing AI – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Managing AI</h1>
+            <p class="subtitle lead">Introduction to AI (I2AI)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Lecture Notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page-left">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Jun 5, 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Jun 8, 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#ai-strategizing" id="toc-ai-strategizing" class="nav-link" data-scroll-target="#ai-strategizing">AI Strategizing</a></li>
+  <li><a href="#ai-readiness" id="toc-ai-readiness" class="nav-link" data-scroll-target="#ai-readiness">AI Readiness</a></li>
+  <li><a href="#governance-of-ai" id="toc-governance-of-ai" class="nav-link" data-scroll-target="#governance-of-ai">Governance of AI</a></li>
+  <li><a href="#the-eu-ai-act" id="toc-the-eu-ai-act" class="nav-link" data-scroll-target="#the-eu-ai-act">The EU AI Act</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1 headline-only">
+<h1 class="headline-only">Introduction</h1>
+<section id="introductory-remarks" class="level2">
+<h2 data-anchor-id="introductory-remarks">Introductory Remarks</h2>
+<div class="medium">
+<p>Understanding how generative AI works is one thing.<br>
+Knowing what to do with it inside an organisation is another.</p>
+</div>
+<div class="fragment">
+<p>The shift from recognition to generation, and now toward agentic systems, has not just expanded what AI can do but fundamentally changed the management challenge.</p>
+</div>
+<div class="fragment">
+<p>The same properties that make modern AI powerful are also what make it difficult to govern <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>An LLM that <strong>hallucinates confidently</strong> is not just a technical failure — it is a management failure</li>
+<li>A diffusion model that <strong>embeds bias invisibly</strong> is not just a modelling problem — it is a governance problem</li>
+<li>An agentic system that <strong>takes unintended actions</strong> is not just a deployment error — it is a strategy problem</li>
+</ul>
+</div>
+<div class="notes">
+<p>The previous lecture covered what generative and agentic AI <em>can</em> do. This lecture asks the harder question: how should organisations <em>respond</em>? The properties that make modern AI different — autonomy, learning, and opacity of reasoning — are precisely what make managing it different from managing conventional software.</p>
+</div>
+</section>
+<section id="three-management-challenges" class="level2">
+<h2 data-anchor-id="three-management-challenges">Three management challenges</h2>
+<p>Organisations today face three major challenges <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Identifying the right use cases:</strong> not every process that can be automated should be; choosing well requires connecting AI capability to actual strategic value</li>
+<li><strong>Building and integrating solutions:</strong> data quality, make-or-buy decisions, and workflow redesign are as important as model quality</li>
+<li><strong>Governing AI responsibly:</strong> ethics, accountability, regulatory compliance (including the EU AI Act), and ongoing monitoring cannot be afterthoughts</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="ai-strategizing" class="level1 headline-only">
+<h1 class="headline-only">AI Strategizing</h1>
+<section id="why-ai-demands-a-strategic-response" class="level2">
+<h2 data-anchor-id="why-ai-demands-a-strategic-response">Why AI demands a strategic response</h2>
+<div class="medium">
+<p>AI projects fail more often than they succeed — not because the technology doesn’t work, but because organisations launch them without strategic direction <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+</div>
+<div class="fragment">
+<p>The underlying problem is structural. AI doesn’t merely improve efficiency — it changes the conditions under which organisations compete:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Market shifts:</strong> from human-crafted to AI-driven products and services; from generalised targeting to individual customisation</li>
+<li><strong>Resource shifts:</strong> from manual to data-driven decision-making; from human-dependent to AI-enhanced productivity; from uncertainty as obstacle to uncertainty as an unavoidable factor to manage</li>
+</ul>
+</div>
+<div class="fragment">
+<p>These shifts are not IT-level changes. They require a strategic response. The rise of generative AI and large language models has accelerated both the opportunity and the pressure <span class="citation" data-cites="feuerriegel2024genai">(<a href="#ref-feuerriegel2024genai" role="doc-biblioref"><strong>feuerriegel2024genai?</strong></a>)</span>.</p>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition: AI strategy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An AI strategy is a set of guidelines for courses of action and decisions that directs AI projects in line with firm-specific goals and constraints toward a distinct strategic direction. <em>(adapted from <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>)</em></p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-chain-of-argumentation" class="level2">
+<h2 data-anchor-id="the-chain-of-argumentation">The chain of argumentation</h2>
+<p>Why does AI specifically require its own strategy? <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span> lay out a four-step chain of reasoning:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Facets of contemporary AI:</strong> three properties set AI apart from prior technology
+<ul class="incremental">
+<li><em>Autonomy:</em> acts without per-decision human instruction</li>
+<li><em>Learning:</em> behaviour changes over time</li>
+<li><em>Inscrutability:</em> internal logic is opaque to observers</li>
+</ul></li>
+<li><strong>AI-induced shifts:</strong> these properties cause
+<ul class="incremental">
+<li><em>Market shifts:</em> competitive dynamics change</li>
+<li><em>Resource shifts:</em> what constitutes a scarce, valuable capability changes</li>
+</ul></li>
+<li><strong>Strategic challenges:</strong> new tensions across all four dimensions — scope, scale, speed, and source</li>
+<li><strong>Strategic response:</strong> a coherent AI strategy addressing all four dimensions simultaneously</li>
+</ul>
+</div>
+<div class="notes">
+<table class="table">
+<caption>Figure 1: Chain of argumentation for the need for an AI strategy. Adapted from <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>. {#fig-chain}</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Element</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>Facets of contemporary AI</strong></td>
+<td><strong>Autonomy</strong> — acts without per-decision human instruction · <strong>Learning</strong> — behaviour changes over time · <strong>Inscrutability</strong> — internal logic is opaque to observers</td>
+</tr>
+<tr class="even">
+<td>↓</td>
+<td><em>lead to</em></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><strong>AI-induced market and resource shifts</strong></td>
+<td><strong>Market:</strong> from narrow to pervasive AI · from human-crafted to AI-driven products · from generalised to individual targeting · <strong>Resource:</strong> from manual to data-driven decision-making · uncertainty as unavoidable factor · AI-enhanced productivity</td>
+</tr>
+<tr class="even">
+<td>↓</td>
+<td><em>result in</em></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>AI-related strategic challenges</strong></td>
+<td><strong>Scope</strong> — setting up organisational structures · <strong>Scale</strong> — sourcing technological resources · <strong>Speed</strong> — balancing continuity and opportunity recognition · <strong>Source</strong> — assessing business model impact</td>
+</tr>
+<tr class="even">
+<td>↓</td>
+<td><em>require a</em></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><strong>Strategic response — AI strategy</strong></td>
+<td><strong>Taxonomy</strong> — framework of dimensions and characteristics for strategy design · <strong>Clusters</strong> — typical manifestations of how organisations shape a strategic response in practice</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why inscrutability matters strategically
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most technologies fail in predictable, traceable ways. AI can fail silently, confidently, and in ways that are difficult to attribute. This inscrutability makes standard oversight mechanisms insufficient and creates accountability gaps that a strategy, not just an IT process, must address. <span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span> argue that autonomy, learning, and inscrutability must be managed together, not in isolation — each interacts with the others.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-4s-taxonomy" class="level2">
+<h2 data-anchor-id="the-4s-taxonomy">The 4S taxonomy</h2>
+<div class="medium">
+<p>A coherent AI strategy means making deliberate, consistent choices across all four dimensions (scope, scale, speed, and source).</p>
+</div>
+<div class="fragment">
+<p>The 4S maps the design space of those choices. It does not prescribe which configuration is right — that depends on the organisation’s competitive position, resource base, industry context, and risk appetite.</p>
+</div>
+<div class="notes">
+<table class="table">
+<caption>Table 1: Taxonomy of AI strategy (15 dimensions across 4 layers). Adapted from <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>. {#fig-taxonomy}</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 31%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>Dimension</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Scope</strong></td>
+<td>Strategic ownership</td>
+<td>Central staff unit · Separate department · Integrated team · Cross-functional unit</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Organisational anchoring</td>
+<td>Corporate · Divisional · Functional · Proprietary</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Lifecycle management</td>
+<td>Centralised · Decentralised · Federal</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Governance level</td>
+<td>Enterprise-wide · Portfolio-based · Application-specific</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Control mechanisms</td>
+<td>Guiding · Restricting · No additional</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Data governance framework</td>
+<td>Isolated · Hybrid · Integrated</td>
+</tr>
+<tr class="odd">
+<td><strong>Scale</strong></td>
+<td>Knowledge acquisition</td>
+<td>Training · Hiring · Contracting</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Technology sourcing</td>
+<td>Make · Hybrid · Buy</td>
+</tr>
+<tr class="odd">
+<td><strong>Speed</strong></td>
+<td>Use case identification</td>
+<td>Systematical · Experimental</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Use case expansion</td>
+<td>One-to-many · Many-to-one</td>
+</tr>
+<tr class="odd">
+<td><strong>Source</strong></td>
+<td>Technology aspiration</td>
+<td>Established · Cutting-edge · Bleeding-edge</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Business model impact</td>
+<td>Complementing · Extending · Renewing</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Risk tolerance</td>
+<td>High risk · Limited risk · Minimal risk</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Value creation</td>
+<td>Frontstage · Backstage · Front- and backstage</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Value recipient effect</td>
+<td>Replacing · Reinforcing · Revealing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="strategic-archetypes" class="level2">
+<h2 data-anchor-id="strategic-archetypes">Strategic archetypes</h2>
+<p>Identifying the right archetype matters because each implies a different set of operational decisions:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Use case selection:</strong> a Business Enhancer should prioritise process improvement use cases with clear ROI; a Technology Navigator should invest in proprietary capability-building even without immediate payoff</li>
+<li><strong>Sourcing decisions:</strong> an Operations Stabilizer buys ready-made solutions; an Innovation Explorer experiments with open-source and in-house development</li>
+<li><strong>Governance design:</strong> a Technology Navigator needs enterprise-wide AI governance; a Business Enhancer may manage AI at the portfolio or project level</li>
+<li><strong>Risk tolerance:</strong> an Operations Stabilizer treats model failure as unacceptable; a Technology Navigator accepts more experimental risk in exchange for learning</li>
+</ul>
+</div>
+<div class="notes">
+<table class="table">
+<caption>Table 2: Clusters of AI strategy — four strategic archetypes. Adapted from <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>. {#fig-clusters}</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 51%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archetype</th>
+<th>Strategic orientation</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Technology Navigator</strong></td>
+<td>Pushes AI boundaries through R&amp;D; undertakes risky but rewarding projects to achieve technological breakthroughs at the forefront of AI</td>
+<td>JPMorgan, Microsoft, Infineon, SAP</td>
+</tr>
+<tr class="even">
+<td><strong>Innovation Explorer</strong></td>
+<td>Delves into promising emerging territories; invests substantially in AI to unlock new value streams alongside existing products and services</td>
+<td>American Express, Bayer, E.ON, Volkswagen</td>
+</tr>
+<tr class="odd">
+<td><strong>Business Enhancer</strong></td>
+<td>Focuses on improving operational performance with AI; explores initial use cases but is cautious about widespread application</td>
+<td>MTU Aero Engines, P&amp;G, Linde, Chevron</td>
+</tr>
+<tr class="even">
+<td><strong>Operations Stabilizer</strong></td>
+<td>Resorts to AI in only a few isolated use cases; prefers stability and reliability over breakthrough innovations due to potential risks</td>
+<td>Henkel, Nike, McDonald’s, Coca-Cola</td>
+</tr>
+</tbody>
+</table>
+<p>Misalignment between archetype and actual decisions is a primary driver of AI project failure. An organisation that behaves like an Innovation Explorer in its use-case selection but like an Operations Stabilizer in its resourcing will run ambitious experiments with inadequate infrastructure. The archetype identification makes these misalignments visible before they become expensive.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>No archetype is inherently superior
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A regulated utility pursuing an Operations Stabilizer approach may be making a more rational strategic choice than a startup chasing cutting-edge technology it cannot sustain. What matters is internal consistency: the chosen archetype should be coherent with the organisation’s competitive context, and all four strategic dimensions (“4S”) should point in the same direction. The goal of AI strategizing is not to maximise technological ambition but to match strategic posture to organisational reality.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ai-readiness" class="level1 headline-only">
+<h1 class="headline-only">AI Readiness</h1>
+<section id="definition-and-motivation" class="level2">
+<h2 data-anchor-id="definition-and-motivation">Definition and motivation</h2>
+<div class="medium">
+<blockquote class="blockquote">
+<p>AI readiness is the preparedness of an organisation to implement changes involving AI applications and technology. <em><span class="citation" data-cites="alsheibani2018aireadiness">(<a href="#ref-alsheibani2018aireadiness" role="doc-biblioref"><strong>alsheibani2018aireadiness?</strong></a>)</span></em></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>The concept matters because strategy on paper does not equal strategy in practice. An organisation may choose the right archetype and still fail to execute, because the necessary conditions are not in place. AI readiness identifies those conditions.</p>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why a dedicated term is needed
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Digital readiness” or “technology readiness” captures part of the picture but misses what is distinctive about AI. AI requires not just infrastructure and skills, but a cultural tolerance for probabilistic outputs, opaque reasoning, and systems that change their own behaviour over time. Readiness for AI is therefore both broader and more specific than generic technology readiness — which is why it warrants its own construct.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="organisational-readiness-for-change" class="level2">
+<h2 data-anchor-id="organisational-readiness-for-change">Organisational readiness for change</h2>
+<p>Before any AI-specific factors, organisations must have a baseline capacity to adopt and sustain new technology at all:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Financial and technological resources:</strong> adequate investment capacity and infrastructure</li>
+<li><strong>Management support:</strong> active sponsorship from leadership; without it, initiatives lose priority when they compete with operations</li>
+<li><strong>Organisational culture:</strong> tolerance for experimentation, calculated risk, and continuous learning</li>
+<li><strong>Commitment:</strong> sustained resolve to work through implementation setbacks</li>
+</ul>
+</div>
+<div class="fragment">
+<p>These factors are necessary but not sufficient. AI adds further demands on top of them.</p>
+</div>
+</section>
+<section id="ai-specific-readiness-factors" class="level2">
+<h2 data-anchor-id="ai-specific-readiness-factors">AI-specific readiness factors</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Innovation adoption:</strong> shaped by perceived relative advantage, compatibility, complexity, trialability, and observability <span class="citation" data-cites="rogers2003diffusion">(also see <a href="#ref-rogers2003diffusion" role="doc-biblioref"><strong>rogers2003diffusion?</strong></a>)</span>; for AI, <em>complexity</em> and <em>observability</em> are particular friction points — AI systems are harder to pilot meaningfully than conventional software, and their value is often indirect and delayed</li>
+<li><strong>Resources:</strong> rare skill combinations (data scientists, ML engineers, domain experts, AI-literate managers); qualitatively different infrastructure (high-performance compute, scalable data pipelines, MLOps tooling); organisations that underestimate these requirements tend to reach proof-of-concept and then stall</li>
+<li><strong>Knowledge:</strong> AI literacy cannot be limited to a specialist team; Article 4 of the EU AI Act mandates adequate literacy for all staff involved in operating or using AI systems, calibrated to role and context</li>
+<li><strong>Culture:</strong> psychological safety to challenge AI outputs; cross-functional collaboration as a prerequisite; AI exposes errors in ways conventional software does not — blame cultures will find AI particularly difficult to deploy responsibly</li>
+<li><strong>Data:</strong> availability, quality, accessibility, and governance — data is the fuel of AI and the most common bottleneck in practice</li>
+</ul>
+</div>
+<div class="notes">
+<p>An organisation with strong strategic intent but poor data readiness cannot realise AI’s potential regardless of technical investment. Data readiness assessment is therefore a prerequisite to AI strategy execution <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+</div>
+</section>
+</section>
+<section id="governance-of-ai" class="level1 headline-only">
+<h1 class="headline-only">Governance of AI</h1>
+<section id="why-governance-cannot-be-an-afterthought" class="level2">
+<h2 data-anchor-id="why-governance-cannot-be-an-afterthought">Why governance cannot be an afterthought</h2>
+<div class="medium">
+<p>An AI strategy tells an organisation <em>what</em> to pursue. Governance answers <em>under what conditions</em> and <em>according to what rules</em>.</p>
+</div>
+<div class="fragment">
+<p>Without governance, even a well-designed strategy degrades in practice:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>Responsibilities are unclear</li>
+<li>Risks accumulate silently</li>
+<li>Accountability evaporates the moment something goes wrong</li>
+</ul>
+</div>
+<div class="fragment">
+<p>The case for governance is not primarily ethical — it is <strong>operational</strong>. AI systems learn from data, behave probabilistically, fail in subtle and delayed ways, and are often opaque even to their builders. Standard IT controls are necessary but not sufficient.</p>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Definition: AI governance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Governance mechanisms are structured frameworks, policies, procedures, and controls that guide, monitor, and manage operations to ensure alignment with organisational objectives, ethical standards, and regulatory requirements. AI governance specifically addresses the complexity, opacity, and failure modes that are particular to AI systems and that increase uncertainty and risk in ways that generic IT governance does not fully capture <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-risk-landscape" class="level2">
+<h2 data-anchor-id="the-risk-landscape">The risk landscape</h2>
+<p>Before deciding what governance is needed, an organisation must understand what it is governing against. AI-related risks arise at four levels <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Technical risks:</strong> data and model uncertainty; complex error traceability; cybersecurity vulnerabilities (adversarial inputs, data poisoning, model inversion)</li>
+<li><strong>Economic risks:</strong> cost escalation without proportional value; non-acceptance negating AI’s value; operational disruption and reputational damage from biased outputs</li>
+<li><strong>Regulatory risks:</strong> GDPR violations at AI scale; EU AI Act (Art. 9 and Art. 14) non-compliance; absence of agreed industry standards</li>
+<li><strong>Ethical and social risks:</strong> algorithmic bias invisible in aggregate metrics; opacity breeding mistrust; job displacement and erosion of human agency</li>
+</ol>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Risk interaction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These four categories are not independent. A technical failure (biased model) creates economic risk (damaged reputation), triggers regulatory scrutiny (GDPR, EU AI Act), and constitutes an ethical harm (discriminatory decisions). Governance must address all four simultaneously.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="three-types-of-governance-mechanisms" class="level2">
+<h2 data-anchor-id="three-types-of-governance-mechanisms">Three types of governance mechanisms</h2>
+<div class="medium">
+<p>Effective AI governance is not a single policy or a compliance checklist. It is a portfolio of mechanisms at three complementary levels <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Structural mechanisms</span></p>
+<p>Define the formal organisational architecture within which AI decisions are made and accountability is assigned.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><em>Roles and responsibilities:</em> operational (project leads, product owners) and strategic (executive sponsors, Chief AI Officer — CAIO)</li>
+<li><em>Cross-functional governance bodies:</em> AI steering committees integrating legal, compliance, technical, and business perspectives</li>
+<li><em>Centres of Excellence:</em> centralise expertise, set standards, reduce fragmentation across business units</li>
+</ul>
+</div>
+<div class="notes">
+<p>The core challenge structural governance addresses is AI’s inherently interdisciplinary nature. Data scientists, engineers, legal staff, compliance officers, domain experts, and business strategists all have essential and often conflicting perspectives. Without a clear structure, these perspectives do not converge — they create friction.</p>
+</div>
+</section>
+<section id="procedural-and-relational-mechanisms" class="level2">
+<h2 data-anchor-id="procedural-and-relational-mechanisms">Procedural and relational mechanisms</h2>
+<div class="fragment">
+<p><span class="h4">Procedural mechanisms</span></p>
+<p>Define <em>how</em> AI is developed, validated, deployed, and monitored.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><em>Documentation standards:</em> traceability of model development, testing, and known limitations</li>
+<li><em>Quality assurance:</em> coding guidelines, testing protocols, and validation procedures across the AI lifecycle</li>
+<li><em>Compliance monitoring:</em> continuous checks against legal and internal standards</li>
+<li><em>Escalation procedures:</em> defined pathways for flagging unexpected model behaviour or performance degradation</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="h4">Relational mechanisms</span></p>
+<p>Address the collaborative dynamics across the people and teams involved in AI.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><em>Interdisciplinary team design:</em> technical, legal, domain, and ethical expertise in working teams — not sequential handoffs</li>
+<li><em>Training and onboarding:</em> AI fundamentals, governance structures, and ethical implications for all team members</li>
+<li><em>Transparency practices:</em> explainability tools and accessible reporting for non-technical stakeholders</li>
+<li><em>Dialogue and feedback loops:</em> regular alignment, workshops, channels for surfacing concerns early</li>
+</ul>
+</div>
+<div class="notes">
+<p>Procedural governance is particularly important because AI’s behaviour is not fully specified in advance — it emerges from training. Without structured processes, there is no reliable way to know whether the system deployed last month still behaves as expected today.</p>
+<p>Relational mechanisms are often the least formalised and the most neglected — yet their absence is frequently what causes well-designed structural and procedural frameworks to fail in practice. A governance body that never actually convenes cross-functional dialogue produces documents, not accountability.</p>
+</div>
+</section>
+<section id="transforming-toward-ai-governance" class="level2">
+<h2 data-anchor-id="transforming-toward-ai-governance">Transforming toward AI governance</h2>
+<p>Governance does not appear fully formed. It must be built iteratively, and it must be integrated into existing governance structures — not layered on top as a separate system <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+<div class="fragment">
+<p>Several established frameworks provide concrete reference points:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>ISO/IEC 42001:2023</strong> — first certifiable AI management system standard</li>
+<li><strong>NIST AI RMF 1.0</strong> — voluntary, outcome-oriented; four functions: Map, Measure, Manage, Govern</li>
+<li><strong>OECD Recommendation on AI (2019, updated 2023/2024)</strong> — intergovernmental reference framework</li>
+<li><strong>EU AI Act</strong> — the most comprehensive and legally binding</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="the-eu-ai-act" class="level1 headline-only">
+<h1 class="headline-only">The EU AI Act</h1>
+<section id="what-it-is-and-why-it-matters" class="level2">
+<h2 data-anchor-id="what-it-is-and-why-it-matters">What it is and why it matters</h2>
+<div class="medium">
+<p>The EU AI Act (Regulation 2024/1689) is the world’s first comprehensive, legally binding AI regulation. It applies to any AI system deployed in the EU — regardless of where the provider is based (from 2027 on).</p>
+</div>
+<div class="fragment">
+<p>For managing AI, three things matter most:</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>What it regulates</strong> — which AI systems face obligations</li>
+<li><strong>What it requires</strong> — what those obligations are</li>
+<li><strong>Who is responsible</strong> — which actors must comply</li>
+</ul>
+</div>
+</section>
+<section id="the-risk-based-logic" class="level2">
+<h2 data-anchor-id="the-risk-based-logic">The risk-based logic</h2>
+<div class="medium">
+<p>The Act’s defining design principle is <strong>proportionality</strong>: obligations scale with potential harm to people and society.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Minimal or no risk</strong> — no additional obligations; e.g., recommendation engines, spam filters, video game AI; the vast majority of currently deployed AI</li>
+<li><strong>Limited risk</strong> — transparency and disclosure only; chatbots must disclose they are AI; AI-generated content must be identifiable; deepfakes must be labelled</li>
+<li><strong>High risk</strong> — strict obligations before and during deployment; covers critical infrastructure, healthcare, education, employment, access to essential services, law enforcement, migration, administration of justice</li>
+<li><strong>Unacceptable risk</strong> — banned outright; social scoring, predictive policing by profiling, untargeted biometric scraping, emotion recognition in workplaces and schools, subliminal manipulation, exploitation of vulnerabilities</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What high-risk deployment actually requires
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For high-risk systems, the Act mandates:</p>
+<ul>
+<li><em>Continuous risk management (Art. 9):</em> throughout the entire AI lifecycle — not a one-time pre-deployment check</li>
+<li><em>Human oversight (Art. 14):</em> humans must be able to monitor, understand, interpret, and override outputs</li>
+<li><em>Data quality and governance (Art. 10):</em> quality standards and demographic representation in training, validation, and test data</li>
+<li><em>Technical documentation (Art. 11):</em> comprehensive, maintained throughout the lifecycle</li>
+<li><em>Transparency toward users (Art. 13):</em> deployers must inform individuals when subject to a high-risk AI decision</li>
+<li><em>Audit logging:</em> records enabling post-hoc review and accountability</li>
+<li><em>Conformity assessment:</em> formal compliance assessment before deployment; third-party audit for certain categories</li>
+<li><em>AI literacy (Art. 4):</em> a legal obligation for all staff involved in operating or using AI systems — not a recommendation, and not limited to technical teams</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="who-is-responsible" class="level2">
+<h2 data-anchor-id="who-is-responsible">Who is responsible</h2>
+<p>The Act deliberately distributes obligations across the AI value chain:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Providers</strong> build AI systems and place them on the market — they bear the heaviest obligations: conformity assessments, technical documentation, registration in the EU AI database, post-market monitoring</li>
+<li><strong>Deployers</strong> use a provider’s AI system in their own products or processes — they cannot outsource compliance to their vendor; directly responsible for human oversight, staff literacy, informing affected individuals, and maintaining operational logs</li>
+<li><strong>Affected individuals</strong> have the right to know that an AI system was involved in a decision significantly affecting them</li>
+</ul>
+</div>
+<div class="notes">
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The practical implication
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Many organisations are deployers of high-risk AI without having classified themselves as such. A performance management system that uses ML to rank employees is high-risk. An automated loan pre-screening tool is high-risk. Before asking what the Act requires, managers must first ask honestly: where do our AI systems sit in the risk classification? The answer will often be less comfortable than assumed <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="generative-ai-and-gpai" class="level2">
+<h2 data-anchor-id="generative-ai-and-gpai">Generative AI and GPAI</h2>
+<div class="medium">
+<p>Large foundation models (LLMs, diffusion models, multimodal systems) are regulated under a distinct regime as <strong>General Purpose AI (GPAI)</strong> systems.</p>
+</div>
+<div class="fragment">
+<p>GPAI presents a unique regulatory challenge: these models are not designed for a single application — risk cannot be fully assessed at development time.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>Providers must <strong>document and disclose training data</strong>, including copyright compliance</li>
+<li>Providers must supply <strong>technical documentation</strong> of capabilities, limitations, and known risks to downstream deployers</li>
+<li>Providers must <strong>comply with EU copyright law</strong> and demonstrate adherence to the Copyright Directive’s text and data mining provisions</li>
+</ul>
+</div>
+<div class="fragment">
+<p>For deployers: the risk classification depends on the <strong>use case</strong>, not the underlying model. The same LLM powering a general chatbot (limited-risk) becomes high-risk when integrated into automated recruitment screening.</p>
+</div>
+</section>
+<section id="compliance-as-a-floor" class="level2">
+<h2 data-anchor-id="compliance-as-a-floor">Compliance as a floor</h2>
+<div class="medium">
+<p>The EU AI Act sets minimum requirements. Meeting them is necessary — but does not guarantee that a system is trustworthy or well-governed.</p>
+</div>
+<div class="fragment">
+<p>Compliance means the system meets the <strong>legal baseline for EU deployment</strong>.</p>
+</div>
+<div class="fragment">
+<p>The governance mechanisms — risk management, human oversight, structural accountability, relational transparency — are what transform compliance from a checklist into a genuine capability <span class="citation" data-cites="urbach2026managing">(<a href="#ref-urbach2026managing" role="doc-biblioref"><strong>urbach2026managing?</strong></a>)</span>.</p>
+</div>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-berente2021managing" class="csl-entry" role="listitem">
+Berente, N., Gu, B., Recker, J., &amp; Santhanam, R. (2021). Managing artificial intelligence. <em>MIS Quarterly</em>, <em>45</em>(3), 1433–1450. <a href="https://doi.org/10.25300/MISQ/2021/16274">https://doi.org/10.25300/MISQ/2021/16274</a>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
