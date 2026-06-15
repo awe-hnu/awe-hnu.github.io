@@ -1,0 +1,319 @@
+---
+title: "Generative AI"
+subtitle: "Introduction to AI (I2AI)"
+lang: en
+categories: ["Session Slides"]
+
+bibliography: ../assets/literature.bib
+
+date: "03.17.2026"
+
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpeg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#0333ff'
+
+format:
+  presentation-revealjs:
+    output-file: session.html
+    include-before-body: ../assets/footer.html
+---
+
+# Agenda
+
+:::medium
+- Warm-up [7 min]{.smaller}
+- LLMs: from predictor to assistant [20 min]{.smaller}
+- Diffusion & the landscape [13 min]{.smaller}
+- Agentic AI: from generation to action [14 min]{.smaller}
+- Wrap-up [6 min]{.smaller}
+:::
+
+:::notes
+Flipped-classroom session. Students have worked through the lecture notes beforehand. These slides are recap anchors, not first exposure. Keep each recap slide to 1 to 2 minutes; the bulk of the time goes to the three exercises.
+
+This session deliberately does **not** re-teach transformer mechanics, attention, or temperature; the neural networks session already covered those. Every exercise here targets what is new in this unit: three-phase training, diffusion, and agentic AI.
+
+Time budget: 7 + 20 + 13 + 14 + 6 = 60 minutes. The arc follows the unit: generation, then multimodal generation, then action.
+:::
+
+# Warm-up {.discussion-slide}
+
+:::medium
+Name **one task** you did this week that a generative model could have done.
+:::
+
+:::fragment
+Which pillar does it belong to?
+:::
+
+:::incremental
+- **Text:** a language model (LLM)
+- **Image, audio, video:** a diffusion model
+- **A multi-step job:** an agent
+:::
+
+:::fragment
+Think alone 1 min, then discuss with your neighbour 2 min.
+:::
+
+{{< countdown "3:00" top="0">}}
+
+:::notes
+Collect three or four examples and sort them onto the board under the three pillars. This builds the map the whole session uses.
+
+Watch for the common slip: students often file a multi-step job (book a trip, research and summarise) under "LLM" because they used a chat interface. Use that to motivate the agentic block; an agent wraps an LLM with planning, memory, and tools.
+
+Bridge sentence: last unit you built the engine (the transformer); today we ask what it makes possible.
+:::
+
+# LLMs: from predictor to assistant {.headline-only}
+
+## Recap: from transformer to LLM
+
+:::medium
+An LLM is the **transformer you already built,** scaled up and trained on internet-scale text.
+:::
+
+:::incremental
+- **Same mechanism:** tokenize, embed, attend, predict the next token
+- **New scale:** GPT-3 has 175 billion parameters
+- **New behaviour:** at this scale, generation becomes coherent and useful
+:::
+
+:::notes
+One minute. The engine-and-vehicle metaphor: the transformer is the engine, the LLM is the complete vehicle that results from scaling that engine and training it to be useful. Nothing in the generation pipeline changes from last unit; only scale and training do. That training is the next slide and the exercise.
+:::
+
+## Recap: three training phases
+
+:::medium
+Next-token prediction is only the **first** of three phases [@ouyang2022training].
+:::
+
+:::incremental
+1. **Pretraining:** next-token prediction on massive unlabelled text; gives broad capability (the part you saw last unit)
+2. **Fine-tuning:** supervised learning on curated input-output pairs; makes the model task-appropriate
+3. **RLHF:** humans rank outputs, a reward model learns their preference, the LLM is optimised toward it; this is where **alignment** happens
+:::
+
+:::notes
+Two minutes; this slide sets up Exercise A. The key idea students need: pretraining gives capability, but a raw pretrained model is not yet a helpful assistant. Fine-tuning and RLHF are what turn it into ChatGPT. RLHF is the active safety-research frontier because it is easy to teach a model to "game" the reward signal.
+:::
+
+## Recap: what still breaks
+
+:::medium
+The failure modes from last unit do not disappear; deployment of LLMs raises the stakes.
+:::
+
+:::columns
+:::{.column .fragment}
+[Carried over]{.h4}
+
+- **Hallucination** (structural, not a bug)
+- **Bias** from training data
+- **No genuine understanding**
+:::
+:::{.column .fragment}
+[Newly created]{.h4}
+
+- **Legal & privacy** risk
+- **Static knowledge** (a training cutoff)
+- **Resource** intensive
+:::
+:::
+
+:::notes
+One minute. Park one word on the board: **static knowledge.** It is the limitation that motivates retrieval-augmented generation in the agentic block, so calling it out now sets up the through-line. Hallucination is structural because the model generates high-probability continuations; it has no built-in mechanism to flag when a plausible continuation is false.
+:::
+
+## Exercise A: train a legal assistant {.discussion-slide}
+
+A startup has a general-purpose LLM (pretraining done). They want to deploy it as a **legal-document assistant** for law firms.
+
+[Tasks (pairs)]{.h4}
+
+1. What **fine-tuning data** would you use, and why?
+2. Who would you recruit as **RLHF raters,** and what criteria do they score?
+3. Fine-tuning risks **catastrophic forgetting** of general knowledge. How would you mitigate it?
+
+{{< countdown "10:00" top="0">}}
+
+:::notes
+Expected answers (debrief in ~4 minutes):
+
+1. **Fine-tuning data:** verified legal briefs, contracts, court opinions, regulatory filings (e.g., from LexisNexis or Westlaw); diverse jurisdictions and domains; human-annotated "ideal" responses for common drafting tasks. Stress the licensing point: using copyrighted legal databases without authorisation is itself a legal risk.
+2. **RLHF raters:** practising lawyers or senior paralegals with domain expertise. Criteria: legal accuracy (most important), citation correctness, appropriate hedging (legal advice must acknowledge uncertainty), professional tone, and absence of fabricated case law.
+3. **Catastrophic forgetting:** mix a small share of general-domain data into the fine-tuning set; use parameter-efficient fine-tuning (e.g., LoRA) that updates only a subset of parameters; monitor a general benchmark (e.g., MMLU) during training to catch degradation early.
+
+Draw out the core message: pretraining gave capability, fine-tuning gave specialism, RLHF gives the judgment and hedging a legal context demands. Connect "fabricated case law" back to hallucination on the previous slide.
+:::
+
+# Diffusion & the landscape {.headline-only}
+
+## Recap: the generative landscape
+
+:::medium
+LLMs are one family. **Foundational models** also include diffusion models, and agents are built on top [@urbach2026genai].
+:::
+
+:::incremental
+- **LLMs:** generate text (GPT, Claude, Gemini, LLaMA)
+- **Diffusion models:** generate images, audio, video (DALL-E, Stable Diffusion, Midjourney)
+- **Agentic AI:** combines these with planning, memory, and tools to *act*
+:::
+
+:::notes
+One minute. The point: "generative AI" is not one thing. The two architectural families (LLMs and diffusion) are both foundational models; agentic systems compose them. This slide is the map; the next slide zooms into the one mechanism that is genuinely new today, diffusion.
+:::
+
+## Recap: diffusion in one idea
+
+:::medium
+LLMs generate token by token. Diffusion generates by **iterative denoising** [@ho2020denoising].
+:::
+
+:::incremental
+- **Forward:** take a real image and gradually add noise until it is pure noise
+- **Reverse:** train a network to undo one step of noise at a time
+- **Generate:** start from pure noise and denoise, **guided by a text embedding**
+:::
+
+:::fragment
+:::medium
+Same recipe for video and audio: embed the prompt, then denoise toward structure.
+:::
+:::
+
+:::notes
+Two minutes. The intuition for "why noise-to-image works": the network has seen millions of real images at every noise level, so at each step it nudges the pixels toward "more image-like given this text". Text conditioning steers it from "any real image" toward "a real image matching this description". This is enough for Exercise B; the exercise does not need the U-Net or super-resolution detail.
+:::
+
+## Exercise B: map the media company {.discussion-slide}
+
+A media company produces **articles, photos, video segments, podcasts.** For each:
+
+[Tasks (pairs)]{.h4}
+
+1. Which technology fits: **LLM, diffusion, or a combination?**
+2. What is the **single biggest risk** to manage?
+3. If they can pilot **only one** in year one, which, and why?
+
+{{< countdown "7:00" top="0">}}
+
+:::notes
+Expected answers (debrief in ~3 minutes):
+
+| Content | Technology | Biggest risk |
+|---|---|---|
+| Articles | LLM (+ RAG) | hallucination, false facts in print |
+| Photos | diffusion | copyright, bias, deepfake potential |
+| Video | text-to-video diffusion | deepfakes mistaken for real footage |
+| Podcasts | text-to-audio / voice cloning | impersonation, consent |
+
+: Technology and risk by content type {#tbl-media-map tbl-colwidths="[28,36,36]"}
+
+**Pilot recommendation:** LLM-assisted article drafting with RAG. Clearest productivity gain, risk is manageable with editorial review, and the legal landscape for text is more settled than for synthetic image, video, or voice. It also builds prompt and review skills the company can reuse for the other modalities later.
+
+This exercise is where diffusion gets applied: parts 1 and 2 force students to pick diffusion for the visual and audio modalities and to name the deepfake and copyright risks that are specific to it.
+:::
+
+# Agentic AI: from generation to action {.headline-only}
+
+## Recap: four building blocks
+
+:::medium
+Four components turn an LLM into an **agent** [@urbach2026genai].
+:::
+
+:::incremental
+- **Reasoning-augmented LLM:** chain-of-thought makes the problem-solving steps visible and checkable
+- **Retrieval-Augmented Generation (RAG):** real-time access to external knowledge
+- **Conversational agent:** keeps context across a long, multi-turn task
+- **Multi-agent system (MAS):** specialised agents divide the labour and check each other
+:::
+
+:::notes
+One minute. Each block fixes a specific limitation of a standalone LLM: reasoning addresses surface-level answers, RAG addresses the knowledge cutoff, conversational memory addresses the single-turn limit, MAS addresses the single-agent capability ceiling. The next slide zooms into RAG because it is both the most widely deployed and the direct answer to the "static knowledge" limitation we parked earlier.
+:::
+
+## Recap: RAG in three steps
+
+:::medium
+RAG is the fix for the **static-knowledge** limitation from the first block [@lewis2020].
+:::
+
+:::incremental
+1. **Retrieve:** search an external knowledge base for passages relevant to the query
+2. **Augment:** inject those passages into the context alongside the question
+3. **Generate:** the LLM answers grounded in the retrieved evidence
+:::
+
+:::fragment
+**Payoff:** current knowledge without retraining, and a source the user can verify.
+:::
+
+:::notes
+Two minutes; the bridge to Exercise C. Stress that generation is now grounded: there is a retrievable source behind the answer, which both reduces hallucination and lets the user check the claim. Updating a RAG system means updating the knowledge base, not retraining the (expensive) model.
+:::
+
+## Exercise C: design a student-support RAG {.discussion-slide}
+
+Your university wants a chatbot that answers questions on **study and exam regulations,** which change every semester.
+
+[Tasks (pairs)]{.h4}
+
+1. Sketch the **RAG architecture:** what are the components, and what goes in the knowledge base?
+2. Name **one way it could harm students** and propose a mitigation.
+
+{{< countdown "8:00" top="0">}}
+
+:::notes
+Expected answers (debrief in ~4 minutes):
+
+1. **Architecture:** knowledge base of exam regulations (Prüfungsordnung), module handbooks, process guides, FAQs, stored as chunked, embedded passages in a vector database; a retrieval module that embeds the query and fetches the top-k passages; the LLM generator that answers from those passages; source attribution that cites the specific regulation and section.
+2. **Harm + mitigation (any one):**
+   - *Hallucinated regulation:* require every factual claim to be backed by a retrieved passage; show the source alongside the answer.
+   - *Stale knowledge:* tag documents with their effective semester, filter retrieval to the current one, and re-ingest each semester.
+   - *Out-of-scope confidence:* have the model abstain and escalate to a human advisor when retrieval similarity is below a threshold.
+
+Close the loop out loud: this is the static-knowledge limitation from Block 1, now solved. The recurring pattern across all three blocks is grounding and human oversight, not raw model power.
+:::
+
+# Wrap-up {.headline-only}
+
+## Key takeaways
+
+[Three pillars, one engine]{.h4 .fragment}
+
+:::incremental
+- **LLMs:** pretraining gives capability; fine-tuning and RLHF turn a predictor into a useful, aligned assistant
+- **Diffusion:** a different generative recipe; embed the prompt, then denoise from noise toward image, audio, or video
+- **Agentic AI:** wrap an LLM with reasoning, retrieval, memory, and other agents so it can act, not just generate
+:::
+
+[The recurring theme]{.h4 .fragment}
+
+:::incremental
+- More capability brings new failure modes; grounding (RAG) and human oversight are how you deploy responsibly
+:::
+
+## Bridge {.discussion-slide}
+
+:::medium
+An agentic system takes **actions in the world,** not just text on a screen.
+:::
+
+When an agent makes a consequential mistake, **who is accountable:** the user, the deploying organisation, or the model developer?
+
+:::notes
+Optional 2-minute closer if time allows; otherwise leave as a take-home thought. Fish for: responsibility shifts as autonomy grows; the EU AI Act ties oversight to risk level; high-stakes domains need human checkpoints before consequential actions. Bridges naturally to the ethics and governance unit.
+:::
+
+# Q&A {.html-hidden .unlisted .headline-only background-image="../assets/bg.jpeg"}
+
+# Literature
+::: {#refs}
+:::
