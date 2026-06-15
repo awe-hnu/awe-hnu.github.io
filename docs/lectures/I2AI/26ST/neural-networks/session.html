@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-12-06">
+  <title>awe.lectures – Neural Networks</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-735089d110c961a04cadc41357682241.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+<meta property="og:title" content="Neural Networks – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V1.2
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Introduction to Artificial Intelligence (AI)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Neural Networks</h1>
+  <p class="subtitle">Introduction to AI (I2AI)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">December 6, 2026</p>
+</section>
+<section id="agenda" class="title-slide slide level1">
+<h1>Agenda</h1>
+<div class="medium">
+<ul>
+<li>Warm-up <span class="smaller">8 min</span></li>
+<li>How a network learns <span class="smaller">32 min</span></li>
+<li>Transformers &amp; LLMs <span class="smaller">32 min</span></li>
+<li>Wrap-up <span class="smaller">8 min</span></li>
+</ul>
+</div>
+<aside class="notes">
+<p>This is a flipped-classroom session. Students have worked through the lecture notes beforehand. The slides here are recap anchors, not first exposure. Keep each recap slide short (1 to 2 minutes); the bulk of the time goes to the two exercises.</p>
+<p>Time budget: 8 + 32 + 32 + 8 = 80 minutes. Each 32-minute block is roughly 10 minutes recap and 22 minutes exercise plus debrief.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="warm-up" class="title-slide slide level1 discussion-slide">
+<h1>Warm-up</h1>
+<div class="medium">
+<p>The digit classifier from the notes keeps confusing <strong>4</strong> and <strong>9.</strong></p>
+</div>
+<p>What could you change to improve the classifier?</p>
+<p>Think alone 1 min, then discuss with your neighbour 2 min.</p>
+<div id="timer_7b0cfb84ab078ec35c8f50bf63f73c7ae5392427" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<ul>
+<li>more or better training data (especially hard 4/9 cases)</li>
+<li>train longer / lower the learning rate</li>
+<li>add neurons or a layer</li>
+<li>adjust weights via more gradient-descent steps.</li>
+</ul>
+<p>In ML you change data and parameters, not rules. This sets up the whole fundamentals block.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section>
+<section id="how-a-network-learns" class="title-slide slide level1 headline-only">
+<h1>How a network learns</h1>
+
+</section>
+<section id="neurons" class="title-slide slide level2">
+<h2>Neurons</h2>
+<div class="large">
+<p>A neuron <span class="fragment"><strong>receives inputs,</strong></span> <span class="fragment"><strong>weights them,</strong></span> <span class="fragment"><strong>sums up</strong></span> <span class="fragment">and (maybe) <strong>activates.</strong></span></p>
+</div>
+<ul>
+<li class="fragment">Weighted sum: <span class="math inline">\(z = \sum_i w_i x_i + b\)</span></li>
+<li class="fragment">Activation functions determine the output:
+<ul>
+<li class="fragment"><strong>Binary Step:</strong> Fires (<span class="math inline">\(1\)</span>) or stays silent (<span class="math inline">\(0\)</span>) based on a strict threshold.</li>
+<li class="fragment"><strong>Sigmoid / Tanh:</strong> Squashes <span class="math inline">\(z\)</span> into a smooth probability range (like 0 to 1), e.g., <span class="math inline">\(\sigma(z) = \frac{1}{1 + e^{-z}}\)</span>.</li>
+<li class="fragment"><strong>ReLU:</strong> Passes positive values through, outputs <span class="math inline">\(0\)</span> for any negative <span class="math inline">\(z\)</span>.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>Inputs, weights, bias, weighted sum, activation.</p>
+<p>Remind them sigmoid maps any real number into the range 0 to 1, so the output reads as an activation level.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recap-weights-and-bias" class="title-slide slide level2">
+<h2>Recap: weights and bias</h2>
+<div class="columns">
+<div class="column">
+<div id="fig-nnweights" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-nnweights-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/weights.svg" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nnweights-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Weights in a neural network
+</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<ul>
+<li><strong>Positive weight:</strong> input encourages the neuron to fire</li>
+<li><strong>Negative weight:</strong> input discourages firing</li>
+<li><strong>Bias:</strong> shifts the firing threshold</li>
+<li>Weights and the bias are the <strong>knobs</strong> learning adjusts</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>One minute. Emphasize that the weights are the learned knowledge of the network. Everything in training comes down to nudging these numbers.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recap-the-digit-network" class="title-slide slide level2">
+<h2>Recap: the digit network</h2>
+<div class="columns">
+<div class="column">
+<p>From <strong>28×28 pixels</strong><br>
+to a <strong>neural network</strong><br>
+to <strong>10 probabilities</strong></p>
+<ul>
+<li class="fragment"><strong>Input:</strong> 784 neurons (one per pixel)</li>
+<li class="fragment"><strong>Hidden:</strong> 2 × 16 neurons</li>
+<li class="fragment"><strong>Output:</strong> 10 neurons (digits 0 to 9)</li>
+<li class="fragment"><strong>Total:</strong> about 13,000 adjustable parameters</li>
+</ul>
+</div><div class="column">
+<div id="fig-MNIST-4" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-MNIST-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="images/MNIST-4.png" class="img-fluid">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MNIST-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Network architecture for digit recognition
+</figcaption>
+</figure>
+</div>
+</div></div>
+<aside class="notes">
+<p>One minute. The point students need for the exercise: learning is just finding good values for those ~13,000 numbers. We will now shrink that to a single neuron so they can do it by hand.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recap-the-learning-loop" class="title-slide slide level2">
+<h2>Recap: the learning loop</h2>
+<div class="medium">
+<ol type="1">
+<li class="fragment"><strong>Forward pass:</strong> make a prediction</li>
+<li class="fragment"><strong>Cost:</strong> measure how wrong it is, <span class="math inline">\(C = \sum_j (a_j - y_j)^2\)</span> <a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a></li>
+<li class="fragment"><strong>Backpropagation:</strong> find which weights are responsible</li>
+<li class="fragment"><strong>Gradient descent:</strong> nudge each weight to reduce the cost</li>
+<li class="fragment"><strong>Repeat</strong> with the next example</li>
+</ol>
+</div>
+<aside class="notes">
+<ol type="1">
+<li>Forward Pass: The AI takes the input data (like an image of a cat), passes it through its layers of neurons, and makes its best guess (e.g., “I’m 70% sure this is a dog”).</li>
+<li>Cost: The Cost (or Loss) is a single number that calculates the exact size of the AI’s mistake. It compares the AI’s guess to the actual truth. If the guess was way off, the cost is high; if the guess was perfect, the cost is close to zero. The goal of the whole process is to get this cost as low as possible.</li>
+<li>Backpropagation: The AI works backward from the error to find the culprit. It looks at every single connection (weight and bias) in the network and calculates exactly how much that specific parameter contributed to the wrong answer. It calculates gradients, which are just clues telling the network: “If you change this specific weight or bias, the cost will go up or down.”</li>
+<li>Gradient Descent: Now that the AI knows which weights or biases messed up, Gradient Descent is the rule it uses to actually change them. It takes a tiny step (a “nudge”) to adjust them in the direction that makes the cost smaller. It doesn’t rewrite everything at once—it just makes a small, smart adjustment.</li>
+<li>Repeat: The AI takes a new piece of data and does the whole thing over. By doing this millions of times across thousands of examples, the “nudges” add up, the cost shrinks, and the AI becomes incredibly accurate.</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+
+<section id="exercise-a-be-the-network" class="title-slide slide level2 discussion-slide">
+<h2>Exercise A: be the network</h2>
+<p>A single neuron has two inputs with weights <span class="math inline">\(w_1 = 0.5\)</span>, <span class="math inline">\(w_2 = -0.4\)</span>, bias <span class="math inline">\(b = 0.1\)</span>. You feed it one example: <span class="math inline">\(x_1 = 1.0\)</span>, <span class="math inline">\(x_2 = 0.0\)</span>. The correct answer is <span class="math inline">\(y = 1\)</span>.</p>
+<p><span class="h4">Tasks (pairs)</span></p>
+<ol type="1">
+<li>Compute <span class="math inline">\(z\)</span>, then <span class="math inline">\(a = \sigma(z)\)</span>. <a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a></li>
+<li>Compute the cost <span class="math inline">\(C = (a - y)^2\)</span>.</li>
+<li>For each of <span class="math inline">\(w_1\)</span>, <span class="math inline">\(w_2\)</span>, <span class="math inline">\(b\)</span>, decide whether to <strong>increase,</strong> <strong>decrease,</strong> or <strong>leave unchanged</strong> to reduce the cost. Justify each in one sentence.</li>
+<li>Why is <span class="math inline">\(w_2\)</span> a special case here?</li>
+</ol>
+<div id="timer_7b0cfb84ab078ec35c8f50bf63f73c7ae5392427" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p>Expected answers:</p>
+<ol type="1">
+<li><span class="math inline">\(z = 0.5(1.0) + (-0.4)(0.0) + 0.1 = 0.6\)</span>; <span class="math inline">\(a = 1/(1 + 0.549) \approx 0.646\)</span>.</li>
+<li><span class="math inline">\(C = (0.646 - 1)^2 \approx 0.125\)</span>.</li>
+<li>The output (0.646) is below the target (1), so we want it higher. Increase <span class="math inline">\(w_1\)</span> (its input is active and positive, so a larger <span class="math inline">\(w_1\)</span> raises <span class="math inline">\(z\)</span>). Increase <span class="math inline">\(b\)</span> (always raises <span class="math inline">\(z\)</span>). Leave <span class="math inline">\(w_2\)</span> unchanged.</li>
+<li><span class="math inline">\(x_2 = 0\)</span>, so <span class="math inline">\(w_2\)</span> has no effect on this example; its gradient is exactly 0. The network cannot learn anything about <span class="math inline">\(w_2\)</span> from an example where that input is silent.</li>
+</ol>
+<p>Formal check (optional, only if a group asks): <span class="math inline">\(\partial C / \partial w_i = 2(a - y)\,a(1 - a)\,x_i\)</span>. This gives <span class="math inline">\(-0.16\)</span> for <span class="math inline">\(w_1\)</span> and <span class="math inline">\(b\)</span>, and <span class="math inline">\(0\)</span> for <span class="math inline">\(w_2\)</span>; negative gradient means “increase to reduce cost”.</p>
+<p>Debrief in 5 minutes. Draw out the general principle: gradient descent over ~13,000 parameters is just this single step, done for every weight, over millions of examples. Connect step 4 back to the learning-loop slide.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+</section>
+<section>
+<section id="transformers-llms" class="title-slide slide level1 headline-only">
+<h1>Transformers &amp; LLMs</h1>
+
+</section>
+<section id="recap-the-transformer-pipeline" class="title-slide slide level2">
+<h2>Recap: the transformer pipeline</h2>
+<div class="medium">
+<p>Digits have <strong>fixed size;</strong> language has <strong>variable length</strong> and <strong>order matters.</strong> The transformer is built for sequences.</p>
+</div>
+<div class="fragment">
+<p>Running example: <strong>“Was the bank flooded?”</strong></p>
+</div>
+<ol type="1">
+<li class="fragment"><strong>Tokenize:</strong> split the text into tokens, the units the model processes</li>
+<li class="fragment"><strong>Embed:</strong> give each token a vector, a fixed starting point that is not yet context-aware</li>
+<li class="fragment"><strong>Transform (×N):</strong> every block runs <strong>attention,</strong> then a <strong>feed-forward network</strong></li>
+<li class="fragment"><strong>Unembed:</strong> turn the last token’s final vector into a probability over the vocabulary</li>
+</ol>
+<aside class="notes">
+<p>Two minutes. Give the whole map before the parts. The block in step 3 repeats N times (96 in GPT-3); early blocks catch surface patterns, later blocks catch abstract meaning. Steps 1, 2, and 4 are bookkeeping; the real work is step 3, unpacked on the next slides.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recap-embeddings" class="title-slide slide level2">
+<h2>Recap: embeddings</h2>
+<div class="medium">
+<p>Embeddings are a starting point, not a meaning.</p>
+</div>
+<ul>
+<li class="fragment">Each token maps to a <strong>high-dimensional vector</strong> (a lookup); similar tokens get <strong>similar vectors</strong></li>
+<li class="fragment">Directions in this space encode meaning: <em>“king” − “man” + “woman” ≈ “queen”</em></li>
+</ul>
+<div class="fragment">
+<div class="medium">
+<p>“Bank” maps to the <strong>same vector</strong> in every sentence, financial or river. That is the problem <strong>attention</strong> solves next.</p>
+</div>
+</div>
+<aside class="notes">
+<p>The point to land, and the bridge to attention: at this stage the embedding is <strong>static.</strong> The same token gets the same vector regardless of context. Attention is what makes it context-sensitive.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recap-attention-in-three-steps" class="title-slide slide level2">
+<h2>Recap: attention in three steps</h2>
+<p>Each token produces three vectors via learned matrices:</p>
+<ul>
+<li class="fragment"><code>Query</code> <span class="math inline">\(W_Q\)</span>: what context do I need?</li>
+<li class="fragment"><code>Key</code> <span class="math inline">\(W_K\)</span>: what context can I offer?</li>
+<li class="fragment"><code>Value</code> <span class="math inline">\(W_V\)</span>: what information do I send?</li>
+</ul>
+<div class="fragment">
+<p>For every token, in parallel:</p>
+</div>
+<ol type="1">
+<li class="fragment"><strong>Scores:</strong> <code>Query</code> · <code>Key</code> for each pair, how relevant is each token to me?</li>
+<li class="fragment"><strong>Softmax:</strong> turn the scores into weights between 0 and 1 that sum to 1</li>
+<li class="fragment"><strong>Weighted sum:</strong> mix the <code>Value</code> vectors using those weights</li>
+</ol>
+<div class="fragment">
+<p>Attention does <strong>not pick</strong> one token; it <strong>weights all of them.</strong><br>
+For “bank”: <span class="math inline">\(0.6 \times V(\text{flooded}) + 0.3 \times V(\text{was}) + 0.1 \times V(\text{the}) + \dots\)</span> → the riverbank meaning.</p>
+</div>
+<aside class="notes">
+<p>Three minutes; this is the heart of the block. Walk the running example: “bank’s” query matches “flooded’s” key (water context), so “flooded’s” value dominates the mix and the vector shifts toward riverbank. Stress step 3: every token contributes something, relevance is a weight rather than a yes/no choice.</p>
+<p>After attention, a feed-forward network processes each token on its own to extract meaning, then the whole block repeats N times. Multi-head attention just runs several of these in parallel, each specialising (grammar, coreference, long-range links).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recap-unembedding-and-temperature" class="title-slide slide level2">
+<h2>Recap: unembedding and temperature</h2>
+<p>The <strong>last token’s</strong> final vector carries the whole context, since through attention it has seen every earlier token.</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Last vector × <span class="math inline">\(W_U\)</span> → a raw score for every token</li>
+<li><strong>Softmax</strong> turns scores into probabilities</li>
+<li><strong>Temperature</strong> <span class="math inline">\(T\)</span> reshapes the distribution before sampling</li>
+</ul>
+<p><span class="math inline">\(P(t_i) = \frac{e^{s_i / T}}{\sum_j e^{s_j / T}}\)</span></p>
+</div><div class="column">
+<ul>
+<li><strong>Low <span class="math inline">\(T\)</span>:</strong> sharper, more deterministic</li>
+<li><strong>High <span class="math inline">\(T\)</span>:</strong> flatter, more random</li>
+<li><span class="math inline">\(T \to 0\)</span>: always the top token</li>
+<li><span class="math inline">\(T \to \infty\)</span>: uniform</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>Two minutes; the bridge to Exercise B part 2. Only the last token’s vector is unembedded, because through attention it summarises the entire input. Temperature scales the scores before softmax. Make sure they can read the formula: exponentiate each score over T, then normalise so the values sum to 1.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-b-attention" class="title-slide slide level2 discussion-slide">
+<h2>Exercise B: attention</h2>
+<div class="medium">
+<p><em>“The trophy did not fit in the suitcase because <strong>it</strong> was too big.”</em></p>
+</div>
+<ol type="1">
+<li>Which word should <strong>“it”</strong> attend to most strongly: <em>trophy</em> or <em>suitcase</em>? Why?</li>
+<li>Now change <em>big</em> to <em>small</em>. What does <strong>“it”</strong> attend to now?</li>
+</ol>
+<aside class="notes">
+<p>“it” attends to <strong>trophy</strong> (the thing that is too big to fit). Swapping to “small” flips the referent to <strong>suitcase</strong> (the container too small to hold the trophy). This is a Winograd-style sentence: the disambiguating signal is a single adjective, and attention is exactly the mechanism that routes it. No grammar rule resolves this; only context does.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-c-temperature" class="title-slide slide level2 discussion-slide">
+<h2>Exercise C: temperature</h2>
+<div class="medium">
+<p>After “The trophy was too”, the model outputs raw scores: <strong>big: 2.0, large: 1.0, heavy: 0.5.</strong></p>
+</div>
+<ol type="1">
+<li>Compute the probabilities for <strong>T = 0.5</strong> and <strong>T = 2.0.</strong></li>
+<li>The ranking is the <strong>same</strong> at both temperatures (big &gt; large &gt; heavy). So how can temperature lead to <strong>different outputs?</strong></li>
+<li>Which T suits factual output?</li>
+</ol>
+<aside class="notes">
+<p>Softmax with temperature: <span class="math inline">\(P(t_i) = \dfrac{e^{s_i / T}}{\sum_j e^{s_j / T}}\)</span>. Three steps each time: divide every score by <span class="math inline">\(T\)</span>, exponentiate, then normalise so the values sum to 1.</p>
+<p><span class="h4"><strong>T = 0.5 (low, sharp)</strong></span></p>
+<p><strong>Step 1, divide by T:</strong> <span class="math inline">\(2.0/0.5 = 4.0\)</span>; <span class="math inline">\(1.0/0.5 = 2.0\)</span>; <span class="math inline">\(0.5/0.5 = 1.0\)</span></p>
+<p><strong>Step 2, exponentiate:</strong> <span class="math inline">\(e^{4} = 54.60\)</span>; <span class="math inline">\(e^{2} = 7.39\)</span>; <span class="math inline">\(e^{1} = 2.72\)</span></p>
+<p><strong>Step 3, sum:</strong> <span class="math inline">\(54.60 + 7.39 + 2.72 = 64.71\)</span></p>
+<p><strong>Step 4, normalise:</strong></p>
+<ul>
+<li>big: <span class="math inline">\(54.60 / 64.71 = 0.84\)</span></li>
+<li>large: <span class="math inline">\(7.39 / 64.71 = 0.11\)</span></li>
+<li>heavy: <span class="math inline">\(2.72 / 64.71 = 0.04\)</span></li>
+</ul>
+<p><span class="h4"><strong>T = 2.0 (high, flat)</strong></span></p>
+<p><strong>Step 1, divide by T:</strong> <span class="math inline">\(2.0/2.0 = 1.0\)</span>; <span class="math inline">\(1.0/2.0 = 0.5\)</span>; <span class="math inline">\(0.5/2.0 = 0.25\)</span></p>
+<p><strong>Step 2, exponentiate:</strong> <span class="math inline">\(e^{1} = 2.72\)</span>; <span class="math inline">\(e^{0.5} = 1.65\)</span>; <span class="math inline">\(e^{0.25} = 1.28\)</span></p>
+<p><strong>Step 3, sum:</strong> <span class="math inline">\(2.72 + 1.65 + 1.28 = 5.65\)</span></p>
+<p><strong>Step 4, normalise:</strong></p>
+<ul>
+<li>big: <span class="math inline">\(2.72 / 5.65 = 0.48\)</span></li>
+<li>large: <span class="math inline">\(1.65 / 5.65 = 0.29\)</span></li>
+<li>heavy: <span class="math inline">\(1.28 / 5.65 = 0.23\)</span></li>
+</ul>
+<p><span class="h4"><strong>Why outputs differ (question 2, the key point)</strong></span></p>
+<ul>
+<li>Temperature does <strong>not</strong> reorder the tokens; “big” is the most likely at every T. Dividing all scores by the same T is a monotonic operation, so the ranking is preserved.</li>
+<li>Outputs differ because the next token is <strong>sampled</strong> from the distribution, not always taken as the top one. The probabilities set the odds; a random draw picks the actual token.</li>
+<li><strong>Low T (0.5):</strong> the distribution is peaked (0.84 / 0.11 / 0.04), so the draw lands on “big” almost every time. Output is near-deterministic and repetitive. Over 10 generations: roughly 8 to 9 “big”.</li>
+<li><strong>High T (2.0):</strong> the distribution is flat (0.48 / 0.29 / 0.23), so “large” and “heavy” get drawn often even though “big” still leads. Output varies run to run. Over 10 generations: roughly 5 “big”, 3 “large”, 2 “heavy”.</li>
+<li>So temperature changes the <em>spread of the odds</em>, and sampling turns that spread into different concrete outputs.</li>
+</ul>
+<p><span class="h4"><strong>Limits and use (question 3)</strong></span></p>
+<ul>
+<li><span class="math inline">\(T \to 0\)</span>: distribution collapses onto “big” (probability 1); sampling becomes deterministic (greedy).</li>
+<li><span class="math inline">\(T \to \infty\)</span>: distribution approaches uniform (0.33 each); the draw becomes a coin flip among all tokens.</li>
+<li><strong>Factual output wants low T;</strong> creative output wants high T.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-d-quick-check" class="title-slide slide level2 discussion-slide">
+<h2>Exercise D: quick check</h2>
+<p>True ore false?</p>
+<ol type="1">
+<li>A transformer never sees raw text; it works on tokens turned into vectors.</li>
+<li>Before attention, a word’s embedding is the same regardless of surrounding context.</li>
+<li>Attention picks the single most relevant word and ignores all the others.</li>
+<li>The attention plus feed-forward block is applied only once.</li>
+<li>A higher sampling temperature makes the output more random.</li>
+</ol>
+<div id="timer_7b0cfb84ab078ec35c8f50bf63f73c7ae5392427" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<ol type="1">
+<li><strong>True.</strong> Text is tokenized and each token becomes a vector; the model only ever processes vectors, never characters or words directly.</li>
+<li><strong>True.</strong> The embedding is a static lookup, the same vector for a token every time. Attention is what makes it context-sensitive afterwards. (Watch for students conflating this with the post-attention vector, which does change.)</li>
+<li><strong>False.</strong> Attention weights <em>all</em> tokens via softmax and mixes their values; relevance is a weight between 0 and 1, not a single winner-takes-all choice.</li>
+<li><strong>False.</strong> The attention plus feed-forward block is stacked and repeated N times (e.g., 96 layers in GPT-3); depth is where abstract meaning builds up.</li>
+<li><strong>True.</strong> Higher temperature flattens the probability distribution, so less likely tokens get picked more often, giving more varied or creative output.</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="wrap-up" class="title-slide slide level1 headline-only">
+<h1>Wrap-up</h1>
+
+</section>
+<section id="key-takeaways" class="title-slide slide level2">
+<h2>Key takeaways</h2>
+<p><span class="h4 fragment">How a network learns</span></p>
+<ul>
+<li class="fragment">A neuron is a weighted sum plus an activation; weights and bias are the only things that change</li>
+<li class="fragment">Learning is a loop: predict, measure cost, find responsible weights, nudge them down the gradient</li>
+<li class="fragment">“Training” is this one small step repeated over millions of examples and thousands of parameters</li>
+</ul>
+<p><span class="h4 fragment">Transformers &amp; LLMs</span></p>
+<ul>
+<li class="fragment">Embeddings put meaning into geometry; attention reshapes each word’s vector using its context</li>
+<li class="fragment">Query-key scores decide relevance; values carry the information that gets mixed in</li>
+<li class="fragment">The final vector becomes next-token probabilities; temperature tunes reliability vs creativity</li>
+</ul>
+</section>
+
+<section id="bridge" class="title-slide slide level2 discussion-slide">
+<h2>Bridge</h2>
+<div class="medium">
+<p>Same machinery, different scale: the digit neuron and GPT both learn by nudging weights down a gradient.</p>
+</div>
+<p>What breaks, or has to change, when you go from 13,000 parameters to billions?</p>
+<aside class="notes">
+<p>Optional 2-minute closer if time allows; otherwise leave as a take-home thought. Fish for: data scale, compute cost, emergent capabilities, and new failure modes (hallucination, bias). Bridges naturally to the GenAI and ethics units.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only" data-background-image="../assets/bg.jpeg">
+<h1>Q&amp;A</h1>
+
+</section>
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" role="list">
+
+</div>
+
+
+</section>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h3>Footnotes</h3>
+
+<ol>
+<li id="fn1"><p>This is the <strong>Quadratic Cost</strong> (or Mean Squared Error) formula. It calculates the squared difference between the network’s actual output (<span class="math inline">\(a_j\)</span>) and the correct target label (<span class="math inline">\(y_j\)</span>) across all final output neurons (<span class="math inline">\(j\)</span>). Squaring the error ensures the result is always positive and penalizes larger mistakes more heavily.</p></li>
+<li id="fn2"><p><span class="math inline">\(e^{-0.6} \approx 0.549\)</span>.</p></li>
+</ol>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

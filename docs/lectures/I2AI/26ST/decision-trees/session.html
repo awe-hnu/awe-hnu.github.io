@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bayesian Networks &amp; Probabilistic Inference – I2AI</title>
+<title>Decision Trees – I2AI</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
@@ -295,8 +295,7 @@
 <section class="content-slide">
   <div class="slide-header">
     <h2>Exercise 1 — Draw a Decision Tree</h2>
-    <span class="tag">Exercise</span>
-    <span class="timer" data-minutes="10"></span>
+    <span class="tag">Additional Exercise</span>
   </div>
   <div class="callout exercise">
     <div class="callout-label">✏️ Exercise</div>
@@ -341,9 +340,9 @@
     <span>Note that this is just one possible solution, your tree might look very different. A real trained tree might look quite different — it would calculate information gain and discover which attribute actually separates approvals from denials most cleanly in the training data. The structure might surprise you.</span>
 </div>
     <p><strong>Node count:</strong> 11 </p>
-      <li style="font-size:16px"> Root node: 1 - Credit score </li>
-      <li style="font-size:16px"> Internal nodes (decision nodes): 4 - Credit Score, Income (left branch), Employment (right branch), and two Existing debt nodes</li>
-      <li style="font-size:16px"> Leaf nodes: 6 - four on the bottom row (left branch) + Approve and Deny directly under Employment</li>
+      <li style="font-size:14px"> Root node: 1 - Credit score </li>
+      <li style="font-size:14px"> Internal nodes (decision nodes): 4 - Credit Score, Income (left branch), Employment (right branch), and two Existing debt nodes</li>
+      <li style="font-size:14px"> Leaf nodes: 6 - four on the bottom row (left branch) + Approve and Deny directly under Employment</li>
   </div>
   <div class="fragment">
   <p><strong>Can every possible combination of attribute values be correctly classified by the tree?</strong></p>
@@ -354,7 +353,7 @@
 <!-- 1.3 Types -->
 <section class="content-slide">
   <div class="slide-header">
-    <h2>1.3 — Types of Decision Trees</h2>
+    <h2>Types of Decision Trees</h2>
   </div>
   <div class="fragment">
   <div class="two-col">
@@ -876,14 +875,14 @@
   </div>
   <div class="callout note" style="margin-bottom:.6em;">
     <div class="callout-label">Recall — Gini Impurity</div>
-    <code class="formula">Gini(D) = 1 − Σ p(x)²</code>
+    <code class="formula fragment">Gini(X) = Σ p(x) · (1 − p(x))</code>
     <p style="font-size:.9em; margin-top:.4em;">Measures the probability of incorrectly classifying a randomly chosen element. A pure node has Gini = 0. Instead of information gain, we now look for the attribute with the <strong>lowest weighted Gini impurity</strong> after splitting.</p>
   </div>
   <div class="callout exercise">
     <div class="callout-label">✏️ Task — repeat for each of the 3 attributes</div>
     <ol style="line-height:2.2; font-size:.93em;">
       <li>Split D by the attribute — how many Ma / Hy / Re fall into each subset?</li>
-      <li>For each subset, calculate <code>Gini(D<sub>x</sub>) = 1 − Σ p(x)²</code></li>
+      <li>For each subset, calculate <code>Gini(D<sub>x</sub>) = Σ p(x) · (1 − p(x))</code></li>
       <li>Calculate the weighted Gini impurity: <code>Σ (|D<sub>x</sub>| / |D|) · Gini(D<sub>x</sub>)</code></li>
       <li>Note the result — compare all three values at the end to identify the root node</li>
     </ol>
@@ -898,7 +897,7 @@
   </div>
   <div class="callout note" style="margin-bottom:.5em;">
     <div class="callout-label">Recall</div>
-    <code class="formula">Gini(D) = 1 − Σ p(x)²</code>
+    <code class="formula">Gini(D) =  Σ p(x) · (1 − p(x))</code>
   </div>
   <div class="callout exercise">
     <div class="callout-label">✏️ Task</div>
@@ -911,9 +910,8 @@
   <div class="fragment answer-box">
     <div class="answer-label">Solution</div>
     <p class="fragment">Marathon: 3/10 · Hyrox: 3/10 · Rest: 4/10</p>
-    <p class="fragment" style="margin-top:.4em;"><strong>Gini(D)</strong> = 1 − (3/10)² − (3/10)² − (4/10)²<br/>
-    = 1 − 0.090 − 0.090 − 0.160 = <strong>0.660</strong></p>
-    <p class="fragment" style="margin-top:.4em; font-size:.9em;">Maximum for 3 equal classes = 1 − 3·(1/3)² = 0.667 — we are very close to maximum impurity. The dataset is highly mixed.</p>
+    <p class="fragment" style="margin-top:.4em;"><strong>Gini(D)</strong> = (3/10) · (1 − (3/10)) + (3/10) · (1 − (3/10)) + (4/10) · (1 − (4/10))<br/>
+    = <strong>0.660</strong></p>
   </div>
 </section>
 
@@ -940,9 +938,9 @@
   </div>
   <div class="fragment answer-box" style="margin-top:.5em; font-size:.88em;">
     <div class="answer-label">Solution</div>
-    <p class="fragment"><strong>Gini(D<sub>Yes</sub>)</strong> = 1 − (3/6)² − (3/6)²<br/>
-    = 1 − 0.250 − 0.250 = <strong>0.500</strong></p>
-    <p class="fragment" style="margin-top:.4em;"><strong>Gini(D<sub>No</sub>)</strong> = 1 − (4/4)²<br/>
+    <p class="fragment"><strong>Gini(D<sub>Yes</sub>)</strong> = (3/6) · ( 1 − (3/6)) + (3/6) · (1 - (3/6))<br/>
+    = <strong>0.500</strong></p>
+    <p class="fragment" style="margin-top:.4em;"><strong>Gini(D<sub>No</sub>)</strong> = (4/4) · (1 − (4/4))<br/>
     = 1 − 1.000 = <strong>0.000</strong> <em>(pure — all Rest)</em></p>
     <p class="fragment" style="margin-top:.5em;"><strong>Weighted Gini(Suffering)</strong> = (6/10)·0.500 + (4/10)·0.000<br/>
     = 0.300 + 0.000 = <strong>0.300</strong></p>
@@ -965,10 +963,10 @@
   </table>
   <div class="answer-box" style="margin-top:.5em; font-size:.88em;">
     <div class="answer-label">Solution</div>
-    <p ><strong>Gini(D<sub>Yes</sub>)</strong> = 1 − (3/4)² − (1/4)²<br/>
-    = 1 − 0.5625 − 0.0625 = <strong>0.375</strong></p>
-    <p  style="margin-top:.4em;"><strong>Gini(D<sub>No</sub>)</strong> = 1 − (3/6)² − (3/6)²<br/>
-    = 1 − 0.250 − 0.250 = <strong>0.500</strong></p>
+    <p ><strong>Gini(D<sub>Yes</sub>)</strong> = (3/4) (1 − (3/4))) + (3/4) (1 − (1/4))<br/>
+   = <strong>0.375</strong></p>
+    <p  style="margin-top:.4em;"><strong>Gini(D<sub>No</sub>)</strong> = (3/6)·(1 − (3/6)) + (3/6)·(1 − (3/6))<br/>
+    <strong>0.500</strong></p>
     <p  style="margin-top:.5em;"><strong>Weighted Gini(Social)</strong> = (4/10)·0.375 + (6/10)·0.500<br/>
     = 0.150 + 0.300 = <strong>0.450</strong></p>
   </div>
@@ -991,12 +989,9 @@
   </table>
   <div class="answer-box" style="margin-top:.5em; font-size:.88em;">
     <div class="answer-label">Solution</div>
-    <p><strong>Gini(D<sub>High</sub>)</strong> = 1 − (1/2)² − (1/2)²<br/>
-    = 1 − 0.250 − 0.250 = <strong>0.500</strong></p>
-    <p style="margin-top:.4em;"><strong>Gini(D<sub>Medium</sub>)</strong> = 1 − (2/3)² − (1/3)²<br/>
-    = 1 − 0.444 − 0.111 = <strong>0.444</strong></p>
-    <p style="margin-top:.4em;"><strong>Gini(D<sub>Low</sub>)</strong> = 1 − (2/5)² − (3/5)²<br/>
-    = 1 − 0.160 − 0.360 = <strong>0.480</strong></p>
+    <p><strong>Gini(D<sub>High</sub>)</strong> = (1/2)·(1 - (1/2)) − (1/2)·(1 - (1/2))<br/> = <strong>0.500</strong></p>
+    <p style="margin-top:.4em;"><strong>Gini(D<sub>Medium</sub>)</strong> = <strong>0.444</strong></p>
+    <p style="margin-top:.4em;"><strong>Gini(D<sub>Low</sub>)</strong> = <strong>0.480</strong></p>
     <p style="margin-top:.5em;"><strong>Weighted Gini(Strength)</strong> = (2/10)·0.500 + (3/10)·0.444 + (5/10)·0.480<br/>
     = 0.100 + 0.133 + 0.240 = <strong>0.473</strong></p>
   </div>
