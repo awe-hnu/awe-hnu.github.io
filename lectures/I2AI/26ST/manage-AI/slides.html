@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Managing AI – I2AI</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --blue:        #0535f5;
+  --blue-dark:   #0228cc;
+  --blue-light:  #2a55ff;
+  --cyan:        #4de8f4;
+  --white:       #ffffff;
+  --off-white:   #f7f8fc;
+  --light-bg:    #f0f2fc;
+  --text-dark:   #0d0d0d;
+  --muted-dark:  #444;
+  --border:      #d8daf0;
+  --mono-meta:   #b8ccff;
+  --footer-h:    52px;
+}
+.reveal {
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  background: var(--blue);
+  color: var(--white);
+}
+.reveal .slides { width: 100%; height: 100%; }
+.reveal .slides section {
+  text-align: left;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.reveal h1,.reveal h2,.reveal h3,.reveal h4 {
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  text-transform: none;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-shadow: none;
+  margin: 0 0 .4em;
+}
+.title-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+.title-slide::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -5%;
+  width: 62%; height: 110%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(77,232,244,.22) 0%, rgba(40,120,255,.18) 30%, transparent 70%);
+  pointer-events: none;
+}
+.title-inner {
+  position: relative; z-index: 2;
+  padding: 0 3.5rem calc(var(--footer-h) + 2rem);
+}
+.title-slide h1 { font-size: 4em; font-weight: 300; color: var(--white); line-height: 1.05; margin: 0 0 .45em; }
+.title-slide .subtitle { font-family: 'Space Grotesk',sans-serif; font-size: 1.25em; font-weight: 500; color: var(--white); margin: 0 0 2em; opacity: .95; }
+.title-slide .meta-block { font-family: 'Space Mono',monospace; font-size: .72em; color: var(--mono-meta); line-height: 2; }
+.version-tag { position: absolute; top: 1.4rem; left: 1.5rem; font-family: 'Space Mono',monospace; font-size: .68em; color: var(--mono-meta); z-index: 10; }
+.slide-footer-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--footer-h); background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.4rem; z-index: 100; box-sizing: border-box;
+}
+.slide-footer-bar .footer-left { font-family: 'Space Mono',monospace; font-size: .6em; color: var(--text-dark); display: flex; align-items: center; gap: 1.2rem; }
+.slide-footer-bar .footer-version { color: #888; margin-right: .5rem; }
+.slide-footer-bar .footer-logo { font-family: 'Space Grotesk',sans-serif; font-size: 1.4em; font-weight: 700; color: var(--text-dark); letter-spacing: -.04em; }
+.footer-menu { width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; margin-right: .8rem; }
+.footer-menu span { display: block; height: 2px; background: var(--text-dark); border-radius: 1px; }
+.section-slide {
+  background: var(--blue) !important;
+  display: flex !important; flex-direction: column; justify-content: center;
+  height: 100%; padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+  position: relative; overflow: hidden;
+}
+.section-slide::before {
+  content: ''; position: absolute; top: -20%; right: -10%; width: 50%; height: 140%;
+  background: radial-gradient(ellipse, rgba(77,232,244,.15) 0%, transparent 65%); pointer-events: none;
+}
+.section-slide .section-label { font-family: 'Space Mono',monospace; font-size: .72em; color: var(--mono-meta); margin-bottom: .7em; letter-spacing: .04em; }
+.section-slide h1 { font-size: 2.8em; font-weight: 300; color: var(--white); margin: 0 0 .5em; }
+.section-slide .section-desc { font-family: 'Space Grotesk',sans-serif; font-size: .9em; color: rgba(255,255,255,.72); max-width: 60%; line-height: 1.75; }
+.section-slide .section-number { position: absolute; right: 3rem; bottom: calc(var(--footer-h) + 1rem); font-family: 'Space Grotesk',sans-serif; font-size: 8em; font-weight: 700; color: rgba(255,255,255,.07); line-height: 1; pointer-events: none; user-select: none; }
+.content-slide {
+  background: var(--off-white) !important; color: var(--text-dark) !important;
+  padding: 2rem 3.5rem calc(var(--footer-h) + 1.2rem) !important; height: 100%;
+}
+.content-slide p, .content-slide li, .content-slide td { color: var(--text-dark); }
+.slide-header {
+  display: flex; align-items: baseline; gap: .7em;
+  border-bottom: 2px solid var(--blue); padding-bottom: .35em; margin-bottom: .85em;
+}
+.slide-header h2 { font-family: 'Space Grotesk',sans-serif; font-size: 1.35em; font-weight: 600; color: var(--blue); margin: 0; flex: 1; border: none; }
+.content-slide p { line-height: 1.72; margin: .5em 0; font-size: .95em; }
+.content-slide ul, .content-slide ol { margin: .4em 0 .4em 1.3em; }
+.content-slide li { margin: .3em 0; line-height: 1.65; font-size: .95em; }
+.content-slide ul > li::marker { color: var(--blue); }
+.content-slide strong { font-weight: 700; }
+.content-slide code { font-family: 'Space Mono',monospace; font-size: .8em; background: #e8eaf8; color: var(--blue-dark); padding: .08em .35em; border-radius: 3px; }
+.content-slide table { width: 100%; border-collapse: collapse; font-size: .84em; margin: .7em 0; }
+.content-slide table th { background: var(--blue); color: var(--white); font-family: 'Space Grotesk',sans-serif; font-weight: 600; padding: .55em .85em; text-align: left; }
+.content-slide table td { padding: .45em .85em; border-bottom: 1px solid var(--border); vertical-align: top; }
+.content-slide table tbody tr:nth-child(even) td { background: var(--light-bg); }
+.content-slide table tbody tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; background: rgba(5,53,245,.1); color: var(--blue); font-family: 'Space Mono',monospace; font-size: .63em; letter-spacing: .05em; text-transform: uppercase; padding: .17em .6em; border-radius: 2px; border: 1px solid rgba(5,53,245,.2); vertical-align: middle; flex-shrink: 0; }
+.callout { background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 4px 4px 0; padding: .75em 1.1em; margin: .75em 0; font-size: .91em; }
+.callout p { margin: .25em 0; }
+.callout ol, .callout ul { color: var(--text-dark); }
+.callout.exercise { border-left-color: var(--cyan); background: #edfcfe; }
+.callout.exercise .callout-label { color: #0099aa; }
+.callout.note { border-left-color: var(--blue); background: var(--light-bg); }
+.callout.warning { border-left-color: #f5a623; background: #fef9ee; }
+.callout.warning .callout-label { color: #c07a00; }
+.callout-label { font-family: 'Space Mono',monospace; font-size: .7em; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: .28em; }
+.answer-box { background: var(--light-bg); border: 1px solid var(--border); border-left: 4px solid var(--cyan); border-radius: 0 4px 4px 0; padding: .75em 1.1em; font-size: .91em; }
+.answer-box p, .answer-box li { margin: .25em 0; }
+.answer-label { font-family: 'Space Mono',monospace; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; color: #0099aa; margin-bottom: .35em; }
+.reveal .progress { background: rgba(255,255,255,.15); height: 3px; }
+.reveal .progress span { background: var(--cyan); }
+.reveal .controls { color: var(--white); bottom: calc(var(--footer-h) + 8px); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; align-items: start; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .9em; align-items: start; }
+.info-card { background: var(--light-bg); border: 1px solid var(--border); border-radius: 6px; padding: .75em 1em; }
+.info-card .card-title { font-family: 'Space Grotesk',sans-serif; font-weight: 700; font-size: .82em; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .35em; }
+.info-card p, .info-card li { font-size: .92em; color: var(--text-dark); margin: .2em 0; }
+.info-card ul { margin: .3em 0 .3em 1.1em; }
+blockquote {
+  background: var(--light-bg); border-left: 4px solid var(--blue);
+  border-radius: 0 4px 4px 0; padding: .8em 1.2em; margin: .6em 0;
+  font-style: italic; color: var(--text-dark); font-size: .95em; line-height: 1.8;
+  box-shadow: none;
+}
+blockquote p { margin: 0; color: var(--text-dark); }
+</style>
+</head>
+<body>
+
+<div class="slide-footer-bar">
+  <div class="footer-left">
+    <div class="footer-menu"><span></span><span></span><span></span></div>
+    <span class="footer-version">V 1.0</span>
+    <span>Deinera Jechle &nbsp;/&nbsp; Neu-Ulm University of Applied Sciences &nbsp;/&nbsp; Introduction to Artificial Intelligence (AI)</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <div class="footer-logo">HNU</div>
+    <div id="footer-slide-num" style="font-family:'Space Mono',monospace;font-size:.6em;color:#888;">1</div>
+  </div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- TITLE -->
+<section class="title-slide">
+  <div class="version-tag">V 1.0</div>
+  <div class="title-inner">
+    <h1>Managing AI</h1>
+    <p class="subtitle">Introduction to AI (I2AI)</p>
+    <div class="meta-block">
+      <span>Deinera Jechle</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Neu-Ulm University of Applied Sciences</span><br/>
+      5. June 2026
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTION 01 — INTRODUCTION
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 01</div>
+  <h1>Introduction</h1>
+  <p class="section-desc">From technological capability to organisational reality — why managing AI is fundamentally different from managing conventional software.</p>
+  <div class="section-number">01</div>
+</section>
+
+<!-- Discussion -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Discussion</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.05em; line-height:1.8;">What challenges have you observed or heard about when organisations try to use AI in practice?</p>
+  </div>
+</section>
+
+<!-- Introductory Remarks -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Introductory Remarks</h2>
+  </div>
+  <p style="font-size:1.05em; font-weight:300;">Understanding how generative AI works is one thing.<br/>
+  Knowing what to do with it inside an organisation is another.</p>
+  <p class="fragment">The shift from recognition to generation, and now toward agentic systems, has not just expanded what AI can do but fundamentally changed the management challenge.</p>
+  <p class="fragment">The same properties that make modern AI powerful are also what make it difficult to govern <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(Urbach, Feulner &amp; Dilger, 2026)</span>:</p>
+  <ul>
+    <li class="fragment">An LLM that <strong>hallucinates confidently</strong> is not just a technical failure but a <strong>management failure</strong></li>
+    <li class="fragment">A diffusion model that <strong>embeds bias invisibly</strong> is not just a modelling problem but a <strong>governance problem</strong></li>
+    <li class="fragment">An agentic system that <strong>takes unintended actions</strong> is not just a deployment error but a <strong>strategy problem</strong></li>
+  </ul>
+</section>
+
+<!-- Three management challenges -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Three Management Challenges</h2>
+  </div>
+  <p>Organisations today face three major challenges <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(Urbach, Feulner &amp; Dilger, 2026)</span>:</p>
+  <ul>
+    <li class="fragment"><strong>Identifying the right use cases:</strong> not every process that can be automated should be; choosing well requires connecting AI capability to actual strategic value</li>
+    <li class="fragment"><strong>Building and integrating solutions:</strong> data quality, make-or-buy decisions, and workflow redesign are as important as model quality</li>
+    <li class="fragment"><strong>Governing AI responsibly:</strong> ethics, accountability, regulatory compliance (including the EU AI Act), and ongoing monitoring cannot be afterthoughts</li>
+  </ul>
+  <div class="fragment callout note" style="margin-top:.8em;">
+    <div class="callout-label">Key Insight</div>
+    <p>None of these challenges can be solved by understanding the technology better.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTION 02 — AI STRATEGIZING
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 02</div>
+  <h1>AI Strategizing</h1>
+  <p class="section-desc">Why AI demands a dedicated strategy — and how the 4S framework and strategic archetypes guide organisational decision-making.</p>
+  <div class="section-number">02</div>
+</section>
+
+<!-- Discussion -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Discussion</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.05em; line-height:1.8;">Why do you think most AI projects fail — even when the underlying technology works?</p>
+  </div>
+</section>
+
+<!-- Why AI demands a strategic response -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Why AI Demands a Strategic Response</h2>
+  </div>
+  <p style="font-size:1.0em;">AI projects fail more often than they succeed. Not because the technology doesn't work, but <strong>because organisations launch them without strategic direction</strong> <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(Urbach et al., 2026)</span>.</p>
+  <p style="margin-top:.6em;">AI doesn't merely improve efficiency. It changes the conditions under which organisations compete:</p>
+  <ul>
+    <li><strong>Market shifts:</strong> from human-crafted to AI-driven products and services; from generalised targeting to individual customisation</li>
+    <li><strong>Resource shifts:</strong> from manual to data-driven decision-making; from human-dependent to AI-enhanced productivity; to uncertainty as an unavoidable factor to manage</li>
+  </ul>
+  <p class="fragment" style="margin-top:.5em;">These shifts require a strategic response.</p>
+</section>
+
+<!-- Definition of AI Strategy -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Definition of AI Strategy</h2>
+  </div>
+  <blockquote>
+    <p>An <strong>AI strategy</strong> is a set of guidelines for <strong>courses of action and decisions that directs AI projects in line with firm-specific goals and constraints</strong> toward a distinct strategic direction.</p>
+    <cite style="display:block; margin-top:.6em; font-style:normal; font-size:.75em; color:var(--blue); font-family:'Space Grotesk',sans-serif; font-weight:600;">— Urbach, Feulner, Mayer &amp; Meierhöfer (2026)</cite>
+  </blockquote>
+</section>
+
+<!-- Chain of argumentation -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The Chain of Argumentation</h2>
+  </div>
+  <p><strong>Why does AI specifically require its own strategy?</strong> Urbach et al. (2026) lay out a four-step chain of reasoning:</p>
+  <div style="text-align:center; margin-top:1em;">
+    <img src="images/Fig1-Chain-of-argumentation.png" style="max-width:100%; max-height:340px; object-fit:contain;" />
+  </div>
+  <p style="font-size:.78em; color:var(--muted-dark); margin-top:.4em;">Figure 1: Chain of argumentation for the need for an AI strategy. Adapted from Urbach, Feulner, Mayer &amp; Meierhöfer (2026, p. 163).</p>
+</section>
+
+<!-- The 4S Framework -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The 4S Framework</h2>
+  </div>
+  <p>AI introduces <strong>strategic challenges</strong> across four dimensions:</p>
+  <div class="two-col" style="margin-top:.6em;">
+    <div class="info-card">
+      <div class="card-title">Scope</div>
+      <p>How AI is organized and governed — strategic ownership, governance level</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Scale</div>
+      <p>How AI capabilities are acquired — knowledge acquisition, technology sourcing</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Speed</div>
+      <p>How AI use cases are identified and grown — use case identification, expansion</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Source</div>
+      <p>How AI affects the business model — technology aspiration, value creation</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top:.7em;">A coherent AI strategy means making deliberate, consistent choices across all four dimensions.</p>
+</section>
+
+<!-- Strategic Archetypes -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Strategic Archetypes</h2>
+  </div>
+  <p>The configuration across the 4S dimensions depends on the organisation's strategic archetype:</p>
+  <table style="margin-top:.5em; font-size:.8em;">
+    <thead><tr><th>Archetype</th><th>Strategic orientation</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Technology Navigator</strong></td>
+        <td><strong>Pushes AI boundaries</strong> through R&amp;D; undertakes <strong>risky but rewarding</strong> projects at the AI frontier</td>
+        <td>JPMorgan, Microsoft, Infineon, SAP</td>
+      </tr>
+      <tr>
+        <td><strong>Innovation Explorer</strong></td>
+        <td>Delves into <strong>promising emerging territories</strong>; invests substantially in <strong>AI to unlock new value streams</strong></td>
+        <td>American Express, Bayer, E.ON, Volkswagen</td>
+      </tr>
+      <tr>
+        <td><strong>Business Enhancer</strong></td>
+        <td>Focuses on <strong>improving operational performance</strong>; explores initial use cases but is cautious</td>
+        <td>MTU Aero Engines, P&amp;G, Linde, Chevron</td>
+      </tr>
+      <tr>
+        <td><strong>Operations Stabilizer</strong></td>
+        <td>Resorts to <strong>AI in only a few isolated use cases</strong>; prefers <strong>stability and reliability</strong></td>
+        <td>Henkel, Nike, McDonald's, Coca-Cola</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:.72em; color:var(--muted-dark); margin-top:.3em;">Table 2: Adapted from Urbach et al. (2026, p. 166).</p>
+</section>
+
+<!-- Why archetype identification matters -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Why Archetype Identification Matters</h2>
+  </div>
+  <p>Identifying the right archetype matters because each implies a different set of operational decisions:</p>
+  <ul class="fragment">
+    <li><strong>Use case selection</strong> — e.g., a Business Enhancer should prioritize process improvement with clear ROI</li>
+    <li><strong>Sourcing decisions</strong> — e.g., an Operations Stabilizer buys ready-made solutions</li>
+    <li><strong>Governance design</strong> — e.g., a Technology Navigator needs enterprise-wide AI governance</li>
+    <li><strong>Risk tolerance</strong> — e.g., an Operations Stabilizer treats model failure as unacceptable</li>
+  </ul>
+  <div class="fragment callout warning" style="margin-top:.8em;">
+    <div class="callout-label">⚠ Key Finding</div>
+    <p><strong>Misalignment between archetype and actual decisions is a primary driver of AI project failure.</strong> An organisation that behaves like an Innovation Explorer in use-case selection but like an Operations Stabilizer in resourcing will run ambitious experiments with inadequate infrastructure.</p>
+  </div>
+</section>
+
+<!-- No archetype is inherently superior -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>No Archetype Is Inherently Superior</h2>
+  </div>
+  <p>A regulated utility pursuing an Operations Stabilizer approach may be making a more rational strategic choice than a startup chasing cutting-edge technology it cannot sustain.</p>
+  <p style="margin-top:.6em;">What matters is <strong>internal consistency</strong>: the chosen archetype should be coherent with the organisation's competitive context, and all four strategic dimensions ("4S") should point in the same direction.</p>
+  <div class="callout note" style="margin-top:.8em;">
+    <div class="callout-label">Core Principle</div>
+    <p><strong>The goal of AI strategizing is not to maximise technological ambition but to match strategic posture to organisational reality.</strong></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTION 03 — AI READINESS
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 03</div>
+  <h1>AI Readiness</h1>
+  <p class="section-desc">The preconditions for executing an AI strategy — from baseline organisational capacity to AI-specific factors.</p>
+  <div class="section-number">03</div>
+</section>
+
+<!-- Definition and motivation -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Definition and Motivation</h2>
+  </div>
+  <blockquote>
+    <p>AI readiness is the <strong>preparedness</strong> of an organisation to <strong>implement changes involving AI applications and technology.</strong></p>
+    <cite style="display:block; margin-top:.6em; font-style:normal; font-size:.75em; color:var(--blue); font-family:'Space Grotesk',sans-serif; font-weight:600;">— Alsheibani et al. (2018)</cite>
+  </blockquote>
+  <p class="fragment" style="margin-top:.8em;">The concept matters because strategy on paper does not equal strategy in practice. An organisation may choose the right archetype and still fail to execute, because the necessary conditions are not in place. AI readiness identifies those conditions.</p>
+</section>
+
+<!-- Organisational readiness for change -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Organisational Readiness for Change</h2>
+  </div>
+  <p>Before any AI-specific factors, organisations must have a baseline capacity to adopt and sustain new technology at all:</p>
+  <ul>
+    <li class="fragment"><strong>Financial and technological resources:</strong> adequate investment capacity and infrastructure</li>
+    <li class="fragment"><strong>Management support:</strong> active sponsorship from leadership; without it, initiatives lose priority when they compete with operations</li>
+    <li class="fragment"><strong>Organisational culture:</strong> tolerance for experimentation, calculated risk, and continuous learning</li>
+    <li class="fragment"><strong>Commitment:</strong> sustained resolve to work through implementation setbacks</li>
+  </ul>
+  <p class="fragment" style="margin-top:.6em;">These factors are necessary but not sufficient. AI adds further demands on top of them.</p>
+</section>
+
+<!-- AI-specific readiness factors -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>AI-Specific Readiness Factors</h2>
+  </div>
+  <ul>
+    <li class="fragment"><strong>Innovation adoption:</strong> shaped by perceived relative advantage, compatibility, complexity, trialability, and observability (Rogers, 2003); for AI, <em>complexity</em> and <em>observability</em> are particular friction points</li>
+    <li class="fragment"><strong>Resources:</strong> rare skill combinations (data scientists, ML engineers), qualitatively different infrastructure (high-performance compute, MLOps tooling); organisations that underestimate these requirements stall at proof-of-concept</li>
+    <li class="fragment"><strong>Knowledge:</strong> AI literacy cannot be limited to a specialist team</li>
+    <li class="fragment"><strong>Culture:</strong> AI exposes errors in ways conventional software does not — blame cultures will find AI particularly difficult to deploy responsibly</li>
+    <li class="fragment"><strong>Data:</strong> availability, quality, accessibility, and governance; data is the fuel of AI and the most common bottleneck in practice</li>
+  </ul>
+  <p class="fragment" style="margin-top:.5em; font-style:italic; color:var(--muted-dark);">Readiness is not a binary state.</p>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTION 04 — GOVERNANCE OF AI
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 04</div>
+  <h1>Governance of AI</h1>
+  <p class="section-desc">The risk landscape, governance mechanisms, and reference frameworks — why governance cannot be an afterthought.</p>
+  <div class="section-number">04</div>
+</section>
+
+<!-- Discussion -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Discussion</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Discussion</div>
+    <p style="font-size:1.05em; line-height:1.8;">When you hear "AI governance", what comes to your mind?</p>
+  </div>
+</section>
+
+<!-- Why governance cannot be an afterthought -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Why Governance Cannot Be an Afterthought</h2>
+  </div>
+  <p style="font-size:1.0em;">An AI strategy tells an organisation <strong>what</strong> to pursue. Governance answers <strong>under what conditions</strong> and <strong>according to what rules</strong>.</p>
+  <div class="fragment" style="margin-top:.7em;">
+    <p>Without governance, even a well-designed strategy degrades in practice:</p>
+    <ul>
+      <li>Responsibilities are unclear</li>
+      <li>Risks accumulate silently</li>
+      <li>Accountability evaporates the moment something goes wrong</li>
+    </ul>
+  </div>
+  <div class="fragment callout note" style="margin-top:.7em;">
+    <div class="callout-label">Key Point</div>
+    <p>The case for governance is not primarily ethical. It is <strong>operational</strong>. AI systems learn from data, behave probabilistically, fail in subtle and delayed ways, and are often opaque even to their builders. Standard IT controls are necessary but not sufficient.</p>
+  </div>
+</section>
+
+<!-- Definition: AI governance -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Definition: AI Governance</h2>
+  </div>
+  <blockquote>
+    <p>Governance mechanisms are <strong>structured frameworks, policies, procedures, and controls</strong> that <strong>guide, monitor, and manage operations</strong> to <strong>ensure alignment with organisational objectives, ethical standards, and regulatory requirements</strong>. AI governance specifically addresses the <strong>complexity, opacity, and failure modes that are particular to AI systems</strong> and that increase uncertainty and risk in ways that generic IT governance does not fully capture.</p>
+    <cite style="display:block; margin-top:.6em; font-style:normal; font-size:.75em; color:var(--blue); font-family:'Space Grotesk',sans-serif; font-weight:600;">— Urbach, Feulner &amp; Dilger (2026)</cite>
+  </blockquote>
+</section>
+
+<!-- The risk landscape -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The Risk Landscape</h2>
+  </div>
+  <p>AI-related risks arise at four levels <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(Urbach et al., 2026)</span>:</p>
+  <ol class="fragment">
+    <li><strong>Technical risks:</strong> data and model uncertainty; complex error traceability; cybersecurity vulnerabilities (adversarial inputs, data poisoning, model inversion)</li>
+    <li><strong>Economic risks:</strong> cost escalation without proportional value; non-acceptance negating AI's value; reputational damage from biased outputs</li>
+    <li><strong>Regulatory risks:</strong> GDPR violations at AI scale; EU AI Act (Art. 9 and Art. 14) non-compliance; absence of agreed industry standards</li>
+    <li><strong>Ethical and social risks:</strong> algorithmic bias invisible in aggregate metrics; opacity breeding mistrust; job displacement and erosion of human agency</li>
+  </ol>
+  <div class="fragment callout note" style="margin-top:.6em;">
+    <div class="callout-label">Note</div>
+    <p>These four risk categories are not independent. A technical failure (biased model) creates economic risk, triggers regulatory scrutiny, and constitutes an ethical harm. Governance must address all four simultaneously.</p>
+  </div>
+</section>
+
+<!-- Three types of governance mechanisms -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Three Types of Governance Mechanisms</h2>
+  </div>
+  <p>Effective AI governance is a portfolio of mechanisms at three complementary levels <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(Urbach, Feulner &amp; Dilger, 2026)</span>:</p>
+  <div class="fragment three-col" style="margin-top:.7em;">
+    <div class="info-card">
+      <div class="card-title">Structural</div>
+      <p>The formal organisational architecture within which AI decisions are made and accountability is assigned</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Procedural</div>
+      <p>The processes and procedures that guide the development, deployment, validation and monitoring of AI systems</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">Relational</div>
+      <p>The social and cultural elements that influence how AI is perceived, accepted, and integrated into organisational practices</p>
+    </div>
+  </div>
+  <div class="fragment callout note" style="margin-top:.7em; font-size:.88em;">
+    <div class="callout-label">Note</div>
+    <p>Relational mechanisms are the most neglected — yet their absence is what causes structural and procedural frameworks to fail. A governance body that never convenes cross-functional dialogue produces documents, not accountability.</p>
+  </div>
+</section>
+
+<!-- Transforming toward AI governance -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Transforming Toward AI Governance</h2>
+  </div>
+  <p>Governance must be built iteratively and integrated into existing structures, not layered on top <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(Urbach et al., 2026)</span>:</p>
+  <ol class="fragment" style="margin-top:.5em;">
+    <li>Establishing an AI strategy with consideration of internal values</li>
+    <li>Setting up an AI roadmap</li>
+    <li>Identification and development of use cases</li>
+    <li>Iterative analysis and comparison with requirements</li>
+    <li>Ensuring safe AI usage</li>
+    <li>Integration of AI governance mechanisms</li>
+    <li>Evaluation of AI governance</li>
+  </ol>
+</section>
+
+<!-- Reference frameworks -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Reference Frameworks</h2>
+  </div>
+  <p>Several established frameworks provide concrete reference points:</p>
+  <div class="two-col" style="margin-top:.7em;">
+    <div class="info-card">
+      <div class="card-title">ISO/IEC 42001:2023</div>
+      <p>First certifiable AI management system standard</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">NIST AI RMF 1.0</div>
+      <p>Voluntary, outcome-oriented; four functions: Map, Measure, Manage, Govern</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">OECD Recommendation on AI</div>
+      <p>Intergovernmental reference framework (2019, updated 2023/2024)</p>
+    </div>
+    <div class="info-card">
+      <div class="card-title">EU AI Act</div>
+      <p>The most comprehensive and legally binding — covered in detail in Section 05</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTION 05 — THE EU AI ACT
+═══════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 05</div>
+  <h1>The EU AI Act</h1>
+  <p class="section-desc">The world's first comprehensive AI regulation — what it regulates, what it requires, and who is responsible.</p>
+  <div class="section-number">05</div>
+</section>
+
+<!-- What it is and why it matters -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>What It Is and Why It Matters</h2>
+  </div>
+  <p style="font-size:1.0em;">The EU AI Act (Regulation 2024/1689) is the world's first comprehensive, legally binding AI regulation. It applies to any AI system deployed in the EU, regardless of where the provider is based (from 2027 on).</p>
+  <p class="fragment" style="margin-top:.7em;">For managing AI, three things matter most:</p>
+  <ul>
+    <li class="fragment"><strong>What it regulates</strong> — which AI systems face obligations</li>
+    <li class="fragment"><strong>What it requires</strong> — what those obligations are</li>
+    <li class="fragment"><strong>Who is responsible</strong> — which actors must comply</li>
+  </ul>
+</section>
+
+<!-- The risk-based logic -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>The Risk-Based Logic</h2>
+  </div>
+  <p>The Act's defining design principle is <strong>proportionality</strong>: obligations scale with potential harm to people and society.</p>
+  <div class="two-col" style="margin-top:.6em;">
+    <div>
+      <ul>
+        <li class="fragment"><strong>Minimal or no risk:</strong> no additional obligations; e.g., recommendation engines, spam filters, video game AI — the vast majority of currently deployed AI</li>
+        <li class="fragment" style="margin-top:.4em;"><strong>Limited risk:</strong> transparency and disclosure only; chatbots must disclose they are AI; deepfakes must be labelled</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li class="fragment"><strong>High risk:</strong> strict obligations before and during deployment; covers critical infrastructure, healthcare, education, employment, law enforcement, migration, justice</li>
+        <li class="fragment" style="margin-top:.4em;"><strong>Unacceptable risk:</strong> banned outright; social scoring, predictive policing by profiling, untargeted biometric scraping, emotion recognition in workplaces and schools</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- What high-risk deployment requires -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>What High-Risk Deployment Actually Requires</h2>
+  </div>
+  <p>For high-risk systems, the Act mandates <span style="font-family:'Space Mono',monospace;font-size:.82em;color:var(--blue);">(European Commission, 2024)</span>:</p>
+  <div class="two-col" style="margin-top:.6em;">
+    <ul>
+      <li>Continuous risk management</li>
+      <li>Human oversight</li>
+      <li>Data quality and governance</li>
+      <li>Technical documentation</li>
+    </ul>
+    <ul>
+      <li>Transparency toward users</li>
+      <li>Audit logging</li>
+      <li>Conformity assessment</li>
+      <li>AI literacy</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Who is responsible -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Who Is Responsible</h2>
+  </div>
+  <p>The Act deliberately distributes obligations across the AI value chain:</p>
+  <ul>
+    <li class="fragment"><strong>Providers</strong> build AI systems and place them on the market. They bear the heaviest obligations: conformity assessments, technical documentation, registration in the EU AI database, post-market monitoring</li>
+    <li class="fragment"><strong>Deployers</strong> use a provider's AI system in their own products or processes. They cannot outsource compliance to their vendor; directly responsible for human oversight, staff literacy, informing affected individuals, and maintaining operational logs</li>
+    <li class="fragment"><strong>Affected individuals</strong> have the right to know that an AI system was involved in a decision significantly affecting them</li>
+  </ul>
+  <div class="fragment callout warning" style="margin-top:.7em; font-size:.88em;">
+    <div class="callout-label">⚠ Practical Implication</div>
+    <p>Many organisations are deployers of high-risk AI without having classified themselves as such. A performance management system that uses ML to rank employees is high-risk. Before asking what the Act requires, managers must first ask honestly: where do our AI systems sit in the risk classification?</p>
+  </div>
+</section>
+
+<!-- Generative AI and GPAI -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Generative AI and GPAI</h2>
+  </div>
+  <p style="font-size:1.0em;">Large foundation models (LLMs, diffusion models, multimodal systems) are regulated under a distinct regime as <strong>General Purpose AI (GPAI)</strong> systems.</p>
+  <p class="fragment" style="margin-top:.5em;">GPAI presents a unique regulatory challenge: these models are not designed for a single application — risk cannot be fully assessed at development time.</p>
+  <ul>
+    <li class="fragment">Providers must <strong>document and disclose training data</strong>, including copyright compliance</li>
+    <li class="fragment">Providers must supply <strong>technical documentation</strong> of capabilities, limitations, and known risks to downstream deployers</li>
+    <li class="fragment">Providers must <strong>comply with EU copyright law</strong> and demonstrate adherence to the Copyright Directive's text and data mining provisions</li>
+  </ul>
+  <div class="fragment callout note" style="margin-top:.6em;">
+    <div class="callout-label">Key Point</div>
+    <p>The risk classification depends on the <strong>use case</strong>, not the underlying model. The same LLM used for a general chatbot (limited-risk) becomes high-risk in automated recruitment screening.</p>
+  </div>
+</section>
+
+<!-- Compliance as a floor -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Compliance as a Floor</h2>
+  </div>
+  <p style="font-size:1.0em;">The EU AI Act sets minimum requirements. Meeting them is necessary but does not guarantee that a system is trustworthy or well-governed.</p>
+  <p class="fragment" style="margin-top:.6em;">Compliance means the system meets the <strong>legal baseline for EU deployment</strong>.</p>
+  <div class="fragment callout note" style="margin-top:.7em;">
+    <div class="callout-label">Key Insight</div>
+    <p>The governance mechanisms — risk management, human oversight, structural accountability, relational transparency — are what transform compliance from a checklist into a genuine capability <span style="font-family:'Space Mono',monospace;font-size:.82em;">(Urbach, Feulner &amp; Mayer, 2026)</span>.</p>
+  </div>
+</section>
+
+<!-- Q&A -->
+<section class="section-slide">
+  <div class="section-label">// Q&amp;A</div>
+  <h1>Questions?</h1>
+  <p class="section-desc">What remains unclear — about AI strategy, readiness, governance, or the EU AI Act?</p>
+  <div class="section-number">?</div>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true, slideNumber: false, progress: true, controls: false,
+  fragments: true, transition: 'fade', transitionSpeed: 'default',
+  center: false, width: 1400, height: 788, margin: 0,
+});
+function updateFooter() {
+  var idx = Reveal.getIndices();
+  var total = Reveal.getTotalSlides();
+  var el = document.getElementById('footer-slide-num');
+  if (el) el.textContent = (idx.h + 1) + ' / ' + total;
+}
+Reveal.on('ready', updateFooter);
+Reveal.on('slidechanged', updateFooter);
+</script>
+</body>
+</html>
