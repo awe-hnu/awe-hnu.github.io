@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Deinera Jechle">
+  <meta name="dcterms.date" content="2026-06-05">
+  <title>awe.lectures – Managing AI</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-735089d110c961a04cadc41357682241.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="Managing AI – awe.lectures">
+<meta property="og:description" content="Introduction to AI (I2AI)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V1.0
+    </div>
+
+    <div class="footnote">
+        Deinera Jechle / Neu-Ulm University of Applied Sciences Neu-Ulm / Introduction to Artificial Intelligence (AI)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpeg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Managing AI</h1>
+  <p class="subtitle">Introduction to AI (I2AI)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Deinera Jechle 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">June 5, 2026</p>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 headline-only">
+<h1>Introduction</h1>
+
+</section>
+<section id="discussion" class="title-slide slide level2 html-hidden discussion-slide unlisted">
+<h2>Discussion</h2>
+<div class="medium">
+<p>What challenges have you observed or heard about when organisations try to use AI in practice?</p>
+</div>
+</section>
+
+<section id="introductory-remarks" class="title-slide slide level2">
+<h2>Introductory Remarks</h2>
+<div class="medium">
+<p>Understanding how generative AI works is one thing.<br>
+Knowing what to do with it inside an organisation is another.</p>
+</div>
+<div class="fragment">
+<p>The shift from recognition to generation, and now toward agentic systems, has not just expanded what AI can do but fundamentally changed the management challenge.</p>
+</div>
+<div class="fragment">
+<p>The same properties that make modern AI powerful are also what make it difficult to govern <span class="citation" data-cites="urbach2026managing">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, &amp; Dilger, 2026</a>)</span>:</p>
+</div>
+<ul>
+<li class="fragment">An LLM that <b>hallucinates confidently</b> is not just a technical failure but a management failure</li>
+<li class="fragment">A diffusion model that <b>embeds bias invisibly</b> is not just a modelling problem but a governance problem</li>
+<li class="fragment">An agentic system that <b>takes unintended actions</b> is not just a deployment error but a strategy problem</li>
+</ul>
+<aside class="notes">
+<p>The previous lecture covered what generative and agentic AI <em>can</em> do. This lecture asks the harder question: how should organisations <em>respond</em>? The properties that make modern AI different — autonomy, learning, and opacity of reasoning — are precisely what make managing it different from managing conventional software.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="three-management-challenges" class="title-slide slide level2">
+<h2>Three management challenges</h2>
+<p>Organisations today face three major challenges <span class="citation" data-cites="urbach2026managing">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, &amp; Dilger, 2026</a>)</span>:</p>
+<ul>
+<li class="fragment"><strong>Identifying the right use cases:</strong> not every process that can be automated should be; choosing well requires connecting AI capability to actual strategic value</li>
+<li class="fragment"><strong>Building and integrating solutions:</strong> data quality, make-or-buy decisions, and workflow redesign are as important as model quality</li>
+<li class="fragment"><strong>Governing AI responsibly:</strong> ethics, accountability, regulatory compliance (including the EU AI Act), and ongoing monitoring cannot be afterthoughts</li>
+</ul>
+<div class="html-hidden">
+<div class="fragment">
+<div class="medium">
+<p>None of these challenges can be solved by understanding the technology better.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section>
+<section id="ai-strategizing" class="title-slide slide level1 headline-only">
+<h1>AI Strategizing</h1>
+
+</section>
+<section id="discussion-1" class="title-slide slide level2 html-hidden discussion-slide unlisted">
+<h2>Discussion</h2>
+<div class="medium">
+<p>Why do you think most AI projects fail — even when the underlying technology works?</p>
+</div>
+</section>
+
+<section id="why-ai-demands-a-strategic-response" class="title-slide slide level2">
+<h2>Why AI demands a strategic response</h2>
+<div class="medium">
+<p>AI projects fail more often than they succeed. Not because the technology doesn’t work, but <b>because organisations launch them without strategic direction</b> <span class="citation" data-cites="urbach2026strategizing">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, Mayer, &amp; Meierhöfer, 2026</a>)</span>.</p>
+</div>
+<div><p>AI doesn’t merely improve efficiency. It changes the conditions under which organisations compete:</p>
+<ul>
+<li><strong>Market shifts:</strong> from human-crafted to AI-driven products and services; from generalised targeting to individual customisation</li>
+<li><strong>Resource shifts:</strong> from manual to data-driven decision-making; from human-dependent to AI-enhanced productivity; to uncertainty as an unavoidable factor to manage</li>
+</ul>
+<p>These shifts require a strategic response.</p>
+</div>
+</section>
+
+<section id="definition-of-ai-strategy" class="title-slide slide level2">
+<h2>Definition of AI Strategy</h2>
+<div class="medium">
+  <blockquote>
+<p>An <strong>AI strategy</strong> is a set of guidelines for <b>courses of action and decisions that directs
+        AI projects in line with firm-specific goals and constraints </b>toward a distinct strategic
+        direction. <span class="citation" data-cites="urbach2026strategizing">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, Mayer, &amp; Meierhöfer, 2026</a>)</span>.</p>
+</blockquote></div>
+</section>
+
+
+<section id="the-chain-of-argumentation" class="title-slide slide level2">
+<h2>The chain of argumentation</h2>
+<p><strong>Why does AI specifically require its own strategy?</strong> <span class="citation" data-cites="urbach2026strategizing">Urbach, Feulner, Mayer, &amp; Meierhöfer (<a href="#/literature" role="doc-biblioref" onclick="">2026</a>)</span> lay out a four-step chain of reasoning:</p>
+<div style="text-align: center;">
+<p><img data-src="images/Fig1-Chain-of-argumentation.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<p>Figure 1: Chain of argumentation for the need for an AI strategy. Adapted from <span class="citation" data-cites="urbach2026strategizing">Urbach, Feulner, Mayer, &amp; Meierhöfer (<a href="#/literature" role="doc-biblioref" onclick="">2026, p. 163</a>).</span></p>
+</section>
+
+<section id="the-4s-framework" class="title-slide slide level2">
+<h2>The 4S framework</h2>
+<p>AI introduces <strong>strategic challenges</strong> cross four dimensions</p>
+<ul><li><b>Scope:</b> how AI is organized and governed (e.g., strategic ownership, governance level)</li>
+  <li><b>Scale:</b> how AI capabilities are acquired (e.g., knowledge acquisition, technology sourcing)</li>
+  <li><b>Speed:</b> how AI use cases are identified and grown (e.g., use case identification, use case expansion)</li>
+  <li><b>Source:</b> how AI affects the business model (e.g., technology apsiration, value creation)</li>
+</ul>
+<p>A coherent AI strategy means making deliberate, consistent choices across all four dimensions.</p>
+</section>
+
+<section id="strategic-archetypes" class="title-slide slide level2">
+<h2>Strategic archetypes</h2>
+<p>The configuration across the 4S dimensions depend on the organization’s strategic archetype</p>
+<table>
+<thead>
+<tr class="header">
+<th>Archetype</th>
+<th>Strategic orientation</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Technology Navigator</strong></td>
+<td><b>Pushes AI boundaries</b> through R&amp;D; undertakes <b>risky but rewarding</b> projects to achieve technological breakthroughs at the forefront of AI</td>
+<td>JPMorgan, Microsoft, Infineon, SAP</td>
+</tr>
+<tr>
+<td><strong>Innovation Explorer</strong></td>
+<td>Delves into <b>promising emerging territories</b>; invests substantially in <b>AI to unlock new value streams</b> alongside existing products and services</td>
+<td>American Express, Bayer, E.ON, Volkswagen</td>
+</tr>
+<tr>
+<td><strong>Business Enhancer</strong></td>
+<td>Focuses on <b>improving operational performance</b> with AI; explores <b>initial use cases</b> but is cautious about widespread application</td>
+<td>MTU Aero Engines, P&amp;G, Linde, Chevron</td>
+</tr>
+<tr>
+<td><strong>Operations Stabilizer</strong></td>
+<td>Resorts to <b>AI in only a few isolated use cases</b>; prefers <b>stability and reliability</b> over breakthrough innovations due to potential risks</td>
+<td>Henkel, Nike, McDonald’s, Coca-Cola</td>
+</tr>
+</tbody>
+<caption>Table 2: Clusters of AI strategy — four strategic archetypes. Adapted from <span class="citation" data-cites="urbach2026strategizing">Urbach, Feulner, Mayer, &amp; Meierhöfer (<a href="#/literature" role="doc-biblioref" onclick="">2026, p. 166</a>)</span>.</caption>
+</table>
+</section>
+
+<section id="why-archetype-identification-matters" class="title-slide slide level2">
+<h2>Why archetype identification matters</h2>
+<p>Identifying the right archetype matters because each implies a different set of operational decisions:</p>
+<ul class="fragment">
+  <li><b>Use case selection</b>, e.g., a Business Enhancer should prioritize process improvement use cases with clear ROI</li>
+  <li><b>Sourcing decisions</b>, e.g., an Operations Stabilizer buys ready-made solutions</li>
+  <li><b>Governance design</b>, e.g., a Technology Navigator needs enterprise-wide AI governance</li>
+  <li><b>Risk tolerance</b>, e.g., an Operations Stabilizer treats model failure as unacceptable</li>
+</ul>
+<div class="fragment">
+<p><strong>Misalignment between archetype and actual decisions is a primary driver of AI project failure.</strong></p>
+<p>An organisation that behaves like an Innovation Explorer in its use-case selection but like an Operations Stabilizer in its resourcing will run ambitious experiments with inadequate infrastructure. The archetype identification makes these misalignments visible before they become expensive.</p>
+</div>
+</section>
+
+<section id="no-archetype-is-inherently-superior" class="title-slide slide level2">
+<p><strong>No archetype is inherently superior</strong></p>
+<p>A regulated utility pursuing an Operations Stabilizer approach may be making a more rational strategic choice than a startup chasing cutting-edge technology it cannot sustain. </p>
+<p>What matters is <b>internal consistency</b>: </p>
+<p>The chosen archetype should be coherent with the organisation’s competitive context, and all four strategic dimensions (“4S”) should point in the same direction. </p>
+<p><b> The goal of AI strategizing is not to maximise technological ambition but to match strategic posture to organisational reality.</b> </p>
+<p><strong>Misalignment between archetype and actual decisions is a primary driver of AI project failure.</strong></p>
+</section>
+
+
+<section id="ai-readiness" class="title-slide slide level1 headline-only">
+<h1>AI Readiness</h1>
+</section>
+
+<section id="definition-and-motivation" class="title-slide slide level2">
+<h2>Definition and motivation</h2>
+<div class="medium">
+<blockquote>
+<p>AI readiness is the <b>preparedness</b> of an organisation to <b>implement changes involving AI applications and technology.</b> <span class="citation" data-cites="alsheibani2018aireadiness">(<a href="#/literature" role="doc-biblioref" onclick="">Alsheibani et al., 2018</a>)</span></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>The concept matters because strategy on paper does not equal strategy in practice. An organisation may choose the right archetype and still fail to execute, because the necessary conditions are not in place. AI readiness identifies those conditions.</p>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why a dedicated term is needed</strong></p>
+</div>
+<div class="callout-content">
+<p>“Digital readiness” or “technology readiness” captures part of the picture but misses what is distinctive about AI. AI requires not just infrastructure and skills, but a cultural tolerance for probabilistic outputs, opaque reasoning, and systems that change their own behaviour over time. Readiness for AI is therefore both broader and more specific than generic technology readiness — which is why it warrants its own construct.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="organisational-readiness-for-change" class="title-slide slide level2">
+<h2>Organisational readiness for change</h2>
+<p>Before any AI-specific factors, organisations must have a baseline capacity to adopt and sustain new technology at all:</p>
+<ul>
+<li class="fragment"><strong>Financial and technological resources:</strong> adequate investment capacity and infrastructure</li>
+<li class="fragment"><strong>Management support:</strong> active sponsorship from leadership; without it, initiatives lose priority when they compete with operations</li>
+<li class="fragment"><strong>Organisational culture:</strong> tolerance for experimentation, calculated risk, and continuous learning</li>
+<li class="fragment"><strong>Commitment:</strong> sustained resolve to work through implementation setbacks</li>
+</ul>
+<div class="fragment">
+<p>These factors are necessary but not sufficient. AI adds further demands on top of them.</p>
+</div>
+</section>
+
+<section id="ai-specific-readiness-factors" class="title-slide slide level2">
+<h2>AI-specific readiness factors</h2>
+<ul>
+<li class="fragment"><strong>Innovation adoption:</strong> shaped by perceived relative advantage, compatibility, complexity, trialability, and observability <span class="citation" data-cites="rogers2003diffusion">(also see <a href="#/literature" role="doc-biblioref" onclick="">Rogers, 2003</a>)</span>; for AI, <em>complexity</em> and <em>observability</em> are particular friction points.</li>
+<li class="fragment"><strong>Resources:</strong> rare skill combinations (e.g., data scientists, ML engineers), qualitatively different infrastructure (e.g., high-performance compute, MLOps tooling). Organisations that underestimate these requirements tend to reach proof-of-concept and then stall</li>
+<li class="fragment"><strong>Knowledge:</strong> AI literacy cannot be limited to a specialist team.</li>
+<li class="fragment"><strong>Culture:</strong> AI exposes errors in ways conventional software does not — blame cultures will find AI particularly difficult to deploy responsibly</li>
+<li class="fragment"><strong>Data:</strong> availability, quality, accessibility, and governance; data is the fuel of AI and the most common bottleneck in practice.</li>
+</ul>
+<p class="fragment">Readiness is not a binary state.</p>
+</section>
+
+
+
+<section id="governance-of-ai" class="title-slide slide level1 headline-only">
+<h1>Governance of AI</h1>
+</section>
+
+<section id="discussion-2" class="title-slide slide level2 html-hidden discussion-slide unlisted">
+<h2>Discussion</h2>
+<div class="medium">
+<p>When you hear “AI governance”, what comes to your mind?</p>
+</div>
+</section>
+
+<section id="why-governance-cannot-be-an-afterthought" class="title-slide slide level2">
+<h2>Why governance cannot be an afterthought</h2>
+<div class="medium">
+<p>An AI strategy tells an organisation <b>what</b> to pursue. Governance answers <b>under what conditions</b> and <b>according to what rules</b>.</p>
+</div>
+<div class="fragment">
+<p>Without governance, even a well-designed strategy degrades in practice:</p>
+<ul>
+<li>Responsibilities are unclear</li>
+<li>Risks accumulate silently</li>
+<li>Accountability evaporates the moment something goes wrong</li>
+</ul>
+<p>The case for governance is not primarily ethical. It is <strong>operational</strong>. AI systems learn from data, behave probabilistically, fail in subtle and delayed ways, and are often opaque even to their builders. Standard IT controls are necessary but not sufficient.</p>
+</div>
+</section>
+
+<section id="definition-of-ai-governance" class="title-slide slide level2">
+<p><strong>Definition: AI governance</strong></p>
+<div class="medium">
+<blockquote>
+  <p>Governance mechanisms are <b>structured frameworks, policies, procedures, and controls</b> that <b>guide, monitor, and manage operations</b> to <b>ensure alignment with organisational objectives, ethical standards, and regulatory requirements</b>. AI governance specifically addresses the <b>complexity, opacity, and failure modesthat are particular to AI systems</b>  and that increase uncertainty and risk in ways that generic IT governance does not fully capture <span class="citation" data-cites="urbach2026managing">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, &amp; Dilger, 2026</a>)</span>.</p></blockquote>
+</div>
+</section>
+
+<section id="the-risk-landscape" class="title-slide slide level2">
+<h2>The risk landscape</h2>
+<p>Before deciding what governance is needed, an organisation must understand what it is governing against. AI-related risks arise at four levels <span class="citation" data-cites="urbach2026governance">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, Feulner, et al., 2026</a>)</span>:</p>
+<ol class="fragment" type="1">
+<li><strong>Technical risks:</strong> data and model uncertainty; complex error traceability; cybersecurity vulnerabilities (adversarial inputs, data poisoning, model inversion)</li>
+<li><strong>Economic risks:</strong> cost escalation without proportional value; non-acceptance negating AI’s value; operational disruption and reputational damage from biased outputs</li>
+<li><strong>Regulatory risks:</strong> GDPR violations at AI scale; EU AI Act (Art. 9 and Art. 14) non-compliance; absence of agreed industry standards</li>
+<li><strong>Ethical and social risks:</strong> algorithmic bias invisible in aggregate metrics; opacity breeding mistrust; job displacement and erosion of human agency</li>
+</ol>
+<div class="fragment">
+  <p class="aside">These four risk categories are not independent. A technical failure (biased model) creates economic risk (damaged reputation), triggers regulatory scrutiny (GDPR, EU AI Act), and constitutes an ethical harm (discriminatory decisions). Governance must address all four simultaneously.</p>
+</div>
+</section>
+
+<section id="three-types-of-governance-mechanisms" class="title-slide slide level2">
+<h2>Three types of governance mechanisms</h2>
+<div>
+<p>Effective AI governance is not a single policy or a compliance checklist. It is a portfolio of mechanisms at three complementary levels <span class="citation" data-cites="urbach2026managing">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, &amp; Dilger, 2026</a>)</span>.</p>
+</div>
+<div class="fragment">
+  <ul>
+    <li><strong>Structural mechanisms:</strong> the formal organisational architecture within which AI decisions are made and accountability is assigned. </li>
+    <li><strong>Procedural mechanisms:</strong> the processes and procedures that guide the development, deployment, validate and monitoring of AI systems. </li>
+    <li><strong>Relational mechanisms:</strong> the social and cultural elements that influence how AI is perceived, accepted, and integrated into organisational practices. </li>
+  </ul>
+
+</div>
+<div class="fragment">
+<div class="aside">
+  <strong>Note:</strong>
+  <p>Procedural mechanisms matter because AI behaviour emerges from training — not from rules. Without structured processes, there is no way to know whether a deployed model still behaves as expected.</p>
+  <p>Relational mechanisms are the most neglected — yet their absence is what causes structural and procedural frameworks to fail. A governance body that never convenes cross-functional dialogue produces documents, not accountability.</p>
+</div></div>
+</section>
+
+<section id="transforming-toward-ai-governance" class="title-slide slide level2">
+<h2>Transforming toward AI governance</h2>
+<p>Governance does not appear fully formed. It must be built iteratively, and it must be integrated into existing governance structures, not layered on top as a separate system <span class="citation" data-cites="urbach2026governance">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, Feulner, et al., 2026</a>)</span>:</p>
+<ol class="fragment"type="1">
+<li>Estabilishing an AI strategy with consideration of internal values</li>
+<li>Setting up an AI roadmap</li>
+<li>Identificaition and development of use cases</li>
+<li>Iterative analysis and comparision with requirements</li>
+<li>Ensuring sage AI usage</li>
+<li>Integration of AI governance mechanisms</li>
+<li>Evaluation of AI governance</li>
+</ol>
+</section>
+
+<section id="reference-frameworks" class="title-slide slide level2">
+<p>Several established frameworks provide concrete reference points:</p>
+<ul>
+<li><strong>ISO/IEC 42001:2023:</strong> first certifiable AI management system standard</li>
+<li><strong>NIST AI RMF 1.0:</strong> voluntary, outcome-oriented; four functions: Map, Measure, Manage, Govern</li>
+<li><strong>OECD Recommendation on AI (2019, updated 2023/2024):</strong> intergovernmental reference framework</li>
+<li><strong>EU AI Act:</strong> the most comprehensive and legally binding</li>
+</ul>
+</section>
+</section>
+
+
+
+<section id="the-eu-ai-act" class="title-slide slide level1 headline-only">
+<h1>The EU AI Act</h1>
+
+</section>
+<section id="what-it-is-and-why-it-matters" class="title-slide slide level2">
+<h2>What it is and why it matters</h2>
+<div class="medium">
+<p>The EU AI Act (Regulation 2024/1689) is the world’s first comprehensive, legally binding AI regulation. It applies to any AI system deployed in the EU, regardless of where the provider is based (from 2027 on).</p>
+</div>
+<div class="fragment">
+<p>For managing AI, three things matter most:</p>
+</div>
+<ul>
+<li class="fragment"><strong>What it regulates</strong> — which AI systems face obligations</li>
+<li class="fragment"><strong>What it requires</strong> — what those obligations are</li>
+<li class="fragment"><strong>Who is responsible</strong> — which actors must comply</li>
+</ul>
+</section>
+
+<section id="the-risk-based-logic" class="title-slide slide level2">
+<h2>The risk-based logic</h2>
+<div class="medium">
+<p>The Act’s defining design principle is <strong>proportionality</strong>: obligations scale with potential harm to people and society <span class="citation" data-cites="euAIAct2024">(<a href="#/literature" role="doc-biblioref" onclick="">European Commission, 2024</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Minimal or no risk:</strong> no additional obligations; e.g., recommendation engines, spam filters, video game AI; the vast majority of currently deployed AI</li>
+<li class="fragment"><strong>Limited risk:</strong> transparency and disclosure only; chatbots must disclose they are AI; AI-generated content must be identifiable; deepfakes must be labelled</li>
+<li class="fragment"><strong>High risk:</strong> strict obligations before and during deployment; covers critical infrastructure, healthcare, education, employment, access to essential services, law enforcement, migration, administration of justice</li>
+<li class="fragment"><strong>Unacceptable risk:</strong> banned outright; social scoring, predictive policing by profiling, untargeted biometric scraping, emotion recognition in workplaces and schools, subliminal manipulation, exploitation of vulnerabilities</li>
+</ul>
+</section>
+
+<section id="what-high-risk-deployment-actually-requires" class="title-slide slide level2">
+<h2>What high-risk deployment actually requires</h2>
+<div class="callout-content">
+<p>For high-risk systems, the Act mandates <span class="citation" data-cites="euAIAct2024">(<a href="#/literature" role="doc-biblioref" onclick="">European Commission, 2024</a>)</span>:</p>
+<ul>
+<li>Continuous risk management</li>
+<li>Human oversight </li>
+<li>Data quality and governance </li>
+<li>Technical documentation </li>
+<li>Transparency toward users </li>
+<li>Audit logging</li>
+<li>Conformity assessment</li>
+<li>AI literacy </li>
+</ul>
+</div>
+</section>
+
+<section id="who-is-responsible" class="title-slide slide level2">
+<h2>Who is responsible</h2>
+<p>The Act deliberately distributes obligations across the AI value chain:</p>
+<ul>
+<li class="fragment"><strong>Providers</strong> build AI systems and place them on the market. They bear the heaviest obligations: conformity assessments, technical documentation, registration in the EU AI database, post-market monitoring</li>
+<li class="fragment"><strong>Deployers</strong> use a provider’s AI system in their own products or processes. They cannot outsource compliance to their vendor; directly responsible for human oversight, staff literacy, informing affected individuals, and maintaining operational logs</li>
+<li class="fragment"><strong>Affected individuals</strong> have the right to know that an AI system was involved in a decision significantly affecting them</li>
+</ul>
+<aside class="notes">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The practical implication</strong></p>
+</div>
+<div class="callout-content">
+<p>Many organisations are deployers of high-risk AI without having classified themselves as such. A performance management system that uses ML to rank employees is high-risk. An automated loan pre-screening tool is high-risk. Before asking what the Act requires, managers must first ask honestly: where do our AI systems sit in the risk classification? The answer will often be less comfortable than assumed <span class="citation" data-cites="urbach2026ethics">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, &amp; Mayer, 2026</a>)</span>.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="html-hidden">
+<div class="fragment">
+<div class="medium">
+<p>Many organisations are deployers of high-risk AI without having classified themselves as such.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="generative-ai-and-gpai" class="title-slide slide level2">
+<h2>Generative AI and GPAI</h2>
+<div class="medium">
+<p>Large foundation models (LLMs, diffusion models, multimodal systems) are regulated under a distinct regime as <strong>General Purpose AI (GPAI)</strong> systems.</p>
+</div>
+<div class="fragment">
+<p>GPAI presents a unique regulatory challenge: these models are not designed for a single application. Thus, risk cannot be fully assessed at development time.</p>
+</div>
+<ul>
+<li class="fragment">Providers must <b>document and disclose training data</b>, including copyright compliance</li>
+<li class="fragment">Providers must supply <b>technical documentation</b> of capabilities, limitations, and known risks to downstream deployers</li>
+<li class="fragment">Providers must <b>comply with EU copyright law</b> and demonstrate adherence to the Copyright Directive’s text and data mining provisions</li>
+</ul>
+<div class="fragment">
+<p>The risk classification depends on the <strong>use case</strong>, not the underlying model. The same LLM used for a general chatbot (limited-risk) becomes high-risk in automated recruitment screening.</p>
+</div>
+</section>
+
+
+<section id="compliance-as-a-floor" class="title-slide slide level2">
+<h2>Compliance as a floor</h2>
+<div class="medium">
+<p>The EU AI Act sets minimum requirements. Meeting them is necessary but does not guarantee that a system is trustworthy or well-governed.</p>
+</div>
+<div class="fragment">
+<p>Compliance means the system meets the <strong>legal baseline for EU deployment</strong>.</p>
+</div>
+<div class="fragment">
+<p>The governance mechanisms (risk management, human oversight, structural accountability, relational transparency) are what transform compliance from a checklist into a genuine capability <span class="citation" data-cites="urbach2026ethics">(<a href="#/literature" role="doc-biblioref" onclick="">Urbach, Feulner, &amp; Mayer, 2026</a>)</span>.</p>
+</div>
+</section>
+
+<section id="Questions" class="title-slide slide level1 headline-only">
+<h2>Questions?</h2>
+
+</section>
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-alsheibani2018aireadiness" class="csl-entry" role="listitem">
+Alsheibani, S., Cheung, Y., &amp; Messom, C. (2018). Artifical intelligence adoption: AI-readiness at firm level. <em>Proceedings of the 22nd Pacific Asia Conference on Information Systems (PACIS)</em>, 37–45.
+</div>
+<div id="ref-berente2021managing" class="csl-entry" role="listitem">
+Berente, N., Gu, B., Recker, J., &amp; Santhanam, R. (2021). Managing artificial intelligence. <em>MIS Quarterly</em>, <em>45</em>(3), 1433–1450. <a href="https://doi.org/10.25300/MISQ/2021/16274">https://doi.org/10.25300/MISQ/2021/16274</a>
+</div>
+<div id="ref-euAIAct2024" class="csl-entry" role="listitem">
+European Commission. (2024). <em>Artificial intelligence in the european commission—a strategic vision to foster the development and use of lawful, safe and trustworthy artificial intelligence systems in the european commission: Vols. C(2024) 380</em>.
+</div>
+<div id="ref-rogers2003diffusion" class="csl-entry" role="listitem">
+Rogers, E. (2003). <em>Difussion of innovations</em> (5th ed.). Simon; Schuster.
+</div>
+<div id="ref-urbach2026managing" class="csl-entry" role="listitem">
+Urbach, N., Feulner, D., &amp; Dilger, P. (2026). Introduction to managing artifical intellignece. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 1–18). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
+</div>
+<div id="ref-urbach2026governance" class="csl-entry" role="listitem">
+Urbach, N., Feulner, D., Feulner, S., Schüll, M., &amp; Mayer, V. (2026). Governance and management of AI. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 181–210). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
+</div>
+<div id="ref-urbach2026ethics" class="csl-entry" role="listitem">
+Urbach, N., Feulner, D., &amp; Mayer, V. (2026). Ethical, legal, and social implications of AI. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 291–320). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
+</div>
+<div id="ref-urbach2026strategizing" class="csl-entry" role="listitem">
+Urbach, N., Feulner, D., Mayer, V., &amp; Meierhöfer, S. (2026). AI strategizing and readiness. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 161–179). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
+</div>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
