@@ -210,6 +210,43 @@ Andy Weeger
   <p class="date">March 17, 2026</p>
 </section>
 <section>
+<section id="recap" class="title-slide slide level1 html-hidden">
+<h1>Recap</h1>
+
+</section>
+<section id="where-we-left-off" class="title-slide slide level2">
+<h2>Where we left off</h2>
+<div class="html-hidden">
+<p>In the <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html">neural networks unit</a> we built a language model from the ground up:</p>
+</div>
+<ul>
+<li class="fragment"><strong>Neurons to networks:</strong> weighted sums and activations, trained by gradient descent and backpropagation</li>
+<li class="fragment"><strong>Transformers:</strong> tokenization, embeddings, and attention turn a sequence into context-aware representations</li>
+<li class="fragment"><strong>Next-token prediction:</strong> the <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">transformer</a> learns language by predicting what comes next, then generates text one token at a time</li>
+<li class="fragment"><strong>Known failure modes:</strong> hallucination, training-data bias, and the absence of genuine understanding</li>
+</ul>
+<div class="fragment">
+<div class="medium">
+<p>You already know how an LLM works. This unit asks what that machinery makes <strong>possible.</strong></p>
+</div>
+</div>
+<aside class="notes">
+<p>This unit builds directly on the neural networks unit, where we traced the full path from a single artificial neuron to a working transformer: the weighted sum and activation of a neuron, the cost function and gradient descent that train it, backpropagation, and finally the transformer architecture with its attention mechanism and next-token-prediction objective. We also saw where these systems break down; they hallucinate, they reflect biases in their training data, and they manipulate statistical patterns rather than reasoning from genuine understanding.</p>
+<p>The closing discussion of that unit asked how next-token prediction scales into something genuinely useful. This unit answers that question. Rather than re-deriving the transformer, we treat it as a known building block (the <em>engine</em>) and ask what we can build with it: generative systems across text, image, audio, and video, and ultimately agentic systems that act in the world.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
 <section id="introduction" class="title-slide slide level1 headline-only">
 <h1>Introduction</h1>
 
@@ -310,8 +347,8 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
       }</style></aside>
 </section>
 
-<section id="the-catalyst-chatgpt" class="title-slide slide level2">
-<h2>The catalyst: ChatGPT</h2>
+<section id="the-turning-point" class="title-slide slide level2">
+<h2>The turning point</h2>
 <p>The introduction of ChatGPT by OpenAI in <strong>November 2022</strong> marked a turning point:</p>
 <ul>
 <li class="fragment">Built on the GPT architecture (Generative Pre-trained <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a>)</li>
@@ -360,69 +397,38 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
 <h1>Large Language Models</h1>
 
 </section>
-<section id="what-are-llms" class="title-slide slide level2">
-<h2>What are LLMs?</h2>
+<section id="from-transformer-to-llm" class="title-slide slide level2">
+<h2>From transformer to LLM</h2>
+<div class="html-hidden">
 <div class="medium">
-<p>LLMs are neural networks trained on vast amounts of text, capable of generating coherent, contextually appropriate language <span class="citation" data-cites="vaswani2017attention brown2020language">(<a href="#/literature" role="doc-biblioref" onclick="">Brown et al., 2020</a>; <a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al., 2017</a>)</span>.</p>
+<p>An LLM is the <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">transformer</a> you already built, scaled up and trained on internet-scale text <span class="citation" data-cites="vaswani2017attention brown2020language">(<a href="#/literature" role="doc-biblioref" onclick="">Brown et al., 2020</a>; <a href="#/literature" role="doc-biblioref" onclick="">Vaswani et al., 2017</a>)</span>.</p>
+</div>
 </div>
 <div class="fragment">
-<p><span class="h4">Key characteristics</span></p>
+<p>Think of the transformer as the <strong>engine</strong> and the LLM as the <strong>vehicle:</strong> the same attention, embeddings, and next-token prediction, now scaled and refined into a usable system.</p>
 </div>
 <ul>
-<li class="fragment">Built on the <strong><a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a> architecture</strong> with self-attention</li>
-<li class="fragment">Trained via <strong>next-token prediction</strong> on internet-scale text corpora</li>
-<li class="fragment">Process all tokens in a sequence <strong>simultaneously</strong> (unlike sequential RNNs)</li>
-<li class="fragment">Represent words as <strong>high-dimensional embedding vectors</strong> capturing semantic meaning</li>
-<li class="fragment">Scale dramatically: GPT-3 has 175 billion parameters; GPT-4 is estimated at over 1 trillion</li>
+<li class="fragment"><strong>Same mechanism:</strong> tokenize, embed, attend, predict the next token (see <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">neural networks unit</a>)</li>
+<li class="fragment"><strong>New scale:</strong> GPT-3 has 175 billion parameters; GPT-4 is estimated above 1 trillion</li>
+<li class="fragment"><strong>New behaviour:</strong> at this scale, generation becomes coherent, contextual, and broadly useful</li>
 </ul>
 <aside class="notes">
-<p>Every LLM discussed here is, at its core, a transformer (i.e., the architecture built around attention mechanisms), token embeddings, feed-forward layers, and next-token prediction (see <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html">neural networks unit</a>).</p>
-<p>Think of the transformer as the <em>engine</em>, and the LLM as the <em>vehicle</em>. In this picture, the LLM reflects the complete system that results from scaling and training the engine (i.e., the LLM) on enormous amounts of data, then fine-tuning it to be useful and safe.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-
-<section id="how-llms-generate-text" class="title-slide slide level2">
-<h2>How LLMs generate text</h2>
-<p>The generation process in an LLM follows a clear probabilistic pipeline <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2024</a>)</span>:</p>
-<ol type="1">
-<li class="fragment"><strong>Tokenization:</strong> input text is split into tokens; each token becomes a numerical ID</li>
-<li class="fragment"><strong>Embedding:</strong> token IDs are mapped to high-dimensional vectors capturing semantic meaning</li>
-<li class="fragment"><strong>Transformer layers:</strong> self-attention and feed-forward layers refine contextual representations</li>
-<li class="fragment"><strong>Output projection:</strong> final vector is mapped to scores over the entire vocabulary</li>
-<li class="fragment"><strong>Softmax &amp; sampling:</strong> scores become probabilities; the next token is sampled</li>
-<li class="fragment"><strong>Repeat:</strong> the generated token is appended to the context and the process continues</li>
-</ol>
-<aside class="notes">
+<p>The neural networks unit covered the generation pipeline in full: a prompt is tokenized, each token is embedded, attention and feed-forward layers refine those embeddings into context-aware representations, the final vector is projected onto the vocabulary, and softmax plus sampling selects the next token, which is appended to the context before the process repeats. Nothing about that mechanism changes here.</p>
+<p>What changes is scale and training. An LLM is what results when this architecture is grown to hundreds of billions of parameters and trained on internet-scale corpora. The engine-and-vehicle metaphor is useful: the transformer is the engine; the LLM is the complete vehicle that results from scaling that engine and fine-tuning it to be useful and safe.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>The probabilistic nature of LLM outputs</strong></p>
+<p><strong>Generation is probabilistic sampling</strong></p>
 </div>
 <div class="callout-content">
-<p>LLMs do not “know” the correct answer to a question. They assign probabilities to possible continuations and sample from that distribution. When you ask “What is the capital of France?” the model is not looking up a stored fact; it is computing a probability distribution over all tokens in its vocabulary, and the token “Paris” happens to receive very high probability because it appeared consistently after similar contexts during training.</p>
-<p>This has important consequences:</p>
-<ul>
-<li><strong>Temperature controls creativity</strong>: A low temperature (e.g., 0.2) concentrates probability mass on the most likely tokens, producing focused, predictable outputs. A high temperature (e.g., 1.0–1.5) spreads probability more evenly, producing more varied, creative (but less reliable) outputs.</li>
-<li><strong>Outputs are not deterministic</strong>: Running the same query twice with the same temperature can yield different outputs.</li>
-<li><strong>Confidence is not visible</strong>: The model can assign high probability to incorrect tokens. There is no built-in mechanism to flag uncertainty unless specifically trained to do so.</li>
-</ul>
-<p>Understanding this probabilistic nature is essential for using LLMs responsibly and for understanding why hallucinations occur.</p>
+<p>Recall from the neural networks unit that the model does not “know” the answer; it computes a probability distribution over the vocabulary and samples from it. Temperature controls how concentrated that distribution is, and the same prompt can yield different outputs. This probabilistic core is exactly why hallucination is a structural property, not a fixable bug, a point we return to under limitations.</p>
 </div>
 </div>
 </div>
+<p>The rest of this section focuses on what is genuinely new relative to the neural networks unit: how raw next-token prediction is turned into a helpful assistant through a three-phase training process, and where LLMs are applied in practice <span class="citation" data-cites="sanderson2024gpt">(<a href="#/literature" role="doc-biblioref" onclick="">Sanderson, 2024</a>)</span>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -438,9 +444,9 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
 
 <section id="training-phases" class="title-slide slide level2">
 <h2>Training phases</h2>
-<p>LLMs are not trained in a single step, they go through <strong>three distinct phases</strong> <span class="citation" data-cites="ouyang2022training">(<a href="#/literature" role="doc-biblioref" onclick="">Ouyang et al., 2022</a>)</span>:</p>
+<p>The next-token prediction you saw last unit is only the <strong>first of three training phases</strong> <span class="citation" data-cites="ouyang2022training">(<a href="#/literature" role="doc-biblioref" onclick="">Ouyang et al., 2022</a>)</span>:</p>
 <ol type="1">
-<li class="fragment"><strong>Pretraining:</strong> self-supervised learning on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures through next-token prediction</li>
+<li class="fragment"><strong>Pretraining:</strong> self-supervised <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#training">next-token prediction</a> on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures, exactly the process from the neural networks unit</li>
 <li class="fragment"><strong>Fine-tuning:</strong> supervised learning on smaller, high-quality, labelled datasets; adapts the general model to specific tasks (summarisation, Q&amp;A, coding) with more precise, contextually relevant outputs</li>
 <li class="fragment"><strong>Reinforcement Learning from Human Feedback (RLHF):</strong> human evaluators score model outputs; a reward model is trained on these scores; the LLM is then optimised to produce outputs humans prefer (i.e., aligning behaviour with expectations and ethical considerations)</li>
 </ol>
@@ -513,16 +519,29 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
 <section id="limitations-of-llms" class="title-slide slide level2">
 <h2>Limitations of LLMs</h2>
 <div class="medium">
-<p>Despite remarkable capabilities, LLMs have fundamental limitations that any responsible deployment must address <span class="citation" data-cites="riemer2023 verma2023">(<a href="#/literature" role="doc-biblioref" onclick="">Riemer &amp; Peter, 2023</a>; <a href="#/literature" role="doc-biblioref" onclick="">Verma &amp; Oremus, 2023</a>)</span>.</p>
+<p>The neural networks unit introduced the core failure modes; deploying LLMs at scale raises the stakes and adds new ones <span class="citation" data-cites="riemer2023 verma2023">(<a href="#/literature" role="doc-biblioref" onclick="">Riemer &amp; Peter, 2023</a>; <a href="#/literature" role="doc-biblioref" onclick="">Verma &amp; Oremus, 2023</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Carried over from the transformer</span></p>
 </div>
 <ul>
-<li class="fragment"><strong>Hallucination:</strong> Generates plausible but factually incorrect information.</li>
-<li class="fragment"><strong>No genuine understanding:</strong> Relies on statistical patterns rather than logic or reasoning.</li>
-<li class="fragment"><strong>Training data bias:</strong> Reflects and amplifies prejudices found in its source material.</li>
-<li class="fragment"><strong>Legal &amp; privacy risks:</strong> Can leak sensitive data or infringe on intellectual property.</li>
-<li class="fragment"><strong>Static knowledge:</strong> Limited by a “cutoff date” and cannot learn post-training.</li>
-<li class="fragment"><strong>Resource intensive:</strong> Demands massive energy and expensive infrastructure.</li>
+<li class="fragment"><strong>Hallucination:</strong> generates plausible but factually incorrect information</li>
+<li class="fragment"><strong>No genuine understanding:</strong> relies on statistical patterns rather than logic or reasoning</li>
+<li class="fragment"><strong>Training-data bias:</strong> reflects and amplifies prejudices found in its source material</li>
 </ul>
+<div class="fragment">
+<p><span class="h4">New once you deploy</span></p>
+</div>
+<ul>
+<li class="fragment"><strong>Legal &amp; privacy risks:</strong> can leak sensitive data or infringe on intellectual property</li>
+<li class="fragment"><strong>Static knowledge:</strong> limited by a “cutoff date”; cannot learn post-training</li>
+<li class="fragment"><strong>Resource intensive:</strong> demands massive energy and expensive infrastructure</li>
+</ul>
+<div class="fragment">
+<div class="smaller">
+<p>Static knowledge is the limitation that motivates <strong>retrieval-augmented generation,</strong> which we meet under agentic AI.</p>
+</div>
+</div>
 <aside class="notes">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">

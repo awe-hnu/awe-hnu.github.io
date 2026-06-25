@@ -163,7 +163,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">Mar 19, 2026</p>
+        <p class="date-modified">Jun 15, 2026</p>
       </div>
     </div>
       
@@ -271,6 +271,12 @@ cookieconsent.run({
  <span class="menu-text">Generative AI</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/I2AI/26ST/manage-AI/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Managing AI</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -279,7 +285,7 @@ cookieconsent.run({
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a> <a href="session.html" class="btn btn-secondary" target="blank">Session</a></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
@@ -373,8 +379,8 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
 <p>This lecture follows the structure of the book chapter by <span class="citation" data-cites="urbach2026genai">Urbach et al. (<a href="#ref-urbach2026genai" role="doc-biblioref">2026</a>)</span> and proceeds through three layers of increasing sophistication: first LLMs (pure language generation), then diffusion models (visual and audio generation), and finally agentic AI systems (goal-directed action).</p>
 </div>
 </section>
-<section id="the-catalyst-chatgpt" class="level2">
-<h2 data-anchor-id="the-catalyst-chatgpt">The catalyst: ChatGPT</h2>
+<section id="the-turning-point" class="level2">
+<h2 data-anchor-id="the-turning-point">The turning point</h2>
 <p>The introduction of ChatGPT by OpenAI in <strong>November 2022</strong> marked a turning point:</p>
 <div class="incremental">
 <ul class="incremental">
@@ -405,70 +411,43 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
 </section>
 <section id="large-language-models" class="level1 headline-only">
 <h1 class="headline-only">Large Language Models</h1>
-<section id="what-are-llms" class="level2">
-<h2 data-anchor-id="what-are-llms">What are LLMs?</h2>
-<div class="medium">
-<p>LLMs are neural networks trained on vast amounts of text, capable of generating coherent, contextually appropriate language <span class="citation" data-cites="vaswani2017attention brown2020language">(<a href="#ref-brown2020language" role="doc-biblioref">Brown et al., 2020</a>; <a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al., 2017</a>)</span>.</p>
-</div>
+<section id="from-transformer-to-llm" class="level2">
+<h2 data-anchor-id="from-transformer-to-llm">From transformer to LLM</h2>
 <div class="fragment">
-<p><span class="h4">Key characteristics</span></p>
+<p>Think of the transformer as the <strong>engine</strong> and the LLM as the <strong>vehicle:</strong> the same attention, embeddings, and next-token prediction, now scaled and refined into a usable system.</p>
 </div>
 <div class="incremental">
 <ul class="incremental">
-<li>Built on the <strong><a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">Transformer</a> architecture</strong> with self-attention</li>
-<li>Trained via <strong>next-token prediction</strong> on internet-scale text corpora</li>
-<li>Process all tokens in a sequence <strong>simultaneously</strong> (unlike sequential RNNs)</li>
-<li>Represent words as <strong>high-dimensional embedding vectors</strong> capturing semantic meaning</li>
-<li>Scale dramatically: GPT-3 has 175 billion parameters; GPT-4 is estimated at over 1 trillion</li>
+<li><strong>Same mechanism:</strong> tokenize, embed, attend, predict the next token (see <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#transformers">neural networks unit</a>)</li>
+<li><strong>New scale:</strong> GPT-3 has 175 billion parameters; GPT-4 is estimated above 1 trillion</li>
+<li><strong>New behaviour:</strong> at this scale, generation becomes coherent, contextual, and broadly useful</li>
 </ul>
 </div>
 <div class="notes">
-<p>Every LLM discussed here is, at its core, a transformer (i.e., the architecture built around attention mechanisms), token embeddings, feed-forward layers, and next-token prediction (see <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html">neural networks unit</a>).</p>
-<p>Think of the transformer as the <em>engine</em>, and the LLM as the <em>vehicle</em>. In this picture, the LLM reflects the complete system that results from scaling and training the engine (i.e., the LLM) on enormous amounts of data, then fine-tuning it to be useful and safe.</p>
-</div>
-</section>
-<section id="how-llms-generate-text" class="level2">
-<h2 data-anchor-id="how-llms-generate-text">How LLMs generate text</h2>
-<p>The generation process in an LLM follows a clear probabilistic pipeline <span class="citation" data-cites="sanderson2024gpt">(<a href="#ref-sanderson2024gpt" role="doc-biblioref">Sanderson, 2024</a>)</span>:</p>
-<div class="incremental">
-<ol class="incremental" type="1">
-<li><strong>Tokenization:</strong> input text is split into tokens; each token becomes a numerical ID</li>
-<li><strong>Embedding:</strong> token IDs are mapped to high-dimensional vectors capturing semantic meaning</li>
-<li><strong>Transformer layers:</strong> self-attention and feed-forward layers refine contextual representations</li>
-<li><strong>Output projection:</strong> final vector is mapped to scores over the entire vocabulary</li>
-<li><strong>Softmax &amp; sampling:</strong> scores become probabilities; the next token is sampled</li>
-<li><strong>Repeat:</strong> the generated token is appended to the context and the process continues</li>
-</ol>
-</div>
-<div class="notes">
+<p>The neural networks unit covered the generation pipeline in full: a prompt is tokenized, each token is embedded, attention and feed-forward layers refine those embeddings into context-aware representations, the final vector is projected onto the vocabulary, and softmax plus sampling selects the next token, which is appended to the context before the process repeats. Nothing about that mechanism changes here.</p>
+<p>What changes is scale and training. An LLM is what results when this architecture is grown to hundreds of billions of parameters and trained on internet-scale corpora. The engine-and-vehicle metaphor is useful: the transformer is the engine; the LLM is the complete vehicle that results from scaling that engine and fine-tuning it to be useful and safe.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The probabilistic nature of LLM outputs
+<span class="screen-reader-only">Note</span>Generation is probabilistic sampling
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>LLMs do not “know” the correct answer to a question. They assign probabilities to possible continuations and sample from that distribution. When you ask “What is the capital of France?” the model is not looking up a stored fact; it is computing a probability distribution over all tokens in its vocabulary, and the token “Paris” happens to receive very high probability because it appeared consistently after similar contexts during training.</p>
-<p>This has important consequences:</p>
-<ul>
-<li><strong>Temperature controls creativity</strong>: A low temperature (e.g., 0.2) concentrates probability mass on the most likely tokens, producing focused, predictable outputs. A high temperature (e.g., 1.0–1.5) spreads probability more evenly, producing more varied, creative (but less reliable) outputs.</li>
-<li><strong>Outputs are not deterministic</strong>: Running the same query twice with the same temperature can yield different outputs.</li>
-<li><strong>Confidence is not visible</strong>: The model can assign high probability to incorrect tokens. There is no built-in mechanism to flag uncertainty unless specifically trained to do so.</li>
-</ul>
-<p>Understanding this probabilistic nature is essential for using LLMs responsibly and for understanding why hallucinations occur.</p>
+<p>Recall from the neural networks unit that the model does not “know” the answer; it computes a probability distribution over the vocabulary and samples from it. Temperature controls how concentrated that distribution is, and the same prompt can yield different outputs. This probabilistic core is exactly why hallucination is a structural property, not a fixable bug, a point we return to under limitations.</p>
 </div>
 </div>
+<p>The rest of this section focuses on what is genuinely new relative to the neural networks unit: how raw next-token prediction is turned into a helpful assistant through a three-phase training process, and where LLMs are applied in practice <span class="citation" data-cites="sanderson2024gpt">(<a href="#ref-sanderson2024gpt" role="doc-biblioref">Sanderson, 2024</a>)</span>.</p>
 </div>
 </section>
 <section id="training-phases" class="level2">
 <h2 data-anchor-id="training-phases">Training phases</h2>
-<p>LLMs are not trained in a single step, they go through <strong>three distinct phases</strong> <span class="citation" data-cites="ouyang2022training">(<a href="#ref-ouyang2022training" role="doc-biblioref">Ouyang et al., 2022</a>)</span>:</p>
+<p>The next-token prediction you saw last unit is only the <strong>first of three training phases</strong> <span class="citation" data-cites="ouyang2022training">(<a href="#ref-ouyang2022training" role="doc-biblioref">Ouyang et al., 2022</a>)</span>:</p>
 <div class="incremental">
 <ol class="incremental" type="1">
-<li><strong>Pretraining:</strong> self-supervised learning on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures through next-token prediction</li>
+<li><strong>Pretraining:</strong> self-supervised <a href="../../../../lectures/I2AI/26ST/neural-networks/index.html#training">next-token prediction</a> on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures, exactly the process from the neural networks unit</li>
 <li><strong>Fine-tuning:</strong> supervised learning on smaller, high-quality, labelled datasets; adapts the general model to specific tasks (summarisation, Q&amp;A, coding) with more precise, contextually relevant outputs</li>
 <li><strong>Reinforcement Learning from Human Feedback (RLHF):</strong> human evaluators score model outputs; a reward model is trained on these scores; the LLM is then optimised to produce outputs humans prefer (i.e., aligning behaviour with expectations and ethical considerations)</li>
 </ol>
@@ -515,17 +494,32 @@ Figure&nbsp;1: Hierarchical structure of generative AI technologies adapted from
 <section id="limitations-of-llms" class="level2">
 <h2 data-anchor-id="limitations-of-llms">Limitations of LLMs</h2>
 <div class="medium">
-<p>Despite remarkable capabilities, LLMs have fundamental limitations that any responsible deployment must address <span class="citation" data-cites="riemer2023 verma2023">(<a href="#ref-riemer2023" role="doc-biblioref">Riemer &amp; Peter, 2023</a>; <a href="#ref-verma2023" role="doc-biblioref">Verma &amp; Oremus, 2023</a>)</span>.</p>
+<p>The neural networks unit introduced the core failure modes; deploying LLMs at scale raises the stakes and adds new ones <span class="citation" data-cites="riemer2023 verma2023">(<a href="#ref-riemer2023" role="doc-biblioref">Riemer &amp; Peter, 2023</a>; <a href="#ref-verma2023" role="doc-biblioref">Verma &amp; Oremus, 2023</a>)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="h4">Carried over from the transformer</span></p>
 </div>
 <div class="incremental">
 <ul class="incremental">
-<li><strong>Hallucination:</strong> Generates plausible but factually incorrect information.</li>
-<li><strong>No genuine understanding:</strong> Relies on statistical patterns rather than logic or reasoning.</li>
-<li><strong>Training data bias:</strong> Reflects and amplifies prejudices found in its source material.</li>
-<li><strong>Legal &amp; privacy risks:</strong> Can leak sensitive data or infringe on intellectual property.</li>
-<li><strong>Static knowledge:</strong> Limited by a “cutoff date” and cannot learn post-training.</li>
-<li><strong>Resource intensive:</strong> Demands massive energy and expensive infrastructure.</li>
+<li><strong>Hallucination:</strong> generates plausible but factually incorrect information</li>
+<li><strong>No genuine understanding:</strong> relies on statistical patterns rather than logic or reasoning</li>
+<li><strong>Training-data bias:</strong> reflects and amplifies prejudices found in its source material</li>
 </ul>
+</div>
+<div class="fragment">
+<p><span class="h4">New once you deploy</span></p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Legal &amp; privacy risks:</strong> can leak sensitive data or infringe on intellectual property</li>
+<li><strong>Static knowledge:</strong> limited by a “cutoff date”; cannot learn post-training</li>
+<li><strong>Resource intensive:</strong> demands massive energy and expensive infrastructure</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="smaller">
+<p>Static knowledge is the limitation that motivates <strong>retrieval-augmented generation,</strong> which we meet under agentic AI.</p>
+</div>
 </div>
 <div class="notes">
 <div class="callout callout-style-simple callout-note callout-titled">
@@ -947,9 +941,6 @@ Bhatia, A. (2023). <em>We need to talk about how good <span>A.I.</span> Is getti
 <div id="ref-brittain2023" class="csl-entry" role="listitem">
 Brittain, B. (2023). Getty images lawsuit says <span>Stability AI</span> misused photos to train <span>AI</span>. <em>Reuters</em>. <a href="https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/">https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/</a>
 </div>
-<div id="ref-brown2020language" class="csl-entry" role="listitem">
-Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu, J., Winter, C., … Amodei, D. (2020). Language models are few-shot learners. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>33</em>, 1877–1901. <a href="https://arxiv.org/abs/2005.14165">https://arxiv.org/abs/2005.14165</a>
-</div>
 <div id="ref-cao2023" class="csl-entry" role="listitem">
 Cao, H., Tan, C., Gao, Z., Xu, Y., Chen, G., Heng, P.-A., &amp; Li, S. Z. (2023). A survey on generative diffusion model. <em>arXiv Preprint arXiv:2209.02646</em>. <a href="https://arxiv.org/abs/2209.02646">https://arxiv.org/abs/2209.02646</a>
 </div>
@@ -1009,9 +1000,6 @@ The Verge. (2024). <em>Inside the launch—and future—of <span>ChatGPT</span><
 </div>
 <div id="ref-urbach2026genai" class="csl-entry" role="listitem">
 Urbach, N., Feulner, D., Feulner, S., Guggenberger, T., &amp; Mayer, V. (2026). Introduction to generative artificial intelligence. In N. Urbach &amp; D. Feulner (Eds.), <em>Managing artificial intelligence</em> (pp. 71–95). Springer Nature Switzerland. <a href="https://doi.org/10.1007/978-3-032-13308-3_4">https://doi.org/10.1007/978-3-032-13308-3_4</a>
-</div>
-<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
-Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, <em>30</em>, 5998–6008. <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>
 </div>
 <div id="ref-verma2023" class="csl-entry" role="listitem">
 Verma, P., &amp; Oremus, W. (2023). <em><span>ChatGPT</span> invented a sexual harassment scandal and named a real law prof as the accused</em>. <a href="https://www.washingtonpost.com/technology/2023/04/05/chatgpt-lies/">https://www.washingtonpost.com/technology/2023/04/05/chatgpt-lies/</a>

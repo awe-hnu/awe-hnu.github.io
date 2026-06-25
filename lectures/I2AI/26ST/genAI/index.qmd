@@ -19,11 +19,39 @@ format:
     output-file: index.html
     margin-header: |
       [Slides](slides.html){.btn .btn-primary target="blank"}
+      [Session](session.html){.btn .btn-secondary target="blank"}       
     format-links: false
   presentation-revealjs:
     output-file: slides.html
     include-before-body: ../assets/footer.html
 ---
+
+# Recap {.html-hidden}
+
+## Where we left off
+
+:::html-hidden
+In the [neural networks unit](../neural-networks/index.qmd) we built a language model from the ground up:
+:::
+
+:::incremental
+- **Neurons to networks:** weighted sums and activations, trained by gradient descent and backpropagation
+- **Transformers:** tokenization, embeddings, and attention turn a sequence into context-aware representations
+- **Next-token prediction:** the [transformer](../neural-networks/index.qmd#transformers) learns language by predicting what comes next, then generates text one token at a time
+- **Known failure modes:** hallucination, training-data bias, and the absence of genuine understanding
+:::
+
+:::fragment
+:::medium
+You already know how an LLM works. This unit asks what that machinery makes **possible.**
+:::
+:::
+
+:::notes
+This unit builds directly on the neural networks unit, where we traced the full path from a single artificial neuron to a working transformer: the weighted sum and activation of a neuron, the cost function and gradient descent that train it, backpropagation, and finally the transformer architecture with its attention mechanism and next-token-prediction objective. We also saw where these systems break down; they hallucinate, they reflect biases in their training data, and they manipulate statistical patterns rather than reasoning from genuine understanding.
+
+The closing discussion of that unit asked how next-token prediction scales into something genuinely useful. This unit answers that question. Rather than re-deriving the transformer, we treat it as a known building block (the *engine*) and ask what we can build with it: generative systems across text, image, audio, and video, and ultimately agentic systems that act in the world.
+:::
 
 # Introduction {.headline-only}
 
@@ -99,7 +127,7 @@ The diagram above captures the nested relationship between these concepts. All t
 This lecture follows the structure of the book chapter by @urbach2026genai and proceeds through three layers of increasing sophistication: first LLMs (pure language generation), then diffusion models (visual and audio generation), and finally agentic AI systems (goal-directed action).
 :::
 
-## The catalyst: ChatGPT
+## The turning point
 
 The introduction of ChatGPT by OpenAI in **November 2022** marked a turning point:
 
@@ -132,65 +160,44 @@ This combination of technical capability and accessible design is a recurring pa
 
 # Large Language Models {.headline-only}
 
-## What are LLMs?
+## From transformer to LLM
 
+:::html-hidden
 :::medium
-LLMs are neural networks trained on vast amounts of text, capable of generating coherent, contextually appropriate language [@vaswani2017attention; @brown2020language].
+An LLM is the [transformer](../neural-networks/index.qmd#transformers) you already built, scaled up and trained on internet-scale text [@vaswani2017attention; @brown2020language].
+:::
 :::
 
 :::fragment
-[Key characteristics]{.h4}
+Think of the transformer as the **engine** and the LLM as the **vehicle:** the same attention, embeddings, and next-token prediction, now scaled and refined into a usable system.
 :::
 
 :::incremental
-- Built on the **[Transformer](../neural-networks/index.qmd#transformers) architecture** with self-attention
-- Trained via **next-token prediction** on internet-scale text corpora
-- Process all tokens in a sequence **simultaneously** (unlike sequential RNNs)
-- Represent words as **high-dimensional embedding vectors** capturing semantic meaning
-- Scale dramatically: GPT-3 has 175 billion parameters; GPT-4 is estimated at over 1 trillion
+- **Same mechanism:** tokenize, embed, attend, predict the next token (see [neural networks unit](../neural-networks/index.qmd#transformers))
+- **New scale:** GPT-3 has 175 billion parameters; GPT-4 is estimated above 1 trillion
+- **New behaviour:** at this scale, generation becomes coherent, contextual, and broadly useful
 :::
 
 :::notes
-Every LLM discussed here is, at its core, a transformer (i.e., the architecture built around attention mechanisms), token embeddings, feed-forward layers, and next-token prediction (see [neural networks unit](../neural-networks/index.qmd)).
+The neural networks unit covered the generation pipeline in full: a prompt is tokenized, each token is embedded, attention and feed-forward layers refine those embeddings into context-aware representations, the final vector is projected onto the vocabulary, and softmax plus sampling selects the next token, which is appended to the context before the process repeats. Nothing about that mechanism changes here.
 
-Think of the transformer as the *engine*, and the LLM as the *vehicle*. In this picture, the LLM reflects the complete system that results from scaling and training the engine (i.e., the LLM) on enormous amounts of data, then fine-tuning it to be useful and safe.
-:::
+What changes is scale and training. An LLM is what results when this architecture is grown to hundreds of billions of parameters and trained on internet-scale corpora. The engine-and-vehicle metaphor is useful: the transformer is the engine; the LLM is the complete vehicle that results from scaling that engine and fine-tuning it to be useful and safe.
 
-## How LLMs generate text
-
-The generation process in an LLM follows a clear probabilistic pipeline [@sanderson2024gpt]:
-
-:::incremental
-1. **Tokenization:** input text is split into tokens; each token becomes a numerical ID
-2. **Embedding:** token IDs are mapped to high-dimensional vectors capturing semantic meaning
-3. **Transformer layers:** self-attention and feed-forward layers refine contextual representations
-4. **Output projection:** final vector is mapped to scores over the entire vocabulary
-5. **Softmax & sampling:** scores become probabilities; the next token is sampled
-6. **Repeat:** the generated token is appended to the context and the process continues
-:::
-
-:::notes
 :::callout-note
-#### The probabilistic nature of LLM outputs
+#### Generation is probabilistic sampling
 
-LLMs do not "know" the correct answer to a question. They assign probabilities to possible continuations and sample from that distribution. When you ask "What is the capital of France?" the model is not looking up a stored fact; it is computing a probability distribution over all tokens in its vocabulary, and the token "Paris" happens to receive very high probability because it appeared consistently after similar contexts during training.
-
-This has important consequences:
-
-- **Temperature controls creativity**: A low temperature (e.g., 0.2) concentrates probability mass on the most likely tokens, producing focused, predictable outputs. A high temperature (e.g., 1.0–1.5) spreads probability more evenly, producing more varied, creative (but less reliable) outputs.
-- **Outputs are not deterministic**: Running the same query twice with the same temperature can yield different outputs.
-- **Confidence is not visible**: The model can assign high probability to incorrect tokens. There is no built-in mechanism to flag uncertainty unless specifically trained to do so.
-
-Understanding this probabilistic nature is essential for using LLMs responsibly and for understanding why hallucinations occur.
+Recall from the neural networks unit that the model does not "know" the answer; it computes a probability distribution over the vocabulary and samples from it. Temperature controls how concentrated that distribution is, and the same prompt can yield different outputs. This probabilistic core is exactly why hallucination is a structural property, not a fixable bug, a point we return to under limitations.
 :::
+
+The rest of this section focuses on what is genuinely new relative to the neural networks unit: how raw next-token prediction is turned into a helpful assistant through a three-phase training process, and where LLMs are applied in practice [@sanderson2024gpt].
 :::
 
 ## Training phases
 
-LLMs are not trained in a single step, they go through **three distinct phases** [@ouyang2022training]:
+The next-token prediction you saw last unit is only the **first of three training phases** [@ouyang2022training]:
 
 :::incremental
-1. **Pretraining:** self-supervised learning on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures through next-token prediction
+1. **Pretraining:** self-supervised [next-token prediction](../neural-networks/index.qmd#training) on massive, unlabelled text corpora (internet archives, books, scientific articles); the model learns linguistic patterns, factual associations, and reasoning structures, exactly the process from the neural networks unit
 2. **Fine-tuning:** supervised learning on smaller, high-quality, labelled datasets; adapts the general model to specific tasks (summarisation, Q&A, coding) with more precise, contextually relevant outputs
 3. **Reinforcement Learning from Human Feedback (RLHF):** human evaluators score model outputs; a reward model is trained on these scores; the LLM is then optimised to produce outputs humans prefer (i.e., aligning behaviour with expectations and ethical considerations)
 :::
@@ -240,16 +247,33 @@ From a business perspective, the key strategic question is not "can we use LLMs?
 ## Limitations of LLMs
 
 :::medium
-Despite remarkable capabilities, LLMs have fundamental limitations that any responsible deployment must address [@riemer2023; @verma2023].
+The neural networks unit introduced the core failure modes; deploying LLMs at scale raises the stakes and adds new ones [@riemer2023; @verma2023].
+:::
+
+:::fragment
+[Carried over from the transformer]{.h4}
 :::
 
 :::incremental
-- **Hallucination:** Generates plausible but factually incorrect information.
-- **No genuine understanding:** Relies on statistical patterns rather than logic or reasoning.
-- **Training data bias:** Reflects and amplifies prejudices found in its source material.
-- **Legal & privacy risks:** Can leak sensitive data or infringe on intellectual property.
-- **Static knowledge:** Limited by a "cutoff date" and cannot learn post-training.
-- **Resource intensive:** Demands massive energy and expensive infrastructure.
+- **Hallucination:** generates plausible but factually incorrect information
+- **No genuine understanding:** relies on statistical patterns rather than logic or reasoning
+- **Training-data bias:** reflects and amplifies prejudices found in its source material
+:::
+
+:::fragment
+[New once you deploy]{.h4}
+:::
+
+:::incremental
+- **Legal & privacy risks:** can leak sensitive data or infringe on intellectual property
+- **Static knowledge:** limited by a "cutoff date"; cannot learn post-training
+- **Resource intensive:** demands massive energy and expensive infrastructure
+:::
+
+:::fragment
+:::smaller
+Static knowledge is the limitation that motivates **retrieval-augmented generation,** which we meet under agentic AI.
+:::
 :::
 
 :::notes
