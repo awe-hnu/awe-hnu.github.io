@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-08-18">
+  <title>awe.lectures – Meta Case Pt. 2 (CPM)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-735089d110c961a04cadc41357682241.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+<meta property="og:title" content="Meta Case Pt. 2 (CPM) – awe.lectures">
+<meta property="og:description" content="Strategy and Performance Management">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V0.3
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Strategy &amp; Performance Management
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>   
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Meta Case Pt. 2 (CPM)</h1>
+  <p class="subtitle">Strategy and Performance Management</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger 
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">August 18, 2026</p>
+</section>
+<section id="learning-objectives" class="title-slide slide level1">
+<h1>Learning objectives</h1>
+<p>After today’s session, you will be able to:</p>
+<ul>
+<li class="fragment">translate strategic moves into measurable performance indicators using CPM tools;</li>
+<li class="fragment">select and apply the right CPM tool for different types of strategic decisions;</li>
+<li class="fragment">perform simple ROI, trend, and break-even analyses using public data;</li>
+<li class="fragment">and integrate financial and non-financial measures into a coherent performance view.</li>
+</ul>
+</section>
+
+<section id="roadmap-for-today" class="title-slide slide level1">
+<h1>Roadmap for today</h1>
+<ol type="1">
+<li>Introduction</li>
+<li>Acquisitions &amp; ROI analysis</li>
+<li>AI/AGI investment &amp; KPI trends</li>
+<li><em>Break</em><br>
+</li>
+<li>Reality Labs &amp; break-even analysis<br>
+</li>
+<li>CPM Reflection (Balanced Scorecard)<br>
+</li>
+<li>Wrap-up</li>
+</ol>
+</section>
+
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+<div class="medium">
+<p>Strategic moves are only as good<br>
+as their measurable results.</p>
+</div>
+<div class="fragment">
+<p>Today we look at three major Meta strategic moves and use different CPM tools to measure and evaluate their performance.</p>
+<p>Your tasks:</p>
+<ul>
+<li><strong>Choose &amp; justify</strong> the right performance measurement tool.<br>
+</li>
+<li><strong>Collect &amp; use</strong> public data (given links).<br>
+</li>
+<li><strong>Perform</strong> the analysis (basic calculations, trend observations, break-even estimates).<br>
+</li>
+<li><strong>Interpret</strong> the results in light of Meta’s strategy.<br>
+</li>
+</ul>
+</div>
+</section>
+
+<section id="acquisition-roi-analysis" class="title-slide slide level1 scrollable">
+<h1>Acquisition &amp; ROI analysis</h1>
+<div class="medium">
+<p>Did Meta’s big acquisitions pay off?</p>
+</div>
+<div class="fragment">
+<p>Choose either <strong>Instagram</strong> (acquired 2012, ~$1B) or <strong>WhatsApp</strong> (announced 2014 at $19B, ~$21.8B at closing). Perform two analyses:</p>
+<ol type="1">
+<li><span class="highlight">Strategic future value</span> (simple method):<br>
+Estimate <em>annual revenue</em> in a chosen “mature” year = monetizable MAUs<a href="#/footnotes" class="footnote-ref" id="fnref1" role="doc-noteref" data-footnote-href="#/fn1" onclick=""><sup>1</sup></a> × ARPU<a href="#/footnotes" class="footnote-ref" id="fnref2" role="doc-noteref" data-footnote-href="#/fn2" onclick=""><sup>2</sup></a>.<br>
+Compare this to the acquisition price to get a ballpark ROI.<br>
+</li>
+<li><span class="highlight">NPV calculation</span> (finance method):<br>
+Forecast annual cash flows over a given time horizon (e.g., 10 years from the acquisition).<br>
+Assume a growth rate (g) and a discount rate (r).<br>
+Calculate NPV of cash flows and compare with acquisition price.<br>
+</li>
+</ol>
+<p>Conclude whether the ROI appears positive, negative, or unclear — and why.</p>
+</div>
+<div class="small">
+<p>5 min recap individual research + 20 min group analysis &amp; consolidation + 10 min presentations</p>
+</div>
+<div id="timer_acb06a788c5bb659d844199fdf144dbe6ea3eedf" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">25</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p><span class="h4"><strong>Solution notes</strong></span></p>
+<p><em>Reference period: Q2 2026 (reported 29 Jul 2026) and FY 2025. Source labels D1–D6 as in the preparation guide.</em></p>
+<p><span class="h4"><strong>Input data and where it comes from</strong></span></p>
+<table>
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Value</th>
+<th>Source (exact)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Meta total revenue Q2 2026</td>
+<td>$60,801M (+28% YoY)</td>
+<td>D1, <em>Second Quarter 2026 Financial Highlights</em></td>
+</tr>
+<tr class="even">
+<td>Family of Apps revenue Q2 2026</td>
+<td>$60,370M</td>
+<td>D1, <em>Segment Results</em></td>
+</tr>
+<tr class="odd">
+<td>Meta total revenue FY 2025</td>
+<td>$200,966M (+22%)</td>
+<td>D4, <em>Full Year 2025 Financial Highlights</em></td>
+</tr>
+<tr class="even">
+<td>Family DAP, June 2026</td>
+<td>3.60B (+3% YoY)</td>
+<td>D1, <em>Operational and Other Financial Highlights</em></td>
+</tr>
+<tr class="odd">
+<td>Family ARPP Q2 2026</td>
+<td>$16.86 per <strong>quarter</strong> (≈ $67/year)</td>
+<td>D2, slide <em>Family Average Revenue per Person</em></td>
+</tr>
+<tr class="even">
+<td>Instagram MAU</td>
+<td>3.0B (Sep 2025)</td>
+<td>Meta/Mosseri announcement, 24 Sep 2025 — <strong>not in any filing</strong></td>
+</tr>
+<tr class="odd">
+<td>Instagram DAU</td>
+<td>2.0B</td>
+<td>D3, Zuckerberg opening remarks, p.&nbsp;1</td>
+</tr>
+<tr class="even">
+<td>WhatsApp MAU</td>
+<td>&gt;3.0B (Apr 2025)</td>
+<td>Zuckerberg, Q1 2025 earnings call — <strong>not in any filing</strong></td>
+</tr>
+<tr class="odd">
+<td>Instagram share of Meta ad revenue</td>
+<td>~40–50% (estimate)</td>
+<td>eMarketer — <strong>third-party estimate</strong></td>
+</tr>
+<tr class="even">
+<td>Instagram price (2012)</td>
+<td>~$1.0B</td>
+<td>Announcement / Facebook 10-K 2012</td>
+</tr>
+<tr class="odd">
+<td>WhatsApp price (2014)</td>
+<td>$19B announced, <strong>~$21.8B at closing</strong></td>
+<td>Facebook 10-K 2014; closing value reported Oct 2014</td>
+</tr>
+</tbody>
+</table>
+<p><span class="h4"><strong>Headline answers</strong></span></p>
+<ul>
+<li><strong>Instagram</strong>: ~$1B in 2012 for ~30M users. Today ~3.0B MAU / 2.0B DAU. Even the most conservative attribution of Family of Apps revenue puts Instagram’s annual revenue run-rate in the tens of billions — i.e.&nbsp;<strong>60–100× the purchase price per year</strong>. ROI is unambiguously positive; the interesting question is <em>how</em> you defend an attribution key.</li>
+<li><strong>WhatsApp</strong>: ~$21.8B in 2014, now &gt;3B MAU. Direct revenue is still not disclosed and is widely assumed to be small relative to the price. The value is indirect: lock-in, messaging-as-infrastructure, business messaging, and denying a rival the asset. ROI is <strong>positive but not demonstrable in pure $ terms from public data</strong> — a good example of a strategic decision that a purely financial CPM tool cannot evaluate.</li>
+</ul>
+<p><span class="h4"><strong>Instagram example — Step 1: strategic future value</strong></span></p>
+<p>Upper-bound method (and why it is only an upper bound):</p>
+<ul>
+<li>Instagram DAU 2.0B × annualized ARPP ≈ $67 → <strong>≈ $134B/year</strong></li>
+<li>Sanity check: that is 67% of Meta’s <em>entire</em> FY 2025 revenue of $201B. ARPP is Family-level, so a person on Instagram <em>and</em> Facebook counts once — multiplying it by one app’s user count double-counts.</li>
+<li>Plausible range using the eMarketer attribution (~40–50% of ad revenue): <strong>≈ $80–100B/year</strong>.</li>
+</ul>
+<p>Either way: annual revenue attributable to Instagram is roughly <strong>80–100× the 2012 purchase price</strong>.</p>
+<p><span class="h4"><strong>Instagram example — Step 2: NPV calculation</strong></span></p>
+<p>Assumptions (deliberately conservative — the point is that even these produce a positive verdict):</p>
+<ul>
+<li>Starting CF (2012): 30M users × $5/user/year = $150M</li>
+<li>Growth rate g = 10% p.a. (actual growth was far higher)</li>
+<li>WACC r = 8%</li>
+<li>Horizon: 13 years (2013–2025)</li>
+</ul>
+<p><span class="math inline">\(NPV = \sum_{t=1}^{13} \frac{CF_0 \times (1+g)^t}{(1 + r)^t}\)</span></p>
+<table>
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>Cash Flow (CF)</th>
+<th>Discount Factor</th>
+<th>Present Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>$165.0M</td>
+<td>0.926</td>
+<td>$152.8M</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>$181.5M</td>
+<td>0.857</td>
+<td>$155.6M</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>$199.7M</td>
+<td>0.794</td>
+<td>$158.5M</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>$219.6M</td>
+<td>0.735</td>
+<td>$161.4M</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>$241.6M</td>
+<td>0.681</td>
+<td>$164.4M</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>$265.7M</td>
+<td>0.630</td>
+<td>$167.5M</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>$292.3M</td>
+<td>0.583</td>
+<td>$170.6M</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>$321.5M</td>
+<td>0.540</td>
+<td>$173.7M</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>$353.7M</td>
+<td>0.500</td>
+<td>$176.9M</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>$389.1M</td>
+<td>0.463</td>
+<td>$180.2M</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>$428.0M</td>
+<td>0.429</td>
+<td>$183.5M</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>$470.8M</td>
+<td>0.397</td>
+<td>$186.9M</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>$517.8M</td>
+<td>0.368</td>
+<td>$190.4M</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td></td>
+<td></td>
+<td><strong>$2,222.5M</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>NPV of cash flows ≈ $2.22 billion</strong></p>
+<p><span class="math inline">\(ROI = \frac{NPV - Investment}{Investment} \times 100\)</span></p>
+<table>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Initial investment</td>
+<td>$1,000M</td>
+</tr>
+<tr class="even">
+<td>NPV of cash flows</td>
+<td>$2,222.5M</td>
+</tr>
+<tr class="odd">
+<td>Net gain</td>
+<td>$1,222.5M</td>
+</tr>
+<tr class="even">
+<td><strong>ROI</strong></td>
+<td><strong>≈ 122%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Even with assumptions far below what actually happened, the acquisition clears the hurdle comfortably. Push the group on the gap between the $2.2B NPV here and the $80–100B/year run-rate from Step 1: the discrepancy <em>is</em> the lesson — the result is driven almost entirely by the assumed growth rate, not by the discounting.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside></aside></section>
+
+<section id="ai-agi-investments" class="title-slide slide level1">
+<h1>AI &amp; AGI investments</h1>
+<div class="medium">
+<p>Do Meta’s AI bets show measurable momentum?</p>
+</div>
+<ul>
+<li>Identify at least 3 KPIs that could indicate progress from AI/AGI investments.<br>
+</li>
+<li>Use the sources to observe trends over the last 2–3 years.<br>
+</li>
+<li>Discuss whether the trends suggest these investments are paying off now, or positioning Meta for future advantage.</li>
+</ul>
+<div class="small">
+<p>5 min recap individual research + 15 min group analysis &amp; consolidation + 10 min presentations</p>
+</div>
+<div id="timer_acb06a788c5bb659d844199fdf144dbe6ea3eedf" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p><span class="h4"><strong>Solution notes</strong></span></p>
+<p><span class="h4"><strong>Input KPIs — annual view</strong></span></p>
+<table>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 29%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>KPI</th>
+<th>FY 2023</th>
+<th>FY 2024</th>
+<th>FY 2025</th>
+<th>FY 2026 (guidance)</th>
+<th>Source (exact)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total revenue ($B)</td>
+<td>134.9</td>
+<td>164.5</td>
+<td>201.0</td>
+<td>Q3 guide: 61–64</td>
+<td>D4 &amp; D5, <em>Financial Highlights</em> / income statement</td>
+</tr>
+<tr class="even">
+<td>R&amp;D expense ($B)</td>
+<td>38.5</td>
+<td>43.9</td>
+<td>57.4</td>
+<td>—</td>
+<td>D4/D5, <em>Condensed Consolidated Statements of Income</em>, line “Research and development”</td>
+</tr>
+<tr class="odd">
+<td>R&amp;D as % of revenue</td>
+<td>28.5%</td>
+<td>26.7%</td>
+<td>28.5%</td>
+<td>—</td>
+<td>derived; cross-check D2, slide <em>Expenses as a Percentage of Revenue</em></td>
+</tr>
+<tr class="even">
+<td>CapEx incl.&nbsp;finance leases ($B)</td>
+<td>—</td>
+<td>39.2</td>
+<td>72.2</td>
+<td><strong>130–145</strong></td>
+<td>D4 <em>Operational Highlights</em>; D1 <em>CFO Outlook Commentary</em></td>
+</tr>
+<tr class="odd">
+<td>Total expenses ($B)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td><strong>165–169</strong></td>
+<td>D1, <em>CFO Outlook Commentary</em></td>
+</tr>
+</tbody>
+</table>
+<p><span class="h4"><strong>Input KPIs — latest quarter</strong></span></p>
+<table>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>KPI</th>
+<th>Q2 2025</th>
+<th>Q2 2026</th>
+<th>Change</th>
+<th>Source (exact)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Revenue ($M)</td>
+<td>47,516</td>
+<td>60,801</td>
+<td>+28%</td>
+<td>D1, <em>Financial Highlights</em></td>
+</tr>
+<tr class="even">
+<td>R&amp;D ($M)</td>
+<td>12,942</td>
+<td>21,656</td>
+<td><strong>+67%</strong></td>
+<td>D1, income statement</td>
+</tr>
+<tr class="odd">
+<td>R&amp;D as % of revenue</td>
+<td>27.2%</td>
+<td>35.6%</td>
+<td>+8.4pp</td>
+<td>derived</td>
+</tr>
+<tr class="even">
+<td>CapEx incl.&nbsp;finance leases ($B)</td>
+<td>~17.0</td>
+<td><strong>31.1</strong></td>
+<td>~×1.8</td>
+<td>D1, <em>Operational Highlights</em> (YTD 2026: $50.9B)</td>
+</tr>
+<tr class="odd">
+<td>Operating margin</td>
+<td>43%</td>
+<td><strong>31%</strong></td>
+<td>−12pp</td>
+<td>D1, <em>Financial Highlights</em></td>
+</tr>
+<tr class="even">
+<td>Net income ($M)</td>
+<td>18,337</td>
+<td>15,848</td>
+<td><strong>−14%</strong></td>
+<td>D1, <em>Financial Highlights</em></td>
+</tr>
+<tr class="odd">
+<td>Free cash flow ($M)</td>
+<td>—</td>
+<td><strong>784</strong></td>
+<td>—</td>
+<td>D1, <em>Operational Highlights</em></td>
+</tr>
+<tr class="even">
+<td>Ad impressions</td>
+<td>—</td>
+<td>+14% YoY</td>
+<td>—</td>
+<td>D1, <em>Operational Highlights</em></td>
+</tr>
+<tr class="odd">
+<td>Average price per ad</td>
+<td>—</td>
+<td>+12% YoY</td>
+<td>—</td>
+<td>D1, <em>Operational Highlights</em></td>
+</tr>
+<tr class="even">
+<td>Family DAP</td>
+<td>—</td>
+<td>3.60B (+3%)</td>
+<td>—</td>
+<td>D1, <em>Operational Highlights</em></td>
+</tr>
+<tr class="odd">
+<td>Family ARPP</td>
+<td>—</td>
+<td>$16.86 (+~23%)</td>
+<td>—</td>
+<td>D2, slide <em>Family ARPP</em></td>
+</tr>
+<tr class="even">
+<td>Headcount</td>
+<td>—</td>
+<td>75,472 (−1%)</td>
+<td>—</td>
+<td>D1, <em>Operational Highlights</em></td>
+</tr>
+</tbody>
+</table>
+<p><span class="h4"><strong>Evidence that the spending is working (non-financial)</strong></span></p>
+<p>All from D3, CFO Susan Li’s prepared remarks and Zuckerberg’s opening:</p>
+<ul>
+<li>Ad clicks on Facebook <strong>+8.3%</strong>, conversions <strong>+15.7%</strong> (attributed to AI ranking)</li>
+<li>Instagram global time spent up <strong>double digits YoY</strong>, driven by Feed and Reels ranking</li>
+<li>Largest single-release ranking improvement shipped in the quarter; <strong>+15bp sessions</strong> on Instagram</li>
+<li>Instagram passed <strong>2B daily actives</strong>; Threads passed <strong>500M monthly actives</strong></li>
+</ul>
+<p><span class="h4"><strong>Interpretation</strong></span></p>
+<p>The story has flipped versus a year ago. Revenue growth accelerated to 28%, yet <strong>net income fell 14%</strong> and <strong>operating margin dropped from 43% to 31%</strong> — because R&amp;D grew 67% and capex nearly doubled. Free cash flow of $784M in a quarter with $60.8B of revenue is the single most striking number in the release.</p>
+<p>Discussion prompt: the <em>engagement and ad-performance</em> KPIs are unambiguously positive, the <em>efficiency and cash</em> KPIs are unambiguously negative. That is exactly what a large, front-loaded strategic investment looks like — and exactly why a single-perspective (financial) measurement system would give the wrong signal here. Ask the group: how many quarters of this would you accept, and what evidence would make you stop?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="break" class="title-slide slide level1 headline-only">
+<h1>Break</h1>
+
+</section>
+
+<section id="reality-labs-break-even-analysis" class="title-slide slide level1">
+<h1>Reality Labs &amp; break-even analysis</h1>
+<div class="medium">
+<p>When might Reality Labs stop losing billions?</p>
+</div>
+<ul>
+<li>Identify Reality Labs revenue and operating losses from latest reports.<br>
+</li>
+<li>Estimate the scale or efficiency gains needed to reach break-even (e.g., “sales must double”).<br>
+</li>
+<li>Consider whether such a break-even is realistic in the medium term.</li>
+</ul>
+<div class="small">
+<p>5 min recap individual research + 15 min group analysis &amp; consolidation + 10 min presentations</p>
+</div>
+<div id="timer_acb06a788c5bb659d844199fdf144dbe6ea3eedf" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p><span class="h4"><strong>Solution notes</strong></span></p>
+<p><span class="h4"><strong>Input data — all from the <em>Segment Results</em> tables</strong></span></p>
+<table>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 14%">
+<col style="width: 25%">
+<col style="width: 28%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Period</th>
+<th>RL revenue</th>
+<th>RL operating loss</th>
+<th>Implied total costs</th>
+<th>Source (exact)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Q2 2025</td>
+<td>$370M</td>
+<td>$(4,530)M</td>
+<td>$4,900M</td>
+<td>D1, <em>Segment Results</em>, prior-year column</td>
+</tr>
+<tr class="even">
+<td>Q1 2026</td>
+<td>$402M</td>
+<td>$(4,030)M</td>
+<td>$4,432M</td>
+<td>D6, <em>Segment Results</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Q2 2026</strong></td>
+<td><strong><span class="math inline">\(431M** (+16% YoY) | **\)</span>(4,619)M</strong></td>
+<td><strong>$5,050M</strong></td>
+<td>D1, <em>Segment Results</em></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FY 2024</td>
+<td>$2,146M</td>
+<td>$(17,729)M</td>
+<td>$19,875M</td>
+<td>D4, <em>Segment Results</em></td>
+</tr>
+<tr class="odd">
+<td>FY 2025</td>
+<td>$2,207M</td>
+<td>$(19,193)M</td>
+<td>$21,400M</td>
+<td>D4, <em>Segment Results</em></td>
+</tr>
+</tbody>
+</table>
+<p>Cumulative operating losses 2023–2025: <strong>≈ $53.0B</strong>; adding H1 2026 (−$8.65B): <strong>≈ $61.7B</strong> since the start of 2023.</p>
+<p><span class="h4"><strong>Break-even calculation</strong></span></p>
+<p>Break-even means revenue = total costs, i.e.&nbsp;revenue must cover revenue + operating loss.</p>
+<table>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 22%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Basis</th>
+<th>Revenue</th>
+<th>Operating loss</th>
+<th>Total costs</th>
+<th>Revenue must rise</th>
+<th>…or costs must fall</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Q2 2026</td>
+<td>$431M</td>
+<td>$4,619M</td>
+<td>$5,050M</td>
+<td><strong>+1,072%</strong> (≈ ×11.7)</td>
+<td><strong>−91.5%</strong></td>
+</tr>
+<tr class="even">
+<td>H1 2026</td>
+<td>$833M</td>
+<td>$8,649M</td>
+<td>$9,482M</td>
+<td>+1,038% (≈ ×11.4)</td>
+<td>−91.2%</td>
+</tr>
+<tr class="odd">
+<td>FY 2025</td>
+<td>$2,207M</td>
+<td>$19,193M</td>
+<td>$21,400M</td>
+<td>+870% (≈ ×9.7)</td>
+<td>−89.7%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Feasibility: effectively zero in the medium term.</strong> Note the trap: revenue <em>is</em> growing (+16% YoY, driven by AI glasses per D3), but at 16% p.a. it would take roughly 17 years to reach ×11.7 — and only if costs stayed flat, which they have not.</p>
+<p><span class="h4"><strong>Interpretation</strong></span></p>
+<ul>
+<li>The gap has not narrowed. Q2 2026 loss ($4.62B) is <em>larger</em> than Q2 2025 ($4.53B) despite 16% revenue growth.</li>
+<li>Framing matters: management (D3) discusses Reality Labs in terms of <em>AI glasses growth</em> and product milestones, not in terms of segment profitability. Ask the group whether that is legitimate reframing or an accountability gap.</li>
+<li>Break-even is arguably the <strong>wrong</strong> KPI for an option-like investment. Better candidates: cost of the option per year vs.&nbsp;the size of the market being optioned; unit economics per device; or a stage-gate with explicit kill criteria.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="cpm-reflection" class="title-slide slide level1">
+<h1>CPM reflection</h1>
+<div class="medium">
+<p>Pulling it all together.</p>
+</div>
+<ul>
+<li>As a group, create a <strong>single Balanced Scorecard</strong> that is capable to reflect the performance of all three strategic moves.<br>
+</li>
+<li>For each perspective (Financial, Customer, Internal Process, Learning &amp; Growth), note 1–2 KPIs you would track going forward.<br>
+</li>
+<li>Look at Meta’s current earnings and assess its performance based on your Balanced Scorecard.</li>
+</ul>
+<div class="small">
+<p>5 min recap individual research + 20 min group analysis &amp; consolidation + 10 min presentations</p>
+</div>
+<div id="timer_acb06a788c5bb659d844199fdf144dbe6ea3eedf" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">25</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p><span class="h4"><strong>Solution notes</strong></span></p>
+<table>
+<colgroup>
+<col style="width: 18%">
+<col style="width: 11%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Perspective</th>
+<th>KPI(s)</th>
+<th>Status Q2 2026</th>
+<th>Source (exact)</th>
+<th>Comment / insight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Financial</td>
+<td>Operating margin, net income, FCF, RL loss ratio</td>
+<td>Margin <strong>31%</strong> (from 43%); net income <strong>−14%</strong>; FCF <strong>$784M</strong>; RL loss <strong>$4.62B</strong>/quarter</td>
+<td>D1, <em>Financial Highlights</em> + <em>Operational Highlights</em> + <em>Segment Results</em></td>
+<td>Top line is accelerating while every profitability and cash measure deteriorates — the classic signature of a front-loaded strategic bet</td>
+</tr>
+<tr class="even">
+<td>Customer</td>
+<td>DAP, ARPP, per-app milestones</td>
+<td>DAP <strong>3.60B</strong> (+3%); ARPP <strong>$16.86</strong> (+~23%); Instagram <strong>2B DAU</strong>; Threads <strong>500M MAU</strong></td>
+<td>D1, <em>Operational Highlights</em>; D2, slide <em>Family ARPP</em>; D3, opening remarks p.&nbsp;1</td>
+<td>Growth is now monetization-led, not user-led — DAP +3% vs.&nbsp;ARPP +23%</td>
+</tr>
+<tr class="odd">
+<td>Internal process</td>
+<td>Ad impressions, price per ad, ad clicks, conversions, ranking release velocity</td>
+<td>Impressions <strong>+14%</strong>, price per ad <strong>+12%</strong>, ad clicks <strong>+8.3%</strong>, conversions <strong>+15.7%</strong>, +15bp Instagram sessions</td>
+<td>D1, <em>Operational Highlights</em>; D3, CFO prepared remarks</td>
+<td>The clearest evidence that the AI capex is converting into operational performance</td>
+</tr>
+<tr class="even">
+<td>Learning &amp; growth</td>
+<td>R&amp;D spend, R&amp;D as % of revenue, capex commitment, headcount</td>
+<td>R&amp;D <strong>$21.7B</strong> in the quarter (<strong>35.6%</strong> of revenue, from 27.2%); FY26 capex guidance <strong>$130–145B</strong>; headcount <strong>75,472 (−1%)</strong></td>
+<td>D1, income statement + <em>CFO Outlook Commentary</em> + <em>Operational Highlights</em></td>
+<td>Record investment intensity achieved with a <em>shrinking</em> headcount — capital, not labour, is the input being scaled</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Assessment (Q2 2026)</strong>:</p>
+<ul>
+<li><strong>Strengths:</strong> Customer and internal-process perspectives are strong and improving; the acquisitions from Task 1 remain the profit engine funding everything else.</li>
+<li><strong>Weaknesses:</strong> The financial perspective has deteriorated sharply — margin −12pp, net income −14%, free cash flow near zero. Reality Labs remains ~$4.6B/quarter with no path to break-even (Task 3).</li>
+<li><strong>Strategic alignment:</strong> Three perspectives point one way and one points the other. A BSC that weights the financial perspective at 100% would call Q2 2026 a bad quarter; a BSC weighted to Meta’s stated strategy would call it an expensive but on-track one.</li>
+</ul>
+<p><strong>Discussion prompts</strong>:</p>
+<ul>
+<li>Which weighting would <em>you</em> defend to a shareholder, and what would falsify it?</li>
+<li>Meta reports Reality Labs as a separate segment but does <em>not</em> separate AI infrastructure spend. What does that choice of reporting boundary do to accountability?</li>
+<li>Would you set a leading indicator that could trigger a stop on either bet? What would it be, and could you actually measure it from public data?</li>
+</ul>
+<p><strong>Key takeaways</strong>:</p>
+<ul>
+<li>A good BSC for a diversified tech company must balance high-return mature businesses with speculative long-term bets.</li>
+<li>Financial perspective is not the only decision driver — strong performance in Customer and Learning &amp; Growth can justify current financial underperformance in moonshot areas.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+
+</section>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document smaller scrollable" role="doc-endnotes"><h3>Footnotes</h3>
+
+<ol>
+<li id="fn1"><p>MAU = Monthly Active Users</p></li>
+<li id="fn2"><p>ARPU = Average Revenue per User </p></li>
+</ol>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

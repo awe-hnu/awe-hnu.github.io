@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Human-AI Collaboration – awe.lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en-US"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="Human-AI Collaboration – awe.lectures">
+<meta property="og:description" content="How can human-AI collaboration exceed the sum of its parts?">
+<meta property="og:image" content="https://awe-hnu.github.io/lectures/IPS/26WT/human-ai-collaboration/images/jagged-frontier.svg">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../../index.html" aria-current="page"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Human-AI Collaboration</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Human-AI Collaboration</h1>
+            <p class="subtitle lead">How can human-AI collaboration exceed the sum of its parts?</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Nov 13, 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Aug 19, 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://elearning.hnu.de/course/view.php?id=22064" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">Moodle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia 🧐</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/resilience/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resilience</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/productivity/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Productivity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/human-ai-collaboration/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Human-AI Collaboration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/change/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Change</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/feedback/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Feedback</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exam</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/IPS/26WT/assignment/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assignment</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#the-light-side" id="toc-the-light-side" class="nav-link" data-scroll-target="#the-light-side">The light side</a></li>
+  <li><a href="#the-dark-side" id="toc-the-dark-side" class="nav-link" data-scroll-target="#the-dark-side">The dark side</a></li>
+  <li><a href="#the-jagged-frontier" id="toc-the-jagged-frontier" class="nav-link" data-scroll-target="#the-jagged-frontier">The jagged frontier</a></li>
+  <li><a href="#interaction-modes" id="toc-interaction-modes" class="nav-link" data-scroll-target="#interaction-modes">Interaction modes</a></li>
+  <li><a href="#challenges" id="toc-challenges" class="nav-link" data-scroll-target="#challenges">Challenges</a></li>
+  <li><a href="#reading-list" id="toc-reading-list" class="nav-link" data-scroll-target="#reading-list">Reading list</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="motivation" class="level1 vertical-center no-headline" data-background-color="#0333ff">
+<h1 class="vertical-center no-headline" data-background-color="#0333ff">Motivation</h1>
+<div class="medium">
+<p>How can we structure our work with AI to ensure that the sum is greater than the parts, rather than less?</p>
+</div>
+<div class="notes">
+<p>The widespread deployment of generative AI has created an illusion of frictionless productivity. Empirical studies of high-stakes knowledge work show a recurring <strong>complementarity deficit:</strong> naive human-AI combinations often underperform both unassisted humans and autonomous AI models <span class="citation" data-cites="vaccaro2024when brodeur2026aiassisted">(<a href="#ref-brodeur2026aiassisted" role="doc-biblioref">Brodeur et al., 2026</a>; <a href="#ref-vaccaro2024when" role="doc-biblioref">Vaccaro et al., 2024</a>)</span>. <span class="citation" data-cites="brodeur2026aiassisted">Brodeur et al. (<a href="#ref-brodeur2026aiassisted" role="doc-biblioref">2026</a>)</span> give a stark demonstration: in a large-scale reproducibility-assessment task, AI-assisted teams outperformed AI-led teams, but neither beat human-only teams.</p>
+<p>Generating plausible text, code, or strategic analysis now costs near-zero marginal cognitive effort. The cost of evaluating, verifying, and debugging what that generation produces has stayed constant, or increased. That asymmetry, the <strong>generation-verification gap</strong>, is the starting point for this session.</p>
+<p>Artificial intelligence is neither a uniform productivity multiplier nor a cognitive replacement. It behaves like an <strong>asymmetric amplifier:</strong> it amplifies whatever interaction structure surrounds it, good or bad. Without deliberate, evidence-based interaction architectures, pairing capable humans with capable AI frequently yields outcomes that are worse, more homogeneous, and harder to maintain than unassisted work.</p>
+<p>Three concepts anchor the session:</p>
+<ul>
+<li><strong>Complementarity vs.&nbsp;substitution:</strong> does the pairing produce something neither party could produce alone, or does the AI simply replace human effort?</li>
+<li><strong>Naive delegation vs.&nbsp;co-construction:</strong> is the human handing off a task wholesale, or actively shaping how the AI contributes to it?</li>
+<li><strong>Epistemic agency:</strong> does the human retain ownership of judgment, or does the AI’s confident output quietly replace the human’s own reasoning?</li>
+</ul>
+</div>
+</section>
+<section id="the-light-side" class="level1 headline-only">
+<h1 class="headline-only">The light side</h1>
+<section id="execution-velocity" class="level2">
+<h2 data-anchor-id="execution-velocity">Execution velocity</h2>
+<div class="fragment">
+<div class="medium">
+<p>AI compresses the time it takes to get from blank page to first draft.</p>
+</div>
+</div>
+<div class="notes">
+<p>Field and lab experiments consistently find large completion-time reductions for routine writing, standard coding, and initial drafting once generative AI is introduced into the workflow. <span class="citation" data-cites="noy2023experimental">Noy &amp; Zhang (<a href="#ref-noy2023experimental" role="doc-biblioref">2023</a>)</span> found that ChatGPT cut the time professionals needed for writing tasks by roughly 40 percent while improving output quality, as judged by peer graders. <span class="citation" data-cites="peng2023impact">Peng et al. (<a href="#ref-peng2023impact" role="doc-biblioref">2023</a>)</span> found comparable gains for developers using GitHub Copilot, and <span class="citation" data-cites="merali2025scaling">Merali (<a href="#ref-merali2025scaling" role="doc-biblioref">2025</a>)</span> extend the pattern to consulting, data-analyst, and management tasks more broadly.</p>
+<p>Beyond raw speed, AI reduces the friction of <strong>cold-start knowledge retrieval:</strong> instead of searching, skimming, and synthesizing background material, a worker can ask directly and get a serviceable orientation within seconds. This is valuable, but it is also where the light side quietly borders the dark side: speed at the input stage does not guarantee speed, or quality, at the output stage. That tension carries through the rest of the session.</p>
+</div>
+</section>
+<section id="the-equalizer-effect" class="level2">
+<h2 data-anchor-id="the-equalizer-effect">The equalizer effect</h2>
+<div class="fragment">
+<div class="medium">
+<p>AI narrows the gap between novices and experts, at least initially.</p>
+</div>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="brynjolfsson2023generative">Brynjolfsson et al. (<a href="#ref-brynjolfsson2023generative" role="doc-biblioref">2023</a>)</span> studied customer-support agents using a generative AI assistant and found that the assistant raised the productivity of novice and low-skilled agents substantially more than that of experienced agents. AI acted as an immediate scaffold, elevating baseline output to a competent standard and compressing the internal performance variance of the team. <span class="citation" data-cites="cruces2025does">Cruces et al. (<a href="#ref-cruces2025does" role="doc-biblioref">2025</a>)</span> found the same pattern in a randomized experiment on education-based productivity gaps: generative AI narrowed the gap between lower- and higher-skilled workers substantially.</p>
+<p>This “bottom-up leveling” is genuinely valuable for onboarding and for closing skill gaps quickly. It also raises a question we return to under the dark side: what happens to the <em>learning</em> that used to occur while novices struggled through that gap unassisted?</p>
+</div>
+</section>
+<section id="individual-divergent-thinking" class="level2">
+<h2 data-anchor-id="individual-divergent-thinking">Individual divergent thinking</h2>
+<div class="fragment">
+<div class="medium">
+<p>More ideas, further apart, faster.</p>
+</div>
+</div>
+<div class="notes">
+<p>When individuals query LLMs during early brainstorming, they tend to produce more ideas per minute and ideas that are further apart in meaning (higher semantic distance) than when brainstorming alone <span class="citation" data-cites="doshi2024generative">(<a href="#ref-doshi2024generative" role="doc-biblioref">Doshi &amp; Hauser, 2024</a>)</span>. <span class="citation" data-cites="hubert2024current">Hubert et al. (<a href="#ref-hubert2024current" role="doc-biblioref">2024</a>)</span> go further, finding that current generative language models outperform humans on standard divergent-thinking tasks. For an individual working alone, this is a genuine creativity boost.</p>
+</div>
+</section>
+<section id="light-side-at-a-glance" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="light-side-at-a-glance">Light side at a glance</h2>
+<div id="tbl-lightside" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-lightside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mechanism</th>
+<th>What changes</th>
+<th>Representative evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Execution velocity</strong></td>
+<td>Faster drafts, faster prototypes, faster orientation</td>
+<td><span class="citation" data-cites="noy2023experimental">Noy &amp; Zhang (<a href="#ref-noy2023experimental" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="peng2023impact">Peng et al. (<a href="#ref-peng2023impact" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="merali2025scaling">Merali (<a href="#ref-merali2025scaling" role="doc-biblioref">2025</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>The equalizer effect</strong></td>
+<td>Novices and low performers gain the most</td>
+<td><span class="citation" data-cites="brynjolfsson2023generative">Brynjolfsson et al. (<a href="#ref-brynjolfsson2023generative" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="cruces2025does">Cruces et al. (<a href="#ref-cruces2025does" role="doc-biblioref">2025</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Individual divergent thinking</strong></td>
+<td>More ideas, greater semantic distance</td>
+<td><span class="citation" data-cites="doshi2024generative">Doshi &amp; Hauser (<a href="#ref-doshi2024generative" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="hubert2024current">Hubert et al. (<a href="#ref-hubert2024current" role="doc-biblioref">2024</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-lightside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Three well-replicated, immediate benefits of individual AI use
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="the-dark-side" class="level1 headline-only">
+<h1 class="headline-only">The dark side</h1>
+<section id="cognitive-offloading-and-skill-degradation" class="level2">
+<h2 data-anchor-id="cognitive-offloading-and-skill-degradation">Cognitive offloading and skill degradation</h2>
+<div class="fragment">
+<div class="medium">
+<p>Faster answers today, weaker retrieval tomorrow.</p>
+</div>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="bastani2024generative">Bastani et al. (<a href="#ref-bastani2024generative" role="doc-biblioref">2024</a>)</span> ran field experiments with high-school students working through math problems, some with access to a generative AI tutor and some without. Students with AI access solved practice problems faster and with fewer errors. When the AI was removed for a subsequent unaided exam, however, their performance dropped significantly relative to the control group. The likely mechanism is that AI assistance bypassed the active retrieval and struggle that normally consolidate learning.</p>
+<p>A parallel pattern has been observed in professional settings that depend on trained intuition. <span class="citation" data-cites="lancet2025endoscopist">The Lancet Gastroenterology &amp; Hepatology (<a href="#ref-lancet2025endoscopist" role="doc-biblioref">2025</a>)</span> is a clinical commentary, not a randomized trial, but it synthesizes observational and early-cohort evidence pointing to an emerging <strong>deskilling risk:</strong> endoscopists accustomed to continuous AI assistance during colonoscopy show signs of reduced vigilance and unaided polyp-detection accuracy once that assistance is withdrawn. The proposed mechanism is the same as in the classroom case: <strong>the effort that used to build the skill has been offloaded, so the skill stops accumulating,</strong> though here the evidence is a risk signal rather than a settled causal finding.</p>
+<p>This is not an argument against AI-assisted learning as such. However, we need to be deliberate about <em>when</em> assistance is appropriate.</p>
+</div>
+</section>
+<section id="the-reviewers-bottleneck-and-technical-debt" class="level2">
+<h2 data-anchor-id="the-reviewers-bottleneck-and-technical-debt">The reviewer’s bottleneck and technical debt</h2>
+<div class="fragment">
+<div class="medium">
+<p>AI writes faster than humans can review.</p>
+</div>
+</div>
+<div class="notes">
+<p>Generation happens at machine speed, but verification, the reading, tracing, and testing needed to catch subtle errors, still happens at human speed <span class="citation" data-cites="he2026aiwrites">(<a href="#ref-he2026aiwrites" role="doc-biblioref">He, Agarwal, et al., 2026</a>)</span>. In a separate longitudinal study of open-source projects, <span class="citation" data-cites="he2026speed">He, Miller, et al. (<a href="#ref-he2026speed" role="doc-biblioref">2026</a>)</span> find that Cursor AI raises short-term commit velocity while measurably increasing long-term code complexity. The result is a volume of output that looks correct on a first pass but accumulates undetected flaws.</p>
+<p>In software engineering specifically, <span class="citation" data-cites="xu2025aiassisted">Xu et al. (<a href="#ref-xu2025aiassisted" role="doc-biblioref">2025</a>)</span> find that AI-assisted code, while faster to produce, is associated with <strong>decreased productivity for experienced developers</strong> once maintenance is accounted for: AI-generated code tends to introduce silent coupling between components and structural complexity that is expensive to unwind later. <span class="citation" data-cites="borg2026echoes">Borg et al. (<a href="#ref-borg2026echoes" role="doc-biblioref">2026</a>)</span> corroborate this at the codebase level, tracing downstream maintainability costs directly to AI-assisted commits. The technical-debt bill does not arrive at commit time. It arrives months later, in the review, refactor, or incident that the shortcut eventually causes.</p>
+</div>
+</section>
+<section id="the-fixation-and-homogenization-trap" class="level2">
+<h2 data-anchor-id="the-fixation-and-homogenization-trap">The fixation and homogenization trap</h2>
+<div class="fragment">
+<div class="medium">
+<p>Everyone converges on the model’s first idea.</p>
+</div>
+</div>
+<div class="notes">
+<p>Two mechanisms compound each other here.</p>
+<ol type="1">
+<li>At the individual level, <strong>idea fixation:</strong> <span class="citation" data-cites="wadinambiarachchi2024effects">Wadinambiarachchi et al. (<a href="#ref-wadinambiarachchi2024effects" role="doc-biblioref">2024</a>)</span> show that designers and analysts who see an AI-generated concept early in their process tend to anchor on its framing, even when instructed to generate independently, narrowing the space of solutions they go on to consider. <span class="citation" data-cites="lin2026stimulating">Lin &amp; Xie (<a href="#ref-lin2026stimulating" role="doc-biblioref">2026</a>)</span> replicate the pattern in product design specifically, comparing generative AI against traditional ideation methods.</li>
+<li>At the collective level, this compounds into a <strong>variance collapse</strong>. Large language models sample text from dense regions of their learned probability distribution, so their outputs cluster around a small number of “central” answers. <span class="citation" data-cites="doshi2024generative">Doshi &amp; Hauser (<a href="#ref-doshi2024generative" role="doc-biblioref">2024</a>)</span> show that while an <em>individual</em> using an LLM produces more ideas (the light-side finding above), a population of <em>many</em> people using the same LLM produces conceptually more similar outputs to each other than an equivalent population working unaided. <span class="citation" data-cites="boussioux2024crowdless">Boussioux et al. (<a href="#ref-boussioux2024crowdless" role="doc-biblioref">2024</a>)</span> find the same collapse in crowdsourced problem-solving, and <span class="citation" data-cites="zhou2025when">Zhou et al. (<a href="#ref-zhou2025when" role="doc-biblioref">2025</a>)</span> show it compounding over time: once continuous AI use stops, individual creativity fails to recover even as homogeneity keeps climbing. Individual creativity goes up; collective diversity goes down.</li>
+</ol>
+<p>A related, subtler effect: <span class="citation" data-cites="williams2026search">Williams (<a href="#ref-williams2026search" role="doc-biblioref">2026</a>)</span> find that AI systems used to evaluate ideas (screening pitches, ranking submissions) tend to favor smooth, familiar narrative structures over genuinely novel or “weird” ones, penalizing exactly the kind of outlier idea that breakthrough innovation tends to require.</p>
+<p>The practical implication for teams: if everyone on a project queries the same model the same way, the team’s apparent productivity gain can mask a real loss of strategic and creative diversity.</p>
+</div>
+</section>
+<section id="reasoning-biases-and-verification-failures" class="level2">
+<h2 data-anchor-id="reasoning-biases-and-verification-failures">Reasoning biases and verification failures</h2>
+<div class="fragment">
+<div class="medium">
+<p>Confidence is not correctness, but it is persuasive.</p>
+</div>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="vasconcelos2023generation">Vasconcelos et al. (<a href="#ref-vasconcelos2023generation" role="doc-biblioref">2023</a>)</span> study how decision-makers interact with AI-generated recommendations under time pressure and find that confident, fluent AI output is trusted more than its accuracy warrants. <span class="citation" data-cites="qazi2025automation">Qazi et al. (<a href="#ref-qazi2025automation" role="doc-biblioref">2025</a>)</span> and <span class="citation" data-cites="goh2024influence">Goh et al. (<a href="#ref-goh2024influence" role="doc-biblioref">2024</a>)</span> document the same <strong>automation bias</strong> directly in clinical diagnostic reasoning: physicians shown a confident but incorrect AI suggestion were measurably more likely to reach the wrong diagnosis themselves. The danger is not that people trust AI too much in general; it is that they cannot reliably tell <em>when</em> to trust it, because confident and unconfident outputs often look identical.</p>
+<p>A closely related failure is <strong>selective adherence</strong>, the term coined by <span class="citation" data-cites="alonbarkat2023human">Alon-Barkat &amp; Busuioc (<a href="#ref-alonbarkat2023human" role="doc-biblioref">2023</a>)</span> in a study of public-sector decision-making: decision-makers tend to accept AI suggestions that confirm what they already believed, and reject AI suggestions that contradict their priors, regardless of which suggestion was actually correct. <span class="citation" data-cites="rounding2025impact">Rounding et al. (<a href="#ref-rounding2025impact" role="doc-biblioref">2025</a>)</span> confirm the pattern in a multi-country randomized trial of physician decision-making. This means AI does not simply add noise to decision-making; it can <em>amplify existing bias</em> by giving it an authoritative-sounding second opinion.</p>
+<p>Both failures point to the same design requirement for human-AI collaboration: verification needs to be structured, not left to intuition.</p>
+</div>
+</section>
+<section id="dark-side-at-a-glance" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="dark-side-at-a-glance">Dark side at a glance</h2>
+<div id="tbl-darkside" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-darkside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Failure mode</th>
+<th>Mechanism</th>
+<th>Representative evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cognitive atrophy</strong></td>
+<td>Offloaded effort stops building the underlying skill</td>
+<td><span class="citation" data-cites="bastani2024generative">Bastani et al. (<a href="#ref-bastani2024generative" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="lancet2025endoscopist">The Lancet Gastroenterology &amp; Hepatology (<a href="#ref-lancet2025endoscopist" role="doc-biblioref">2025</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Reviewer’s bottleneck</strong></td>
+<td>Generation outpaces verification, debt accumulates silently</td>
+<td><span class="citation" data-cites="he2026aiwrites">He, Agarwal, et al. (<a href="#ref-he2026aiwrites" role="doc-biblioref">2026</a>)</span>; <span class="citation" data-cites="he2026speed">He, Miller, et al. (<a href="#ref-he2026speed" role="doc-biblioref">2026</a>)</span>; <span class="citation" data-cites="xu2025aiassisted">Xu et al. (<a href="#ref-xu2025aiassisted" role="doc-biblioref">2025</a>)</span>; <span class="citation" data-cites="borg2026echoes">Borg et al. (<a href="#ref-borg2026echoes" role="doc-biblioref">2026</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Fixation &amp; homogenization</strong></td>
+<td>Individual anchoring plus collective variance collapse</td>
+<td><span class="citation" data-cites="wadinambiarachchi2024effects">Wadinambiarachchi et al. (<a href="#ref-wadinambiarachchi2024effects" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="doshi2024generative">Doshi &amp; Hauser (<a href="#ref-doshi2024generative" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="zhou2025when">Zhou et al. (<a href="#ref-zhou2025when" role="doc-biblioref">2025</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Reasoning biases</strong></td>
+<td>Automation bias and selective adherence to AI advice</td>
+<td><span class="citation" data-cites="vasconcelos2023generation">Vasconcelos et al. (<a href="#ref-vasconcelos2023generation" role="doc-biblioref">2023</a>)</span>; <span class="citation" data-cites="alonbarkat2023human">Alon-Barkat &amp; Busuioc (<a href="#ref-alonbarkat2023human" role="doc-biblioref">2023</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-darkside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Four systemic penalties hidden behind the light side’s immediate gains
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="the-jagged-frontier" class="level1 headline-only">
+<h1 class="headline-only">The jagged frontier</h1>
+<section id="mapping-task-performance" class="level2">
+<h2 data-anchor-id="mapping-task-performance">Mapping task performance</h2>
+<div class="fragment">
+<div class="medium">
+<p>AI competence is not uniform. It has a shape.</p>
+</div>
+</div>
+<div id="fig-jagged" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jagged-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/jagged-frontier.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jagged-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The jagged AI frontier, adapted from <span class="citation" data-cites="delacqua2023jagged">Dell’Acqua et al. (<a href="#ref-delacqua2023jagged" role="doc-biblioref">2023</a>)</span>: AI ability (solid) does not track task difficulty (dashed) smoothly, so tasks of similar apparent difficulty can fall inside or outside the frontier
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="delacqua2023jagged">Dell’Acqua et al. (<a href="#ref-delacqua2023jagged" role="doc-biblioref">2023</a>)</span> had management consultants complete realistic business tasks with and without access to GPT-4 and found dramatically uneven effects depending on the task. For tasks <strong>inside the frontier</strong> (closed-form problems with a checkable structure, such as market analysis or product ideation from a given brief), consultants using AI completed more tasks, faster, and at higher quality, with quality gains of roughly 40 percent. For tasks <strong>outside the frontier</strong> (problems that looked similar on the surface but required subtle, multi-step causal reasoning the model could not reliably do), consultants who trusted the AI’s competence performed <strong>worse</strong> than a control group working unaided, with quality dropping by roughly 19 percent.</p>
+<p>The frontier is called “jagged” because it does not track task difficulty in any intuitive way. Some hard-looking tasks are safely inside it; some easy-looking tasks are outside it. The only way to know which is which is to test, not to guess from how complex a task <em>feels</em>.</p>
+<p>Two further findings sharpen the picture:</p>
+<ul>
+<li><strong>The expert penalty:</strong> novices gain the most leverage from AI assistance, but domain experts often experience <em>net negative</em> time balances, because reviewing and correcting an AI draft can take longer than producing an expert solution from scratch <span class="citation" data-cites="cui2025effects becker2025measuring xu2025aiassisted">(<a href="#ref-becker2025measuring" role="doc-biblioref">Becker et al., 2025</a>; <a href="#ref-cui2025effects" role="doc-biblioref">Cui et al., 2025</a>; <a href="#ref-xu2025aiassisted" role="doc-biblioref">Xu et al., 2025</a>)</span>.</li>
+<li><strong>Determinants of complementary success:</strong> the tasks where human-AI pairing reliably helps share two properties, <strong>verifiability</strong> (can an error be caught by a linter, a unit test, or a simple check, rather than requiring careful reading, the generation-verification tradeoff formalized by <span class="citation" data-cites="vasconcelos2023generation">Vasconcelos et al. (<a href="#ref-vasconcelos2023generation" role="doc-biblioref">2023</a>)</span>) and <strong>task modularity</strong> (can the sub-problem be fully isolated from the rest of the analysis?) <span class="citation" data-cites="vaccaro2024when hemmer2025complementarity">(<a href="#ref-hemmer2025complementarity" role="doc-biblioref">Hemmer et al., 2025</a>; <a href="#ref-vaccaro2024when" role="doc-biblioref">Vaccaro et al., 2024</a>)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="what-makes-complementarity-work" class="level2">
+<h2 data-anchor-id="what-makes-complementarity-work">What makes complementarity work</h2>
+<div class="fragment">
+<div class="medium">
+<p>Verifiable and modular tasks are where humans and AI genuinely add up.</p>
+</div>
+</div>
+<div id="tbl-determinants" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-determinants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Determinant</th>
+<th>Question to ask</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Verifiability</strong></td>
+<td>Can an error be caught mechanically (linter, test, calculation check), rather than only by careful reading?</td>
+<td>Converts verification from an open-ended cognitive task into a fast, reliable one</td>
+</tr>
+<tr class="even">
+<td><strong>Task modularity</strong></td>
+<td>Can the sub-problem be fully isolated from the rest of the analysis?</td>
+<td>Bounds what the AI can silently get wrong, and what the human must review</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-determinants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Two properties that predict when human-AI pairing outperforms either party alone <span class="citation" data-cites="vaccaro2024when hemmer2025complementarity">(<a href="#ref-hemmer2025complementarity" role="doc-biblioref">Hemmer et al., 2025</a>; <a href="#ref-vaccaro2024when" role="doc-biblioref">Vaccaro et al., 2024</a>)</span>
+</figcaption>
+</figure>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="vaccaro2024when">Vaccaro et al. (<a href="#ref-vaccaro2024when" role="doc-biblioref">2024</a>)</span> synthesize a large body of human-AI teaming studies and find that superadditive complementarity is not evenly distributed across task types. It concentrates in tasks that are <strong>verifiable</strong> and <strong>modular</strong>. <span class="citation" data-cites="hemmer2025complementarity">Hemmer et al. (<a href="#ref-hemmer2025complementarity" role="doc-biblioref">2025</a>)</span> arrive at the same two determinants independently, through a conceptual synthesis of the sources of human-AI complementarity in information systems research. When both properties are present, review is fast and errors are contained. When either is absent, review becomes as expensive as doing the task unaided, and the “productivity gain” from generation is fully offset, or reversed, by the cost of verification.</p>
+<p>This gives us a practical diagnostic question to ask before delegating any task to AI: <em>if the AI gets this wrong, how would I find out, and how far would the error spread before I did?</em></p>
+</div>
+</section>
+</section>
+<section id="interaction-modes" class="level1 headline-only">
+<h1 class="headline-only">Interaction modes</h1>
+<section id="from-diagnosis-to-protocol" class="level2">
+<h2 data-anchor-id="from-diagnosis-to-protocol">From diagnosis to protocol</h2>
+<div class="medium">
+<p>Four modes, matched to four failure risks.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Socratic Scaffold</strong> protects skill acquisition</li>
+<li><strong>Centaur Modularizer</strong> structures large workflows</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Cognitive Forcer</strong> mitigates overreliance</li>
+<li><strong>Delayed Access</strong> preserves creative variance</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Each mode below targets a specific failure mode identified above. None of them asks you to stop using AI. All of them ask you to change <em>when</em> and <em>how</em> you bring it into the workflow.</p>
+</div>
+</section>
+<section id="the-socratic-scaffold" class="level2">
+<h2 data-anchor-id="the-socratic-scaffold">The Socratic Scaffold</h2>
+<div class="large">
+<p>Cognitive protection for skill acquisition</p>
+</div>
+<div class="notes">
+<p><strong>Objective:</strong> skill acquisition, conceptual learning, and problem formulation, without the mental atrophy documented in <span class="citation" data-cites="bastani2024generative">Bastani et al. (<a href="#ref-bastani2024generative" role="doc-biblioref">2024</a>)</span>.</p>
+<p><strong>Mechanism:</strong> the human explicitly instructs the model not to output a direct solution or completed code. Instead, the model is prompted to behave like an examiner or tutor: it asks clarifying questions, points to missing boundary conditions or edge cases, and checks whether the human’s stated reasoning is sound, without supplying the reasoning itself. <span class="citation" data-cites="macneil2024exploring">MacNeil et al. (<a href="#ref-macneil2024exploring" role="doc-biblioref">2024</a>)</span>’s design space of conversational AI for programming education documents this examiner-style configuration directly.</p>
+<p><strong>When to use it:</strong> any situation where the point of the task is what you learn from doing it, not just the artifact you produce, coursework, first attempts at a new technique, early-career skill building.</p>
+</div>
+</section>
+<section id="the-centaur-modularizer" class="level2">
+<h2 data-anchor-id="the-centaur-modularizer">The Centaur Modularizer</h2>
+<div class="large">
+<p>Structural separation for large, multi-step workflows</p>
+</div>
+<div class="notes">
+<p><strong>Objective:</strong> navigating large, multi-step analytical or writing workflows without losing coherence or accumulating undetected errors, directly addressing the reviewer’s bottleneck discussed under the dark side.</p>
+<p><strong>Mechanism:</strong> enforce strict spatial and functional separation between human and AI contributions, following the “centaur” pattern documented by <span class="citation" data-cites="delacqua2023jagged">Dell’Acqua et al. (<a href="#ref-delacqua2023jagged" role="doc-biblioref">2023</a>)</span> and studied further in a team setting by <span class="citation" data-cites="delacqua2025cybernetic">Dell’Acqua et al. (<a href="#ref-delacqua2025cybernetic" role="doc-biblioref">2025</a>)</span>. The human retains complete ownership of strategy, problem architecture, and final synthesis. The AI is delegated bounded, non-overlapping subroutines, formatting, data extraction, boilerplate code, first-pass summaries, where the scope of a possible error is small and easy to locate.</p>
+<p><strong>When to use it:</strong> large deliverables (reports, codebases, presentations) where losing the thread of the overall argument to the AI would be costly, but where clearly delimited sub-tasks are genuinely verifiable and modular (recall <a href="#tbl-determinants" class="quarto-xref">Table&nbsp;3</a>).</p>
+</div>
+</section>
+<section id="the-cognitive-forcer" class="level2">
+<h2 data-anchor-id="the-cognitive-forcer">The Cognitive Forcer</h2>
+<div class="large">
+<p>Adversarial review for high-stakes decisions</p>
+</div>
+<div class="notes">
+<p><strong>Objective:</strong> high-stakes decision-making, policy analysis, and code review, directly countering the automation bias and selective adherence documented above in the discussion of <span class="citation" data-cites="vasconcelos2023generation">Vasconcelos et al. (<a href="#ref-vasconcelos2023generation" role="doc-biblioref">2023</a>)</span>, following the cognitive forcing functions proposed by <span class="citation" data-cites="bucinca2021trust">Buçinca et al. (<a href="#ref-bucinca2021trust" role="doc-biblioref">2021</a>)</span>.</p>
+<p><strong>Mechanism:</strong> before consulting the model at all, the human must commit, in writing, to an independent hypothesis, recommendation, or architecture. Only after that commitment exists is the AI introduced, and only in an adversarial role: it is prompted explicitly to red-team the human’s position, to poke holes, surface edge-case failures, and expose unstated assumptions.</p>
+<p><strong>Why the order matters:</strong> asking for a critique <em>after</em> you have committed to a position removes the anchoring effect that a first AI answer otherwise has on your own thinking. It also converts the AI from a source of the decision into a check on the decision, structurally undermining automation bias rather than relying on individual vigilance to overcome it.</p>
+<p><strong>When to use it:</strong> irreversible or costly decisions, code review before merge, any moment where being wrong quietly is more expensive than being challenged loudly.</p>
+</div>
+</section>
+<section id="delayed-ai-access" class="level2">
+<h2 data-anchor-id="delayed-ai-access">Delayed AI access</h2>
+<div class="large">
+<p>Preserving variance in creative and strategic work</p>
+</div>
+<div class="notes">
+<p><strong>Objective:</strong> creative ideation, strategic direction, and novel product design, directly countering the fixation and homogenization trap discussed under the dark side.</p>
+<p><strong>Mechanism:</strong> enforce an initial period of fully unassisted human divergent thinking, generating your own ideas before you see the model’s, to establish a genuine personal variance baseline before any AI framing can anchor it (recall <span class="citation" data-cites="wadinambiarachchi2024effects">Wadinambiarachchi et al. (<a href="#ref-wadinambiarachchi2024effects" role="doc-biblioref">2024</a>)</span> on idea fixation). This staged-access protocol is directly studied by <span class="citation" data-cites="romero2025delayed">Romero (<a href="#ref-romero2025delayed" role="doc-biblioref">2025</a>)</span>, who show that delaying AI access in collaborative problem-solving mitigates the homogenising effects of introducing it too early. AI is introduced only downstream, for expansion and elaboration, and ideally through diverse prompting personas rather than a single default query, deliberately pushing the model away from the dense central region of its output distribution that drives the collective variance collapse documented by <span class="citation" data-cites="doshi2024generative">Doshi &amp; Hauser (<a href="#ref-doshi2024generative" role="doc-biblioref">2024</a>)</span>. <span class="citation" data-cites="wan2025diverse">Wan &amp; Kalman (<a href="#ref-wan2025diverse" role="doc-biblioref">2025</a>)</span> show directly that varying the AI’s persona across a team measurably mitigates this homogenization effect in collaborative ideation.</p>
+<p><strong>When to use it:</strong> early-stage brainstorming, product concepting, strategy formation, anywhere that the <em>diversity</em> of the option set matters as much as the quality of any single option.</p>
+</div>
+</section>
+</section>
+<section id="challenges" class="level1">
+<h1>Challenges</h1>
+<p>You want to become a more deliberate collaborator with AI, not just a faster one? Here are three challenges that might help you along the way.</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Level 1 (Reflect):</strong> Keep a 14-day AI reliance diary. Log every AI interaction relevant to your studies or work, noting where the task sat on the jagged frontier, whether your stance was passive or active, how long verification took, and any moment you noticed automation bias in yourself. Close with a written reflection on your personal dependency and verification bottlenecks.</li>
+<li><strong>Level 2 (Change):</strong> Over three weeks, commit to applying at least two of the four protocols above (Cognitive Forcer and Delayed Access work well together) across your coursework or projects. Compare your outputs against your usual habits: what changed in cognitive effort, in the maintainability of what you produced, and in what you actually remember afterward?</li>
+<li><strong>Level 3 (Grow):</strong> Design and run a small field experiment (4 to 8 people, a study group or a work team). Compare a human-only team, a naive-AI team, and a Centaur-style team on the same complex deliverable. Write up whether true complementarity appeared, whether technical debt accumulated, and whether the AI-assisted teams’ outputs converged more than the human-only team’s did.</li>
+</ul>
+</div>
+</section>
+<section id="reading-list" class="level1">
+<h1>Reading list</h1>
+<p>For digging deeper, I recommend the sources cited here, organized by theme.</p>
+<p><strong>Frontiers and productivity</strong></p>
+<ul>
+<li>The jagged technological frontier: <span class="citation" data-cites="delacqua2023jagged">Dell’Acqua et al. (<a href="#ref-delacqua2023jagged" role="doc-biblioref">2023</a>)</span></li>
+<li>Productivity effects of generative AI: <span class="citation" data-cites="noy2023experimental">Noy &amp; Zhang (<a href="#ref-noy2023experimental" role="doc-biblioref">2023</a>)</span></li>
+<li>Generative AI at work: <span class="citation" data-cites="brynjolfsson2023generative">Brynjolfsson et al. (<a href="#ref-brynjolfsson2023generative" role="doc-biblioref">2023</a>)</span></li>
+<li>Generative AI and developer productivity (GitHub Copilot): <span class="citation" data-cites="peng2023impact">Peng et al. (<a href="#ref-peng2023impact" role="doc-biblioref">2023</a>)</span></li>
+<li>Scaling laws for AI-assisted knowledge work: <span class="citation" data-cites="merali2025scaling">Merali (<a href="#ref-merali2025scaling" role="doc-biblioref">2025</a>)</span></li>
+<li>Generative AI and education-based productivity gaps: <span class="citation" data-cites="cruces2025does">Cruces et al. (<a href="#ref-cruces2025does" role="doc-biblioref">2025</a>)</span></li>
+</ul>
+<p><strong>Cognitive offloading and reliance</strong></p>
+<ul>
+<li>Generative AI and learning: <span class="citation" data-cites="bastani2024generative">Bastani et al. (<a href="#ref-bastani2024generative" role="doc-biblioref">2024</a>)</span></li>
+<li>Endoscopist deskilling after AI exposure: <span class="citation" data-cites="lancet2025endoscopist">The Lancet Gastroenterology &amp; Hepatology (<a href="#ref-lancet2025endoscopist" role="doc-biblioref">2025</a>)</span></li>
+<li>Cognitive forcing functions: <span class="citation" data-cites="bucinca2021trust">Buçinca et al. (<a href="#ref-bucinca2021trust" role="doc-biblioref">2021</a>)</span></li>
+<li>Generation, verification, and AI-assisted decisions: <span class="citation" data-cites="vasconcelos2023generation">Vasconcelos et al. (<a href="#ref-vasconcelos2023generation" role="doc-biblioref">2023</a>)</span></li>
+<li>Generative AI and critical thinking: <span class="citation" data-cites="lee2025impact">Lee et al. (<a href="#ref-lee2025impact" role="doc-biblioref">2025</a>)</span></li>
+</ul>
+<p><strong>Fixation and collective homogenization</strong></p>
+<ul>
+<li>Individual creativity vs.&nbsp;collective diversity: <span class="citation" data-cites="doshi2024generative">Doshi &amp; Hauser (<a href="#ref-doshi2024generative" role="doc-biblioref">2024</a>)</span></li>
+<li>AI more creative than humans on divergent thinking: <span class="citation" data-cites="hubert2024current">Hubert et al. (<a href="#ref-hubert2024current" role="doc-biblioref">2024</a>)</span></li>
+<li>Generative AI and design fixation: <span class="citation" data-cites="wadinambiarachchi2024effects">Wadinambiarachchi et al. (<a href="#ref-wadinambiarachchi2024effects" role="doc-biblioref">2024</a>)</span></li>
+<li>Generative AI and divergent thinking in product design: <span class="citation" data-cites="lin2026stimulating">Lin &amp; Xie (<a href="#ref-lin2026stimulating" role="doc-biblioref">2026</a>)</span></li>
+<li>The crowdless future: generative AI and collective problem-solving: <span class="citation" data-cites="boussioux2024crowdless">Boussioux et al. (<a href="#ref-boussioux2024crowdless" role="doc-biblioref">2024</a>)</span></li>
+<li>When ChatGPT is gone: creativity and homogeneity over time: <span class="citation" data-cites="zhou2025when">Zhou et al. (<a href="#ref-zhou2025when" role="doc-biblioref">2025</a>)</span></li>
+<li>Delayed AI access: <span class="citation" data-cites="romero2025delayed">Romero (<a href="#ref-romero2025delayed" role="doc-biblioref">2025</a>)</span></li>
+<li>Diverse AI personas and homogenization: <span class="citation" data-cites="wan2025diverse">Wan &amp; Kalman (<a href="#ref-wan2025diverse" role="doc-biblioref">2025</a>)</span></li>
+<li>Diagnosing the limits of convergent AI: <span class="citation" data-cites="williams2026search">Williams (<a href="#ref-williams2026search" role="doc-biblioref">2026</a>)</span></li>
+</ul>
+<p><strong>Reasoning biases and verification</strong></p>
+<ul>
+<li>Automation bias and selective adherence in public-sector decisions: <span class="citation" data-cites="alonbarkat2023human">Alon-Barkat &amp; Busuioc (<a href="#ref-alonbarkat2023human" role="doc-biblioref">2023</a>)</span></li>
+<li>Automation bias in AI-assisted diagnostic reasoning: <span class="citation" data-cites="qazi2025automation">Qazi et al. (<a href="#ref-qazi2025automation" role="doc-biblioref">2025</a>)</span></li>
+<li>LLM influence on diagnostic reasoning: <span class="citation" data-cites="goh2024influence">Goh et al. (<a href="#ref-goh2024influence" role="doc-biblioref">2024</a>)</span></li>
+<li>LLM assistance and physician decision-making: <span class="citation" data-cites="rounding2025impact">Rounding et al. (<a href="#ref-rounding2025impact" role="doc-biblioref">2025</a>)</span></li>
+</ul>
+<p><strong>Complementarity and downstream technical debt</strong></p>
+<ul>
+<li>AI-assisted teams vs.&nbsp;AI-led vs.&nbsp;human-only teams: <span class="citation" data-cites="brodeur2026aiassisted">Brodeur et al. (<a href="#ref-brodeur2026aiassisted" role="doc-biblioref">2026</a>)</span></li>
+<li>Field experiment on generative AI and teamwork: <span class="citation" data-cites="delacqua2025cybernetic">Dell’Acqua et al. (<a href="#ref-delacqua2025cybernetic" role="doc-biblioref">2025</a>)</span></li>
+<li>AI writes faster than humans can review: <span class="citation" data-cites="he2026aiwrites">He, Agarwal, et al. (<a href="#ref-he2026aiwrites" role="doc-biblioref">2026</a>)</span></li>
+<li>Speed at the cost of quality (Cursor AI): <span class="citation" data-cites="he2026speed">He, Miller, et al. (<a href="#ref-he2026speed" role="doc-biblioref">2026</a>)</span></li>
+<li>AI-assisted programming and developer productivity: <span class="citation" data-cites="xu2025aiassisted">Xu et al. (<a href="#ref-xu2025aiassisted" role="doc-biblioref">2025</a>)</span></li>
+<li>Downstream effects of AI assistants on maintainability: <span class="citation" data-cites="borg2026echoes">Borg et al. (<a href="#ref-borg2026echoes" role="doc-biblioref">2026</a>)</span></li>
+<li>The expert penalty in high-skilled work: <span class="citation" data-cites="cui2025effects">Cui et al. (<a href="#ref-cui2025effects" role="doc-biblioref">2025</a>)</span></li>
+<li>Early-2025 AI and experienced developer productivity: <span class="citation" data-cites="becker2025measuring">Becker et al. (<a href="#ref-becker2025measuring" role="doc-biblioref">2025</a>)</span></li>
+<li>When combinations of humans and AI are useful: <span class="citation" data-cites="vaccaro2024when">Vaccaro et al. (<a href="#ref-vaccaro2024when" role="doc-biblioref">2024</a>)</span></li>
+<li>Complementarity in human-AI collaboration: <span class="citation" data-cites="hemmer2025complementarity">Hemmer et al. (<a href="#ref-hemmer2025complementarity" role="doc-biblioref">2025</a>)</span></li>
+<li>Conversational AI for learning programming: <span class="citation" data-cites="macneil2024exploring">MacNeil et al. (<a href="#ref-macneil2024exploring" role="doc-biblioref">2024</a>)</span></li>
+</ul>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-alonbarkat2023human" class="csl-entry" role="listitem">
+Alon-Barkat, S., &amp; Busuioc, M. (2023). Human<span>-</span>AI interactions in public sector decision-making: <span>“Automation bias”</span> and <span>“selective adherence”</span> to algorithmic advice. <em>Journal of Public Administration Research and Theory</em>, <em>33</em>(1), 153–169. <a href="https://doi.org/10.1093/jopart/muac007">https://doi.org/10.1093/jopart/muac007</a>
+</div>
+<div id="ref-bastani2024generative" class="csl-entry" role="listitem">
+Bastani, O., Choi, C., Foster, D. P., Ghani, N., Kolter, J. Z., &amp; Schwartz, Z. (2024). <em>Generative AI can harm learning: Evidence from high school mathematics</em> (w32630). National Bureau of Economic Research. <a href="https://doi.org/10.3386/w32630">https://doi.org/10.3386/w32630</a>
+</div>
+<div id="ref-becker2025measuring" class="csl-entry" role="listitem">
+Becker, J., Rush, N., Barnes, E., &amp; Rein, D. (2025). <em>Measuring the impact of early-2025 AI on experienced open-source developer productivity</em>. <a href="https://doi.org/10.48550/arXiv.2507.09089">https://doi.org/10.48550/arXiv.2507.09089</a>
+</div>
+<div id="ref-borg2026echoes" class="csl-entry" role="listitem">
+Borg, M., Hewett, D., Hagatulah, N., Couderc, N., Söderberg, E., Graham, D., Kini, U., &amp; Farley, D. (2026). Echoes of AI: Investigating the downstream effects of AI assistants on software maintainability. <em>Empirical Software Engineering</em>, <em>31</em>(2), 48. <a href="https://doi.org/10.1007/s10664-026-10889-1">https://doi.org/10.1007/s10664-026-10889-1</a>
+</div>
+<div id="ref-boussioux2024crowdless" class="csl-entry" role="listitem">
+Boussioux, L., Doshi, A. R., Hauser, O. P., &amp; Hosanagar, K. (2024). The crowdless future? Generative AI and creative problem-solving. <em>Organization Science</em>. <a href="https://doi.org/10.63383/sxit9497">https://doi.org/10.63383/sxit9497</a>
+</div>
+<div id="ref-brodeur2026aiassisted" class="csl-entry" role="listitem">
+Brodeur, A., Valenta, D., Marcoci, A., Aparicio, J., Mikola, D., Barbarioli, B., Alexander, R., Deer, L., Stafford, T., Vilhuber, L., et al. (2026). AI-assisted teams outperform AI-led teams but not human-only teams in assessing research reproducibility in quantitative social science. <em>Proceedings of the National Academy of Sciences</em>, <em>123</em>(8), e2524747123. <a href="https://doi.org/10.1073/pnas.2524747123">https://doi.org/10.1073/pnas.2524747123</a>
+</div>
+<div id="ref-brynjolfsson2023generative" class="csl-entry" role="listitem">
+Brynjolfsson, E., Li, D., &amp; Raymond, L. R. (2023). <em>Generative AI at work</em> (w31161). National Bureau of Economic Research. <a href="https://doi.org/10.3386/w31161">https://doi.org/10.3386/w31161</a>
+</div>
+<div id="ref-bucinca2021trust" class="csl-entry" role="listitem">
+Buçinca, Z., Malireddy, M. B., &amp; Gajos, K. Z. (2021). To trust or to think: Cognitive forcing functions can reduce overreliance on AI in AI-assisted decision-making. <em>Proceedings of the ACM on Human-Computer Interaction</em>, <em>5</em>(CSCW1), 1–21. <a href="https://doi.org/10.1145/3449287">https://doi.org/10.1145/3449287</a>
+</div>
+<div id="ref-cruces2025does" class="csl-entry" role="listitem">
+Cruces, G., Fernández Meijide, D., Galiani, S., Gálvez, R., &amp; Lombardi, M. (2025). <em>Does generative AI narrow education-based productivity gaps? Evidence from a randomized experiment</em> (6246347). Social Science Research Network. <a href="https://doi.org/10.2139/ssrn.6246347">https://doi.org/10.2139/ssrn.6246347</a>
+</div>
+<div id="ref-cui2025effects" class="csl-entry" role="listitem">
+Cui, K., Demirer, M., Jaffe, S., Musolff, L., Peng, S., &amp; Salz, T. (2025). The effects of generative AI on high-skilled work: Evidence from three field experiments with software developers. <em>Management Science</em>, <em>71</em>(4), 2110–2135. <a href="https://doi.org/10.1287/mnsc.2025.00535">https://doi.org/10.1287/mnsc.2025.00535</a>
+</div>
+<div id="ref-delacqua2025cybernetic" class="csl-entry" role="listitem">
+Dell’Acqua, F., Ayoubi, C., Lifshitz-Assaf, H., Sadun, R., Mollick, E., Mollick, L., Han, Y., Goldman, J., Nair, H., Taub, S., &amp; Lakhani, K. R. (2025). The cybernetic teammate: A field experiment on generative AI and teamwork. <em>Organization Science</em>, <em>36</em>(2), 485–507. <a href="https://doi.org/10.1287/orsc.2025.20702">https://doi.org/10.1287/orsc.2025.20702</a>
+</div>
+<div id="ref-delacqua2023jagged" class="csl-entry" role="listitem">
+Dell’Acqua, F., McFowland, E., Mollick, E. R., Lifshitz-Assaf, H., Kellogg, K., Rajendran, S., Krayer, L., Candelon, F., &amp; Lakhani, K. R. (2023). <em>Navigating the jagged technological frontier: Field experimental evidence of the effects of AI on knowledge worker productivity and quality</em> (24-013). Harvard Business School. <a href="https://doi.org/10.2139/ssrn.4573321">https://doi.org/10.2139/ssrn.4573321</a>
+</div>
+<div id="ref-doshi2024generative" class="csl-entry" role="listitem">
+Doshi, A. R., &amp; Hauser, O. P. (2024). Generative AI enhances individual creativity but reduces the collective diversity of novel content. <em>Science Advances</em>, <em>10</em>(28), eadn5290. <a href="https://doi.org/10.1126/sciadv.adn5290">https://doi.org/10.1126/sciadv.adn5290</a>
+</div>
+<div id="ref-goh2024influence" class="csl-entry" role="listitem">
+Goh, E., Gallo, R. J., Hom, J., Strong, E., Weng, Y., Kerman, H., Cool, J. A., Kanjee, Z., Parsons, A. S., Ahuja, N., Horvitz, E., Yang, D., Milstein, A., Olson, A. P. J., Rodman, A., &amp; Chen, J. H. (2024). <em>Influence of a large language model on diagnostic reasoning: A randomized clinical vignette study</em>. <a href="https://doi.org/10.1101/2024.03.12.24303785">https://doi.org/10.1101/2024.03.12.24303785</a>
+</div>
+<div id="ref-he2026aiwrites" class="csl-entry" role="listitem">
+He, H., Agarwal, S., Denisov-Blanch, Y., Azaletskiy, P. S., Koyejo, S., &amp; Vasilescu, B. (2026). <em>AI writes faster than humans can review: A longitudinal study of an enterprise 2x mandate</em>. <a href="https://arxiv.org/abs/2602.09112">https://arxiv.org/abs/2602.09112</a>
+</div>
+<div id="ref-he2026speed" class="csl-entry" role="listitem">
+He, H., Miller, C., Agarwal, S., Kästner, C., &amp; Vasilescu, B. (2026). Speed at the cost of quality: How cursor AI increases short-term velocity and long-term complexity in open-source projects. <em>Proceedings of the 2026 ACM International Conference on Software Engineering (ICSE)</em>. <a href="https://doi.org/10.1145/3793302.3793349">https://doi.org/10.1145/3793302.3793349</a>
+</div>
+<div id="ref-hemmer2025complementarity" class="csl-entry" role="listitem">
+Hemmer, P., Schemmer, M., Kühl, N., Vössing, M., &amp; Satzger, G. (2025). Complementarity in human<span>-</span>AI collaboration: Concept, sources, and evidence. <em>European Journal of Information Systems</em>, <em>34</em>(2), 180–199. <a href="https://doi.org/10.1080/0960085X.2025.2475962">https://doi.org/10.1080/0960085X.2025.2475962</a>
+</div>
+<div id="ref-hubert2024current" class="csl-entry" role="listitem">
+Hubert, P. et al. (2024). The current state of artificial intelligence generative language models is more creative than humans on divergent thinking tasks. <em>Scientific Reports</em>, <em>14</em>, 3440. <a href="https://doi.org/10.1038/s41598-024-53856-9">https://doi.org/10.1038/s41598-024-53856-9</a>
+</div>
+<div id="ref-lee2025impact" class="csl-entry" role="listitem">
+Lee, H.-P., Sarkar, A., Tankelevitch, L., Drosos, I., Rintel, S., Banks, R., &amp; Wilson, N. (2025). The impact of generative AI on critical thinking: Self-reported reductions in cognitive effort and confidence effects from a survey of knowledge workers. <em>Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems</em>, 1–17. <a href="https://doi.org/10.1145/3706598.3713778">https://doi.org/10.1145/3706598.3713778</a>
+</div>
+<div id="ref-lin2026stimulating" class="csl-entry" role="listitem">
+Lin, X., &amp; Xie, Y. (2026). Stimulating or constraining creativity? Traditional vs. Generative AI on divergent thinking in product design. <em>Frontiers in Psychology</em>, <em>17</em>, 1184201. <a href="https://doi.org/10.3389/fpsyg.2026.1184201">https://doi.org/10.3389/fpsyg.2026.1184201</a>
+</div>
+<div id="ref-macneil2024exploring" class="csl-entry" role="listitem">
+MacNeil, S. et al. (2024). Exploring the design space of conversational AI for learning programming. <em>Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems</em>, 1–15. <a href="https://doi.org/10.1145/3613904.3642451">https://doi.org/10.1145/3613904.3642451</a>
+</div>
+<div id="ref-merali2025scaling" class="csl-entry" role="listitem">
+Merali, A. (2025). <em>Scaling laws for economic productivity: Experimental evidence in LLM-assisted consulting, data analyst, and management tasks</em>. <a href="https://arxiv.org/abs/2512.21316">https://arxiv.org/abs/2512.21316</a>
+</div>
+<div id="ref-noy2023experimental" class="csl-entry" role="listitem">
+Noy, S., &amp; Zhang, W. (2023). Experimental evidence on the productivity effects of generative artificial intelligence. <em>Science</em>, <em>381</em>(6654), 187–192. <a href="https://doi.org/10.1126/science.adh2586">https://doi.org/10.1126/science.adh2586</a>
+</div>
+<div id="ref-peng2023impact" class="csl-entry" role="listitem">
+Peng, S., Kalliamvakou, E., Cihon, P., &amp; Demirer, M. (2023). <em>The impact of AI on developer productivity: Evidence from GitHub copilot</em>. <a href="https://doi.org/10.48550/arXiv.2302.06590">https://doi.org/10.48550/arXiv.2302.06590</a>
+</div>
+<div id="ref-qazi2025automation" class="csl-entry" role="listitem">
+Qazi, I., Ali, P. A., Asad, P., Khawaja, U., Akhtar, M. J., Sheikh, M. A., Muhammad, M., &amp; Alizai, H. (2025). <em>Automation bias in large language model assisted diagnostic reasoning among AI-trained physicians</em>. <a href="https://doi.org/10.1101/2025.08.23.25334280">https://doi.org/10.1101/2025.08.23.25334280</a>
+</div>
+<div id="ref-romero2025delayed" class="csl-entry" role="listitem">
+Romero, M. (2025). Delayed AI access: Mitigating the homogenising effects of generative AI in collaborative problem-solving. <em>2025 2nd International Conference on Artificial Intelligence and Teacher Education (ICAITE)</em>, 145–151.
+</div>
+<div id="ref-rounding2025impact" class="csl-entry" role="listitem">
+Rounding, N. et al. (2025). <em>Impact of LLM assistance on physician decision making: A multi-country randomized controlled trial</em>. <a href="https://doi.org/10.1101/2025.08.08.25333272">https://doi.org/10.1101/2025.08.08.25333272</a>
+</div>
+<div id="ref-lancet2025endoscopist" class="csl-entry" role="listitem">
+The Lancet Gastroenterology &amp; Hepatology. (2025). Endoscopist deskilling risk after exposure to artificial intelligence in colonoscopy. <em>The Lancet Gastroenterology &amp; Hepatology</em>, <em>10</em>(4), 312–314. <a href="https://doi.org/10.1016/S2468-1253(25)00133-5">https://doi.org/10.1016/S2468-1253(25)00133-5</a>
+</div>
+<div id="ref-vaccaro2024when" class="csl-entry" role="listitem">
+Vaccaro, M., Almaatouq, A., &amp; Malone, T. W. (2024). When combinations of humans and AI are useful: A systematic review and meta-analysis. <em>Nature Human Behaviour</em>, <em>8</em>, 1892–1904. <a href="https://doi.org/10.1038/s41562-024-02024-1">https://doi.org/10.1038/s41562-024-02024-1</a>
+</div>
+<div id="ref-vasconcelos2023generation" class="csl-entry" role="listitem">
+Vasconcelos, H., Jörke, M., Grunde-McLaughlin, M., Gerstenberg, T., Bernstein, M. S., &amp; Krishna, R. (2023). Generation meets verification: AI-assisted decision making with large language models. <em>Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems</em>, 1–18. <a href="https://doi.org/10.1145/3544548.3581389">https://doi.org/10.1145/3544548.3581389</a>
+</div>
+<div id="ref-wadinambiarachchi2024effects" class="csl-entry" role="listitem">
+Wadinambiarachchi, G. et al. (2024). The effects of generative AI on design fixation and divergent thinking. <em>Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems</em>, 1–14. <a href="https://doi.org/10.1145/3613904.3642702">https://doi.org/10.1145/3613904.3642702</a>
+</div>
+<div id="ref-wan2025diverse" class="csl-entry" role="listitem">
+Wan, S., &amp; Kalman, Y. M. (2025). Diverse AI personas can mitigate the homogenization effect in human<span>-</span>AI collaborative ideation. <em>Computers in Human Behavior</em>, <em>162</em>, 108450. <a href="https://doi.org/10.1016/j.chb.2024.108450">https://doi.org/10.1016/j.chb.2024.108450</a>
+</div>
+<div id="ref-williams2026search" class="csl-entry" role="listitem">
+Williams, R. (2026). In search of <span>“weird corners”</span>: Diagnosing the limits of convergent AI in professional creative practice. <em>Proceedings of the 2026 Conference on Creativity and Cognition (c&amp;c)</em>, 102–115.
+</div>
+<div id="ref-xu2025aiassisted" class="csl-entry" role="listitem">
+Xu, F., Medappa, P. K., Tunç, M., Vroegindeweij, M., &amp; Fransoo, J. C. (2025). <em>AI-assisted programming decreases the productivity of experienced developers by increasing the technical debt and maintenance burden</em> (5124892). Social Science Research Network.
+</div>
+<div id="ref-zhou2025when" class="csl-entry" role="listitem">
+Zhou, Y., Liu, Q., Huang, J., &amp; Li, G. (2025). <em>When ChatGPT is gone: Individual creativity fails to sustain while homogeneity keeps climbing</em>. <a href="https://doi.org/10.5465/amproc.2025.16880abstract">https://doi.org/10.5465/amproc.2025.16880abstract</a>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
