@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,16 @@
 
 <title>IBM as Client Zero: Instructor Notes – awe.lectures</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -51,11 +57,10 @@ div.csl-indent {
 <link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-d89f5d3084edb767caeb05a3d7dff9f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-dc3c6712bff0e3d3575a9a37d96962b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -104,8 +109,6 @@ cookieconsent.run({
     <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">awe — Lecture Notes</span>
     </a>
@@ -365,7 +368,7 @@ Table&nbsp;1: Suggested 90-minute timing for the IBM Client Zero session
 <h2 data-anchor-id="inscrutability-and-algorithmic-bias">Inscrutability and algorithmic bias</h2>
 <p><span class="h4">Reference answer</span></p>
 <p>Apply <span class="citation" data-cites="berente2021managing">Berente et al. (<a href="#ref-berente2021managing" role="doc-biblioref">2021</a>)</span>’s three dimensions as the diagnostic frame.</p>
-<p><strong>On autonomy.</strong> The decisive design move is scope limitation by <em>consequence class.</em> Routine HR transactions (leave bookings, address changes, policy lookups) sit firmly inside the agent’s autonomous envelope. Promotion decisions, compensation changes, and termination workflows sit <em>outside</em> it: the agent prepares the case (data assembly, policy check, band compliance), but the decision is recorded against a named human approver. This maps onto <span class="citation" data-cites="shavit2023practices">Shavit et al. (<a href="#ref-shavit2023practices" role="doc-biblioref">2023</a>)</span>’s <em>scope limitation</em> and <em>attributability</em> practices and on <span class="citation" data-cites="jarrahi2025rethinking">Jarrahi &amp; Ritala (<a href="#ref-jarrahi2025rethinking" role="doc-biblioref">2025</a>)</span>’s principal-agent reading: the agent is a delegated actor, not an autonomous decider.</p>
+<p><strong>On autonomy.</strong> The decisive design move is scope limitation by <em>consequence class.</em> Routine HR transactions (leave bookings, address changes, policy lookups) sit firmly inside the agent’s autonomous envelope. Promotion decisions, compensation changes, and termination workflows sit <em>outside</em> it: the agent prepares the case (data assembly, policy check, band compliance), but the decision is recorded against a named human approver. This maps onto <span class="citation" data-cites="shavit2023practices"><span class="nocase">Shavit et al.</span> (<a href="#ref-shavit2023practices" role="doc-biblioref">2023</a>)</span>’s <em>scope limitation</em> and <em>attributability</em> practices and on <span class="citation" data-cites="jarrahi2025rethinking">Jarrahi &amp; Ritala (<a href="#ref-jarrahi2025rethinking" role="doc-biblioref">2025</a>)</span>’s principal-agent reading: the agent is a delegated actor, not an autonomous decider.</p>
 <p><strong>On learning.</strong> The risk is <em>invisible drift.</em> If the agent updates its routing or its recommendations based on observed outcomes, and the outcomes themselves reflect historical bias (e.g., promotion patterns that under-represented certain groups), the system silently amplifies the bias. Counter-measures are technical (fairness-aware monitoring, disparate-impact metrics computed continuously) and organisational (a governance role with the authority to pause or roll back model updates that show distributional regressions). <span class="citation" data-cites="papagiannidis2025responsible">Papagiannidis et al. (<a href="#ref-papagiannidis2025responsible" role="doc-biblioref">2025</a>)</span>’s monitoring phase is exactly this.</p>
 <p><strong>On inscrutability.</strong> Every consequential output must be linked to (a) the data the agent used, (b) the policy version it applied, and (c) a named human accountable for the decision. This is the <em>accountability anchoring</em> principle from <span class="citation" data-cites="herath2024design">Herath et al. (<a href="#ref-herath2024design" role="doc-biblioref">2024</a>)</span>. The model’s internal weights do not need to become interpretable; the <em>organisational record</em> must be reconstructable.</p>
 <p>Indispensable guardrails, summarised:</p>
@@ -375,7 +378,7 @@ Table&nbsp;1: Suggested 90-minute timing for the IBM Client Zero session
 <li><strong>Pre-deployment bias audits</strong> on the workflows that touch protected attributes</li>
 <li><strong>Continuous disparate-impact monitoring</strong> with named owners</li>
 <li><strong>Versioned policy and prompt artefacts</strong> as part of the audit trail</li>
-<li><strong>Interruptibility</strong> at the workflow and the deployment level <span class="citation" data-cites="shavit2023practices">(<a href="#ref-shavit2023practices" role="doc-biblioref">Shavit et al., 2023</a>)</span></li>
+<li><strong>Interruptibility</strong> at the workflow and the deployment level <span class="citation" data-cites="shavit2023practices">(<a href="#ref-shavit2023practices" role="doc-biblioref"><span class="nocase">Shavit et al.</span>, 2023</a>)</span></li>
 <li><strong>Documented escalation paths</strong> that are exercised, not aspirational</li>
 <li><strong>Workforce councils or works-council involvement</strong> where required by jurisdiction (a non-trivial constraint in the EU)</li>
 </ul>
@@ -533,7 +536,7 @@ Russel, S., &amp; Norvig, P. (2022). <em>Artificial intelligence: A modern appro
 Schryen, G. (2013). Revisiting IS business value research: What we already know, what we still need to know, and how we can get there. <em>European Journal of Information Systems</em>, <em>22</em>(2), 139–169.
 </div>
 <div id="ref-shavit2023practices" class="csl-entry" role="listitem">
-Shavit, Y., Agarwal, S., Brundage, M., Adler, S., O’Keefe, C., Campbell, R., Lee, T., Mishkin, P., Eloundou, T., Hickey, A., et al. (2023). Practices for governing agentic AI systems. <em>Research Paper, OpenAI</em>.
+<span class="nocase">Shavit, Y., Agarwal, S., Brundage, M., Adler, S., O’Keefe, C., Campbell, R., Lee, T., Mishkin, P., Eloundou, T., Hickey, A., et al.</span> (2023). Practices for governing agentic AI systems. <em>Research Paper, OpenAI</em>.
 </div>
 <div id="ref-soh1995creates" class="csl-entry" role="listitem">
 Soh, C., &amp; Markus, M. L. (1995). How IT creates business value: A process theory synthesis. <em>ICIS 1995 Proceedings</em>, 4.

@@ -215,3 +215,10 @@ lectures/<COURSE>/<TERM>/assets/
 ```
 
 One `index.qmd` per unit. No separate slide file; dual-output handled by the `format:` block. Solution notes, case prep, and assignment files live in their own sub-folders with separate `index.qmd` files.
+
+## Punctuation Guidelines
+
+- **Punctuation Inside Bold Tags:** When bolding text that immediately precedes punctuation, always place the punctuation mark *inside* the bold delimiters.
+    - Correct: `**key concept:**` or `**complete sentence.**`
+    - Incorrect: `**key concept**:` or `**complete sentence**.`
+- Applies to all trailing punctuation attached to bolded words (periods, commas, colons, semicolons, question marks, and exclamation points).
