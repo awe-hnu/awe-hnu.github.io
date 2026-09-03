@@ -1,0 +1,225 @@
+---
+title: "SLR II: Search Strategy and Protocol"
+subtitle: "Research Project 1 (RP1) — U10"
+lang: en-US
+
+date: 09.03.2026
+
+bibliography: ../assets/literature.bib
+
+title-slide-attributes:
+  data-background-image: ../assets/bg.jpg
+  data-background-size: cover
+  data-background-opacity: "1"
+  data-background-color: '#0333ff'
+
+format:
+  html:
+    output-file: index.html
+    margin-header: |
+      [Slides](slides.html){.btn .btn-primary target="blank"}
+    format-links: false
+  presentation-revealjs:
+    output-file: slides.html
+    include-before-body: ../assets/footer.html
+---
+
+# Opening Remarks {.headline-only}
+
+## Search Repeatability {.no-headline .vertical-center}
+
+:::medium
+The real test of your search: could someone else, given only your protocol, find the same papers you did?
+:::
+
+:::notes
+Last session you decided what kind of review you are doing. This session is about the first concrete artefact of that review: a search protocol specific enough that a stranger, given only what you wrote down, could run it and arrive close to where you did. You will actually test that claim in [Peer-Review Workshop II](../peer-review-2/), so what you write today needs to survive being handed to someone else.
+:::
+
+## Learning Outcomes
+
+By the end of this unit, you will be able to:
+
+::: incremental
+- Design a search protocol, database selection, Boolean strings, backward and forward search, specific and documented enough that someone else could reproduce your result set from it alone.
+- Decompose a research question into its constituent concepts and synonyms, and construct and iteratively refine a Boolean search string from them.
+- Justify a grey-literature policy, explicitly, for a fast-moving phenomenon where peer-reviewed coverage lags behind practice.
+:::
+
+# Protocol Commitment {.headline-only}
+
+## Written in Advance
+
+:::large
+A protocol is a decision you make **before** you see how many hits it produces, not after.
+:::
+
+:::notes
+The credibility of a systematic search rests on it being pre-specified rather than adjusted after the fact to produce a convenient set of papers. Iterative refinement of your search string is normal and expected, covered later in this unit. What matters is that you write down and date every version, rather than quietly editing your search until the result set looks right and presenting only the final version as if it were the first.
+
+This single habit, writing the protocol down before executing it and keeping every version, is what turns "we searched the literature" into a claim someone else can actually check.
+:::
+
+# Where to Search {.headline-only}
+
+## Database Selection
+
+:::medium
+No single database covers a field completely. Your choice of databases is itself a methodological decision.
+:::
+
+::: incremental
+- **AIS eLibrary**: the IS field's own repository, strong coverage of IS-specific venues, weaker outside the discipline.
+- **Scopus** and **Web of Science**: broad, multidisciplinary coverage, useful when your phenomenon spans IS and an adjacent field (management, psychology, computer science).
+- **The Basket of Eight**: the IS field's own informally agreed set of top journals. Searching it exclusively guarantees quality but not coverage, a young or interdisciplinary phenomenon may barely appear there yet.
+:::
+
+:::notes
+Report which databases you searched and why, and just as importantly, which ones you consciously did not search. A review that only searched the Basket of Eight, for a phenomenon that is still mostly discussed in conference proceedings and practitioner-adjacent venues, has made a defensible choice, but only if it says so and explains the tradeoff, rather than presenting Basket-of-Eight coverage as if it were comprehensive coverage of the field.
+:::
+
+## Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
+
+For each phenomenon below, decide which of the databases above your team would search, and justify why.
+
+- Agentic AI incident response in IT operations teams
+- Practitioner adoption of LLM-based code review tools
+- Algorithmic management on gig-work platforms
+
+{{< countdown "10:00" top="0">}}
+
+# Search String Construction {.headline-only}
+
+## Decomposition
+
+:::medium
+Break your research question into its constituent concepts before you touch a database.
+:::
+
+:::notes
+Take your research question and identify its distinct concepts, usually two to four. For each concept, brainstorm synonyms, related terms, and near-variants, including both academic and practitioner vocabulary, a phenomenon is rarely called the same thing in a journal article and in a trade press article. Combine synonyms for the same concept with OR, combine different concepts with AND.
+:::
+
+## Boolean Strings and Iteration
+
+::: incremental
+- **Truncation** (e.g., `organi?ation` or `develop*`) catches spelling variants and word-family variants in one term.
+- **Field restriction** (title, abstract, keywords) narrows a search that returns too many irrelevant hits, but narrows coverage too, document the tradeoff.
+- **Iterative refinement**: run the string, look at hit counts and a sample of results, adjust terms that are too broad or too narrow, and log each version with its hit count.
+:::
+
+:::notes
+A search string that returns 50,000 hits is unusable, however thorough it might look, and probably indicates a term that is doing far less discriminating work than you assumed. Equally, a string that returns 12 hits for a phenomenon you know has substantial literature probably has an overly narrow term or an accidentally restrictive field limitation. Both directions of failure are diagnosed the same way: read a sample of what came back, and check whether papers you already know should be in the set actually appear.
+:::
+
+## Worked Example: Search String
+
+:::: html-hidden
+::: medium
+[Research question: how does agentic AI adoption change software code review practices?]{.fragment .fade-in-then-semi-out}
+
+[Concepts: agentic AI, code review, adoption.]{.fragment .fade-in-then-semi-out}
+
+[Synonyms: "AI agent\*", "autonomous AI", "LLM agent\*" / "code review", "code inspection" / adopt\*, uptake, diffusion.]{.fragment .fade-in-then-semi-out}
+
+[String: `("agentic AI" OR "AI agent*" OR "autonomous AI" OR "LLM agent*") AND ("code review" OR "code inspection") AND (adopt* OR uptake OR diffusion)`]{.fragment .fade-in-then-semi-out}
+:::
+::::
+
+:::notes
+Start from the research question, "how does agentic AI adoption change software code review practices," and pull out its distinct concepts: agentic AI, code review, and adoption. Three concepts is a manageable number, more than four tends to over-constrain a string before you have seen a single result.
+
+For each concept, brainstorm synonyms in both academic and practitioner vocabulary. Agentic AI shows up in papers as "AI agents," "autonomous AI," or "LLM agents," terminology that has not stabilized yet because the phenomenon is young. Code review appears interchangeably as "code review" or "code inspection," an older, more formal term from the software-engineering literature. Adoption has the usual synonym family: uptake, diffusion, sometimes acceptance, though acceptance risks pulling in the unrelated technology-acceptance-model literature, so it is worth testing and dropping if it adds noise rather than signal.
+
+Combine synonyms for the same concept with OR, inside parentheses, then combine the three concept groups with AND: `("agentic AI" OR "AI agent*" OR "autonomous AI" OR "LLM agent*") AND ("code review" OR "code inspection") AND (adopt* OR uptake OR diffusion)`. The truncation on "agent\*" catches both "agent" and "agents" in one term. Run this version, log its hit count, and look at a sample before deciding whether any term needs tightening or loosening.
+:::
+
+## Backward and Forward Search
+
+:::medium
+A keyword search is a starting point, not the whole strategy.
+:::
+
+:::notes
+@webster2002analyzing recommend supplementing keyword search with two citation-based strategies:
+
+- **Backward search**: examine the reference lists of the papers your keyword search found, to locate earlier, foundational work that may use different terminology than your search string anticipated.
+- **Forward search**: use a citation database to find later papers that cite the ones you have already found, catching recent work that builds on your core papers but may not share their exact keywords.
+
+Together, these two moves catch papers that a keyword search alone systematically misses, older foundational work using since-abandoned terminology, and newer work using terminology that hasn't stabilized yet. For a young phenomenon, this second failure mode is often the larger one.
+:::
+
+## Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
+
+Below is an invented reference-list excerpt from a paper your keyword search returned.
+
+1. Ives, B., & Piccoli, G. (2019). Platform boundaries and the limits of control in gig-economy labor markets. *Journal of Digital Work*, 14(2), 88-104.
+2. Chen, L., Okafor, S., & Vance, A. (2021). Trust repair after algorithmic errors: a longitudinal field study. *Information Systems Quarterly*, 45(3), 501-527.
+3. TechCrunch. (2024, March 12). *How three startups are betting on agentic code review.*
+4. Muller, H. (2020). Rethinking automation: a design-oriented review of decision-support systems. *MIS Perspectives*, 31(1), 12-40.
+
+Which of these would be good backward-search candidates for your own topic, and why? Which would you skip?
+
+{{< countdown "10:00" top="0">}}
+
+# Grey Literature {.headline-only}
+
+## Grey Literature Value
+
+:::medium
+For a field as young as agentic AI, the formal, peer-reviewed literature lags behind the phenomenon itself.
+:::
+
+:::notes
+@vombrocke2015standing note that restricting a search to peer-reviewed venues systematically biases a review toward what was already established and slow-moving enough to survive a full review cycle. For a fast-moving phenomenon, working papers, preprints, and credible practitioner reports may be the only place recent, relevant evidence exists at all.
+
+Including grey literature is defensible, but it has to be done with the same transparency as everything else: state explicitly which grey-literature sources you included (preprint servers, specific conference proceedings, named industry reports), why, and how you assessed their credibility, since they have not been through peer review. An undisclosed mix of peer-reviewed and grey literature undermines exactly the kind of transparency [SLR III: Screening and Appraisal](../slr-screening/) asks you to build into your process.
+:::
+
+## Discussion {.unlisted .unnumbered .html-hidden .discussion-slide}
+
+With your partner, name one grey-literature source you would trust for your own topic, and one you would not.
+
+State the difference in one sentence each.
+
+{{< countdown "8:00" top="0">}}
+
+# Documentation {.headline-only}
+
+## Version Everything
+
+:::medium
+Every search run, every string, every hit count, dated.
+:::
+
+:::notes
+Keep a running log: date, database, exact string as entered, number of hits, and a one-line note on what changed since the previous version and why. This log becomes the raw material for the "review method" section of your eventual paper, and it is exactly what the team reproducing your search in [Peer-Review Workshop II](../peer-review-2/) will need in order to succeed.
+:::
+
+## Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
+
+Draft your first search string.
+
+::: incremental
+1. Decompose your research question into its concepts.
+2. Brainstorm synonyms for each concept, in both academic and practitioner vocabulary.
+3. Combine them into a Boolean string.
+4. Run it against one database. Record the hit count and skim 10 results, how many are actually relevant?
+:::
+
+{{< countdown "25:00" top="0">}}
+
+# Homework
+
+:::medium
+Execute your search string across your chosen databases, and document every run.
+:::
+
+Document the databases searched (and a sentence on why, and why not others), the final search string per database, the full version history with hit counts, and your grey-literature policy, if any.
+
+# Q&A {.vertical-center .html-hidden .headline-only}
+
+# Literature {visibility="hidden"}
+
+::: {#refs}
+:::

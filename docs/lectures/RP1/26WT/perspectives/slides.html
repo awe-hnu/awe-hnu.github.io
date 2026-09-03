@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en-US"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-08-27">
+  <title>awe.lectures – Synthesizing Insights</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-3ccd8fe8850972055bb108b4708ab625.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en-US"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="mermaid-theme" content="neutral">
+  <script src="../../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+<meta property="og:title" content="Synthesizing Insights – awe.lectures">
+<meta property="og:description" content="Research Project 1 (RP1) — U2">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V0.1
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Research Project 1 (RP1)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+  <h1 class="title">Synthesizing Insights</h1>
+  <p class="subtitle">Research Project 1 (RP1) — U2</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">August 27, 2026</p>
+</section>
+<section>
+<section id="opening-remarks" class="title-slide slide level1 headline-only">
+<h1>Opening Remarks</h1>
+
+</section>
+<section id="listening-recap" class="title-slide slide level2 no-headline vertical-center">
+<h2>Listening Recap</h2>
+<div class="large">
+<p>Multiple practitioners.<br>
+Multiple positions.</p>
+</div>
+<div class="fragment">
+<p>Synthesizing the insights means analyzing multiple data points.<br>
+It does not mean finding one true opinion.</p>
+</div>
+<aside class="notes">
+<p>It’s tempting to listen to different people and average the perspectives “to something that reflects what probably most people think”. That means you’ll lose the most useful part of what you just collected: the variety. When two accounts disagree, it tells you something about the phenomenon itself, not just about the people involved.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="learning-outcomes" class="title-slide slide level2">
+<h2>Learning Outcomes</h2>
+<p>By the end of this unit, you will be able to:</p>
+<ul>
+<li class="fragment">Elicit and structure diverse practitioner claims through live capture and open coding, without collapsing them into one averaged account.</li>
+<li class="fragment">Identify the disciplinary lens, technical, behavioral, organizational, or economic, implicit in a claim, and tag it by kind: practice, challenge, or question.</li>
+<li class="fragment">Cluster claims into a candidate phenomenon and knowledge problem, integrating multiple perspectives into one problem framing while keeping the tensions between them visible.</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="perspectival-variety" class="title-slide slide level1 headline-only">
+<h1>Perspectival Variety</h1>
+
+</section>
+<section id="pluralism-in-practice" class="title-slide slide level2">
+<h2>Pluralism in Practice</h2>
+<div class="medium">
+<p>Who speaks from which position?<br>
+What assumptions about the world are embedded in each account?</p>
+</div>
+<aside class="notes">
+<p>Every practitioner you heard from occupies a structural position, a role, a department, an incentive structure, a stake in the outcome, and that position shapes what they notice, what they treat as obvious, and what they leave unsaid. A vendor and a client describe the same rollout differently because their positions make different things visible. Neither one is lying.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="fragment">
+<p>Treat each input as evidence of a position, not just a claim. <span class="fragment">Ask, for each: from where does this person see the challenge, and what does that perspective let them see that others cannot?</span></p>
+</div>
+</section>
+
+<section id="epistemic-pluralism-in-is" class="title-slide slide level2">
+<h2>Epistemic Pluralism in IS</h2>
+<div class="medium">
+<p>The disciplines below study the same phenomenon, each from a different angle.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Scholars in information technology, software engineering, and computer science</strong> study the technical and computational attributes of digital technology as such.</li>
+<li class="fragment"><strong>Scholars in behavioral, cognitive, and psychological sciences</strong> study individuals’ exposure, use, appropriation, and general behaviors around digital technology.</li>
+<li class="fragment"><strong>Scholars in organisational science, management, and business</strong> study how corporate environments shape, and are shaped by, digital technology.</li>
+<li class="fragment"><strong>Economists</strong> study the large-scale effects of digital technology diffusion and innovation on organisations, markets, and societies.</li>
+</ul>
+<aside class="notes">
+<p>This is the same pluralism you just met in your industry inputs, expressed in academic research instead of practitioner accounts <span class="citation" data-cites="recker2021research">(<a href="" role="doc-biblioref" onclick="return false;">Recker, 2021b</a>)</span>. IS research is open to methodological and paradigmatic pluralism because the discipline studies people and technology together, and no single lens (technical, behavioral, organisational, economic) captures the whole phenomenon on its own.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Practical Mapping Advice</strong></p>
+</div>
+<div class="callout-content">
+<p>When you map your industry inputs, try tagging each one with which of these four lenses it is implicitly using.</p>
+<p>A practitioner talking about integration architecture is reasoning technically. One talking about adoption resistance is reasoning behaviorally. One talking about governance and incentive redesign is reasoning organisationally. One talking about market-level competitive pressure is reasoning economically.</p>
+<p>Most inputs will actually mix two or three lenses without saying so.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="contradictions-as-signal" class="title-slide slide level2">
+<h2>Contradictions as Signal</h2>
+<div class="large">
+<p>Treat unexpected <span class="highlight">contradictions</span> between inputs <span class="highlight">as signals</span> worth investigating.</p>
+</div>
+<aside class="notes">
+<p>We will return to this idea in <a href="../topic/">U4: Topic</a>, where we will discuss the full criteria for a good topic.</p>
+<p>For now, the practical version: when two of your inputs describe the same fact pattern but draw opposite conclusions from it, or when a claim someone makes does not fit what a different practitioner told you, write down both positions and where they diverge <span class="citation" data-cites="colquitt2011publishing">Colquitt &amp; George (<a href="" role="doc-biblioref" onclick="return false;">2011</a>)</span> call this kind of divergence a “breakdown,” and treat it as more interesting than a topic that is already obvious to everyone in the room.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="html-hidden">
+<div class="fragment">
+<p>Treat it as more interesting than a topic that is already obvious to everyone else.</p>
+</div>
+</div>
+</section>
+</section>
+<section>
+<section id="notes-and-summary" class="title-slide slide level1 headline-only">
+<h1>Notes and Summary</h1>
+
+</section>
+<section id="live-capture" class="title-slide slide level2">
+<h2>Live Capture</h2>
+<div class="medium">
+<p>You can’t transcribe live; create mnemonic triggers instead: so-called jottings</p>
+</div>
+<div class="fragments">
+<p>Jottings are brief, in-the-moment notes that serve as mnemonic triggers to reconstruct full, vivid fieldnotes later <span class="citation" data-cites="emerson2011writing">(<a href="" role="doc-biblioref" onclick="return false;">Emerson et al., 2011</a>)</span>: cryptic keywords, vivid snippets of dialogue, and sequences, not polished prose.</p>
+</div>
+<ol type="1">
+<li class="fragment">Capture in vivo phrasing: verbatim snippets and indigenous terms, not your own summaries.</li>
+<li class="fragment">Note their role or context in a few words.</li>
+<li class="fragment">Flag anything that surprises you, or contradicts an earlier talk, immediately.</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p><code>CISO fin.serv. — no auto, human OKs every action. slow but safe??</code></p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>Jottings are deliberately incomplete. Writing full sentences while someone is still talking costs you the next claim. Expand jottings into the four-step structured note within hours, while memory can still fill in the gaps jottings leave behind.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Suggested Tools</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Paper notebook</strong> or index cards work well: no charging, no app-switching, and you can keep looking at the speaker instead of a screen. A plain note-taking app (Notion, Obsidian, or even a text file) works too if typing is faster for you. Voice memos are an option only if the speaker has agreed to being recorded; check before you record.</p>
+<p>In this module, I ask you to use pen &amp; paper, also to not get distracted and stay focused.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="structured-notes" class="title-slide slide level2 scrollable">
+<h2>Structured Notes</h2>
+<div class="medium">
+<p>You need a repeatable way to turn your jottings into something you can compare across talks.</p>
+</div>
+<ol type="1">
+<li class="fragment">Capture the <strong>claim:</strong> <span class="fragment">what, specifically, did this person say, in close to their own words?</span></li>
+<li class="fragment">Tag the <strong>kind:</strong> <span class="fragment">is this a <strong>practice claim</strong> (what they do, or how they approach the challenge), a <strong>challenge claim</strong> (what puzzles them, an unresolved problem), or a <strong>question claim</strong> (something they ask, or clearly imply, without answering it themselves)?</span></li>
+<li class="fragment">Attribute the <strong>position:</strong> <span class="fragment">what role or vantage point plausibly shapes this claim?</span></li>
+<li class="fragment">Flag <strong>tensions:</strong> <span class="fragment">does this claim sit comfortably with, or contradict, another input you have already noted?</span></li>
+</ol>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>Claim:</strong> Every agent action needs human sign-off before it executes.</li>
+<li><strong>Kind:</strong> practice</li>
+<li><strong>Position:</strong> Financial services CISO</li>
+<li><strong>Tension:</strong> none yet, this is the first input touching this issue</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>This is a deliberately lightweight form of open coding <span class="citation" data-cites="strauss1998basics">(<a href="" role="doc-biblioref" onclick="return false;">Strauss &amp; Corbin, 1998</a>)</span>, one pass per input, done shortly after the talk while your jottings are still legible and the context is fresh. You are not building a formal codebook yet; that level of rigor comes later, in your systematic review. Working from jottings and memory instead of a transcript is a real adaptation: qualitative researchers open-code recordings and transcripts, while you open-code what you managed to jot down live, so capture quality matters even more here than it would with a recording to fall back on.</p>
+<p>Do this individually, right after each industry input, while your jottings are still fresh. Structuring notes three weeks later, once the jottings have gone cold, reintroduces exactly the kind of unexamined assumption this exercise is meant to surface.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Suggested Tools</strong></p>
+</div>
+<div class="callout-content">
+<p>A spreadsheet (Google Sheets, Excel), one row per input and one column per field, lets you sort and filter later, by kind, by position, or by whatever you flagged as a tension. It only helps if you fill in the judgment calls, kind and tension, rather than just transcribing the claim; a spreadsheet of unexamined claims is still just a list. A plain note-taking app (Notion, Obsidian, or even a text file) with one entry per input works just as well, and keeps everything in one place if you plan to cluster inside the same tool later.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="map-of-perspectives" class="title-slide slide level1 headline-only">
+<h1>Map-of-Perspectives</h1>
+
+</section>
+<section id="identifying-candidate-topics" class="title-slide slide level2">
+<h2>Identifying Candidate Topics</h2>
+<div class="html-hidden">
+<div class="medium">
+<p>Structured notes become a topic only once you compare them across inputs.</p>
+<p>What does that comparison involve?</p>
+</div>
+</div>
+<div class="fragment">
+<p>Across your inputs on agentic AI and cybersecurity, only some of what you heard will obviously relate to something else you heard. Building the map means finding which claims belong together, and naming the phenomenon and knowledge problem they point to.</p>
+</div>
+<aside class="notes">
+<p>Three passes got you here: jottings captured each talk live, open coding structured and tagged each input shortly after. This pass compares structured notes across all the inputs you have so far.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="raw-inputs" class="title-slide slide level2">
+<h2>Raw Inputs</h2>
+<div class="medium">
+<p>Contributions from the field take the form of practical examples, challenges, and sometimes even the questioning of assertions.</p>
+<p>It is your task to identify questions that give rise to further research.</p>
+</div>
+<div class="fragment">
+<p>The inputs you got from open coding:</p>
+</div>
+<ol type="1">
+<li class="fragment"><strong>Practice claim:</strong> what they do, or how they approach the challenge;</li>
+<li class="fragment"><strong>challenge claim:</strong> what puzzles them, an unresolved problem they name; and</li>
+<li class="fragment"><strong>question claim:</strong> something they ask, or clearly imply, without answering it themselves.</li>
+</ol>
+<aside class="notes">
+<p>You already tagged each claim with one of these three kinds while open coding it. The tag matters because the three kinds cluster differently: two contradicting practice claims are informative in a different way than a challenge claim that undercuts a stated practice, or a question claim that turns out to be exactly what two other practitioners were circling without asking it outright.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="claim-clustering" class="title-slide slide level2">
+<h2>Claim Clustering</h2>
+<div class="medium">
+<p>Which of your claims, of any kind, point at the same underlying issue?</p>
+</div>
+<ol type="1">
+<li class="fragment">Analyze your claims, tagged practice, challenge, or question.</li>
+<li class="fragment">Group any that touch the same underlying issue in the domain, not just the same surface topic.</li>
+<li class="fragment">Name what the group is actually about, in one sentence. That is your candidate <strong>phenomenon.</strong></li>
+<li class="fragment">Ask what nobody in the cluster, and as far as you can tell nobody in the literature, has resolved. That is your candidate <strong>knowledge problem,</strong> the question for which new knowledge is needed.</li>
+</ol>
+<aside class="notes">
+<p>After open coding, which produces isolated, tagged observations per input, clustering synthesizes them by applying a lightweight form of axial coding <span class="citation" data-cites="strauss1998basics">(<a href="" role="doc-biblioref" onclick="return false;">Strauss &amp; Corbin, 1998</a>)</span> as a mind map instead of a formal category scheme. A cluster is often strongest when it mixes kinds: a practice claim beside a challenge claim that shows the practice failing, or a question one practitioner raised that matches what a different practitioner’s challenge was circling without naming. A tension between two contradicting practices, or between a stated practice and a challenge that undercuts it, is the clearest sign of a real, unresolved knowledge problem rather than one already settled in the field. Several practitioners converging on the same unexamined gap without realizing it is an equally useful discovery; see <em>Contradictions as signal</em>, earlier in this unit <span class="citation" data-cites="colquitt2011publishing">(<a href="" role="doc-biblioref" onclick="return false;">Colquitt &amp; George, 2011</a>)</span>.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Outlook</strong></p>
+</div>
+<div class="callout-content">
+<p>Domain, phenomenon, knowledge problem is the structure <span class="citation" data-cites="recker2021scientific">Recker (<a href="" role="doc-biblioref" onclick="return false;">2021a</a>)</span> uses to define an effective topic, the one you will meet formally in <a href="../topic/">U4: Topic</a>. Your domain is already fixed: agentic AI and cybersecurity. What you are doing here is finding the phenomenon and the knowledge problem inductively, from the plurality of what you heard, instead of being handed them.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="topic-mapping" class="title-slide slide level2">
+<h2>Topic Mapping</h2>
+<div id="tbl-perspectives-map" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-perspectives-map-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Notes field</th>
+<th>Candidate topic element</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A cluster of related claims, practice, challenge, or question</td>
+<td>The <strong>phenomenon</strong></td>
+</tr>
+<tr class="even">
+<td>What nothing in the cluster, or the literature, resolves</td>
+<td>The <strong>knowledge problem,</strong> your candidate question</td>
+</tr>
+<tr class="odd">
+<td>A contradiction between two claims in a cluster</td>
+<td>A <strong>tension,</strong> evidence the knowledge problem is real</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-perspectives-map-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: From perspective notes to a candidate topic
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>Nothing here needs to be invented. Every element is a rearrangement of what your note-taking procedure already produced, plus one genuinely new judgment call: deciding which claims belong to the same cluster, and naming what they are actually about.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="building-a-map" class="title-slide slide level2 scrollable">
+<h2>Building a Map</h2>
+<ol type="1">
+<li class="fragment">Turn each cluster into one branch: place its claims as separate boxes, grouped together.</li>
+<li class="fragment">Add one box below the claims for the <strong>phenomenon,</strong> and one more below that for the <strong>knowledge problem,</strong> using the labels named while clustering.</li>
+<li class="fragment">Draw arrows from each claim to the phenomenon, and from the phenomenon to the knowledge problem.</li>
+<li class="fragment">Wherever two claims in a cluster genuinely contradict, connect them directly with a separate, labeled <strong>tension</strong> link instead of routing through the phenomenon box.</li>
+<li class="fragment">Repeat once per cluster; two or three separate branches is the normal outcome, not a sign the clustering went wrong.</li>
+</ol>
+<div class="fragment">
+<div class="cell" data-reveal="true" data-layout-align="left">
+<div class="cell-output-display">
+<div id="fig-example" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-example">%%{init: {'flowchart': {'rankSpacing': 30, 'nodeSpacing': 12, 'subGraphTitleMargin': {'top': 8, 'bottom': 8}}}}%%
+flowchart TD
+    %% Base styling
+    classDef claimBox fill:#f5f5f5,stroke:#000000,stroke-width:1px,color:#000000;
+    classDef phenomBox fill:#dedede,stroke:#000000,stroke-width:1.5px,color:#000000;
+    classDef problemBox fill:#bcbcbc,stroke:#000000,stroke-width:2px,color:#000000;
+
+    DOMAIN["Domain: Agentic AI and Cybersecurity"]
+
+    %% ==========================================
+    %% CLUSTER 1
+    %% ==========================================
+    subgraph T1["Cluster 1: Human Oversight vs. Automated Velocity"]
+        direction LR
+        C1["&lt;b&gt;Claim 1 [Practice]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;FinServ CISO:&lt;/i&gt; Every agent action requires&lt;br/&gt;mandatory human sign-off before execution."]:::claimBox
+        C2["&lt;b&gt;Claim 2 [Challenge]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Vendor Lead:&lt;/i&gt; Mandatory sign-off makes agents useless;&lt;br/&gt;clients demand real-time autonomous remediation."]:::claimBox
+        C3["&lt;b&gt;Claim 3 [Question]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;SecOps Analyst:&lt;/i&gt; At what operational speed does&lt;br/&gt;human oversight become purely nominal theater?"]:::claimBox
+        C1 &lt;-.-&gt;|TENSION: Safety vs. Velocity| C2
+        C2 ~~~ C3
+    end
+
+    PH1["&lt;b&gt;Phenomenon 1&lt;/b&gt;&lt;br/&gt;Friction between operational velocity and human oversight&lt;br/&gt;in autonomous high-stakes execution."]:::phenomBox
+    KP1["&lt;b&gt;Knowledge Problem 1&lt;/b&gt;&lt;br/&gt;How can organizations balance standing autonomy and continuous auditability&lt;br/&gt;without bottlenecking response time?"]:::problemBox
+
+    DOMAIN --&gt; T1
+    T1 --&gt; PH1
+    PH1 --&gt; KP1
+
+    %% ==========================================
+    %% CLUSTER 2
+    %% ==========================================
+    subgraph T2["Cluster 2: Machine Identity &amp; Delegation Gaps"]
+        direction LR
+        C4["&lt;b&gt;Claim 4 [Challenge]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Healthcare IT:&lt;/i&gt; IAM infrastructure lacks any model&lt;br/&gt;for autonomous multi-agent delegation."]:::claimBox
+        C5["&lt;b&gt;Claim 5 [Challenge]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Public Sector Lead:&lt;/i&gt; Runbooks assume human actors;&lt;br/&gt;agent tasks trigger false-positive rogue alerts."]:::claimBox
+        C6["&lt;b&gt;Claim 6 [Practice]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Cloud Architect:&lt;/i&gt; We issue static admin tokens so agents&lt;br/&gt;can resolve cross-system infrastructure tickets."]:::claimBox
+        C4 ~~~ C5
+        C5 ~~~ C6
+        C4 &lt;-.-&gt;|TENSION: Least Privilege vs. Static Escalation| C6
+    end
+
+    PH2["&lt;b&gt;Phenomenon 2&lt;/b&gt;&lt;br/&gt;Mismatch between legacy security architectures and&lt;br/&gt;non-deterministic autonomous agent workflows."]:::phenomBox
+    KP2["&lt;b&gt;Knowledge Problem 2&lt;/b&gt;&lt;br/&gt;How must IAM architectures evolve to govern ephemeral, non-human agency&lt;br/&gt;without defaulting to over-privileged service accounts?"]:::problemBox
+
+    KP1 ~~~ T2
+    T2 --&gt; PH2
+    PH2 --&gt; KP2
+
+    %% ==========================================
+    %% CLUSTER 3
+    %% ==========================================
+    subgraph T3["Cluster 3: Multi-Agent Accountability &amp; Forensics"]
+        direction LR
+        C7["&lt;b&gt;Claim 7 [Challenge]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Forensics Lead:&lt;/i&gt; Tracing non-deterministic reasoning loops&lt;br/&gt;across interacting agents is impossible post-incident."]:::claimBox
+        C8["&lt;b&gt;Claim 8 [Question]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Legal Counsel:&lt;/i&gt; If an agent hallucinates a defensive countermeasure&lt;br/&gt;and breaks systems, who bears liability?"]:::claimBox
+        C9["&lt;b&gt;Claim 9 [Practice]&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Risk Officer:&lt;/i&gt; We archive raw prompt-response text logs&lt;br/&gt;to establish defensible compliance audit trails."]:::claimBox
+        C7 ~~~ C8
+        C8 ~~~ C9
+        C7 &lt;-.-&gt;|TENSION: Dynamic Reasoning vs. Static Logs| C9
+    end
+
+    PH3["&lt;b&gt;Phenomenon 3&lt;/b&gt;&lt;br/&gt;Opacity and causal ambiguity of multi-agent reasoning chains&lt;br/&gt;in post-incident digital forensics."]:::phenomBox
+    KP3["&lt;b&gt;Knowledge Problem 3&lt;/b&gt;&lt;br/&gt;What constitutes legally defensible forensic provenance&lt;br/&gt;for emergent, multi-agent autonomous decisions?"]:::problemBox
+
+    KP2 ~~~ T3
+    T3 --&gt; PH3
+    PH3 --&gt; KP3
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: An example Map-of-Perspectives (invented for illustration; not a transcript of real industry input)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Suggested Tools</strong></p>
+</div>
+<div class="callout-content">
+<p>Your Map of Perspectives has to be submitted on Moodle as a readable, gradable PDF, so build it in whatever helps you think, then plan for how it becomes that PDF.</p>
+<p>A digital whiteboard (Miro, FigJam, draw.io) exports directly to PDF and avoids an extra step. A whiteboard or a wall with sticky notes is a good way to explore early, messy clusters by physically moving claims around, but budget time to digitize it afterward, a photo is not gradable, you will need to redraw it or export it cleanly. If you are already keeping your structured notes in an app with a canvas feature (e.g.&nbsp;Obsidian Canvas), building the map there keeps everything in one place and exports to PDF directly.</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Cluster your own claims into candidate phenomena and knowledge problems.</p>
+</div>
+<ol type="1">
+<li class="fragment">Lay out all the claims you have noted so far, tagged practice, challenge, or question.</li>
+<li class="fragment">Group any that point at the same underlying issue, even loosely.</li>
+<li class="fragment">For each group, name the phenomenon in one sentence, and the knowledge problem it raises in another.</li>
+<li class="fragment">Mark a tension wherever two claims in a group genuinely contradict.</li>
+</ol>
+<div id="timer_8ca18bc02f6976d07949f2884e19a51bfb20a50a" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p>It is normal to leave this exercise with two or three candidate phenomena rather than one. Picking a single one to pursue is a deliberate judgment call. It is not something you do only because you happened to find just one candidate. Hold onto the ones you set aside; a phenomenon that does not become your topic this term may still surface in your literature review as an alternative framing worth acknowledging.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section id="homework" class="title-slide slide level1">
+<h1>Homework</h1>
+<div class="medium">
+<p>Finish structuring notes for your remaining industry inputs, then build your map.</p>
+</div>
+<ol type="1">
+<li>Write up structured notes for any inputs you have not yet processed, using the four-step procedure.</li>
+<li>Lay out all your claims and cluster them into candidate phenomena.</li>
+<li>For each cluster, name the knowledge problem it raises, and mark any tensions between claims.</li>
+<li>Identify the one candidate phenomenon and knowledge problem you are currently leaning toward as your tension.</li>
+</ol>
+<p>This map, and the tension you select from it, is what you carry into <a href="../topic/">U4: Topic</a>, where domain, phenomenon, and knowledge problem become the formal criteria for an effective research topic.</p>
+</section>
+
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only" data-background-image="../assets/bg.jpg">
+<h1>Q&amp;A</h1>
+
+</section>
+
+
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
