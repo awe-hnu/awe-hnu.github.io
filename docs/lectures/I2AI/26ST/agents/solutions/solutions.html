@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Environments & Agents – I2AI</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Large display sans (like the title) + mono for meta lines -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════
+   PALETTE  (from screenshot)
+   bg-blue:   #0535f5  — electric blue (title/section slides)
+   bg-light:  #f7f7f7  — near-white (content slides)
+   text-on-blue: #ffffff
+   text-on-light: #111111
+   accent-cyan: #4de8f4  — the glowing cyan tint on the brain
+   footer-bg: #ffffff
+   footer-text: #111
+   mono-meta: #d0e0ff  — light-blue tint for mono metadata
+   heading-on-light: #0535f5  (blue used as heading color on white slides)
+   border: #e0e0e0
+═══════════════════════════════════════════════════ */
+:root {
+  --blue:        #0535f5;
+  --blue-dark:   #0228cc;
+  --blue-light:  #2a55ff;
+  --cyan:        #4de8f4;
+  --white:       #ffffff;
+  --off-white:   #f7f8fc;
+  --light-bg:    #f0f2fc;
+  --text-dark:   #0d0d0d;
+  --muted-dark:  #444;
+  --border:      #d8daf0;
+  --mono-meta:   #b8ccff;
+  --footer-h:    52px;
+}
+
+/* ── Reveal core ── */
+.reveal {
+  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  background: var(--blue);
+  color: var(--white);
+}
+.reveal .slides { width: 100%; height: 100%; }
+.reveal .slides section {
+  text-align: left;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ── Global heading reset ── */
+.reveal h1,.reveal h2,.reveal h3,.reveal h4 {
+  font-family: 'Space Grotesk', 'DM Sans', sans-serif;
+  text-transform: none;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  text-shadow: none;
+  margin: 0 0 .4em;
+}
+
+/* ═══════════════════════════════════════════════════
+   TITLE SLIDE
+═══════════════════════════════════════════════════ */
+.title-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+/* Blue-to-blue radial glow in top-right (mimics the brain glow) */
+.title-slide::before {
+  content: '';
+  position: absolute;
+  top: -10%; right: -5%;
+  width: 62%;
+  height: 110%;
+  background: radial-gradient(ellipse at 60% 40%,
+    rgba(77,232,244,.22) 0%,
+    rgba(40,120,255,.18) 30%,
+    transparent 70%);
+  pointer-events: none;
+}
+.title-inner {
+  position: relative;
+  z-index: 2;
+  padding: 0 3.5rem 2.5rem;
+  padding-bottom: calc(var(--footer-h) + 2rem);
+}
+.title-slide h1 {
+  font-size: 4em;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.05;
+  margin: 0 0 .45em;
+}
+.title-slide .subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25em;
+  font-weight: 500;
+  color: var(--white);
+  margin: 0 0 2em;
+  opacity: .95;
+}
+.title-slide .meta-block {
+  font-family: 'Space Mono', monospace;
+  font-size: .72em;
+  color: var(--mono-meta);
+  line-height: 2;
+}
+/* version tag top-left */
+.version-tag {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .68em;
+  color: var(--mono-meta);
+  z-index: 10;
+}
+
+/* ═══════════════════════════════════════════════════
+   BOTTOM FOOTER BAR (white, on every slide)
+═══════════════════════════════════════════════════ */
+.slide-footer-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--footer-h);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.4rem;
+  z-index: 100;
+  box-sizing: border-box;
+}
+.slide-footer-bar .footer-left {
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.slide-footer-bar .footer-version {
+  color: #888;
+  margin-right: .5rem;
+}
+.slide-footer-bar .footer-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+.slide-footer-bar .footer-nav {
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+/* Hamburger icon placeholder */
+.footer-menu {
+  width: 18px;
+  height: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-right: .8rem;
+}
+.footer-menu span {
+  display: block;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 1px;
+}
+
+/* ═══════════════════════════════════════════════════
+   SECTION DIVIDER SLIDES  (blue bg)
+═══════════════════════════════════════════════════ */
+.section-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+  position: relative;
+  overflow: hidden;
+}
+.section-slide::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 50%; height: 140%;
+  background: radial-gradient(ellipse,
+    rgba(77,232,244,.15) 0%,
+    transparent 65%);
+  pointer-events: none;
+}
+.section-slide .section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .72em;
+  color: var(--mono-meta);
+  margin-bottom: .7em;
+  letter-spacing: .04em;
+}
+.section-slide h1 {
+  font-size: 2.8em;
+  font-weight: 300;
+  color: var(--white);
+  margin: 0 0 .5em;
+}
+.section-slide .section-desc {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .9em;
+  color: rgba(255,255,255,.72);
+  max-width: 60%;
+  line-height: 1.75;
+}
+/* large watermark number */
+.section-slide .section-number {
+  position: absolute;
+  right: 3rem;
+  bottom: calc(var(--footer-h) + 1rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 8em;
+  font-weight: 700;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   CONTENT SLIDES  (white/light bg)
+═══════════════════════════════════════════════════ */
+.content-slide {
+  background: var(--off-white) !important;
+  color: var(--text-dark) !important;
+  padding: 2rem 3.5rem calc(var(--footer-h) + 1.2rem) !important;
+  height: 100%;
+}
+.content-slide .reveal-override { color: var(--text-dark); }
+
+/* Override reveal text colors on white slides */
+.content-slide p,
+.content-slide li,
+.content-slide td,
+.content-slide dd { color: var(--text-dark); }
+
+/* Slide heading row */
+.slide-header {
+  display: flex;
+  align-items: baseline;
+  gap: .7em;
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: .35em;
+  margin-bottom: .85em;
+}
+.slide-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35em;
+  font-weight: 600;
+  color: var(--blue);
+  margin: 0;
+  flex: 1;
+  border: none;
+}
+.slide-header h2::before { display: none; }
+
+/* Body text on white */
+.content-slide p { line-height: 1.72; margin: .5em 0; font-size: .95em; color: var(--text-dark); }
+.content-slide ul, .content-slide ol { margin: .4em 0 .4em 1.3em; }
+.content-slide li { margin: .3em 0; line-height: 1.65; font-size: .95em; color: var(--text-dark); }
+.content-slide ul > li::marker { color: var(--blue); }
+.content-slide strong { color: var(--text-dark); font-weight: 700; }
+
+/* h3 sub-headings on white */
+.content-slide h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .8em;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin: .8em 0 .3em;
+}
+
+/* Links */
+.content-slide a { color: var(--blue); border-bottom: 1px solid rgba(5,53,245,.3); text-decoration: none; }
+.content-slide a:hover { color: var(--blue-dark); }
+
+/* ── Blockquote ── */
+.content-slide blockquote {
+  background: var(--light-bg);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 4px 4px 0;
+  margin: .9em 0;
+  padding: .8em 1.2em;
+  font-style: italic;
+  color: var(--muted-dark);
+  font-size: .9em;
+  line-height: 1.75;
+  box-shadow: none;
+  width: auto;
+}
+.content-slide blockquote p { color: var(--muted-dark); margin: 0; }
+.content-slide blockquote cite {
+  display: block;
+  margin-top: .4em;
+  font-style: normal;
+  font-size: .82em;
+  color: var(--blue);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+/* ── Tables ── */
+.content-slide table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .84em;
+  margin: .7em 0;
+}
+.content-slide table th {
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  padding: .55em .85em;
+  text-align: left;
+  letter-spacing: .015em;
+}
+.content-slide table td {
+  padding: .45em .85em;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text-dark);
+}
+.content-slide table tbody tr:nth-child(even) td { background: var(--light-bg); }
+.content-slide table tbody tr:last-child td { border-bottom: none; }
+.content-slide table tbody tr:hover td { background: rgba(5,53,245,.05); }
+
+/* ── Inline code ── */
+.content-slide code {
+  font-family: 'Space Mono', monospace;
+  font-size: .8em;
+  background: #e8eaf8;
+  color: var(--blue-dark);
+  padding: .08em .35em;
+  border-radius: 3px;
+}
+.content-slide pre {
+  background: #1a1a2e;
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 4px 4px 0;
+  padding: .85em 1.1em;
+  font-size: .78em;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: .7em 0;
+}
+.content-slide pre code {
+  background: none;
+  color: #e8eaf8;
+  border: none;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* ── Tag chips ── */
+.tag {
+  display: inline-block;
+  background: rgba(5,53,245,.1);
+  color: var(--blue);
+  font-family: 'Space Mono', monospace;
+  font-size: .63em;
+  font-weight: 400;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: .17em .6em;
+  border-radius: 2px;
+  border: 1px solid rgba(5,53,245,.2);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ── Callout boxes ── */
+.callout {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 4px 4px 0;
+  padding: .75em 1.1em;
+  margin: .75em 0;
+  font-size: .91em;
+}
+.callout p { color: var(--text-dark); margin: .25em 0; }
+.callout ol, .callout ul { color: var(--text-dark); }
+.callout.exercise { border-left-color: var(--cyan); background: #edfcfe; }
+.callout.exercise .callout-label { color: #0099aa; }
+.callout.warning  { border-left-color: #f5a623; background: #fef9ee; }
+.callout.warning  .callout-label { color: #c07a00; }
+.callout-label {
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  font-size: .7em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: .28em;
+}
+
+/* ── Two-column layout ── */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8em; align-items: start; }
+.cols.wide   { grid-template-columns: 2fr 1fr; }
+.cols.narrow { grid-template-columns: 1fr 2fr; }
+
+/* ── Figure placeholder ── */
+.fig {
+  background: var(--light-bg);
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  color: #999;
+  font-family: 'Space Mono', monospace;
+  font-size: .75em; text-align: center;
+  padding: 1.5em;
+  min-height: 145px;
+}
+.fig-caption {
+  font-size: .75em; color: var(--muted-dark);
+  font-style: italic; margin-top: .35em; text-align: center;
+}
+
+/* ── Definition list ── */
+.def-list { margin: .5em 0; }
+.def-list dt {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: var(--blue);
+  margin-top: .65em;
+}
+.def-list dd { margin-left: 1.2em; color: var(--text-dark); line-height: 1.68; font-size: .95em; }
+
+/* ── Highlight ── */
+mark {
+  background: rgba(77,232,244,.35);
+  color: var(--text-dark);
+  border-radius: 2px;
+  padding: 0 .15em;
+}
+
+/* ═══════════════════════════════════════════════════
+   Q&A SLIDE  (blue like section slides)
+═══════════════════════════════════════════════════ */
+.qa-slide {
+  background: var(--blue) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  padding: 3rem 3.5rem calc(var(--footer-h) + 2rem) !important;
+}
+.qa-slide h1 {
+  font-size: 3.2em;
+  font-weight: 300;
+  color: var(--white);
+  margin: .1em 0 .4em;
+}
+.qa-slide p { color: rgba(255,255,255,.7); font-size: .95em; line-height: 1.75; max-width: 480px; }
+.qa-big {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 5em;
+  font-weight: 700;
+  color: rgba(255,255,255,.15);
+  line-height: 1;
+  margin-bottom: -.1em;
+}
+
+/* ═══════════════════════════════════════════════════
+   REVEAL CHROME
+═══════════════════════════════════════════════════ */
+.reveal .progress { background: rgba(255,255,255,.15); height: 3px; }
+.reveal .progress span { background: var(--cyan); }
+.reveal .controls { color: var(--white); bottom: calc(var(--footer-h) + 8px); }
+.reveal .slide-number {
+  background: transparent;
+  color: var(--text-dark);
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  bottom: calc(var(--footer-h) / 2 - 0.5em);
+  right: 4.5rem;
+}
+
+/* ── Fragment answer reveal ── */
+.reveal .slides .fragment.answer-reveal {
+  display: block;
+  margin-top: .7em;
+}
+.answer-box {
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cyan);
+  border-radius: 0 4px 4px 0;
+  padding: .75em 1.1em;
+  font-size: .91em;
+}
+.answer-box p, .answer-box li { color: var(--text-dark); margin: .25em 0; }
+.answer-box ul, .answer-box ol { margin: .3em 0 .3em 1.2em; }
+.answer-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .68em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #0099aa;
+  margin-bottom: .35em;
+  display: flex;
+  align-items: center;
+  gap: .4em;
+}
+.click-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: .6em;
+  color: #bbb;
+  margin-top: .9em;
+  letter-spacing: .04em;
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- ── PERSISTENT FOOTER BAR ── -->
+<div class="slide-footer-bar">
+  <div class="footer-left">
+    <div class="footer-menu">
+      <span></span><span></span><span></span>
+    </div>
+    <span class="footer-version">V 1.0</span>
+    <span>Deinera Jechle &nbsp;/&nbsp; Neu-Ulm University of Applied Sciences Neu-Ulm &nbsp;/&nbsp; Introduction to Artificial Intelligence (AI)</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <div class="footer-logo">HNU</div>
+    <div class="footer-nav" id="footer-slide-num">1</div>
+  </div>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ══════════════════════════════════════════
+     TITLE SLIDE
+══════════════════════════════════════════ -->
+<section class="title-slide">
+  <div class="version-tag">V 1.0</div>
+  <div class="title-inner">
+    <h1>Environments &amp; Agents</h1>
+    <p class="subtitle">Introduction to AI (I2AI)</p>
+    <div class="meta-block">
+      <span>Deinera Jechle</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Neu-Ulm University of Applied Sciences</span><br/>
+      March 2, 2026
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — AGENCY
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 01</div>
+  <h1>Agency</h1>
+  <p class="section-desc">Is AI really just a fancy calculator? We examine what sets agents apart — and why the distinction matters.</p>
+  <div class="section-number">01</div>
+</section>
+
+<!-- AI vs Calculator -->
+ <!-- Agency definition -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Is AI Different from a Calculator? If so, why?</h2>
+    <span class="tag">Discussion</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Recap</div>
+    <p>Is AI different from a calculator? If so, why?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label"></div>
+      <p>Modern AI has moved beyond isolated "calculators." The paradigm of <b>agency</b> shifts our engineering focus from <em>"correct output"</em> to <b><em>"intelligent behavior"</em></b> — accounting for <b>feedback loops, uncertainties, and real-time constraints.</b></p>
+      <blockquote style="margin:.6em 0 0;font-size:.88em;">
+        Agency is the capacity of a system to maintain a continuous feedback loop with its environment. Agency requires a mapping of a history of environmental percepts to a sequence of actions designed to achieve a goal or maximize a performance measure.
+        <cite>— Russel &amp; Norvig, 2022</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- Core Components -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Core Components & Architecture of Agents</h2>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Think about it</div>
+    <p>What are the <b>core components</b> that define an agent? Explain what each means.</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">✓ Core components</div>
+      <ul>
+        <li><strong>Agent:</strong> anything that perceives its environment through sensors and acts upon it through actuators.</li>
+        <li><strong>Percept:</strong> the agent's perceptual inputs at any given instant.</li>
+        <li><strong>Percept sequence:</strong> the complete history of everything the agent has ever perceived; action depends on this full sequence.</li>
+        <li><strong>Sensors:</strong> mechanisms (cameras, GPS, microphones) that receive environmental input.</li>
+        <li><strong>Actuators:</strong> mechanisms (wheels, display screens, robotic joints) that execute actions.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Core Components & Architecture of Agents</h2>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Think about it</div>
+    <p>What are the components of the <b>Agent Architecture</b>?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">✓ Agent Architecture</div>
+      <ul>
+        <li><strong>Agent Function:</strong> An abstract mathematical mapping <em>f : P* → A</em> — describing how any given percept sequence results in an action. This is the <em>what</em>.</li>
+        <li><strong>Agent Program':</strong> The concrete physical implementation — the actual code — running on a specific architecture. This is the <em>how</em>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Calculator recap question -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Can We Consider a Calculator an Agent?</h2>
+    <span class="tag">Recap</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Think about it</div>
+    <p>A calculator takes inputs and produces outputs. Could we consider a calculator to be an agent?</p>
+  </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">✓ Answer</div>
+      <p>Technically yes — but the framing provides <strong>no design leverage</strong>:</p>
+      <blockquote style="margin:.5em 0;font-size:.9em;">
+        "One could view a hand-held calculator as an agent that chooses the action of displaying '4' when given the percept sequence '2 + 2 =,' but such an analysis would hardly aid our understanding of the calculator … AI operates at … the most interesting end of the spectrum, where the artifacts have significant computational resources and the task environment requires nontrivial decision making.""
+        <cite>— p.36, Russel &amp; Norvig, 2022</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — Rational Agents
+══════════════════════════════════════════ -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Rational Agents</h2>
+  </div>
+  <div class="fragment">
+    <p> A rational agent selects an action that is <b>expected to maximize its performance measure</b>, given the prior percept sequence and its built-in knowledge. </p> 
+    <p> Rationality is not about the internal process, but the external outcome.</p> 
+    <figure style="text-align: center; margin-top: 1rem;">
+      <img src="/image/agent.svg" alt="Rational_Agents" style="max-width: 80%;" />
+      <figcaption style="font-size: 0.8em; color: gray; margin-top: 0.4rem;">Figure 1: Rational agents interact with environments through sensors and actuators.</figcaption>
+    </div>
+</section>
+
+<!-- Rationality vs Perfection -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Rationality vs. Perfection</h2>
+  </div>
+  <p>Rationality is <em>not</em> the same as perfection:</p>
+  <ul class="fragment">
+    <li>Rationality maximizes <strong>expected</strong> performance.</li>
+    <li>Perfection maximizes <strong>actual</strong> performance.</li>
+    <li>Perfection requires omniscience.</li>
+    <li>Rational choice depends only on the percept sequence <em>to date</em>.</li>
+  </ul>
+  <br/>
+  <table class="fragment">
+    <thead>
+      <tr><th>Metric</th><th>Definition</th><th>Info Required</th><th>Feasibility</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Rationality</strong></td><td>Maximizes expected performance</td><td>Percept sequence + prior knowledge</td><td>High — the engineering standard</td></tr>
+      <tr><td><strong>Omniscience</strong></td><td>Knows actual outcome of actions</td><td>Complete future &amp; present data</td><td>Impossible</td></tr>
+      <tr><td><strong>Perfection</strong></td><td>Maximizes actual performance</td><td>Requires omniscience</td><td>Impossible in unpredictable worlds</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — ENVIRONMENTS
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 02</div>
+  <h1>Environments</h1>
+  <p class="section-desc">Before designing an agent (the solution), the task environment (the problem) must be specified as fully as possible using the PEAS framework.</p>
+  <div class="section-number">02</div>
+</section>
+
+<!-- PEAS -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>PEAS Framework</h2>
+    <span class="tag">Definition</span>
+  </div>
+  <p>The task environment must be specified across four dimensions:</p>
+  <ul class="fragment answer-reveal">
+    <li><strong>P</strong>erformance measure</li>
+    <li><strong>E</strong>nvironment</li>
+    <li><strong>A</strong>ctuators</li>
+    <li><strong>S</strong>ensors</li>
+  </ul>
+</section>
+
+<!-- Exercise: PEAS -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise</h2>
+    <span class="tag">In-class Group Exercise</span><span class="tag">10 Min</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">📝 Exercise</div>
+    <p>Describe the task environment of the following agents using PEAS.</p>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Type</th><th>Performance Measure</th><th>Environment</th><th>Actuators</th><th>Sensors</th></tr>
+    </thead>
+    <tbody>
+  <tr>
+    <td><strong>Microwave oven</strong></td>
+    <td class="fragment" data-fragment-index="1">• Food heated to correct temperature throughout<br/>• Heating time minimized<br/>• No overcooking, burning, or cold spots</td>
+    <td class="fragment" data-fragment-index="1">• Kitchen<br/>• Food items of varying types, size, density</td>
+    <td class="fragment" data-fragment-index="1">• Magnetron (microwave emitter)<br/>• Turntable motor</td>
+    <td class="fragment" data-fragment-index="1">• Temperature sensor (interior)<br/>• Timer<br/>• Door open/close sensor</td>
+  </tr>
+  <tr>
+    <td><strong>Chess program</strong></td>
+    <td class="fragment" data-fragment-index="2">• Win the game<br/>• Minimize opponent's winning probability<br/>• Compute within time limit</td>
+    <td class="fragment" data-fragment-index="2">• 8×8 board with 32 pieces<br/>• Opponent<br/>• Time constraint</td>
+    <td class="fragment" data-fragment-index="2">• Move selection output (piece + target square)<br/>• Display/board to communicate moves</td>
+    <td class="fragment" data-fragment-index="2">• Current board state<br/>• Remaining time on the clock<br/>• Full game history</td>
+  </tr>
+  <tr>
+    <td><strong>Autonomous supply delivery</strong></td>
+    <td class="fragment" data-fragment-index="3">• Package delivered on time and undamaged<br/>• Route efficiency<br/>• Safety</td>
+    <td class="fragment" data-fragment-index="3">• Roads, traffic, pedestrians, …<br/>• Delivery addresses and access points<br/>• Weather, …</td>
+    <td class="fragment" data-fragment-index="3">• Steering, brakes<br/>• Cargo hold/release mechanism</td>
+    <td class="fragment" data-fragment-index="3">• GPS position<br/>• Lidar, radar, cameras<br/>• Speedometer, accelerometer, …</td>
+  </tr>
+  <tr>
+    <td><strong>Bidding on an item at an auction</strong></td>
+    <td class="fragment" data-fragment-index="4">• Obtain the item (if wanted)<br/>• Minimize price paid</td>
+    <td class="fragment" data-fragment-index="4">• Auction house / eBay</td>
+    <td class="fragment" data-fragment-index="4">• Placing a bid (by phone, electronically)</td>
+    <td class="fragment" data-fragment-index="4">• Eyes, ears</td>
+  </tr>
+</tbody>
+  </table>
+</section>
+
+<!-- Properties of Environments -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Properties of Task Environments</h2>
+  </div>
+  <p>Task environments can be categorized along seven dimensions:</p>
+  <dl class="def-list fragment" style="color: inherit; font-weight: normal;">
+    <li><strong>Fully observable ↔ Partially observable</strong>: Does the agent have access to the complete state of the environment at all times? (e.g., chess vs. poker)</li>
+    <li><strong>Single agent ↔ Multi-agent</strong>: Is only one agent interacting with the environment? (e.g., crossword puzzle vs. chess)</li>
+    <li><strong>Deterministic ↔ Nondeterministic</strong>: Is the next state completely determined by current state and action? (e.g., crossword vs. poker)</li>
+    <li><strong>Episodic ↔ Sequential</strong>: Is each episode independent of prior ones? (e.g., spam filtering vs. chess)</li>
+    <li><strong>Static ↔ Dynamic</strong>: Does the environment change while the agent is deliberating? (e.g., chess vs. stock trading)</li>
+    <li><strong>Discrete ↔ Continuous</strong>: Is the state space finite and distinct, or continuous? (e.g., chess vs. self-driving)</li>
+    <li><strong>Known ↔ Unknown</strong>: Does the agent have complete information about outcomes of its actions? (e.g., solitaire vs. new environment)</li>
+  </dl>
+  <div class="fragment">
+  <div class="callout warning">
+    <div class="callout-label">⚠️ Hardest case</div>
+    Partially observable, multi-agent, nondeterministic, sequential, dynamic, continuous, and unknown — this is the most challenging combination for agent design (Russel &amp; Norvig, 2022, pp. 62–64).
+  </div>
+  </div>
+</section>
+
+<!-- Exercise -->
+ <section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise</h2>
+    <span class="tag">In-class Group Exercise</span><span class="tag">10 Min</span>
+  </div>
+    <p>Which of these games would a rational agent always win and why?</p>
+    <ul>
+      <li>Sudoku</li>
+      <li>Chess</li>
+      <li>Tic-Tac-Toe</li>
+      <li>Lottery</li>
+      <li>Minesweeper</li>
+    </ul>
+</section>
+
+ <section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise</h2>
+    <span class="tag">In-class Group Exercise</span><span class="tag">10 Min</span>
+  </div>
+    <p>Which of these games would a rational agent always win and why?</p>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label"></div>
+      <ul>
+    <li class="fragment">
+      <strong>Sudoku:</strong> <i>Always wins (if a solution exists) </i>— single agent, fully observable, deterministic, episodic. Rational = perfection here because the environment is known and static. Only caveat: some puzzles are intentionally unsolvable.
+    </li>
+    <li class="fragment">
+      <strong>Chess:</strong> <i>Theoretically always wins (practically depends) </i> — environment is deterministic and fully observable. However, the state space is enormous (10<sup>43</sup> board positions, 10<sup>120</sup> possible games). A winning/drawing strategy has not yet been explicitly found and is currently computationally infeasible.
+    </li>
+    <li class="fragment">
+      <strong>Tic-Tac-Toe:</strong> <i>Always at least draws </i>— fully observable, deterministic, known. Rational = perfect here. A rational agent with perfect play can always force at least a draw. Against a non-rational agent it can win; against another rational agent it always draws. <a href="https://xkcd.com/832/" target="_blank">xkcd/832</a>
+    </li>
+    <li class="fragment">
+      <strong>Lottery:</strong> <i> Rational agent would not play </i>— fully observable, known and static. The agent can calculate exact expected values and determine that keeping its money maximizes expected performance. The rational move is not to play (negative expected value).
+    </li>
+    <li class="fragment">
+      <strong>Minesweeper:</strong> <i> ~50/50 chance </i> — partially observable and stochastic. Many endgame configurations require a pure guess between two equally likely mines. A rational agent reasons perfectly up to that point, then faces a 50/50 with no additional information. Perfection would require knowing mine locations — i.e., omniscience.
+    </li>
+    </ul>
+    </div>
+  </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Assertions</h2>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>For each assertion, say whether it is <b>true or false</b> and support your answer with examples or counterexamples.</p>
+  </div>
+  <div class="answer-box">
+      <div class="answer-label"></div>
+  <ol style="font-size: 0.82em; line-height: 1.8;">
+    <li>An agent that senses only partial information about the state cannot be perfectly rational.<br><span class="fragment" data-fragment-index="1"><b>False.</b> Perfect rationality means making good decisions given available sensor information; partial observability does not preclude it.</span></li>
+    <li>There exist task environments in which no pure reflex agent can behave rationally.<br><span class="fragment" data-fragment-index="1"><b>True.</b> A pure reflex agent ignores percept history and cannot obtain an optimal state estimate in partially observable environments.</span></li>
+    <li>There exists a task environment in which every agent is rational.<br><span class="fragment" data-fragment-index="1"><b>True.</b> In a single-state environment where all actions yield the same reward, any action is rational.</span></li>
+    <li>Every agent is rational in an unobservable environment.<br><span class="fragment" data-fragment-index="1"><b>False.</b> Even without sensory input, some actions are inherently suboptimal — an agent with an internal model can know this.</span></li>
+    <li>A perfectly rational poker-playing agent never loses.<br><span class="fragment" data-fragment-index="1"><b>False.</b> Rationality maximizes expected outcomes; an opponent may simply hold better cards.</span></li>
+    <li>An agentic AI system always outperforms a classical goal-based agent.<br><span class="fragment" data-fragment-index="1"><b>False.</b> In simple, static environments a classical agent already acts optimally; agentic AI adds overhead without benefit.</span></li>
+    <li>Agentic AI systems can be fully rational without learning capabilities.<br><span class="fragment" data-fragment-index="1"><b>False.</b> In dynamic or initially unknown environments, learning is required to compensate for partial or incorrect prior knowledge.</span></li>
+    <li>An agentic AI system that can decompose goals into sub-goals is always more rational than one that cannot.<br><span class="fragment" data-fragment-index="1"><b>False.</b> Goal decomposition is an architectural feature, not a prerequisite for rationality in simpler environments.</span></li>
+  </ol>
+    </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Task Environments</h2>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>For each of the following activities, characterize the task environment in terms of the properties discussed in the lecture.</p>
+  </div>
+  <ul>
+    <li>Playing soccer</li>
+    <li>Exploring the subsurface oceans of Titan</li>
+    <li>Shopping for used AI books on the internet</li>
+    <li>Playing a tennis match</li>
+  </ul>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Part 1</h2>
+  </div>
+  <h3>Playing Soccer</h3>
+  <table style="width:100%; border-collapse: collapse; font-size: 0.82em;">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding: 0.4em 0.6em; width: 20%;">Property</th>
+        <th style="text-align:left; padding: 0.4em 0.6em;">Characterization</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Observability</b></td>
+        <td style="padding: 0.4em 0.6em;">Partial — field not fully visible; opponent intentions hidden</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Agents</b></td>
+        <td style="padding: 0.4em 0.6em;">Multi — cooperative teammates and competitive opponents</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Determinism</b></td>
+        <td style="padding: 0.4em 0.6em;">Stochastic — ball bounce and weather introduce uncertainty</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Episodes</b></td>
+        <td style="padding: 0.4em 0.6em;">Sequential — actions affect the flow of the game and future options</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Dynamics</b></td>
+        <td style="padding: 0.4em 0.6em;">Dynamic — ball and players continuously move while deliberating</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Continuity</b></td>
+        <td style="padding: 0.4em 0.6em;">Continuous — speed and position of players and ball sweep smooth ranges</td>
+      </tr>
+    </tbody>
+  </table>
+   <h3>Exploring the Subsurface Oceans of Titan</h3>
+     <table style="width:100%; border-collapse: collapse; font-size: 0.82em;">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding: 0.4em 0.6em; width: 20%;">Property</th>
+        <th style="text-align:left; padding: 0.4em 0.6em;">Characterization</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Observability</b></td>
+        <td style="padding: 0.4em 0.6em;">Partial — sensors limited to local range in dark, murky ocean</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Agents</b></td>
+        <td style="padding: 0.4em 0.6em;">Single — currents treated as physical laws, not agents</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Determinism</b></td>
+        <td style="padding: 0.4em 0.6em;">Stochastic — unpredictable currents and unknown obstacles</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Episodes</b></td>
+        <td style="padding: 0.4em 0.6em;">Sequential — path taken dictates future discoveries and energy budget</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Dynamics</b></td>
+        <td style="padding: 0.4em 0.6em;">Dynamic — currents and conditions change while the agent processes data</td>
+      </tr>
+      <tr class="fragment" data-fragment-index="1">
+        <td style="padding: 0.4em 0.6em;"><b>Continuity</b></td>
+        <td style="padding: 0.4em 0.6em;">Continuous — movement and navigation occur through continuous space and time</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution Part 2</h2>
+  </div>
+  <h3>Shopping for Used AI books</h3>
+  <table style="width:100%; border-collapse: collapse; font-size: 0.82em;">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding: 0.4em 0.6em; width: 20%;">Property</th>
+        <th style="text-align:left; padding: 0.4em 0.6em;">Characterization</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Observability</b></td>
+        <td style="padding: 0.4em 0.6em;">Partial — prices, stock, and inventories across the web not fully visible</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Agents</b></td>
+        <td style="padding: 0.4em 0.6em;">Multi — other buyers, algorithmic sellers, and dynamic pricing bots</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Determinism</b></td>
+        <td style="padding: 0.4em 0.6em;">Stochastic — item may be bought by a competing agent before checkout</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Episodes</b></td>
+        <td style="padding: 0.4em 0.6em;">Sequential — search → evaluate → add to cart → checkout</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Dynamics</b></td>
+        <td style="padding: 0.4em 0.6em;">Static / semidynamic — site waits for input; stock may change concurrently</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Continuity</b></td>
+        <td style="padding: 0.4em 0.6em;">Discrete — keystrokes and clicks are distinct, separate actions</td>
+      </tr>
+    </tbody>
+  </table>
+   <h3>Playing a Tennis Match</h3>
+     <table style="width:100%; border-collapse: collapse; font-size: 0.82em;">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding: 0.4em 0.6em; width: 20%;">Property</th>
+        <th style="text-align:left; padding: 0.4em 0.6em;">Characterization</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Observability</b></td>
+        <td style="padding: 0.4em 0.6em;">Partial — opponent's intentions and muscle movements not directly observable</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Agents</b></td>
+        <td style="padding: 0.4em 0.6em;">Multi — strictly competitive opponent</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Determinism</b></td>
+        <td style="padding: 0.4em 0.6em;">Stochastic — wind, spin, and string bed variation affect ball trajectory</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Episodes</b></td>
+        <td style="padding: 0.4em 0.6em;">Sequential — shot placement determines positioning for the next shot</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Dynamics</b></td>
+        <td style="padding: 0.4em 0.6em;">Dynamic — ball and opponent continue to move while player deliberates</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4em 0.6em;"><b>Continuity</b></td>
+        <td style="padding: 0.4em 0.6em;">Continuous — ball trajectory, swing angles, and player movement are continuous</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — AGENT TYPES
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 03</div>
+  <h1>Agent Types</h1>
+  <p class="section-desc">From simple reflex agents to learning agents — a progression in capability, complexity, and autonomy.</p>
+  <div class="section-number">03</div>
+</section>
+
+<!-- Agents -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Types of Agents</h2>
+  </div>
+  <div>
+    <div>
+      <p>Fundamental equation of agency is <b>Agent = Architecture + Program</b>. As we move up the complexity scale, we face a trade-off between <b>flexibility</b> and <b>computational overhead</b>.</p>
+    </div>
+  </div>
+  <div class="fragment">
+  <div class="callout exercise">
+    <div class="callout-label">💬 Recap</div>
+    <p style="font-size:1.15em;line-height:1.8;">What types of agents do you know?</p>
+  </div>
+  </div>
+  <div class="fragment answer-reveal">
+  <div class="answer-box">
+    <div class="answer-label">✓ Agent Types</div>
+    <ul>
+      <li class="fragment"><b>Simple reflex agents:</b> Act solely on the <em>current</em> percept using condition-action rules; require a fully observable environment.</li>
+      <li class="fragment"><b>Model-based reflex agents:</b> Maintain an internal model of the world (transition + sensor model) to handle partially observable environments.</li>
+      <li class="fragment"><b>Goal-based agents:</b> Use goal information and search/planning to select actions that lead to a desired future state.</li>
+      <li class="fragment"><b>Utility-based agents:</b> Maximize a utility function over possible outcomes, enabling rational trade-offs between conflicting or uncertain goals.</li>
+      <li class="fragment"><b>Learning agents:</b> Improve performance over time via a learning element, performance element, critic, and problem generator — gaining greater autonomy through experience.</li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<!-- Exercise: Performance Measures & Agent Types -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Performance Measures &amp; Agent Types</h2>
+    <span class="tag">In-class Group Exercise</span><span class="tag">10 Min</span>
+  </div>
+  <div>
+    <div class="callout exercise">
+      <div class="callout-label">✏️ Exercise</div>
+      <p style="font-size:1.1em;line-height:1.8;">
+        Suggest <b>performance measures</b> for each of the following agents and argue which <b>type of agent</b> should be used.
+      </p>
+    </div>
+  </div>
+
+  <table style="width:100%; margin-top: 1em; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Performance Measure</th>
+        <th>Agent Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bomb disposal</td>
+        <td class="fragment" data-fragment-index="1">Bomb does not explode; casualties avoided; mission completed in time</td>
+        <td class="fragment" data-fragment-index="1"><em>Goal-based</em>; <em>utility-based</em> if time constraints require trade-offs between effectiveness and speed</td>
+      </tr>
+      <tr>
+        <td>Traffic light control</td>
+        <td class="fragment" data-fragment-index="2">Minimize avg. wait time; maximize throughput; ensure fairness across lanes</td>
+        <td class="fragment" data-fragment-index="2"><em>Simple reflex</em> for fixed time cycles;<br> <em>model-based</em> if queue length tracking is required; <br><em>utility-based</em> for fairness vs throughput utility based agent with tradeoff function</td>
+      </tr>
+      <tr>
+        <td >Microwave oven</td>
+        <td class="fragment" data-fragment-index="3">Food heated uniformly to target temperature within set time</td>
+        <td class="fragment" data-fragment-index="3"><em>Simple reflex</em> — fixed rules (time, power setting) to actions (run magnetron); fully observable, deterministic environment</td>
+      </tr>
+      <tr>
+        <td>Content moderation</td>
+        <td class="fragment" data-fragment-index="4">Takedown rate of harmful content; false positive rate; false negative rate; appeal outcomes</td>
+        <td class="fragment" data-fragment-index="4"><em>Utility-based learning agent</em> for tradeoff between safety and freedom of speech; <br> 
+          		The utility function itself cannot be fully specified in advance, for two reasons: (1) what counts as harmful content evolves, (2) the appropriate tradeoff between safety and expression is not the same in every context. <br>
+		→ So you need a utility-based agent because the problem has irreducible competing objectives, and you need a learning agent because both the environment and the right weighting of those objectives change continuously. Neither alone is sufficient.
+</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+  <script>
+    function revealCell(placeholder) {
+      placeholder.style.display = 'none';
+      placeholder.nextElementSibling.style.display = 'inline';
+    }
+    function revealAll() {
+      document.querySelectorAll('.ex-placeholder').forEach(el => {
+        el.style.display = 'none';
+        el.nextElementSibling.style.display = 'inline';
+      });
+    }
+  </script>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header"><h2>Performance vs Utility</h2></div>
+  <span class="tag">In-class Plenum</span>
+   <div class="callout exercise">
+      <div class="callout-label">💬 Think about it</div>
+      <p style="font-size:1.1em;line-height:1.8;">
+        Both the performance measure and the utility function measure how well an agent is doing. What is the difference between the two?
+      </p>
+    </div>
+  <div class="fragment answer-reveal">
+    <div class="answer-box">
+      <div class="answer-label">✓ Key definitions</div>
+      <ul>
+        <li><strong>Performance measure</strong> is a specification from the designer or programmer (external to the agent) to specify what the agent should do. If an agent always acts to maximize or achieve the performance measure, this is a rational agent.</li>
+        <li>Not all agents have <strong>utility functions</strong>, for example, reflex agents do not. The utility function is used internally by the robot itself to evaluate the best course of action is to optimally achieve/maximize the performance measure(s), given its perceived state.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Properties of Task Environments</h2>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>For each of the following task environment properties, <b>rank the example task environments from most to least</b> according to how well the environment satisfies the property. Lay out any assumptions you make to reach your conclusions.</p>
+  </div>
+  <ol>
+    <li><b>Fully observable:</b> driving — document classification — tutoring a student in calculus — skin cancer diagnosis from images</li>
+    <li><b>Continuous:</b> driving — spoken conversation — written conversation — climate engineering by stratospheric aerosol injection</li>
+    <li><b>Stochastic:</b> driving — sudoku — poker — soccer</li>
+    <li><b>Static:</b> chat room — checkers — tax planning — tennis</li>
+  </ol>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Properties of Task Environments (1/2)</h2>
+  </div>
+  <div class="answer-box" style="font-size: 1em;">
+    <div class="answer-label">1. Fully observable — most to least</div>
+    <p><b>Document classification → Skin cancer diagnosis → Tutoring a student → Driving</b></p>
+    <p>Document classification provides the complete, static text upfront. The full image is visible for diagnosis, though subsurface biology and medical history are hidden. In tutoring, the student's true understanding is a hidden variable — only explicit answers are observable. Driving is highly partial: blind spots, truck interiors, and other drivers' intentions are all unobservable.</p>
+    <p><i>Assumptions: Document classification provides complete text upfront; diagnosis relies only on the provided image; tutoring treats the student's mental state as hidden.</i></p>
+  </div>
+  <div class="answer-box" style="font-size: 1em; margin-top: 0.75em;">
+    <div class="answer-label">2. Continuous — most to least</div>
+    <p><b>Climate engineering → Driving → Spoken conversation → Written conversation</b></p>
+    <p>Climate engineering involves planetary-scale fluid dynamics operating across sweeping continuous values. Driving sweeps speed, location, and steering angles continuously. Spoken conversation is continuous at the acoustic wave level, even though words are discrete units. Written conversation is strictly discrete — keystrokes, characters, and messages are all distinct.</p>
+    <p><i>Assumptions: Climate engineering involves massive fluid models compared to localized driving physics. Spoken conversation is analyzed at the raw audio level.</i></p>
+  </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Properties of Task Environments (2/2)</h2>
+  </div>
+  <div class="answer-box" style="font-size: 1em;">
+    <div class="answer-label">3. Stochastic — most to least</div>
+    <p><b>Soccer → Driving → Poker → Sudoku</b></p>
+    <p>Soccer is most stochastic: physical unpredictability (ball bounce, wind) combines with multiple adversarial agents creating chaotic states. Driving is highly stochastic due to unpredictable traffic behaviour and potential hardware failures. Poker is stochastic but constrained — uncertainty is strictly quantified by deck probabilities, without real-world physical chaos. Sudoku is fully deterministic; the board state is entirely determined by the agent's actions.</p>
+    <p><i>Assumptions: Soccer's adversarial physical complexity edges out driving. Poker's stochasticity is purely mathematical.</i></p>
+  </div>
+  <div class="answer-box" style="font-size: 1em; margin-top: 0.75em;">
+    <div class="answer-label">4. Static — most to least</div>
+    <p><b>Tax planning → Checkers → Chat room → Tennis</b></p>
+    <p>Tax planning is perfectly static — historical data and published laws do not change while the agent computes. Checkers is static: the board does not change while the agent deliberates. A chat room is semidynamic — other agents can post simultaneously, altering context while the agent thinks. Tennis is highly dynamic: ball and opponent continuously move while the player decides how to react.</p>
+    <p><i>Assumptions: Tax planning relies on a closed financial year. Checkers is played without a strict clock. Chat room participants do not wait their turn like in a turn-based game.</i></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     Autonomy & Agentic AI
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Section 04</div>
+  <h1>Agentic AI</h1>
+  <p class="section-desc">From reactive rules to autonomous goal pursuit — what changes when agents start acting on their own?</p>
+  <div class="section-number">04</div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Learning Agents &amp; True Autonomy</h2>
+  </div>
+  <p>True autonomy is achieved when an agent can compensate for partial or incorrect prior knowledge by <b>learning from its experience</b>. A learning agent consists of four components:</p>
+  <ul>
+    <li><b>Performance Element:</b> The core agent that selects actions based on current knowledge.</li>
+    <li><b>Learning Element:</b> Responsible for making improvements to the agent function based on data and experience.</li>
+    <li><b>Critic:</b> Evaluates the agent's performance against a fixed external standard and provides feedback to the learning element.</li>
+    <li><b>Problem Generator:</b> Suggests exploratory actions that may be suboptimal in the short term but yield vital information for long-term improvement.</li>
+  </ul>
+  <div class="fragment">
+    <div class="callout note">
+      <div class="callout-label">💡 The Problem Generator as Scientist</div>
+      <p>Consider Galileo's experiments at the Tower of Pisa — he wasn't dropping rocks because the action was inherently useful, but to gather data to update his internal model of motion. This tension between <b>exploration</b> (gathering new information) and <b>exploitation</b> (acting on what is already known) is the heart of autonomous learning.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Agentic AI</h2>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">💬 Recap</div>
+    <p style="font-size:1.15em;line-height:1.8;">What is Agentic AI?</p>
+  </div>
+  <div class="fragment">
+    <p>Autonomous systems designed to pursue <b>complex goals</b> with <b>minimal human intervention</b>.</p>
+    <p>Core characteristics:</p>
+  </div>
+    <div class="fragment">
+    <ul>
+      <li>Higher <b>autonomy and goal complexity</b>,</li>
+      <li>ability to <b>adapt</b> to environmental and situational unpredictabilities, and</li>
+      <li><b>independent decision-making</b>.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Exercise: Agentic AI for Literature Reviews</h2>
+    <span class="tag">In-class Group Exercise</span><span class="tag">10 Min</span>
+  </div>
+  <div class="callout exercise">
+    <div class="callout-label">✏️ Exercise</div>
+    <p>For an AI agent that <b>independently conducts scientific literature reviews</b>, characterize the task environment in terms of the properties discussed in the lecture. Then argue why the scenario requires an <b>agentic AI approach</b> rather than a classical agent design.</p>
+  </div>
+</section>
+
+<!-- Solution: Task Environment -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Task Environment</h2>
+  </div>
+  <table style="width:100%; margin-top: 0.5em; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding: 0.5em 0.75em;">Property</th>
+        <th style="text-align:left; padding: 0.5em 0.75em;">Characterization</th>
+      </tr>
+    </thead>
+    <tbody class="fragment">
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Partially observable</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">Cannot access all papers at once; paywalls hide content; relevance only clear after reading; full scope of literature never known</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Multi-agent</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">Interacts with search engine algorithms, publisher systems, paywalls, and other softbots — an environment of comparable complexity to the physical world</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Stochastic</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">Outcome of queries is uncertain; different searches yield different results; relevance judgments are probabilistic (deterministic only with identical queries)</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Sequential</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">Search → filter → read → refine → repeat; early mistakes (e.g., missing a key paper) propagate to later conclusions</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Dynamic</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">New papers are constantly published; citations and research trends evolve during the review process (static only with a fixed, frozen corpus)</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Discrete</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">Actions such as selecting or excluding a paper are discrete choices</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;"><b>Unknown</b></td>
+        <td style="padding: 0.5em 0.75em; vertical-align:top;">The agent does not know the full relevant literature in advance, nor the optimal search strategy</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Solution: Why Agentic AI? -->
+<section class="content-slide">
+  <div class="slide-header">
+    <h2>Solution: Why Agentic AI?</h2>
+  </div>
+  <p>A classical agent design is insufficient — an agentic approach is required for three key reasons:</p>
+  <ul>
+    <li class="fragment">
+      <b>Goal complexity and task shifting:</b> A literature review is a multi-objective task requiring the agent to decompose goals into sub-goals (search → filter → synthesize) and shift between them autonomously. Classical agents assume predefined, fixed workflows; agentic AI sets and refines subgoals dynamically.
+    </li>
+    <li class="fragment">
+      <b>Adaptability and contextual reasoning:</b> If a paper introduces a new relevant term, the agent must update its search strategy accordingly. Agentic systems incorporate reflection loops and flexible strategy selection; classical agents rely on static rules that cannot reconceptualize their approach based on new information.
+    </li>
+    <li class="fragment">
+      <b>Handling uncertainty and incomplete information:</b> The environment is partially observable and continuously changing. Agentic AI uses adaptive control mechanisms to operate under uncertainty; classical agents struggle outside predefined, limited contexts with high reliance on supervised, static rules.
+    </li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════════════
+     Q&A
+══════════════════════════════════════════ -->
+<section class="section-slide">
+  <div class="section-label">// Q&amp;A</div>
+  <h1>Questions?</h1>
+  <p class="section-desc">What remains unclear — about agents, environments, or agentic AI?</p>
+  <div class="section-number">?</div>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: false,
+  progress: true,
+  controls: false,
+  fragments: true,
+  transition: 'fade',
+  transitionSpeed: 'default',
+  center: false,
+  width: 1400,
+  height: 788,
+  margin: 0,
+});
+
+function updateFooter() {
+  var idx = Reveal.getIndices();
+  var total = Reveal.getTotalSlides();
+  var el = document.getElementById('footer-slide-num');
+  if (el) el.textContent = (idx.h + 1) + ' / ' + total;
+}
+
+Reveal.on('ready', updateFooter);
+Reveal.on('slidechanged', updateFooter);
+</script>
+</body>
+</html>
