@@ -200,7 +200,7 @@
 
         /* ---------- Titelfolie ---------- */
         #s0{--ink:#fff;--bg:#0100ff}
-        #s0 .tlogo{position:absolute;left:5cqw;bottom:3.4cqw;width:11cqw;height:auto;color:#fff}
+        #s0 .tlogo{position:absolute;left:5.63cqw;bottom:3.4cqw;width:11cqw;height:auto;color:#fff}
         .title{position:absolute;left:4cqw;top:50%;transform:translateY(-54%);font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:6.2cqw;line-height:1.08;letter-spacing:-.01em}
         .title .pl{display:block;white-space:nowrap;opacity:0;transform:translateY(.3em);transition:opacity .9s var(--ease),transform .9s var(--ease)}
         .title .lt{font-family:"Albert Sans",Arial,sans-serif;font-weight:220;font-stretch:100%;letter-spacing:-.01em}
@@ -234,12 +234,12 @@
         #sD .hl{z-index:1}
         #sD .hl.wh{z-index:2;color:#fff;text-shadow:0 0 1.2cqw rgba(0,0,0,.35);clip-path:polygon(49cqw 0,200cqw 0,200cqw 23.18cqw,49cqw 23.18cqw)}
         #sD .ln2{position:absolute;left:4cqw;top:38cqw;width:18.4cqw;height:.08cqw;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
-        #sD.on1 .ln2{transform:scaleX(1);transition:transform .9s var(--ease) 5s}
+        #sD.on2 .ln2{transform:scaleX(1);transition:transform .9s var(--ease)}
         #sD .sub{position:absolute;left:4cqw;top:41.5cqw;font-size:3.1cqw;line-height:1.15;opacity:0;transform:translateY(.4cqw);transition:opacity .8s var(--ease),transform .8s var(--ease)}
         #sD .sub .s1{display:block;font-family:"Albert Sans",Arial,sans-serif;font-weight:300;letter-spacing:-.015em}
         #sD .sub .s1 i{font-style:normal;font-family:"Albert Sans",Arial,sans-serif;font-weight:300}
         #sD .sub .s2{display:block;font-family:"Albert Sans",Arial,sans-serif;font-weight:300;letter-spacing:0;font-size:.5em;margin-top:.35em}
-        #sD.on1 .sub{opacity:1;transform:none;transition:opacity .8s var(--ease) 5.3s,transform .8s var(--ease) 5.3s}
+        #sD.on2 .sub{opacity:1;transform:none}
         #sD .rule{position:absolute;left:4cqw;right:4cqw;top:46cqw;height:.08cqw;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease)}
         #sD.on2 .rule{transform:scaleX(1)}
         #sD .cols{position:absolute;left:4cqw;right:4cqw;top:47.6cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:3cqw}
@@ -367,7 +367,7 @@
 </div>
 <script>
     (()=>{
-        const slides=[...document.querySelectorAll('.slide')], STEPS=[0,4,1,5,6,0], OFF=[0,0,0,0,0,0];
+        const slides=[...document.querySelectorAll('.slide')], STEPS=[0,4,2,5,6,0], OFF=[0,0,0,0,0,0];
         const D=1000, E='cubic-bezier(.76,0,.24,1)';
         const pos=[]; STEPS.forEach((n,i)=>{for(let k=0;k<=n;k++) pos.push([i,k]);});
         let g=0, busy=false;
@@ -413,7 +413,7 @@
             ['#s1 .intro .pl>.lt',()=>0],
             ['#s1 .intro .pk',el=>stepOf(el)],
             ['#sD .hl .sr,#sD .hl .ss',()=>1],
-            ['#sD .sub .s1',el=>{el.dataset.dl=5;return 1;}],
+            ['#sD .sub .s1',()=>2],
             ['#s2 .text .ln',el=>el.classList.contains('hdl')?5:stepOf(el)],
             ['#sZ .vis .vseg',el=>+el.dataset.c],
             ['#sZ .zt',()=>6],
