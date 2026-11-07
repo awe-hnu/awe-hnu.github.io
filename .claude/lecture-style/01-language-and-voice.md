@@ -85,5 +85,6 @@ Never write "et al." manually; Quarto/CSL handles pluralization.
 - "important to note"
 - "it is worth mentioning"
 - "In summary, we have seen that…" and other trailing summaries
+- References to upcoming or passed slides
 
 
