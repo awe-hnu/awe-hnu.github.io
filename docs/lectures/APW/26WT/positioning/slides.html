@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-12-17">
+  <title>awe.lectures – Positioning</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-5129f0d664f84139a5767fcd773d6f49.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+<meta property="og:title" content="Positioning – awe.lectures">
+<meta property="og:description" content="Advanced Paper Writing (APW)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V0.1
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Advanced Paper Writing (APW)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" class="quarto-title-block">
+  <h1 class="title">Positioning</h1>
+  <p class="subtitle">Advanced Paper Writing (APW)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">December 17, 2026</p>
+</section>
+<section>
+<section id="opening-remarks" class="title-slide slide level1 headline-only">
+<h1>Opening Remarks</h1>
+
+</section>
+<section id="the-parlor" class="title-slide slide level2 no-headline vertical-center" data-background-color="#0333ff">
+<h2>The Parlor</h2>
+<div class="medium">
+<blockquote>
+<p>Imagine that you enter a parlor. You come late. When you arrive, others have long preceded you, and they are engaged in a heated discussion, a discussion too heated for them to pause and tell you exactly what it is about. <em><span class="citation" data-cites="burke1941philosophy">Burke (<a href="#/literature" role="doc-biblioref" onclick="">1941</a>)</span></em></p>
+</blockquote>
+</div>
+<aside class="notes">
+<p><span class="citation" data-cites="huff1999writing">Huff (<a href="#/literature" role="doc-biblioref" onclick="">1999</a>)</span> uses Burke’s parlor to describe scholarly publishing: a paper enters a discussion that started long before it and will continue after it. Reviewers and editors judge a manuscript by whether it understands that discussion and adds something the participants care about. Positioning is the work of identifying which discussion your paper joins and showing that you have listened before you speak.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="learning-outcomes" class="title-slide slide level2">
+<h2>Learning Outcomes</h2>
+<p>After completing this unit, you will be able to:</p>
+<ol type="1">
+<li class="fragment"><strong>Locate</strong> your manuscript within a discipline, a literature strand, and a scholarly conversation.</li>
+<li class="fragment"><strong>Map</strong> a conversation by its core outlets, authors, and concepts.</li>
+<li class="fragment"><strong>Evaluate</strong> target outlets based on rankings, genres, and fit with your conversation.</li>
+<li class="fragment"><strong>Distinguish</strong> reputable outlets from predatory and questionable publishers.</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="conversations" class="title-slide slide level1 headline-only">
+<h1>Conversations</h1>
+
+</section>
+<section id="scholarship-as-conversation" class="title-slide slide level2">
+<h2>Scholarship as Conversation</h2>
+<div class="medium">
+<p>Scientific work can be viewed as a <strong>conversation among scholars</strong> <span class="citation" data-cites="huff1999writing">(<a href="#/literature" role="doc-biblioref" onclick="">Huff, 1999</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment">Conversations take place in journals and at conferences.</li>
+<li class="fragment">They determine which questions count as interesting and which answers count as convincing.</li>
+<li class="fragment">Only some ideas lead to further discussion; many are ignored.</li>
+<li class="fragment">No conversation covers everything that could be said about a project.</li>
+</ul>
+<aside class="notes">
+<p>Treating scholarship as conversation has practical consequences for writing. The relevant literature for your paper is the set of texts your conversation partners have written and read, which is narrower than “everything published on the topic.” Your research gap only counts as a gap if the participants of that conversation recognize it as one, and your contribution has to be phrased in the terms they use.</p>
+<p>The conversation also shapes what you study. Successful scholars listen first: they read what the community discusses, which arguments it has dismissed, and which open questions it considers worth pursuing <span class="citation" data-cites="huff1999writing">(<a href="#/literature" role="doc-biblioref" onclick="">Huff, 1999</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="levels-of-positioning" class="title-slide slide level2">
+<h2>Levels of Positioning</h2>
+<div id="tbl-levels" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-levels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 30%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Question</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Discipline</td>
+<td>Which field’s standards apply?</td>
+<td>Information Systems</td>
+</tr>
+<tr class="even">
+<td>Association and subgroup</td>
+<td>Which community reviews and meets?</td>
+<td>AIS; SIG on Digital Innovation, Transformation and Entrepreneurship (SIG DITE)</td>
+</tr>
+<tr class="odd">
+<td>Literature strand</td>
+<td>Which body of work forms the reference point?</td>
+<td>Digital innovation</td>
+</tr>
+<tr class="even">
+<td>Conversation</td>
+<td>Which ongoing debate does the paper join?</td>
+<td>Generativity and control in digital platform ecosystems</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-levels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Levels of positioning a manuscript
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>The four levels narrow down the audience step by step. The discipline sets the general standards of rigor and the accepted methods. The association and its subgroups (divisions at the Academy of Management, special interest groups at the Association for Information Systems, scientific commissions in the German VHB) organize the people who review your work and meet at conferences. The literature strand is the broader body of work that serves as your reference point. The conversation is the specific, ongoing debate within that strand: a limited set of papers that cite each other, use shared concepts, and address related questions.</p>
+<p>Doctoral candidates often stop at the level of the literature strand (“I contribute to the digital innovation literature”). At that level, the claim is too broad for a reviewer to evaluate. Naming the conversation makes the positioning testable: a reader can check whether you know its key papers, use its concepts correctly, and add something to it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="recognizing-a-conversation" class="title-slide slide level2">
+<h2>Recognizing a Conversation</h2>
+<ul>
+<li class="fragment"><strong>Shared questions:</strong> papers address related problems and cite each other.</li>
+<li class="fragment"><strong>Shared concepts:</strong> a stable vocabulary of concepts and constructs.</li>
+<li class="fragment"><strong>Shared venues:</strong> special issues, conference tracks, and recurring publication clusters.</li>
+<li class="fragment"><strong>Core authors:</strong> a limited group of scholars who contribute and review.</li>
+<li class="fragment"><strong>Dominant procedures:</strong> typical theories and methods that set the quality standard.</li>
+</ul>
+<aside class="notes">
+<p>Conversations become visible in several places <span class="citation" data-cites="huff1999writing">(<a href="#/literature" role="doc-biblioref" onclick="">Huff, 1999</a>)</span>. Special issue calls and conference track descriptions summarize what a community currently considers important. Recent review articles reconstruct the state of a conversation and name its open questions. Citation patterns show which papers serve as shared reference points: if you find that the same ten papers appear in the reference lists of most recent contributions, you have found the core of a conversation.</p>
+<p>The active researchers in a conversation also review for its outlets. They set the quality standards, decide which theoretical and methodological approaches are accepted, and determine which outlets count as good places to publish. Knowing who these people are helps you anticipate reviewer expectations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="joining-a-conversation" class="title-slide slide level2">
+<h2>Joining a Conversation</h2>
+<p>How authors construct the conversation they join <span class="citation" data-cites="locke1997constructing">(<a href="#/literature" role="doc-biblioref" onclick="">Locke &amp; Golden-Biddle, 1997</a>)</span>:</p>
+<div id="tbl-coherence" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-coherence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 39%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Construction</th>
+<th>What the author does</th>
+<th>Signal to the reader</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Synthesized coherence</td>
+<td>Connects work that was not previously cited together</td>
+<td>“These separate studies address one underlying question.”</td>
+</tr>
+<tr class="even">
+<td>Progressive coherence</td>
+<td>Presents a line of cumulative research</td>
+<td>“The field has advanced to this point.”</td>
+</tr>
+<tr class="odd">
+<td>Non-coherence</td>
+<td>Presents competing positions</td>
+<td>“The field disagrees on this question.”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-coherence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Ways of structuring intertextual coherence according to <span class="citation" data-cites="locke1997constructing">Locke &amp; Golden-Biddle (<a href="#/literature" role="doc-biblioref" onclick="">1997</a>)</span>
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p><span class="citation" data-cites="locke1997constructing">Locke &amp; Golden-Biddle (<a href="#/literature" role="doc-biblioref" onclick="">1997</a>)</span> analyzed how published papers in organization studies construct their contribution. Their central observation is that authors do not find a conversation ready-made; they actively construct it by selecting and arranging prior work. The construction determines what kind of contribution becomes possible.</p>
+<ul>
+<li><strong>Synthesized coherence</strong> links studies that were not previously seen as related. The contribution consists of revealing a common question that the separate works share.</li>
+<li><strong>Progressive coherence</strong> presents a cumulative line of research with shared concepts and methods. The contribution extends the line one step further.</li>
+<li><strong>Non-coherence</strong> presents a field in disagreement. The contribution helps to resolve, reframe, or explain the disagreement.</li>
+</ul>
+<p>The choice is strategic: the same body of literature can be presented in different ways, and each presentation prepares the reader for a different contribution. The second step of their framework, problematizing the constructed literature, is covered in the <a href="../contribution/">Contribution</a> unit.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Conversation map</p>
+</div>
+<p>For the manuscript you brought, write down:</p>
+<ol type="1">
+<li>The <strong>conversation</strong> in one phrase (more specific than the literature strand)</li>
+<li>A maximum of <strong>five journals</strong> that publish in this conversation</li>
+<li>A maximum of <strong>five authors</strong> who are cited most often</li>
+<li>A maximum of <strong>five concepts or constructs</strong> the conversation centers on</li>
+<li>The <strong>construction</strong> you use to present the conversation (synthesized, progressive, or non-coherent)</li>
+</ol>
+<p>Then compare with your neighbor: is the conversation specific enough to identify its key papers?</p>
+<div id="timer_0d45058cf5e1b078e85e0c124bf7387a6c6e95d7" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">25</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+</section>
+<section>
+<section id="outlets" class="title-slide slide level1 headline-only">
+<h1>Outlets</h1>
+
+</section>
+<section id="outlet-choice" class="title-slide slide level2">
+<h2>Outlet Choice</h2>
+<div class="medium">
+<p>Your work is not suitable for every journal, and not every journal is suitable for your work.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Conversation fit:</strong> Does the outlet publish the conversation you join?</li>
+<li class="fragment"><strong>Genre fit:</strong> Does it publish your type of paper?</li>
+<li class="fragment"><strong>Level fit:</strong> Does the ranking match the maturity of your contribution?</li>
+<li class="fragment"><strong>Practical fit:</strong> turnaround time, open access fees, and the requirements of your doctoral regulations</li>
+</ul>
+<aside class="notes">
+<p>Outlet choice follows from positioning: the outlets that publish your conversation are the candidates, because their reviewers and readers are the people your paper addresses. Within that set, the paper type and the maturity of the contribution narrow the choice further.</p>
+<p>Decide on target outlets together with your supervisors and co-authors. A high-ranking target only makes sense if everyone agrees that the contribution and the data can reach that level, because a submission to such a journal often takes one to two years and several revision rounds. Check the regulations of your doctoral program as well: cumulative dissertations often require a minimum number of papers in outlets of a certain ranking category.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="rankings" class="title-slide slide level2">
+<h2>Rankings</h2>
+<div id="tbl-rankings" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-rankings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 36%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ranking</th>
+<th>Scope</th>
+<th>Categories</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VHB-Rating 2024</td>
+<td>Business research (German-speaking)</td>
+<td>A+ to D</td>
+</tr>
+<tr class="even">
+<td>AJG (Chartered ABS)</td>
+<td>Business and management</td>
+<td>4* to 1</td>
+</tr>
+<tr class="odd">
+<td>AIS Senior Scholars’ List</td>
+<td>Information Systems</td>
+<td>Basket of premier journals</td>
+</tr>
+<tr class="even">
+<td>FT50</td>
+<td>Business and management</td>
+<td>List of 50 journals</td>
+</tr>
+<tr class="odd">
+<td>Journal Citation Reports, Scopus</td>
+<td>All disciplines</td>
+<td>Impact metrics and quartiles</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-rankings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Common journal rankings and indicators
+</figcaption>
+</figure>
+</div>
+<div class="fragment">
+<p><strong>Pro tip:</strong> The browser extension <em>Rapid Journal Quality Check</em> shows journal rankings (e.g., VHB, ABS, FT50, SJR, CORE) directly next to Google Scholar search results.</p>
+</div>
+<aside class="notes">
+<p>The VHB-Rating 2024 replaces JOURQUAL 3 as the reference ranking of the German Academic Association for Business Research <span class="citation" data-cites="vhb2024rating">(<a href="#/literature" role="doc-biblioref" onclick="">Verband der Hochschullehrerinnen und Hochschullehrer für Betriebswirtschaft, 2024</a>)</span>; many German business schools and doctoral programs use it to evaluate publications. Other disciplines use their own lists: economics, psychology, and computer science each have established rankings, and for computer science conferences, the CORE ranking plays a major role.</p>
+<p>Rankings evaluate outlets, not papers, and they differ in method: some rely on expert surveys, others on citation metrics. They also lag behind developments in a field. Use them to understand the expectations of your community and the requirements of your program, and use the conversation map to decide where your paper belongs. In interdisciplinary programs such as DIWAG, check which ranking your discipline and your supervisors refer to.</p>
+<p>The free extension <em>Rapid Journal Quality Check</em> (Chrome and Edge, with a port for Firefox) speeds up this check while you search the literature: it displays the ranking of a journal or conference next to each Google Scholar result and on author profiles, and you select which lists it shows. Verify important decisions against the official ranking, because the lists in the extension may lag behind the latest editions, and review the permissions the extension requests before you install it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="paper-genres" class="title-slide slide level2">
+<h2>Paper Genres</h2>
+<p>Journals publish different types of papers, each with its own structure and review criteria.</p>
+<ul>
+<li class="fragment"><strong>Empirical:</strong> quantitative, qualitative, or mixed-methods studies</li>
+<li class="fragment"><strong>Conceptual:</strong> theory development without new data</li>
+<li class="fragment"><strong>Review:</strong> systematic, narrative, or theory-building reviews of a literature</li>
+<li class="fragment"><strong>Design-oriented:</strong> artifacts and design knowledge (e.g., design science research)</li>
+<li class="fragment"><strong>Short formats:</strong> research notes, commentaries, research-in-progress papers</li>
+</ul>
+<aside class="notes">
+<p>Journals differ in which genres they publish and how they expect each genre to look. Many journals have separate categories (e.g., “research article,” “research note,” “review,” “issues and opinions”) with different length limits and review criteria. Check whether your target journal offers a category for your type of paper, read the description, and download recent examples of that category to learn its structure.</p>
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> summarizes the tendencies of four Information Systems journals from his experience: MIS Quarterly favors mid-range, construct-centered theory with strong empirical tests; Information Systems Research favors mechanism-rich theorizing and methodological rigor, often in multi-study designs; Journal of Management Information Systems is open to design-oriented work, modeling, and simulations with a strong emphasis on problem relevance; and the Journal of the Association for Information Systems accepts conceptual and essayistic papers. Treat such characterizations as starting hypotheses to verify with recent issues.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="model-the-journal" class="title-slide slide level2">
+<h2>Model the Journal</h2>
+<div class="medium">
+<p>Reverse-engineer three to five recent exemplars from your target journal <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment">How do introductions open and where does the research question appear?</li>
+<li class="fragment">How are theory and hypotheses or propositions connected?</li>
+<li class="fragment">How are methods and results presented (tables, figures, robustness)?</li>
+<li class="fragment">How do discussions close?</li>
+</ul>
+<aside class="notes">
+<p>Reviewers expect a submission to read like it belongs in their journal, in topic, structure, and voice. <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> proposes a test: if someone removed the title page of your manuscript and placed it in the middle of a published issue, it should not feel out of place.</p>
+<p>Select exemplars that are similar to your paper in topic and genre, and map their structure: the order and length of sections, the paragraph flow of the introduction, the transition from theory to hypotheses, the format of tables, and the closing of the discussion. Adapt the structure to your paper rather than copying it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="conferences" class="title-slide slide level2">
+<h2>Conferences</h2>
+<p>In many fields, conferences are a regular step on the way to a journal publication.</p>
+<ul>
+<li class="fragment">Conferences provide <strong>feedback</strong> and <strong>visibility</strong> before journal submission.</li>
+<li class="fragment">Conference tracks show <strong>current conversations</strong> and their participants.</li>
+<li class="fragment"><strong>Doctoral consortia</strong> offer feedback from senior scholars.</li>
+<li class="fragment">Check the <strong>prior-publication policy</strong> of your target journal.</li>
+</ul>
+<aside class="notes">
+<p>In many fields, including Information Systems (e.g., ICIS, ECIS, HICSS, and the German Wirtschaftsinformatik conference), conferences are part of the publication path: a research-in-progress or full conference paper gathers feedback, and an extended version later goes to a journal. Journals differ in how much overlap they accept between a conference paper and a journal submission, so check the policy before you publish the conference version. In computer science, by contrast, top conferences are primary outlets in their own right.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="predatory-journals" class="title-slide slide level2">
+<h2>Predatory Journals</h2>
+<div class="medium">
+<p>Predatory journals prioritize <strong>self-interest at the expense of scholarship</strong> <span class="citation" data-cites="grudniewicz2019predatory">(<a href="#/literature" role="doc-biblioref" onclick=""><span class="nocase">Grudniewicz et al.</span>, 2019</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment">False or misleading information</li>
+<li class="fragment">Deviation from best editorial and publication practices</li>
+<li class="fragment">Lack of transparency</li>
+<li class="fragment">Aggressive and indiscriminate solicitation</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="grudniewicz2019predatory"><span class="nocase">Grudniewicz et al.</span> (<a href="#/literature" role="doc-biblioref" onclick="">2019</a>)</span> developed a consensus definition in a Delphi study with researchers, publishers, and librarians: “Predatory journals and publishers are entities that prioritize self-interest at the expense of scholarship and are characterized by false or misleading information, deviation from best editorial and publication practices, a lack of transparency, and/or the use of aggressive and indiscriminate solicitation practices.”</p>
+<p>Publishing in such outlets damages your reputation, wastes your data (a paper published there can rarely be republished elsewhere), and may count against you in evaluations.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="documented-cases" class="title-slide slide level2">
+<h2>Documented Cases</h2>
+<p>Several investigations and legal cases have exposed predatory and questionable practices.</p>
+<ul>
+<li class="fragment"><strong>Sting operation:</strong> a deliberately flawed fake paper was accepted by 157 of 304 open-access journals <span class="citation" data-cites="bohannon2013whos">(<a href="#/literature" role="doc-biblioref" onclick="">Bohannon, 2013</a>)</span>.</li>
+<li class="fragment"><strong>Fake editor:</strong> a fictitious scholar was accepted as editor by 48 of 360 journals she applied to; none of them was listed in the Journal Citation Reports <span class="citation" data-cites="sorokowski2017predatory">(<a href="#/literature" role="doc-biblioref" onclick="">Sorokowski et al., 2017</a>)</span>.</li>
+<li class="fragment"><strong>Court ruling:</strong> in 2019, a US federal court ordered the publisher OMICS International to pay more than USD 50 million for deceptive publishing practices.</li>
+<li class="fragment"><strong>Mass retractions:</strong> in 2023, Wiley retracted thousands of papers from special issues of its Hindawi journals after detecting paper-mill activity <span class="citation" data-cites="vannoorden2023more">(<a href="#/literature" role="doc-biblioref" onclick="">Van Noorden, 2023</a>)</span>.</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="bohannon2013whos">Bohannon (<a href="#/literature" role="doc-biblioref" onclick="">2013</a>)</span> submitted versions of a fabricated paper on an anticancer agent, written by a fictitious author from a fictitious institute, to 304 open-access journals. The paper contained errors that any competent reviewer should have detected; more than half of the journals accepted it, many without any substantive review.</p>
+<p><span class="citation" data-cites="sorokowski2017predatory">Sorokowski et al. (<a href="#/literature" role="doc-biblioref" onclick="">2017</a>)</span> created the profile of a fictitious researcher, “Anna O. Szust” (Polish <em>oszust</em> means “fraud”), with no publications and a fake CV, and applied on her behalf for editorial positions at 360 journals drawn from Beall’s list, the Directory of Open Access Journals, and the Journal Citation Reports. Forty-eight journals accepted her, almost all of them from Beall’s list; none of the journals listed in the Journal Citation Reports did.</p>
+<p>The case against OMICS International was brought by the US Federal Trade Commission, which accused the publisher of misrepresenting its peer review, its editorial boards, and its fees. The ruling shows that predatory publishing can be a legal matter, not only a reputational one.</p>
+<p>The Hindawi retractions illustrate the less obvious categories in the typology that follows: the affected journals were indexed and published by an established publisher, but parts of their special-issue programs had been infiltrated by paper mills <span class="citation" data-cites="vannoorden2023more">(<a href="#/literature" role="doc-biblioref" onclick="">Van Noorden, 2023</a>)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="questionable-outlets" class="title-slide slide level2">
+<h2>Questionable Outlets</h2>
+<div id="tbl-predatory" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-predatory-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 27%">
+<col style="width: 29%">
+<col style="width: 22%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Peer review</th>
+<th>Indexing</th>
+<th>Main motive</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Classic predatory journals</td>
+<td>Non-existent or weak</td>
+<td>Not indexed in major databases</td>
+<td>Profit</td>
+</tr>
+<tr class="even">
+<td>Exploitative special-issue publishers</td>
+<td>Often compromised</td>
+<td>Indexed, but questionable</td>
+<td>Profit and citation boosting</td>
+</tr>
+<tr class="odd">
+<td>Paper-mill-associated journals</td>
+<td>Fake or automated</td>
+<td>Rarely indexed</td>
+<td>Profit and academic fraud</td>
+</tr>
+<tr class="even">
+<td>Commercially opportunistic publishers</td>
+<td>Sometimes weakened by commercial pressure</td>
+<td>Indexed in major databases</td>
+<td>Profit with mixed practices</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-predatory-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Working typology of predatory and questionable outlets
+</figcaption>
+</figure>
+</div>
+<aside class="notes">
+<p>The boundary between predatory and legitimate publishing is not sharp. Next to classic predatory journals, which are easy to spot, there are publishers that are indexed in major databases but run large numbers of special issues with compromised review, journals associated with paper mills, and commercially driven publishers whose practices vary between journals.</p>
+<p>Practical checks before submission:</p>
+<ul>
+<li>Do you and your supervisors know the journal, and do papers you read cite it?</li>
+<li>Is it listed in the rankings your community uses?</li>
+<li>Are the editorial board members real, active researchers in the field, and do they list the journal on their own websites?</li>
+<li>Are the review process, the fees, and the timelines transparent?</li>
+<li>Did you receive an unsolicited invitation with flattering language and a short deadline?</li>
+</ul>
+<p>The <em>Think. Check. Submit.</em> initiative provides a checklist for these questions. Lists of suspected predatory journals (e.g., Beall’s list, which is now maintained anonymously) can serve as a warning signal but are neither complete nor authoritative.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-1" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Outlet shortlist</p>
+</div>
+<ol type="1">
+<li>Select <strong>three outlets</strong> from your conversation map: a stretch target, a realistic target, and a fallback.</li>
+<li>For each, note its <strong>ranking</strong> in the list your program uses and the <strong>paper category</strong> that fits your manuscript.</li>
+<li>Choose <strong>three exemplar papers</strong> from your realistic target that are close to your paper in topic and genre.</li>
+<li>Discuss your choice in pairs: does the outlet publish your conversation?</li>
+</ol>
+<div id="timer_0d45058cf5e1b078e85e0c124bf7387a6c6e95d7" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">25</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+</section>
+<section id="homework" class="title-slide slide level1">
+<h1>Homework</h1>
+<p>Complete your conversation map and your outlet shortlist; both serve as input for the peer round at the end of the day.</p>
+</section>
+
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only" data-background-color="#0333ff">
+<h1>Q&amp;A</h1>
+
+</section>
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bohannon2013whos" class="csl-entry" role="listitem">
+Bohannon, J. (2013). Who’s afraid of peer review? <em>Science</em>, <em>342</em>(6154), 60–65. <a href="https://doi.org/10.1126/science.342.6154.60">https://doi.org/10.1126/science.342.6154.60</a>
+</div>
+<div id="ref-burke1941philosophy" class="csl-entry" role="listitem">
+Burke, K. (1941). <em>The philosophy of literary form: Studies in symbolic action</em>. Louisiana State University Press.
+</div>
+<div id="ref-grudniewicz2019predatory" class="csl-entry" role="listitem">
+<span class="nocase">Grudniewicz, A., Moher, D., Cobey, K. D., et al.</span> (2019). Predatory journals: No definition, no defence. <em>Nature</em>, <em>576</em>(7786), 210–212. <a href="https://doi.org/10.1038/d41586-019-03759-y">https://doi.org/10.1038/d41586-019-03759-y</a>
+</div>
+<div id="ref-huff1999writing" class="csl-entry" role="listitem">
+Huff, A. S. (1999). <em>Writing for scholarly publication</em>. Sage.
+</div>
+<div id="ref-locke1997constructing" class="csl-entry" role="listitem">
+Locke, K., &amp; Golden-Biddle, K. (1997). Constructing opportunities for contribution: Structuring intertextual coherence and "problematizing" in organizational studies. <em>Academy of Management Journal</em>, <em>40</em>(5), 1023–1062. <a href="https://doi.org/10.2307/256926">https://doi.org/10.2307/256926</a>
+</div>
+<div id="ref-sorokowski2017predatory" class="csl-entry" role="listitem">
+Sorokowski, P., Kulczycki, E., Sorokowska, A., &amp; Pisanski, K. (2017). Predatory journals recruit fake editor. <em>Nature</em>, <em>543</em>(7646), 481–483. <a href="https://doi.org/10.1038/543481a">https://doi.org/10.1038/543481a</a>
+</div>
+<div id="ref-thatcher2025rules" class="csl-entry" role="listitem">
+Thatcher, J. B. (2025). <em>Rules for writing elite information systems papers: Field notes for my <span>PhD</span> students</em>. Unpublished manuscript, Leeds School of Business, University of Colorado Boulder.
+</div>
+<div id="ref-vannoorden2023more" class="csl-entry" role="listitem">
+Van Noorden, R. (2023). More than 10,000 research papers were retracted in 2023: A new record. <em>Nature</em>, <em>624</em>(7992), 479–481. <a href="https://doi.org/10.1038/d41586-023-03974-8">https://doi.org/10.1038/d41586-023-03974-8</a>
+</div>
+<div id="ref-vhb2024rating" class="csl-entry" role="listitem">
+Verband der Hochschullehrerinnen und Hochschullehrer für Betriebswirtschaft. (2024). <em><span>VHB-Rating</span> 2024</em>. VHB.
+</div>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Andy Weeger">
+
+<title>Manuscript Architecture – awe.lectures</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-dc3c6712bff0e3d3575a9a37d96962b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"interstitial",
+  "consent_type":"express",
+  "palette":"dark",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<meta name="robots" content="noindex">   
+
+
+<meta property="og:title" content="Manuscript Architecture – awe.lectures">
+<meta property="og:description" content="Advanced Paper Writing (APW)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">awe — Lecture Notes</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html"> 
+<span class="menu-text">Start</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Manuscript Architecture</h1>
+        </a>     
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Manuscript Architecture</h1>
+            <p class="subtitle lead">Advanced Paper Writing (APW)</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-body">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Andy Weeger </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">Dec 18, 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">Nov 19, 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Admin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/admin/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Administrivia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/positioning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">U1: Positioning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/contribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">U2: Contribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/architecture/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">U3: Manuscript Architecture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/argumentation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">U4: Argument and Revision</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/knowledge-process/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">U5: Knowledge Process</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../lectures/APW/26WT/publishing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">U6: Publishing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#opening-remarks" id="toc-opening-remarks" class="nav-link active" data-scroll-target="#opening-remarks">Opening Remarks</a></li>
+  <li><a href="#paper-structure" id="toc-paper-structure" class="nav-link" data-scroll-target="#paper-structure">Paper Structure</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#paragraphs" id="toc-paragraphs" class="nav-link" data-scroll-target="#paragraphs">Paragraphs</a></li>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link" data-scroll-target="#concepts">Concepts</a></li>
+  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+
+
+
+
+
+<section id="opening-remarks" class="level1 headline-only">
+<h1 class="headline-only">Opening Remarks</h1>
+<section id="claim-and-support" class="level2 no-headline vertical-center" data-background-color="#0333ff">
+<h2 class="no-headline vertical-center" data-background-color="#0333ff" data-anchor-id="claim-and-support">Claim and Support</h2>
+<div class="large">
+<blockquote class="blockquote">
+<p>Strong papers begin with a claim and end by showing support for it. <em><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span></em></p>
+</blockquote>
+</div>
+<div class="notes">
+<p>The first day dealt with where a manuscript belongs and what it contributes. This unit deals with how the manuscript carries that contribution to the reader: the overall structure, the introduction and abstract, the paragraphs, and the use of concepts. Reviewers form their judgment early, often after the first page, and they read the rest of the paper through that first impression.</p>
+<p>Many of the rules in this unit come from <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span>, who writes about construct-centered, quantitative papers in Information Systems. Most rules transfer to qualitative and conceptual work: a qualitative paper also needs a claim in its first sentences, clear concepts, and consistent labels. Where a rule depends on the type of research, the notes say so.</p>
+</div>
+</section>
+<section id="learning-outcomes" class="level2">
+<h2 data-anchor-id="learning-outcomes">Learning Outcomes</h2>
+<p>After completing this unit, you will be able to:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>Structure</strong> a manuscript according to its genre and the conventions of the target outlet.</li>
+<li><strong>Write</strong> an introduction that answers the questions reviewers ask first.</li>
+<li><strong>Open</strong> the introduction and the abstract with a claim instead of background.</li>
+<li><strong>Build</strong> paragraphs around topic sentences and connect them through their information flow.</li>
+<li><strong>Argue</strong> concept-centric, with stable definitions and labels across the manuscript.</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="paper-structure" class="level1 headline-only">
+<h1 class="headline-only">Paper Structure</h1>
+<section id="structure-by-genre" class="level2">
+<h2 data-anchor-id="structure-by-genre">Structure by Genre</h2>
+<div class="smaller">
+<div id="tbl-structures" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Empirical paper</th>
+<th>Conceptual paper</th>
+<th>Review paper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Introduction</td>
+<td>Introduction</td>
+<td>Introduction</td>
+</tr>
+<tr class="even">
+<td>Theoretical background, hypotheses or propositions</td>
+<td>Conceptual foundations</td>
+<td>Conceptual background</td>
+</tr>
+<tr class="odd">
+<td>Method (data, measures, analysis)</td>
+<td>Theory development (model, propositions)</td>
+<td>Review method</td>
+</tr>
+<tr class="even">
+<td>Results or findings</td>
+<td>Illustration or application</td>
+<td>Findings (descriptive, synthesis)</td>
+</tr>
+<tr class="odd">
+<td>Discussion (contributions, implications, limitations)</td>
+<td>Discussion</td>
+<td>Discussion and research agenda</td>
+</tr>
+<tr class="even">
+<td>Conclusion</td>
+<td>Conclusion</td>
+<td>Conclusion</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Typical macro-structures by paper genre
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="notes">
+<p>The structure of a paper depends on its genre and on the journal. The table shows typical macro-structures; the exemplar papers from your target outlet show the variant your reviewers expect. <span class="citation" data-cites="recker2021scientific">Recker (<a href="#ref-recker2021scientific" role="doc-biblioref">2021</a>)</span> advises following the standard structure as closely as possible, because readers navigate papers by their expectations, and innovative structures make reading harder.</p>
+<p>Qualitative papers often replace “results” with “findings” and present a data structure or an emerging model; design-oriented papers add sections on the artifact and its evaluation. Whatever the genre, the introduction and the discussion carry the argument, and the sections between them provide the evidence.</p>
+</div>
+</section>
+<section id="the-hourglass" class="level2">
+<h2 data-anchor-id="the-hourglass">The Hourglass</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>The <strong>introduction</strong> moves from the general problem to the specific question.</li>
+<li>The <strong>middle sections</strong> stay narrow: theory, method, and results for this study.</li>
+<li>The <strong>discussion</strong> moves from the specific findings back to the general significance.</li>
+<li>Introduction and conclusion <strong>mirror each other</strong> <span class="citation" data-cites="bem1987writing">(<a href="#ref-bem1987writing" role="doc-biblioref">Bem, 1987</a>)</span>.</li>
+</ul>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="bem1987writing">Bem (<a href="#ref-bem1987writing" role="doc-biblioref">1987</a>)</span> describes the empirical article as an hourglass: it begins broadly, narrows to the specific study, and widens again in the discussion. The image has a practical consequence: the opening and the closing of a paper address the same question at the same level of generality. If the introduction promises a theoretical insight and the conclusion emphasizes practical implications, the reader perceives a break, which <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> calls “contribution drift.”</p>
+</div>
+</section>
+</section>
+<section id="introduction" class="level1 headline-only">
+<h1 class="headline-only">Introduction</h1>
+<section id="three-questions" class="level2">
+<h2 data-anchor-id="three-questions">Three Questions</h2>
+<p>An effective introduction answers three questions <span class="citation" data-cites="grant2011publishing">(<a href="#ref-grant2011publishing" role="doc-biblioref">Grant &amp; Pollock, 2011</a>)</span>:</p>
+<div class="smaller">
+<div id="tbl-intro-questions" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-intro-questions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Elements of the introduction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Who cares?</strong></td>
+<td>Topic, its relevance for theory and practice</td>
+</tr>
+<tr class="even">
+<td><strong>What do we know, what don’t we know, and so what?</strong></td>
+<td>State of research, gap or problematization, why it matters</td>
+</tr>
+<tr class="odd">
+<td><strong>What will we learn?</strong></td>
+<td>Research question, approach, contribution</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-intro-questions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Questions an introduction answers according to <span class="citation" data-cites="grant2011publishing">Grant &amp; Pollock (<a href="#ref-grant2011publishing" role="doc-biblioref">2011</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="grant2011publishing">Grant &amp; Pollock (<a href="#ref-grant2011publishing" role="doc-biblioref">2011</a>)</span> analyzed introductions of award-winning papers in the Academy of Management Journal and condensed their function into three questions. The questions map onto the classic elements of an introduction: motivate the topic, briefly report the state of research, identify the gap or problem, formulate an explicit research question, describe the approach, state the expected contributions to theory and practice, and, depending on the journal, outline the scope and the structure of the paper.</p>
+<p>Introductions and conclusions are the hardest parts of a paper because they balance context and focus. Many authors write them last; if you write the introduction first to orient your own thinking, expect to rewrite it once the rest of the paper is done.</p>
+</div>
+</section>
+<section id="opening-moves" class="level2">
+<h2 data-anchor-id="opening-moves">Opening Moves</h2>
+<div class="medium">
+<p>Open with a claim or a puzzle, not with background <span class="citation" data-cites="thatcher2025rules">(<a href="#ref-thatcher2025rules" role="doc-biblioref">Thatcher, 2025</a>)</span>.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Weak:</strong> “The IS field has long been interested in digital transformation.”</li>
+<li><strong>Strong:</strong> “This paper shows that CIO presence, often ignored in emerging markets, substantially predicts a firm’s AI orientation.”</li>
+</ul>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> (Rule 1) argues that the first sentence should make a theoretically meaningful claim or present an empirical puzzle. Historical overviews (“Since the 1990s …”), general interest statements (“X is increasingly important …”), and literature openings (“Researchers have long studied …”) delay the value of the paper. Thatcher calls them “throat-clearing.”</p>
+<p>The skim test: a busy colleague who reads only the first page can explain what the paper is about, what it finds, and why it matters for theory.</p>
+</div>
+</section>
+<section id="narrative-hooks" class="level2">
+<h2 data-anchor-id="narrative-hooks">Narrative Hooks</h2>
+<p>A hook creates tension that the paper resolves <span class="citation" data-cites="thatcher2025rules">(<a href="#ref-thatcher2025rules" role="doc-biblioref">Thatcher, 2025</a>)</span>:</p>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Paradox:</strong> “Why do firms invest in AI but fail to use it strategically?”</li>
+<li><strong>Surprising fact:</strong> “Despite similar resources, some hospitals drastically outperform others in cybersecurity compliance.”</li>
+<li><strong>Theoretical contradiction:</strong> “Current theories predict X, but we observe Y.”</li>
+</ul>
+</div>
+<div class="notes">
+<p>Rule 2 of <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> adds tension to the opening: the reader should want to know what explains the puzzle before learning about the theory or the method. A hook works when the paper’s contribution resolves it; a dramatic opening that the findings do not address raises expectations the paper cannot meet. Three to four lines are usually enough to hook an editor or a reviewer.</p>
+<p>Hooks also differ by genre and journal. Some outlets favor openings from practice (a case, a statistic), others favor theoretical puzzles. The exemplar papers show which kind of opening your target journal publishes.</p>
+</div>
+</section>
+<section id="contribution-first" class="level2">
+<h2 data-anchor-id="contribution-first">Contribution First</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>The <strong>gap</strong> motivates the study; the <strong>contribution</strong> states its result.</li>
+<li>Name the contribution within the first two to three paragraphs.</li>
+<li>Pass the <strong>inverted pyramid test:</strong> the most important point comes first.</li>
+</ul>
+</div>
+<div class="notes">
+<p>Thatcher’s recommendation to lead with the contribution <span class="citation" data-cites="thatcher2025rules">(<a href="#ref-thatcher2025rules" role="doc-biblioref">Thatcher, 2025</a>, Rule 3)</span> seems to contradict the classic formula that moves from motivation through the state of research to the gap and the research question. Both fit together: the introduction can open with a claim or puzzle, place the gap in the second or third paragraph, and state the contribution explicitly before the end of the first page. What reviewers object to is an introduction that spends two pages on background before saying what the paper does.</p>
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>, Appendix A.1)</span> proposes a checklist for introductions:</p>
+<ul>
+<li>Does the first sentence make a claim rather than a background statement?</li>
+<li>Does the first paragraph introduce a tension that motivates the study?</li>
+<li>Is the contribution stated within the first two to three paragraphs?</li>
+<li>Does the opening signal which conversation the paper contributes to?</li>
+<li>Does the introduction resist turning into a literature review?</li>
+<li>Can a non-specialist understand why the paper matters after reading only the introduction?</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="abstract" class="level1 headline-only">
+<h1 class="headline-only">Abstract</h1>
+<section id="abstract-elements" class="level2">
+<h2 data-anchor-id="abstract-elements">Abstract Elements</h2>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>What the <strong>objectives</strong> of the study are</li>
+<li>How the study was <strong>done</strong></li>
+<li>Which <strong>results</strong> it obtained</li>
+<li>What the <strong>significance</strong> of the results is</li>
+</ol>
+</div>
+<div class="fragment">
+<p>State the contribution within the first two sentences <span class="citation" data-cites="thatcher2025rules">(<a href="#ref-thatcher2025rules" role="doc-biblioref">Thatcher, 2025</a>)</span>.</p>
+</div>
+<div class="notes">
+<p>An abstract is a shortened version of the paper. It has to contain all information a reader needs to decide whether to read the full text; many readers, and many editors at the desk-review stage, read only the abstract. Most authors write it last, once the contribution is settled.</p>
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> recommends opening with what the study does and finds rather than with what the literature lacks. A strong example from his handbook: “We define IT mindfulness as a user’s dynamic capability and validate its influence on task adaptation and feature use.” Check the word limit and the required format of your target journal: some journals require structured abstracts with fixed headings.</p>
+</div>
+</section>
+</section>
+<section id="paragraphs" class="level1 headline-only">
+<h1 class="headline-only">Paragraphs</h1>
+<section id="topic-sentences" class="level2">
+<h2 data-anchor-id="topic-sentences">Topic Sentences</h2>
+<div class="medium">
+<p>Each paragraph opens with a short claim that the rest of the paragraph develops.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>The first sentence states the point; the others support it.</li>
+<li>Reading only the first sentences conveys the argument <span class="citation" data-cites="thatcher2025rules">(<a href="#ref-thatcher2025rules" role="doc-biblioref">Thatcher, 2025</a>)</span>.</li>
+<li>One paragraph, one idea.</li>
+</ul>
+</div>
+<div class="notes">
+<p>Most doctoral candidates write reasonable sentences; the difficulty lies in organizing them into paragraphs. A paragraph begins with a topic sentence that sets the stage for what follows, and every further sentence develops that point. <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> (Rule 3) proposes a diagnostic he calls the topic-sentence ladder: copy the first sentence of each paragraph into a new document. If the sentences read as a coherent argument (claim, reason, implication), the paragraph structure works. If they narrate process (“In this section, we discuss …”) or state background, the paragraphs need a new opening.</p>
+</div>
+</section>
+<section id="paragraph-logic" class="level2">
+<h2 data-anchor-id="paragraph-logic">Paragraph Logic</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Setup:</strong> the claim or question of the paragraph</li>
+<li><strong>Action:</strong> the argument, evidence, or explanation</li>
+<li><strong>Implication:</strong> what follows for the next step of the argument</li>
+</ul>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> (Rule 6) describes paragraphs in theory, methods, and results sections as a chain of setup, action, and implication. Across paragraphs, the logic should follow a chain as well (A leads to B, B leads to C), and parallel ideas should appear in parallel form: if the theory section introduces trust before risk, the hypotheses, the measures, and the discussion keep that order. Changing the order of concepts forces readers to stop and reorient.</p>
+</div>
+</section>
+<section id="old-before-new" class="level2">
+<h2 data-anchor-id="old-before-new">Old Before New</h2>
+<div class="medium">
+<p>Readers expect familiar information at the beginning of a sentence and new information at the end <span class="citation" data-cites="gopen1990science">(<a href="#ref-gopen1990science" role="doc-biblioref">Gopen &amp; Swan, 1990</a>)</span>.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>The <strong>topic position</strong> links back to what the reader already knows.</li>
+<li>The <strong>stress position</strong> carries the new point.</li>
+<li>A paragraph can begin with a central term from the last sentence of the preceding paragraph.</li>
+</ul>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="gopen1990science">Gopen &amp; Swan (<a href="#ref-gopen1990science" role="doc-biblioref">1990</a>)</span> analyzed why scientific prose is hard to read even when its sentences are grammatically correct. Their central observation: readers expect a sentence to start with information that connects to what they have just read (topic position) and to end with the information the writer wants to emphasize (stress position). Prose that violates these expectations forces the reader to reconstruct the connections.</p>
+<p>The same principle connects paragraphs. Picking up a central term from the end of one paragraph at the beginning of the next creates a smooth transition without explicit connectors such as “furthermore” or “in addition.”</p>
+</div>
+</section>
+</section>
+<section id="concepts" class="level1 headline-only">
+<h1 class="headline-only">Concepts</h1>
+<section id="concept-centric-argumentation" class="level2">
+<h2 data-anchor-id="concept-centric-argumentation">Concept-Centric Argumentation</h2>
+<div class="medium">
+<p>Organize the literature around <strong>concepts,</strong> not around authors <span class="citation" data-cites="webster2002analyzing">(<a href="#ref-webster2002analyzing" role="doc-biblioref">Webster &amp; Watson, 2002</a>)</span>.</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>Author-centric:</strong> “Smith (2019) found … Jones (2020) showed … Lee (2021) argued …”</li>
+<li><strong>Concept-centric:</strong> “Digital platforms coordinate complementors through boundary resources <span class="citation" data-cites="ghazawneh2013balancing eaton2015distributed">(<a href="#ref-eaton2015distributed" role="doc-biblioref">Eaton et al., 2015</a>; <a href="#ref-ghazawneh2013balancing" role="doc-biblioref">Ghazawneh &amp; Henfridsson, 2013</a>)</span> …”</li>
+</ul>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="webster2002analyzing">Webster &amp; Watson (<a href="#ref-webster2002analyzing" role="doc-biblioref">2002</a>)</span> distinguish author-centric from concept-centric reviews of the literature. An author-centric text summarizes one study after another and leaves the synthesis to the reader. A concept-centric text organizes the literature around the concepts that matter for the argument and cites several studies in support of each point. The same principle applies to every section that discusses prior work, not only to review papers.</p>
+<p>Two practical consequences:</p>
+<ul>
+<li>Use parenthetical citations unless the author is the point of the sentence (“As <span class="citation" data-cites="weick1989theory">Weick (<a href="#ref-weick1989theory" role="doc-biblioref">1989</a>)</span> argues …”).</li>
+<li>Report insights rather than findings: explain why a result occurred and what it means for your argument instead of listing what each study found.</li>
+</ul>
+</div>
+</section>
+<section id="one-construct-one-paragraph" class="level2">
+<h2 data-anchor-id="one-construct-one-paragraph">One Construct, One Paragraph</h2>
+<p>Each focal construct gets its own paragraph with three elements <span class="citation" data-cites="thatcher2025rules">(<a href="#ref-thatcher2025rules" role="doc-biblioref">Thatcher, 2025</a>)</span>:</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li>A <strong>one-sentence definition</strong></li>
+<li>Its <strong>boundaries</strong> to neighboring constructs</li>
+<li>Its position in the <strong>nomological network</strong></li>
+</ol>
+</div>
+<div class="fragment">
+<div class="smaller">
+<ul>
+<li><strong>Weak:</strong> “IT mindfulness refers to a construct that helps users be better at IT use.”</li>
+<li><strong>Strong:</strong> “IT mindfulness is a user’s dynamic capability to notice new information, remain contextually aware, and adjust IT use intentionally.”</li>
+</ul>
+</div>
+</div>
+<div class="notes">
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span> (Rule 4) argues that a precise definition is the foundation of measurement and argument. The weak example is circular and does not say what the construct is or is not; the strong example names what the construct is and how it acts, and it can be distinguished from neighboring constructs such as IT competence (a skill) or IT attention (a narrower cognitive process).</p>
+<p>Practical tips from the handbook: write the definition, then state what the construct is not; anchor the definition in a theory; check that the measures reflect the definition. In qualitative and conceptual papers, the same rule applies to the central concepts: define them once, delimit them, and relate them to each other.</p>
+</div>
+</section>
+<section id="thread-the-construct" class="level2">
+<h2 data-anchor-id="thread-the-construct">Thread the Construct</h2>
+<div class="smaller">
+<div id="tbl-label-drift" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl figure">
+<div aria-describedby="tbl-label-drift-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Before revision</th>
+<th>After revision</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abstract</td>
+<td>IT mindfulness</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="even">
+<td>Theory</td>
+<td>technological awareness</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="odd">
+<td>Hypotheses</td>
+<td>tech attentiveness</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="even">
+<td>Figure 1</td>
+<td>mindful IT use</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="odd">
+<td>Discussion</td>
+<td>IT flexibility</td>
+<td>IT mindfulness</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-label-drift-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Label drift across sections, adapted from <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="notes">
+<p>Rule 5 of <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>)</span>: use the same label and the same framing for a construct from the abstract to the discussion, including tables and figures. Variation that seems stylistically elegant makes reviewers wonder whether the paper describes one construct or several, or whether an old idea is being relabeled. The diagnostic is mechanical: search each construct label with Control-F across the manuscript and standardize every variant (the “Control-F label audit” in <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#ref-thatcher2025rules" role="doc-biblioref">2025</a>, Appendix E)</span>).</p>
+</div>
+</section>
+</section>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<p>Bring the discussion section (or, for early drafts, the planned discussion and limitations) of your manuscript to the afternoon session.</p>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bem1987writing" class="csl-entry" role="listitem">
+Bem, D. J. (1987). Writing the empirical journal article. In M. P. Zanna &amp; J. M. Darley (Eds.), <em>The compleat academic: A practical guide for the beginning social scientist</em> (pp. 171–201). Random House.
+</div>
+<div id="ref-eaton2015distributed" class="csl-entry" role="listitem">
+Eaton, B., Elaluf-Calderwood, S., Sørensen, C., &amp; Yoo, Y. (2015). Distributed tuning of boundary resources: The case of <span>Apple</span>’s <span class="nocase">iOS</span> service system. <em>MIS Quarterly</em>, <em>39</em>(1), 217–243.
+</div>
+<div id="ref-ghazawneh2013balancing" class="csl-entry" role="listitem">
+Ghazawneh, A., &amp; Henfridsson, O. (2013). Balancing platform control and external contribution in third-party development: The boundary resources model. <em>Information Systems Journal</em>, <em>23</em>(2), 173–192. <a href="https://doi.org/10.1111/j.1365-2575.2012.00406.x">https://doi.org/10.1111/j.1365-2575.2012.00406.x</a>
+</div>
+<div id="ref-gopen1990science" class="csl-entry" role="listitem">
+Gopen, G. D., &amp; Swan, J. A. (1990). The science of scientific writing. <em>American Scientist</em>, <em>78</em>(6), 550–558.
+</div>
+<div id="ref-grant2011publishing" class="csl-entry" role="listitem">
+Grant, A. M., &amp; Pollock, T. G. (2011). Publishing in <span>AMJ</span>—part 3: Setting the hook. <em>Academy of Management Journal</em>, <em>54</em>(5), 873–879.
+</div>
+<div id="ref-recker2021scientific" class="csl-entry" role="listitem">
+Recker, J. (2021). <em>Scientific research in information systems: A beginner’s guide</em> (2nd ed.). Springer.
+</div>
+<div id="ref-thatcher2025rules" class="csl-entry" role="listitem">
+Thatcher, J. B. (2025). <em>Rules for writing elite information systems papers: Field notes for my <span>PhD</span> students</em>. Unpublished manuscript, Leeds School of Business, University of Colorado Boulder.
+</div>
+<div id="ref-webster2002analyzing" class="csl-entry" role="listitem">
+Webster, J., &amp; Watson, R. T. (2002). Analyzing the past to prepare for the future: Writing a literature review. <em>MIS Quarterly</em>, <em>26</em>(2), xiii–xxiii.
+</div>
+<div id="ref-weick1989theory" class="csl-entry" role="listitem">
+Weick, K. E. (1989). Theory construction as disciplined imagination. <em>Academy of Management Review</em>, <em>14</em>(4), 516–531.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright 2026, Andy Weeger
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html">
+<p>Start</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.hnu.de" target="_blank">
+<p>HNU</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../imprint.html">
+<p>Imprint</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
