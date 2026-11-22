@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.js"></script>
+<link href="../../../../site_libs/quarto-contrib/countdown-0.5.0/countdown.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Andy Weeger">
+  <meta name="dcterms.date" content="2026-12-18">
+  <title>awe.lectures – Manuscript Architecture</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-5129f0d664f84139a5767fcd773d6f49.css">
+  
+  <script type="text/javascript" charset="UTF-8">
+  document.addEventListener('DOMContentLoaded', function () {
+  cookieconsent.run({
+    "notice_banner_type":"interstitial",
+    "consent_type":"express",
+    "palette":"dark",
+    "language":"en",
+    "page_load_consent_levels":["strictly-necessary"],
+    "notice_banner_reject_button_hide":false,
+    "preferences_center_close_button_hide":false,
+    "website_name":""
+    ,
+  "language":"en"
+    });
+  });
+  </script> 
+    
+  <link href="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!-- Countdown Global CSS -->
+  <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
+<meta property="og:title" content="Manuscript Architecture – awe.lectures">
+<meta property="og:description" content="Advanced Paper Writing (APW)">
+<meta property="og:site_name" content="awe.lectures">
+</head>
+<body class="quarto-light">
+<div class="footer custom">
+
+    <div class="version">
+        V0.1
+    </div>
+
+    <div class="footnote">
+        Andy Weeger / Neu-Ulm University of Applied Sciences Neu-Ulm / Advanced Paper Writing (APW)
+   </div>
+
+    <div class="logo">
+        <svg viewbox="0 0 125 39" xmlns="http://www.w3.org/2000/svg" version="1.1" space="preserve">
+            <g>
+             <title>HNU</title>
+             <path d="m8.58222,0l7.5,0l0,12.7l-7.5,0l0,-12.7zm7.4,24.1l6.5,0l0,-3l-13.9,0l0,15.4l-3.9,0l0,2.3l11.3,0l0,-14.7zm24,-24.1l-7.4,0l0,36.5l-3.9,0l0,2.3l11.3,0l0,-38.8zm60.2,28.4c1.1,0 2.1,-0.1 2.9,-0.4c-1.3,-1.2 -1.9,-3.2 -1.9,-6.4l0,-21.6l-7.4,0l0,19.3c0,5.9 1.5,9.1 6.4,9.1z" id="svg_1"></path>
+             <path d="m96.78222,37c2.8,1.6 6.4,2.5 10.6,2.5c11.2,0 17.7,-6 17.7,-16.3l0,-23.2l-7.4,0l0,21.1c0,11.3 -7.7,16.1 -17.6,16.1c-1.1,0 -2.2,-0.1 -3.3,-0.2zm-30.8,-27l-7.1,-10l-7.3,0l14.4,20.4l0,-10.4zm17,28.8l0,-38.8l-7.5,0l0,36.5l-3.5,0l1.7,2.3l9.3,0zm-24,-14.8l-8,-10.8l0,23.3l-3,0l0,2.3l11,0l0,-14.8z" id="svg_2"></path>
+            </g>
+        </svg>
+    </div>
+
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#0333ff" class="quarto-title-block">
+  <h1 class="title">Manuscript Architecture</h1>
+  <p class="subtitle">Advanced Paper Writing (APW)</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Andy Weeger
+</div>
+        <p class="quarto-title-affiliation">
+            Neu-Ulm University of Applied Sciences
+          </p>
+    </div>
+</div>
+
+  <p class="date">December 18, 2026</p>
+</section>
+<section>
+<section id="opening-remarks" class="title-slide slide level1 headline-only">
+<h1>Opening Remarks</h1>
+
+</section>
+<section id="claim-and-support" class="title-slide slide level2 no-headline vertical-center" data-background-color="#0333ff">
+<h2>Claim and Support</h2>
+<div class="large">
+<blockquote>
+<p>Strong papers begin with a claim and end by showing support for it. <em><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span></em></p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>The first day dealt with where a manuscript belongs and what it contributes. This unit deals with how the manuscript carries that contribution to the reader: the overall structure, the introduction and abstract, the paragraphs, and the use of concepts. Reviewers form their judgment early, often after the first page, and they read the rest of the paper through that first impression.</p>
+<p>Many of the rules in this unit come from <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span>, who writes about construct-centered, quantitative papers in Information Systems. Most rules transfer to qualitative and conceptual work: a qualitative paper also needs a claim in its first sentences, clear concepts, and consistent labels. Where a rule depends on the type of research, the notes say so.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="learning-outcomes" class="title-slide slide level2">
+<h2>Learning Outcomes</h2>
+<p>After completing this unit, you will be able to:</p>
+<ol type="1">
+<li class="fragment"><strong>Structure</strong> a manuscript according to its genre and the conventions of the target outlet.</li>
+<li class="fragment"><strong>Write</strong> an introduction that answers the questions reviewers ask first.</li>
+<li class="fragment"><strong>Open</strong> the introduction and the abstract with a claim instead of background.</li>
+<li class="fragment"><strong>Build</strong> paragraphs around topic sentences and connect them through their information flow.</li>
+<li class="fragment"><strong>Argue</strong> concept-centric, with stable definitions and labels across the manuscript.</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="paper-structure" class="title-slide slide level1 headline-only">
+<h1>Paper Structure</h1>
+
+</section>
+<section id="structure-by-genre" class="title-slide slide level2">
+<h2>Structure by Genre</h2>
+<div class="smaller">
+<div id="tbl-structures" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Empirical paper</th>
+<th>Conceptual paper</th>
+<th>Review paper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Introduction</td>
+<td>Introduction</td>
+<td>Introduction</td>
+</tr>
+<tr class="even">
+<td>Theoretical background, hypotheses or propositions</td>
+<td>Conceptual foundations</td>
+<td>Conceptual background</td>
+</tr>
+<tr class="odd">
+<td>Method (data, measures, analysis)</td>
+<td>Theory development (model, propositions)</td>
+<td>Review method</td>
+</tr>
+<tr class="even">
+<td>Results or findings</td>
+<td>Illustration or application</td>
+<td>Findings (descriptive, synthesis)</td>
+</tr>
+<tr class="odd">
+<td>Discussion (contributions, implications, limitations)</td>
+<td>Discussion</td>
+<td>Discussion and research agenda</td>
+</tr>
+<tr class="even">
+<td>Conclusion</td>
+<td>Conclusion</td>
+<td>Conclusion</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Typical macro-structures by paper genre
+</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>The structure of a paper depends on its genre and on the journal. The table shows typical macro-structures; the exemplar papers from your target outlet show the variant your reviewers expect. <span class="citation" data-cites="recker2021scientific">Recker (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span> advises following the standard structure as closely as possible, because readers navigate papers by their expectations, and innovative structures make reading harder.</p>
+<p>Qualitative papers often replace “results” with “findings” and present a data structure or an emerging model; design-oriented papers add sections on the artifact and its evaluation. Whatever the genre, the introduction and the discussion carry the argument, and the sections between them provide the evidence.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="the-hourglass" class="title-slide slide level2">
+<h2>The Hourglass</h2>
+<ul>
+<li class="fragment">The <strong>introduction</strong> moves from the general problem to the specific question.</li>
+<li class="fragment">The <strong>middle sections</strong> stay narrow: theory, method, and results for this study.</li>
+<li class="fragment">The <strong>discussion</strong> moves from the specific findings back to the general significance.</li>
+<li class="fragment">Introduction and conclusion <strong>mirror each other</strong> <span class="citation" data-cites="bem1987writing">(<a href="#/literature" role="doc-biblioref" onclick="">Bem, 1987</a>)</span>.</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="bem1987writing">Bem (<a href="#/literature" role="doc-biblioref" onclick="">1987</a>)</span> describes the empirical article as an hourglass: it begins broadly, narrows to the specific study, and widens again in the discussion. The image has a practical consequence: the opening and the closing of a paper address the same question at the same level of generality. If the introduction promises a theoretical insight and the conclusion emphasizes practical implications, the reader perceives a break, which <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> calls “contribution drift.”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Exemplar mapping</p>
+</div>
+<p>Using the three exemplar papers from your homework:</p>
+<ol type="1">
+<li>Where do the <strong>motivation,</strong> the <strong>research question,</strong> and the <strong>contribution</strong> appear (paragraph number)?</li>
+<li>How long is the introduction (paragraphs, pages)?</li>
+<li>Where does your manuscript deviate from this pattern?</li>
+</ol>
+<p>Share one observation with the group.</p>
+<div id="timer_3b9b3343e3e307cdd70d90ee93b72482fdabb1d5" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 headline-only">
+<h1>Introduction</h1>
+
+</section>
+<section id="three-questions" class="title-slide slide level2">
+<h2>Three Questions</h2>
+<p>An effective introduction answers three questions <span class="citation" data-cites="grant2011publishing">(<a href="#/literature" role="doc-biblioref" onclick="">Grant &amp; Pollock, 2011</a>)</span>:</p>
+<div class="smaller">
+<div id="tbl-intro-questions" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-intro-questions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Elements of the introduction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Who cares?</strong></td>
+<td>Topic, its relevance for theory and practice</td>
+</tr>
+<tr class="even">
+<td><strong>What do we know, what don’t we know, and so what?</strong></td>
+<td>State of research, gap or problematization, why it matters</td>
+</tr>
+<tr class="odd">
+<td><strong>What will we learn?</strong></td>
+<td>Research question, approach, contribution</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-intro-questions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Questions an introduction answers according to <span class="citation" data-cites="grant2011publishing">Grant &amp; Pollock (<a href="#/literature" role="doc-biblioref" onclick="">2011</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p><span class="citation" data-cites="grant2011publishing">Grant &amp; Pollock (<a href="#/literature" role="doc-biblioref" onclick="">2011</a>)</span> analyzed introductions of award-winning papers in the Academy of Management Journal and condensed their function into three questions. The questions map onto the classic elements of an introduction: motivate the topic, briefly report the state of research, identify the gap or problem, formulate an explicit research question, describe the approach, state the expected contributions to theory and practice, and, depending on the journal, outline the scope and the structure of the paper.</p>
+<p>Introductions and conclusions are the hardest parts of a paper because they balance context and focus. Many authors write them last; if you write the introduction first to orient your own thinking, expect to rewrite it once the rest of the paper is done.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="opening-moves" class="title-slide slide level2">
+<h2>Opening Moves</h2>
+<div class="medium">
+<p>Open with a claim or a puzzle, not with background <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Weak:</strong> “The IS field has long been interested in digital transformation.”</li>
+<li class="fragment"><strong>Strong:</strong> “This paper shows that CIO presence, often ignored in emerging markets, substantially predicts a firm’s AI orientation.”</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> (Rule 1) argues that the first sentence should make a theoretically meaningful claim or present an empirical puzzle. Historical overviews (“Since the 1990s …”), general interest statements (“X is increasingly important …”), and literature openings (“Researchers have long studied …”) delay the value of the paper. Thatcher calls them “throat-clearing.”</p>
+<p>The skim test: a busy colleague who reads only the first page can explain what the paper is about, what it finds, and why it matters for theory.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="narrative-hooks" class="title-slide slide level2">
+<h2>Narrative Hooks</h2>
+<p>A hook creates tension that the paper resolves <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>)</span>:</p>
+<ul>
+<li class="fragment"><strong>Paradox:</strong> “Why do firms invest in AI but fail to use it strategically?”</li>
+<li class="fragment"><strong>Surprising fact:</strong> “Despite similar resources, some hospitals drastically outperform others in cybersecurity compliance.”</li>
+<li class="fragment"><strong>Theoretical contradiction:</strong> “Current theories predict X, but we observe Y.”</li>
+</ul>
+<aside class="notes">
+<p>Rule 2 of <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> adds tension to the opening: the reader should want to know what explains the puzzle before learning about the theory or the method. A hook works when the paper’s contribution resolves it; a dramatic opening that the findings do not address raises expectations the paper cannot meet. Three to four lines are usually enough to hook an editor or a reviewer.</p>
+<p>Hooks also differ by genre and journal. Some outlets favor openings from practice (a case, a statistic), others favor theoretical puzzles. The exemplar papers show which kind of opening your target journal publishes.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="contribution-first" class="title-slide slide level2">
+<h2>Contribution First</h2>
+<ul>
+<li class="fragment">The <strong>gap</strong> motivates the study; the <strong>contribution</strong> states its result.</li>
+<li class="fragment">Name the contribution within the first two to three paragraphs.</li>
+<li class="fragment">Pass the <strong>inverted pyramid test:</strong> the most important point comes first.</li>
+</ul>
+<aside class="notes">
+<p>Thatcher’s recommendation to lead with the contribution <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>, Rule 3)</span> seems to contradict the classic formula that moves from motivation through the state of research to the gap and the research question. Both fit together: the introduction can open with a claim or puzzle, place the gap in the second or third paragraph, and state the contribution explicitly before the end of the first page. What reviewers object to is an introduction that spends two pages on background before saying what the paper does.</p>
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>, Appendix A.1)</span> proposes a checklist for introductions:</p>
+<ul>
+<li>Does the first sentence make a claim rather than a background statement?</li>
+<li>Does the first paragraph introduce a tension that motivates the study?</li>
+<li>Is the contribution stated within the first two to three paragraphs?</li>
+<li>Does the opening signal which conversation the paper contributes to?</li>
+<li>Does the introduction resist turning into a literature review?</li>
+<li>Can a non-specialist understand why the paper matters after reading only the introduction?</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="abstract" class="title-slide slide level1 headline-only">
+<h1>Abstract</h1>
+
+</section>
+<section id="exercise-1" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Abstract tournament</p>
+</div>
+<p>You receive six anonymized abstracts: yours, your peers’, and two published exemplars.</p>
+<ol type="1">
+<li><strong>Rank</strong> them: which paper would you read first?</li>
+<li><strong>Note</strong> for your top and bottom abstract what made the difference.</li>
+<li><strong>Reveal</strong> and discuss: which criteria did the group use?</li>
+</ol>
+<div id="timer_3b9b3343e3e307cdd70d90ee93b72482fdabb1d5" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">20</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p>The six abstracts consist of the four participants’ abstracts, anonymized, and two published abstracts on AI in organizations with contrasting structures: a quantitative study that opens with its theory and research question, and a qualitative field study that opens with the promise of the phenomenon and a gap. The criteria the group collects usually anticipate the principles on the following slide: a clear claim early, a concrete method, a specific result, and a stated significance.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="abstract-elements" class="title-slide slide level2">
+<h2>Abstract Elements</h2>
+<ol type="1">
+<li class="fragment">What the <strong>objectives</strong> of the study are</li>
+<li class="fragment">How the study was <strong>done</strong></li>
+<li class="fragment">Which <strong>results</strong> it obtained</li>
+<li class="fragment">What the <strong>significance</strong> of the results is</li>
+</ol>
+<div class="fragment">
+<p>State the contribution within the first two sentences <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>)</span>.</p>
+</div>
+<aside class="notes">
+<p>An abstract is a shortened version of the paper. It has to contain all information a reader needs to decide whether to read the full text; many readers, and many editors at the desk-review stage, read only the abstract. Most authors write it last, once the contribution is settled.</p>
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> recommends opening with what the study does and finds rather than with what the literature lacks. A strong example from his handbook: “We define IT mindfulness as a user’s dynamic capability and validate its influence on task adaptation and feature use.” Check the word limit and the required format of your target journal: some journals require structured abstracts with fixed headings.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-2" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Opening rewrite</p>
+</div>
+<ol type="1">
+<li>Rewrite the <strong>first paragraph</strong> of your introduction so that it opens with a claim or a puzzle.</li>
+<li>Rewrite the <strong>first two sentences</strong> of your abstract so that they state what you do and find.</li>
+<li>Read both versions aloud to the group (two minutes each); the group answers: what is the paper about, and why does it matter?</li>
+</ol>
+<div id="timer_3b9b3343e3e307cdd70d90ee93b72482fdabb1d5" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">30</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+</section>
+<section>
+<section id="paragraphs" class="title-slide slide level1 headline-only">
+<h1>Paragraphs</h1>
+
+</section>
+<section id="topic-sentences" class="title-slide slide level2">
+<h2>Topic Sentences</h2>
+<div class="medium">
+<p>Each paragraph opens with a short claim that the rest of the paragraph develops.</p>
+</div>
+<ul>
+<li class="fragment">The first sentence states the point; the others support it.</li>
+<li class="fragment">Reading only the first sentences conveys the argument <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>)</span>.</li>
+<li class="fragment">One paragraph, one idea.</li>
+</ul>
+<aside class="notes">
+<p>Most doctoral candidates write reasonable sentences; the difficulty lies in organizing them into paragraphs. A paragraph begins with a topic sentence that sets the stage for what follows, and every further sentence develops that point. <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> (Rule 3) proposes a diagnostic he calls the topic-sentence ladder: copy the first sentence of each paragraph into a new document. If the sentences read as a coherent argument (claim, reason, implication), the paragraph structure works. If they narrate process (“In this section, we discuss …”) or state background, the paragraphs need a new opening.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="paragraph-logic" class="title-slide slide level2">
+<h2>Paragraph Logic</h2>
+<ul>
+<li class="fragment"><strong>Setup:</strong> the claim or question of the paragraph</li>
+<li class="fragment"><strong>Action:</strong> the argument, evidence, or explanation</li>
+<li class="fragment"><strong>Implication:</strong> what follows for the next step of the argument</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> (Rule 6) describes paragraphs in theory, methods, and results sections as a chain of setup, action, and implication. Across paragraphs, the logic should follow a chain as well (A leads to B, B leads to C), and parallel ideas should appear in parallel form: if the theory section introduces trust before risk, the hypotheses, the measures, and the discussion keep that order. Changing the order of concepts forces readers to stop and reorient.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="old-before-new" class="title-slide slide level2">
+<h2>Old Before New</h2>
+<div class="medium">
+<p>Readers expect familiar information at the beginning of a sentence and new information at the end <span class="citation" data-cites="gopen1990science">(<a href="#/literature" role="doc-biblioref" onclick="">Gopen &amp; Swan, 1990</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment">The <strong>topic position</strong> links back to what the reader already knows.</li>
+<li class="fragment">The <strong>stress position</strong> carries the new point.</li>
+<li class="fragment">A paragraph can begin with a central term from the last sentence of the preceding paragraph.</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="gopen1990science">Gopen &amp; Swan (<a href="#/literature" role="doc-biblioref" onclick="">1990</a>)</span> analyzed why scientific prose is hard to read even when its sentences are grammatically correct. Their central observation: readers expect a sentence to start with information that connects to what they have just read (topic position) and to end with the information the writer wants to emphasize (stress position). Prose that violates these expectations forces the reader to reconstruct the connections.</p>
+<p>The same principle connects paragraphs. Picking up a central term from the end of one paragraph at the beginning of the next creates a smooth transition without explicit connectors such as “furthermore” or “in addition.”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-3" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Teach-back</p>
+</div>
+<p>You work with the introduction of a peer (rotation: A → B → C → D → A).</p>
+<ol type="1">
+<li><strong>Extract</strong> the first sentence of each paragraph into a new document (5 minutes).</li>
+<li><strong>Reconstruct</strong> the argument of the introduction in three sentences, based only on these first sentences (5 minutes).</li>
+<li><strong>Present</strong> your reconstruction (three minutes each); the author compares it with the intended argument.</li>
+</ol>
+<div id="timer_3b9b3343e3e307cdd70d90ee93b72482fdabb1d5" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">40</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+<aside class="notes">
+<p>The exercise applies the topic-sentence ladder from an outside perspective. Authors know what they mean and fill gaps unconsciously; a peer who sees only the first sentences reconstructs what the text actually says. Differences between the reconstruction and the intended argument show where topic sentences are missing, buried in the middle of a paragraph, or state background instead of a claim.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+</section>
+<section>
+<section id="concepts" class="title-slide slide level1 headline-only">
+<h1>Concepts</h1>
+
+</section>
+<section id="concept-centric-argumentation" class="title-slide slide level2">
+<h2>Concept-Centric Argumentation</h2>
+<div class="medium">
+<p>Organize the literature around <strong>concepts,</strong> not around authors <span class="citation" data-cites="webster2002analyzing">(<a href="#/literature" role="doc-biblioref" onclick="">Webster &amp; Watson, 2002</a>)</span>.</p>
+</div>
+<ul>
+<li class="fragment"><strong>Author-centric:</strong> “Smith (2019) found … Jones (2020) showed … Lee (2021) argued …”</li>
+<li class="fragment"><strong>Concept-centric:</strong> “Digital platforms coordinate complementors through boundary resources <span class="citation" data-cites="ghazawneh2013balancing eaton2015distributed">(<a href="#/literature" role="doc-biblioref" onclick="">Eaton et al., 2015</a>; <a href="#/literature" role="doc-biblioref" onclick="">Ghazawneh &amp; Henfridsson, 2013</a>)</span> …”</li>
+</ul>
+<aside class="notes">
+<p><span class="citation" data-cites="webster2002analyzing">Webster &amp; Watson (<a href="#/literature" role="doc-biblioref" onclick="">2002</a>)</span> distinguish author-centric from concept-centric reviews of the literature. An author-centric text summarizes one study after another and leaves the synthesis to the reader. A concept-centric text organizes the literature around the concepts that matter for the argument and cites several studies in support of each point. The same principle applies to every section that discusses prior work, not only to review papers.</p>
+<p>Two practical consequences:</p>
+<ul>
+<li>Use parenthetical citations unless the author is the point of the sentence (“As <span class="citation" data-cites="weick1989theory">Weick (<a href="#/literature" role="doc-biblioref" onclick="">1989</a>)</span> argues …”).</li>
+<li>Report insights rather than findings: explain why a result occurred and what it means for your argument instead of listing what each study found.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="one-construct-one-paragraph" class="title-slide slide level2">
+<h2>One Construct, One Paragraph</h2>
+<p>Each focal construct gets its own paragraph with three elements <span class="citation" data-cites="thatcher2025rules">(<a href="#/literature" role="doc-biblioref" onclick="">Thatcher, 2025</a>)</span>:</p>
+<ol type="1">
+<li class="fragment">A <strong>one-sentence definition</strong></li>
+<li class="fragment">Its <strong>boundaries</strong> to neighboring constructs</li>
+<li class="fragment">Its position in the <strong>nomological network</strong></li>
+</ol>
+<div class="fragment">
+<div class="smaller">
+<ul>
+<li><strong>Weak:</strong> “IT mindfulness refers to a construct that helps users be better at IT use.”</li>
+<li><strong>Strong:</strong> “IT mindfulness is a user’s dynamic capability to notice new information, remain contextually aware, and adjust IT use intentionally.”</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p><span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span> (Rule 4) argues that a precise definition is the foundation of measurement and argument. The weak example is circular and does not say what the construct is or is not; the strong example names what the construct is and how it acts, and it can be distinguished from neighboring constructs such as IT competence (a skill) or IT attention (a narrower cognitive process).</p>
+<p>Practical tips from the handbook: write the definition, then state what the construct is not; anchor the definition in a theory; check that the measures reflect the definition. In qualitative and conceptual papers, the same rule applies to the central concepts: define them once, delimit them, and relate them to each other.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="thread-the-construct" class="title-slide slide level2">
+<h2>Thread the Construct</h2>
+<div class="smaller">
+<div id="tbl-label-drift" class="quarto-float quarto-figure quarto-figure-left">
+<figure class="quarto-float quarto-float-tbl">
+<div aria-describedby="tbl-label-drift-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Before revision</th>
+<th>After revision</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abstract</td>
+<td>IT mindfulness</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="even">
+<td>Theory</td>
+<td>technological awareness</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="odd">
+<td>Hypotheses</td>
+<td>tech attentiveness</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="even">
+<td>Figure 1</td>
+<td>mindful IT use</td>
+<td>IT mindfulness</td>
+</tr>
+<tr class="odd">
+<td>Discussion</td>
+<td>IT flexibility</td>
+<td>IT mindfulness</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-tbl" id="tbl-label-drift-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Label drift across sections, adapted from <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<p>Rule 5 of <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>)</span>: use the same label and the same framing for a construct from the abstract to the discussion, including tables and figures. Variation that seems stylistically elegant makes reviewers wonder whether the paper describes one construct or several, or whether an old idea is being relabeled. The diagnostic is mechanical: search each construct label with Control-F across the manuscript and standardize every variant (the “Control-F label audit” in <span class="citation" data-cites="thatcher2025rules">Thatcher (<a href="#/literature" role="doc-biblioref" onclick="">2025</a>, Appendix E)</span>).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="exercise-4" class="title-slide slide level2 unlisted unnumbered html-hidden discussion-slide">
+<h2>Exercise</h2>
+<div class="medium">
+<p>Label audit</p>
+</div>
+<ol type="1">
+<li>List the <strong>three to five central concepts or constructs</strong> of your manuscript.</li>
+<li>Search each label with <strong>Control-F;</strong> note every variant and where it appears.</li>
+<li>Check whether each concept has a <strong>definition paragraph</strong> with definition, boundaries, and relations.</li>
+</ol>
+<div id="timer_3b9b3343e3e307cdd70d90ee93b72482fdabb1d5" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+  <div class="countdown-controls">
+    <button class="countdown-bump-down">−</button>
+    <button class="countdown-bump-up">+</button>
+ </div>
+ <code class="countdown-time"><span class="countdown-digits minutes">15</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+ </div>
+</section>
+</section>
+<section id="homework" class="title-slide slide level1">
+<h1>Homework</h1>
+<p>Bring the discussion section (or, for early drafts, the planned discussion and limitations) of your manuscript to the afternoon session.</p>
+</section>
+
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only" data-background-color="#0333ff">
+<h1>Q&amp;A</h1>
+
+</section>
+
+<section id="literature" class="title-slide slide level1 smaller scrollable">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bem1987writing" class="csl-entry" role="listitem">
+Bem, D. J. (1987). Writing the empirical journal article. In M. P. Zanna &amp; J. M. Darley (Eds.), <em>The compleat academic: A practical guide for the beginning social scientist</em> (pp. 171–201). Random House.
+</div>
+<div id="ref-eaton2015distributed" class="csl-entry" role="listitem">
+Eaton, B., Elaluf-Calderwood, S., Sørensen, C., &amp; Yoo, Y. (2015). Distributed tuning of boundary resources: The case of <span>Apple</span>’s <span class="nocase">iOS</span> service system. <em>MIS Quarterly</em>, <em>39</em>(1), 217–243.
+</div>
+<div id="ref-ghazawneh2013balancing" class="csl-entry" role="listitem">
+Ghazawneh, A., &amp; Henfridsson, O. (2013). Balancing platform control and external contribution in third-party development: The boundary resources model. <em>Information Systems Journal</em>, <em>23</em>(2), 173–192. <a href="https://doi.org/10.1111/j.1365-2575.2012.00406.x">https://doi.org/10.1111/j.1365-2575.2012.00406.x</a>
+</div>
+<div id="ref-gopen1990science" class="csl-entry" role="listitem">
+Gopen, G. D., &amp; Swan, J. A. (1990). The science of scientific writing. <em>American Scientist</em>, <em>78</em>(6), 550–558.
+</div>
+<div id="ref-grant2011publishing" class="csl-entry" role="listitem">
+Grant, A. M., &amp; Pollock, T. G. (2011). Publishing in <span>AMJ</span>—part 3: Setting the hook. <em>Academy of Management Journal</em>, <em>54</em>(5), 873–879.
+</div>
+<div id="ref-recker2021scientific" class="csl-entry" role="listitem">
+Recker, J. (2021). <em>Scientific research in information systems: A beginner’s guide</em> (2nd ed.). Springer.
+</div>
+<div id="ref-thatcher2025rules" class="csl-entry" role="listitem">
+Thatcher, J. B. (2025). <em>Rules for writing elite information systems papers: Field notes for my <span>PhD</span> students</em>. Unpublished manuscript, Leeds School of Business, University of Colorado Boulder.
+</div>
+<div id="ref-webster2002analyzing" class="csl-entry" role="listitem">
+Webster, J., &amp; Watson, R. T. (2002). Analyzing the past to prepare for the future: Writing a literature review. <em>MIS Quarterly</em>, <em>26</em>(2), xiii–xxiii.
+</div>
+<div id="ref-weick1989theory" class="csl-entry" role="listitem">
+Weick, K. E. (1989). Theory construction as disciplined imagination. <em>Academy of Management Review</em>, <em>14</em>(4), 516–531.
+</div>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1080,
+
+        height: 640,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll(".background-video-div").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+
+      // Move menu button
+      menu_div = document.querySelector(".slide-menu-button");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move progress bar
+      menu_div = document.querySelector(".progress");
+      document.querySelector(".slides").appendChild(menu_div);
+      
+      // Move slide number
+      slide_number = document.querySelector(".slide-number");
+      document.querySelector(".slides").appendChild(slide_number);
+      
+      // Move custom footer
+      footer = document.querySelector(".footer.custom");
+      document.querySelector(".slides").appendChild(footer);
+
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/awe-hnu\.github\.io");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
