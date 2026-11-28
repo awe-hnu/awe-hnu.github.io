@@ -1,5 +1,6 @@
 ---
-title: "SLR I: Types, Goals and Alignment"
+slide-theme: classic
+title: "SLR I: Types and Goals"
 subtitle: "Research Project 1 (RP1) — U9"
 lang: en-US
 
@@ -26,14 +27,35 @@ format:
 
 # Opening Remarks {.headline-only}
 
-## Review Type Fit {.no-headline .vertical-center}
+## Cumulative Science {.no-headline .vertical-center}
 
 :::medium
-"Systematic literature review" is a category containing several different methods, each suited to a different kind of question.
+> Whereas Newton could say, 'If I have seen a little farther than others, it is because I have stood on the shoulders of giants,' I am forced to say, 'Today we stand on each other's feet.' [...] Science is supposed to be cumulative, not almost endless duplication of the same kind of things.
+ *Richard W. Hamming, ACM Turing Award Lecture [@hamming1969one]*
+:::
+
+:::fragment
+Systematic literature reviews "allow us to stand on the shoulders of giants and in computing, allow us to get off each others' feet" [@kitchenham2007guidelines].
 :::
 
 :::notes
-You have a research question and a candidate theory type. The next decision, which kind of review you are about to conduct, is usually made by default: most teams reach for "systematic review" because it is the term they have heard most often, not because they checked whether it is the review type their question actually needs. This unit exists to make that decision deliberately, once, before you spend eleven weeks executing it.
+Hamming described computer science in the late 1960s as a field in which researchers repeated each other's work because nobody had a reliable picture of what was already known. @kitchenham2007guidelines present the systematic literature review as the remedy: a documented procedure that establishes what a field knows before new studies are designed.
+
+You now have a research question and a target theory type. This unit adds the third planning decision, the review type, and fixes the scope of your review before any search begins.
+:::
+
+## Agenda {.unlisted .unnumbered .html-hidden}
+
+:::medium
+- Review contributions [15 min]{.smaller}
+- Review typology [20 min]{.smaller}
+- Alignment [10 min]{.smaller}
+- Exercise: Tasks [30 min]{.smaller}
+- Scope decisions [10 min]{.smaller}
+- Exercise: Alignment [25 min]{.smaller}
+- Exercise: Cross-Team Discussion and Reveal [25 min]{.smaller}
+- Review protocol [10 min]{.smaller}
+- Homework [5 min]{.smaller}
 :::
 
 ## Learning Outcomes
@@ -41,336 +63,592 @@ You have a research question and a candidate theory type. The next decision, whi
 By the end of this unit, you will be able to:
 
 ::: incremental
-- Select a review type from an eight-family typology based on the knowledge goal your research question actually needs, not on which term sounds most rigorous.
+- Define a systematic literature review and explain why rigor matters for its credibility.
+- Distinguish review types in Kitchenham's and Paré's typologies and translate between the two vocabularies.
 - Align your question type, target theory type, and review type into one consistent decision, and justify the alignment in writing.
-- Argue for a literature review as a standalone knowledge contribution, not a preamble to a "real" study.
+- Fix your review's scope along Cooper's six dimensions.
+- Draft the first four sections of your Review Protocol.
 :::
 
 # Review Contributions {.headline-only}
 
 ## Standalone Contribution
 
-:::large
-A literature review is a knowledge contribution in its own right.
+:::: html-hidden
+A literature review is a knowledge contribution in its own right [@rowe2014literature].
+
+::: medium
+[Improving explanation,]{.fragment .fade-in-then-semi-out}
+[improving evidence,]{.fragment .fade-in-then-semi-out}
+[improving method.]{.fragment .fade-in-then-semi-out}
 :::
 
-:::notes
-Recall the three routes to contribution from [Knowledge, Science and Epistemology](../epistemology/): improving explanation, improving evidence, improving method. A review rarely adds new evidence directly. It can improve explanation, by synthesizing what fragmented individual studies only implied separately, and it can improve method, by exposing where a field's existing measurement or theorizing approaches disagree or fall short.
+::: incremental
+- **Explanation:** a review synthesizes what individual studies imply only together.
+- **Method:** a review exposes where measurement and theorizing approaches disagree or fall short.
+- **Evidence:** a review adds new evidence only indirectly, by aggregating existing results.
+:::
+::::
 
-@rowe2014literature makes the point sharply: a literature review is too often treated as a mandatory, slightly tedious preamble that clears the way for the "real" study. Treated that way, it produces exactly the kind of review nobody wants to read: a list of what has been published rather than an argument about what the field now knows. Your review is the deliverable. It has to earn its place as a contribution the same way a primary study would.
+:::notes
+[Knowledge, Science and Epistemology](../epistemology/) introduced three routes to a contribution: improving explanation, improving evidence, and improving method. A literature review takes mainly the first and the third. It improves explanation when it integrates findings that are scattered across studies, disciplines, and contexts into one account. It improves method when it shows that studies measure the same construct in incompatible ways or apply theories inconsistently. A meta-analysis also strengthens evidence by pooling effect sizes.
+
+@rowe2014literature argues that reviews deserve the same standards as primary studies. A review that lists published studies one after another reports the literature without contributing to it. A review that argues what the field now knows, where its findings conflict, and which questions remain open makes a contribution that others can cite and build on. Your review is the deliverable of this module and has to meet that standard.
+:::
+
+## Five Purposes
+
+:::: html-hidden
+@pare2015synthesizing distinguish five purposes a review can serve.
+
+::: incremental
+- **Advance knowledge:** describe the breadth and depth of research on a topic.
+- **Synthesize evidence:** integrate empirical findings across studies.
+- **Build theory:** develop theories or a conceptual background.
+- **Find gaps:** identify topics and contexts that need more research.
+- **Get oriented:** give newcomers an entry point into an emerging domain.
+:::
+
+::: fragment
+Each purpose calls for a different type of review.
+:::
+::::
+
+:::notes
+@pare2015synthesizing derive their typology from the purposes a review serves:
+
+- **Advance knowledge:** a review describes the breadth and depth of research on a topic, often as the background section of a primary study.
+- **Synthesize evidence:** a review integrates empirical findings across studies into one account of what the evidence shows.
+- **Build theory:** a review develops new theory or a conceptual background from what scattered studies imply together.
+- **Find gaps:** a review identifies topics, contexts, or questions on which further research is needed.
+- **Get oriented:** a review gives newcomers, students, or practitioners a structured entry point into an emerging domain.
+
+Each purpose implies a different review type. A review that serves one primary purpose produces a sharper synthesis than one that attempts all five, which is why the typology starts from the goal of the review.
+:::
+
+## Ad-Hoc vs. Systematic
+
+@kitchenham2007guidelines distinguish two ways of reviewing literature by how studies enter the review.
+
+::::columns
+:::{.column width="50%"}
+[**Ad-hoc review**]{.h4}
+
+:::incremental
+- Search driven by what the author already knows
+- Completeness cannot be assessed
+- Contradicting evidence quietly left out
+- Of little scientific value
+:::
+:::
+:::{.column width="50%"}
+[**Systematic review**]{.h4}
+
+:::incremental
+- Predefined search strategy, documented in a protocol
+- Completeness of the search can be assessed
+- Evidence for and against the preferred hypothesis is reported
+- Fair, and seen to be fair
+:::
+:::
+::::
+
+:::notes
+"Most research starts with a literature review of some sort" [@kitchenham2007guidelines]. The two kinds of review differ in how the literature enters them. In an ad-hoc review, the corpus depends on what the author knows and happens to find. A reader cannot tell what was missed, and evidence that contradicts the author's position tends to drop out unnoticed. @kitchenham2007guidelines therefore regard such reviews as of little scientific value.
+
+A systematic review fixes its search strategy in advance, documents it in a protocol, and reports the evidence on both sides of the question. Readers can check how the corpus came about and judge for themselves whether relevant studies are missing.
+:::
+
+## Definition
+
+:::: html-hidden
+::: medium
+A systematic literature review is "a form of secondary study that uses a well-defined methodology to identify, analyse and interpret all available evidence related to a specific research question in a way that is unbiased and (to a degree) repeatable" [@kitchenham2007guidelines].
+:::
+
+::: incremental
+- **Method:** a well-defined procedure, fixed in advance.
+- **Coverage:** all available evidence.
+- **Question:** a specific research question bounds relevance.
+- **Bias and replicability:** expectations cannot shape the corpus; others can repeat the procedure.
+:::
+::::
+
+:::notes
+The definition contains four commitments:
+
+- **Method:** a well-defined methodology, fixed in advance, governs how studies are identified, analyzed, and interpreted.
+- **Coverage:** the review aims at all available evidence, which makes the search strategy a methodological decision you have to justify.
+- **Question:** a specific research question determines which evidence is relevant.
+- **Bias and replicability:** the procedure keeps the reviewers' expectations from shaping the corpus and is documented well enough that another team can repeat it.
+
+Method and question are the subject of this unit. Coverage is operationalized in [SLR II: Search Strategy](../slr-strategy/). Bias and replicability return in [SLR III: Screening and Appraisal](../slr-screening/) and are tested in [Peer-Review Workshop II](../peer-review-2/).
 :::
 
 # Review Typology {.headline-only}
 
-## Eight Families, Two Questions
+## Kitchenham's Categories
 
-:::medium
-What kind of knowledge goal does the review pursue, and how comprehensively does it sample the literature to pursue it?
+@kitchenham2007guidelines distinguish three categories of systematic review, ordered by depth.
+
+::::columns
+:::{.column width="33%" .fragment}
+[**Mapping study**]{.h4}
+
+*"What studies have investigated ...?"*
+
+Identifies and categorizes studies; shows whether a deeper review is worthwhile.
+:::
+:::{.column width="33%" .fragment}
+[**Qualitative SR**]{.h4}
+
+*Benefits, risks, stakeholder attitudes.*
+
+Aggregates thematic findings from case studies and surveys.
+:::
+:::{.column width="33%" .fragment}
+[**Quantitative SR**]{.h4}
+
+*"How effective is ...?"*
+
+Aggregates statistical results, ideally via meta-analysis.
+:::
+::::
+
+:::fragment
+Plus **tertiary studies,** which review secondary studies. Depth increases from left to right.
 :::
 
 :::notes
-@pare2015synthesizing organize the landscape of literature reviews into a typology built around the goal a review pursues, not the topic it covers. Broadly:
+@kitchenham2007guidelines, writing for evidence-based software engineering, distinguish three categories of systematic review:
 
-- **Narrative review**: provides a broad, qualitative overview of a topic, often to orient readers new to a field. Comprehensiveness and a documented search protocol are usually secondary to readable synthesis.
-- **Descriptive (or mapping) review**: assesses the extent, range, and nature of research activity in a domain, often quantitatively, how many studies, using which methods, across which years, without necessarily synthesizing their findings into a single argument.
-- **Scoping review**: maps the key concepts and evidence in a domain, often as groundwork for a later, more targeted review, useful when a field is too young or too heterogeneous for narrower methods to work yet.
-- **Critical review**: evaluates the quality of existing research, aiming to expose conceptual or methodological weaknesses in a body of work, not just summarize it.
-- **Realist review**: seeks to explain, for complex, context-dependent interventions, what works, for whom, and under what circumstances, rather than asking a single yes/no effectiveness question.
-- **Qualitative systematic review**: applies systematic, documented search and appraisal methods, the hallmark of "systematic" reviews, to synthesize qualitative or conceptual findings, not to pool numerical effect sizes.
-- **Meta-analysis**: statistically pools quantitative results across comparable studies to estimate an aggregate effect. Requires a body of comparable, quantitative primary studies to work at all.
-- **Umbrella review**: synthesizes existing reviews rather than primary studies, useful when a field already has multiple reviews that themselves need reconciling.
+- **Mapping study:** identifies and categorizes the studies on a topic by study type, participants, or task size, and shows where research concentrates. It is lightweight and often precedes a deeper review by showing whether enough primary studies exist.
+- **Qualitative systematic review:** aggregates thematic findings from case studies and surveys, prioritizes issues, and produces guidance, for example on barriers to adopting a practice.
+- **Quantitative systematic review:** aggregates statistical results, ideally through meta-analysis, and can rank techniques by effectiveness.
+
+**Tertiary studies** apply the same procedure to secondary studies. They become useful once a field has produced several reviews of its own.
 :::
 
-## Type Comparison {.unlisted .unnumbered .html-hidden .discussion-slide}
+## Paré's Typology
 
-Pick two families from the typology, for example scoping review and critical review.
+@pare2015synthesizing organize nine review types under four goals.
 
-In one sentence each, state what the write-up has to show for the first type that it does not have to show for the second, and vice versa.
+| Summarize prior knowledge | Aggregate / integrate      | Build explanation | Critically assess |
+|---------------------------|------------------------|-------------------|-------------------|
+| Narrative                 | **Qualitative systematic** | *Theoretical*     | Critical          |
+| *Descriptive / mapping*   | **Meta-analysis**          | *Realist*         |                   |
+| **Scoping**               | **Umbrella**               |                   |                   |
 
-{{< countdown "10:00" top="0">}}
+: Nine review types under four goals [@pare2015synthesizing]; bold: systematic, italics: borderline, plain: non-systematic (our classification) {#tbl-pare-typology}
 
-:::notes
-A scoping review has to report how much of the landscape it covered: the search protocol, the inclusion criteria, a count of what was found and left out. A critical review has to report why specific studies fall short: the evaluative criteria applied and the reasoning behind each judgment, with less weight on how comprehensively it sampled the field. Teams that can state this difference in one sentence per type have understood that choosing a review type commits the write-up to specific reporting obligations, beyond picking a label for the method section.
-:::
-
-## Core Message
-
-:::large
-Review type follows from the **knowledge goal** the review is meant to serve.
+:::fragment
+This term, you write a systematic or borderline review.
 :::
 
 :::notes
-The single most common mistake at this stage is picking "systematic review" because it sounds rigorous, then discovering three weeks into search and screening that the actual goal, understanding a young, fast-moving, conceptually unsettled phenomenon, was better served by a scoping review or a critical review. Ask first: what does a good answer to my research question actually look like? An aggregate effect size? A map of what has been studied and what hasn't? An account of what works under which conditions? Only then pick the review type that produces that shape of answer.
+@pare2015synthesizing organize nine review types under four goals:
+
+- **Summarize prior knowledge.** A *narrative review* provides a broad, qualitative overview of a topic and gives readable synthesis priority over a documented search. A *descriptive (or mapping) review* assesses the extent, range, and nature of research activity in a domain, often quantitatively: how many studies, using which methods, across which years. A *scoping review* maps the key concepts and evidence in a domain, often as groundwork for a more targeted review, and suits fields that are young or heterogeneous.
+- **Aggregate or integrate.** A *qualitative systematic review* applies systematic search and appraisal to synthesize qualitative or conceptual findings. A *meta-analysis* statistically pools quantitative results across comparable studies to estimate an aggregate effect. An *umbrella review* synthesizes existing reviews.
+- **Build explanation.** A *theoretical review* draws on existing studies to develop a conceptual framework or new theory. A *realist review* explains, for complex and context-dependent interventions, what works, for whom, and under what circumstances.
+- **Critically assess.** A *critical review* evaluates the quality of existing research to expose conceptual or methodological weaknesses in a body of work.
+
+The columns follow @pare2015synthesizing; the classification by systematicity is ours. Scoping, qualitative systematic, meta-analysis, and umbrella reviews meet the definition of a systematic review. Descriptive, theoretical, and realist reviews are borderline: they count as systematic when their search and selection are documented with the same discipline. Narrative and critical reviews are non-systematic and therefore unavailable for this term's project.
 :::
 
-## IS Review Genre
+## Two Vocabularies
 
-:::medium
-@webster2002analyzing set the standard for what a rigorous literature review looks like in information systems specifically.
+Software engineering and information systems name largely the same review types differently.
+
+| Kitchenham (SE) | Paré et al. (IS)                          | Typical question                         |
+|-----------------|-------------------------------------------|------------------------------------------|
+| Mapping study   | Descriptive review, scoping review        | What has been studied, how, where?       |
+| Qualitative SR  | Qualitative systematic review             | What are the benefits, risks, barriers?  |
+| Quantitative SR | Meta-analysis                             | How large is the effect?                 |
+| Tertiary study  | Umbrella review                           | What do existing reviews conclude?       |
+| No counterpart  | Theoretical, realist, critical, narrative | Why? For whom? How good is the evidence? |
+
+: Bridging the review typologies of software engineering and information systems {#tbl-vocabularies}
+
+:::fragment
+**Multivocal literature reviews** appear in neither typology: an SE extension of the SLR that includes grey literature.
 :::
 
 :::notes
-Two of their contributions matter directly for your decision today, and you will meet both again in later units: organizing a review's presentation around **concepts**, not the sequence of studies that produced them (covered fully in [SLR IV: Analysis and Synthesis](../slr-synthesis/)), and using **backward and forward search** as complementary strategies for building a search's coverage (covered fully in [SLR II: Search Strategy and Protocol](../slr-strategy/)). Both are genre conventions specific to how IS, as a field, expects a review to be conducted and reported, adopting them is part of writing for your target audience, not an arbitrary add-on.
+The two typologies describe largely the same review types under different names. Explanation building and critique have no counterpart in Kitchenham's typology, because evidence-based software engineering was designed to aggregate empirical evidence for practice. Your topics sit between software engineering and IS, so the papers you read use both vocabularies. Name your review type in one of them in the protocol and translate it into the other where readers from the second field need it.
+
+**Multivocal literature reviews** extend the systematic review by deliberately including grey literature, such as practitioner reports, white papers, and blog posts, alongside peer-reviewed studies [@garousi2019guidelines]. The decision about grey literature is part of [SLR II: Search Strategy](../slr-strategy/).
+:::
+
+## Two Traditions
+
+Two research traditions shape how literature reviews are conducted and judged.
+
+::::columns
+:::{.column width="50%"}
+[**Evidence-based SE (Kitchenham)**]{.h4}
+
+:::incremental
+- Rooted in evidence-based medicine
+- Supports process improvement with high-quality empirical evidence
+- Strength: explicit, auditable procedure
+:::
+:::
+:::{.column width="50%"}
+[**Information systems (Paré)**]{.h4}
+
+:::incremental
+- Reviews also build theory and critique
+- Review type follows the knowledge goal
+- "Systematic" is no quality label per se [@boell2015being]
+:::
+:::
+::::
+
+:::fragment
+**Our stance:** choose the review type by knowledge goal (Paré), execute it with Kitchenham's protocol discipline.
+:::
+
+:::notes
+The evidence-based software engineering tradition originates in evidence-based medicine and uses reviews to support practice with high-quality empirical evidence. Its strength is an explicit, auditable procedure that another team can follow step by step.
+
+The IS tradition assigns reviews a wider range of goals: they also build theory and critique existing work, and the review type follows from the knowledge goal. @boell2015being point out that following a systematic procedure guarantees transparency, while the quality of a review also depends on the interpretation and argument it develops.
+
+@webster2002analyzing set the standard for literature reviews in IS. Two of their recommendations recur in this module: organizing a review around **concepts** ([SLR IV: Analysis and Synthesis](../slr-synthesis/)), and complementing keyword search with **backward and forward search** ([SLR II: Search Strategy](../slr-strategy/)).
+
+This course combines both traditions: Paré's typology determines which review type fits your question, and Kitchenham's protocol discipline governs how you execute it.
+:::
+
+## Knowledge Goal First
+
+:::: html-hidden
+::: medium
+Review type follows from the **knowledge goal** the review serves.
+:::
+
+What does a good answer to your question look like?
+
+::: incremental
+- **A map** of what has been studied: mapping or scoping review.
+- **An effect size:** meta-analysis.
+- **An explanation** of how and why: theoretical, qualitative systematic, or realist review.
+- **Design principles:** qualitative systematic or multivocal review.
+:::
+::::
+
+:::notes
+Start from the shape of the answer your research question requires. A question about what has been studied, where, and how needs a map of the literature, which a mapping or scoping review produces. A question about the size of an effect needs a statistical aggregate, which only a meta-analysis produces. A question about how and why something happens needs a synthesized explanation, which theoretical, qualitative systematic, and realist reviews produce. A question about how to design or act needs principles distilled from studies and practice, which qualitative systematic and multivocal reviews produce. Pick the review type only after you have named the shape of the answer.
 :::
 
 ## Selection Mistakes
 
 :::medium
-The eight families in @pare2015synthesizing are easy to pick for the wrong reason.
+The types in @pare2015synthesizing are easy to pick for the wrong reason.
 :::
 
 ::: incremental
-- Defaulting to a **qualitative systematic review** or **meta-analysis** because the terms sound most rigorous, before checking whether enough comparable studies actually exist.
-- Running a **meta-analysis** on a corpus that turns out too heterogeneous in measures and designs to pool into one effect.
-- Treating **scoping** and **narrative** reviews as a lesser, less careful option, when a young or fast-moving field is exactly the case they are built for.
-- Picking a review type before the research question is settled, then reshaping the question to fit the method already chosen.
+- **Prestige choice:** picking a qualitative systematic review or meta-analysis because the terms sound most rigorous.
+- **Pooling the unpoolable:** running a meta-analysis on a corpus too heterogeneous in measures and designs to combine.
+- **Underrating scoping:** treating scoping reviews as second-class, although young and fast-moving fields are the case they are built for.
+- **Method first:** choosing the review type, then bending the question to fit it.
 :::
 
 :::notes
-Each mistake here lets a review type get picked by convention or reputation before the knowledge goal has actually been checked against it. A corpus with too few comparable quantitative studies cannot support a meta-analysis, regardless of how rigorous the label sounds. A young, conceptually unsettled field is usually served better by a scoping or narrative review than by a systematic review promising a comprehensiveness the field cannot yet deliver. Catching these mistakes before search begins is cheaper than discovering them after three weeks of screening.
+Each mistake selects a review type by reputation before checking it against the knowledge goal. A meta-analysis requires a body of comparable quantitative studies; a corpus with few such studies cannot support one, however rigorous the label sounds. A young, conceptually unsettled field, such as most agentic-AI topics, is usually served best by a scoping review, which maps concepts and evidence without promising a depth of synthesis the literature cannot yet support. Detecting these mistakes before the search costs an afternoon; detecting them after screening costs weeks.
 :::
 
 # Alignment {.headline-only}
 
-## Three Decisions, One Matrix
+## Gregor's Five Types
 
-:::medium
-Research question type × target theory type × review type. They have to line up.
+@gregor2006nature distinguishes five types of theory by the questions they answer.
+
+| Type                          | Question                         | Characteristic                    |
+|-------------------------------|----------------------------------|-----------------------------------|
+| I Analysis                    | What is?                         | Describes, classifies             |
+| II Explanation                | What is, how, why?               | Explains, no testable predictions |
+| III Prediction                | What will be?                    | Predicts without explaining why   |
+| IV Explanation and prediction | What is, how, why, what will be? | Testable propositions, causal     |
+| V Design and action           | How to do something?             | Prescribes methods, principles    |
+
+: Gregor's five types of theory [@gregor2006nature] {#tbl-gregor-recap}
+
+:::notes
+[What is Theory](../theory/) introduced the five types of theory that @gregor2006nature distinguishes by the questions they answer. Your target theory type is one of the three decisions the alignment matrix checks.
+:::
+
+## Alignment Matrix
+
+Question type, target theory type, and review type form one decision.
+
+| Question type                 | Target theory type                    | Fitting review types                                                                |
+|-------------------------------|---------------------------------------|-------------------------------------------------------------------------------------|
+| What / who / where?           | I Analysis                            | Mapping / descriptive, scoping                                                      |
+| How / why?                    | II Explanation                        | Theoretical, qualitative systematic, realist                                        |
+| How strongly does X affect Y? | III / IV (Explanation and) prediction | Meta-analysis if comparable quantitative studies exist, else qualitative systematic |
+| How should we ...?            | V Design and action                   | Qualitative systematic or multivocal review surfacing design principles             |
+
+: Aligning question type, target theory type, and review type {#tbl-alignment}
+
+:::fragment
+Heuristics: justify your alignment in writing.
 :::
 
 :::notes
-You have already made two of the three decisions this alignment exercise checks:
+Two of the three decisions are already made:
 
-- **Question type**, from [Research Question](../questions/): a "what/who/where" question, or a "how/why" question?
-- **Theory type**, from [What is Theory](../theory/): which of Gregor's five types does your question aim at?
+- **Question type,** from [Research Question](../questions/): a "what/who/where" question or a "how/why" question.
+- **Theory type,** from [What is Theory](../theory/): one of Gregor's five types.
 
-The third decision is today's: which review type actually produces an answer of the shape your question and theory type demand? A "what/who/where" question aiming at an analysis-type theory is usually well served by a scoping or descriptive review: you are mapping a landscape. A "how/why" question aiming at explanation-and-prediction usually needs a qualitative systematic review or, if enough comparable quantitative studies exist, a meta-analysis: you need to synthesize an explanation, which goes beyond mapping what exists. A question aiming at design-and-action needs a review that surfaces design principles across studies, which rarely fits a meta-analysis at all.
+The review type completes the alignment. A "what/who/where" question aiming at analysis requires a map of the literature, which mapping and scoping reviews produce. A "how/why" question aiming at explanation requires a synthesized explanation: a theoretical, qualitative systematic, or realist review. A question about the strength of an effect requires a meta-analysis if enough comparable quantitative studies exist, and a qualitative systematic review otherwise. A question aiming at design and action requires design principles distilled across studies, which qualitative systematic and multivocal reviews provide, often with practitioner sources.
+
+The matrix offers heuristics. Justify the cell you choose in writing, in the *Review Type and Goal* section of your protocol.
 :::
 
-## Classification Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
+## Exercise: Five Reviews {.unlisted .unnumbered .html-hidden .discussion-slide}
 
-Classify each description below into one of the eight families.
+Each team works with one of five published reviews throughout the SLR units.
 
-::: incremental
-1. A review mapping the range of AI-agent security frameworks published since 2023, without judging their quality.
-2. A review pooling effect sizes from eleven randomized experiments on chatbot-induced disclosure to estimate one aggregate effect.
-3. A review reconciling five prior reviews of remote-work productivity that disagree with each other.
-4. A review exposing where existing measures of "digital trust" conflate three different constructs.
-5. A review explaining, across contexts, when algorithmic management helps and when it backfires.
-:::
-
-{{< countdown "15:00" top="0">}}
+- **A** @martinez2022software: Software engineering for AI-based systems
+- **B** @rajapakse2022challenges: Challenges and solutions when adopting DevSecOps
+- **C** @heyder2023ethical: Ethical management of human-AI interaction
+- **D** @king2006meta: A meta-analysis of the technology acceptance model
+- **E** @garousi2016when: When and what to automate in software testing
 
 :::notes
-Suggested mapping: (1) descriptive or mapping review, activity counted rather than judged; (2) meta-analysis, comparable quantitative studies pooled into one effect; (3) umbrella review, reviews synthesized rather than primary studies; (4) critical review, a conceptual weakness exposed rather than findings summarized; (5) realist review, a context-dependent mechanism rather than a single effect.
+Each team works with one of five published reviews throughout the SLR units: you dissect its question and type in this unit, reconstruct its search in [SLR II: Search Strategy](../slr-strategy/), and compare its screening, appraisal, and synthesis with your own plan in the units after that. Teams working on the same review form one group in the cross-team discussion.
 
-The exercise makes the difference between mapping, pooling, judging, and explaining concrete before the alignment exercise asks teams to justify their own choice. Real proposals sometimes sit between two families; surface that ambiguity in the debrief rather than resolving it by force.
+The five reviews cover the range of the typology, from software engineering and information systems: a mapping study, a qualitative systematic review, a theoretical review, a meta-analysis, and a multivocal review.
 :::
 
-## Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
+## Exercise: Tasks {.unlisted .unnumbered .html-hidden .discussion-slide}
 
-As a team, place your own project in the matrix.
+As a team, dissect your assigned review.
 
-::: incremental
-1. State your question type (what/who/where vs. how/why).
-2. State your target theory type (Gregor's five).
-3. Propose a review type from the typology, and write two sentences justifying why that cell, and not a more familiar-sounding alternative, actually fits.
+1. **Research question(s):** quote them. If they are implicit, reconstruct them and say so.
+2. **Question type:** what / who / where, or how / why?
+3. **Target theory type:** Gregor I to V, with one sentence of evidence from the paper.
+4. **Review type:** in Kitchenham's and in Paré's terms. Does the label the authors use match?
+
+:::fragment
+Keep one page of notes; you need it for the alignment exercise and the cross-team discussion.
 :::
 
-{{< countdown "20:00" top="0">}}
+{{< countdown "30:00" top="0">}}
 
 :::notes
-Debrief: ask at least one team to explain why they did *not* choose a standard qualitative systematic review, the default most teams reach for. A team that can articulate why their specific question is better served by a scoping or critical review has understood the exercise. A team that picked "systematic review" because that is what "SLR I to IV" in this module's unit titles seems to imply has not, and should revisit this decision before committing eleven more weeks to it.
+Model answers (our reading; teams may contest them with evidence from the paper):
+
+- **A** @martinez2022software: Which SE approaches for AI-based systems have been studied, in which SE areas, and with which characteristics and challenges? (paraphrased). What / where; Gregor I; Kitchenham mapping study, Paré descriptive review. The authors call it a survey.
+- **B** @rajapakse2022challenges: What challenges arise when adopting DevSecOps, and which solutions have been proposed? (paraphrased). What, drifting towards how; Gregor I tending towards II; qualitative systematic review in both vocabularies.
+- **C** @heyder2023ethical: "How can we understand and explain ethical management of human-AI interaction?", with sub-questions for AI interacting with humans and humans interacting with AI. How / why; Gregor II; no Kitchenham counterpart, Paré theoretical review (the authors cite Paré explicitly).
+- **D** @king2006meta: How strong are the relationships in TAM across studies, and do user and usage types moderate them? (paraphrased). How strongly; Gregor IV; Kitchenham quantitative systematic review, Paré meta-analysis.
+- **E** @garousi2016when: When and what should be automated in software testing? (from the title). How should we; Gregor V; Kitchenham multivocal literature review (SE extension), no Paré counterpart, closest is a qualitative systematic review.
 :::
 
 # Scope Decisions {.headline-only}
 
 ## Six Silent Decisions {.no-headline .vertical-center}
 
-:::medium
+:::large
 Two reviews of the same topic, both called "systematic," can disagree on everything except the topic.
 :::
 
 :::notes
-By this point in the session you have picked a review type and checked that it aligns with your question type and target theory type. Neither decision fixes what the review actually centers on, what it sets out to accomplish, how its synthesis is organized, whose side it takes, who reads it, or how much of the literature it claims to cover. Those six decisions sit underneath the review type, not inside it, and a protocol that skips them looks complete right up until two authors on the same team discover, mid-draft, that they each assumed a different answer.
+Question type, theory type, and review type leave six decisions open: what the review centers on, what it is for, how its synthesis is organized, whose side it takes, who reads it, and how much of the literature it claims to cover. Teams that leave these decisions implicit often find out mid-draft that each author assumed a different answer.
 :::
 
 ## Cooper's Taxonomy
 
-:::medium
-**Cooper's (1988) taxonomy** fixes a review's scope along six independent dimensions.
-:::
-
-:::notes
-@cooper1988organizing built the taxonomy to name exactly what a review's type and topic leave open: what it centers on, what it sets out to accomplish, how it is organized, whose side it takes, who it addresses, and how much of the literature it claims to cover. The [Review Protocol](../assignment/) you submit at the end of this phase asks for exactly these six decisions, one line and one argued rationale per dimension.
-:::
-
-## Six Dimensions
-
-:::html-hidden
-::: incremental
-- **Focus,** what the review centers on: research findings, methods, theories, or applications.
-- **Goal,** what the review sets out to accomplish: integrating findings, critiquing existing work, or naming a field's central issues.
-- **Organization,** how the synthesis is structured: historical, conceptual, or methodological.
-- **Perspective,** the reviewer's stance toward the literature: a neutral account, or an argued position.
-- **Audience,** who the review addresses: specialized researchers, general scholars, practitioners, or the public.
-- **Coverage,** how the search samples the literature: exhaustive, exhaustive with selective citation, representative, or limited to central, pivotal works.
-:::
-:::
-
-:::notes
-**Focus** names what the review is actually about: empirical findings, the methods used to produce them, the theories mobilized, or applications built from prior work. A review can hold two focuses at once, findings and theories together, but naming the primary one keeps the synthesis from drifting toward whichever is easiest to summarize.
-
-**Goal** names what the synthesis is for: integrating scattered findings into one account, critiquing the quality or coherence of existing work, or identifying the central issues a field has not yet resolved. Goal shapes what counts as a good synthesis paragraph: an integration goal rewards reconciling disagreement, a critical goal rewards exposing it.
-
-**Organization** names the structural logic the write-up follows: historical, tracing a field's development over time; conceptual, structured around themes or constructs; or methodological, structured around how studies were conducted. @webster2002analyzing's concept-centric structure, covered fully in [SLR IV: Analysis and Synthesis](../slr-synthesis/), is a specific and strongly preferred case of a conceptual Organization.
-
-**Perspective** names whether the review represents the literature's disagreements neutrally or argues for one position within them. Both are legitimate. Perspective must be stated, not left implicit; a review that reads as an argument while presenting itself as a neutral survey misleads a reader about what kind of document they are holding.
-
-**Audience** names who the write-up is for, specialized researchers already fluent in the field's vocabulary, general scholars outside it, practitioners, or a broader public, and it governs vocabulary, the depth of methodological detail reported, and which findings are worth foregrounding.
-
-**Coverage** names how much of the literature the search claims to represent: exhaustive, every relevant study found and reported; exhaustive with selective citation, every relevant study found but only a representative subset cited; representative, a deliberate sample standing in for a larger body; or central and pivotal, only the field's most influential works. Coverage is the dimension [SLR II: Search Strategy and Protocol](../slr-strategy/) has to actually deliver on, not just the dimension your protocol claims in a table cell.
-
-The six dimensions are independent. Fixing Focus tells a reader nothing about Perspective, and the review type you argued for earlier tells a reader nothing about Audience. A protocol that answers all six, one line and one rationale each, turns "we did a systematic review" into a specific, checkable claim.
-:::
-
-## Worked Example: Scope Decisions
-
-[**Focus**]{.h4}
-
-Research outcomes: what the empirical literature reports about algorithmic management's effect on worker autonomy.
-
-[**Goal**]{.h4}
-
-Integration: findings on this effect currently sit scattered across gig-economy labor studies, human-computer interaction, and platform governance research.
-
-[**Organization**]{.h4}
-
-Conceptual: structured around the mechanisms behind the effect (task allocation, rating systems, deactivation risk), not around publication year.
-
-[**Perspective**]{.h4}
-
-Neutral representation: mapping what the evidence shows for and against worker autonomy, without arguing that algorithmic management should be restricted.
-
-[**Audience**]{.h4}
-
-IS researchers studying platform work, and practitioners who design task-assignment algorithms.
-
-[**Coverage**]{.h4}
-
-Exhaustive with selective citation: search broadly across IS, HCI, and labor-relations venues, but cite representative studies per mechanism rather than every hit returned.
-
-*Keep the same Focus and Goal, but switch Perspective to an argued position and Audience to practitioners only, and the review changes shape entirely, while still covering the same corpus of algorithmic-management studies.*
-
-## Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
-
-As a team, fix your review's scope along Cooper's six dimensions.
+:::: html-hidden
+@cooper1988organizing fixes a review's scope along six independent dimensions.
 
 ::: incremental
-1. State your Focus, Goal, Organization, Perspective, Audience, and Coverage in one phrase each.
-2. For Coverage specifically, write one sentence arguing your choice against the alternative you did not pick.
-3. Check your Coverage claim against the review type you argued for earlier: does that review type actually support the coverage you just wrote down?
+- **Focus,** what the review centers on: research outcomes, methods, theories, or practices and applications.
+- **Goal,** what the synthesis is for: integration, criticism, or identification of central issues.
+- **Organization,** the structural logic: historical, conceptual, or methodological.
+- **Perspective,** the stance toward the literature: neutral representation or espousal of a position.
+- **Audience,** who reads it: specialized researchers, general scholars, practitioners, or the public.
+- **Coverage,** how much literature: exhaustive, exhaustive with selective citation, representative, or central and pivotal.
 :::
-
-{{< countdown "15:00" top="0">}}
+::::
 
 :::notes
-Debrief: ask one team to read out their Coverage decision and its rationale. A team claiming "exhaustive" coverage without a backward-and-forward search plan yet, the subject of next session's [SLR II: Search Strategy and Protocol](../slr-strategy/), has written an aspiration rather than a decision. A team pairing "central, pivotal works" coverage with a qualitative systematic review, a review type that promises comprehensiveness, has a mismatch between review type and scope worth resolving now, before it becomes a reviewer's comment on the protocol.
+@cooper1988organizing developed the taxonomy to make explicit what a review's type and topic leave open. The *Scope of the Review* section of your [Review Protocol](../assignment/) asks for one line and one argued rationale per dimension.
+
+**Focus** names the material the review is about: empirical findings, the methods used to produce them, the theories mobilized, or practices and applications. A review can combine two focuses, such as findings and theories; naming the primary one keeps the synthesis on track.
+
+**Goal** names what the synthesis is for: integrating scattered findings into one account, criticizing the quality or coherence of existing work, or identifying the central issues a field has not yet resolved. An integration goal rewards reconciling conflicting findings; a critical goal rewards exposing them.
+
+**Organization** names the structure of the write-up: historical, tracing a field's development over time; conceptual, structured around themes or constructs; or methodological, structured around how studies were conducted. The concept-centric structure of @webster2002analyzing, covered in [SLR IV: Analysis and Synthesis](../slr-synthesis/), is the preferred form of conceptual organization in IS.
+
+**Perspective** names whether the review represents the literature's positions neutrally or argues for one of them. Both are legitimate, provided the choice is stated. A review that argues a position while presenting itself as neutral misleads its readers.
+
+**Audience** names the readers: specialized researchers fluent in the field's vocabulary, general scholars outside it, practitioners, or the public. The audience determines vocabulary, the depth of methodological detail, and which findings to foreground.
+
+**Coverage** names how much of the literature the search claims to represent: exhaustive, every relevant study found and reported; exhaustive with selective citation, every relevant study found and a representative subset cited; representative, a deliberate sample standing in for a larger body; or central and pivotal, only the field's most influential works. [SLR II: Search Strategy](../slr-strategy/) has to deliver the coverage you claim here.
+
+The six dimensions are independent: Focus says nothing about Perspective, and the review type says nothing about Audience. One line plus one argued rationale per dimension turns "we did a systematic review" into a specific, checkable claim.
 :::
 
-# Question Framing {.headline-only}
+## Example: Digital Innovation {.smaller}
 
-## A Vague Question {.no-headline .vertical-center}
+@hund2021digital review 227 articles to answer two questions: what constitutes digital innovation and distinguishes it from traditional innovation, and which themes and research avenues run across disciplines?
 
-:::medium
-"How does AI affect the workplace" is not yet a question a review can search on.
-:::
+Focus
+: Theories and research outcomes: existing conceptualizations of digital innovation and the findings of eight disciplines on it.
+
+Goal
+: Integration: a new definition and a common framework for a field fragmented across disciplines; plus identification of central issues in two avenues for future research.
+
+Organization
+: Conceptual: a multi-layered model (digital object, digital technology, digital innovation) and five themes from grounded-theory coding: redefinition of boundaries, digital systems, digital innovation strategy, organizational determinants, arising tensions.
+
+Perspective
+: Espousal of a position: the review proposes a "novel perspective" that reframes digital innovation as sociotechnical.
+
+Audience
+: Specialized researchers across IS, strategy, innovation, marketing, and economics who need a shared vocabulary.
+
+Coverage
+: Exhaustive with selective citation within 54 highly ranked journals from eight subject areas, no time limit, extended by backward and forward search.
 
 :::notes
-A sentence can sound like a research question and still be too fuzzy to search on: which AI systems, affecting whom, compared to what, in which setting? PICOC decomposition pulls those parts apart before search begins, so the search string, the inclusion criteria, and the eventual write-up all answer the same specific question rather than three slightly different ones.
+@hund2021digital label their review a broad theorizing review, following @leidner2018review, and use the grounded-theory approach of @wolfswinkel2013using with five stages: define, search, select, analyze, present. In Paré's terms, this is a theoretical review.
+
+The method section documents the corpus step by step. The authors selected 54 journals from eight subject areas using the Journal Quality List meta-ranking and searched them for "digital" AND "innovation" in title, abstract, and keywords, without a time limit. The search returned 423 articles. They removed 19 duplicates, book reviews, and calls for papers, excluded 267 articles after screening titles and abstracts, and added 90 articles through backward and forward search, for a final sample of 227. All four authors coded 20 articles independently and agreed on open codes in a joint workshop; the first author coded the remaining articles, and a second workshop performed selective coding until theoretical saturation.
+
+Two dimensions invite discussion. **Perspective:** the authors state their position openly ("perspectival theorizing," a "novel perspective" focusing on the sociotechnical nature of digital innovation), which makes the review a clear case of espousal. **Coverage:** the search is exhaustive for the 54 journals, but the quality threshold excludes everything outside them, including conferences. Some readers will classify this as central and pivotal coverage. The protocol has to state which reading applies and why, since the claim determines what the search must deliver.
+
+The paper is open access at <https://doi.org/10.1016/j.jsis.2021.101695>. [Paper Structure](../structure/) uses the same review as an example of how to report a review.
 :::
 
-## PICOC
+## Exercise: Alignment {.unlisted .unnumbered .html-hidden .discussion-slide}
 
-:::medium
-**PICOC** breaks a fuzzy question into five parts a search can act on.
-:::
+As a team, check and scope your assigned review.
+
+1. Check the alignment of your assigned review: do question type, target theory type, and review type fit?
+2. If not, rewrite the research question so that it fits the chosen review type.
+3. Answer Cooper's six dimensions for your review: one line and one rationale each.
+
+{{< countdown "25:00" top="0">}}
 
 :::notes
-PICOC, Population, Intervention, Comparison, Outcome, Context, originated in evidence-based medicine as a way to structure a clinical question before searching the literature for an answer. @petticrew2006systematic adapt the same decomposition for social-science and management reviews, and IS reviews use it the same way, to sharpen a review's guiding question before search begins.
+Model answers for the scope (our reading):
+
+- **A** @martinez2022software: research outcomes and methods; identification of central issues (where research concentrates, where gaps lie); conceptual by SWEBOK knowledge areas, with a historical trend analysis; neutral; SE researchers first, practitioners second; exhaustive with selective citation within peer-reviewed studies 2010 to 2020 (248 primary studies).
+- **B** @rajapakse2022challenges: research outcomes about practice; integration of 21 challenges and 31 solutions from 54 studies plus identification of unsolved challenges; conceptual by people, practices, tools, infrastructure; largely neutral, although the framing presumes DevSecOps adoption is desirable (is an unquestioned premise already a perspective?); researchers and practitioners; exhaustive within peer-reviewed literature, grey literature excluded, a notable choice for a practice-driven topic.
+- **C** @heyder2023ethical: theories (duty and virtue ethics, sociomateriality) applied to practices; integration toward theory development plus seven research avenues; conceptual by a deductive framework, closest of the five to a concept-centric structure; espousal of a sociomaterial position; specialized IS and strategy researchers; exhaustive within ranked scholarly outlets.
+- **D** @king2006meta: research outcomes (strength of TAM relationships); integration of effect sizes from 88 studies with moderator analysis; conceptual by TAM relationships, arguably methodological; formally neutral but implicitly confirmatory; specialized IS researchers; intended exhaustive, but documented too thinly to verify.
+- **E** @garousi2016when: practices and applications (factors for test-automation decisions); integration into decision support plus open issues; conceptual by factor categories; neutral in intent, although weighting practitioner voices equally with academic ones is a practice-oriented stance; practitioners first; close to exhaustive for formal literature, necessarily representative for grey literature (78 sources in total).
 :::
 
-## Five Elements
+## Exercise: Cross-Team Discussion {.unlisted .unnumbered .html-hidden .discussion-slide}
 
-:::html-hidden
+Teams working on the same review meet.
+
+1. Compare your answers from the tasks and the alignment exercise.
+2. Where do you disagree, and what in the paper causes the disagreement?
+3. Agree on one point to present in plenary.
+
+{{< countdown "20:00" top="0">}}
+
+:::notes
+The most productive disagreements usually concern Perspective, since B, D, and E present themselves as neutral while carrying an implicit stance, and Coverage, since C and E are exhaustive only for a subpopulation of the literature. Ask each group to point to the passage in the paper that causes its disagreement. Implicit scope decisions lead readers to reconstruct them differently, which is the reason the protocol asks for them explicitly.
+:::
+
+## Exercise: Reveal {.unlisted .unnumbered .html-hidden}
+
+Our reading of the five reviews; contest it with evidence from the paper.
+
+|   | Review                   | Review type        | Gregor  |
+|-----|----------------------|--------------------|---------|
+| A | @martinez2022software    | Mapping study      | I       |
+| B | @rajapakse2022challenges | Qualitative SR     | I to II |
+| C | @heyder2023ethical       | Theoretical review | II      |
+| D | @king2006meta            | Meta-analysis      | IV      |
+| E | @garousi2016when         | Multivocal review  | V       |
+
+: Five reviews, five review types; our reading, contest it with evidence from the paper {#tbl-reveal-reviews}
+
+# Review Protocol {.headline-only}
+
+## Plan Before Searching
+
+:::: html-hidden
+A protocol fixes every decision before the search begins [@kitchenham2007guidelines].
+
 ::: incremental
-- **Population,** the unit or phenomenon the review is about: employees, development teams, organizations.
-- **Intervention,** the technology, practice, or condition whose effect or role is under review.
-- **Comparison,** the baseline or alternative condition the intervention is read against, if any.
-- **Outcome,** the effect, behavior, or state the review is trying to explain or map.
-- **Context,** the setting that bounds the review: an industry, a national context, a time period.
+- **Purpose:** keeps the researchers' expectations from steering selection and analysis.
+- **Timing:** written before the search, revised only on the record.
+- **Revision log:** every change with date, section, and reason.
+- **Role in this course:** takes the place of public registration, which is still uncommon in SE and IS.
 :::
-:::
+::::
 
 :::notes
-- **Population:** the unit or phenomenon the review is about, employees, development teams, organizations, individual users.
-- **Intervention:** the technology, practice, or condition whose effect or role the review examines.
-- **Comparison:** the baseline or alternative condition the intervention is read against; not every review needs one.
-- **Outcome:** the effect, behavior, or state the review is trying to explain, predict, or map.
-- **Context:** the setting that bounds the review, an industry, a national context, a time period, an organizational size class.
+Without a protocol, the selection of studies and their analysis can be driven by the researchers' expectations [@kitchenham2007guidelines]. A protocol written before the search, with every later change recorded in a revision log, makes a review checkable. Some disciplines require public registration of protocols before a review starts; in software engineering and IS registration is still uncommon, and the protocol you submit in this course takes that role.
 
-Not every review fills in all five elements. A scoping review, for instance, may carry no comparison at all, because it maps a landscape rather than testing an effect. The decomposition earns its value by forcing the question into specific parts, whether or not every slot ends up filled.
+@kitchenham2007guidelines list twelve protocol elements: background and justification, research questions, eligibility criteria, search process, selection process, data definition and extraction, data synthesis, critical appraisal (risk of bias), strength of evidence, timetable and staffing, evaluation of protocol and results, and dissemination and reporting. The course template condenses them into ten sections.
 :::
 
-## Worked Example: Algorithmic Management
+## Protocol Sections
 
-[**Population**]{.h4}
+The Review Protocol template has ten sections, prepared unit by unit.
 
-Gig-economy platform workers.
+| Protocol section                                         | Unit    |
+|----------------------------------------------------------|---------|
+| Background and Rationale                                 | SLR I   |
+| Review Question                                          | SLR I   |
+| Review Type and Goal                                     | SLR I   |
+| Scope of the Review                                      | SLR I   |
+| Search Strategy                                          | SLR II  |
+| Screening Criteria, Selection Process, Quality Appraisal | SLR III |
+| Data Extraction and Coding, Data Synthesis               | SLR IV  |
 
-[**Intervention**]{.h4}
+: Sections of the Review Protocol template and the units that prepare them {#tbl-protocol-sections}
 
-Algorithmic task assignment and performance monitoring.
+:::notes
+The SLR process has three phases [@kitchenham2007guidelines]: **planning,** which covers the need for a review, the research questions, the scope, and the protocol; **conducting,** which covers search, selection, appraisal, extraction, and synthesis; and **reporting.** SLR I and SLR II cover planning, SLR II to SLR IV cover conducting, and [Paper Structure](../structure/) covers reporting.
 
-[**Comparison**]{.h4}
+The homework for this unit covers the first four sections. A draft of the complete protocol is due for [Peer-Review Workshop II](../peer-review-2/), where another team tests whether it can be executed without your help.
+:::
 
-Human-supervised task assignment.
+## Special Cases
 
-[**Outcome**]{.h4}
-
-Worker autonomy and job satisfaction.
-
-[**Context**]{.h4}
-
-Ride-hailing and delivery platforms, since 2020.
-
-*The fuzzy version, "how does algorithmic management affect workers," could support almost any search string. The PICOC version tells a search which terms to combine, and tells a reader, before they open the review, what kind of answer to expect.*
-
-## Exercise {.unlisted .unnumbered .html-hidden .discussion-slide}
-
-As a team, decompose your own research question into PICOC.
+Three situations require an explicit adaptation of the standard review process.
 
 ::: incremental
-1. Write out your Population, Intervention, Comparison (if any), Outcome, and Context in one phrase each.
-2. Check whether your current draft research question actually mentions every element you just wrote down.
-3. Revise the question so it does.
+- **Own studies:** organize selection, appraisal, and extraction so that nobody appraises their own work.
+- **Related reviews:** if reviews or mapping studies on your topic already exist, specify how you use them.
+- **Multi-study papers:** if one article reports several empirical studies, define how you identify and count them.
 :::
 
-{{< countdown "10:00" top="0">}}
-
 :::notes
-Debrief: ask one team to read out their five phrases, then their current draft question, side by side. An element present in the PICOC breakdown but missing from the sentence is usually exactly the ambiguity a reader would trip on first.
+The EBSE guidelines name three cases in which the standard process needs adapting. If team members authored candidate studies, the protocol assigns the selection, risk-of-bias assessment, and extraction of those studies to someone else. If systematic reviews or mapping studies on your topic already exist, the protocol states how you use them: as a source of primary studies, as a test set for your search, or as a point of comparison. If an article reports several studies, a systematic review usually counts each study separately, while a mapping study usually counts the article. The protocol states any such adaptation explicitly.
+
+Most teams meet the second case: the *Background and Rationale* section of the template asks you to name existing reviews and explain how you use them.
 :::
 
 # Homework
 
 :::medium
-Write your review type decision.
+Draft the first four sections of your Review Protocol.
 :::
 
-Argue your review type, the knowledge goal it is meant to serve, and how it aligns with your question type and target theory type.
+Use the [Review Protocol](../assignment/) template, at most two pages for these sections:
 
-State your scope decision along @cooper1988organizing's six dimensions, Focus, Goal, Organization, Perspective, Audience, and Coverage, one phrase per dimension, with a rationale that argues the choice rather than filling in the cell.
+1. **Background and Rationale:** your topic and why a review is needed now; related existing reviews and how you use them.
+2. **Review Question:** your research question(s), classified by question type and target theory type.
+3. **Review Type and Goal:** your chosen review type, named in an established typology, and a written alignment rationale.
+4. **Scope of the Review:** @cooper1988organizing's six dimensions, one line and one argued rationale each.
+
+Guiding questions:
+
+1. What does a good answer to your research question look like: a map, an effect size, an explanation, or design principles?
+2. Which cell of the alignment matrix does your project sit in, and why does the neighboring cell fit less well?
+3. Does the Coverage you claim fit the review type you chose, and can a search deliver it?
+4. Which existing reviews on your topic did you find, and what does your review add to them?
 
 # Q&A {.vertical-center .html-hidden .headline-only}
 
