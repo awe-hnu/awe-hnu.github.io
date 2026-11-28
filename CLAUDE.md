@@ -14,6 +14,7 @@ Topical guides (load as needed):
 - @.claude/lecture-style/04-dual-format.md
 - @.claude/lecture-style/05-anti-patterns.md
 - @.claude/lecture-style/06-open-questions.md
+- @.claude/lecture-style/07-editorial-migration.md (checklist for switching a course to the editorial slide theme)
 
 ## Rendering
 

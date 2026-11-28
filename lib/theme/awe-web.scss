@@ -1,0 +1,1382 @@
+/*
+  awe-web — website (HTML wiki) template, layered on top of awe.scss.
+  Same fonts and highlight colour as the editorial slide theme
+  (awe-editorial.scss) on a white page: top bar (title left, search
+  centred, buttons right), Quarto's page grid (navigation left, article
+  centred), title block with subtitle label, author bar and action
+  buttons, TOC in the body.
+
+  Opt-in per course (e.g. lectures/APW/26WT/_metadata.yml):
+
+    format:
+      html:
+        theme: [<root>/lib/theme/awe-web.scss]   # added to none + awe.scss
+        toc-location: body
+        title-block-banner: false
+        include-after-body: <root>/lib/theme/awe-web.html
+        filters: [<root>/lib/filter/slides-link.lua]
+
+  Type system (enforced over awe.scss, which sets bold 700 / headings 300):
+    13px       labels: subtitle, nav groups, "On this page", captions,
+               author-bar labels
+    16px       interface: navigation, author bar, TOC, buttons, search,
+               tables, footer
+    20px       body text, quotes; h3 (weight 500)
+    30px       h2 (weight 500)
+    38px       h1 (section headings, weight 500)
+    84px       page title (scales down to 42px on narrow screens)
+  No heading is smaller than the body text.
+  Weights: 400 text; 500 bold, h1, h2, h3, title, site title, table
+  headers, current page.
+  Spacing scale: 8 · 16 · 24 · 32 · 48 · 64.
+*/
+
+/*-- scss:defaults --*/
+
+$web-page: #FFFFFF !default;     // page background (white, as on Medium)
+$web-ink: #121212 !default;
+$web-muted: #6B6B67 !default;
+$web-highlight: #16CAF7 !default;
+$web-field: #F2F2F0 !default;    // search field, callouts, search panel
+$web-mark: #E6E6E2 !default;     // marker underlay (.highlight, mark), a step darker than the field
+// dark version (html[data-theme="dark"])
+$web-page-dark: #121212 !default;
+$web-ink-dark: #EDEDEA !default;
+$web-muted-dark: #9B9B96 !default;
+$web-field-dark: #1F1F1E !default;
+$web-mark-dark: #34342F !default;
+// info icon (filled circle) for note callouts, used as a mask
+$web-icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 10.75C12.4142 10.75 12.75 11.0858 12.75 11.5V16.5C12.75 16.9142 12.4142 17.25 12 17.25C11.5858 17.25 11.25 16.9142 11.25 16.5V11.5C11.25 11.0858 11.5858 10.75 12 10.75ZM12.5675 8.00075C12.8446 7.69287 12.8196 7.21865 12.5117 6.94156C12.2038 6.66446 11.7296 6.68942 11.4525 6.99731L11.4425 7.00842C11.1654 7.3163 11.1904 7.79052 11.4983 8.06761C11.8062 8.34471 12.2804 8.31975 12.5575 8.01186L12.5675 8.00075Z'/%3E%3C/svg%3E") !default;
+
+$font-family-sans-serif: 'Switzer', 'basier_squareregular', sans-serif;
+$font-family-monospace: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+/*-- scss:rules --*/
+
+// layout
+$web-column: 680px;          // reading column (Medium: 680px, ~65-70 characters)
+$web-nav-width: 215px;       // fixed navigation (Medium: ~215px)
+$web-gutter: 24px;
+
+// type sizes (the only five sizes used) and line heights
+$t-label: 13px;
+$t-ui: 16px;
+$t-body: 20px;
+$t-h2: 30px;   // 24px + 25%
+$t-h1: 38px;   // 30px + 25%
+$t-title: 84px;
+$lh-label: 16px;
+$lh-ui: 24px;
+$lh-body: 32px;
+$lh-h2: 38px;
+$lh-h1: 46px;
+$lh-title: 88px;
+
+// weights (Switzer variable font)
+$w-text: 400;
+$w-bold: 550;     // <strong>/<b> and :::medium, a step above $w-strong
+$w-strong: 500;
+
+// spacing scale
+$s1: 8px;
+$s2: 16px;
+$s3: 24px;
+$s4: 32px;
+$s6: 48px;
+$s8: 64px;
+
+$web-mono: ui-monospace, SFMono-Regular, Menlo, monospace;   // code only
+$web-sans: 'Switzer', 'basier_squareregular', sans-serif;
+
+// Fonts: same files as the slides. Relative URLs like these are copied by
+// Quarto next to the compiled stylesheet (as with Basier Square in awe.scss).
+@font-face {
+  font-family: 'Switzer';
+  src: url('lib/fonts/switzer/Fonts/WEB/fonts/Switzer-Variable.woff2') format('woff2'),
+       url('lib/fonts/switzer/Fonts/WEB/fonts/Switzer-Variable.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('lib/fonts/switzer/Fonts/WEB/fonts/Switzer-VariableItalic.woff2') format('woff2'),
+       url('lib/fonts/switzer/Fonts/WEB/fonts/Switzer-VariableItalic.woff') format('woff');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// small labels in Switzer (no mono font on the website)
+@mixin web-label {
+  font-family: $web-sans !important;
+  font-size: $t-label !important;
+  line-height: $lh-label !important;
+  font-weight: $w-text !important;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@mixin web-ui {
+  font-family: $web-sans;
+  font-size: $t-ui !important;
+  line-height: $lh-ui !important;
+}
+
+@mixin web-dot($color: var(--awe-highlight)) {
+  content: "";
+  display: inline-block;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $color;
+}
+
+:root {
+  --awe-paper: #{$web-page};
+  --awe-ink: #{$web-ink};
+  --awe-muted: #{$web-muted};
+  --awe-highlight: #{$web-highlight};
+  --awe-field: #{$web-field};
+  --awe-mark: #{$web-mark};    // light grey marker on white
+  --awe-rule: color-mix(in srgb, var(--awe-ink) 12%, transparent);
+  color-scheme: light;
+}
+
+// dark version: set by lib/theme/awe-web-head.html (system setting or the
+// navbar toggle); every colour of the template derives from these tokens
+:root[data-theme="dark"] {
+  --awe-paper: #{$web-page-dark};
+  --awe-ink: #{$web-ink-dark};
+  --awe-muted: #{$web-muted-dark};
+  --awe-field: #{$web-field-dark};
+  --awe-mark: #{$web-mark-dark};
+  color-scheme: dark;
+}
+
+// ---------------------------------------------------------------------------
+// Canvas and base type
+// ---------------------------------------------------------------------------
+
+body {
+  background: var(--awe-paper);
+  color: var(--awe-ink);
+  font-family: $web-sans;
+  font-weight: $w-text;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4 {
+  font-family: $web-sans !important;
+  color: var(--awe-ink);
+  letter-spacing: 0 !important;
+}
+
+// awe.scss sets bold to 700; bold text a little heavier than headings
+strong, b,
+main#quarto-document-content strong,
+main#quarto-document-content b {
+  font-weight: $w-bold !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--awe-highlight);
+  // relative to the font size: 1px in the reference list (13.5px),
+  // 1.5px in body text (20px)
+  text-decoration-thickness: max(1px, .075em);
+  text-underline-offset: .22em;
+
+  &:hover {
+    color: var(--awe-ink);
+    text-decoration-color: var(--awe-ink);
+  }
+}
+
+code, pre, kbd {
+  font-family: $web-mono;
+}
+
+// inline and block code slightly smaller than the surrounding text
+code,
+main#quarto-document-content code {
+  font-size: .9em !important;
+}
+
+// code backgrounds from the tokens (awe.scss: fixed light grey): inline
+// code in the marker tone, code blocks in the field tone
+main#quarto-document-content code {
+  background-color: var(--awe-mark) !important;
+  color: var(--awe-ink);
+}
+
+main#quarto-document-content pre,
+main#quarto-document-content div.sourceCode,
+main#quarto-document-content pre code {
+  background-color: var(--awe-field) !important;
+}
+
+// rounded corners: inline code small, code blocks like the search panel
+main#quarto-document-content :not(pre) > code {
+  border-radius: 6px !important;
+}
+
+main#quarto-document-content pre,
+main#quarto-document-content div.sourceCode {
+  border-radius: 12px !important;
+}
+
+// marker underlay in the bold weight (as on the slides)
+.highlight,
+mark {
+  background: linear-gradient(transparent 58%, var(--awe-mark) 58%);
+  color: inherit;
+  font-weight: $w-bold;
+}
+
+// citations: same size as the text, muted
+.citation,
+.citation a {
+  font-size: inherit !important;
+  color: var(--awe-muted);
+  text-decoration: none;
+}
+
+// ---------------------------------------------------------------------------
+// Layout: Quarto's original page grid (sidebar left, article centred); the
+// right margin column stays empty because TOC and margin header live in the
+// body.
+// ---------------------------------------------------------------------------
+
+#quarto-content,
+#quarto-content.page-columns,
+main#quarto-document-content .page-columns,
+main#quarto-document-content #title-block-header {
+  background: transparent !important;
+}
+
+#quarto-margin-sidebar .quarto-margin-header,
+#quarto-margin-sidebar #TOC {
+  display: none;
+}
+
+// Page grid (same line names as Quarto, so its column classes keep working):
+// sidebar 313px (25% wider than Quarto's 250px), article up to 680px,
+// 64px between them. From 1280px a margin column of up to 313px keeps the
+// article centred; below 1280px the margin column is dropped. Below 992px
+// Quarto's mobile layout (navigation as menu) applies unchanged.
+$web-sidebar: 313px;
+
+@media (min-width: 992px) {
+  #quarto-content.page-columns {
+    grid-template-columns:
+      [screen-start] minmax($web-gutter, 1fr)
+      [screen-start-inset page-start page-start-inset] $web-sidebar
+      [body-start-outset] 0
+      [body-start] $s8
+      [body-content-start] minmax(0, $web-column)
+      [body-content-end] $s8
+      [body-end body-end-outset page-end-inset page-end] 0
+      [screen-end-inset] minmax($web-gutter, 1fr)
+      [screen-end] !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  #quarto-content.page-columns {
+    grid-template-columns:
+      [screen-start] minmax($web-gutter, 1fr)
+      [screen-start-inset page-start page-start-inset] $web-sidebar
+      [body-start-outset] 0
+      [body-start] $s8
+      [body-content-start] minmax(0, $web-column)
+      [body-content-end] $s8
+      [body-end] 0
+      [body-end-outset] minmax(0, $web-sidebar)
+      [page-end-inset page-end] 0
+      [screen-end-inset] minmax($web-gutter, 1fr)
+      [screen-end] !important;
+  }
+}
+
+// pages with margin content (:::aside, .column-page-right, …) make the
+// article and its sections nested grids; awe.scss gives those its old
+// template, so they inherit the page grid's tracks instead
+@media (min-width: 992px) {
+  #quarto-document-content.page-columns,
+  #quarto-document-content .page-columns {
+    grid-template-columns: subgrid !important;
+  }
+}
+
+// without a margin column, margin and page-wide content stays in the article
+@media (min-width: 992px) and (max-width: 1279.98px) {
+  #quarto-document-content .column-margin,
+  #quarto-document-content aside,
+  #quarto-document-content [class*="column-page"],
+  #quarto-document-content [class*="column-screen"] {
+    grid-column: body-content-start / body-content-end !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Top bar: site title left (aligned with the navigation), search centred,
+// buttons right
+// ---------------------------------------------------------------------------
+
+#quarto-header,
+#quarto-header .navbar {
+  min-height: 57px;
+  background: var(--awe-paper) !important;
+  box-shadow: none;
+}
+
+#quarto-header {
+  border-bottom: 1px solid var(--awe-rule);
+}
+
+#quarto-header .navbar {
+  border-bottom: none !important;
+  // Quarto adds 45px side padding on small screens; the container's own
+  // 24px gutter is enough
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+#quarto-header .navbar-container,
+#quarto-header .container-fluid {
+  position: relative;
+  max-width: none !important;
+  padding-left: $web-gutter !important;
+  padding-right: $web-gutter !important;
+}
+
+// The navbar container is a CSS grid: absolutely positioned children with a
+// grid placement are positioned within their grid cell, so the placement is
+// reset to position them against the whole bar.
+#quarto-header .navbar-brand-container,
+#quarto-header #quarto-search {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  grid-area: auto !important;
+}
+
+// site title in line with the navigation's Home link (position measured by
+// awe-web.html; 24px on small screens without navigation)
+#quarto-header .navbar-brand-container {
+  position: absolute !important;
+  left: var(--awe-brand-left, #{$web-gutter}) !important;
+  right: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+
+#quarto-header .navbar-brand,
+#quarto-header .navbar-title {
+  margin: 0 !important;
+  color: var(--awe-ink) !important;
+  font-family: $web-sans;
+  font-size: $t-body !important;
+  font-weight: $w-strong !important;
+  text-decoration: none;
+}
+
+// black circle before the site title (the dot motif of the slides and
+// labels); it sits where the title starts, in line with the Home icon
+#quarto-header .navbar-brand {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 12px;
+
+  &::before {
+    @include web-dot(var(--awe-ink));
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// search field centred, rounded, light grey (Medium)
+#quarto-header #quarto-search {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: min(420px, 36vw) !important;
+  margin: 0 !important;
+}
+
+#quarto-header #quarto-search .aa-Autocomplete,
+#quarto-header #quarto-search .aa-Form {
+  width: 100% !important;
+}
+
+#quarto-header .aa-Form {
+  height: 40px;
+  border-radius: 999px;
+  background: var(--awe-field) !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+
+#quarto-header .aa-Form:focus-within {
+  border-color: var(--awe-ink) !important;
+}
+
+#quarto-header .aa-Input {
+  @include web-ui;
+  color: var(--awe-ink);
+}
+
+// magnifier in the muted text colour (Algolia: black)
+#quarto-header .aa-SubmitIcon {
+  color: var(--awe-muted) !important;
+  fill: currentColor !important;
+}
+
+// navbar links on the right as outlined round buttons
+#quarto-header .navbar-nav .nav-link {
+  @include web-ui;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  margin-left: $s1;
+  padding: 0 $s2 !important;
+  border: 1px solid var(--awe-ink) !important;
+  border-radius: 999px !important;
+  color: var(--awe-ink) !important;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--awe-ink);
+    color: var(--awe-paper) !important;
+  }
+
+  // Home: icon and label, no border; hover with the field tone
+  &.awe-nav-home {
+    gap: $s1;
+    padding: 0 $s1 !important;
+    border-color: transparent !important;
+
+    svg {
+      flex: none;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      background: var(--awe-field);
+      color: var(--awe-ink) !important;
+    }
+  }
+
+  // light/dark toggle (added by awe-web.html): round icon button, no border
+  &.awe-theme-toggle {
+    justify-content: center;
+    width: 32px;
+    padding: 0 !important;
+    border-color: transparent !important;
+    background: transparent;
+    cursor: pointer;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .awe-icon-sun { display: none; }
+
+    :root[data-theme="dark"] & {
+      .awe-icon-sun { display: block; }
+      .awe-icon-moon { display: none; }
+    }
+
+    &:hover {
+      background: var(--awe-field);
+      color: var(--awe-ink) !important;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Live search results panel: under the centred field, same width; type
+// scale and colours of the layout (no blue selection), page icon
+// ---------------------------------------------------------------------------
+
+.aa-Panel {
+  left: 50% !important;
+  transform: translateX(-50%);
+  width: min(420px, 36vw) !important;
+  max-width: calc(100vw - #{2 * $web-gutter}) !important;
+  margin-top: $s1 !important;
+  overflow: hidden;
+  background: var(--awe-field) !important;   // like the search field
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .06) !important;
+  font-family: $web-sans !important;
+  color: var(--awe-ink);
+
+  .search-result-header {
+    @include web-label;
+    background: transparent !important;
+    color: var(--awe-muted) !important;
+    padding: 12px $s2 $s1 $s2 !important;
+    border-bottom: 1px solid var(--awe-rule);
+  }
+
+  // every result row: transparent, ink text
+  .search-item,
+  .search-result-doc,
+  .search-result-doc-section,
+  .search-result-more,
+  .search-result-title-container,
+  .search-result-text-container,
+  .search-result-section,
+  .search-result-text,
+  .search-result-title {
+    background: transparent !important;
+    color: var(--awe-ink) !important;
+  }
+
+  .search-item {
+    padding-left: $s2 !important;
+    padding-right: $s2 !important;
+    border-bottom: 1px solid var(--awe-rule);
+  }
+
+  // selected result: white row on the grey panel (instead of the old blue)
+  .aa-Item[aria-selected="true"] .search-item,
+  .aa-Item[aria-selected="true"] .search-result-title-container,
+  .aa-Item[aria-selected="true"] .search-result-text-container,
+  .aa-Item[aria-selected="true"] .search-result-section,
+  .aa-Item[aria-selected="true"] .search-result-text {
+    background: var(--awe-paper) !important;
+    color: var(--awe-ink) !important;
+  }
+
+  .search-result-title {
+    font-size: $t-ui !important;
+    line-height: $lh-ui !important;
+    font-weight: $w-strong !important;
+  }
+
+  .search-result-section {
+    font-size: 14px !important;
+    line-height: 20px !important;
+    font-weight: $w-strong !important;
+  }
+
+  .search-result-text {
+    font-size: 14px !important;
+    line-height: 20px !important;
+    font-weight: $w-text !important;
+  }
+
+  .search-result-more {
+    @include web-label;
+    color: var(--awe-muted) !important;
+  }
+
+  mark.search-match {
+    background: linear-gradient(transparent 58%, color-mix(in srgb, var(--awe-highlight) 35%, transparent) 58%) !important;
+    color: inherit !important;
+    padding: 0;
+  }
+
+  // structure: icon + page title on one line; every match of that page
+  // indented to the start of the title text (16px gutter + 18px icon + 8px)
+  .search-result-title-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: $s1;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .search-result-title {
+    margin: 0 !important;
+  }
+
+  .search-result-doc .search-result-text-container {
+    margin-left: 0 !important;
+    padding-left: 26px !important;
+  }
+
+  .search-result-doc-section,
+  .search-result-more {
+    padding-left: 42px !important;
+  }
+
+  .search-result-section,
+  .search-result-text {
+    margin-left: 0 !important;
+  }
+
+  // page icon instead of Bootstrap's document glyph
+  .search-result-icon {
+    margin: 0 !important;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23121212' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z'/%3E%3Cpath d='M8 10L16 10'/%3E%3Cpath d='M8 18L16 18'/%3E%3Cpath d='M8 14L12 14'/%3E%3Cpath d='M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20'/%3E%3C/svg%3E") center / 18px 18px no-repeat;
+
+    :root[data-theme="dark"] & {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EDEDEA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z'/%3E%3Cpath d='M8 10L16 10'/%3E%3Cpath d='M8 18L16 18'/%3E%3Cpath d='M8 14L12 14'/%3E%3Cpath d='M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20'/%3E%3C/svg%3E");
+    }
+
+    &::before {
+      content: none !important;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Navigation on the left, with Home link (added by awe-web.html)
+// ---------------------------------------------------------------------------
+
+@media (min-width: 992px) {
+  #quarto-sidebar.sidebar {
+    padding-top: $s6;
+    padding-right: $s3;
+    border-right: 1px solid var(--awe-rule);
+  }
+}
+
+#quarto-sidebar,
+#quarto-sidebar .sidebar-menu-container,
+#quarto-sidebar .sidebar-item,
+#quarto-sidebar .sidebar-section {
+  background: var(--awe-paper) !important;
+}
+
+#quarto-sidebar {
+  font-family: $web-sans;
+
+  .sidebar-item a,
+  .sidebar-item-text,
+  .sidebar-link {
+    @include web-ui;
+    color: var(--awe-muted) !important;
+    font-weight: $w-text !important;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--awe-ink) !important;
+    }
+  }
+
+  // navigation entries: 2px above and below each, plus 4px below the
+  // item container
+  .sidebar-item {
+    margin: 0;
+    padding: 2px 0;
+  }
+
+  .sidebar-item-container {
+    margin-bottom: 4px;
+  }
+
+  // group labels (Admin, Lecture notes): mono labels
+  .sidebar-section > .sidebar-item-container .sidebar-item-text,
+  .sidebar-item-section > .sidebar-item-container .sidebar-item-text {
+    @include web-label;
+    color: var(--awe-muted) !important;
+  }
+
+  .sidebar-item-section {
+    margin-top: $s3;
+  }
+
+  // current page: dot in the highlight colour
+  .sidebar-link.active,
+  a.active {
+    color: var(--awe-ink) !important;
+    font-weight: $w-strong !important;
+    position: relative;
+
+    &::before {
+      @include web-dot;
+      position: absolute;
+      left: -14px;
+      top: 9px;
+    }
+  }
+}
+
+.awe-sidebar-title {
+  @include web-ui;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 $s3 0;
+  padding: 0 0 $s3 0;
+  border-bottom: 1px solid var(--awe-rule);
+  color: var(--awe-ink);
+
+  svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Title block: subtitle label, title, author bar (lines), action buttons
+// ---------------------------------------------------------------------------
+
+#title-block-header.quarto-title-block {
+  margin: $s6 0 $s4 0;
+
+  // subtitle first (as a label), then the title
+  .quarto-title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quarto-title .title,
+  h1.title {
+    font-family: $web-sans;
+    // twice the former 42px; scales down on narrow screens
+    font-size: clamp(42px, 6vw, #{$t-title}) !important;
+    line-height: 1.05 !important;
+    font-weight: $w-strong !important;
+    letter-spacing: -0.01em !important;
+    margin: 0 0 $s6 0 !important;   // title -> author bar: 48px
+    padding: 0;
+    border: none;
+  }
+
+  // subtitle like the running header on the slides: mono label with a dot
+  .subtitle,
+  .quarto-title .subtitle {
+    @include web-label;
+    order: -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--awe-ink);
+    margin: 0 0 $s2 0;
+
+    &::before {
+      @include web-dot;
+    }
+  }
+}
+
+// the original meta grid is replaced by the author bar (awe-web.html)
+.quarto-title-meta,
+#title-block-header .quarto-title-meta {
+  display: none !important;
+}
+
+// author bar: set like the navigation (16/24, mono labels), between lines
+.awe-meta {
+  @include web-ui;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: $s1 $s3;
+  padding: $s2 0;
+  margin: 0 0 $s3 0;
+  border-top: 1px solid var(--awe-rule);
+  border-bottom: 1px solid var(--awe-rule);
+  color: var(--awe-ink);
+
+  .awe-meta-label {
+    @include web-label;
+    color: var(--awe-muted);
+    margin-right: $s1;
+  }
+
+  // second row: categories as pills (rounded like the action buttons)
+  .awe-meta-categories {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $s1;
+    margin-top: $s1;
+    padding-top: $s2;
+    border-top: 1px solid var(--awe-rule);
+  }
+
+  .awe-category {
+    @include web-label;
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 12px;
+    border: 1px solid color-mix(in srgb, var(--awe-muted) 35%, var(--awe-paper));
+    border-radius: 999px;
+    background: transparent;
+    color: color-mix(in srgb, var(--awe-muted) 70%, var(--awe-paper));
+  }
+}
+
+// Quarto's own category list is replaced by the pills in the author bar
+#title-block-header .quarto-categories {
+  display: none !important;
+}
+
+// action buttons: no lines, directly below the author bar
+.awe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $s1;
+  margin: 0 0 $s6 0;
+}
+
+.awe-action,
+.awe-actions .btn {
+  @include web-ui;
+  display: inline-flex;
+  align-items: center;
+  gap: $s1;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--awe-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--awe-ink) !important;
+  text-decoration: none;
+  cursor: pointer;
+
+  // hover / keyboard focus: the dot appears before the label
+  gap: 0;
+
+  &::before {
+    @include web-dot;
+    width: 0;
+    opacity: 0;
+    margin-right: 0;
+    transition: width .15s ease, opacity .15s ease, margin-right .15s ease;
+  }
+
+  &:hover::before,
+  &:focus-visible::before {
+    width: 7px;
+    opacity: 1;
+    margin-right: $s1;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--awe-ink);
+  }
+
+  &.awe-action-primary {
+    background: var(--awe-ink);
+    color: var(--awe-paper) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .awe-action::before {
+    transition: none;
+  }
+}
+
+.awe-action-done {
+  border-color: var(--awe-highlight) !important;
+}
+
+// the margin header is moved into the action row by awe-web.html
+.quarto-margin-header {
+  display: none;
+}
+
+// ---------------------------------------------------------------------------
+// Table of contents in the body
+// ---------------------------------------------------------------------------
+
+#TOC,
+nav#TOC.toc-active {
+  margin: 0 0 $s6 0;
+  padding: 0;
+  border: none;
+
+  h2, .toc-title, #toc-title {
+    @include web-label;
+    color: var(--awe-muted);
+    margin: 0 0 $s1 0;
+    padding: 0;
+    border: none;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  // no top margin between entries (the article's `li + li` rule would add 8px)
+  li,
+  li + li {
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  a,
+  a.nav-link {
+    @include web-ui;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0;
+    border: none !important;
+    color: var(--awe-ink) !important;
+    font-weight: $w-text !important;
+    text-decoration: none !important;
+
+    &::before {
+      @include web-dot(var(--awe-rule));
+    }
+
+    &:hover::before,
+    &.active::before {
+      background: var(--awe-highlight);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Content
+// ---------------------------------------------------------------------------
+
+main#quarto-document-content {
+  font-size: $t-body;
+  line-height: $lh-body;
+  font-weight: $w-text;
+
+  p,
+  ul,
+  ol,
+  dl,
+  table,
+  blockquote,
+  figure {
+    margin-top: 0;
+    margin-bottom: $s3;
+  }
+
+  // heading hierarchy (no heading below body size):
+  // title 84/500 > h1 38/500 > h2 30/500 > h3 20/500 >= body 20/400
+  h1:not(.title) {
+    font-size: $t-h1 !important;
+    line-height: $lh-h1 !important;
+    font-weight: $w-strong !important;
+    margin: $s8 0 $s3 0;
+    padding: 0;
+    border: none;
+  }
+
+  h2 {
+    font-size: $t-h2 !important;
+    line-height: $lh-h2 !important;
+    font-weight: $w-strong !important;
+    margin: $s6 0 $s2 0;
+  }
+
+  h3, h4 {
+    font-size: $t-body !important;
+    line-height: $lh-body !important;
+    font-weight: $w-strong !important;
+    margin: $s4 0 $s1 0;
+  }
+
+  // first section heading follows the TOC directly
+  #TOC + h1,
+  #TOC + section > h1:first-child {
+    margin-top: 0;
+  }
+
+  li + li {
+    margin-top: $s1;
+  }
+
+  blockquote {
+    position: relative;
+    border-left: none;
+    padding: 0 0 0 $s6;
+    font-size: $t-body !important;
+    line-height: $lh-body !important;
+    color: inherit;
+
+    &::before {
+      content: "\201C";
+      position: absolute;
+      left: 0;
+      top: -4px;
+      font-size: 60px;
+      line-height: 1;
+      color: var(--awe-highlight);
+    }
+
+    p,
+    em,
+    .citation {
+      font-size: inherit !important;
+    }
+  }
+
+  // :::medium / :::large from the slides: normal body text in the wiki
+  .medium,
+  .large,
+  .medium p,
+  .large p {
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+  }
+
+  // :::medium (the slide's key statement): bold weight in the wiki
+  .medium,
+  .medium p {
+    font-weight: $w-bold !important;
+  }
+
+  // colours awe.scss fixes (grey quote sources, dark grey asides, blue
+  // definition terms) follow the tokens, so they work in the dark version
+  blockquote p > em:last-child,
+  .column-margin,
+  .margin-aside,
+  .margin-aside p {
+    color: var(--awe-muted) !important;
+  }
+
+  dt {
+    color: var(--awe-ink) !important;
+    font-weight: $w-bold;
+  }
+
+  // three or more columns are too narrow in the article: stack them
+  .columns:has(> .column:nth-child(3)) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    > .column {
+      width: 100% !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  // round bullets (awe.scss uses squares)
+  ul:not(nav ul) {
+    list-style-type: disc;
+  }
+
+  ul > li::marker {
+    color: var(--awe-highlight);
+  }
+
+  ol > li::marker {
+    font-family: $web-sans;
+    font-size: $t-ui;
+    color: var(--awe-ink);
+  }
+
+  table {
+    @include web-ui;
+    width: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      border-bottom: 1px solid var(--awe-ink);
+    }
+
+    th {
+      font-weight: $w-strong !important;
+      text-transform: none;
+      padding: $s1 $s4 $s1 0;
+      vertical-align: bottom;
+    }
+
+    td {
+      padding: $s1 $s4 $s1 0;
+      border-bottom: 1px solid var(--awe-rule);
+      vertical-align: top;
+    }
+
+    th:last-child,
+    td:last-child {
+      padding-right: 0;
+    }
+
+    th, td, td p {
+      font-size: inherit !important;
+    }
+
+    // as on the slides: columns size to their content (Pandoc's widths
+    // from the .qmd are ignored), no single-word last lines, and columns
+    // marked by awe-web.html stay on one line
+    table-layout: auto;
+
+    col {
+      width: auto !important;
+    }
+
+    th, td {
+      text-wrap: pretty;
+    }
+
+    .awe-nowrap {
+      white-space: nowrap;
+    }
+  }
+
+  figcaption,
+  .figure-caption,
+  caption {
+    @include web-label;
+    color: var(--awe-muted);
+    text-align: left;
+    margin-top: $s1;
+  }
+
+  .callout {
+    @include web-ui;
+    margin: 0 0 $s3 0;
+    border: none;
+    border-left: 2px solid var(--awe-highlight);
+    background: var(--awe-field);
+    border-radius: 12px !important;   // like the code blocks
+    overflow: hidden;
+  }
+
+  // no space below the last element of a callout body
+  .callout .callout-body-container > :last-child,
+  .callout .callout-body > :last-child {
+    margin-bottom: 0 !important;
+  }
+
+  // callout title: text colour (awe.scss uses the old blue $primary)
+  .callout div.callout-header,
+  .callout .callout-title-container,
+  .callout .callout-title-container.flex-fill,
+  .callout .callout-btn-toggle {
+    color: var(--awe-ink) !important;
+  }
+
+  // callout icon: Quarto bakes the old blue into its SVG; draw our own
+  // info icon as a mask filled with the highlight colour instead
+  .callout-note .callout-icon::before {
+    background-image: none !important;
+    background-color: var(--awe-highlight);
+    -webkit-mask: $web-icon-info center / contain no-repeat;
+    mask: $web-icon-info center / contain no-repeat;
+  }
+
+  // anything awe.scss shrinks (small, footnote-sized text) uses the UI size
+  small, .small, .smaller, sup {
+    font-size: $t-ui !important;
+  }
+
+  sup {
+    font-size: $t-label !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Small screens (below 992px, no sidebar column): no search field, site
+// title at the left gutter, burger button (sidebar toggle) right of Start,
+// page title shown in the article as on desktop
+// ---------------------------------------------------------------------------
+
+@media (max-width: 991.98px) {
+  #quarto-header #quarto-search {
+    display: none !important;
+  }
+
+  #quarto-header .navbar-brand-container {
+    left: $web-gutter !important;
+  }
+
+  // Quarto's secondary bar collapses; only its sidebar toggle remains, moved
+  // into the top bar right of the Start button as a round burger button
+  #quarto-header .quarto-secondary-nav,
+  #quarto-header .quarto-secondary-nav > .container-fluid {
+    position: static !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  .quarto-secondary-nav .quarto-secondary-nav-title,
+  .quarto-secondary-nav .quarto-page-breadcrumbs {
+    display: none !important;
+  }
+
+  #quarto-header .quarto-secondary-nav .quarto-btn-toggle {
+    position: absolute !important;
+    top: 12px !important;
+    right: $web-gutter !important;
+    z-index: 5;
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 1px solid var(--awe-ink) !important;
+    border-radius: 999px !important;
+    background: var(--awe-paper)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 4.5h10M3 8h10M3 11.5h10' stroke='%23121212' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E")
+      center / 16px 16px no-repeat !important;
+
+    :root[data-theme="dark"] & {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 4.5h10M3 8h10M3 11.5h10' stroke='%23EDEDEA' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+    }
+
+    > * {
+      display: none !important;   // Quarto's "+" icon
+    }
+  }
+
+  // Start button moves left to make room for the burger button
+  #quarto-header .navbar-nav {
+    margin-right: 40px !important;
+  }
+
+  #title-block-header .quarto-title .title,
+  #title-block-header h1.title {
+    display: block !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Scroll-to-top button (added by awe-web.html), fixed at the bottom, in the
+// left margin of the article (its right edge 10px before the text column;
+// bottom right on small screens); visible after scrolling about one screen
+// ---------------------------------------------------------------------------
+
+.awe-to-top {
+  position: fixed;
+  right: $s3;
+  bottom: $s3;
+
+  @media (min-width: 992px) {
+    right: auto;
+    left: calc(var(--awe-article-left, #{$s8 + 44px}) - 44px - 10px);
+  }
+
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--awe-ink);
+  border-radius: 50%;
+  background: var(--awe-paper);
+  color: var(--awe-ink);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--awe-ink);
+    color: var(--awe-paper);
+  }
+
+  &.awe-to-top-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .awe-to-top {
+    transition: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Footer: from the site title to the rightmost top-bar button
+// ---------------------------------------------------------------------------
+
+footer.footer {
+  background: var(--awe-paper);
+  border-top: 1px solid var(--awe-rule);
+}
+
+.nav-footer {
+  @include web-ui;
+  box-sizing: border-box;
+  // from the site title to the rightmost top-bar button (measured by
+  // awe-web.html); falls back to the page width minus the gutters
+  width: var(--awe-footer-width, calc(100% - #{2 * $web-gutter})) !important;
+  max-width: none;
+  margin: 0 0 0 var(--awe-footer-left, #{$web-gutter}) !important;
+  padding: $s3 0 !important;   // awe.scss adds 16px side padding
+  background: transparent;
+  border-top: none;
+  color: var(--awe-muted);
+
+  // Quarto lays the footer out on its page grid, which indents the left
+  // part; a plain row puts left / centre / right at the footer's edges
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: $s3;
+
+  .nav-footer-left,
+  .nav-footer-center,
+  .nav-footer-right {
+    grid-column: auto !important;
+    flex: 1 1 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .nav-footer-left {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .nav-footer-center {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .nav-footer-right {
+    text-align: right;
+    justify-content: flex-end;
+  }
+
+  // Bootstrap pads footer links 16px on each side; remove it at the outer
+  // edges so the copyright lines up with the navigation links and the last
+  // link with the Start button
+  .nav-footer-left .nav-item:first-child .nav-link,
+  .nav-footer-left .nav-item:first-child .menu-text {
+    padding-left: 0 !important;
+  }
+
+  .nav-footer-right .nav-item:last-child .nav-link {
+    padding-right: 0 !important;
+  }
+
+  a {
+    color: var(--awe-ink);
+    text-decoration: none;
+  }
+}

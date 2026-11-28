@@ -29,7 +29,7 @@ format:
 
 ## Slide theme
 
-Two slide themes share one stylesheet (`lib/theme/awe-slides.scss` plus `lib/theme/awe-editorial.scss`, set in `_quarto.yml`):
+Two independent slide themes are compiled into one stylesheet (set in `_quarto.yml`): `lib/theme/awe-editorial.scss` is self-contained and applies to editorial decks; `lib/theme/awe-slides.scss` applies only to classic decks (`html.awe-classic`). Either file works without the other:
 
 | YAML key | Values | Effect |
 |---|---|---|
@@ -38,26 +38,30 @@ Two slide themes share one stylesheet (`lib/theme/awe-slides.scss` plus `lib/the
 
 Set the keys in a unit's front matter or course-wide in a `_metadata.yml`. New decks use the editorial theme; omit `slide-theme`.
 
+## Website Template
+
+The HTML wiki uses `lib/theme/awe-web.scss` and `lib/theme/awe-web.html` (set in `_quarto.yml`). Each page shows an author bar (author, created, updated, categories) and an action row (Slides and Print slides when the page has a revealjs format, Copy link, and every extra `margin-header` link as a button). `page-meta: false` in the front matter hides both, e.g., on the start page.
+
 ## Agenda Slide
 
-`agenda: true` (or `agenda: "Today's Session"` for a custom title) adds an agenda slide after the title slide, in revealjs only. It lists every section divider (`.headline-only`, not `.unlisted`) with its number and time; set the time as a heading attribute in minutes. Non-numeric values (e.g., `time="1 day"`) appear as written and are excluded from the total.
+`agenda: true` (or `agenda: "Today's Session"` for a custom title) adds an agenda slide after the title slide, in revealjs only. It lists every section divider (`.section-title`, or `.headline-only` in classic decks; not `.unlisted`) with its number and time; set the time as a heading attribute in minutes. A level-1 heading with a `time` attribute is listed too (sections without a divider slide, e.g., case sessions). Non-numeric values (e.g., `time="1 day"`) appear as written and are excluded from the total.
 
 ```markdown
-# Conversations {.headline-only time="45"}
+# Conversations {.section-title time="45"}
 ```
 
 ## Heading hierarchy
 
 | Level | Revealjs meaning | HTML meaning | Typical class |
 |---|---|---|---|
-| `#` | Section title (not a content slide) | `<h1>` section | `.headline-only`, `.html-hidden` |
+| `#` | Section title (not a content slide) | `<h1>` section | `.section-title` (classic decks: `.headline-only`), `.html-hidden` |
 | `##` | Individual slide | `<h2>` subsection | `.discussion-slide`, `.no-headline` |
 | `###` | Sub-slide (rare) or hidden inside `:::notes` | `<h3>` | `{visibility=hidden}` in notes |
 
 ## Standard slide-type classes
 
 ```
-# Section divider {.headline-only}
+# Section divider {.section-title}     ← editorial decks; classic decks use .headline-only
 ## Discussion prompt {.html-hidden .unlisted .discussion-slide}
 ## Featured quote {.no-headline .vertically-centered .bg-highlight}   ← new decks; old content uses .vertical-center (same effect)
 ## Section with scrollable content {.scrollable}
@@ -130,7 +134,7 @@ Other fragment variants: `.fragment`, `.fragment .fade-in`, `.fragment .highligh
 
 ## Text size classes
 
-Defined in `lib/theme/awe-slides.scss`:
+Defined in both themes (`lib/theme/awe-slides.scss` for classic decks, the base layer of `lib/theme/awe-editorial.scss` for editorial decks):
 - `:::large`, `:::medium`, `:::small`, `:::smaller`, `:::smaller-slides`
 - `{.smaller}` inline (footnote-style text within a larger block)
 

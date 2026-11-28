@@ -1,0 +1,2712 @@
+/*
+  awe-editorial — default slide theme, self-contained: it carries its own
+  base layer (slide frame, footer, page number, centring, print view) and
+  works without awe-slides.scss.
+
+  Setup (_quarto.yml, format presentation-revealjs): theme
+  [default, awe-editorial.scss], or [default, awe-slides.scss,
+  awe-editorial.scss] when classic decks share the build (awe-slides.scss
+  rules only apply to html.awe-classic); include-after-body
+  awe-editorial.html, filters slide-theme.lua and highlight-color.lua.
+  Per deck or course (_metadata.yml):
+    slide-theme: classic          # original look; editorial rules switch off
+    highlight-color: "#hex"       # editorial highlight colour
+
+  Principles: white paper (off-white optional), near-black ink, one cyan accent; dots
+  as the recurring mark; generous whitespace; hairlines instead of boxes. All
+  classes of awe-slides.scss keep working. Slide-only additions (no effect on
+  the HTML output):
+
+    Slide classes   ## Title {.split}                heading left, content right
+                    ## Title {.statement}            one large statement, vertically centered
+                    ## Title {.vertically-centered}  center content vertically
+                                                     (alias of the legacy .vertical-center)
+                    ## Title {.bg-highlight}         full-bleed accent background
+                    ## Title {.accent-slide}         same as .bg-highlight
+                    ## Title {.ink-slide}            full-bleed dark background
+                    ::: {.surface-offwhite}          off-white block or slide (white marks)
+                    ::: {.surface-white}             white block or slide (off-white marks),
+                                                     for decks with $paper: $offwhite
+    Divs            :::kicker                        dotted label above a block
+                    :::lead                          large lead paragraph (quieter than :::medium)
+                    :::statement                     very large single statement
+                    :::stats > :::stat               big numbers with captions, side by side
+                    :::cells > :::cell               numbered columns separated by hairlines
+    Spans           [text]{.highlight}               marker underlay, bold weight (also .mark); bold has none
+                    [text]{.muted}                   no effect (muted text is off in this theme)
+                    [text]{.accent}                  accent text color
+                    [text]{.dot}                     accent dot before an inline label
+
+  Colour roles. One highlight colour ($highlight / --awe-highlight, bright cyan
+  #16CAF7) carries every accent: dots, numbers, progress, page number, and
+  highlight backgrounds (always with black text). Replace it in one place:
+  $highlight below (theme default), or in YAML per deck or per course
+  (_metadata.yml), via lib/filter/highlight-color.lua:
+    highlight-color: "#FF6A3D"
+  Marker underlays (bold, marks, highlight fragments) are a quiet surface tone
+  with the same contrast everywhere (~1.12:1): off-white on white paper,
+  white on off-white (.surface-offwhite, or $paper: $offwhite), #1C1C1C on
+  dark slides, and a lighter
+  highlight on highlight slides.
+  Every surface sets the variables below; components only read them:
+    --awe-fg     text          --awe-dot    dots, numbers, accent text
+    --awe-muted  secondary     --awe-mark   marker underlay
+    --awe-rule   hairlines
+*/
+
+/*-- scss:defaults --*/
+
+// --- Base variables (Reveal and layout), as in awe-slides.scss, so the
+// editorial theme compiles and renders without that file. The fonts set
+// here are replaced by Switzer and Geist Mono in the rules below.
+$max-width-mobile: 800px;
+
+// fonts
+$font-family-sans-serif: 'basier_squareregular', sans-serif !default;
+$font-family-monospace: 'basier_squaremono' !default;
+$presentation-font-size-root: 18px !default;
+$presentation-font-smaller: 0.7 !default;
+$presentation-font-footer: 0.5 !default;
+$presentation-line-height: 1.3 !default;
+
+// colors
+$body-bg: rgba(240, 240, 240, 1) !default;
+$dark-bg: #000;
+$body-color: #000 !default;
+$light-color: rgba($body-color, .15);
+$link-color: #0333ff !default;
+$link-color-hover: lighten($link-color, 10%) !default;
+$selection-bg: rgba(0, 0, 0, 0.99);
+$bg-color: $link-color;
+$gray: #cecece;
+
+
+// headings
+$presentation-heading-font: $font-family-sans-serif;
+
+// SOURCE: quarto.scss
+
+// selection colors
+$selection-bg: lighten($link-color, 25%) !default;
+$selection-color: $body-bg !default;
+
+// border colors
+$border-color: $body-color !default;
+$border-width: 1px !default;
+$border-radius: none !default;
+
+// headings
+$presentation-heading-font: $font-family-sans-serif !default;
+$presentation-heading-color: $body-color !default;
+$presentation-heading-line-height: 1.2 !default;
+$presentation-heading-letter-spacing: normal !default;
+$presentation-heading-text-transform: none !default;
+$presentation-heading-text-shadow: none !default;
+$presentation-h1-text-shadow: none !default;
+$presentation-heading-font-weight: 400 !default;
+$presentation-h1-font-size: 2em !default;
+$presentation-h2-font-size: 2em !default;
+$presentation-h3-font-size: 2em !default;
+$presentation-h4-font-size: 1.2em !default;
+
+// margins
+$presentation-block-margin: 1rem !default;
+
+// text alignment
+$presentation-slide-text-align: left !default;
+$presentation-title-slide-text-align: left !default;
+$reveal-slide-text-align: $presentation-slide-text-align !default;
+$reveal-title-slide-text-align: $presentation-title-slide-text-align !default;
+
+// code blocks
+$code-block-bg: $body-bg !default;
+$code-block-border-color: $body-color !default;
+$code-block-font-size: 0.75em !default;
+
+// inline codefigure
+$code-color: $link-color !default;
+$code-bg: transparent !default;
+
+// tabset
+$tabset-border-color: $code-block-border-color !default;
+
+// input panel
+$input-panel-border-color: $code-block-border-color !default;
+$input-panel-border-width: $border-width !default;
+$input-panel-border-radius: $border-radius !default;
+$input-panel-bg: rgba(248, 249, 250, 1) !default;
+
+// alternate colors for when the background changes
+$light-bg-text-color: #000 !default;
+$dark-bg-text-color: #fff !default;
+$light-bg-link-color: #0333ff !default;
+$dark-bg-link-color: #05e1f1 !default;
+$light-bg-code-color: #0333ff !default;
+$dark-bg-code-color: #05e1f1 !default;
+
+// --- derive reveal versions of presentation variables for finer-grained override ---
+
+$revealjs-font-size-root: $presentation-font-size-root !default;
+$revealjs-h1-font-size: $presentation-h1-font-size !default;
+$revealjs-h2-font-size: $presentation-h2-font-size !default;
+$revealjs-h3-font-size: $presentation-h3-font-size !default;
+$revealjs-h4-font-size: $presentation-h4-font-size !default;
+$revealjs-large-font-size: $presentation-h1-font-size*1.5;
+$revealjs-medium-font-size: $presentation-h1-font-size;
+$revealjs-heading-font: $presentation-heading-font !default;
+$revealjs-heading-color: $presentation-heading-color !default;
+$revealjs-heading-line-height: $presentation-heading-line-height !default;
+$revealjs-heading-letter-spacing: $presentation-heading-letter-spacing !default;
+$revealjs-heading-text-transform: $presentation-heading-text-transform !default;
+$revealjs-heading-text-shadow: $presentation-heading-text-shadow !default;
+$revealjs-h1-text-shadow: $presentation-h1-text-shadow !default;
+
+$revealjs-heading-font-weight: $presentation-heading-font-weight !default;
+$revealjs-block-margin: $presentation-block-margin !default;
+$revealjs-line-height: $presentation-line-height !default;
+
+// ---- map to reveal scss variables ---
+
+// Background of the presentation
+$backgroundColor: $body-bg !default;
+
+// Primary/body text
+$mainFont: $font-family-sans-serif !default;
+$mainFontSize: $revealjs-font-size-root !default;
+$mainColor: $body-color !default;
+
+// Vertical spacing between blocks of text
+$blockMargin: $revealjs-block-margin !default;
+
+// Headings
+$headingMargin: 0 0 $blockMargin*2 0 !default;
+$headingFont: $revealjs-heading-font !default;
+$headingColor: $revealjs-heading-color !default;
+$headingLineHeight: $revealjs-heading-line-height !default;
+$headingLetterSpacing: $revealjs-heading-letter-spacing !default;
+$headingTextTransform: $revealjs-heading-text-transform !default;
+$headingTextShadow: $revealjs-heading-text-shadow !default;
+$heading1TextShadow: $revealjs-h1-text-shadow !default;
+$headingFontWeight: $revealjs-heading-font-weight !default;
+
+$heading1Size: $revealjs-h1-font-size !default;
+$heading2Size: $revealjs-h2-font-size !default;
+$heading3Size: $revealjs-h3-font-size !default;
+$heading4Size: $revealjs-h4-font-size !default;
+
+$codeFont: $font-family-monospace !default;
+
+$code-block-theme-dark-threshhold: 40% !default;
+
+// Links and actions
+$linkColor: $link-color !default;
+$linkColorHover: $link-color-hover !default;
+
+// Text selection
+$selectionBackgroundColor: $selection-bg !default;
+$selectionColor: $selection-color !default;
+
+// --- Editorial variables
+
+// Paper: white by default; set $paper: $offwhite for off-white slides
+$offwhite: #F2F2F0 !default;
+$paper: #FFFFFF !default;
+$ink: #121212 !default;
+$ink-muted: #6B6B67 !default;
+$night: #0F0F0F !default;
+// The highlight colour: change this one value to recolour the theme.
+$highlight: #16CAF7 !default;
+$accent: $highlight !default;
+$accent-light: $highlight !default;
+
+// Marker underlays: same low contrast (~1.12:1) against each surface
+$mark-on-white: $offwhite !default;   // on white surfaces
+$mark-on-offwhite: #FFFFFF !default;  // on off-white surfaces
+// on paper: follows $paper (off-white marks on white, white on off-white)
+$mark-on-paper: if($paper == #FFFFFF, $mark-on-white, $mark-on-offwhite) !default;
+$mark-on-night: #1C1C1C !default;   // on dark slides ($night)
+
+// The base variables above keep the values of awe-slides.scss: when both
+// themes are compiled into one stylesheet, classic decks must keep their
+// compile-time colours. Editorial rules override them in CSS.
+
+/*-- scss:functions --*/
+
+@function colorToRGB($color) {
+  @return "rgb(" + red($color) + ", " + green($color) + ", " + blue($color) +
+    ")";
+}
+
+/*-- scss:mixins --*/
+
+// Generates the presentation background, can be overridden
+// to return a background image or gradient
+@mixin bodyBackground() {
+  background: $backgroundColor;
+}
+
+/*-- scss:rules --*/
+
+$awe-pad-x: 88px;
+$awe-pad-top: 72px;
+$awe-head-lift: 12px;   // headlines sit this much closer to the section label
+$awe-pad-bottom: 80px;
+$awe-mono: 'Geist Mono', 'basier_squaremono', ui-monospace, monospace;
+// labels, list numbers, captions, footer, countdown: the text font, as in
+// the website template (code keeps the monospace font of awe-slides.scss)
+$awe-sans: 'Switzer', 'basier_squareregular', sans-serif;
+$awe-label-font: $awe-sans;
+$awe-dot-size: 8px;
+
+// Text measure: body text ends about 1em before the HNU logo in the footer.
+// The logo starts at x = 904px on the 1080px canvas (footer.html: 80px right
+// margin, ~96px logo); 18px (1em) before that is the right text edge.
+$awe-logo-left: 904px;
+$awe-text-right: $awe-logo-left - 18px;
+$awe-measure: $awe-text-right - $awe-pad-x;   // 798px with 88px padding
+
+// Design tokens used across the editorial rules
+$awe-white: #FFFFFF;
+$awe-label-size: 11px;            // labels, kickers, running header, captions in px
+$awe-caption-size: .62em;         // table and figure captions
+$awe-headline-size: 2.4em;        // slide headlines (same as .large)
+$awe-headline-leading: 1.1;
+$awe-headline-tracking: -0.028em;
+$awe-tracking-tight: -0.012em;    // large statements
+$awe-footer-band: 80px;           // footer strip below the content (footer.html)
+$awe-marker-line: 58%;            // marker underlay starts at 58% of the line
+$awe-rule-on-dark: rgba(255, 255, 255, .2);
+$awe-legacy-blue: 'rgb(3, 51, 255)';   // inline style of old #0333ff backgrounds
+// quote text indent (room for the opening quote mark), tuned by eye
+$awe-quote-indent: calc(2.6em * .95);
+
+// Slide headline: size, leading, tracking
+@mixin awe-headline {
+  font-size: $awe-headline-size;
+  line-height: $awe-headline-leading;
+  letter-spacing: $awe-headline-tracking;
+}
+
+// Marker underlay behind the lower part of the text
+@mixin awe-marker($color: var(--awe-mark)) {
+  background: linear-gradient(transparent $awe-marker-line, $color $awe-marker-line);
+}
+
+// Surface variables for dark slides (white text, night marks)
+@mixin awe-surface-dark($rule: $awe-rule-on-dark) {
+  --awe-fg: #{$awe-white};
+  --awe-muted: #{$awe-white};
+  --awe-dot: var(--awe-highlight);
+  --awe-mark: var(--awe-mark-on-night);
+  --awe-rule: #{$rule};
+}
+
+// A dot drawn as a background, usable inside pseudo-elements with text
+@mixin awe-dot-bg($size: $awe-dot-size) {
+  background-image: radial-gradient(circle, var(--awe-dot) ($size * .5 - .5px), transparent ($size * .5));
+  background-repeat: no-repeat;
+  background-size: $size $size;
+  background-position: 0 50%;
+  padding-left: $size + 9px;
+}
+
+// Case of all mono labels and the footer: none (normal case, current check)
+// or uppercase (previous style)
+$awe-label-case: none;
+// Letter spacing of mono labels, footer, page number, list numbers
+// (.1em suited uppercase; .02em suits normal case)
+$awe-label-tracking: 0;
+
+@mixin awe-label {
+  font-family: $awe-label-font;
+  font-size: $awe-label-size;
+  line-height: 1;
+  letter-spacing: $awe-label-tracking;
+  text-transform: $awe-label-case;
+}
+
+// ---------------------------------------------------------------------------
+// Slide font: Switzer (lib/fonts/switzer, Fontshare Free Font License),
+// variable fonts with weights 100-900, published to docs/lib/fonts as a
+// project resource. URLs are relative to the compiled theme in
+// docs/site_libs/revealjs/dist/theme/. @font-face must stay outside the theme
+// switch; the family is only applied in editorial decks (classic decks keep
+// Basier Square).
+// ---------------------------------------------------------------------------
+$awe-font-path: '../../../../lib/fonts/switzer/Fonts/WEB/fonts';
+
+// Weights (variable font, any value 100-900): body text and headings lighter
+// than regular, emphasis (strong, table headers, definition terms) heavier.
+$awe-weight-base: 400;
+$awe-weight-strong: 550;
+$awe-weight-heading: 400;
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('#{$awe-font-path}/Switzer-Variable.woff2') format('woff2'),
+       url('#{$awe-font-path}/Switzer-Variable.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('#{$awe-font-path}/Switzer-VariableItalic.woff2') format('woff2'),
+       url('#{$awe-font-path}/Switzer-VariableItalic.woff') format('woff');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Code font: Geist Mono (lib/fonts/geist_mono, SIL Open Font License),
+// variable fonts with weights 100-900 ($awe-mono); labels use the text font
+$awe-mono-path: '../../../../lib/fonts/geist_mono';
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('#{$awe-mono-path}/GeistMono-VariableFont_wght.ttf') format('truetype-variations'),
+       url('#{$awe-mono-path}/GeistMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('#{$awe-mono-path}/GeistMono-Italic-VariableFont_wght.ttf') format('truetype-variations'),
+       url('#{$awe-mono-path}/GeistMono-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// ===========================================================================
+// Theme switch: every rule below applies only when the page is NOT marked
+// classic. `slide-theme: classic` in YAML (lib/filter/slide-theme.lua) adds
+// the class .awe-classic to <html>; the deck then shows awe-slides.scss only.
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// Base layer: slide frame, footer, page number, progress, centring, lists,
+// callouts, print view (copied from awe-slides.scss, which now applies to
+// classic decks only). :where() keeps the original specificity, so the
+// editorial rules below override these exactly as before.
+// ---------------------------------------------------------------------------
+
+:where(html:not(.awe-classic)) {
+
+.reveal {
+  text-underline-offset: .2em;
+}
+
+li strong,
+p:not(.callout-title *) strong {
+  box-decoration-break: clone;
+}
+
+.reveal .slides h1,
+.reveal .slides h2,
+.reveal .slides h3 {
+  
+  margin: 0 0 3rem 0;
+  line-height: 1em;
+  
+  &:after {
+    background: none repeat scroll 0 0 $body-color;
+    bottom: -1rem;
+    content: "";
+    display: block;
+    height: .1rem;
+    position: relative;
+    width: 3rem;
+  }  
+  
+}
+
+.reveal {
+
+    .has-dark-background,
+    .bg-highlight {
+      
+      h1,
+      h2,
+      h3 {
+      
+        &:after {
+          background: none repeat scroll 0 0 #fff;
+        }  
+      
+    }  
+    
+  }
+}
+
+.reveal section.has-dark-background,
+.reveal section.bg-highlight {
+  a:hover {
+    color: $dark-bg-text-color;
+  }
+  code {
+    color: $dark-bg-link-color;
+  }
+  
+  ol li::before {
+    color: $dark-bg-link-color !important;
+  }
+
+  .highlight,
+  .link-color,
+  .highlight-color {
+    color: $dark-bg-link-color !important;
+  }
+}
+
+.reveal div.sourceCode {
+  border: $border-width solid $code-block-border-color;
+  border-radius: $border-radius;
+}
+
+.reveal pre {
+  width: 100%;
+  box-shadow: none;
+  background-color: $code-block-bg;
+  border: none;
+  margin: 0;
+  font-size: $code-block-font-size;
+}
+
+.reveal code {
+  font-size: 0.95em;
+}
+
+.reveal pre code {
+  color: $body-color;
+  background-color: $code-block-bg;
+  padding: 6px 9px;
+  max-height: 500px;
+}
+
+.reveal blockquote {
+  margin: var(--r-block-margin) auto;
+  margin-bottom: $presentation-block-margin !important;
+}
+
+.reveal blockquote p:first-child,
+.reveal blockquote p:last-child {
+  display: inline;
+}
+
+.asideStyle {
+  font-family: $font-family-monospace !important;
+  font-size: #{$presentation-font-footer}em;
+  color: unset;
+}
+
+.reveal .slide aside,
+.reveal .slide div.aside {
+  bottom: 10px;
+  font-family: $font-family-monospace !important;
+  font-size: #{$presentation-font-footer}em;
+  color: unset;
+  
+
+  .medium p {
+    font-family: $font-family-sans-serif;
+    font-size: $presentation-font-size-root;
+  }
+
+  .smaller p {
+    font-family: $font-family-sans-serif;
+    font-size: #{$presentation-font-footer}em;
+    opacity: 0.8;
+  }
+}
+
+.reveal .slide sup {
+  font-size: #{$presentation-font-footer}em;
+}
+
+.reveal .slide.scrollable {
+  max-height: 500px;
+}
+
+.reveal .slide aside .aside-footnotes {
+  margin-bottom: 0;
+}
+
+.reveal .slide aside .aside-footnotes li:first-of-type {
+  margin-top: 0;
+}
+
+$panel-sidebar-width: 270px;
+$panel-sidebar-padding: 0.5em;
+
+.reveal .layout-sidebar {
+  display: flex;
+  width: 100%;
+  margin-top: 0.8em;
+}
+
+.reveal .layout-sidebar .panel-sidebar {
+  width: $panel-sidebar-width;
+}
+
+.reveal .layout-sidebar-left .panel-sidebar {
+  margin-right: calc(#{$panel-sidebar-padding} * 2);
+}
+
+.reveal .layout-sidebar-right .panel-sidebar {
+  margin-left: calc(#{$panel-sidebar-padding} * 2);
+}
+
+.reveal .layout-sidebar .panel-fill,
+.reveal .layout-sidebar .panel-center,
+.reveal .layout-sidebar .panel-tabset {
+  flex: 1;
+}
+
+.reveal .panel-input,
+.reveal .panel-sidebar {
+  font-size: 0.4em;
+  padding: $panel-sidebar-padding;
+  border-style: solid;
+  border-color: $input-panel-border-color;
+  border-width: $input-panel-border-width;
+  border-radius: $input-panel-border-radius;
+  background-color: $input-panel-bg;
+}
+
+.reveal .panel-sidebar :first-child,
+.reveal .panel-fill :first-child {
+  margin-top: 0;
+}
+
+.reveal .panel-sidebar :last-child,
+.reveal .panel-fill :last-child {
+  margin-bottom: 0;
+}
+
+.panel-input > div,
+.panel-input > div > div {
+  vertical-align: middle;
+  padding-right: 1em;
+}
+
+.reveal p,
+.reveal .slides section,
+.reveal .slides section > section {
+  line-height: $revealjs-line-height;
+}
+
+.reveal .slides>section.stack {
+  height: unset;
+}
+
+.reveal .slides>section, 
+.reveal .slides>section>section {
+  width: unset;
+}
+
+.reveal.smaller .slides section,
+.reveal .smaller,
+.reveal .slides section.smaller,
+.reveal .slides section .callout {
+  font-size: calc($presentation-font-size-root * $presentation-font-smaller);
+}
+
+.reveal.smaller .slides h2,
+.reveal .slides section.smaller h2 {
+  font-size: calc(#{$revealjs-h2-font-size} / #{$presentation-font-smaller});
+}
+
+.reveal .footer a {
+  color: $link-color-hover;
+}
+
+// handle caption for figures
+.reveal .slide {
+  figure > figcaption,
+  img.stretch + p.caption,
+  img.r-stretch + p.caption {
+    margin-top: .5em;
+    font-size: #{$presentation-font-smaller}em;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  $arrow-spacing: 0.2em;
+  $control-arrow-spacing: 1.4em;
+
+}
+
+.tippy-box[data-theme~="quarto-reveal"] {
+  background-color: $backgroundColor;
+  color: $mainColor;
+  border-radius: $border-radius;
+  border: solid $border-width $border-color;
+  font-size: 0.6em;
+}
+
+.tippy-box[data-theme~="quarto-reveal"] .tippy-arrow {
+  color: $border-color;
+}
+
+.tippy-box[data-placement^="bottom"] > .tippy-content {
+  padding: 7px 10px;
+  z-index: 1;
+}
+
+.reveal .callout.callout-style-simple .callout-body,
+.reveal .callout.callout-style-default .callout-body,
+.reveal .callout.callout-style-simple div.callout-caption,
+.reveal .callout.callout-style-default div.callout-caption {
+  background: #fff;
+}
+
+.reveal .callout.callout-captioned .callout-caption p {
+  margin-top: 0.5em;
+}
+
+.reveal .callout.callout-captioned .callout-icon::before {
+  margin-top: 1rem;
+}
+
+.reveal .callout.callout-captioned .callout-body > :last-child,
+.reveal .callout.callout-captioned .callout-body > div > :last-child {
+  margin-bottom: 1rem;
+}
+
+.reveal .panel-tabset [role="tab"] {
+  padding: 0.25em 0.7em;
+}
+
+.reveal .slides .slide-menu-button {
+  left: 0px !important;
+  bottom: 0px !important;
+  width: 60px;
+  height: 30px;
+  padding: 23px 0 27px 0;
+  text-align: center;
+  
+  a {
+    display: block;
+  }
+}
+
+.reveal .slide-menu-button .fa-bars::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGB($gray)}" class="bi bi-list" viewBox="0 0 16 16"><path d="M 1 2 L 1 3 L 14 3 L 14 2 Z M 1 7 L 1 8 L 14 8 L 14 7 Z M 1 12 L 1 13 L 14 13 L 14 12 Z"></path></svg>');
+  background-size: 1rem 1rem !important;
+  background-position: center;
+}
+
+.reveal .slide-chalkboard-buttons .fa-easel2::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGB($gray)}" class="bi bi-easel2" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0a.5.5 0 0 1 .447.276L8.81 1h4.69A1.5 1.5 0 0 1 15 2.5V11h.5a.5.5 0 0 1 0 1h-2.86l.845 3.379a.5.5 0 0 1-.97.242L12.11 14H3.89l-.405 1.621a.5.5 0 0 1-.97-.242L3.36 12H.5a.5.5 0 0 1 0-1H1V2.5A1.5 1.5 0 0 1 2.5 1h4.691l.362-.724A.5.5 0 0 1 8 0ZM2 11h12V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5V11Zm9.61 1H4.39l-.25 1h7.72l-.25-1Z"/></svg>');
+}
+
+.reveal .slide-chalkboard-buttons .fa-brush::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGB($gray)}" class="bi bi-brush" viewBox="0 0 16 16"><path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04zM4.705 11.912a1.23 1.23 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.39 3.39 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3.122 3.122 0 0 0 .126-.75l-.793-.792zm1.44.026c.12-.04.277-.1.458-.183a5.068 5.068 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005a.031.031 0 0 1-.007.004zm3.582-3.043.002.001h-.002z"/></svg>');
+}
+
+// Custom CSS
+
+$progress-height: 5px;
+
+.background-image-div {
+  background-size: cover;
+    top: 0;
+    left: 0;
+    height: calc(var(--slide-height) - 80px) !important;
+    width: calc(var(--slide-width)) !important;
+}
+
+.reveal .footer,
+.footer {
+  &.custom {
+    bottom: 0px;
+    z-index: 20;
+    text-align: left;
+    
+    .logo {
+      margin-right: 80px;
+      padding-top: 25px;
+      padding-bottom: 25px;
+      height: 30px;
+      svg {
+        height: 30px;
+      }
+
+    }
+  }
+}
+
+.slide-number {
+  width: 60px;
+  height: 80px;
+  bottom: 0px !important;
+  right: 0px !important;
+  padding: 0 !important;
+  line-height: 80px !important;
+  z-index: 10002 !important;
+  text-align: center !important;
+}
+
+.version,
+.footnote {
+  line-height: 80px;
+}
+
+.footnote {
+  
+  @media (max-width: ($max-width-mobile*1.2)) {
+    max-width: 400px;
+    overflow: hidden;
+  }   
+} 
+
+.reveal .slides {
+  
+  border: 0 !important;
+  
+  .no-headline {
+    h1, h2, h3 {
+      display: none;
+    }
+  
+  }
+  
+  .headline-only {
+
+    display: flex !important;
+    flex-direction: column;  
+    
+    h1,
+    h2 {
+      &:after {
+        content: none;
+      }
+    }
+    
+    .citation,
+    .citation a {
+      color: #fff;
+    }
+  }
+
+  #title-slide {
+    
+  
+
+    h1.title {
+      
+      &:after {
+        content: none;
+      }
+    }
+
+    
+    .quarto-title-authors,
+    .quarto-title-block {
+      justify-content: start !important;
+      .quarto-title-author {
+        padding: 0 !important;
+      }
+    }        
+
+    .author,
+    .institute,
+    .quarto-title-author,
+    .quarto-title-author-name, 
+    .quarto-title-affiliation,
+    .quarto-title-authors, 
+    .date {     
+      display: inline-block;
+    }
+    
+    .date,
+    .quarto-title-author-name,
+    .quarto-title-affiliation {
+      margin-right: 2rem;       
+    }
+    
+  }
+
+}
+
+.reveal  .progress {
+      bottom: 0 !important;
+      left: 0;
+      width: calc(var(--slide-width)) !important;
+  }
+
+.reveal .slide {
+  
+  video,
+  iframe {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  p {
+    line-height: 1.4;
+  }
+  
+
+  
+  span.citation {
+    // font-family: $font-family-monospace;
+    //font-size: 0.9em;
+    font-weight: normal;
+    
+    
+  }
+
+  ol {
+
+    li {
+      &::marker {
+        font-family: $font-family-monospace;
+        color: $link-color;
+        font-size: 0.9em;        
+      }
+    }
+  }
+
+  li {
+    line-height: 1.4;    
+  }
+
+  
+
+  p.caption {
+    max-width: unset;
+  }
+
+  table {
+    margin-left: 0;
+    width: 100%;
+
+    td, th {
+      padding-top: $blockMargin/2;
+      padding-bottom: $blockMargin/2;
+    }
+
+    td {
+      vertical-align: top;
+      p {
+        margin: $blockMargin/3 0;
+      }
+    }
+
+    caption {
+      margin-top: $blockMargin;
+      font-size: #{$presentation-font-smaller}rem;
+      font-family: $font-family-monospace;
+      text-align: left;
+    }
+
+  }
+
+  blockquote {
+    font-size: $revealjs-font-size-root;
+
+    em {
+      font-style: normal;
+    }
+  
+
+  }
+
+  &.discussion-slide,
+  &.has-dark-background,
+  &.bg-highlight {
+  
+
+    table {
+      th {
+        color: $dark-bg-link-color;
+      }
+    }
+      
+
+  
+  }
+  
+  
+  img,
+  p {
+      margin-top: $blockMargin/2;
+      margin-bottom: $blockMargin/2;
+  }
+
+  .slide-menu-button .fa-bars::before {
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-list" viewBox="0 0 16 16" fill="rgb(0,0,0)"><rect height="1" width="10" y="7.5" x="3"/><rect height="1" width="10" y="12" x="3"/><rect height="1" width="10" y="3" x="3"/></svg>') !important;
+    background-position: center;
+    background-size: auto !important;
+  }
+
+  .slide-menu-button {
+    z-index: 10002 !important;
+
+    @media (max-width: $max-width-mobile) {
+      display: none;
+    }
+
+  }
+
+  ol,
+  ul {
+    margin-bottom: 0 !important;
+
+    li:first-child {
+      margin-top: 0 !important;
+    }
+    li:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    ul li:first-child {
+      margin-top: .4em !important;
+    }
+    ul li:last-child {
+      margin-bottom: .2em !important;
+    }
+
+    ul li ul {
+      margin-bottom: $blockMargin/2;
+    }
+
+  
+  }
+
+  
+  li span.medium,
+  p span.medium {
+      font-size: $revealjs-medium-font-size;
+      line-height: 1.2;
+      display: inline-block;
+      margin-bottom: $blockMargin/2;
+  }
+  
+  li span.larger,
+  li span.large,
+  p span.larger,
+  p span.large {
+      font-size: $revealjs-large-font-size;
+  }
+  
+  .larger,
+  .large {
+    p:first-child {
+      
+      .smaller {
+        font-size: $revealjs-font-size-root;
+      }         
+      
+    }
+    
+  }
+  
+  .xlarge p:first-child,
+  li span .xlarge,
+  p span.xlarge {
+       font-size: $revealjs-large-font-size*2;   
+  }  
+  
+  li span.larger,
+  li span.large {
+    &::after {
+      content: "\a";
+      white-space: pre;
+    }
+  }  
+  
+  .xlarge,
+  .larger,
+  .large {
+    p:first-child {
+      margin: $blockMargin*2 0;
+    }
+  }
+  
+  .medium {
+
+    .smaller {
+      font-size: $presentation-font-size-root;
+    }
+
+    p:first-child {
+      
+      .smaller {
+        &:before {
+          content:"\a";
+          white-space: pre;
+        }
+      }         
+      
+    }
+    ul {
+      margin-left: 0;
+      list-style-type: none;
+    }
+    li {
+      margin: 0;
+      display: block;
+    }
+  }  
+  
+
+  .h4 p:first-child,
+  .h4,
+  h4,
+  h5 {
+    margin: $presentation-block-margin*2 0 $presentation-block-margin 0;
+    text-decoration: underline;
+    text-underline-offset: .2em;    
+    
+    + p,
+    + div.fragment p {
+      margin-top: 0;
+    }
+    
+  }
+
+  .slide figure>figcaption, 
+  .slide img.stretch+p.caption,
+  .slide img.r-stretch+p.caption {
+    font-size: #{$presentation-font-smaller}rem;
+    font-family: $font-family-monospace;
+  }
+
+  .quarto-figure-left {
+    margin: 0;
+  }
+  
+  img {
+
+    &.math {
+      &.inline {
+        margin: 0;
+      }
+    }
+
+  }
+  
+  .absolute figure p:first-child img {
+    max-height: unset;
+  }
+
+  figure {
+
+    margin-bottom: $blockMargin;    
+
+    p:first-child,
+    div:first-child {
+      
+      margin: 0 !important;
+
+      
+      img {
+        max-width: 100%;
+        max-height: 355px;
+        margin: 0 0 1em 0;
+        position: relative;
+        display: block;
+      }
+      
+
+    }
+
+  }
+
+  .columns {
+    
+    display: flex;
+    flex-wrap: wrap;
+    
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-self: start;
+      &.center {
+        align-self: center;
+      }
+      &.inline {
+        width: min-content;
+      }
+      img {
+        max-height: 35vh;
+      }
+    }    
+    
+
+    &.col-3 {
+
+      .column {
+        margin-right: .5em;
+      }
+
+    }
+
+    .column {
+      >:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .overlay-preview {
+    header {
+      background: rgba(0, 0, 0, 0.10);
+      
+      a.close .icon {
+        background-image: url('https://fonts.gstatic.com/s/i/materialiconsoutlined/close/v19/24px.svg')
+      }
+
+      a.external .icon {
+        background-image: url('https://fonts.gstatic.com/s/i/materialiconsoutlined/open_in_new/v21/24px.svg')
+      }
+
+    }
+    .viewport {
+      top: 0px;
+      bottom: 75px;
+    }
+  }
+
+}
+
+.tippy-box {
+  border-radius: 0 !important;
+  font-family: $font-family-monospace;
+  font-size: .7em !important;
+}
+
+.reveal .r-stack>* {
+  margin: 0;
+}
+
+.reveal .r-stack {
+
+  img {
+    max-width: 75vw;
+    max-height: 50vh;
+  }    
+
+}
+
+// .vertically-centered is the preferred name for new decks; .vertical-center stays for old content
+#title-slide,
+.reveal .slides .level1.vertical-center,
+.reveal .slides .level2.vertical-center,
+.reveal .slides .level3.vertical-center,
+.reveal .slides .level1.vertically-centered,
+.reveal .slides .level2.vertically-centered,
+.reveal .slides .level3.vertically-centered {
+  display: flex !important;
+  flex-direction: column;  
+  justify-content: center;  
+}
+
+.reveal.overview .slides .vertical-center,
+.reveal.overview .slides .vertically-centered {
+  position: relative;
+  top: auto;
+  transform: none;
+}
+
+.reveal.overview .slides .slide {
+  overflow: hidden;
+//  height: 750px;
+}
+
+.reveal .footnotes ol li > p:first-child {
+  display: inline !important;
+}
+
+.reveal .footnotes ol li {
+  margin-bottom: $blockMargin/2;
+}
+
+.reveal #title-slide.center, .reveal .title-slide.center {
+  margin-top: 0 !important;
+}
+
+.reveal .csl-entry {
+  margin-bottom: $blockMargin;
+}
+
+.reveal dl {
+  margin-left: 0 !important;
+  margin: 0;
+  
+  
+  dd {
+    margin-left: 0;
+    p {
+      margin: 0;
+    }
+  }
+  
+}
+
+.slide-hidden {
+  display: none;
+}
+
+&.print-pdf {
+
+    * {  
+      font-size: 100%;
+    }
+    
+    .reveal .slides {
+      border:0 !important;
+      
+      section {
+          padding: 40px 60px 80px 60px !important;
+      }
+
+    }
+    
+    .reveal .slide:not(.center) {
+        height: calc(var(--slide-height) - 80px) !important;
+    }    
+        
+    .reveal .footer {
+      position: fixed;
+      left: auto;
+      bottom: 0;
+      font-family: "basier_squaremono";
+      font-size: 0.4em !important;
+      z-index: 20;
+      text-align: left;  
+      
+      .version {
+        padding-left: 52.5px !important;
+      }
+  } 
+}
+
+.small-slides,
+.small,
+.smaller {
+
+  &.dense {
+
+  table {
+    width: unset;
+    th,
+    td {
+      padding: 0.2em !important;
+    }
+  }
+}
+}
+
+.reveal .slides>section.stack.present {
+  height: 100%;
+}
+
+.reveal #title-slide,
+.reveal .slide:not(.center) {
+  height: calc(var(--slide-height) - 200px) !important;
+}
+
+.discussion-slide {
+  color: $dark-bg-text-color;
+  
+
+}
+
+.reveal .background-color-div,
+.reveal .background-iframe-div {
+  top: 0;
+  left: 0;
+  right: unset;
+  height: calc(var(--slide-height) - 80px) !important;
+  width: calc(var(--slide-width)) !important;  
+}
+
+#title-slide,
+section.footnotes,
+.reveal .slides section.slide {
+  width: calc(var(--slide-width) - 120px) !important;  
+}
+
+.reveal .references.hanging-indent {
+  margin-left: 0;
+  text-indent: 0;
+}
+
+.reveal .slides section .semi-fade-out-fixed,
+.reveal .slides section .fragment.semi-fade-out.visible,
+.reveal .slides section .fragment.fade-in-then-semi-out.visible {
+  opacity: .3;
+}
+
+.reveal .slides section .fragment.fade-in-then-semi-out.current-fragment {
+    opacity: 1;
+    visibility: inherit;
+}
+
+.reveal .slides section .fragment.highlight-blue.current-fragment,
+.reveal .slides section .fragment.highlight-blue.visible,
+.reveal .slides section .fragment.highlight-current-blue.current-fragment {
+  color: $light-bg-link-color;
+}
+
+// [text]{.fragment .highlight}: always visible, marked from the moment it is
+// reached (colour-neutral version of highlight-blue; the static .highlight
+// marker is set per theme)
+.reveal .slides section .fragment.highlight {
+  opacity: 1;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.highlight.visible {
+  color: $light-bg-link-color;
+}
+
+// [text]{.fragment .highlight-current}: always visible, marked while it is
+// the current fragment (colour-neutral version of highlight-current-blue;
+// the marker itself is set per theme, here the link colour)
+.reveal .slides section .fragment.highlight-current {
+  opacity: 1;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.highlight-current.current-fragment {
+  color: $light-bg-link-color;
+}
+
+.reveal .slides section {
+ol {
+  counter-reset: item;
+  list-style-type: none;
+  margin: 0;
+  
+  li {
+    clear: left;
+    position: relative;
+    
+    &:before {
+      counter-increment: item;
+      left: 0;
+      position: absolute;
+    }
+  }
+}
+
+.light-grey {
+  color: rgba(0,0,0,.2);
+}
+
+// .highlight-color (new name) and .link-color: text in the accent colour
+
+}
+
+.mono {
+  font-family: $font-family-monospace;
+  font-size: #{$presentation-font-smaller}em;
+}
+
+.no-list ul {
+  margin: 0;
+  list-style-type: none !important;
+}
+
+.reveal .callout .callout-title,
+.reveal div.callout.callout-style-simple .callout-title,
+.reveal div.callout.callout-note.callout-style-default .callout-title {
+  line-height: 1em;
+  
+  p strong {
+    color: #fff;
+  }
+  .callout-icon-container {
+    display: none !important;
+  }
+}
+
+.callout {
+  margin-top: 2em !important;
+}
+
+.reveal div.callout.callout-style-simple,
+.callout.callout-style-default {
+  border: none !important;
+}
+
+.reveal div.callout.callout-style-simple .callout-body {
+  background: none;
+  padding: 0 .5em;
+}
+
+.reveal.small .slides section, 
+.reveal .small, 
+.reveal .slides section.small,
+.reveal.smaller .slides section, 
+.reveal .smaller, 
+.reveal .slides section.smaller {
+  font-size: calc($presentation-font-size-root * $presentation-font-smaller);
+}
+
+@media (max-width: 960px) {
+    .footnote {
+        max-width: 600px;
+        overflow: hidden;
+    }
+}
+
+.reveal .tippy-content>*:first-child {
+  margin-top: 0;
+}
+
+.figHeight {
+  height: 250px;
+}
+
+.inline table {
+  display: inline;
+}
+
+.reveal div.callout.callout-important.callout-style-default .callout-title {
+  background-color: rgb(184, 71,73);
+}
+
+.reveal .slides section .fragment.bold {
+  font-weight: bold;
+}
+
+.reveal .slides section .fragment.display-none.visible {
+  display: none
+}
+
+.qrcode {
+
+  background: #fff;
+  width: fit-content;
+
+  img {
+    margin: 1em !important;
+    width: auto;
+    height: auto;
+  }
+}
+
+.reveal .slides section .bg-white img {
+  background: #fff !important;
+}
+
+.reveal .columns>.column:last-child>:not(ul,ol, p) {
+  margin: 0 0 1em 0;
+}
+
+// Highlight slides: ## Title {.bg-highlight} (replaces background-color="#0333ff").
+// isolation keeps letterbox background images (z-index: -1) above the color.
+
+} // end :where(html:not(.awe-classic)) base layer
+
+html:not(.awe-classic) {
+
+& {
+  --r-main-font: #{$awe-sans};
+  --r-heading-font: #{$awe-sans};
+  --r-heading-font-weight: #{$awe-weight-heading};
+  --awe-paper: #{$paper};
+  --awe-ink: #{$ink};
+  --awe-night: #{$night};
+  --awe-highlight: #{$highlight};
+  --awe-mark-on-paper: #{$mark-on-paper};
+  --awe-offwhite: #{$offwhite};
+  --awe-mark-on-white: #{$mark-on-white};
+  --awe-mark-on-offwhite: #{$mark-on-offwhite};
+  --awe-mark-on-night: #{$mark-on-night};
+  // lighter highlight, ~1.12:1 against #16CAF7 (as off-white vs white); retune
+  // the white share if a much darker or lighter highlight is used
+  --awe-mark-on-highlight: color-mix(in srgb, var(--awe-highlight) 80%, #FFF);
+
+  // light surface defaults
+  --awe-fg: var(--awe-ink);
+  --awe-muted: var(--awe-ink);   // no muted text on slides; footer keeps $ink-muted
+  --awe-dot: var(--awe-highlight);
+  --awe-mark: var(--awe-mark-on-paper);
+  --awe-rule: color-mix(in srgb, var(--awe-ink) 14%, transparent);
+}
+
+// off-white surfaces (opt-in): white marks on off-white
+.reveal .slides .surface-offwhite {
+  background-color: var(--awe-offwhite);
+  --awe-mark: var(--awe-mark-on-offwhite);
+}
+
+// white surfaces (opt-in, for decks with $paper: $offwhite): off-white marks
+.reveal .slides .surface-white {
+  background-color: $awe-white;
+  --awe-mark: var(--awe-mark-on-white);
+}
+
+// ---------------------------------------------------------------------------
+// Surfaces
+// ---------------------------------------------------------------------------
+
+// dark: discussions, ink slides, section dividers, image backgrounds
+.reveal .slides .discussion-slide,
+.reveal .slides .ink-slide,
+.reveal .slides .headline-only,
+.reveal section.has-dark-background,
+.reveal .slides section:has(> .background-image-div) {
+  @include awe-surface-dark;
+}
+
+// cyan: highlight slides and legacy blue backgrounds; black text on cyan
+.reveal .slides section.bg-highlight,
+.reveal .slides section.accent-slide,
+.reveal .slides section:has(> .background-color-div[style*="#{$awe-legacy-blue}"]) {
+  --awe-fg: var(--awe-ink);
+  --awe-muted: var(--awe-ink);
+  --awe-dot: var(--awe-ink);
+  --awe-mark: var(--awe-mark-on-highlight);
+  --awe-rule: color-mix(in srgb, var(--awe-ink) 25%, transparent);
+}
+
+// highlight slides with a photo on top read as dark
+.reveal .slides section.bg-highlight:has(> .background-image-div),
+.reveal .slides section.accent-slide:has(> .background-image-div) {
+  @include awe-surface-dark(rgba(255, 255, 255, .28));
+}
+
+.reveal .slides .discussion-slide,
+.reveal .slides .ink-slide,
+.reveal .slides .headline-only {
+  background-color: var(--awe-night);
+}
+
+// Title slide and Q&A (a .headline-only divider with .bg-highlight): dark in
+// this theme, even when they carry .bg-highlight or a legacy blue background
+.reveal .slides section.headline-only.bg-highlight,
+.reveal .slides #title-slide {
+  @include awe-surface-dark;
+  background-color: var(--awe-night);
+}
+
+.reveal .slides section.headline-only.bg-highlight > .background-color-div,
+.reveal .slides #title-slide > .background-color-div {
+  background-color: var(--awe-night) !important;
+}
+
+.reveal .slides section.bg-highlight,
+.reveal .slides section.accent-slide {
+  background-color: var(--awe-highlight);
+  isolation: isolate;
+}
+
+.reveal .background-color-div[style*="#{$awe-legacy-blue}"] {
+  background-color: var(--awe-highlight) !important;
+}
+
+.reveal .slides section.slide,
+.reveal .slides #title-slide {
+  color: var(--awe-fg);
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--awe-fg) !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Canvas
+// ---------------------------------------------------------------------------
+
+body.quarto-light,
+.reveal-viewport {
+  background: #0B0B0B;
+}
+
+.reveal .slides,
+.slides {
+  background-color: var(--awe-paper);
+  border-color: var(--awe-paper);
+  box-shadow: none;
+}
+
+.reveal {
+  color: var(--awe-ink);
+}
+
+#title-slide,
+section.footnotes,
+.reveal .slides section.slide {
+  width: calc(var(--slide-width) - #{2 * $awe-pad-x}) !important;
+  padding: $awe-pad-top $awe-pad-x $awe-pad-bottom $awe-pad-x !important;
+}
+
+.reveal #title-slide,
+.reveal .slide:not(.center) {
+  height: calc(var(--slide-height) - #{$awe-footer-band + $awe-pad-top + $awe-pad-bottom}) !important;
+}
+
+// ---------------------------------------------------------------------------
+// Running header (kicker), injected by awe-editorial.html
+// ---------------------------------------------------------------------------
+
+// <div class="awe-runhead"><span class="awe-runhead-num">02</span>
+//   <span class="awe-runhead-title">Conversations</span></div>
+.reveal .slides section.slide > .awe-runhead {
+  @include awe-label;
+  @include awe-dot-bg;
+  position: absolute;
+  top: 30px;
+  left: $awe-pad-x;
+  margin: 0;
+  max-width: none;
+  color: var(--awe-fg);
+  // keep it out of grid placement in split layouts
+  grid-column: auto !important;
+  grid-row: auto !important;
+
+  // number in the text colour, regular weight, "/" before the title
+  .awe-runhead-num {
+    color: inherit;
+    margin-right: .6em;
+
+    &::after {
+      content: "/";
+      margin-left: .6em;
+    }
+  }}
+
+// ---------------------------------------------------------------------------
+// Type
+// ---------------------------------------------------------------------------
+
+// headlines: the size of .large, a little closer to the section label
+.reveal .slides section.slide:not(.headline-only) > h1,
+.reveal .slides section.slide:not(.headline-only) > h2,
+.reveal .slides section.slide > h3 {
+  @include awe-headline;
+  margin: (-$awe-head-lift) 0 1em 0;
+  max-width: $awe-measure;
+
+  &:after {
+    content: none;
+  }
+}
+
+.reveal .slide p,
+.reveal .slide li {
+  font-size: .95em;
+  line-height: 1.5;
+}
+
+.reveal .slide li p,
+.reveal .slide li li,
+.reveal .slide td p,
+.reveal .slide .medium li,
+.reveal .slide .medium p,
+.reveal .slide .large p,
+.reveal .slide .lead p,
+.reveal .slide .stat p,
+.reveal .slide .cell p,
+.reveal .slide blockquote p {
+  font-size: inherit;
+}
+
+.reveal .slide p {
+  margin: .8rem 0;
+}
+
+.reveal .slide .callout,
+.reveal .slide blockquote,
+.reveal .slide p,
+.reveal .slide li {
+  max-width: $awe-measure;
+}
+
+// Marker underlay: only for .highlight (and .mark / <mark>), in the bold
+// weight; plain bold text has no background (see end of file)
+.reveal .slides section .highlight,
+.reveal .slide mark,
+.reveal .slide .mark {
+  color: inherit !important;
+  font-weight: $awe-weight-strong;
+  @include awe-marker;
+  padding: 0 .08em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.reveal a {
+  color: inherit !important;
+  text-decoration: underline;
+  text-decoration-color: var(--awe-dot);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .22em;
+}
+
+// hover: highlight colour (var(--awe-dot) is the highlight on paper and dark
+// slides, black on highlight backgrounds); slide number keeps its own rule
+.reveal a:hover,
+.reveal a:focus-visible {
+  color: var(--awe-dot) !important;
+  text-decoration-color: currentColor;
+}
+
+.reveal .slide span.citation,
+.reveal .slide span.citation a {
+  color: var(--awe-muted);
+  text-decoration: none;
+}
+
+// :::medium (lead statement above a list)
+.reveal .slide .medium {
+  p:first-child {
+    font-size: 1.45em;
+    line-height: 1.25;
+    letter-spacing: $awe-tracking-tight;
+    margin: 0 0 1.3em 0;
+    max-width: 26em;
+
+    // citations keep the size of the :::medium text
+    .citation {
+      font-size: inherit;
+    }
+  }
+
+  li {
+    font-size: 1.45em;
+    line-height: 1.25;
+    letter-spacing: $awe-tracking-tight;
+  }
+}
+
+.reveal .slide .large p:first-child,
+.reveal .slide .larger p:first-child,
+.reveal .slide p span.large,
+.reveal .slide p span.larger,
+.reveal .slide li span.large,
+.reveal .slide li span.larger {
+  @include awe-headline;
+}
+
+// ---------------------------------------------------------------------------
+// Lists: dots for bullets, mono numbers for ordered lists
+// ---------------------------------------------------------------------------
+
+.reveal .slides section ul:not([role="tablist"]) {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+
+  > li {
+    position: relative;
+    padding-left: 1.3em;
+
+    + li {
+      margin-top: .6em;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: .1em;
+      top: .62em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--awe-dot);
+    }
+  }
+
+  ul > li::before {
+    background: transparent;
+    border: 1px solid var(--awe-dot);
+    width: 5px;
+    height: 5px;
+  }
+}
+
+.reveal .slides section .medium ul > li,
+.reveal .slides section .no-list ul > li {
+  padding-left: 0;
+
+  &::before {
+    content: none;
+  }
+}
+
+.reveal .slides section ol {
+  > li {
+    padding-left: 2em;
+
+    + li {
+      margin-top: .6em;
+    }
+
+    &:before {
+      content: counter(item, decimal-leading-zero);
+      font-family: $awe-label-font;
+      font-variant-numeric: tabular-nums;
+      font-size: .68em;
+      letter-spacing: $awe-label-tracking;
+      top: .55em;
+      width: 2.6em;
+      color: var(--awe-dot) !important;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Tables
+// ---------------------------------------------------------------------------
+
+.reveal .slide table {
+  border-collapse: collapse;
+  font-size: .9em;
+  // only as wide as the content needs, never wider than the slide
+  width: auto !important;
+  max-width: $awe-measure;   // same right edge as body text
+  table-layout: auto;
+  margin-top: 1.6em !important;
+
+  // Pandoc adds percentage column widths to long pipe tables; drop them so
+  // columns size to their content
+  col {
+    width: auto !important;
+  }
+
+  thead {
+    border-bottom: 1px solid var(--awe-fg);
+    color: var(--awe-muted);
+  }
+
+  // headers: slide font at the weight of strong, no capitals
+  th {
+    font-family: inherit;
+    font-size: 1em;            // same size as the cells
+    font-weight: $awe-weight-strong;
+    letter-spacing: normal;
+    text-transform: none;
+    vertical-align: bottom;
+    padding-bottom: .8em;
+  }
+
+  td {
+    border-bottom: 1px solid var(--awe-rule);
+    padding-top: .65em;
+    padding-bottom: .65em;
+    padding-right: 1.2em;
+  }
+
+  td,
+  td:first-child {
+    font-weight: inherit;
+  }
+
+  caption {
+    font-family: $awe-label-font;
+    font-size: $awe-caption-size;
+    color: var(--awe-muted);
+    letter-spacing: .02em;
+    margin-top: 1.4em;
+    text-align: left;
+  }
+
+  th, td {
+    padding-left: 0;
+    padding-right: 2em;
+    text-wrap: pretty;   // avoid single-word last lines in wrapped cells
+  }
+
+  // columns marked by awe-editorial.html (table fitting) stay on one line
+  .awe-nowrap {
+    white-space: nowrap;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 0;
+  }
+
+  strong {
+    color: inherit;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Quotes
+// ---------------------------------------------------------------------------
+
+.reveal .slide blockquote {
+  position: relative;
+  border-left: none !important;
+  padding: 0 0 0 $awe-quote-indent;
+  margin: .5em 0 1em 0;
+  color: inherit;
+
+  &::before {
+    content: "\201C";
+    position: absolute;
+    // ink of the quote mark starts where the ink of list numbers starts:
+    // numbers' ink sits ~.77px into the item; Switzer's quote mark has
+    // .06em left side bearing (em = the mark's own size, so this holds for
+    // every variant)
+    left: calc(.77px - .06em);
+    top: -.1em;
+    font-size: 3em;
+    line-height: 1;
+    color: var(--awe-dot);
+  }
+
+  em {
+    @include awe-label;
+    display: block;
+    color: var(--awe-muted);
+    margin-top: 1.6em;
+  }
+
+  em .citation,
+  em .citation a {
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
+.reveal .slide .medium blockquote,
+.reveal .slide .large blockquote {
+  padding-left: $awe-quote-indent;
+
+  &::before {
+    font-size: 4.8em;
+    top: -.14em;
+  }
+
+  p:first-child {
+    font-size: 1.5em;
+    line-height: 1.28;
+    letter-spacing: $awe-tracking-tight;
+    margin: 0;
+    max-width: 24em;
+  }
+}
+
+// :::large quotes: clearly bigger than :::medium
+.reveal .slide .large blockquote,
+.reveal .slide .larger blockquote {
+  // the large mark (~39px ink) needs a little more room before the text
+  padding-left: 3.2em;
+
+  &::before {
+    font-size: 6.4em;
+    top: -.16em;
+  }
+
+  p:first-child {
+    font-size: 2.3em;
+    line-height: 1.14;
+    letter-spacing: -0.024em;
+    max-width: 17em;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Section dividers (# Title {.headline-only}): dark, accent number
+// ---------------------------------------------------------------------------
+
+.reveal .slides .headline-only {
+  justify-content: flex-end;
+
+  h1,
+  h2 {
+    font-size: 4.2em;
+    line-height: .98;
+    letter-spacing: 0;
+    margin: 0;
+    max-width: 12em;
+  }
+
+  &[data-awe-num]::before {
+    content: attr(data-awe-num);
+    position: absolute;
+    top: $awe-pad-top - 22px;
+    left: $awe-pad-x - 3px;
+    font-size: 7em;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--awe-dot);
+  }
+
+  &[data-awe-num]::after {
+    @include awe-label;
+    @include awe-dot-bg;
+    content: "Section";
+    position: absolute;
+    top: $awe-pad-top - 4px;
+    right: $awe-pad-x;
+    color: var(--awe-muted);
+  }
+
+  .citation,
+  .citation a {
+    color: inherit;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Title slide
+// ---------------------------------------------------------------------------
+
+.reveal .slides #title-slide {
+  // wrapping row: title and subtitle take full rows, authors and date share
+  // the last row
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: flex-end;
+  align-items: baseline;
+  padding: $awe-pad-top $awe-pad-x ($awe-pad-bottom + 16px) $awe-pad-x !important;
+
+  > * {
+    flex: 0 0 100%;
+  }
+
+  > .quarto-title-authors,
+  > .date {
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0 !important;
+  }
+
+  // the affiliation keeps its 2rem right margin (awe-slides.scss) as the gap
+  .quarto-title-affiliation,
+  .date {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  h1.title {
+    font-size: 4.4em;
+    line-height: .98;
+    letter-spacing: 0;
+    margin: 0 0 1.1em 0;
+    max-width: 12em;
+  }
+
+  // subtitle (course name) as a dotted label directly above the title,
+  // styled like the "Section" label on dividers
+  .subtitle {
+    @include awe-label;
+    @include awe-dot-bg;
+    order: -1;
+    margin: 0 0 1.6em 0;
+    color: var(--awe-muted);
+  }
+
+  .date,
+  .quarto-title-author-name,
+  .quarto-title-affiliation,
+  .institute {
+    @include awe-label;
+    color: var(--awe-fg);
+  }
+
+}
+
+// ---------------------------------------------------------------------------
+// Discussions: "## Exercise" is a normal headline below the running header
+// (section title); a level-1 discussion slide ("# Recap") has no section, so
+// its heading becomes the dotted label and :::medium the large title
+// ---------------------------------------------------------------------------
+
+.reveal .slides section.slide.discussion-slide > h1 {
+  @include awe-label;
+  @include awe-dot-bg;
+  // same position and size as the running header on other slides
+  position: absolute;
+  top: 30px;
+  left: $awe-pad-x;
+  color: var(--awe-muted) !important;
+  margin: 0;
+  max-width: none;
+}
+
+// level-1 discussion slides: the lead takes the headline's size and
+// position; same right edge as the content, clear of the countdown
+.reveal .slides .discussion-slide:has(> h1) .medium p:first-child {
+  @include awe-headline;
+  margin: (-$awe-head-lift) 0 1em 0;
+  max-width: $awe-measure !important;
+}
+
+// countdown shortcode
+// The extension colours its digits through its own variables, so set those
+// from the surface variables (light digits on dark slides, dark on paper).
+.reveal .discussion-slide .countdown,
+.reveal .countdown {
+  --countdown-color-text: var(--awe-fg);
+  --countdown-color-border: var(--awe-rule);
+  --countdown-color-background: transparent;
+  --countdown-color-running-text: var(--awe-ink);
+  --countdown-color-running-background: var(--awe-highlight);
+  --countdown-color-running-border: var(--awe-highlight);
+  color: var(--awe-fg);
+  font-family: $awe-label-font;
+  font-variant-numeric: tabular-nums;
+  box-shadow: none;
+}
+
+// ---------------------------------------------------------------------------
+// Footer, progress, slide number
+// ---------------------------------------------------------------------------
+
+.reveal .footer.custom,
+.footer.custom {
+  background: var(--awe-paper);
+  color: #{$ink-muted};
+  font-size: 9px !important;
+  letter-spacing: $awe-label-tracking;
+  text-transform: $awe-label-case;
+  // Footnote first, left-aligned with the slide content; version right after
+  // it; logo at the right (footer.html lists version, footnote, logo)
+  display: flex;
+  align-items: center;
+
+  .footnote {
+    order: 1;
+    padding: 0 0 0 $awe-pad-x;
+  }
+
+  .version {
+    order: 2;
+    float: none;
+    padding: 0 0 0 1em !important;
+  }
+
+  .logo {
+    order: 3;
+    float: none;
+    margin-left: auto;
+    opacity: .85;
+  }
+}
+
+.reveal .footer.custom .version {
+  color: #{$ink-muted} !important;
+  opacity: .6;
+}
+
+.reveal .slide-number,
+.slide-number {
+  color: var(--awe-ink) !important;
+  font-size: 10px !important;
+  letter-spacing: $awe-label-tracking;
+
+  a,
+  a:hover {
+    color: var(--awe-ink) !important;
+    text-decoration: none !important;
+  }
+}
+
+.reveal .progress {
+  height: 3px;
+  background: transparent;
+  color: var(--awe-highlight);
+}
+
+// ---------------------------------------------------------------------------
+// Fragments and highlights
+// ---------------------------------------------------------------------------
+
+.reveal .slides section .fragment.highlight-blue.current-fragment,
+.reveal .slides section .fragment.highlight-blue.visible,
+.reveal .slides section .fragment.highlight-current-blue.current-fragment,
+.reveal .slides section .fragment.highlight-current.current-fragment {
+  color: inherit;
+  font-weight: $awe-weight-strong;   // like .highlight: bold with the marker
+  @include awe-marker;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+// [text]{.fragment .highlight}: plain text until the fragment is reached,
+// then the .highlight marker and weight (stays marked afterwards)
+.reveal .slides section .fragment.highlight:not(.visible) {
+  font-weight: inherit;
+  background: none;
+}
+
+.reveal .slides section .fragment.highlight.visible {
+  color: inherit !important;
+}
+
+// [text]{.highlight-color}: text in the highlight colour (.link-color and
+// .accent are older names for the same)
+.reveal .slides section .highlight-color,
+.reveal .slides section .link-color,
+.reveal .slides section .accent {
+  color: var(--awe-dot) !important;
+}
+
+.reveal .slides section .fragment.semi-fade-out.visible,
+.reveal .slides section .fragment.fade-in-then-semi-out.visible {
+  opacity: .28;
+}
+
+.reveal .slides section .fragment.fade-in-then-semi-out.current-fragment {
+  opacity: 1;
+}
+
+.reveal .slides section .muted {
+  color: var(--awe-muted);
+}
+
+// ---------------------------------------------------------------------------
+// Definition lists, callouts, footnotes, figures
+// ---------------------------------------------------------------------------
+
+.reveal dl dt {
+  color: var(--awe-fg);
+  font-weight: $awe-weight-strong;
+  margin-top: 1.2em;
+  padding-top: .6em;
+  border-top: 1px solid var(--awe-rule);
+}
+
+.reveal dl dd {
+  color: var(--awe-fg);
+}
+
+.reveal .callout .callout-title,
+.reveal div.callout.callout-style-simple .callout-title,
+.reveal div.callout.callout-note.callout-style-default .callout-title {
+  background-color: var(--awe-ink);
+}
+
+.reveal div.callout.callout-style-simple,
+.callout.callout-style-default {
+  background: color-mix(in srgb, var(--awe-ink) 4%, var(--awe-paper));
+}
+
+.reveal .footnotes ol li:before {
+  color: var(--awe-dot);
+}
+
+// [src*=] instead of [src$=]: Quarto's SCSS analyzer misreads `$=` inside the
+// html:not(.awe-classic) block as an empty variable and aborts the render
+.reveal .slide figure p:first-child img[src*=".svg"],
+.reveal .slide figure div:first-child img[src*=".svg"] {
+  background-color: transparent;
+}
+
+.reveal .slide figure > figcaption,
+.reveal .slide .quarto-float-caption {
+  font-family: $awe-label-font;
+  font-size: $awe-caption-size;
+  color: var(--awe-muted);
+  text-align: left !important;
+}
+
+.reveal .code,
+.reveal code {
+  color: var(--awe-dot);
+}
+
+// code keeps a monospace font (labels use the text font)
+.reveal code,
+.reveal pre,
+.reveal kbd {
+  font-family: $awe-mono;
+}
+
+// the countdown sets its time in <code>: text font with even digits
+.reveal .countdown .countdown-time,
+.reveal .countdown .countdown-digits,
+.reveal .countdown button {
+  font-family: $awe-label-font;
+  font-variant-numeric: tabular-nums;
+}
+
+.tippy-box[data-theme~="quarto-reveal"] {
+  background-color: var(--awe-paper);
+  border-color: var(--awe-rule);
+}
+
+// ---------------------------------------------------------------------------
+// New elements (opt-in for new slides)
+// ---------------------------------------------------------------------------
+
+// :::kicker, [label]{.kicker}, [label]{.dot}
+.reveal .slide .kicker,
+.reveal .slide .kicker p {
+  @include awe-label;
+  font-size: $awe-label-size;
+  color: var(--awe-fg);
+  margin: 0 0 1.4em 0;
+}
+
+.reveal .slide .kicker p,
+.reveal .slide span.kicker,
+.reveal .slide .dot {
+  @include awe-dot-bg;
+}
+
+// :::lead
+.reveal .slide .lead p {
+  font-size: 1.3em;
+  line-height: 1.35;
+  letter-spacing: -0.008em;
+  max-width: 28em;
+  color: var(--awe-muted);
+  margin: 0 0 1.2em 0;
+
+  strong {
+    color: var(--awe-fg);
+  }
+}
+
+// :::statement (div) and ## Title {.statement} (slide)
+.reveal .slide .statement p,
+.reveal .slides section.statement > p {
+  font-size: 2.7em;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  max-width: 16em;
+  margin: 0 0 .4em 0;
+}
+
+.reveal .slides section.slide.statement {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+
+  > h2 {
+    @include awe-label;
+    @include awe-dot-bg;
+    font-size: $awe-label-size;
+    color: var(--awe-muted) !important;
+    margin: 0 0 2.4em 0;
+  }
+}
+
+// :::stats > :::stat
+// ::::columns: a real gap between columns (48px, as in :::stats) instead of
+// Quarto's .25rem/.5rem margins on the direct children of a column, which
+// indent paragraphs but not lists or tables
+.reveal .slides .columns > .column {
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  &:first-child { padding-left: 0; }
+  &:last-child { padding-right: 0; }
+
+  > * {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+.reveal .slide .stats {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  column-gap: 48px;
+  margin: 1.6em 0;
+}
+
+.reveal .slide .stat {
+  border-top: 1px solid var(--awe-fg);
+  padding-top: .8em;
+
+  p {
+    margin: 0;
+    font-size: .85em;
+    color: var(--awe-muted);
+  }
+
+  p:first-child {
+    font-size: 3.2em;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    color: var(--awe-fg);
+    margin: 0 0 .35em 0;
+  }
+}
+
+// :::cells > :::cell (auto-numbered)
+.reveal .slide .cells {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  column-gap: 40px;
+  counter-reset: awe-cell;
+  margin: 1.4em 0;
+}
+
+.reveal .slide .cell {
+  counter-increment: awe-cell;
+  border-top: 1px solid var(--awe-fg);
+  padding-top: .8em;
+
+  &::before {
+    @include awe-label;
+    @include awe-dot-bg;
+    content: counter(awe-cell, decimal-leading-zero);
+    display: block;
+    font-size: $awe-label-size;
+    color: var(--awe-fg);
+    margin-bottom: 1.8em;
+  }
+
+  p {
+    margin: 0 0 .5em 0;
+    font-size: .88em;
+    line-height: 1.45;
+  }
+
+  p:first-of-type strong:first-child {
+    display: block;
+    font-size: 1.22em;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    background: none;
+    margin-bottom: .5em;
+  }
+}
+
+// ## Title {.split}: heading left, content right
+.reveal .slides section.slide.split {
+  display: grid !important;
+  grid-template-columns: 34% 1fr;
+  column-gap: 64px;
+  align-content: start;
+
+  > h2 {
+    grid-column: 1;
+    grid-row: 1 / span 30;
+    font-size: 2.4em;
+    max-width: none;
+    align-self: baseline;
+  }
+
+  // a kicker opening the right column sits on the headline's baseline
+  > .kicker {
+    align-self: baseline;
+  }
+
+  > :not(h2):not(aside):not(.notes) {
+    grid-column: 2;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Overrides for awe-slides.scss dark-background rules, which colour quote
+// sources, citations, and table headers with $dark-bg-link-color.
+// To keep every surface consistent, they use the
+// surface variables instead.
+// ---------------------------------------------------------------------------
+
+.reveal .slides section.slide blockquote em,
+.reveal .slides section.slide blockquote em .citation,
+.reveal .slides section.slide blockquote em a,
+.reveal .slides section.slide span.citation,
+.reveal .slides section.slide span.citation a {
+  color: var(--awe-muted) !important;
+}
+
+.reveal .slides section.slide table th {
+  color: var(--awe-muted);
+}
+
+.reveal .slides section.slide blockquote {
+  color: inherit;
+}
+
+// Reveal navigation arrows (hidden via controls: false, kept in sync anyway)
+.reveal .controls {
+  color: var(--awe-highlight);
+}
+
+// <strong> uses $awe-weight-strong without a background; awe-slides.scss gives strong a
+// white (or translucent) bar, switched off here. Use [text]{.highlight}
+// for the marker underlay.
+.reveal .slides section.slide strong,
+.reveal .slides section.slide b {
+  font-weight: $awe-weight-strong !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+
+// ---------------------------------------------------------------------------
+// Closing slides: # Q&A {… .qa-slide} and # Literature {.literature-slide}
+// (hooks for their own styling; Q&A is a dark .bg-highlight divider)
+// ---------------------------------------------------------------------------
+
+.reveal .slides section.qa-slide {
+}
+
+.reveal .slides section.literature-slide {
+}
+
+// ---------------------------------------------------------------------------
+// Agenda slide (generated by lib/filter/agenda.lua from `agenda: true`)
+// ---------------------------------------------------------------------------
+
+.reveal .slides section.slide.agenda {
+  .agenda-list {
+    max-width: $awe-measure;
+    margin-top: 1.4em;
+  }
+
+  .agenda-item {
+    display: grid;
+    grid-template-columns: 4.2em 1fr auto;
+    align-items: baseline;
+    column-gap: 1.2em;
+    max-width: $awe-measure;
+    padding: .7em 0;
+    border-bottom: 1px solid var(--awe-rule);
+
+    // lines only between rows: none above the first or below the last
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .agenda-num {
+    @include awe-label;
+    @include awe-dot-bg;
+    font-size: $awe-label-size;
+    color: var(--awe-fg);
+  }
+
+  .agenda-title {
+    font-size: 1.25em;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .agenda-time {
+    @include awe-label;
+    font-size: $awe-label-size;
+    color: var(--awe-fg);
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+
+// Switzer for all slide text, body at $awe-weight-base, headings at
+// $awe-weight-heading; mono labels use Geist Mono ($awe-mono)
+.reveal .slides {
+  font-weight: $awe-weight-base;
+}
+
+.reveal .slides h1,
+.reveal .slides h2,
+.reveal .slides h3,
+.reveal .slides h4,
+.reveal .slides #title-slide h1.title {
+  font-weight: $awe-weight-heading;
+}
+
+.reveal,
+.reveal .slides,
+.reveal .slides h1,
+.reveal .slides h2,
+.reveal .slides h3,
+.reveal .slides h4,
+.reveal .slide aside .medium p,
+.reveal .slide aside .smaller p {
+  font-family: $awe-sans;
+}
+
+// Citations in paragraphs and lists (incl. :::medium): same size as the
+// text, muted (the theme's --awe-muted equals the text colour, so use a 55%
+// mix of the surface text colour). Quote sources keep their label style.
+.reveal .slides section.slide p span.citation,
+.reveal .slides section.slide p span.citation a,
+.reveal .slides section.slide li span.citation,
+.reveal .slides section.slide li span.citation a {
+  color: color-mix(in srgb, var(--awe-fg) 55%, transparent) !important;
+}
+
+.reveal .slides section.slide blockquote em span.citation,
+.reveal .slides section.slide blockquote em span.citation a {
+  color: inherit !important;
+}
+
+// Footer and page number: awe-slides.scss sets Basier Square Mono directly;
+// use the label font like all other labels
+.reveal .footer.custom,
+.footer.custom,
+.footer.custom .version,
+.footer.custom .footnote,
+.reveal .slide-number,
+.slide-number {
+  font-family: $awe-label-font !important;
+}
+
+// ---------------------------------------------------------------------------
+// Print view (slides.html?print-pdf): reveal turns every slide into a
+// .pdf-page (1080 x 640) with display: block on the slide and its own page
+// background. Restore the paper background, the full slide box (minus the
+// 80px footer band, as on screen), the flex layouts, and hide the progress bar.
+// ---------------------------------------------------------------------------
+
+&.print-pdf {
+  &,
+  body,
+  .reveal-viewport,
+  .reveal .slides .pdf-page {
+    background: var(--awe-paper) !important;
+  }
+
+  .reveal .slides .pdf-page {
+    overflow: hidden;
+  }
+
+  .reveal .slides .pdf-page > section.slide,
+  .reveal .slides .pdf-page > section#title-slide {
+    box-sizing: border-box !important;
+    width: 1080px !important;
+    height: 560px !important;
+    padding: $awe-pad-top $awe-pad-x $awe-pad-bottom $awe-pad-x !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+
+  .reveal .slides .pdf-page > section.headline-only {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+  }
+
+  // title slide keeps its wrapping row (title and subtitle full width,
+  // authors and date share the last row), aligned to the bottom
+  .reveal .slides .pdf-page > section#title-slide {
+    display: flex !important;
+    flex-flow: row wrap !important;
+    justify-content: flex-start !important;
+    align-content: flex-end !important;
+    align-items: baseline !important;
+  }
+
+  .reveal .slides .pdf-page > section.vertical-center,
+  .reveal .slides .pdf-page > section.vertically-centered,
+  .reveal .slides .pdf-page > section.statement {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .reveal .progress {
+    display: none !important;
+  }
+}
+
+} // end html:not(.awe-classic)

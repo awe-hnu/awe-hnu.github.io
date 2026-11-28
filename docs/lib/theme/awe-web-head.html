@@ -1,0 +1,13 @@
+<script>
+// awe-web: colour scheme before the first paint (no light flash in dark
+// mode). A stored choice from the navbar toggle wins; otherwise the
+// system setting. The toggle itself lives in awe-web.html.
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('awe-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') {
+    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>

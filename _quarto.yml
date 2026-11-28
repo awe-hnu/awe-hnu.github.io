@@ -20,7 +20,9 @@ project:
   preview:
     port: 9992
 
-author: "Andy Weeger"
+author:
+  - name: "Andy Weeger"
+    email: "andy.weeger@hnu.de"
 date-format: long
 date-modified: last-modified
 
@@ -30,7 +32,9 @@ website:
   title: "awe.lectures"
   open-graph: true
   page-navigation: false
-  search: false
+  search:
+    location: navbar
+    type: textbox
   bread-crumbs: false
   site-url: https://awe-hnu.github.io
   repo-url: https://github.com/awe-hnu/awe-hnu.github.io 
@@ -57,7 +61,7 @@ website:
         href: imprint.qmd
 
   navbar:
-    title: awe — Lecture Notes
+    title: awe — academic resource hub
     pinned: true
     collapse: false
     right:
@@ -180,11 +184,11 @@ website:
       collapse-level: 2
       title: "Advanced Paper Writing"
       contents:
-        - text: Moodle
-          href: https://elearning.hnu.de/course/view.php?id=23119
-          target: _blank
         - section: "Admin"
           contents:
+            - text: Moodle
+              href: https://elearning.hnu.de/course/view.php?id=23119
+              target: _blank
             - lectures/APW/26WT/admin/index.qmd
         - section: "Lecture notes"
           contents:
@@ -386,8 +390,8 @@ website:
         - lectures/SPM/26WT/ethics/index.qmd
         - href: lectures/SPM/26WT/case-1/index.qmd
           target: _blank
-        - lectures/SPM/26WT/cpm/index.qmd
-        - lectures/SPM/26WT/cpm-2/index.qmd
+        - lectures/SPM/26WT/cpm-foundations/index.qmd
+        - lectures/SPM/26WT/cpm-control/index.qmd
         - lectures/SPM/26WT/OKRs/index.qmd
         - lectures/SPM/26WT/case-2/prep.qmd
         - href: lectures/SPM/26WT/case-2/index.qmd
@@ -474,7 +478,8 @@ format:
     toc: true
     toc-depth: 1
     number-sections: false
-    title-block-banner: true
+    title-block-banner: false
+    toc-location: body
     affiliation-title: "Organisation"    
     code-overflow: wrap
     cap-location: bottom  
@@ -490,14 +495,19 @@ format:
       - lib/filter/html-pause.lua
       - lib/filter/html-hidden.lua         
       - lib/filter/slide-parts.lua
+      - lib/filter/slides-link.lua
     # lightbox: auto
+    # Website template: awe-web (on top of awe.scss) with its page script
     theme:
       - none
       - lib/theme/awe.scss
+      - lib/theme/awe-web.scss
+    include-after-body: lib/theme/awe-web.html
     page-layout: full
     include-in-header:
       - text: |
           <meta name="robots" content="noindex">   
+      - lib/theme/awe-web-head.html
     mermaid:
       theme: neutral            
   presentation-revealjs:
@@ -508,10 +518,13 @@ format:
     theme: [default, "lib/theme/awe-slides.scss", "lib/theme/awe-editorial.scss"]
     include-after-body: lib/theme/awe-editorial.html
     filters:
+      - lib/filter/notes-headings.lua
+      - lib/filter/section-title.lua
       - lib/filter/slide-theme.lua
       - lib/filter/highlight-color.lua
       - lib/filter/slide-parts.lua
       - lib/filter/agenda.lua
+      - lib/filter/qa-contact.lua
     slide-level: 3
     transition: fade
     center: false

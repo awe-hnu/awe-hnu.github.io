@@ -4,12 +4,14 @@
 --   agenda: true                 # in YAML (front matter or _metadata.yml)
 --   agenda: "Today's Session"    # same, with a custom slide title
 --
---   # Conversations {.headline-only time="45"}
+--   # Conversations {.section-title time="45"}
 --
 -- revealjs only: inserts the agenda slide before the first heading, i.e.
 -- right after the title slide. One row per section divider (level-1
--- heading with .headline-only, not .unlisted), numbered like the dividers,
--- with the section time. A numeric time counts as minutes ("45 min",
+-- heading with .section-title or .headline-only, not .unlisted; see
+-- section-title.lua), numbered like the dividers,
+-- with the section time. A level-1 heading with a `time` attribute is
+-- listed too (sections without a divider slide, e.g. in case sessions). A numeric time counts as minutes ("45 min",
 -- "1 h 30 min"); any other value (e.g. "1 day") is shown as written.
 -- The HTML wiki is unchanged (agendas are slide-only).
 
@@ -43,7 +45,9 @@ function Pandoc(doc)
   for idx, b in ipairs(doc.blocks) do
     if b.t == "Header" then first_heading = first_heading or idx end
     if b.t == "Header" and b.level == 1 then
-      if b.classes:includes("headline-only") and not b.classes:includes("unlisted") then
+      local listed = b.classes:includes("headline-only") or b.classes:includes("section-title")
+        or b.attributes["time"] ~= nil
+      if listed and not b.classes:includes("unlisted") then
         n = n + 1
         local time = b.attributes["time"] or ""
         local minutes = tonumber(time)

@@ -51,6 +51,11 @@ div.csl-indent {
 
 
 <script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
 <link href="../../../../assets/favicon.png" rel="icon" type="image/png">
 <script src="../../../../site_libs/cookie-consent/cookie-consent.js"></script>
 <link href="../../../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
@@ -59,8 +64,19 @@ div.csl-indent {
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-dc3c6712bff0e3d3575a9a37d96962b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-3d87d53381eda6d3e1ad5f2311bf723d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -93,7 +109,22 @@ cookieconsent.run({
 });
 </script> 
   
+<script>
+// awe-web: colour scheme before the first paint (no light flash in dark
+// mode). A stored choice from the navbar toggle wins; otherwise the
+// system setting. The toggle itself lives in awe-web.html.
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('awe-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') {
+    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
 <meta name="robots" content="noindex">   
+<meta name="awe-sidebar-title" content="Strategy &amp; Performance Management">
+<meta name="awe-slides" content="slides.html">
 
 
 <meta property="og:title" content="CPM (Foundations) – awe.lectures">
@@ -104,12 +135,12 @@ cookieconsent.run({
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../../index.html">
-    <span class="navbar-title">awe — Lecture Notes</span>
+    <span class="navbar-title">awe — academic resource hub</span>
     </a>
   </div>
           <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -120,6 +151,7 @@ cookieconsent.run({
 </ul>
           <div class="quarto-navbar-tools">
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
@@ -134,45 +166,7 @@ cookieconsent.run({
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title d-none d-lg-block">CPM (Foundations)</h1>
-            <p class="subtitle lead">Strategy and Performance Management</p>
-                                <div class="quarto-categories">
-                <div class="quarto-category">Lecture Notes</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-body">
-
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Andy Weeger </p>
-            </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">Aug 18, 2026</p>
-      </div>
-    </div>
-    
-      <div>
-      <div class="quarto-title-meta-heading">Modified</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date-modified">Nov 28, 2026</p>
-      </div>
-    </div>
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -297,29 +291,66 @@ cookieconsent.run({
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
 <p><a href="slides.html" class="btn btn-primary" target="blank">Slides</a></p>
 </div></div>
-        <nav id="TOC" role="doc-toc" class="toc-active">
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">CPM (Foundations)</h1>
+<p class="subtitle lead">Strategy and Performance Management</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Lecture Notes</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Andy Weeger </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Aug 18, 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">Nov 28, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#financial-reports" id="toc-financial-reports" class="nav-link" data-scroll-target="#financial-reports">Financial Reports</a></li>
-  <li><a href="#key-financial-ratios" id="toc-key-financial-ratios" class="nav-link" data-scroll-target="#key-financial-ratios">Key Financial Ratios</a></li>
-  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
-  <li><a href="#review-and-consolidation" id="toc-review-and-consolidation" class="nav-link" data-scroll-target="#review-and-consolidation">Review and Consolidation</a></li>
-  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  <li><a href="#introductory-remarks" id="toc-introductory-remarks">Introductory Remarks</a></li>
+  <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+  <li><a href="#financial-reports" id="toc-financial-reports">Financial Reports</a></li>
+  <li><a href="#key-financial-ratios" id="toc-key-financial-ratios">Key Financial Ratios</a></li>
+  <li><a href="#closing" id="toc-closing">Closing</a></li>
+  <li><a href="#literature" id="toc-literature">Literature</a></li>
   </ul>
 </nav>
-    </div>
-<!-- main -->
-<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
-
-
-
-
-
-<section id="learning-objectives" class="level1">
-<h1>Learning Objectives</h1>
+<section id="introductory-remarks" class="level1 section-title" data-time="5">
+<h1 class="section-title" data-time="5">Introductory Remarks</h1>
+<section id="learning-objectives" class="level2">
+<h2 data-anchor-id="learning-objectives">Learning Objectives</h2>
 <p>After this unit, you should have a solid understanding of</p>
 <div class="incremental">
 <ul class="incremental">
@@ -332,11 +363,12 @@ cookieconsent.run({
 </ul>
 </div>
 </section>
-<section id="introduction" class="level1 headline-only">
-<h1 class="headline-only">Introduction</h1>
+</section>
+<section id="introduction" class="level1 section-title" data-time="55">
+<h1 class="section-title" data-time="55">Introduction</h1>
 <section id="prologue" class="level2 no-headline vertical-center bg-highlight">
 <h2 class="no-headline vertical-center bg-highlight" data-anchor-id="prologue">Prologue</h2>
-<div class="medium">
+<div class="large">
 <blockquote class="blockquote">
 <p>What gets measured gets managed — even when it’s pointless to measure and manage it, and even if it harms the purpose of the organisation to do so. <em>Simon Caulkin, management editor of the Guardian summarizing <span class="citation" data-cites="ridgway1956dysfunctional">Ridgway (<a href="#ref-ridgway1956dysfunctional" role="doc-biblioref">1956</a>)</span></em></p>
 </blockquote>
@@ -368,7 +400,7 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <h2 data-anchor-id="theoretical-foundations">Theoretical Foundations</h2>
 <div class="medium">
 <div class="fragment">
-<p>Performance management bridges the <span class="fragment highlight-blue">strategy-implementation gap</span> by providing <span class="fragment highlight-current-blue">systematic measurement</span>, <span class="fragment highlight-current-blue">behavioral incentives</span>, and <span class="fragment highlight-current-blue">feedback mechanisms</span> that ensure strategic objectives are achieved.</p>
+<p>Performance management bridges the <span class="fragment highlight-blue">strategy-implementation gap</span> by providing <span class="fragment highlight-current">systematic measurement</span>, <span class="fragment highlight-current">behavioral incentives</span>, and <span class="fragment highlight-current">feedback mechanisms</span> that ensure strategic objectives are achieved.</p>
 </div>
 </div>
 <div class="fragment">
@@ -389,7 +421,7 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <h2 data-anchor-id="agency-theory">Agency Theory</h2>
 <div class="fragment">
 <div class="medium">
-<p>Agency theory examines the relationship between <span class="highlight">principals</span> (i.e., shareholders or company owners) and <span class="highlight">agents</span> (i.e, managers or employees) who act on the principals’ behalf.</p>
+<p>Agency theory examines the relationship between <strong>principals</strong> (i.e., shareholders or company owners) and <strong>agents</strong> (i.e, managers or employees) who act on the principals’ behalf.</p>
 </div>
 </div>
 <div class="fragment">
@@ -449,7 +481,7 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <h2 data-anchor-id="political-and-power-perspectives">Political and Power Perspectives</h2>
 <div class="medium">
 <div class="fragment">
-<p>Performance measurement systems are not neutral; they can <span class="fragment highlight-blue">reinforce or challenge power structures</span> by <span class="fragment highlight-current-blue">legitimizing authority</span>, <span class="fragment highlight-current-blue">influencing resource allocation</span>, and <span class="fragment highlight-current-blue">framing organizational discourse</span> <span class="citation" data-cites="burchell1980roles hopwood1976accounting">(<a href="#ref-burchell1980roles" role="doc-biblioref">Burchell et al., 1980</a>; <a href="#ref-hopwood1976accounting" role="doc-biblioref">Hopwood, 1976</a>)</span>.</p>
+<p>Performance measurement systems are not neutral; they can <span class="fragment highlight-blue">reinforce or challenge power structures</span> by <span class="fragment highlight-current">legitimizing authority</span>, <span class="fragment highlight-current">influencing resource allocation</span>, and <span class="fragment highlight-current">framing organizational discourse</span> <span class="citation" data-cites="burchell1980roles hopwood1976accounting">(<a href="#ref-burchell1980roles" role="doc-biblioref">Burchell et al., 1980</a>; <a href="#ref-hopwood1976accounting" role="doc-biblioref">Hopwood, 1976</a>)</span>.</p>
 </div>
 </div>
 <div class="notes">
@@ -495,18 +527,18 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <section id="summary" class="level2">
 <h2 data-anchor-id="summary">Summary</h2>
 <div class="fragment">
-<p>We’ve explored <span class="highlight">why</span> performance management systems are necessary (agency problems, motivation, power dynamics) and <span class="highlight">what can go wrong</span> (dysfunctions like gaming, tunnel vision, short-termism).</p>
+<p>We’ve explored <strong>why</strong> performance management systems are necessary (agency problems, motivation, power dynamics) and <strong>what can go wrong</strong> (dysfunctions like gaming, tunnel vision, short-termism).</p>
 </div>
 <div class="fragment">
-<p>Now we turn to <span class="highlight">how</span> performance is actually measured and managed in practice.</p>
+<p>Now we turn to <strong>how</strong> performance is actually measured and managed in practice.</p>
 </div>
 <div class="fragment">
 <p>The foundation of any performance management system is <strong>financial literacy:</strong> understanding how organizations create, capture, and report value through their financial statements and how these built the foundation of management controls and performance frameworks.</p>
 </div>
 </section>
 </section>
-<section id="financial-reports" class="level1 headline-only">
-<h1 class="headline-only">Financial Reports</h1>
+<section id="financial-reports" class="level1 section-title" data-time="30">
+<h1 class="section-title" data-time="30">Financial Reports</h1>
 <div class="notes">
 <p>Before we design performance management systems, we must speak the language they rely on: accounting and finance.</p>
 </div>
@@ -545,7 +577,7 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="highlight">Revenue</span></td>
+<td><strong>Revenue</strong></td>
 </tr>
 <tr class="even">
 <td>- Material costs</td>
@@ -560,25 +592,25 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <td>- Other expenses</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">= EBITDA</span> (Earnings Before Interest, Taxes, Depreciation, and Amortization)</td>
+<td><strong>= EBITDA</strong> (Earnings Before Interest, Taxes, Depreciation, and Amortization)</td>
 </tr>
 <tr class="odd">
 <td>- Depreciation &amp; Amortization</td>
 </tr>
 <tr class="even">
-<td>= <span class="highlight">EBIT</span> (Earnings Before Interest and Taxes)</td>
+<td>= <strong>EBIT</strong> (Earnings Before Interest and Taxes)</td>
 </tr>
 <tr class="odd">
 <td>- Interest</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">= EBT</span> (Earnings Before Taxes)</td>
+<td><strong>= EBT</strong> (Earnings Before Taxes)</td>
 </tr>
 <tr class="odd">
 <td>- Taxes</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">= Net income</span></td>
+<td><strong>= Net income</strong></td>
 </tr>
 </tbody>
 </table>
@@ -592,13 +624,13 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="highlight">Revenue</span></td>
+<td><strong>Revenue</strong></td>
 </tr>
 <tr class="even">
 <td>- Cost of Goods Sold (COGS)</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">= Gross Profit</span></td>
+<td><strong>= Gross Profit</strong></td>
 </tr>
 <tr class="even">
 <td><em>Other operating expenses</em></td>
@@ -613,13 +645,13 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <td>- Others</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">= Operating Income or Loss</span></td>
+<td><strong>= Operating Income or Loss</strong></td>
 </tr>
 <tr class="odd">
 <td>+ Total other income from continuing operations<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
 </tr>
 <tr class="even">
-<td><span class="highlight">= EBIT from continuing operations</span></td>
+<td><strong>= EBIT from continuing operations</strong></td>
 </tr>
 <tr class="odd">
 <td>+ Financial income</td>
@@ -628,19 +660,19 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <td>- Financial expenses</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">= Income before taxes from continuing operations</span></td>
+<td><strong>= Income before taxes from continuing operations</strong></td>
 </tr>
 <tr class="even">
 <td>- Taxes</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">= Net Income from continuing operations</span></td>
+<td><strong>= Net Income from continuing operations</strong></td>
 </tr>
 <tr class="even">
 <td>+ Income or loss from discontinued operations</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">= Net income</span></td>
+<td><strong>= Net income</strong></td>
 </tr>
 </tbody>
 </table>
@@ -673,19 +705,19 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="highlight">Non-current (fixed) Assets</span></td>
+<td><strong>Non-current (fixed) Assets</strong></td>
 <td>Long-term assets, e.g., real estate, machines, patents/licences, and property, plant &amp; equipment</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">Inventories</span></td>
+<td><strong>Inventories</strong></td>
 <td>Finished goods, raw materials</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">Accounts receivable</span></td>
+<td><strong>Accounts receivable</strong></td>
 <td>Invoices to customers not yet paid</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">Cash &amp; cash equivalents</span></td>
+<td><strong>Cash &amp; cash equivalents</strong></td>
 <td>Cash, balances of current bank accounts, sovereign bonds</td>
 </tr>
 </tbody>
@@ -706,15 +738,15 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="highlight">Equity</span></td>
+<td><strong>Equity</strong></td>
 <td>Money paid in by shareholders plus retained profits minus accumulated losses</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">Non-current liabilities</span></td>
+<td><strong>Non-current liabilities</strong></td>
 <td>Long-term obligations, e.g., bonds, long-term bank loans</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">Current liabilities</span></td>
+<td><strong>Current liabilities</strong></td>
 <td>Short-term obligations, e.g., open invoices from suppliers, bank overdraft</td>
 </tr>
 </tbody>
@@ -727,53 +759,41 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 <section id="cash-flow-statement" class="level2">
 <h2 data-anchor-id="cash-flow-statement">Cash Flow Statement</h2>
 <div class="notes">
-<p>The Cash Flow Statement shows changes in cash and cash equivalents over a specified period</p>
+<p>The Cash Flow Statement shows changes in cash and cash equivalents over a specified period. It can be derived directly or indirectly from the P&amp;L and changes in the Balance Sheet, and it shows how much cash a company actually generates, as opposed to its accounting profit.</p>
+<section id="operating-activities" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="operating-activities">Operating Activities</h3>
+<p>Cash from operating activities covers revenues and operating expenditures (OPEX):</p>
 <ul>
-<li>Three categories: operating activities, investing activities, financing activities</li>
-<li>Can be derived directly or indirectly from P&amp;L and Balance Sheet changes</li>
-<li>Critical for understanding actual cash generation vs.&nbsp;accounting profits</li>
-</ul>
-</div>
-<p>Components of a Cash Flow Statement</p>
-<div class="columns">
-<div class="column fragment" style="width:33%;">
-<p><span class="h4">Cash from operating activities</span></p>
-<div class="smaller">
-<p>Mainly revenues and cash flows due to expenditures (OPEX):</p>
-<ul>
-<li>Cash <span class="highlight">outflow</span> for salaries, materials, rent, etc.<br>
+<li>Cash <strong>outflow</strong> for salaries, materials, rent, etc.<br>
 <em>Shows in P&amp;L as expenses (timing may differ)</em></li>
-<li>Cash <span class="highlight">inflow</span> from revenues<br>
+<li>Cash <strong>inflow</strong> from revenues<br>
 <em>Shows in P&amp;L as revenue (timing may differ)</em></li>
 </ul>
-</div>
-</div><div class="column fragment" style="width:36%;">
-<p><span class="h4">Cash from investing activities</span></p>
-<div class="smaller">
-<p>Mainly capital expenditures (CAPEX):</p>
+</section>
+<section id="investing-activities" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="investing-activities">Investing Activities</h3>
+<p>Cash from investing activities covers capital expenditures (CAPEX):</p>
 <ul>
-<li>Cash <span class="highlight">outflow</span> for investments in non-current assets<br>
+<li>Cash <strong>outflow</strong> for investments in non-current assets<br>
 <em>Not in P&amp;L; affects Balance Sheet</em></li>
-<li>Cash <span class="highlight">inflow</span> when non-current assets are sold<br>
+<li>Cash <strong>inflow</strong> when non-current assets are sold<br>
 <em>Non-current assets hit P&amp;L only via depreciation</em></li>
 </ul>
-</div>
-</div><div class="column fragment" style="width:31%;">
-<p><span class="h4">Cash from financing activities</span></p>
-<div class="smaller">
-<p>Any cash flow due to financing:</p>
+</section>
+<section id="financing-activities" class="level3" data-visibility="hidden">
+<h3 data-visibility="hidden" data-anchor-id="financing-activities">Financing Activities</h3>
+<p>Cash from financing activities covers any cash flow due to financing:</p>
 <ul>
-<li>Cash <span class="highlight">outflow</span> for interest<br>
+<li>Cash <strong>outflow</strong> for interest<br>
 <em>Expense in P&amp;L</em></li>
-<li>Cash <span class="highlight">outflow</span> for loan repayment<br>
+<li>Cash <strong>outflow</strong> for loan repayment<br>
 <em>Not in P&amp;L; Balance Sheet only</em></li>
-<li>Cash <span class="highlight">inflow</span> from new loans<br>
+<li>Cash <strong>inflow</strong> from new loans<br>
 <em>Balance Sheet only</em></li>
-<li>Cash <span class="highlight">inflow</span> from financial investments<br>
+<li>Cash <strong>inflow</strong> from financial investments<br>
 <em>Can be in P&amp;L (non-operating income)</em></li>
 </ul>
-</div>
-</div>
+</section>
 </div>
 <div class="fragment">
 <p>Cash flows either show up in the P&amp;L (as revenues or expenses, possibly in different periods)<br>
@@ -781,8 +801,8 @@ It integrates <strong>goals, measures, feedback, and learning</strong> at indivi
 </div>
 </section>
 </section>
-<section id="key-financial-ratios" class="level1 headline-only">
-<h1 class="headline-only">Key Financial Ratios</h1>
+<section id="key-financial-ratios" class="level1 section-title" data-time="55">
+<h1 class="section-title" data-time="55">Key Financial Ratios</h1>
 <section id="categories" class="level2">
 <h2 data-anchor-id="categories">Categories</h2>
 <p>Financial performance analysis relies on systematic ratio analysis:</p>
@@ -828,7 +848,7 @@ How risky is our capital structure?</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="highlight">Profitability</span></td>
+<td><strong>Profitability</strong></td>
 <td>Gross Margin</td>
 <td>% of revenue left after COGS</td>
 <td>(Revenue − COGS) / Revenue</td>
@@ -877,7 +897,7 @@ How risky is our capital structure?</p>
 <td>Return on long-term capital</td>
 </tr>
 <tr class="even">
-<td><span class="highlight">Liquidity</span></td>
+<td><strong>Liquidity</strong></td>
 <td>Current Ratio</td>
 <td>Ability to meet short-term liabilities</td>
 <td>Current Assets / Current Liabilities (CL)</td>
@@ -898,7 +918,7 @@ How risky is our capital structure?</p>
 <td>Cash-based liquidity measure</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">Efficiency</span></td>
+<td><strong>Efficiency</strong></td>
 <td>Asset Turnover</td>
 <td>Revenue per € of assets</td>
 <td>Revenue / Total Assets</td>
@@ -926,7 +946,7 @@ How risky is our capital structure?</p>
 <td>Payment speed</td>
 </tr>
 <tr class="odd">
-<td><span class="highlight">Leverage</span></td>
+<td><strong>Leverage</strong></td>
 <td>Debt-to-Equity</td>
 <td>Debt proportion to equity</td>
 <td>Total Debt / Total Equity</td>
@@ -1087,8 +1107,10 @@ while days-based ratios (<a href="#tbl-db-ratios" class="quarto-xref">Table&nbsp
 </div>
 </section>
 </section>
-<section id="key-takeaways" class="level1">
-<h1>Key Takeaways</h1>
+<section id="closing" class="level1 section-title" data-time="10">
+<h1 class="section-title" data-time="10">Closing</h1>
+<section id="key-takeaways" class="level2">
+<h2 data-anchor-id="key-takeaways">Key Takeaways</h2>
 <div class="incremental">
 <ul class="incremental">
 <li><strong>Theory</strong> explains why measures work (or fail)</li>
@@ -1098,8 +1120,8 @@ while days-based ratios (<a href="#tbl-db-ratios" class="quarto-xref">Table&nbsp
 </ul>
 </div>
 </section>
-<section id="review-and-consolidation" class="level1 scrollable">
-<h1 class="scrollable">Review and Consolidation</h1>
+<section id="review-and-consolidation" class="level2 scrollable">
+<h2 class="scrollable" data-anchor-id="review-and-consolidation">Review and Consolidation</h2>
 <p>The following questions are designed to review and consolidate what you have learned and are a good starting point for preparing for the exam.</p>
 <div class="smaller">
 <ul>
@@ -1110,8 +1132,9 @@ while days-based ratios (<a href="#tbl-db-ratios" class="quarto-xref">Table&nbsp
 </ul>
 </div>
 </section>
-<section id="literature" class="level1">
-<h1>Literature</h1>
+</section>
+<section id="literature" class="level1 literature-slide">
+<h1 class="literature-slide">Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-anthony2007management" class="csl-entry" role="listitem">
 Anthony, R. N., &amp; Govindarajan, V. (2007). <em>Management control systems</em> (12th ed.). McGraw-Hill.
@@ -1155,6 +1178,300 @@ Vroom, V. H. (1964). <em>Work and motivation</em>. Wiley.
 <li id="fn1"><p>Earnings that are not part of the company’s main operating activities, but still come from business lines the company is keeping (e.g., rental income)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
+<script>
+// awe-web: website template helpers (styling in awe-web.scss)
+//  - author bar: Author: … · Created: … · Updated: …, categories below
+//  - action row: Slides, Print slides (if the page has slides, announced by
+//    lib/filter/slides-link.lua as <meta name="awe-slides">), Copy link,
+//    plus every extra margin-header link as a button
+//  - "Start" in the top bar becomes "Home" with an icon; light/dark toggle
+//  - sidebar title at the top of the navigation
+(function () {
+  var header = document.getElementById('title-block-header');
+  var main = document.getElementById('quarto-document-content');
+
+  // header height for the fixed navigation
+  var top = document.getElementById('quarto-header');
+  if (top) {
+    document.documentElement.style.setProperty('--awe-header-height', top.offsetHeight + 'px');
+  }
+
+  // --- author bar ---------------------------------------------------------
+  var text = function (sel) {
+    var e = header && header.querySelector(sel);
+    return e ? e.textContent.trim() : '';
+  };
+  // one labelled item of the author bar: "Author: Andy Weeger"
+  var item = function (label, value) {
+    var s = document.createElement('span');
+    s.className = 'awe-meta-item';
+    var l = document.createElement('span');
+    l.className = 'awe-meta-label';
+    l.textContent = label + ':';
+    s.appendChild(l);
+    s.appendChild(document.createTextNode(value));
+    return s;
+  };
+
+  // page-meta: false (front matter) -> no author bar, no action buttons
+  var noMeta = !!document.querySelector('meta[name="awe-page-meta"][content="false"]');
+
+  var actionsAnchor = null;
+  if (header && !noMeta) {
+    var bar = document.createElement('div');
+    bar.className = 'awe-meta';
+    var authors = Array.prototype.map.call(
+      header.querySelectorAll('.quarto-title-meta-contents p:not(.date):not(.date-modified), .quarto-title-author-name'),
+      function (e) { return e.textContent.trim(); }).filter(Boolean);
+    if (authors.length) bar.appendChild(item(authors.length > 1 ? 'Authors' : 'Author', authors.join(', ')));
+    var published = text('.date');
+    var modified = text('.date-modified');
+    if (published) bar.appendChild(item('Created', published));
+    if (modified) bar.appendChild(item('Updated', modified));
+    // categories: second row of the author bar, as pills
+    var cats = Array.prototype.map.call(header.querySelectorAll('.quarto-category'),
+      function (e) { return e.textContent.trim(); }).filter(Boolean);
+    if (cats.length) {
+      var catRow = document.createElement('div');
+      catRow.className = 'awe-meta-categories';
+      cats.forEach(function (c) {
+        var pill = document.createElement('span');
+        pill.className = 'awe-category';
+        pill.textContent = c;
+        catRow.appendChild(pill);
+      });
+      bar.appendChild(catRow);
+    }
+    // no author, dates or categories: no (empty) bar; buttons follow the title
+    if (bar.childNodes.length) {
+      header.appendChild(bar);
+      actionsAnchor = bar;
+    } else {
+      actionsAnchor = header.lastElementChild || null;
+    }
+  }
+
+  // --- action row ---------------------------------------------------------
+  var row = document.createElement('div');
+  row.className = 'awe-actions';
+  var button = function (label, cls) {
+    var b = document.createElement('a');
+    b.className = 'awe-action ' + (cls || '');
+    b.textContent = label;
+    return b;
+  };
+  var slidesMeta = document.querySelector('meta[name="awe-slides"]');
+  var slidesUrl = slidesMeta ? new URL(slidesMeta.content, window.location.href).href : null;
+
+  var addSlides = function () {
+    var s = button('Slides', 'awe-action-primary');
+    s.href = slidesUrl;
+    s.target = '_blank';
+    var p = button('Print slides');
+    p.href = slidesUrl + '?print-pdf';
+    p.target = '_blank';
+    row.insertBefore(p, row.firstChild);
+    row.insertBefore(s, row.firstChild);
+  };
+
+  // extra margin-header links become buttons; slide links are added
+  // automatically, so they are skipped here
+  document.querySelectorAll('.quarto-margin-header a').forEach(function (a) {
+    var href = a.getAttribute('href') || '';
+    if (/(^|\/)slides\.html(\?|#|$)/.test(href)) return;
+    var b = button(a.textContent.trim());
+    b.href = a.href;
+    if (a.target) b.target = a.target;
+    row.appendChild(b);
+  });
+
+  var copy = button('Copy link');
+  copy.href = '#';
+  copy.addEventListener('click', function (e) {
+    e.preventDefault();
+    var done = function () {
+      copy.textContent = 'Link copied';
+      copy.classList.add('awe-action-done');
+      setTimeout(function () {
+        copy.textContent = 'Copy link';
+        copy.classList.remove('awe-action-done');
+      }, 1800);
+    };
+    var url = window.location.href.split('#')[0];
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done, done);
+    } else {
+      done();
+    }
+  });
+  row.appendChild(copy);
+
+  if (actionsAnchor) {
+    actionsAnchor.insertAdjacentElement('afterend', row);
+    // slides: announced at render time by lib/filter/slides-link.lua
+    if (slidesUrl) addSlides();
+  }
+
+  // --- top bar: the "Start" button becomes "Home" with an icon -----------
+  document.querySelectorAll('#quarto-header .navbar-nav .nav-link').forEach(function (a) {
+    var t = a.querySelector('.menu-text') || a;
+    if (t.textContent.trim() !== 'Start') return;
+    t.textContent = 'Home';
+    a.classList.add('awe-nav-home');
+    a.insertAdjacentHTML('afterbegin', '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 21H7C4.79086 21 3 19.2091 3 17V10.7076C3 9.30887 3.73061 8.01175 4.92679 7.28679L9.92679 4.25649C11.2011 3.48421 12.7989 3.48421 14.0732 4.25649L19.0732 7.28679C20.2694 8.01175 21 9.30887 21 10.7076V17C21 19.2091 19.2091 21 17 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  });
+
+  // --- light/dark toggle in the top bar ----------------------------------
+  // the scheme is set before the first paint by awe-web-head.html; the
+  // button switches it and stores the choice
+  var nav = document.querySelector('#quarto-header .navbar-nav');
+  if (nav) {
+    var li = document.createElement('li');
+    li.className = 'nav-item';
+    var tb = document.createElement('button');
+    tb.type = 'button';
+    tb.className = 'nav-link awe-theme-toggle';
+    tb.innerHTML =
+      '<svg class="awe-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+      '<svg class="awe-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var label = function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var t = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      tb.setAttribute('aria-label', t);
+      tb.title = t;
+    };
+    label();
+    tb.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('awe-theme', next); } catch (e) {}
+      label();
+    });
+    li.appendChild(tb);
+    nav.appendChild(li);
+  }
+
+  // --- sidebar title (announced by lib/filter/slides-link.lua) ------------
+  var sidebar = document.querySelector('#quarto-sidebar .sidebar-menu-container, #quarto-sidebar');
+  var sidebarTitle = document.querySelector('meta[name="awe-sidebar-title"]');
+  if (sidebar && sidebarTitle && sidebarTitle.content) {
+    var sec = document.createElement('div');
+    sec.className = 'awe-sidebar-title';
+    sec.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 2L16.5 2L21 6.5V19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 20.5V6.5C3 5.67157 3.67157 5 4.5 5H14.2515C14.4106 5 14.5632 5.06321 14.6757 5.17574L17.8243 8.32426C17.9368 8.43679 18 8.5894 18 8.74853V20.5C18 21.3284 17.3284 22 16.5 22H4.5C3.67157 22 3 21.3284 3 20.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 5V8.4C14 8.73137 14.2686 9 14.6 9H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var label = document.createElement('span');
+    label.textContent = sidebarTitle.content;
+    sec.appendChild(label);
+    sidebar.insertBefore(sec, sidebar.firstChild);
+  }
+  // --- tables: fit columns to their content (same logic as the slides) ----
+  // measure each column's one-line width and longest word; if everything
+  // fits, nothing wraps; otherwise the narrowest columns stay on one line
+  // and only the widest ones wrap
+  var ctx = document.createElement('canvas').getContext('2d');
+  var textWidth = function (cell, txt) {
+    var cs = getComputedStyle(cell);
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+    return ctx.measureText(txt).width * 1.02;
+  };
+  var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
+  var fitTable = function (t) {
+    var rows = Array.prototype.slice.call(t.rows);
+    var n = rows.reduce(function (m, r) { return Math.max(m, r.cells.length); }, 0);
+    var cols = [];
+    for (var c = 0; c < n; c++) {
+      cols.push(rows.map(function (r) { return r.cells[c]; }).filter(Boolean));
+    }
+    if (!cols.length) return;
+    var maxW = cols.map(function (cells) {
+      return Math.max.apply(null, cells.map(function (x) { return textWidth(x, x.textContent.trim()); }));
+    });
+    var minW = cols.map(function (cells) {
+      return Math.max.apply(null, cells.map(function (x) {
+        return Math.max.apply(null, x.textContent.trim().split(/\s+/).map(function (w) { return textWidth(x, w); }));
+      }));
+    });
+    var pad = cols.map(function (cells) {
+      var cs = getComputedStyle(cells[0]);
+      return (parseFloat(cs.paddingRight) || 0) + (parseFloat(cs.paddingLeft) || 0);
+    });
+    var container = t.parentElement;
+    var avail = (container ? container.getBoundingClientRect().width : 0) - sum(pad);
+    if (!(avail > 0)) return;
+    var fixed = {};
+    var keys = cols.map(function (_, i) { return i; });
+    if (sum(maxW) <= avail) {
+      keys.forEach(function (k) { fixed[k] = true; });
+    } else {
+      keys.slice().sort(function (a, b) { return maxW[a] - maxW[b]; }).forEach(function (c) {
+        var fixedW = sum(keys.filter(function (k) { return fixed[k]; }).map(function (k) { return maxW[k]; }));
+        var restMin = sum(keys.filter(function (k) { return k !== c && !fixed[k]; }).map(function (k) { return minW[k]; }));
+        if (maxW[c] + fixedW + restMin <= avail) fixed[c] = true;
+      });
+    }
+    cols.forEach(function (cells, c) {
+      cells.forEach(function (x) { x.classList.toggle('awe-nowrap', !!fixed[c]); });
+    });
+  };
+  var fitTables = function () {
+    document.querySelectorAll('#quarto-document-content table').forEach(fitTable);
+  };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTables); else fitTables();
+  window.addEventListener('resize', fitTables);
+
+  // --- scroll-to-top button -----------------------------------------------
+  var topBtn = document.createElement('button');
+  topBtn.type = 'button';
+  topBtn.className = 'awe-to-top';
+  topBtn.setAttribute('aria-label', 'Back to top');
+  topBtn.title = 'Back to top';
+  topBtn.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>';
+  topBtn.addEventListener('click', function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+  document.body.appendChild(topBtn);
+  var toggleTop = function () {
+    topBtn.classList.toggle('awe-to-top-visible', window.scrollY > window.innerHeight * 0.8);
+  };
+  window.addEventListener('scroll', toggleTop, { passive: true });
+  toggleTop();
+
+  // --- alignment ----------------------------------------------------------
+  // site title in line with the sidebar content; footer from the
+  // site title to the rightmost top-bar button (both move with the page grid)
+  var align = function () {
+    var root = document.documentElement;
+    // first thing in the sidebar: the title's icon, else the first link
+    var homeIcon = document.querySelector('.awe-sidebar-title svg, #quarto-sidebar .sidebar-item-text');
+    var article = document.getElementById('quarto-document-content');
+    if (homeIcon && homeIcon.getBoundingClientRect().width > 0) {
+      root.style.setProperty('--awe-brand-left', Math.round(homeIcon.getBoundingClientRect().left) + 'px');
+    } else {
+      root.style.removeProperty('--awe-brand-left');
+    }
+    if (article) {
+      var r = article.getBoundingClientRect();
+      root.style.setProperty('--awe-article-left', Math.round(r.left) + 'px');
+      root.style.setProperty('--awe-article-width', Math.round(r.width) + 'px');
+    }
+    // footer edges: left edge of the site title, right edge of the rightmost
+    // visible top-bar button (Start; the burger button on small screens)
+    var brandEl = document.querySelector('#quarto-header .navbar-brand');
+    var buttons = Array.prototype.slice.call(document.querySelectorAll(
+      '#quarto-header .navbar-nav .nav-link, #quarto-header .quarto-btn-toggle'))
+      .filter(function (b) { return b.getBoundingClientRect().width > 0; });
+    if (brandEl && buttons.length) {
+      var left = brandEl.getBoundingClientRect().left;
+      var right = Math.max.apply(null, buttons.map(function (b) { return b.getBoundingClientRect().right; }));
+      root.style.setProperty('--awe-footer-left', Math.round(left) + 'px');
+      root.style.setProperty('--awe-footer-width', Math.round(right - left) + 'px');
+    }
+  };
+  align();
+  window.addEventListener('resize', align);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);

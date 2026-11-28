@@ -39,7 +39,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -149,7 +149,6 @@
       margin-right: 0; 
     }
   </style>
-  <script>document.documentElement.classList.add('awe-classic');</script>
 <meta property="og:title" content="Assignment Feedback I – awe.lectures">
 <meta property="og:description" content="Research Project 1 (RP1)">
 <meta property="og:site_name" content="awe.lectures">
@@ -179,7 +178,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block bg-highlight" data-background-image="../../assets/bg.jpg" data-background-opacity="1" data-background-size="cover">
+<section id="title-slide" class="quarto-title-block bg-highlight">
   <h1 class="title">Assignment Feedback I</h1>
   <p class="subtitle">Research Project 1 (RP1)</p>
 
@@ -187,6 +186,9 @@
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Andy Weeger
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -200,7 +202,7 @@ Andy Weeger
 <h2>Map: Tensions and Form</h2>
 <div class="fragment">
 <div class="medium">
-<p><span class="highlight">Narrow perspectives</span></p>
+<p><strong>Narrow perspectives</strong></p>
 </div>
 <p>Most maps capture the headline topics (e.g., human-in-the-loop, accountability). The positions that came up in the discussions, and required attention and analysis, rarely appear.</p>
 <div class="small">
@@ -209,7 +211,7 @@ Andy Weeger
 </div>
 <div class="fragment">
 <div class="medium">
-<p><span class="highlight">Generic clusters</span></p>
+<p><strong>Generic clusters</strong></p>
 </div>
 <p>Many clusters stay at a level that holds for general AI usage.</p>
 <div class="small">
@@ -242,7 +244,7 @@ Andy Weeger
 <h2>Map: Mapping</h2>
 <div class="fragment">
 <div class="medium">
-<p><span class="highlight">Tensions not worked out</span></p>
+<p><strong>Tensions not worked out</strong></p>
 </div>
 <p>Many maps name a tension as a label. Which two claims contradict each other, and which knowledge problem follows, remains open.</p>
 <div class="small">
@@ -251,7 +253,7 @@ Andy Weeger
 </div>
 <div class="fragment">
 <div class="medium">
-<p><span class="highlight">Formal weaknesses</span></p>
+<p><strong>Formal weaknesses</strong></p>
 </div>
 <p>A few submissions show formal weaknesses.</p>
 <div class="small">
@@ -280,7 +282,7 @@ Andy Weeger
 <h2>Check-in</h2>
 <div class="fragment">
 <div class="medium">
-<p><span class="highlight">Weak evidence</span></p>
+<p><strong>Weak evidence</strong></p>
 </div>
 <p>Many submissions name no specific reference. Others give no sign that something like a research log exists.</p>
 <div class="small">
@@ -289,7 +291,7 @@ Andy Weeger
 </div>
 <div class="fragment">
 <div class="medium">
-<p><span class="highlight">Superficial analysis</span></p>
+<p><strong>Superficial analysis</strong></p>
 </div>
 <p>Some submissions only give a general retrospection or a summary of what the speakers said. Most name a new ability. Few show what triggered it and what actually changed.</p>
 <div class="small">
@@ -311,8 +313,14 @@ Individually for the check-ins. As a team, a living document: read and write, di
 </ul>
 </section>
 
-<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only">
-<h1>Q&amp;A</h1>
+<section id="questions" class="title-slide slide level1 html-hidden unlisted headline-only bg-highlight qa-slide">
+<h1>Questions?</h1>
+<div class="qa-subtitle">
+<p>Research Project 1 (RP1)</p>
+</div>
+<div class="qa-contact">
+<p><span class="qa-contact-name">Andy Weeger</span> <a href="mailto:andy.weeger@hnu.de" class="qa-contact-email">andy.weeger@hnu.de</a></p>
+</div>
 
 
 </section>
@@ -686,7 +694,10 @@ Individually for the check-ins. As a team, a living document: read and write, di
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -760,7 +771,18 @@ Individually for the check-ins. As a team, a living document: read and write, di
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -783,10 +805,20 @@ Individually for the check-ins. As a team, a living document: read and write, di
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

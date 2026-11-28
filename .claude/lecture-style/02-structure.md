@@ -2,11 +2,33 @@
 
 ## Standard content-unit skeleton
 
+Editorial decks (see `07-editorial-migration.md`) allow no `#` heading except section titles, Q&A, and Literature:
+
+```
+[YAML front matter]                       ← agenda: true
+# Introductory Remarks {.section-title time="5"}
+## Recap {.discussion-slide}              ← optional warm-up
+## Learning Objectives
+# [Section 1] {.section-title time="45"}
+## [Subsection]                           ← content slide(s)
+  ...
+# Closing {.section-title time="10"}
+## Key Takeaways
+## Review and Consolidation {.scrollable}
+## Homework
+# Q&A {.html-hidden .unlisted .headline-only .bg-highlight .qa-slide}
+# Literature {.literature-slide}
+::: {#refs}
+:::
+```
+
+Classic decks:
+
 ```
 [YAML front matter]
 # Learning objectives          ← always first; incremental list
 # Prologue / Introduction      ← optional; motivating quote or short case
-# [Section 1] {.headline-only} ← section divider
+# [Section 1] {.section-title} ← section divider (classic decks: .headline-only)
 ## [Subsection]                ← content slide(s)
   ...
 # Key takeaways                ← incremental bold-term bullets

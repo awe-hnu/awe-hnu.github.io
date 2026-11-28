@@ -61,7 +61,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -211,6 +211,9 @@
 <div class="quarto-title-author-name">
 Andy Weeger
 </div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
+</div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
           </p>
@@ -235,7 +238,7 @@ Andy Weeger
 </section>
 
 <section>
-<section id="existing-patterns" class="title-slide slide level1 headline-only" data-time="20">
+<section id="existing-patterns" class="title-slide slide level1 section-title headline-only" data-time="20">
 <h1>Existing Patterns</h1>
 
 </section>
@@ -261,7 +264,7 @@ Andy Weeger
 </section>
 </section>
 <section>
-<section id="new-elements" class="title-slide slide level1 headline-only" data-time="40">
+<section id="new-elements" class="title-slide slide level1 section-title headline-only" data-time="40">
 <h1>New Elements</h1>
 
 </section>
@@ -349,7 +352,7 @@ Andy Weeger
 <li>Select <strong>three outlets</strong> from your conversation map.</li>
 <li>Note each outlet’s <strong>ranking</strong> and <strong>paper category</strong>.</li>
 </ol>
-<div id="timer_3f7fb8c0701bf2006cc481cf4f0384df61befdab" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_90ad0e11f982ce78510558995220127bebebdfc0" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -359,7 +362,7 @@ Andy Weeger
 </section>
 </section>
 <section>
-<section id="admin-extensions" class="title-slide slide level1 headline-only" data-time="20">
+<section id="admin-extensions" class="title-slide slide level1 section-title headline-only" data-time="20">
 <h1>Admin Extensions</h1>
 
 </section>
@@ -483,12 +486,17 @@ Table&nbsp;1: Preparatory work and deadlines
 <p>Mark a key phrase with <span class="highlight">a highlight</span>; bold text such as <strong>positioning</strong> keeps the medium weight without a background.</p>
 </section>
 </section>
-<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only bg-highlight">
+<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only bg-highlight qa-slide">
 <h1>Q&amp;A</h1>
-
+<div class="qa-subtitle">
+<p>Slide Theme</p>
+</div>
+<div class="qa-contact">
+<p><span class="qa-contact-name">Andy Weeger</span> <a href="mailto:andy.weeger@hnu.de" class="qa-contact-email">andy.weeger@hnu.de</a></p>
+</div>
 </section>
 
-<section id="literature" class="title-slide slide level1 smaller scrollable">
+<section id="literature" class="title-slide slide level1 literature-slide smaller scrollable">
 <h1>Literature</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-burke1941philosophy" class="csl-entry" role="listitem">
@@ -871,7 +879,10 @@ Huff, A. S. (1999). <em>Writing for scholarly publication</em>. Sage.
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -945,7 +956,18 @@ Huff, A. S. (1999). <em>Writing for scholarly publication</em>. Sage.
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -968,10 +990,20 @@ Huff, A. S. (1999). <em>Writing for scholarly publication</em>. Sage.
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

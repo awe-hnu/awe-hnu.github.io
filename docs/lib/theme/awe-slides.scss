@@ -228,6 +228,11 @@ $selectionColor: $selection-color !default;
 
 /*-- scss:rules --*/
 
+// Classic theme rules apply only to classic decks (slide-theme: classic adds
+// html.awe-classic, see lib/filter/slide-theme.lua). :where() keeps the
+// original specificity. Editorial decks get their base from awe-editorial.scss.
+:where(html.awe-classic) {
+
 .reveal {
   text-underline-offset: .2em;
 }
@@ -332,7 +337,8 @@ section.has-light-background {
   }
 
   .highlight,
-  .link-color {
+  .link-color,
+  .highlight-color {
     color: $dark-bg-link-color !important;
   }
 }
@@ -1389,7 +1395,7 @@ $progress-height: 5px;
 }
 
 
-html.print-pdf {
+&.print-pdf {
 
     * {  
       font-size: 100%;
@@ -1462,6 +1468,7 @@ html.print-pdf {
 
   .highlight,
   .link-color,
+  .highlight-color,
   a {
     color: $dark-bg-link-color !important;
   }
@@ -1524,6 +1531,30 @@ section.footnotes,
   color: $light-bg-link-color;
 }
 
+// [text]{.fragment .highlight}: always visible, marked from the moment it is
+// reached (colour-neutral version of highlight-blue; the static .highlight
+// marker is set per theme)
+.reveal .slides section .fragment.highlight {
+  opacity: 1;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.highlight.visible {
+  color: $light-bg-link-color;
+}
+
+// [text]{.fragment .highlight-current}: always visible, marked while it is
+// the current fragment (colour-neutral version of highlight-current-blue;
+// the marker itself is set per theme, here the link colour)
+.reveal .slides section .fragment.highlight-current {
+  opacity: 1;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.highlight-current.current-fragment {
+  color: $light-bg-link-color;
+}
+
 
 .reveal .slides section {
 ol {
@@ -1553,8 +1584,10 @@ ol {
   color: rgba(0,0,0,.2);
 }
 
+// .highlight-color (new name) and .link-color: text in the accent colour
 .highlight,
-.link-color {
+.link-color,
+.highlight-color {
   color: $link-color;
 }
 
@@ -1692,3 +1725,6 @@ ol {
   color: $dark-bg-text-color;
   isolation: isolate;
 }
+
+
+} // end :where(html.awe-classic)

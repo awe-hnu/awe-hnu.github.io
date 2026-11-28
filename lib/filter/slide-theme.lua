@@ -4,9 +4,11 @@
 --   slide-theme: editorial   # default (lib/theme/awe-editorial.scss)
 --   slide-theme: classic     # original look (lib/theme/awe-slides.scss only)
 --
--- Both themes are compiled into the same stylesheet; the editorial rules are
--- scoped to `html:not(.awe-classic)`. For classic decks this filter adds the
--- class .awe-classic to <html> before the page renders.
+-- Both themes are compiled into the same stylesheet and are independent of
+-- each other: awe-slides.scss applies only to `html.awe-classic`, and
+-- awe-editorial.scss (with its own base layer) only to
+-- `html:not(.awe-classic)`. For classic decks this filter adds the class
+-- .awe-classic to <html> before the page renders.
 -- Works in a unit's front matter or in a course-wide _metadata.yml.
 -- Only affects revealjs output; the HTML wiki is unchanged.
 
