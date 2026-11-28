@@ -16,6 +16,7 @@ project:
   - "about.qmd"
   - "index.qmd"
   - "imprint.qmd"
+  - "theme-demo/"
   preview:
     port: 9992
 
@@ -488,6 +489,7 @@ format:
     fig-responsive: true
     format-links: true
     filters:
+      - lib/filter/slide-parts.lua
       - lib/filter/html-pause.lua
       - lib/filter/html-hidden.lua         
     # lightbox: auto
@@ -501,8 +503,17 @@ format:
     mermaid:
       theme: neutral            
   presentation-revealjs:
-    institute: "Neu-Ulm University of Applied Sciences"   
-    theme: [default, "lib/theme/awe-slides.scss"]
+    institute: "Neu-Ulm University of Applied Sciences"
+    # Slide theme: editorial is the default. A deck selects the original look
+    # with `slide-theme: classic` in its YAML; `highlight-color: "#hex"` sets
+    # the editorial highlight colour (both via lib/filter/*.lua).
+    theme: [default, "lib/theme/awe-slides.scss", "lib/theme/awe-editorial.scss"]
+    include-after-body: lib/theme/awe-editorial.html
+    filters:
+      - lib/filter/slide-theme.lua
+      - lib/filter/highlight-color.lua
+      - lib/filter/slide-parts.lua
+      - lib/filter/agenda.lua
     slide-level: 3
     transition: fade
     center: false
@@ -529,7 +540,7 @@ format:
     reference-location: document    
     center-title-slide: false
     title-slide-attributes: 
-      data-background-color: '#0333ff'
+      class: "quarto-title-block bg-highlight"
     mermaid:
       theme: neutral        
       

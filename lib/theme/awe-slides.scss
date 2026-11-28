@@ -246,7 +246,9 @@ p:not(.callout-title *) strong {
 .discussion-slide li strong,
 .discussion-slide p:not(.callout-title *) strong,
 .has-dark-background li strong,
-.has-dark-background p:not(.callout-title *) strong {
+.has-dark-background p:not(.callout-title *) strong,
+.bg-highlight li strong,
+.bg-highlight p:not(.callout-title *) strong {
   background: linear-gradient(rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 50%);
 }
 
@@ -271,7 +273,8 @@ p:not(.callout-title *) strong {
 
 .reveal {
 
-    .has-dark-background {
+    .has-dark-background,
+    .bg-highlight {
       
       h1,
       h2,
@@ -306,7 +309,8 @@ section.has-light-background {
   }
 }
 
-.reveal section.has-dark-background {
+.reveal section.has-dark-background,
+.reveal section.bg-highlight {
   &,
   h1,
   h2,
@@ -953,7 +957,8 @@ $progress-height: 5px;
   }
 
   &.discussion-slide,
-  &.has-dark-background {
+  &.has-dark-background,
+  &.bg-highlight {
   
     blockquote {
 
@@ -1313,16 +1318,21 @@ $progress-height: 5px;
 
 }
 
+// .vertically-centered is the preferred name for new decks; .vertical-center stays for old content
 #title-slide,
 .reveal .slides .level1.vertical-center,
 .reveal .slides .level2.vertical-center,
-.reveal .slides .level3.vertical-center {
+.reveal .slides .level3.vertical-center,
+.reveal .slides .level1.vertically-centered,
+.reveal .slides .level2.vertically-centered,
+.reveal .slides .level3.vertically-centered {
   display: flex !important;
   flex-direction: column;  
   justify-content: center;  
 }
 
-.reveal.overview .slides .vertical-center {
+.reveal.overview .slides .vertical-center,
+.reveal.overview .slides .vertically-centered {
   position: relative;
   top: auto;
   transform: none;
@@ -1673,4 +1683,12 @@ ol {
 
 .reveal .columns>.column:last-child>:not(ul,ol, p) {
   margin: 0 0 1em 0;
+}
+
+// Highlight slides: ## Title {.bg-highlight} (replaces background-color="#0333ff").
+// isolation keeps letterbox background images (z-index: -1) above the color.
+.reveal .slides section.bg-highlight {
+  background-color: $link-color;
+  color: $dark-bg-text-color;
+  isolation: isolate;
 }

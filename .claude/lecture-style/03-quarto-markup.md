@@ -14,7 +14,7 @@ title-slide-attributes:
   data-background-image: ../assets/bg.jpg
   data-background-size: cover
   data-background-opacity: "1"
-  data-background-color: '#0333ff'
+  class: "quarto-title-block bg-highlight"
 format:
   html:
     output-file: index.html
@@ -25,6 +25,25 @@ format:
     output-file: slides.html
     include-before-body: ../assets/footer.html
 ---
+```
+
+## Slide theme
+
+Two slide themes share one stylesheet (`lib/theme/awe-slides.scss` plus `lib/theme/awe-editorial.scss`, set in `_quarto.yml`):
+
+| YAML key | Values | Effect |
+|---|---|---|
+| `slide-theme` | `editorial` (default), `classic` | `classic` restores the original look; existing decks carry `slide-theme: classic` |
+| `highlight-color` | hex code, e.g. `"#16CAF7"` (default cyan) | Highlight colour of the editorial theme |
+
+Set the keys in a unit's front matter or course-wide in a `_metadata.yml`. New decks use the editorial theme; omit `slide-theme`.
+
+## Agenda Slide
+
+`agenda: true` (or `agenda: "Today's Session"` for a custom title) adds an agenda slide after the title slide, in revealjs only. It lists every section divider (`.headline-only`, not `.unlisted`) with its number and time; set the time as a heading attribute in minutes. Non-numeric values (e.g., `time="1 day"`) appear as written and are excluded from the total.
+
+```markdown
+# Conversations {.headline-only time="45"}
 ```
 
 ## Heading hierarchy
@@ -40,10 +59,34 @@ format:
 ```
 # Section divider {.headline-only}
 ## Discussion prompt {.html-hidden .unlisted .discussion-slide}
-## Featured quote {.no-headline .vertical-center background-color="#0333ff"}
+## Featured quote {.no-headline .vertically-centered .bg-highlight}   ← new decks; old content uses .vertical-center (same effect)
 ## Section with scrollable content {.scrollable}
 # Q&A {.html-hidden .unlisted .headline-only background-image="../assets/bg.jpg"}
 ## Unlabeled slide {.html-hidden .unlisted}    ← Menti or video embed
+```
+
+## One Section, Several Slides
+
+Use `.slide-parts` when content should read as one section in the HTML wiki but run over several slides (e.g., learning outcomes). Each `.slide-part` becomes a slide; the heading's classes carry over, and the blocks before the first part repeat on every slide. Mark slide-only blocks with `.html-hidden`.
+
+Per part, `title="..."` replaces the slide heading (default: the section heading) and `kicker="..."` replaces the lead's `:::kicker` on that slide (or adds one). In the HTML wiki, the title (or else the kicker) appears as a bold label above the part.
+
+```markdown
+## Learning Outcomes {.split .slide-parts}
+
+::: {.kicker .html-hidden}
+Outcome
+:::
+
+After completing this course, you will be able to:
+
+::: {.slide-part title="Positioning"}
+...
+:::
+
+::: {.slide-part title="Writing"}
+...
+:::
 ```
 
 ## Incremental reveals
