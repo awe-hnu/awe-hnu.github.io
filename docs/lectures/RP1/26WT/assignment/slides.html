@@ -59,7 +59,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -169,7 +169,6 @@
       margin-right: 0; 
     }
   </style>
-  <script>document.documentElement.classList.add('awe-classic');</script>
 <meta property="og:title" content="Assignments – awe.lectures">
 <meta property="og:description" content="Research Project 1 (RP1)">
 <meta property="og:site_name" content="awe.lectures">
@@ -199,7 +198,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block bg-highlight" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover">
+<section id="title-slide" class="quarto-title-block bg-highlight">
   <h1 class="title">Assignments</h1>
   <p class="subtitle">Research Project 1 (RP1)</p>
 
@@ -207,6 +206,9 @@
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Andy Weeger
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -216,8 +218,13 @@ Andy Weeger
 
   <p class="date">September 3, 2026</p>
 </section>
-<section id="task" class="title-slide slide level1">
-<h1>Task</h1>
+<section>
+<section id="assignment" class="title-slide slide level1 section-title headline-only">
+<h1>Assignment</h1>
+
+</section>
+<section id="task" class="title-slide slide level2">
+<h2>Task</h2>
 <p>Across four phases you turn a broad practical challenge into a focused, scientifically grounded research question, systematically review what is already known about it, and communicate the result to two audiences.</p>
 <div class="html-hidden">
 <div class="large">
@@ -250,8 +257,8 @@ The degree to which your findings apply to a real situation, the standard a read
       }</style></aside>
 </section>
 
-<section id="deliverables" class="title-slide slide level1">
-<h1>Deliverables</h1>
+<section id="deliverables" class="title-slide slide level2">
+<h2>Deliverables</h2>
 <p>You submit the following components via Moodle over the course of the semester. For exact dates, see the <a href="../admin/#schedule">schedule</a>.</p>
 <div class="html-hidden">
 <ul>
@@ -298,10 +305,14 @@ A short individual reflection due at the end of each phase, drawn from your runn
           display:block!important;
       }</style></aside>
 </section>
-
+</section>
 <section>
-<section id="grading" class="title-slide slide level1">
+<section id="grading" class="title-slide slide level1 section-title headline-only">
 <h1>Grading</h1>
+
+</section>
+<section id="overview" class="title-slide slide level2">
+<h2>Overview</h2>
 <p>The graded components determine the final grade with the following weights:</p>
 <div class="medium">
 <ul>
@@ -328,6 +339,7 @@ A short individual reflection due at the end of each phase, drawn from your runn
           display:block!important;
       }</style></aside>
 </section>
+
 <section id="competence-check-ins" class="title-slide slide level2">
 <h2>Competence Check-Ins</h2>
 <p>A check-in that fulfills expectations has the following characteristics:</p>
@@ -473,9 +485,14 @@ A short individual reflection due at the end of each phase, drawn from your runn
 </table>
 </section>
 </section>
-<section id="qa" class="title-slide slide level1 html-hidden unlisted headline-only" data-background-image="../assets/bg.jpg">
-<h1>Q&amp;A</h1>
-
+<section id="questions" class="title-slide slide level1 html-hidden unlisted headline-only bg-highlight qa-slide">
+<h1>Questions?</h1>
+<div class="qa-subtitle">
+<p>Research Project 1 (RP1)</p>
+</div>
+<div class="qa-contact">
+<p><span class="qa-contact-name">Andy Weeger</span> <a href="mailto:andy.weeger@hnu.de" class="qa-contact-email">andy.weeger@hnu.de</a></p>
+</div>
 </section>
 
 
@@ -849,7 +866,10 @@ A short individual reflection due at the end of each phase, drawn from your runn
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -923,7 +943,18 @@ A short individual reflection due at the end of each phase, drawn from your runn
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -946,10 +977,20 @@ A short individual reflection due at the end of each phase, drawn from your runn
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

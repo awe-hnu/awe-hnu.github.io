@@ -64,7 +64,7 @@ div.csl-indent {
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-448350ca62ad81aa54d4c0cd138cf985.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-3d87d53381eda6d3e1ad5f2311bf723d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -109,6 +109,19 @@ cookieconsent.run({
 });
 </script> 
   
+<script>
+// awe-web: colour scheme before the first paint (no light flash in dark
+// mode). A stored choice from the navbar toggle wins; otherwise the
+// system setting. The toggle itself lives in awe-web.html.
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('awe-theme'); } catch (e) {}
+  if (t !== 'dark' && t !== 'light') {
+    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
 <meta name="robots" content="noindex">   
 <meta name="awe-sidebar-title" content="Digital Enterprise 1">
 <meta name="awe-slides" content="slides.html">
@@ -307,7 +320,7 @@ cookieconsent.run({
     <div>
     <div class="quarto-title-meta-heading">Autor:in</div>
     <div class="quarto-title-meta-contents">
-             <p>Andy Weeger </p>
+             <p>Andy Weeger <a href="mailto:andy.weeger@hnu.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
           </div>
   </div>
     
@@ -985,7 +998,7 @@ Leimeister, J. M. (2021). <em>Einf<span>ü</span>hrung in die Wirtschaftsinforma
 //  - action row: Slides, Print slides (if the page has slides, announced by
 //    lib/filter/slides-link.lua as <meta name="awe-slides">), Copy link,
 //    plus every extra margin-header link as a button
-//  - "Start" in the top bar becomes "Home" with an icon
+//  - "Start" in the top bar becomes "Home" with an icon; light/dark toggle
 //  - sidebar title at the top of the navigation
 (function () {
   var header = document.getElementById('title-block-header');
@@ -1121,6 +1134,36 @@ Leimeister, J. M. (2021). <em>Einf<span>ü</span>hrung in die Wirtschaftsinforma
     a.classList.add('awe-nav-home');
     a.insertAdjacentHTML('afterbegin', '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 21H7C4.79086 21 3 19.2091 3 17V10.7076C3 9.30887 3.73061 8.01175 4.92679 7.28679L9.92679 4.25649C11.2011 3.48421 12.7989 3.48421 14.0732 4.25649L19.0732 7.28679C20.2694 8.01175 21 9.30887 21 10.7076V17C21 19.2091 19.2091 21 17 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
   });
+
+  // --- light/dark toggle in the top bar ----------------------------------
+  // the scheme is set before the first paint by awe-web-head.html; the
+  // button switches it and stores the choice
+  var nav = document.querySelector('#quarto-header .navbar-nav');
+  if (nav) {
+    var li = document.createElement('li');
+    li.className = 'nav-item';
+    var tb = document.createElement('button');
+    tb.type = 'button';
+    tb.className = 'nav-link awe-theme-toggle';
+    tb.innerHTML =
+      '<svg class="awe-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+      '<svg class="awe-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 12L23 12M12 2V1M12 23V22M20 20L19 19M20 4L19 5M4 20L5 19M4 4L5 5M1 12L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var label = function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var t = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      tb.setAttribute('aria-label', t);
+      tb.title = t;
+    };
+    label();
+    tb.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('awe-theme', next); } catch (e) {}
+      label();
+    });
+    li.appendChild(tb);
+    nav.appendChild(li);
+  }
 
   // --- sidebar title (announced by lib/filter/slides-link.lua) ------------
   var sidebar = document.querySelector('#quarto-sidebar .sidebar-menu-container, #quarto-sidebar');

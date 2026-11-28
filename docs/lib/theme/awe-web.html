@@ -132,6 +132,20 @@
     if (slidesUrl) addSlides();
   }
 
+  // --- top bar: site title; the part after the first word gets its own
+  // span so small screens can show only "awe" (awe-web.scss) -------------
+  var siteTitle = document.querySelector('#quarto-header .navbar-title');
+  if (siteTitle && siteTitle.children.length === 0) {
+    var m = siteTitle.textContent.match(/^(\S+)(\s.*)$/);
+    if (m) {
+      siteTitle.textContent = m[1];
+      var rest = document.createElement('span');
+      rest.className = 'awe-title-rest';
+      rest.textContent = m[2];
+      siteTitle.appendChild(rest);
+    }
+  }
+
   // --- top bar: the "Start" button becomes "Home" with an icon -----------
   document.querySelectorAll('#quarto-header .navbar-nav .nav-link').forEach(function (a) {
     var t = a.querySelector('.menu-text') || a;

@@ -59,7 +59,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -208,6 +208,9 @@
 <div class="quarto-title-author-name">
 Andy Weeger
 </div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
+</div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
           </p>
@@ -229,7 +232,6 @@ Andy Weeger
 <p><span class="fragment fade-in-then-semi-out">A focus on words,</span> <span class="fragment fade-in-then-semi-out">small sample,</span> <span class="fragment fade-in-then-semi-out">observation and communication</span></p>
 </div>
 </div>
-</section>
 <aside class="notes">
 <p>Qualitative research aims to understand phenomena within the complexity of <strong>real-life contexts</strong> through direct observation, communication with participants, or analysis of texts, and may stress <strong>contextual subjective accuracy</strong> over generality <span class="citation" data-cites="recker2021research">(<a href="#/references" role="doc-biblioref" onclick="">Recker, 2021</a>)</span>.</p>
 <p>Qualitative methods are helpful</p>
@@ -239,7 +241,7 @@ Andy Weeger
 <li>for studying social, cultural, or political aspects of a phenomenon</li>
 </ul>
 <p>The methods focus on the “why” and “how” of things rather than the “what,” “where” and “when” of things and involve detailed study of a small sample or group. They are, thus, often used for theory building.</p>
-<h4 id="popular-quantitative-research-methods">Popular quantitative research methods</h4>
+<p><strong>Popular quantitative research methods</strong></p>
 <ul>
 <li>Case study</li>
 <li>Action research</li>
@@ -257,6 +259,7 @@ Andy Weeger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 
 <section id="basic-principles" class="title-slide slide level2">
 <h2>Basic principles</h2>
@@ -1395,7 +1398,10 @@ Yin, R. K. (2009). <em>Case study research: Design and methods</em> (Vol. 5). sa
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1469,7 +1475,18 @@ Yin, R. K. (2009). <em>Case study research: Design and methods</em> (Vol. 5). sa
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1492,10 +1509,20 @@ Yin, R. K. (2009). <em>Case study research: Design and methods</em> (Vol. 5). sa
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

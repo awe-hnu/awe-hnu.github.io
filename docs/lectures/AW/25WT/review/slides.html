@@ -59,7 +59,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -207,6 +207,9 @@
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Andy Weeger
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -622,21 +625,20 @@ Figure&nbsp;2: Source: <a href="https://scienceandink.com/">Science and Ink</a>
 <li class="fragment">Write a response letter</li>
 </ul>
 </div>
-</section>
 <aside class="notes">
-<h4 id="put-the-reviews-aside-for-a-while">Put the reviews aside for a while</h4>
+<p><strong>Put the reviews aside for a while</strong></p>
 <ul>
 <li>All initial reviews are critical(you will very rarely accepted straightaway – it only happened to me once)</li>
 <li>You will probably have some strong negative reactions to a review</li>
 <li>After several days, they will look more manageable</li>
 </ul>
-<h4 id="read-and-understand-the-reviews">Read and understand the reviews</h4>
+<p><strong>Read and understand the reviews</strong></p>
 <ul>
 <li>You need to truly and fully understand each and every comment.</li>
 <li>Read the reviews several times.</li>
 <li>Develop a strategy</li>
 </ul>
-<h4 id="tabulate-reviews">Tabulate reviews</h4>
+<p><strong>Tabulate reviews</strong></p>
 <ul>
 <li>Create a table for the editors and reviewers and copy and paste each “block” of review comments into a separate row</li>
 <li>Have three columns, one for the comment, one for the response, and one for notes and discussion within the research team</li>
@@ -648,14 +650,14 @@ Figure&nbsp;2: Source: <a href="https://scienceandink.com/">Science and Ink</a>
 <li>a suggestion that cannot be handled given the research conducted</li>
 </ol></li>
 </ul>
-<h4 id="revise-the-paper">Revise the paper</h4>
+<p><strong>Revise the paper</strong></p>
 <ul>
 <li>Try to make your revisions developmental</li>
 <li>Implement the changes that will have to be made (ranging from changing, inserting, or deleting paragraphs, figures, or tables of some sections, to writing a completely new manuscript)</li>
 <li>Don’t be afraid to make big changes to a manuscript. A major revision should always look like one</li>
 <li>Some suggest completely re-writing a paper from scratch for major revisions</li>
 </ul>
-<h4 id="write-a-response-letter">Write a response letter</h4>
+<p><strong>Write a response letter</strong></p>
 <p>Response letters serve as a frame of reference for the review team when they are looking at revisions. It has usually been months since they read the original paper, and they want to be reminded and know what you changed and where they can find the changes in the paper. Since the response letter is a support document, it should be as brief as possible, but as concise as necessary.</p>
 <ul>
 <li>Maintain a polite, professional, and constructive tone</li>
@@ -674,6 +676,7 @@ Figure&nbsp;2: Source: <a href="https://scienceandink.com/">Science and Ink</a>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 
 <section id="response-table" class="title-slide slide level2">
 <h2>Response table</h2>
@@ -1128,7 +1131,10 @@ Zmud, B. (1998). A personal perspective on the state journal refereeing. <em>MIS
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1202,7 +1208,18 @@ Zmud, B. (1998). A personal perspective on the state journal refereeing. <em>MIS
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1225,10 +1242,20 @@ Zmud, B. (1998). A personal perspective on the state journal refereeing. <em>MIS
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

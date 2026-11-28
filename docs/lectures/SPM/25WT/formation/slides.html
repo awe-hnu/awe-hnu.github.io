@@ -61,7 +61,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -212,6 +212,9 @@
 <div class="quarto-title-author-name">
 Andy Weeger
 </div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
+</div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
           </p>
@@ -250,7 +253,7 @@ Andy Weeger
 <h2>Reflection</h2>
 <p>Turn to your neighbour and identify the key features of a good strategy and a poor strategy, using what you have learned so far as your reference point.</p>
 <p>Prepare to present and discuss your findings.</p>
-<div id="timer_cad0bb27398feb4bedae3ca8811591fd6eff74ff" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_fa8f719e623dba7bc13a853c1537c0badf99a2a4" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -388,7 +391,6 @@ simple and obvious in retrospect.</p>
 <div class="fragment">
 <p>Traditional planning approaches often lead to <span class="fragment highlight-current-blue">poor strategy</span> because they emphasize <span class="fragment highlight-current-blue">process over insight</span> and <span class="fragment highlight-current-blue">templates over understanding</span>.</p>
 </div>
-</section>
 <aside class="notes">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -423,7 +425,7 @@ simple and obvious in retrospect.</p>
 </div>
 </div>
 </div>
-<h4 data-visibility="false" id="weaknesses-of-traditional-planning">Weaknesses of traditional planning</h4>
+<p><strong>Weaknesses of traditional planning</strong></p>
 <p><strong>Process over insight</strong></p>
 <ul>
 <li>Focus on following planning procedures rather than generating genuine insights</li>
@@ -460,6 +462,7 @@ simple and obvious in retrospect.</p>
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 </section>
 <section>
 <section id="strategy-formation" class="title-slide slide level1 headline-only">
@@ -533,7 +536,7 @@ Netflix needed both planning (streaming infrastructure, global expansion) AND ad
 <li>If Netflix had made a rigid 5-year plan in 1997 and stuck to it religiously, what would they have missed?</li>
 </ol>
 <p>Be ready to share one example.</p>
-<div id="timer_cad0bb27398feb4bedae3ca8811591fd6eff74ff" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_fa8f719e623dba7bc13a853c1537c0badf99a2a4" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -1594,7 +1597,10 @@ resist change even when the environment demands it. This creates inherent tensio
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1668,7 +1674,18 @@ resist change even when the environment demands it. This creates inherent tensio
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1691,10 +1708,20 @@ resist change even when the environment demands it. This creates inherent tensio
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

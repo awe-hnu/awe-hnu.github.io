@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3d87d53381eda6d3e1ad5f2311bf723d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-29496e28e528d1bc3780eda136400e5d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -381,6 +381,20 @@ cookieconsent.run({
     actionsAnchor.insertAdjacentElement('afterend', row);
     // slides: announced at render time by lib/filter/slides-link.lua
     if (slidesUrl) addSlides();
+  }
+
+  // --- top bar: site title; the part after the first word gets its own
+  // span so small screens can show only "awe" (awe-web.scss) -------------
+  var siteTitle = document.querySelector('#quarto-header .navbar-title');
+  if (siteTitle && siteTitle.children.length === 0) {
+    var m = siteTitle.textContent.match(/^(\S+)(\s.*)$/);
+    if (m) {
+      siteTitle.textContent = m[1];
+      var rest = document.createElement('span');
+      rest.className = 'awe-title-rest';
+      rest.textContent = m[2];
+      siteTitle.appendChild(rest);
+    }
   }
 
   // --- top bar: the "Start" button becomes "Home" with an icon -----------

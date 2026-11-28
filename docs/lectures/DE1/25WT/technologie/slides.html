@@ -58,7 +58,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -206,6 +206,9 @@
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Andy Weeger
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -579,8 +582,28 @@ Abbildung&nbsp;7: Servicemodelle (typische IT-as-a-Service Outsourcing Ebenen), 
 <li class="fragment"><strong>Hybrid Cloud:</strong> Mischung aus Private und Public Cloud (Ziel: hohe Sicherheit und Skalierbarkeit).</li>
 <li class="fragment"><strong>Community Cloud:</strong> Die Dienste können von mehreren Organisationen genutzt werden. Dazu werden mehrere Private Clouds kombiniert.</li>
 </ul>
+<aside class="notes">
+<p><strong>Eigenschaften</strong></p>
+<p>Cloud Computing lässt sich über fünf spezielle Eigenschaften definieren <span class="citation" data-cites="leimeister2021einfuhrung">(<a href="#/literatur" role="doc-biblioref" onclick="">Leimeister, 2021, S. 99</a>)</span>:</p>
+<ul>
+<li><strong>On-Demand Self-Service:</strong> ein Nutzer eines Cloud-Computing-Dienstes sollte ohne eine vorherige Interaktion mit dem Anbieter zu jedem Zeitpunkt die Möglichkeit haben, auf den Dienst zuzugreifen und bei Bedarf diesen zu skalieren.</li>
+<li><strong>Netzwerkzugriff:</strong> ein Nutzer muss von jeder standardisierten Plattform, wie Desktop Computer, Laptops, Tablets sowie weiteren mobilen Endgeräten, auf den Dienst zuzugreifen können.</li>
+<li><strong>Ressourcen-Pooling:</strong> einem Nutzer werden notwendige IT-Ressourcen, wie Rechenleistung, Arbeitsspeicher oder Speicherkapazitäten, bedarfsgerecht zugewiesen. Durch die Nutzung von gleicher Hard- und Softwareinfrastruktur für verschiedene Nutzer können Kosten eingespart werden.</li>
+<li><strong>Schnelle Anpassbarkeit und Elastizität:</strong> Je nach Anforderungen des Kunden können die Ressourcen angepasst bereitgestellt werden. Dabei kann diese Anpassung entweder automatisiert durch den Anbieter oder manuell durch den Kunden erfolgen.</li>
+<li><strong>Messbare Servicenutzung:</strong> Dem Kunden wird der Dienst verbrauchsabhängig verrechnet. Dadurch entsteht eine transparente Sicht auf die empfangenen Leistungen, sowohl auf Anbieter- als auch auf Nutzerseite.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-
 </section>
 <section>
 <section id="internet-of-things" class="title-slide slide level1 vertical-center" data-background-color="blue">
@@ -1093,7 +1116,10 @@ Mertens, P., Bodendorf, F., König, W., Schumann, M., Hess, T., &amp; Buxmann, P
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1167,7 +1193,18 @@ Mertens, P., Bodendorf, F., König, W., Schumann, M., Hess, T., &amp; Buxmann, P
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1190,10 +1227,20 @@ Mertens, P., Bodendorf, F., König, W., Schumann, M., Hess, T., &amp; Buxmann, P
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

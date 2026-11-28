@@ -61,7 +61,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -332,7 +332,7 @@ Andy Weeger
 </div>
 <p>For which tasks and activities do you heavily rely on mobile computing?<br>
 Imagine what you would do if you would not have access to a smartphone.</p>
-<div id="timer_1cb31dff2eecb53d6b676ce975c679bcb6c8a0e3" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_2e033d91d568097101e6c2c3eda8c71459773343" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -442,7 +442,7 @@ The true stars of the mobile computing show are applications, downloadable from 
 <div class="smaller">
 <p>Sectors: healthcare, education, retail, transportation, finance/banking, entertainment, agriculture, manufacturing, and tourism</p>
 </div>
-<div id="timer_1cb31dff2eecb53d6b676ce975c679bcb6c8a0e3" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_2e033d91d568097101e6c2c3eda8c71459773343" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -537,7 +537,7 @@ Face-to-face communication decline
 <li>How might widespread adoption of AR glasses affect social interactions, privacy, and the challenges we’ve discussed?</li>
 </ul>
 <p>Discuss the questions in small groups and be prepared to present and discuss your findings.</p>
-<div id="timer_1cb31dff2eecb53d6b676ce975c679bcb6c8a0e3" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_2e033d91d568097101e6c2c3eda8c71459773343" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -716,7 +716,7 @@ The ultimate vision of ubiquitous computing is for systems to not only react to 
 <p>What are other examples of ubiquitous computing?</p>
 </div>
 <p>Reflect the characteristics and name the main technological enablers.</p>
-<div id="timer_1cb31dff2eecb53d6b676ce975c679bcb6c8a0e3" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_2e033d91d568097101e6c2c3eda8c71459773343" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -1434,7 +1434,10 @@ Zimmerman, R. (2001). Social implications of infrastructure network interactions
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1508,7 +1511,18 @@ Zimmerman, R. (2001). Social implications of infrastructure network interactions
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1531,10 +1545,20 @@ Zimmerman, R. (2001). Social implications of infrastructure network interactions
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

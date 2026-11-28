@@ -59,7 +59,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -208,6 +208,9 @@
 <div class="quarto-title-author-name">
 Andy Weeger
 </div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
+</div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
           </p>
@@ -250,7 +253,6 @@ Andy Weeger
 </div>
 </section>
 </section>
-<section>
 <section id="tipps-to-prepare" class="title-slide slide level1 headline-only">
 <h1>Tipps to prepare</h1>
 <p>Here are a few tips on how to prepare for your thesis defense.</p>
@@ -262,16 +264,15 @@ Andy Weeger
 <li class="fragment">Have a backup plan</li>
 </ul>
 </div>
-</section>
 <aside class="notes">
-<h4 id="tell-a-convincing-story">Tell a convincing story</h4>
+<p><strong>Tell a convincing story</strong></p>
 <ul>
 <li>You can’t present all you have done—<strong>tell a convincing story</strong> that portraits your research well and leave room for questions</li>
 <li>Do not plan for more then <strong>1 slide per 2 minutes</strong>, rather less</li>
 <li>It’s a scientific presentation, so don’t forget good practices (e.g., references)</li>
 <li><strong>Prepare properly</strong>, practice your talk and make sure it fits the time limitations, you know your slides and you have opening and closing statements prepared</li>
 </ul>
-<h4 id="design-high-quality-slides-hytonslides">Design high-quality slides <span class="citation" data-cites="hytonSlides">(<a href="#/literature" role="doc-biblioref" onclick="">Hyton, n.d.</a>)</span></h4>
+<p><strong>Design high-quality slides <span class="citation" data-cites="hytonSlides">(<a href="#/literature" role="doc-biblioref" onclick="">Hyton, n.d.</a>)</span></strong></p>
 <ul>
 <li>Do not plan for ideal conditions, make sure that everyone can see and read the contents</li>
 <li>Avoid fancy backgrounds on your slides</li>
@@ -279,7 +280,7 @@ Andy Weeger
 <li>Don’t overload your slides (e.g., use only the upper two thirds of the slides, try to use not text at all)</li>
 <li>Put page numbers on your slides</li>
 </ul>
-<h4 id="anticipate-questions-and-prepare-for-them">Anticipate questions and prepare for them</h4>
+<p><strong>Anticipate questions and prepare for them</strong></p>
 <ul>
 <li><strong>Sit at other defenses</strong> of your supervisors to get a feeling for how and what they ask</li>
 <li>Do a <strong>dry-run</strong> in front of a friendly audience to spot topics that trigger questions</li>
@@ -334,7 +335,7 @@ This is one of the trickiest questions as you need to convince the panel of teac
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<h4 id="have-a-backup-plan">Have a backup plan</h4>
+<p><strong>Have a backup plan</strong></p>
 <p>Technology is unpredictable. Life is too.</p>
 <ul>
 <li>Ask a trusted person to be ready to help you out</li>
@@ -352,7 +353,9 @@ This is one of the trickiest questions as you need to convince the panel of teac
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section>
+      }</style></aside>
+</section>
+
 <section id="qa" class="title-slide slide level1 vertical-center html-hidden headline-only">
 <h1>Q&amp;A</h1>
 
@@ -738,7 +741,10 @@ Hyton, J. (n.d.). <em>How to design outstanding PowerPoint slides</em>. <a href=
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -812,7 +818,18 @@ Hyton, J. (n.d.). <em>How to design outstanding PowerPoint slides</em>. <a href=
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -835,10 +852,20 @@ Hyton, J. (n.d.). <em>How to design outstanding PowerPoint slides</em>. <a href=
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

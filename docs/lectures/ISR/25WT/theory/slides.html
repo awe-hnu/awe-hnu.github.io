@@ -59,7 +59,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -207,6 +207,9 @@
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Andy Weeger
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -1198,16 +1201,15 @@ Figure&nbsp;5: The nomological net of the Theory of Reasoned Action <span class=
 <p><span class="fragment fade-in-then-semi-out large">From data to theory</span><br>
 <span class="fragment">Start with data, check if there is a theory that can explain what you observe, develop a new theoretical account</span></p>
 </div>
-</section>
 <aside class="notes">
-<h4 data-visibility="hidden" id="from-theory-to-data">From theory to data</h4>
+<p><strong>From theory to data</strong></p>
 <p>Typically called the ‘traditional’ scientific process</p>
 <ul>
 <li>You start with a theory.</li>
 <li>You develop a modification or an extension of it</li>
 <li>Then you collect data specifically to test/falsify the predictions</li>
 </ul>
-<h4 data-visibility="hidden" id="from-data-to-theory">From data to theory</h4>
+<p><strong>From data to theory</strong></p>
 <p>Often equated with inductive and interpretive research</p>
 <ul>
 <li>You start with data, with a study of something that is ‘really happening’</li>
@@ -1225,6 +1227,7 @@ Figure&nbsp;5: The nomological net of the Theory of Reasoned Action <span class=
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 
 <section id="theorizing-approaches" class="title-slide slide level2">
 <h2>Theorizing approaches</h2>
@@ -1241,13 +1244,12 @@ Figure&nbsp;5: The nomological net of the Theory of Reasoned Action <span class=
 <div class="fragment">
 <p>The choice depends on the <strong>research question, available data, and the goals of the study</strong>.</p>
 </div>
-</section>
 <aside class="notes">
-<h4 data-visibility="hidden" id="theory-building">Theory building</h4>
+<p><strong>Theory building</strong></p>
 <p>Building theory involves the development of new theoretical frameworks or explanatory models to understand a phenomenon. This process often starts with empirical observations or data collection. Researchers use inductive or abductive approaches to identify patterns, relationships, and underlying mechanisms. They formulate conceptual frameworks that capture these patterns and explain the observed phenomenon. Building theory is particularly useful when there is a lack of established theoretical foundations for a specific area of study <span class="citation" data-cites="mueller2017understanding">(<a href="#/references" role="doc-biblioref" onclick="">Mueller &amp; Urbach, 2017</a>)</span>.</p>
-<h4 data-visibility="hidden" id="theory-testing">Theory testing</h4>
+<p><strong>Theory testing</strong></p>
 <p>Testing theory involves subjecting existing theoretical frameworks or models to empirical scrutiny to assess their validity and predictive power. Researchers use deductive testing to generate hypotheses based on established theories and then gather data to confirm or refute these hypotheses. Inductive testing, on the other hand, uses empirical observations to challenge or refine existing theories. The goal of testing theory is to assess whether a theory accurately represents the real-world phenomenon and whether its predictions hold up under empirical examination.</p>
-<h4 data-visibility="hidden" id="theory-extending">Theory extending</h4>
+<p><strong>Theory extending</strong></p>
 <p>Extending theory refers to the process of enhancing or expanding existing theoretical frameworks to refine and broaden their applicability, accommodating new empirical findings and addressing limitations.</p>
 <p>Researchers can extend theory in several ways:</p>
 <ul>
@@ -1266,6 +1268,7 @@ Figure&nbsp;5: The nomological net of the Theory of Reasoned Action <span class=
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 
 <section id="quality-checks" class="title-slide slide level2">
 <h2>Quality checks</h2>
@@ -1797,7 +1800,10 @@ Whetten, D. A. (1989). What constitutes a theoretical contribution? <em>Academy 
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1871,7 +1877,18 @@ Whetten, D. A. (1989). What constitutes a theoretical contribution? <em>Academy 
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1894,10 +1911,20 @@ Whetten, D. A. (1989). What constitutes a theoretical contribution? <em>Academy 
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>

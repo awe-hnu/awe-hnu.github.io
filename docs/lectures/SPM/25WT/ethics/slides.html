@@ -61,7 +61,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-bc98a5c496996a6f36e0ebbcd957a612.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -211,6 +211,9 @@
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Andy Weeger
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:andy.weeger@hnu.de">andy.weeger@hnu.de</a>
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -843,7 +846,7 @@ Table&nbsp;1: The levels of the CSR pyramid <span class="citation" data-cites="c
 <li>give reasons why CSR might positively impact financial performance, and to</li>
 <li>provide real-life examples and identify activities or characteristics of socially responsible companies.</li>
 </ul>
-<div id="timer_9fb60bc4d7470bd2936d96b778a22de777b3ea7a" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_dcf1781257bf4dbb07dcad7ab9e15681f684ee1e" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -1012,11 +1015,69 @@ Table&nbsp;1: The levels of the CSR pyramid <span class="citation" data-cites="c
 <p>Ethics and CSR considerations should, thus, be <span class="fragment highlight-current-blue">integrated into both external and internal audits</span> as <span class="fragment highlight-current-blue">sources of opportunities and threats, strengths and weaknesses</span>.</p>
 </div>
 </div>
-</section>
 <aside class="notes">
-
-
-
+<p><strong>Value creation through CSR</strong></p>
+<p><strong>Willingness to pay</strong> — Customers may pay premium for socially responsible products</p>
+<ul>
+<li>Sustainable products command price premiums</li>
+<li>Ethical sourcing appeals to conscious consumers</li>
+<li>Environmental benefits create differentiation</li>
+</ul>
+<p><strong>Cost structure</strong> — CSR initiatives may reduce long-term operational costs</p>
+<ul>
+<li>Energy efficiency reduces utility costs</li>
+<li>Waste reduction lowers disposal expenses</li>
+<li>Employee engagement reduces turnover costs</li>
+</ul>
+<p><strong>Employee value (WTS)</strong> - strong CSR enhances employee satisfaction and reduces turnover costs</p>
+<ul>
+<li>Purpose-driven work increases engagement</li>
+<li>Values alignment improves retention</li>
+<li>CSR attracts top talent</li>
+</ul>
+<p><strong>Supplier relations (WTS)</strong> — ethical practices improve supplier relationships and terms</p>
+<ul>
+<li>Fair trade practices build supplier loyalty</li>
+<li>Long-term partnerships reduce procurement costs</li>
+<li>Ethical sourcing creates stable supply chains</li>
+</ul>
+<p><strong>CSR in external audit</strong></p>
+<p><strong>Environmental factors to consider</strong></p>
+<ul>
+<li>Social and cultural expectations regarding corporate responsibility</li>
+<li>Environmental regulations and sustainability standards</li>
+<li>Stakeholder activism and pressure groups</li>
+<li>Industry sustainability trends and benchmarks</li>
+</ul>
+<p><strong>Opportunities from CSR</strong></p>
+<ul>
+<li>New market segments interested in sustainable products</li>
+<li>Partnership opportunities with NGOs and social organizations</li>
+<li>Government incentives for sustainable practices</li>
+<li>Enhanced reputation and brand value</li>
+</ul>
+<p><strong>Threats from poor CSR</strong></p>
+<ul>
+<li>Consumer boycotts and negative publicity</li>
+<li>Regulatory penalties and legal action</li>
+<li>Investor pressure and divestment</li>
+<li>Talent retention and recruitment challenges</li>
+</ul>
+<p><strong>CSR in internal audit</strong></p>
+<p><strong>Strengths from strong CSR</strong></p>
+<ul>
+<li>Enhanced employee engagement and retention</li>
+<li>Strong stakeholder relationships</li>
+<li>Sustainable cost advantages</li>
+<li>Innovation capabilities driven by social/environmental challenges</li>
+</ul>
+<p><strong>Weaknesses from poor CSR</strong></p>
+<ul>
+<li>Reputational vulnerabilities</li>
+<li>Regulatory compliance gaps</li>
+<li>Limited access to certain markets or talent</li>
+<li>Higher operational risks</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1028,6 +1089,7 @@ Table&nbsp;1: The levels of the CSR pyramid <span class="citation" data-cites="c
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
 
 <section id="implementation-framework" class="title-slide slide level2">
 <h2>Implementation framework</h2>
@@ -1669,7 +1731,10 @@ Wikipedia contributors. (2023). <em>Ethics — <span>Wikipedia</span><span>,</sp
       if (document.documentElement.classList.contains('awe-classic')) return;
 
       var pad = function (n) { return n < 10 ? '0' + n : String(n); };
-      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+      // discussion slides get the running header too (their heading is a
+      // normal headline); level-1 discussion slides (e.g. # Recap) keep their
+      // heading as the label
+      var skip = ['no-headline', 'headline-only',
                   'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
       var section = 0;
       var title = '';
@@ -1743,7 +1808,18 @@ Wikipedia contributors. (2023). <em>Ethics — <span>Wikipedia</span><span>,</sp
         var pad = cols.map(function (cells) {
           return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
         });
-        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        // available width: the table's max-width (the text measure), or less
+        // when it sits in a narrower container (columns); clientWidth is the
+        // unscaled layout width, 0 while the slide is hidden
+        var limit = parseFloat(getComputedStyle(t).maxWidth);
+        var box = t.parentElement;
+        if (box) {
+          var bcs = getComputedStyle(box);
+          var inner = box.clientWidth - (parseFloat(bcs.paddingLeft) || 0) - (parseFloat(bcs.paddingRight) || 0);
+          if (!(inner > 0)) return;
+          limit = isFinite(limit) ? Math.min(limit, inner) : inner;
+        }
+        var avail = limit - sum(pad);
         if (!(avail > 0)) return;
 
         var fixed = {};
@@ -1766,10 +1842,20 @@ Wikipedia contributors. (2023). <em>Ethics — <span>Wikipedia</span><span>,</sp
       var fitAll = function () {
         document.querySelectorAll('.reveal .slides table').forEach(fitTable);
       };
+      // hidden slides have no width: fit again whenever a slide is shown
+      var fitCurrent = function (e) {
+        var slide = (e && e.currentSlide) || document.querySelector('.reveal .slides section.present');
+        if (slide) slide.querySelectorAll('table').forEach(fitTable);
+      };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(fitAll);
       } else {
         fitAll();
+      }
+      if (window.Reveal && typeof window.Reveal.on === 'function') {
+        window.Reveal.on('ready', function (e) { fitCurrent(e); });
+        window.Reveal.on('slidechanged', fitCurrent);
+        window.Reveal.on('pdf-ready', fitAll);
       }
     })();
     </script>
