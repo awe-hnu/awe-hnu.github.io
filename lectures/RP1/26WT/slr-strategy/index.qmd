@@ -65,14 +65,22 @@ Today fills the *Search Strategy* section of your [Review Protocol](../assignmen
 
 ## Written in Advance
 
-:::large
-A protocol is a decision you make **before** you see how many hits it produces.
+:::: html-hidden
+::: medium
+You fix the search strategy **before** you see how many hits it produces.
 :::
 
-:::notes
-The credibility of a systematic search rests on it being pre-specified rather than adjusted after the fact to produce a convenient set of papers. Iterative refinement of your search string is normal and expected, covered later in this unit. What matters is that you write down and date every version, rather than quietly editing your search until the result set looks right and presenting only the final version as if it were the first.
+::: incremental
+- **Pre-specified:** sources, blocks, and terms are written down before the first run.
+- **Iterated on the record:** every version of the string is dated and logged with its hit count.
+- **Reported in full:** discarded versions stay in the log next to the final one.
+:::
+::::
 
-This habit, writing the protocol down before executing it and keeping every version, turns "we searched the literature" into a claim someone else can check.
+:::notes
+A systematic search earns its credibility by being specified before it is run, so that the result set cannot steer the method. Refining the string over several runs is normal and expected. Each version is dated, logged with its hit count and the reason for the change, and kept in the log after it has been replaced. A paper that presents only the final string conceals how the corpus came about.
+
+Writing the strategy down before executing it and keeping every version turns "we searched the literature" into a claim someone else can check.
 :::
 
 # Choosing Databases {.headline-only}
@@ -177,7 +185,7 @@ Grey literature
 : Material not published by commercial academic publishers, such as reports, white papers, preprints, blogs, and videos.
 
 :::notes
-These four terms appear in the method section of almost every review. The definitions above are enough to recognize them in Exercise 1; how to do each of them well follows in the rest of this unit.
+These four terms appear in the method section of almost every review. Their definitions suffice to recognize them in Exercise 1; the sections on string building, testing, snowballing, and grey literature explain how to do each of them well.
 :::
 
 ## Exercise 1 {.unlisted .unnumbered .html-hidden .discussion-slide}
@@ -233,9 +241,20 @@ Plenary question: which review is easiest to repeat, and why? Review A searches 
 
 ## Concept Blocks
 
-:::medium
-Concepts become blocks, blocks become synonym lists, lists become Boolean logic.
+:::: html-hidden
+::: medium
+[Concepts become blocks,]{.fragment .fade-in-then-semi-out}
+[blocks become synonym lists,]{.fragment .fade-in-then-semi-out}
+[lists become Boolean logic.]{.fragment .fade-in-then-semi-out}
 :::
+
+::: incremental
+- **Two or three concepts** from the research question, each one block.
+- **Synonyms, variants, related labels** per block, in academic and practitioner vocabulary.
+- **OR within a block,** AND between blocks.
+- **Every AND block narrows** the result: keep it only if it removes more noise than relevant papers.
+:::
+::::
 
 :::notes
 Take your research question and identify its distinct concepts, usually two or three. For each concept, collect synonyms, related terms, and spelling variants, in both academic and practitioner vocabulary, since a phenomenon is rarely called the same thing in a journal article and in a trade press article. Combine the synonyms for one concept with OR into a block, and combine different blocks with AND.
@@ -268,20 +287,12 @@ Combine each block with OR, inside parentheses, and the blocks with AND:
 
 `("agentic AI" OR "AI agent*" OR "LLM-based agent*" OR "autonomous agent*") AND ("cyber resilien*" OR "incident response" OR "security operation*" OR "cyber defen*") AND (organi?ation* OR enterprise* OR firm* OR compan*)`
 
-Block C deserves a second look: many relevant papers never mention "organization" in their title or abstract, so it may cost more relevant papers than it removes noise. The block-by-block test later in this unit tells you whether to keep it.
+Block C deserves a second look: many relevant papers never mention "organization" in their title or abstract, so it may cost more relevant papers than it removes noise. The block-by-block test, one of the four tests for a search string, shows whether to keep it.
 :::
 
-## PICOC
+## PICOC Elements
 
-:::medium
 **PICOC** is a checklist for finding the concepts in your question.
-:::
-
-:::notes
-PICOC (Population, Intervention, Comparison, Outcome, Context) originated in evidence-based medicine as a way to structure a clinical question before searching the literature. @petticrew2006systematic adapted it for the social sciences, and @kitchenham2007guidelines adopted it for software engineering.
-:::
-
-## Five Elements
 
 | Element | Meaning | Example |
 |---|---|---|
@@ -294,6 +305,8 @@ PICOC (Population, Intervention, Comparison, Outcome, Context) originated in evi
 : PICOC elements [@kitchenham2007guidelines, after @petticrew2006systematic] {#tbl-picoc}
 
 :::notes
+PICOC (Population, Intervention, Comparison, Outcome, Context) originated in evidence-based medicine as a way to structure a clinical question before searching the literature. @petticrew2006systematic adapted it for the social sciences, and @kitchenham2007guidelines adopted it for software engineering.
+
 Not every element becomes a search block. Most strings are built from Intervention and Population, sometimes Outcome. Comparison and Context usually become eligibility criteria, because authors rarely name them in titles and abstracts; a block for "critical infrastructure" would drop every relevant paper that mentions its setting only in the method section.
 
 The decomposition earns its value by forcing the question into specific parts, whether or not every slot ends up filled. An element present in the PICOC breakdown but missing from your research question is usually the ambiguity a reader trips on first.
@@ -354,7 +367,7 @@ A framework structures the question; the string is built from its central elemen
 :::
 
 :::notes
-Search terms come from the literature, not from the wording of your research question. Start with the author keywords and title words of three to five key papers you already know are relevant. Check the index terms these papers carry in each database. Run a narrow string, read the hits, and harvest new terms (pearl growing). Look for the same phenomenon under the labels of neighboring fields.
+Search terms come from the literature. Start with the author keywords and title words of three to five key papers you already know are relevant. Check the index terms these papers carry in each database. Run a narrow string, read the hits, and harvest new terms (pearl growing). Look for the same phenomenon under the labels of neighboring fields.
 
 Record what you leave out. "Multi-agent system\*" brings in decades of agent research from before large language models; excluding it is a scope decision, and it belongs in the "near-terms excluded" column of Table 3 with a reason.
 
@@ -446,7 +459,7 @@ Too low: the string is too broad.
 :::notes
 A string can fail in three ways: too narrow, too broad, or aimed at the wrong literature. Sensitivity measures the first, precision the second. In a systematic review, sensitivity comes first: a study the search misses cannot be screened back in, while an irrelevant hit costs only the time to read its title.
 
-Since "all relevant" papers are unknown, sensitivity cannot be computed directly. It is estimated with a test set of papers known to be relevant. A string that returns 50,000 hits is unusable, however thorough it looks; a string that returns 12 hits for a phenomenon you know has substantial literature probably contains an overly narrow term or an accidentally restrictive field limitation.
+Since "all relevant" papers are unknown, sensitivity cannot be computed directly. It is estimated with a test set of papers known to be relevant. A string that returns 50,000 hits is unusable for screening; a string that returns 12 hits for a phenomenon you know has substantial literature probably contains an overly narrow term or an accidentally restrictive field limitation.
 :::
 
 ## Four Tests
@@ -483,7 +496,7 @@ Laptops, in your project team.
 {{< countdown "35:00" top="0">}}
 
 :::notes
-The replication step rarely produces the same number of hits, and the reasons are instructive: different coverage, different field definitions, automatic stemming in OpenAlex, and the years that have passed since the original search. Teams working on Review D cannot replicate at all, since no string is reported, which makes the point about documentation better than any slide. Use the log format from the documentation section.
+The replication step rarely produces the same number of hits, and the reasons are instructive: different coverage, different field definitions, automatic stemming in OpenAlex, and the years that have passed since the original search. Teams working on Review D cannot replicate at all, since no string is reported. Log every run in the format of the example search log.
 :::
 
 # Snowballing and Grey Literature {.headline-only}
@@ -491,7 +504,7 @@ The replication step rarely produces the same number of hits, and the reasons ar
 ## Snowballing
 
 :::medium
-A keyword search is a starting point, not the whole strategy.
+Citation search complements keyword search in two directions [@wohlin2014guidelines].
 :::
 
 ::: incremental
@@ -574,7 +587,7 @@ Grey literature has to be searched with the same transparency as everything else
 - **Stop:** web searches have no natural end, so define a stopping rule in advance: theoretical saturation (no new concepts appear), bounded effort (for example, the first n result pages), or evidence exhaustion (nothing relevant left).
 - **Appraise:** since grey sources have not been peer-reviewed, assess the authority of the producer, the methodology and objectivity of the source, and its date, novelty, impact, and outlet type.
 
-@kitchenham2023how take the opposite position: grey material should be handled with guidelines for primary studies rather than folded into secondary studies. Compare Review E, which includes 52 grey sources, with Review C, which excludes grey literature entirely. Both positions are defensible; an undisclosed mix of peer-reviewed and grey literature is not.
+@kitchenham2023how take the opposite position: grey material should be handled with guidelines for primary studies and kept out of secondary studies. Compare Review E, which includes 52 grey sources, with Review C, which excludes grey literature entirely. Both positions are defensible, provided the protocol states which grey sources are included and how they were found and appraised.
 :::
 
 ## Discussion {.unlisted .unnumbered .html-hidden .discussion-slide}
@@ -590,7 +603,7 @@ State the difference in one sentence each, using the tiers and appraisal criteri
 ## Logging Requirements
 
 :::medium
-If it is not in the log, it did not happen. Write it down while you search.
+Log every search while you run it, in enough detail for another team to repeat it.
 :::
 
 ::: incremental
@@ -601,9 +614,9 @@ If it is not in the log, it did not happen. Write it down while you search.
 :::
 
 :::notes
-PRISMA-S [@rethlefsen2021prisma] lists sixteen items a review should report about its search; the four groups above condense them. @vombrocke2015standing make the same demand for IS: a search that is not documented cannot be evaluated.
+PRISMA-S [@rethlefsen2021prisma] lists sixteen items a review should report about its search, condensed here into four groups. @vombrocke2015standing make the same demand for IS: a search that is not documented cannot be evaluated.
 
-Keep a running log while you search, not afterwards. It becomes Appendix A of your protocol, the raw material for the method section of your paper, and the basis for the PRISMA flow diagram in [SLR III: Screening and Appraisal](../slr-screening/).
+Keep the log during the search. It becomes Appendix A of your protocol, the raw material for the method section of your paper, and the basis for the PRISMA flow diagram in [SLR III: Screening and Appraisal](../slr-screening/).
 :::
 
 ## Example: Search Log {.smaller}
