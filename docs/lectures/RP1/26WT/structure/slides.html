@@ -61,7 +61,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-5129f0d664f84139a5767fcd773d6f49.css">
+  <link rel="stylesheet" href="../../../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
   
   <script type="text/javascript" charset="UTF-8">
   document.addEventListener('DOMContentLoaded', function () {
@@ -171,6 +171,7 @@
       margin-right: 0; 
     }
   </style>
+  <script>document.documentElement.classList.add('awe-classic');</script>
   <!-- Countdown Global CSS -->
   <style text="text/css">:root {--countdown-font-size: 2rem;--countdown-margin: 30px;--countdown-border-width: 1px;--countdown-border-radius: 0;}</style>
 <meta property="og:title" content="Paper Structure – awe.lectures">
@@ -202,7 +203,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#0333ff" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover" class="quarto-title-block">
+<section id="title-slide" class="quarto-title-block bg-highlight" data-background-image="../assets/bg.jpg" data-background-opacity="1" data-background-size="cover">
   <h1 class="title">Paper Structure</h1>
   <p class="subtitle">Research Project 1 (RP1) — U15</p>
 
@@ -242,6 +243,19 @@ Andy Weeger
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+
+<section id="agenda" class="title-slide slide level2 unlisted unnumbered html-hidden">
+<h2>Agenda</h2>
+<div class="medium">
+<ul>
+<li>Structure and examples <span class="smaller">25 min</span></li>
+<li>Exercise: review structure <span class="smaller">10 min</span></li>
+<li>Section guidance <span class="smaller">20 min</span></li>
+<li>Exercise: conceptual background <span class="smaller">10 min</span></li>
+<li>Homework <span class="smaller">5 min</span></li>
+</ul>
+</div>
 </section>
 
 <section id="learning-outcomes" class="title-slide slide level2">
@@ -582,7 +596,7 @@ Table&nbsp;3: The canonical structure of a systematic literature review, per you
 <li>Conclusion</li>
 </ol>
 <p>Map these six headings onto <a href="#/tbl-review-structure" class="quarto-xref">Table&nbsp;3</a>. Which review-structure section does each one correspond to, if any? Which review-structure section has no match here, and why might that be?</p>
-<div id="timer_bf9d41b3a25e7ec440d0de7bf95ee55eb0950ee3" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_d8caabe1b7a92789ef53b1ab4d4c471408785a38" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -755,7 +769,7 @@ Table&nbsp;3: The canonical structure of a systematic literature review, per you
 <p>Much research exists on chatbots. Some studies look at trust, some look at adoption, and some look at design. Chatbots are used in many industries. This section reviews the literature on chatbots.</p>
 </blockquote>
 <p>Check it against the tips above. Name at least three things missing, then rewrite one sentence to fix one of them.</p>
-<div id="timer_bf9d41b3a25e7ec440d0de7bf95ee55eb0950ee3" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
+<div id="timer_d8caabe1b7a92789ef53b1ab4d4c471408785a38" class="countdown" data-warn-when="0" data-update-every="1" data-play-sound="false" data-blink-colon="false" data-start-immediately="false" tabindex="0" style="top: 0;right: 0;">
   <div class="countdown-controls">
     <button class="countdown-bump-down">−</button>
     <button class="countdown-bump-up">+</button>
@@ -1360,6 +1374,119 @@ Figure&nbsp;1: Visualizing theoretical implications in <span class="citation" da
 
     </script>
 
+    <script>
+    // awe-editorial: numbers section dividers, adds a running header to content
+    // slides, and fits table columns. Styling lives in awe-editorial.scss.
+    (function () {
+      // classic decks (slide-theme: classic) use none of this; the running header
+      // element would otherwise appear unstyled there
+      if (document.documentElement.classList.contains('awe-classic')) return;
+
+      var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+                  'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
+      var section = 0;
+      var title = '';
+      var num = '';
+
+      document.querySelectorAll('.reveal .slides section.slide').forEach(function (s) {
+        var cls = s.classList;
+        if (cls.contains('level1')) {
+          var h = s.querySelector('h1');
+          title = h ? h.textContent.trim() : '';
+          num = '';
+          if (cls.contains('headline-only') && !cls.contains('unlisted')) {
+            section += 1;
+            num = pad(section);
+            s.setAttribute('data-awe-num', num);
+          }
+          return;
+        }
+        if (!title || skip.some(function (c) { return cls.contains(c); })) return;
+        if (s.hasAttribute('data-background-color') || s.hasAttribute('data-background-image') ||
+            s.querySelector(':scope > .background-color-div, :scope > .background-image-div')) return;
+        // running header: dot, section number (highlight colour), section title
+        var head = document.createElement('div');
+        head.className = 'awe-runhead';
+        if (num) {
+          var n = document.createElement('span');
+          n.className = 'awe-runhead-num';
+          n.textContent = num;
+          head.appendChild(n);
+        }
+        var t = document.createElement('span');
+        t.className = 'awe-runhead-title';
+        t.textContent = title;
+        head.appendChild(t);
+        s.insertBefore(head, s.firstChild);
+        s.setAttribute('data-awe-kicker', '');
+      });
+
+      // Tables: fit columns to their content. The browser shares a shortfall in
+      // proportion to each column's one-line width, so every column wraps a
+      // little. Instead: measure each column's one-line width and longest word
+      // (after fonts load); if everything fits, nothing wraps; otherwise keep the
+      // narrowest columns on one line and let only the widest ones wrap.
+      var ctx = document.createElement('canvas').getContext('2d');
+      var textWidth = function (cell, text) {
+        var cs = getComputedStyle(cell);
+        ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+        return ctx.measureText(text).width * 1.02; // small buffer for bold runs
+      };
+      var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
+
+      var fitTable = function (t) {
+        var rows = Array.prototype.slice.call(t.rows);
+        var n = rows.reduce(function (m, r) { return Math.max(m, r.cells.length); }, 0);
+        var cols = [];
+        for (var c = 0; c < n; c++) {
+          cols.push(rows.map(function (r) { return r.cells[c]; }).filter(Boolean));
+        }
+        var maxW = cols.map(function (cells) {
+          return Math.max.apply(null, cells.map(function (x) {
+            return textWidth(x, x.textContent.trim());
+          }));
+        });
+        var minW = cols.map(function (cells) {
+          return Math.max.apply(null, cells.map(function (x) {
+            return Math.max.apply(null, x.textContent.trim().split(/\s+/).map(function (w) {
+              return textWidth(x, w);
+            }));
+          }));
+        });
+        var pad = cols.map(function (cells) {
+          return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
+        });
+        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        if (!(avail > 0)) return;
+
+        var fixed = {};
+        var keys = cols.map(function (_, i) { return i; });
+        if (sum(maxW) <= avail) {
+          keys.forEach(function (k) { fixed[k] = true; });
+        } else {
+          keys.slice().sort(function (a, b) { return maxW[a] - maxW[b]; }).forEach(function (c) {
+            var fixedW = sum(keys.filter(function (k) { return fixed[k]; }).map(function (k) { return maxW[k]; }));
+            var restMin = sum(keys.filter(function (k) { return k !== c && !fixed[k]; })
+                                  .map(function (k) { return minW[k]; }));
+            if (maxW[c] + fixedW + restMin <= avail) fixed[c] = true;
+          });
+        }
+        cols.forEach(function (cells, c) {
+          cells.forEach(function (x) { x.classList.toggle('awe-nowrap', !!fixed[c]); });
+        });
+      };
+
+      var fitAll = function () {
+        document.querySelectorAll('.reveal .slides table').forEach(fitTable);
+      };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitAll);
+      } else {
+        fitAll();
+      }
+    })();
+    </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

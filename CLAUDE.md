@@ -14,3 +14,7 @@ Topical guides (load as needed):
 - @.claude/lecture-style/04-dual-format.md
 - @.claude/lecture-style/05-anti-patterns.md
 - @.claude/lecture-style/06-open-questions.md
+
+## Rendering
+
+Never run `quarto render` or `quarto preview` yourself, not even on a copy of the project outside the repository. Manual renders break the author's running preview. Check changes statically instead (markup, citation keys against `literature.bib`, style rules), and leave rendering to the author.

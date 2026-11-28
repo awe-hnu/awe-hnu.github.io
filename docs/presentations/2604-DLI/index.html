@@ -9,8 +9,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Andy Weeger">
   <meta name="dcterms.date" content="2026-04-29">
@@ -21,10 +21,16 @@
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -33,7 +39,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-39d4051aef668417cbf35982af1f0f2e.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8aa196ad9b4623a5a62ae216862a6d48.css">
   <link rel="stylesheet" href="assets/styles.css">
   
   <script type="text/javascript" charset="UTF-8">
@@ -144,6 +150,7 @@
       margin-right: 0; 
     }
   </style>
+  <script>document.documentElement.classList.add('awe-classic');</script>
 <meta property="og:title" content="Digital Leadership in Information Management – awe.lectures">
 <meta property="og:description" content="Applied Research Master (MSc) at HNU">
 <meta property="og:site_name" content="awe.lectures">
@@ -180,7 +187,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Andy Weeger 
+Andy Weeger
 </div>
         <p class="quarto-title-affiliation">
             Neu-Ulm University of Applied Sciences
@@ -229,7 +236,7 @@ Andy Weeger
 </div>
 </div></aside></section>
 
-<section id="for-you" class="title-slide slide level1 no-headline" data-background-image="images/future-2.png" data-background-color="#0333ff">
+<section id="for-you" class="title-slide slide level1 no-headline bg-highlight" data-background-image="images/future-2.png">
 <h1>For you?</h1>
 <div class="medium">
 <p>If you …</p>
@@ -418,7 +425,7 @@ to defeat complexity.</p>
 </div>
 </section>
 
-<section id="the-challenge" class="title-slide slide level2 no-headline" data-background-color="#0333ff">
+<section id="the-challenge" class="title-slide slide level2 no-headline bg-highlight">
 <h2>The challenge</h2>
 <div class="fragment">
 <p>The research challenge: <strong>Cyber Resilience and Agentic AI</strong></p>
@@ -453,7 +460,7 @@ to defeat complexity.</p>
 </div>
 </div></aside></section>
 
-<section id="section" class="title-slide slide level2 no-headline vertical-center" data-background-color="#0333ff">
+<section id="section" class="title-slide slide level2 no-headline vertical-center bg-highlight">
 <h2></h2>
 <div class="medium">
 <p><span class="fragment">The hardest problems in IT management don’t come with answers.</span> <span class="fragment">The DLI is where you learn to find them.</span> <span class="fragment">With the depth of a researcher and the eye of a leader.</span> <span class="fragment">Build the toolbox.</span> <span class="fragment"><strong>Lead what comes next.</strong></span></p>
@@ -696,7 +703,7 @@ to defeat complexity.</p>
         margin: 0,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -868,6 +875,119 @@ to defeat complexity.</p>
 
     </script>
 
+    <script>
+    // awe-editorial: numbers section dividers, adds a running header to content
+    // slides, and fits table columns. Styling lives in awe-editorial.scss.
+    (function () {
+      // classic decks (slide-theme: classic) use none of this; the running header
+      // element would otherwise appear unstyled there
+      if (document.documentElement.classList.contains('awe-classic')) return;
+
+      var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+      var skip = ['discussion-slide', 'no-headline', 'headline-only',
+                  'accent-slide', 'bg-highlight', 'statement', 'no-kicker'];
+      var section = 0;
+      var title = '';
+      var num = '';
+
+      document.querySelectorAll('.reveal .slides section.slide').forEach(function (s) {
+        var cls = s.classList;
+        if (cls.contains('level1')) {
+          var h = s.querySelector('h1');
+          title = h ? h.textContent.trim() : '';
+          num = '';
+          if (cls.contains('headline-only') && !cls.contains('unlisted')) {
+            section += 1;
+            num = pad(section);
+            s.setAttribute('data-awe-num', num);
+          }
+          return;
+        }
+        if (!title || skip.some(function (c) { return cls.contains(c); })) return;
+        if (s.hasAttribute('data-background-color') || s.hasAttribute('data-background-image') ||
+            s.querySelector(':scope > .background-color-div, :scope > .background-image-div')) return;
+        // running header: dot, section number (highlight colour), section title
+        var head = document.createElement('div');
+        head.className = 'awe-runhead';
+        if (num) {
+          var n = document.createElement('span');
+          n.className = 'awe-runhead-num';
+          n.textContent = num;
+          head.appendChild(n);
+        }
+        var t = document.createElement('span');
+        t.className = 'awe-runhead-title';
+        t.textContent = title;
+        head.appendChild(t);
+        s.insertBefore(head, s.firstChild);
+        s.setAttribute('data-awe-kicker', '');
+      });
+
+      // Tables: fit columns to their content. The browser shares a shortfall in
+      // proportion to each column's one-line width, so every column wraps a
+      // little. Instead: measure each column's one-line width and longest word
+      // (after fonts load); if everything fits, nothing wraps; otherwise keep the
+      // narrowest columns on one line and let only the widest ones wrap.
+      var ctx = document.createElement('canvas').getContext('2d');
+      var textWidth = function (cell, text) {
+        var cs = getComputedStyle(cell);
+        ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+        return ctx.measureText(text).width * 1.02; // small buffer for bold runs
+      };
+      var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
+
+      var fitTable = function (t) {
+        var rows = Array.prototype.slice.call(t.rows);
+        var n = rows.reduce(function (m, r) { return Math.max(m, r.cells.length); }, 0);
+        var cols = [];
+        for (var c = 0; c < n; c++) {
+          cols.push(rows.map(function (r) { return r.cells[c]; }).filter(Boolean));
+        }
+        var maxW = cols.map(function (cells) {
+          return Math.max.apply(null, cells.map(function (x) {
+            return textWidth(x, x.textContent.trim());
+          }));
+        });
+        var minW = cols.map(function (cells) {
+          return Math.max.apply(null, cells.map(function (x) {
+            return Math.max.apply(null, x.textContent.trim().split(/\s+/).map(function (w) {
+              return textWidth(x, w);
+            }));
+          }));
+        });
+        var pad = cols.map(function (cells) {
+          return parseFloat(getComputedStyle(cells[0]).paddingRight) || 0;
+        });
+        var avail = parseFloat(getComputedStyle(t).maxWidth) - sum(pad);
+        if (!(avail > 0)) return;
+
+        var fixed = {};
+        var keys = cols.map(function (_, i) { return i; });
+        if (sum(maxW) <= avail) {
+          keys.forEach(function (k) { fixed[k] = true; });
+        } else {
+          keys.slice().sort(function (a, b) { return maxW[a] - maxW[b]; }).forEach(function (c) {
+            var fixedW = sum(keys.filter(function (k) { return fixed[k]; }).map(function (k) { return maxW[k]; }));
+            var restMin = sum(keys.filter(function (k) { return k !== c && !fixed[k]; })
+                                  .map(function (k) { return minW[k]; }));
+            if (maxW[c] + fixedW + restMin <= avail) fixed[c] = true;
+          });
+        }
+        cols.forEach(function (cells, c) {
+          cells.forEach(function (x) { x.classList.toggle('awe-nowrap', !!fixed[c]); });
+        });
+      };
+
+      var fitAll = function () {
+        document.querySelectorAll('.reveal .slides table').forEach(fitTable);
+      };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitAll);
+      } else {
+        fitAll();
+      }
+    })();
+    </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
